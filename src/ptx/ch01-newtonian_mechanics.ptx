@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="newtonian_mechanics">
+  <title>Newtonian Mechanics</title>
+  <section xml:id="bodies">
+    <title>Bodies</title>
+    <introduction>
+      <p> A<term>body</term>, for the purposes of engineering mechanics, is a collection of matter
+        that is analyzed as a single object. This can be something simple like a rubber ball, or it
+        can be something made of many parts such as a car. What can count as a body and what cannot
+        count as a body is dependent on the circumstances of the analysis. In some circumstances in
+        engineering mechanics, it is useful to make certain assumptions about the bodies being
+        analyzed. We will either need to assume the body is either rigid or deformable, and we will
+        need to assume that the body is either a particle or an extended body. </p>
+    </introduction>
+    <subsection>
+      <title>Rigid versus Deformable Bodies</title>
+      <p>
+        <term>Rigid bodies</term>do not deform (stretch, compress, or bend) when subjected to loads,
+        while deformable bodies do deform. In actuality, no physical body is completely rigid, but
+        many bodies deform so little that this deformation has a minimal impact on the analysis. For
+        this reason, we usually assume that bodies in the statics and dynamics courses are rigid. In
+        the strengths of materials course we specifically remove this assumption and examine how
+        bodies deform and eventually fail under loading. </p>
+      <p> There is no set boundary for determining if a body can be approximated as rigid, but there
+        are two factors to to look for that indicate that a rigid body assumption is not
+        appropriate. First, if the body is being visibly stretched, compressed, or bent during the
+        period of analysis, then the body should not be analyzed as a rigid body. Second, if the
+        body has parts that are free to move relative to one another, then the body as a whole
+        should not be analyzed as a rigid body (this is instead a machine, comprised of multiple
+        connected bodies that will each need to be analyzed separately). </p>
+      <sidebyside widths="48% 48%" margins="0%">
+        <figure>
+          <!--title>Ian Capper
+[CC-BY-SA-2.0 (http://creativecommons.org/licenses/by-sa/2.0)], via Wikimedia Commons</title-->
+          <caption>This bridge deforms very little under normal loading, and therefore can be
+            analyzed as a rigid body.</caption>
+          <image source="images/bridge.jpg"/>
+        </figure>
+        <figure>
+          <!--title>By Janne
+(Uploaded by Antti Leppänen) [CC-BY-SA-2.0 (http://creativecommons.org/licenses/by-sa/2.0)], via
+Wikimedia Commons</title-->
+          <caption>This car has been deformed significantly and should not be modeled as a rigid
+            body during the impact</caption>
+          <image source="images/carcrash.jpg"/>
+        </figure>
+      </sidebyside>
+      <figure>
+        <!--title>By Evan-amos [Public domain], via Wikimedia
+Commons</title-->
+        <caption>The two halves of the scissors can move relative to one another, therefore the
+          scissors cannot be considered a rigid body as a whole. Instead each half of of the
+          scissors should be analyzed as its own separate body</caption>
+        <image width="50%" source="images/scissors.png"/>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Particles versus Extended Bodies:</title>
+      <p>
+        <term>Particles</term>are bodies where all the mass is concentrated at a single point in
+        space. Particle analysis will only have to take into account the forces acting on the body
+        and translational motion. Extended bodies on the other hand have mass that is distributed
+        throughout a finite volume. Extended body analysis is more complex and also has to take into
+        account moments and rotational motions. In actuality, no bodies are truly particles, but
+        some bodies can be approximated as particles to simplify analysis. Bodies are often assumed
+        to be particles if the rotational motions are negligible when compared to the translational
+        motions, or in systems where there is no moment exerted on the body such as a concurrent
+        force system. </p>
+      <figure>
+        <title>By Miketsukunibito [CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0/)],
+          via Wikimedia Commons"</title>
+        <caption>The rotation of this comet and the moments exerted on the comet are unimportant in
+          modeling its trajectory through space, therefore we would treat it as a
+          particle.</caption>
+        <image width="50%" source="images/comet.jpg"/>
+      </figure>
+      <figure>
+        <title>By Despeaux [CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0), via
+          Wikimedia Commons</title>
+        <caption>The gravitational forces and the tension forces on the skycam all act through a
+          single point, making this a concurrent force system that can be analyzed as a
+          particle</caption>
+        <image width="50%" source="images/skycam.jpg"/>
+      </figure>
+      <figure>
+        <title>By Pearson Scott Foresman [Public domain], via Wikimedia Commons</title>
+        <caption>Rotation and moments will be key to the analysis of the crowbar in this system,
+          therefore the crowbar needs to be analyzed as an extended body</caption>
+        <image width="50%" source="images/crowbar.jpg"/>
+      </figure>
+    </subsection>
+  </section>
+  <section xml:id="forces">
+    <title>Forces</title>
+    <introduction>
+      <figure>
+        <title>A point force on a block</title>
+        <caption>A basic point force acting on a body.</caption>
+        <image width="50%" source="images/basicforce.png"/>
+      </figure>
+      <p> A<term>force</term>is any influence that causes a body to accelerate. Forces on a body can
+        also cause stress in that body, which can result in the body deforming or breaking. Though
+        forces can come from a variety of sources, there are three distinguishing features to every
+        force. These features are the<term>magnitude</term>of the force, the<term>direction</term>of
+        the force, and the<term>point of application</term>of the force. Forces are often
+        represented as<term>vectors</term>(as in the diagram to the right) and each of these
+        features can be determined from a vector representation of the forces on the body. </p>
+    </introduction>
+    <subsection>
+      <title>Magnitude</title>
+      <p> The<term>magnitude</term>of a force is the degree to which the force will accelerate the
+        body it is acting on and it is represented by a scalar (a single number). The magnitude can
+        also be thought of as the strength of the force. When forces are represented as vectors, the
+        magnitude of the force is usually explicitly labeled. The length of the vector also often
+        corresponds to the relative magnitude of the vector, with longer vectors indicating larger
+        magnitudes. </p>
+      <p> The magnitude of force is measured in units of mass<times/>length<solidus/>time<m>^2</m>.
+        In the <abbr>SI</abbr> system where mass is measured in kilograms, length in meters and time
+        in seconds the most common unit of force is the Newton, where<md>
+          <mrow>1 \text{N} = \dfrac{1 \text{kg} \cdot \text{m}} {\text{sec}^2}</mrow>
+        </md>where one Newton is a kilogram times a meter over a second squared. This means that a
+        one newton force would cause a one kilogram object to accelerate at a rate of one meter per
+        second squared. </p>
+      <p> In English units the most common unit is the pound (lb) where one pound is equal to one
+        slug times a foot over a second squared. This means that a one pound force would cause an
+        object with a mass of one slug to accelerate at a rate of one foot per second squared. </p>
+      <figure>
+        <title>Force units equations</title>
+        <caption/>
+        <image width="50%" source="images/forceunits.png"/>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Direction</title>
+      <p> In addition to having magnitudes, forces also have directions. As we said before, a force
+        is any influence that causes a body to accelerate. Since acceleration has a specific
+        direction, force also has a specific direction that matches this acceleration. The direction
+        of the force is indicated in diagrams by the direction of the vector representing the force. </p>
+      <p> Direction has no units, but it is usually given by reporting angles between the vector
+        representing the force and coordinate axes, or by reporting the X, Y, and Z components of
+        the vector. Often times vectors that have the same direction as one of the coordinate axes
+        will not have any angles or components listed. If this is true, it is usually safe to assume
+        that the direction does match the direction of one of the coordinate axes. </p>
+      <figure>
+        <title>Vector direction indicated by an angle and by components</title>
+        <caption>The magnitude and direction of a vector can be given as a magnitude and an angle of
+          the vector, or by giving magnitude of the vector components in each of the coordinate
+          axes.</caption>
+        <image width="50%" source="images/forcevector.png"/>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Point of Application</title>
+      <p> The point, or points, at which a force is applied to a body is important for understanding
+        how the body will react. For particles, there is only a single point for the forces to act
+        on, but for extended bodies there are an infinite number of possible points of application.
+        Some points of application will lead to the body undergoing simple linear acceleration; some
+        will exert a moment on the body which will cause the body to undergo rotational acceleration
+        as well as linear acceleration. </p>
+      <p> Depending on the nature of the point of application of a force, there are three general
+        types of forces. These are<term>point forces</term>,<term>surface forces</term>,
+          and<term>body forces</term>. Below is a diagram of a box being pulled by a rope across a
+        frictionless surface. The box has three forces acting on it. The first is the force from the
+        rope. This is a force applied to a single point on the box, and is therefore modeled as
+        point force. Point forces are represented by a single vector. Second is the normal force
+        from the ground that is supporting the box. Because this force is applied evenly to the
+        bottom surface of the box, it is best modeled as a surface force. Surface forces are
+        indicated by a number of vectors side by side with a profile line to indicate the magnitude
+        of the force at any point. The last force is the gravitational force pulling the box
+        downward. Because this force is applied evenly to the entire volume of the box, it is best
+        modeled as a body force. Body forces are sometimes shown as a field of vectors as shown,
+        though they are often not drawn out at all because they end up cluttering the free body
+        diagram. </p>
+      <figure>
+        <title>Types of Forces</title>
+        <caption>The box being pulled along a frictionless surface as shown above has three types of
+          forces acting on it. The tension in the cable is best represented by a point force, the
+          normal force supporting the box is best represented by a surface force, and the
+          gravitational force on the box is best represented as a body force.</caption>
+        <image width="50%" source="images/forcetypes.png"/>
+      </figure>
+      <figure>
+        <title>Point of Application of a Force</title>
+        <caption>The diagrams on the left represent two equivalent free body diagrams for the same
+          physical system with a single point force. The diagrams on the right represent two
+          equivalent free body diagrams for the same physical system with a single surface
+          force.</caption>
+        <image width="50%" source="images/pointofapplication.png"/>
+      </figure>
+      <p> We will also sometimes talk about<term>distributed forces</term>. A distributed force is
+        simply another name for either a surface or a body force. </p>
+      <p> The exact point or surface that the force is acting on can be drawn as either the head or
+        the tail of the force vector in the free body diagram. Because of the<term>principle of
+          transmissibility</term>, both options are known to represent the same physical system.
+      </p>
+    </subsection>
+  </section>
+  <section xml:id="moments">
+    <title>Moments</title>
+    <introduction>
+      <p> A<term>moment</term>(also sometimes called a torque) is defined as the "tendency of a
+        force to rotate a body". Where forces cause linear accelerations, moments cause <em>angular
+          accelerations</em>. In this way moments, can be thought of as twisting forces. </p>
+      <figure>
+        <title>The tendancy of a force to rotate a body</title>
+        <caption>Imagine two boxes on an icy surface. The force on box A would simply cause the box
+          to begin accelerating, but the force on box B would cause the box to both accelerate and
+          to begin to rotate. The force on box B is exerting a moment, where the force on box A is
+          not.</caption>
+        <image width="50%" source="images/momentrotation.png"/>
+      </figure>
+    </introduction>
+    <subsection>
+      <title>The Vector Representation of a Moment</title>
+      <introduction>
+        <p> Moments, like forces, can be represented as vectors and have a magnitude, a direction,
+          and a "point of application". For moments however a better name for the point of
+          application is the<term>axis of rotation</term>. This will be the point or axis about
+          which we will determine all the moments. </p>
+      </introduction>
+      <subsubsection>
+        <title>Magnitude:</title>
+        <p> The magnitude of a moment is the degree to which the moment will cause angular
+          acceleration in the body it is acting on. It is represented by a scalar (a single number).
+          The magnitude of the moment can be thought of as the strength of the twisting force
+          exerted on the body. When a moment is represented as a vector, the magnitude of the moment
+          is usually explicitly labeled. though the length of the moment vector also often
+          corresponds to the relative magnitude of the moment. </p>
+        <p> The magnitude of the moment is measured in units of force times distance. The standard
+          metric units for the magnitude of moments are N-m, and the standard English units for a
+          moment are ft-lb. </p>
+        <p>
+          <men>M = F \times d</men>
+        </p>
+      </subsubsection>
+      <subsubsection>
+        <title>Direction:</title>
+        <p> In a two dimensional problem, the the direction of can be thought of as a scalar
+          quantity corresponding to the direction of rotation the moment would cause. A moment that
+          would cause a counter-clockwise rotation is a positive moment and a moment that would
+          cause a clockwise rotation is a negative moment. </p>
+        <figure>
+          <title>The Right Hand Rule</title>
+          <caption>To use the right hand rule, align your right hand as shown so that your thumb
+            lines up with the axis of rotation for the moment and your curled fingers point in the
+            direction of rotation for your moment. If you do this, your thumb will be pointing in
+            the direction of the moment vector.</caption>
+          <image width="50%" source="images/rhr.png"/>
+        </figure>
+        <p> In a three dimensional problem however, a body can rotate about an axis in any
+          direction. If this is the case we need a vector to represent the direction of the moment.
+          The direction of the moment vector will line up with the axis of rotation that moment
+          would cause, but to determine which of the two directions we can use along that axis we
+          have available we use the right hand rule. To use the right hand rule, align your right
+          hand as shown so that your thumb lines up with the axis of rotation for the moment and
+          your curled fingers point in the direction of rotation for your moment. If you do this,
+          your thumb will be pointing in the direction of the moment vector. </p>
+        <p> If we look back to two dimensional problems, all rotations occur about an axis pointing
+          directly into or out of the page (the z axis). Using the right hand rule,
+          counter-clockwise rotations are represented by a vector in the positive z direction and
+          clockwise rotations are represented by a vector in the negative z direction. </p>
+      </subsubsection>
+      <subsubsection>
+        <title>Axis of Rotation:</title>
+        <p> In engineering statics problems we can choose any point/axis as the axis of rotation.
+          The choice of this point will affect the magnitude and direction of the resulting moment
+          however, and the moment is only valid about that point. </p>
+        <figure>
+          <title>The magnitude and direction of a moment depends upon the chosen axis of
+            rotation</title>
+          <caption>The magnitude and direction of a moment depends upon the chosen axis of rotation.
+            For example, the single force above would cause diffrent moments about Point A and Point
+            B, because it would cause different rotations depending on the point we fix in
+            place.</caption>
+          <image width="50%" source="images/momentpoint.png"/>
+        </figure>
+        <p> Though we can take the moment about any point in a statics problem, if we are
+            <em>adding</em> together the moments from multiple forces, all the moments must be taken
+          about a <em>common axis of rotation</em>. Moments taken about different points cannot be
+          added together to find a 'net moment' </p>
+        <p> Additionally, if we move into the subject of dynamics, where bodies are moving, we will
+          want to relate moments to angular accelerations. For this to work, we will need to take
+          the moments either about a single point that does not move (such as the hinge on a door)
+          or we will need to take the moments about the center of mass of the body. Summing moments
+          about other axes of rotation will not result in valid calculations. </p>
+      </subsubsection>
+    </subsection>
+    <subsection>
+      <title>Calculating Moments:</title>
+      <p> To calculate the moment that a force exerts on a body, we will have two main options:
+          <em>scalar methods</em> and <em>vector methods</em>. Scalar methods are generally faster
+        for two dimensional problems where a body can only rotate clockwise or counter-clockwise,
+        while vector methods are generally faster for three dimensional problems where the axis of
+        rotation is more complex. </p>
+    </subsection>
+  </section>
+  <section xml:id="fbds">
+    <title>Free Body Diagrams</title>
+    <introduction>
+      <p> A free body diagram is a tool used to solve engineering mechanics problems. As the name
+        suggests, the purpose of the diagram is to "free" the body from all other objects and
+        surfaces around it so that it can be studied in isolation. We will also draw in any forces
+        or moments acting on the body, including those forces and moments exerted by the surrounding
+        bodies and surfaces that we removed. </p>
+      <p> The diagram below shows a ladder supporting a person and the free body diagram of that
+        ladder. As you can see, the ladder is separated from all other objects and all forces acting
+        on the ladder are drawn in with key dimensions and angles shown. </p>
+      <figure>
+        <title>Free Body Diagram</title>
+        <caption>A ladder with a man standing on it is shown on the left. Assuming friction only at
+          the base, a free body diagram of the ladder is shown on the right.</caption>
+        <image width="50%" source="images/freebodydiagram.png"/>
+      </figure>
+    </introduction>
+    <subsection>
+      <title>Constructing the Free Body Diagram</title>
+      <p> The first step in solving most mechanics problems will be to construct a free body
+        diagram. This simplified diagram will allow us to more easily write out the equilibrium
+        equations for statics or strengths of materials problems, or the equations of motion for
+        dynamics problems. </p>
+      <p> To construct the diagram we will use the following process. <ol>
+          <li>First draw the body being analyzed, separated from all other surrounding bodies and
+            surfaces.</li>
+          <li>Second, draw in all forces and moments acting <em>directly</em> on the body. Do not
+            include any forces acting on the other bodies in the system.</li>
+          <li>Once the forces are identified and added to the free body diagram, the last step is to
+            label any key dimensions and angles on the diagram.</li>
+        </ol>
+      </p>
+    </subsection>
+    <subsection>
+      <title>Forces which act on objects</title>
+      <p> Generally speaking, the forces which act on objects can be divided into two types: <ul>
+          <li><term>Loads</term>Loads are forces which are applied to the object. Most objects are
+            designed to support something, hold something up, or push or pull on something else.
+            These are the loads.</li>
+          <li><term>Reactions</term>Reaction forces are the forces which keep a static object from
+            moving under the effect of the load.</li>
+          <li><term>Body Forces</term>Body forces are actually a type of load. This term refers to
+            the forces which act on the body as a whole. The most common example of a body force is
+            the weight of an object. Body forces act over the entire body and are not localized to a
+            specific point. In addition to weight, buoyancy and magnetic attraction are other
+            examples of body forces.</li>
+        </ul>
+      </p>
+      <p> When we discuss forces, we use a number of different terms to describe them, but for a
+        given object, remember that every force is either a load, a reaction, or a body force. Some
+        forces that you will encounter are: </p>
+      <p>
+        <ul>
+          <li>
+            <p>
+              <term>Gravitational Forces</term>Unless otherwise noted, the mass of an object will
+              result in a gravitational weight force applied to that body. This weight is usually
+              given in pounds in the English system, and is modeled as 9.81 (g) times the mass of
+              the body in kilograms for the metric system (resulting in a weight in Newtons). This
+              force will always point down towards the center of the earth and act on the center of
+              mass of the body. </p>
+            <figure>
+              <caption>Gravitational forces always act downward on the center of mass.</caption>
+              <image width="50%" source="images/gravityforces.png"/>
+            </figure>
+          </li>
+          <li>
+            <p>
+              <term>Normal Forces</term>Every object in direct contact with the body will exert a
+              normal force on that body which prevents the two objects from occupying the same space
+              at the same time. </p>
+            <p> Note that only objects in direct contact can exert normal forces on the body. </p>
+          </li>
+          <li>
+            <ul>
+              <li>
+                <p> An object in contact with another object or surface will experience a normal
+                  force that is perpendicular (hence normal) to the surfaces in contact. </p>
+                <figure>
+                  <title>Normal Forces</title>
+                  <caption>Normal forces always act perpendicular to the surfaces in contact. The
+                    barrel in the hand truck shown on the left has a normal force at each contact
+                    point.</caption>
+                  <image width="50%" source="images/normal1.png"/>
+                </figure>
+              </li>
+              <li>
+                <p> Joints or connections between bodies can also cause reaction forces or moments,
+                  and we will have one force or moment for each type of motion or rotation the
+                  connection prevents. </p>
+                <figure>
+                  <title>Reaction forces at Joints</title>
+                  <caption>The roller on the left allows for rotation and movement along the
+                    surface, but a normal force in the y direction prevents motion vertically. The
+                    pin joint in the center allows for rotation, but normal forces in the x and y
+                    directions prevent motion in all directions. The fixed connection on the right
+                    has a normal forces preventing motion in all directions and a reaction moment
+                    preventing rotation.</caption>
+                  <image width="50%" source="images/normal2.png"/>
+                </figure>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              <term>Friction Forces:</term>Objects in direct contact with the body can also exert
+              friction forces on the body, which will resist the two bodies sliding against one
+              another. These forces will always be perpendicular to the surfaces in contact.
+              Friction is the subject of an entire chapter in this book, but for simple scenarios we
+              usually assume rough or smooth surfaces. </p>
+          </li>
+          <li>
+            <ul>
+              <li>For smooth surfaces we assume that there is no friction force.</li>
+              <li>
+                <p> For rough surfaces we assume that the bodies will not slide relative to one
+                  another no matter what. In this case the friction force is always just large
+                  enough to prevent this sliding. </p>
+                <figure>
+                  <title>Friction Forces</title>
+                  <caption>For a smooth surface we assume only a normal force perpendicular to the
+                    surface. For a rough surface we assume normal and friction forces are
+                    present.</caption>
+                  <image width="50%" source="images/friction.png"/>
+                </figure>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              <term>Tension in Cables:</term>Cables, wires or ropes attached to the body will exert
+              a tension force on the body in the direction of the cable. </p>
+            <figure>
+              <title>Tension in Cables</title>
+              <caption>The tension force in cables always acts along the direction of the
+                cable.</caption>
+              <image width="50%" source="images/tension.png"/>
+            </figure>
+          </li>
+        </ul>
+      </p>
+      <p> The above forces are the most common, but other forces such as pressure from fluids,
+        spring forces and magnetic forces may exist and may act on the body. </p>
+    </subsection>
+  </section>
+  <section xml:id="firstlaw">
+    <title>Newton's First Law</title>
+    <subsection>
+      <title>Translational Motion</title>
+      <definition>
+        <title>Newton's First Law</title>
+        <statement>
+          <p> A body at rest will remain at rest unless acted on by an unbalanced force. A body in
+            motion continues in motion with the same speed and in the same direction unless acted
+            upon by an unbalanced force. </p>
+        </statement>
+      </definition>
+      <p> This law, also sometimes called the "law of inertia", means that bodies maintain their
+        current velocity unless a force is applied to change that velocity. If an object is at rest
+        with zero velocity it will remain at rest until some force begins to change that velocity,
+        and if an object is moving at a set speed and in a set direction it will remain at that same
+        velocity until some force begins to change that velocity. </p>
+      <figure>
+        <title>Space Capsule By NASA [Public Domain]</title>
+        <caption>In the absence of friction in space, this space capsule will maintain it's current
+          velocity until some outside force causes that velocity to change</caption>
+        <image width="50%" source="images/spacecapsule.jpg"/>
+      </figure>
+      <figure>
+        <title>A Rock in a Field By Liz Gray [CC-BY-SA-2.0
+          (http://creativecommons.org/licenses/by-sa/2.0)], via Wikimedia Commons</title>
+        <caption>This rock is at rest with zero velocity and will remain at rest until a net force
+          causes the rock to move. The net force on the rock is the sum of any force pushing the
+          rock and the friction force of the ground on the rock opposing that force</caption>
+        <image width="50%" source="images/rock.jpg"/>
+      </figure>
+    </subsection>
+    <subsection>
+      <title>Net Forces:</title>
+      <p> It is important to note that the <em>net force</em> is what will cause a change in
+        velocity. The net force is the sum of all forces acting on the body. For example, we can
+        imagine gently pushing on the rock in the figure above and observing that the rock does not
+        move. This is because we will have a friction force equal in magnitude and opposite in
+        direction opposing our gentle pushing force. The sum of these two forces will be equal to
+        zero, therefore the net force is zero and the change in velocity is zero. </p>
+    </subsection>
+    <subsection>
+      <title>Rotational Motion:</title>
+      <figure>
+        <title>Spinning Top By Carrotmadman6 [CC-BY-2.0
+          (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</title>
+        <caption>In the absence of friction, this spinning top would continue to spin forever, but
+          the small frictional moment exerted at the point of contact between the top and the ground
+          will slow the tops spinning over time</caption>
+        <image width="50%" source="images/spinningtop.jpg"/>
+      </figure>
+      <p> Newton's first law also applies to moments and rotational velocities. A body will maintain
+        it's current rotational velocity until a net moment is exerted to change that rotational
+        velocity. This can be seen in things like toy tops, flywheels, stationary bikes, and other
+        objects that will continue spinning once started until brakes or friction stop them. </p>
+    </subsection>
+  </section>
+  <section xml:id="secondlaw">
+    <title>Newton's Second Law</title>
+    <subsection>
+      <title>Translational Motion:</title>
+      <p> Newton's second law states that: <em>"When a net force acts on any body with mass, it
+          produces an acceleration of that body. The net force will be equal to the mass of the body
+          times the acceleration of the body"</em>
+      </p>
+      <p>
+        <men>F=ma</men>
+      </p>
+      <p> You will notice that the force and the acceleration in the equation above are written in
+        bold. This means that they are vector quantities, having both a magnitude and a direction.
+        Mass on the other hand is a scalar quantity having only a magnitude. Based on the above
+        equation, you can infer that the magnitude of the net force acting on the body will be equal
+        to the mass of the body times the magnitude of the acceleration, and that the direction of
+        the net force on the body will be equal to the direction of the acceleration of the body.
+      </p>
+    </subsection>
+    <subsection>
+      <title>Rotational Motion:</title>
+      <p> Newton's second law also applies to moments and rotational velocities. The revised version
+        of the second law equation states that the net moment acting on the object will be equal to
+        the second mass moment of inertia of the body about the axis of rotation (I) times the
+        angular acceleration of the body. </p>
+      <p>
+        <men>F= I \alpha</men>
+      </p>
+      <p> You should again notice that the moment and the angular acceleration of the body are bold,
+        indicating that they are vector quantities, having both magnitude and direction. The mass
+        moment of inertia on the other hand is a scalar quantity having only a magnitude. The
+        magnitude of the net moment will be equal to the mass moment of inertia times the magnitude
+        of the angular acceleration, and the direction of the net moment will be equal to the
+        direction of the angular acceleration. </p>
+    </subsection>
+  </section>
+  <section xml:id="thirdlaw">
+    <title>Newton's Third Law</title>
+    <p> Newton's Third Law states <em>"For any action, there is an equal and opposite
+        reaction."</em> By "action" Newton meant a force, so for every force one body exerts on
+      another body, that second body exerts a force of equal magnitude but opposite direction back
+      on the first body. Since all forces are exerted by bodies (either directly or indirectly), all
+      forces come in pairs, one acting on each of the bodies interacting. </p>
+    <figure>
+      <title>Earth and Moon</title>
+      <caption>The gravitational pull of the earth and moon represent a Newton's Third Law pair. The
+        earth exerts a gravitational pull on the moon, and the moon exerts an equal and opposite
+        pull on the earth.</caption>
+      <image width="50%" source="images/earthandmoon.png"/>
+    </figure>
+    <p> Though there may be two equal and opposite forces acting on a single body, it is important
+      to remember that each of the forces a Third Law pair acts on a separate body. This can
+      sometimes be confusing when there are multiple Third Law pairs at work. Below are some
+      examples of situations where multiple Third Law pairs occur. </p>
+    <figure>
+      <title>A volleyball resting on a surface</title>
+      <caption>This volleyball resting on a surface has two pairs of Third Law forces. The first
+        consists of the gravitational forces (one force on the ball and one force on the ground).
+        The second consists of the normal forces at the point of contact (one force on the ball and
+        one force on the ground).</caption>
+      <image width="50%" source="images/volleyball.png"/>
+    </figure>
+    <figure>
+      <title>C-clamp on a piece of wood</title>
+      <caption>If we ignore the weight of the two objects, this clamp will also have two pairs of
+        Third Law forces. The first will be a set of normal forces at the top point of contact (one
+        force on the wood and one force on the clamp) and the second will be another set of normal
+        forces at the bottom point of contact (one force on the wood and one force on the
+        clamp)</caption>
+      <image width="50%" source="images/clamp.png"/>
+    </figure>
+  </section>
+  <exercises xml:id="exercises-1">
+    <title>Exercises</title>
+    <exercise xml:id="fbd_prob_1">
+      <statement>
+        <p> The drawing below shows two boxes sitting on a table. Draw a free body diagram of
+            box<m>A</m>and box<m>B</m>. </p>
+        <figure>
+          <caption/>
+          <image width="50%" source="images/fbd_P1.png"/>
+        </figure>
+      </statement>
+      <solution>
+        <figure>
+          <caption/>
+          <image source="images/fbd_P1_soln.png"/>
+        </figure>
+      </solution>
+    </exercise>
+    <exercise xml:id="fbd_prob_2">
+      <statement>
+        <p> Two equally sized barrels are being transported in a hand truck as shown below. Draw a
+          free body diagram of each of the two barrels. </p>
+        <figure>
+          <caption/>
+          <image width="50%" source="images/fbd_P2.png"/>
+        </figure>
+      </statement>
+      <solution>
+        <figure>
+          <caption/>
+          <image source="images/fbd_P2_soln.png"/>
+        </figure>
+      </solution>
+    </exercise>
+    <exercise xml:id="fbd_prob_3">
+      <statement>
+        <p> The car shown below is moving and then slams on the brakes locking up all four wheels.
+          The distance between the two wheels is 8 feet and the center of mass is 3 feet behind and
+          2.5 feet above the point of contact between the front wheel and the ground. Draw a free
+          body diagram of the car as it comes to a stop. </p>
+        <figure>
+          <caption/>
+          <image width="50%" source="images/fbd_P3.png"/>
+        </figure>
+      </statement>
+      <solution>
+        <figure>
+          <caption/>
+          <image source="images/fbd_P3_soln.png"/>
+        </figure>
+      </solution>
+    </exercise>
+    <exercise xml:id="fbd_prob_4">
+      <statement>
+        <p> A 600 lb load is supported by a 5 meter long, 100 lb cantilever beam. Assume the beam is
+          firmly anchored to the wall. Draw a free body diagram of the beam. </p>
+        <figure>
+          <caption/>
+          <image width="50%" source="images/fbd_P4.png"/>
+        </figure>
+      </statement>
+      <solution>
+        <figure>
+          <caption/>
+          <image source="images/fbd_P4_soln.png"/>
+        </figure>
+      </solution>
+    </exercise>
+    <exercise xml:id="fbd_prob_5">
+      <statement>
+        <p> The main arm of a crane has a mass of 400kg (assume the center of mass is at the
+          midpoint of the arm) and supports a 200 kg load and a 600 kg counterweight. The arm is
+          connected to the vertical support via a pin joint and two flexible cables. Draw a free
+          body diagram of the arm. </p>
+        <figure>
+          <caption/>
+          <image width="50%" source="images/fbd_P5.png"/>
+        </figure>
+      </statement>
+      <solution>
+        <figure>
+          <caption/>
+          <image source="images/fbd_P5_soln.png"/>
+        </figure>
+      </solution>
+    </exercise>
+  </exercises>
+</chapter>
