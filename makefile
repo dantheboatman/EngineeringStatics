@@ -137,3 +137,7 @@ preview:
 	install -d $(IMAGESOUT)
 	-rm $(IMAGESOUT)/*.png
 	$(MB)/script/mbx -vv -c preview -d $(IMAGESOUT) $(OUTPUT)/merge.xml
+	
+publish:
+	cp -R $(HTMLOUT) $(APACHEDIR)
+	open $(APACHEURL)
