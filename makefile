@@ -139,5 +139,6 @@ preview:
 	$(MB)/script/mbx -vv -c preview -d $(IMAGESOUT) $(OUTPUT)/merge.xml
 	
 publish:
-	cp -R $(HTMLOUT) $(APACHEDIR)
+	-rm $(APACHEDIR)/*.*
+	cp -R $(HTMLOUT)/* $(APACHEDIR)
 	open $(APACHEURL)
