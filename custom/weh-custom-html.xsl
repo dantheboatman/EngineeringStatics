@@ -1,9 +1,11 @@
 <?xml version='1.0'?> <!-- As XML file -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <!-- Thin layer on MathBook XML -->
-  <xsl:import href="../xsl/mathbook-html.xsl"/>
+  <xsl:import href="../../../ptx/mathbook/xsl/mathbook-html.xsl"/>
   <!--  -->
   <!-- Customize mathbook behavior -->
+  <xsl:param name="debug.chapter.start" select='0'/>
+  <!-- start chapters with zero-->
   <xsl:param name="numbering.maximum.level" select="2"/>
   <!-- 2 = nothing deeper than a section gets a number -->
  <xsl:param name="numbering.equations.level" select="1"/>
