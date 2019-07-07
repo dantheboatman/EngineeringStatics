@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?><pretext>
+<book xmlns:xi="http://www.w3.org/2001/XInclude">
+<title>Engineering Statics</title>
+<chapter> 
+<title>Chapter 0: Author Information</title>
+
+<section> <title><pretext/></title>
+<subsection>
+<title>Overview</title>
+
+<p>by William Haynes @weh</p>
+<p>We will be authoring the Engineering Statics book using <url href="https://pretextbook.org">PreTeXt</url>,  storing  the text, images and interactives on at <url href="github.com">GitHub</url> using <url href="https://git-scm.com">git</url>, and converting everything into a website and a pdf book using <url href="https://www.w3.org/Style/XSL/">XSLT</url>.  Finally we will post everything it on our <url href="https://EngineeringStatics.org">website</url> for students to use.</p>
+<p><pretext/> consists of two pieces, the XML markup and the XSLT processor.</p>
+<p>The source documents for the book are text files marked up using XML tags, similar to the way HTML documents are marked up, but the tags are specific to the requiements of academic textbooks.   We will be using the extension .ptx to indicate <pretext/> files.  The <pretext/> tags are formally defined by an <url href="https://pretextbook.org/doc/schema-litprog/pretext.pdf">XML Schema</url>, which specifies what are legal tags and where they can be used.</p>
+<p>Most likely you will want to see what the final result of your writing looks like.  In order to see it in its final version,  you can compile it with XSLT to create a local copy of the final version</p>
+</subsection>
+
+<subsection>
+<title>Workflow</title>
+
+<p>The main components necessary to make this all work are: </p>
+<p>
+<ul>
+<li>Local copies of the <pretext/> and Engineering Statics files</li>
+<li>An XML aware text editor to edit the <pretext/> source.</li>
+<li>The command line program git and a GitHub account.</li>
+<li>An XSLT processor to convert the source text to html</li>
+</ul>
+</p>
+<p>When you have these installed and working on your computer, you will have everything you need to produce a local copy of the entire book. That way, you can edit something and then test it to see what it will look like in its final form.  When you are satisfied with your work, you will use git to send it to the GitHub, where Dan or Will will integrate it into its proper place in the book, publish and upload to the website.  </p>
+<p>If this sounds daunting to you, don't worry!  <em>You don't have to do any of this while you create your first draft</em>.  Please just write! Use any tools you are comfortable with, and I (@weh) will do the initial markup to <pretext/> for you.  However, marking up the the draft is a one way trip.  After that, any further edits and improvements must be made on the <pretext/> source.   Don't spend any effort trying to make your draft look pretty because all styling will be handled by <pretext/>.</p></subsection>
+
+<subsection>
+<title>Getting set up</title>
+
+<p>The <url href="https://pretextbook.org">PreTeXt</url> website has plenty of information on how  to get started with <pretext/>.  You will find quickstart instructions on the homepage which may be all you need as well as more detailed instuctions and walkthrough videos.</p>
+
+<p><url href="https://pretextbook.org/doc/pnw/html/novices.html">PreTeXt for Novices Using Windows</url> has a detailed description of how to install the necessary tools.</p>
+<p><url href="https://pretextbook.org/doc/guide/html/">Pretext Guide</url> is the place to learn about <pretext/> and get started.</p>
+<p><url href="https://pretextbook.org/gfa/html/">Git for Authors</url> describes how to use git to add your content and corrections to the official repository.</p></subsection>
+
+<subsection>
+<title><pretext/> tags</title>
+
+<p>Here is a list of commonly used <pretext/> tags. Their purposes are mostly self evident. </p>
+<p>For details on the use of tags see Chapter 3 of the <url href="https://pretextbook.org/doc/author-guide/html/overview.html">Author's Guide</url>.</p>
+<p>
+<ul>
+<li> book</li>
+<li> title</li>
+<li> chapter</li>
+<li> section</li>
+<li> subsection</li>
+<li> subsubsection</li>
+<li> introduction</li>
+<li> conclusion</li>
+<li> objectives</li>
+<li> example</li>
+<li> exercises</li>
+<li> exercise</li>
+<li> hint</li>
+<li> solution</li>
+<li> aside</li>
+<li> note</li>
+</ul>
+</p>
+
+<p>
+<ul>
+<li> <tag>p</tag> <em/> basic paragraph, like html</li>
+<li> <tag>paragraph</tag> <em/> a paragraph with a run-in title</li>
+<li> <tag>em</tag> <em/> emphasis, renders as italics</li>
+<li> <tag>figure</tag> <em/> a numbered figurs</li>
+<li> <tag>image</tag> <em/> contains filename of associated image file</li>
+</ul>
+</p>
+<p>Mathematics is described in the <url href="https://pretextbook.org/doc/author-guide/html/overview-math.html">Author's Guide</url></p>
+<p>
+<ul>
+<li> <tag>m</tag> <em/> inline math, uses LaTeX syntax, rendered with MathJax .</li>
+<li> <tag>me</tag> <em/> single equation, centered</li>
+<li> <tag>md</tag> <em/> display math, multiline </li>
+<li> <tag>men</tag> <em/> numbered equation</li>
+<li> <tag>mdn</tag> <em/> numbered display math</li>
+</ul>
+</p>
+<p>The <url href="https://pretextbook.org/doc/schema/">Pretext Schema</url> describes the <pretext/> vocabulary: the legal tags and how they nest. It's formal and confusing, so you may be better off looking at the source of documents that do what you want first. Another reference is and the <url href="https://pretextbook.org/doc/schema-litprog/pretext.pdf">Schema documentation</url> which describes the schema </p></subsection>
+
+<subsection>
+<title>Customizations</title>
+
+<p>I'll try to list all customizations any non-standard <pretext/> behaviors that I have implemented here.</p>
+
+<p>
+<ul>
+<li>I've redefined latex \vec{} to produce bold face in with a macro in docinfo.ptx so \vec{A} will produce <m>\vec{A}</m> </li>
+</ul>
+</p>
+
+</subsection>
+
+<subsection>
+<title>Scriv-<pretext/> Notes</title>
+<paragraphs>
+<title>Binder</title>
+<p>The Scrivener binder is used to organize the book</p>
+<p>Nested folders become chapter &gt; section &gt; subsection &gt; subsubsection by default.  The binder title becomes the division title.</p>
+<p>Single pages are styled as ptx-p and don't get a title in the output</p>
+<p>Nested pages are styled as ptx-para and get the title as a run-in title in the rendered document <me>a = 0 \implies \begin{cases} v=0\\v=C\end{cases}</me></p>
+</paragraphs>
+
+<paragraphs>
+<title>Transormations</title>
+<p>Grep based tranfomations in the ruby script that are automatically applied.</p>
+<p>Changes instances of <pretext/> in any case to to <tag><pretext/>/</tag></p>
+<p>Convert markdown style links to <tag>url</tag>: <url href="https://weh.maritme.edu/mechanics">Course Website</url></p>
+</paragraphs>
+
+<paragraphs>
+<title>Character styles</title>
+<p>code:   <c>This is code style</c></p>
+<p>tag:   <tag>This is tag style</tag> </p>
+<p>m:  <m> \sqrt{x^2 + y2}</m></p>
+<p>em:  This should be <em>italic</em> </p>
+<p>term:  This should be a <term>term</term>.</p></paragraphs>
+
+<paragraphs>
+<title>Paragraph styles</title>
+<p>ptx-p:  This wraps the paragraph with a <tag>p</tag> tag.</p>
+<p>no style:  No p tag surrounds this paragraph.</p>
+<p>don't export:  Not copied to the output</p></paragraphs>
+
+<paragraphs>
+<title>Lists</title>
+<p>list: wraps line with leading asterisk with <tag>li</tag> <tag>/li</tag>   Only works for single level lists.</p>
+<p>
+<ul>
+<li> Amphibians</li>
+<li>     Frog</li>
+<li>     Salamander</li>
+<li>     Newt</li>
+<li>     Toad</li>
+<li> Freshwater Sport Fish</li>
+<li>     Walleye</li>
+<li>     Bass</li>
+<li>     Trout</li>
+</ul>
+</p>
+</paragraphs>
+
+<p>xml:id will be added as an @xml:id to chapters</p>
+</subsection>
+</section>
+
+<xi:include href="CH00/pretext_features.ptx"/>
+<xi:include href="CH00/demos/index.ptx"/></chapter>
+
+
+<chapter> 
+<title>Chapter 3: Equilibrium of Particles</title>
+
+<introduction>
+<p>Engineering statics is the study of rigid bodies in equilibrium so it's appropriate to begin by defining what we mean by <em>rigid bodies</em> and what we mean by <em>equilibrium</em>.</p>
+
+<p>A <term>body</term> is an object, possibly made up of many parts, which may be examined as a unit. In statics, we consider the forces acting on the object as a whole and also examine it in greater detail by studying each of its parts, which are bodies in their own right.  The choice of the body is an engineering decision based on what we are interested in finding out.  We might, for example, consider an entire high-rise building as a body for the purpose of designing the building's foundation, and later consider each column and beam of the structure to ensure that they are strong enough to perform their individual roles.</p>
+
+<p>A <term>rigid body</term> is a body which doesn't deform under load, that is to say, an object which doesn't bend, stretch, or twist when forces are applied to it.  It is an idealization or approximation because no objects in the real world behave this way; however, this simplification still produces valuable information.  You will drop the rigid body assumption and study deformation, stress, and strain in a later course called <pubtitle>Strength of Materials</pubtitle> or <pubtitle>Mechanics of Materials</pubtitle>. In that course you will perform analysis of non-rigid bodies, but each problem you do <em>there</em> will begin with the rigid body analysis you will learn to do <em>here</em>.</p>
+
+<p>A body in <term>equilibrium</term> is not accelerating.  As you learned in physics, acceleration is the rate of change of velocity, and is a vector quantity. For linear motion,</p>
+<p><me>\mathbf{a} = \frac{d\mathbf{v}}{dt}</me></p>
+<p>For an object in equilibrium <m>\mathbf{a} = 0</m> which implies that the body is either stationary or moving with an unchanging velocity. <me>\mathbf{a} = 0 \implies \begin{cases}\mathbf{v}=0\\\mathbf{v}=C\end{cases}</me>The acceleration of an object is related to the net force acting on it by <term>Newton's Second Law</term></p>
+<p><me> \Sigma\mathbf{ F} = m \mathbf{a}</me></p>
+<p>So for the special case of static equilibrium Newton's Law becomes <men xml:id="SigmaF"> \Sigma\mathbf{ F} = 0</men></p>
+<p>This simple equation is one of the two foundations of engineering statics.  </p>
+<p>There are several ways to think about this equation.  Reading it from left to right it says that <em>if all the forces acting on a body sum to zero, then the body will be in equilibrium</em>.  If you read it from right to left it says that <em>if a body is in equilibrium, then all the forces acting on the body must sum to zero</em>. Both interpretations are equally valid but we will be using the second one more often.  In a typical problem equilibrium of a body implies that the forces sum to zero, and we use that fact to find the unknown forces which make it so.  Remember that we are talking about vector addition here, so the sums of the forces must be calculated using the rules of vector addition; you won't get correct answers if you can't add vectors!   </p>
+<p>We'll be using several different techniques to add vectors in this chapter, which may lead to some confusion.  It doesn't matter, mathematically, which technique you use but part of the challenge and reward of statics is learning to select the best tool for the job at hand; to select the simplest, easiest, fastest, or clearest way to get to the solution.  You'll do best in this course if can use multiple approaches to solve the same problem.</p>
+<p>In <xref provisional="chapter 3"/> we will add another requirement  for equilibrium, namely equilibrium equation <xref provisional="sigmaM"/> which says the the forces which cause rotational motion and angular acceleration <m>\mathbf{\alpha}</m> also must sum to zero, but for the problems of this chapter the only condition we'll need for equilbrium is Equation <xref ref="SigmaF"/> .</p>
+</introduction>
+
+
+<section> <title>Particles in One Dimension</title>
+
+<introduction>
+<p>We'll begin our study of Equilibrium with the simplest possible object in the simplest possible situatuation <em/> a <term>particle</term> in a <term>one-dimensional coordinate system</term>.  Also, in this chapter and the next all forces will be represented as <term>concentrated forces</term><em>. </em> In later sections the we will address more complicated situations, higher dimensions, and distributed forces, but beginning with very simple situations will help you to develop engineering sense and problem solving skills which will be useful later.</p>
+<p>The defining characteristic of a <term>particle</term> is that all forces that affect it are <term>coincident</term> or <term>concurrent</term>, not that it is small.  The moon, earth and sun can all be treated as particles, but we probably won't encounter them in statics since they're accelerating.  Forces are coincident/concurrent if their lines of action all intersect at a single, common point.  Two or more forces are also considered concurrent if they share the same line of action. One practical consequence of this is that particles are never subjected to forces which cause rotation. So a see-saw, for example, is not a particle because the weights of the children tend <fn>We say <em>tend</em> to cause rotation because in a Statics context all objects are static <em/> so no <em>actual</em> rotation occurs.</fn> to cause rotation.  </p>
+<p>Another consequence of concurrent forces is that Equation <xref ref="SigmaF"/> is the only equilibrium equation that applies.  This vector equation can be used to solve for a maximum of two unknowns.  If you find yourself trying to solve a particle equilibrium problem and you are seeking more than two unknowns, it's likely that you have missed something and need to re-read the question.</p>
+<p>Another simplification we will be making is to treat all forces as <term>concentrated forces</term>.  Concentrated forces act at a single point, have a well defined line of action, and can be represented with an arrow <em/> in other words, they are vectors.  Real forces don't actually act at a single mathematical point, but concentrating them is intuative and will be justified in a <xref provisional="distributed loads">later chapter</xref>.  You're already familiar with the concept if you have ever placed the weight of an object at its center of gravity.</p>
+
+<p><url href="https://weh.maritime.edu/mechanics/mastery/packages/question-49025-equilibrium-of-a-particle-equilibrium-equation-method/"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/TYS97Mw1"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/TussmReA"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/VWBk6f8t"/></p>
+<p><url href="https://weh.maritime.edu/mechanics/mastery/packages/question-49025-equilibrium-of-a-particle-equilibrium-equation-method/"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/TYS97Mw1"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/TussmReA"/></p>
+<p><url href="https://www.geogebra.org/m/eKD1jLzg#material/VWBk6f8t"/></p>
+</introduction>
+
+<subsection>
+<title>Solution Methods</title>
+
+<p>force triangles</p>
+<p>equilibrium equations</p>
+<p>rotate coordinate system</p>
+
+<p>weight and mass</p>
+
+<p>Ideal ropes and short links are particles</p>
+
+<p>Springs</p>
+
+<p>Ideal ropes and short links are particles</p>
+<example>
+<title>Hanging Weight</title>
+<statement><p>Consider the wire spool being lifted into the truck in <xref ref="spool"/>.  </p>
+<p>The load consist of 750 m of three strand medium voltage (5 kV) 1/0 AWG eletrical power cable with a 195 Amp capacity at 90°C, weighing 927 kg/km, on a 350 kg steel reel.</p>
+<figure xml:id="spool"><caption/><image width="50%" source="images/ch03/spool/spool.jpg"/></figure>
+<p>How much force is supported by the high tension polymer lifting sling?</p>
+
+
+</statement></example>
+
+<example>
+<title>Tug of War</title>
+<statement><p>Marines and Airmen are having a tug-of-war contest and have reached a stalemate.  The Marines are pulling the rope with a force of 1500 lb.</p>
+<figure>
+<caption>GOODFELLOW AIR FORCE BASE, Texas <em/> Marines from the Marine Corps Detachment compete against Airmen from the 17th Security Forces Squadron during the Squadron Annual Tug-of-War Contest, Sept. 16, 2009. (U.S. Air Force photo/Staff Sgt. Laura R. McFarlane)</caption>
+<image width="50%" source="images/ch03/tugofwar/090916-F-4388M-043.JPG"/>
+</figure>
+<p>How hard are the Airmen pulling? What is the tension in the rope?  </p></statement>
+<answer><p><me> T = A = M = 1500 \text{ lb}</me></p></answer>
+
+<solution>
+<p>This is a simple question, but students often get it wrong at first.</p>
+<p>Assume that the pull of each team can be represented by a single force. Let force <m>M</m> be supplied by the Marines and force <m>A</m> by the Airmen; call the tension in the rope <m>T</m>. </p>
+<p>Assume that the weight of the rope is negligable; then the rope can be considered a particle because both forces lie along same line of action. Let the line of action be the <m>x</m> direction.</p>
+
+
+<p><m>A</m> = 1500 lb.</p>
+
+<p>A free body diagram of the rope is shown.  </p>
+<figure><caption/><image width="50%" source="images/ch03/tugofwar/rope.pdf"/></figure>
+<p>Since they're stalemated we know that the rope is in equilibrium.  Applying the equation of equilibrium gives:</p>
+
+<p><md>
+<mrow> \Sigma F_x \amp= 0</mrow>
+<mrow> -M + A \amp= 0</mrow>
+<mrow> A \amp= M </mrow>
+<mrow> \amp = 1500 \text{ lb}</mrow>
+</md></p>
+
+<p>We find out that both teams pull with the same force.  This was probably obvious without drawing the free body diagram or solving the equilibrium equation.</p>
+<p>It may seem equally obvious that if both teams are pulling with 1500 lb in opposite directions that the tension in the rope must be 3000 lb.  This is wrong however.</p>
+<p>The tension in the rope <m>T</m> is an example of an <term>internal force</term> and in order to learn its magnitude we need a free body diagram which includes force <m>T</m>.  To expose the internal force we take an imaginary cut through the rope and draw (or imagine) a free body diagram of either half of the rope. </p>
+<figure><caption/><image width="50%" source="images/ch03/tugofwar/2rope.pdf"/></figure>
+<p>The correct answer is easily seen to be</p>
+<p><me> T = A = M = 1500 \text{ lb}</me></p></solution>
+</example>
+</subsection>
+</section>
+
+
+<section> <title>Particles in Two Dimensions</title>
+
+<introduction>
+<p>physics: inclined plane</p>
+<p>force triangles</p>
+<p>equilibrium equations</p>
+<p>rotate coordinate system</p>
+<example>
+<title>Utility Pole</title>
+<statement>
+<p>You are undoubtedly famliar with utility poles which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again?  Why is this?</p>
+<p>If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road.  This force is typically opposed by a "guy wire" pulling in the opposite direction which prevents the pole from moving (tipping over) due to unbalanced forces.  The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.</p>
+
+
+<p>Consider the utility pole next to the road shown below.  If each of the six cables pulls with a force of 10.0 kN, determine the magnitude of the tension in the guy wire.  </p>
+<sidebyside width="40%" margins="5%">
+<figure xml:id="polepic">
+<caption>Utility pole</caption>
+<image source="images/ch03/utilitypole/pole.png"/>
+</figure>
+
+<figure xml:id="telephonepole">
+<caption>Top view</caption>
+<image source="images/ch03/utilitypole/utilitypole.pdf"/>
+</figure>
+</sidebyside></statement>
+
+<answer><p><m>G = 14.5 \text{ kN}</m></p>
+</answer>
+
+<solution>
+
+<p>A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.</p>
+<p>It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point.  However,  we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger.  This is an example of an <term>equivalent transformation</term>, a trick engineers use frequently to turn complex situations into  simpler ones.  It works here because all the tensions are equal, and the outside wires are equidistant from the center wire.  You must be careful to to justify all equivalent transformations, because they will lead to errors if they are not applied correctly.  Equivalent transformations will be discussed in greater detail in  <xref provisional="equivalent tranformation"/> later.  </p>
+
+<p><m>T</m> = 10.0 kN</p>
+
+
+<p>Begin by drawing a neat, labeled, free body diagram of the pole, establishing a coordinate system and indicating the directions of the forces.  Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the <m>x</m>-axis along the axis of symmetry.  Let <m>T</m> be the tension in one wire, and <m>G</m> be the tension of the guy wire.</p>
+
+<figure xml:id="polefbd">
+<caption/>
+<image width="50%" source="images/ch03/utilitypole/fbd.svg"/>
+</figure>
+
+<p>To solve apply the equations of equilibrium.  The symmetry of this problem means that the <m>\Sigma F_x</m> equation is sufficient. </p>
+<p>
+<md>
+<mrow> \Sigma F_x \amp = 0 </mrow>
+<mrow> G - 6\,T_x  \amp= 0 </mrow>
+<mrow> G  \amp= 6\,(T \cos 76°) </mrow>
+<mrow>    \amp= 14.5 \text{ kN} </mrow>
+</md>
+</p>
+<aside><p>This problem could have also been solved using the force triangle method. See <xref provisional="force triangle method"/>.</p></aside>
+</solution>
+</example>
+
+</introduction>
+
+<subsection>
+<title>Multi Particle Equilibrium</title>
+
+<p>@DB: Leave for Structures? (multi FBD problems) @acg: agree with DB as this is the particle section. @ED I think this refers to multiple particles (e.g. connected by cables).  I would consider this type of system an example application of particle equilibrium analysis rather than a section.  @weh: Yes, multi particle problems is what I have in mind.  Changed title accordingly</p>
+<p><url href="http://jimi.cbee.oregonstate.edu/concept_warehouse/CW.php?goto=question_preview&amp;id=4668"/></p>
+<p><url href="http://jimi.cbee.oregonstate.edu/concept_warehouse/CW.php?goto=question_preview&amp;id=4667"/></p></subsection>
+</section>
+</chapter>
+</book>
+</pretext>
