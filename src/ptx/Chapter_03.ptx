@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_03">
+
+<title>Chapter 3: Equilibrium of Particles</title>
+
+<introduction>
+<p>Engineering statics is the study of rigid bodies in equilibrium so it's appropriate to begin by defining what we mean by <em>rigid bodies</em> and what we mean by <em>equilibrium</em>.</p>
+<p>A <term>body</term> is an object, possibly made up of many parts, which may be examined as a unit. In statics, we consider the forces acting on the object as a whole and also examine it in greater detail by studying each of its parts, which are bodies in their own right.  The choice of the body is an engineering decision based on what we are interested in finding out.  We might, for example, consider an entire high-rise building as a body for the purpose of designing the building's foundation, and later consider each column and beam of the structure to ensure that they are strong enough to perform their individual roles.</p>
+<p>A <term>rigid body</term> is a body which doesn't deform under load, that is to say, an object which doesn't bend, stretch, or twist when forces are applied to it.  It is an idealization or approximation because no objects in the real world behave this way; however, this simplification still produces valuable information.  You will drop the rigid body assumption and study deformation, stress, and strain in a later course called <pubtitle>Strength of Materials</pubtitle> or <pubtitle>Mechanics of Materials</pubtitle>. In that course you will perform analysis of non-rigid bodies, but each problem you do <em>there</em> will begin with the rigid body analysis you will learn to do <em>here</em>.</p>
+<p>A body in <term>equilibrium</term> is not accelerating.  As you learned in physics, acceleration is the rate of change of velocity, and is a vector quantity. For linear motion, <me>\vec{a} = \frac{d\vec{v}}{dt}</me>.</p>
+<p>For an object in equilibrium <m>\vec{a} = 0</m> which implies that the body is either stationary or moving with a constant velocity <me>\vec{a} = 0 \implies \begin{cases}\mathbf{v}=0\\\mathbf{v}=C\end{cases}</me>.</p>
+<p>The acceleration of an object is related to the net force acting on it by <term>Newton's Second Law</term><me> \Sigma\vec{ F} = m \vec{a}</me></p>
+<p>So for the special case of static equilibrium Newton's Law becomes <men xml:id="SigmaF"> \Sigma\vec{ F} = 0</men>.</p>
+<p>This simple equation is one of the two foundations of engineering statics.</p>
+<p>There are several ways to think about this equation.  Reading it from left to right it says that <em>if all the forces acting on a body sum to zero, then the body will be in equilibrium</em>.  If you read it from right to left it says that <em>if a body is in equilibrium, then all the forces acting on the body must sum to zero</em>. Both interpretations are equally valid but we will be using the second one more often.  In a typical problem equilibrium of a body implies that the forces sum to zero, and we use that fact to find the unknown forces which make it so.  Remember that we are talking about vector addition here, so the sums of the forces must be calculated using the rules of vector addition; you won't get correct answers if you can't add vectors!   </p>
+<p>We'll be using several different techniques to add vectors in this chapter, which may lead to some confusion.  It doesn't matter, mathematically, which technique you use but part of the challenge and reward of statics is learning to select the best tool for the job at hand; to select the simplest, easiest, fastest, or clearest way to get to the solution.  You'll do best in this course if can use multiple approaches to solve the same problem.</p>
+<p>In <xref provisional="chapter 3"/> we will add another requirement  for equilibrium, namely equilibrium equation <xref provisional="sigmaM"/> which says the the forces which cause rotational motion and angular acceleration <m>\vec{\alpha}</m> also must sum to zero, but for the problems of this chapter the only condition we'll need for equilbrium is Equation <xref ref="SigmaF"/> .</p></introduction><section xml:id="CH03-1d-particles">
+
+<title>Particles in One Dimension</title>
+
+<introduction>
+<p>We'll begin our study of Equilibrium with the simplest possible object in the simplest possible situatuation -- a <term>particle</term> in a <term>one-dimensional coordinate system</term>. Also, in this chapter and the next all forces will be represented as <term>concentrated forces</term>. In later sections the we will address more complicated situations, higher dimensions, and distributed forces, but beginning with very simple situations will help you to develop engineering sense and problem solving skills which will be useful later.</p>
+<p>The defining characteristic of a <term>particle</term> is that all forces that affect it are <term>coincident</term> or <term>concurrent</term>, not that it is small. The moon, earth and sun can all be treated as particles, but we probably won't encounter them in statics since they're not static. Forces are coincident/concurrent if their lines of action all intersect at a single, common point. Two or more forces are also considered concurrent if they share the same line of action. One practical consequence of this is that particles are never subjected to forces which cause rotation. So a see-saw, for example, is not a particle because the weights of the children tend <fn>We say <em>tend</em> to cause rotation because in a Statics context all objects are static -- so no <em>actual</em> rotation occurs.</fn> to cause rotation.</p>
+<p>Another consequence of concurrent forces is that Equation <xref ref="SigmaF"/> is the only equilibrium equation that applies. This vector equation can be used to solve for a maximum of two unknowns. If you find yourself trying to solve a particle equilibrium problem and you are seeking more than two unknowns, it's likely that you have missed something and need to re-read the question.</p>
+<p>Another simplification we will be making is to treat all forces as <term>concentrated forces</term>.Concentrated forces act at a single point, have a well defined line of action, and can be represented with an arrow -- in other words, they are vectors. Real forces don't actually act at a single mathematical point, but concentrating them is intuative and will be justified in a <xref provisional="distributed loads">later chapter</xref>. You're already familiar with the concept if you have ever placed all the weight of an object at its center of gravity.</p></introduction><subsection>
+
+<title>A simple case</title>
+
+<introduction>
+<p>Consider the weight suspended by a rope shown in <xref ref="suspended-weight"/>.  Diagrams of this type are called <term>space diagrams</term>; they show the objects as they exists in space.  </p>
+<p>In mechanics we are interested in studying the forces acting on objects and in this course, the objects will be in equilibrium.  The best way to do this is to draw a diagram which focuses on the forces acting on the object, not the mechanisms that hold it in place.  We call this type of diagram a <term>free body diagram</term> because it shows the object disconnected or <em>freed</em> from its supporting mechanisms.  You can see the free body diagram for this situation by moving the slider in <xref ref="suspended-weight"/> to position two. This shows that there are two forces acting on the object; the force of the rope holding it up, and the weight of the object which is trying to pull it to earth.</p><figure xml:id="suspended-weight">
+
+<caption>A suspended weight</caption>
+
+<interactive xml:id="geogebra-weight" platform="geogebra" width="80%" aspect="7:5"><slate xml:id="weightfbd" aspect="7:5" surface="geogebra" source="images/ch03/weight/weight.ggb">enableShiftDragZoom(false);</slate></interactive></figure>
+<p>The actual shape of the weight is not important to us, so it can simply be represented with a dot, as shown in <xref ref="suspended-weight"/> when the view control is in position three.  The forces have been slid along their common line of action until they both act on the dot, according to the <xref provisional="principle of transmissibility">principle of transmissibity</xref>.  This diagram in view three is completely sufficient for this situation.</p>
+<p>Drawing free body diagrams can be surprisingly tricky. The reason for this is that you must identify all the forces acting on the object and correctly represent them on the free body diagam. If you fail to account for all the forces, include additional ones, or represent them incorrectly, your analysis will surely be wrong.</p>
+<p>So what kind of anlysis can we do here?  Admitedly not much.  We can find the tension in the rope caused by the weight, and with that information in a design situation select an appropriately sized rope, decide if it's safe to walk underneath.</p>
+<p>The actual analysis is so trivial that you've probably already done it in your head, nevertheless, there are several ways to approach it which will be shown next.</p></introduction><subsubsection>
+
+<title>Vector approach</title>
+
+
+<p>In the vector approach we will use  the <xref ref="SigmaF">equation of equilibrium</xref>. </p><example>
+<p>Find the relationship between the tension in the rope and the suspended weight for the system of <xref ref="suspended-weight"/></p>
+<p>The free body digram shows two forces acting on the particle, <m>\vec{T}</m> and <m>\vec{W}</m>, and since the particle is in equilibrium they must add to zero. </p>
+<p><md><mrow>\Sigma \vec{F}= 0</mrow><mrow>\vec{T}+ \vec{W} = 0 </mrow><mrow>\vec{T} = -\vec{W}</mrow></md></p>
+<p>We conclude that force <m>\vec{T}</m> is equal and opposite to <m>\vec{W}</m>, that is, since the weight is acting down, the rope acts with the same magnitude but up.</p>
+<p><term>Tension</term> is the magnitude of the rope's force. Recall that the magnitude of a vector is always a positive scalar.  We use normal (non-bold) typefaces or absolute value bars surrounding a vector to indicate its magnitude. For any force <m>\vec{F}</m>, </p>
+<p><men>F = \vert\vec{F}\vert </men>.</p>
+<p>To find how the tension is related to <m>\vec{W}</m>, take the absolute value of both sides</p>
+<p><md><mrow>\vert\vec{T}\vert \amp = \vert -\vec{W}\vert</mrow><mrow>T \amp = W</mrow></md></p>
+<p>We learn that the tension equals the weight.</p></example></subsubsection><subsubsection>
+
+<title>Unit vector approach</title>
+
+
+<p>We could also formulate this example in terms of unit vectors.  Recall that <m>\j</m> is the unit vector which points up. It has a magnitude of one with no units associated.  So in terms of unit vector <m>\j</m></p>
+<p><md><mrow>\vec{T} \amp= T \j \amp \vec{W} \amp= -W \j</mrow></md></p><example>
+<p>Find the relation between the tension T and weight W for the system of <xref ref="suspended-weight"/> using unit vectors.</p>
+<p>Express the forces in terms of their magnitudes and the unit vector <m>\j</m> then procede as before,</p>
+<p><md><mrow>\Sigma \vec{F}= 0</mrow><mrow>\vec{T}+ \vec{W} \amp= 0</mrow><mrow>T\j + W (-\j ) \amp = 0</mrow><mrow>T \cancel{\j} \amp = W \cancel{\j}</mrow><mrow>T \amp = W</mrow></md></p></example></subsubsection><subsubsection>
+
+<title>Scalar approach</title>
+
+
+<p>In the scalar method, forces are represented by scalar values called <term>scalar components</term> and we can solve equilbrium equations using the rules of algebraic addition rather than of vector addition.</p>
+<p>The scalar component of a vector is a <em>signed</em> number which indicates the vector's <term>magnitude</term> and <term>sense</term>, and is usually identified by a symbol with a subscript that indicates the line of action of the vector.</p>
+<p>So for example, <m>F_x = 10</m> N is a scalar component. We can tell it's not a vector because it <m>F_x</m> is not bold. 10 N is the magnitude of the associated vector; the subscript <m>x</m> indicates that the force acts "in the <m>x</m> direction," in other words it acts on a line of action which is parallel to the <m>x</m>-axis; and the (implied) positive sign means that the vector points towards the positive end of the <m>x</m>- axis <em/> towards positive infinity.  So a scalar component, while not a vector, contains all the information necessary to draw the corresponding vector.  Be careful not to confuse scalar components with vector magnitudes.  A force with a magnitude of 10 N can point in any direction, but can never have a negative magnitude.</p><example>
+<p>Find the relation between the tension <m>T</m> and weight <m>W</m> for the system of <xref ref="suspended-weight"/> using scalar components.</p>
+<p>The forces in this problem are <m>\vec{W} = -W\j</m> and <m>\vec{T}  = T\j</m>, so the corresponding scalar components are </p>
+<p><md><mrow>W_y \amp= -W \amp T_y \amp= T .</mrow></md></p>
+<p>Adding scalar components gives,</p>
+<p><md><mrow>\Sigma F_y = 0</mrow><mrow>W_y + T_y = 0</mrow><mrow>-W + T = 0</mrow><mrow>T = W</mrow></md></p>
+<p>Unsurprisingly, we get the same result.</p></example>
+<p>Scalar components can be added together algebraicly, but only if they act "in the same direction."  It makes no sense to add <m>F_x</m> to <m>F_y</m>. If that's what you want to do, first you must convert the scalar components to vectors, then add them according to the rules of vector addition.</p><example>
+<p>If <m>A_x</m> = 10 lb and <m>B_x</m> = -15 lb, find the magnitude and direction of their resultant.</p>
+<p><md><mrow>F \amp = A_x + B_x</mrow><mrow>  \amp = (10 N) + (-15 N) = -5 N</mrow></md></p>
+<p>The negative sign on the result indicates that the resultant force acts to the left.</p></example></subsubsection></subsection><subsection>
+
+<title>A tug of war</title>
+
+<example>
+
+<title>Tug of War</title>
+
+<statement>
+<p>Marines and Airmen at Goodfellow Air Force base are competing in a tug of war and have reached a stalemate.  The Marines are pulling with a force of 1500 lb.</p><figure>
+
+<caption>U.S. Air Force photo/Staff Sgt. Laura R. McFarlane</caption>
+
+<image width="50%" source="images/ch03/tugofwar/090916-F-4388M-043.JPG"/></figure>
+<p>How hard are the Airmen pulling? What is the tension in the rope?  </p></statement><answer>
+<p><md><mrow>T = A = M = 1500 \text{ lb}</mrow></md></p></answer><solution>
+<p>This is a simple question, but students often get it wrong at first.</p>
+<p>Assume that the pull of each team can be represented by a single force. Let force <m>M</m> be supplied by the Marines and force <m>A</m> by the Airmen; call the tension in the rope <m>T</m>. </p>
+<p>Assume that the weight of the rope is negligable; then the rope can be considered a particle because both forces lie along same line of action. Let the line of action be the <m>x</m> direction.</p>
+<p><m>A</m> = 1500 lb.</p>
+<p>A free body diagram of the rope is shown.  </p><figure>
+
+<caption/>
+
+<image width="50%" source="images/ch03/tugofwar/rope.pdf"/></figure>
+<p>Since they're stalemated we know that the rope is in equilibrium.  Applying the equation of equilibrium gives:</p>
+<p><md><mrow>\Sigma F_x \amp= 0</mrow><mrow>-M + A \amp= 0</mrow><mrow>A \amp= M</mrow><mrow>\amp = 1500 \text{ lb}</mrow></md></p>
+<p>We find out that both teams pull with the same force.  This was probably obvious without drawing the free body diagram or solving the equilibrium equation.</p>
+<p>It may seem equally obvious that if both teams are pulling with 1500 lb in opposite directions that the tension in the rope must be 3000 lb.  This is wrong however.</p>
+<p>The tension in the rope <m>T</m> is an example of an <term>internal force</term> and in order to learn its magnitude we need a free body diagram which includes force <m>T</m>.  To expose the internal force we take an imaginary cut through the rope and draw (or imagine) a free body diagram of either half of the rope. </p><figure>
+
+<caption/>
+
+<image width="50%" source="images/ch03/tugofwar/2rope.pdf"/></figure>
+<p>The correct answer is easily seen to be</p>
+<p><me> T = A = M = 1500 \text{ lb}</me></p></solution></example></subsection><subsection>
+
+<title>A hanging weight</title>
+
+<example>
+
+<title>Hanging Weight</title>
+
+<!--todo: get permission, redraw, or take another picture of weight.  image source http://www.directindustry.com/prod/palfinger/product-17586-677271.html --><statement>
+<p>Consider the wire spool being lifted into the truck in <xref ref="spool-fig"/>.  </p>
+<p>The load consist of 750 m of three strand medium voltage (5 kV) 1/0 AWG eletrical power cable with a 195 Amp capacity at 90°C, weighing 927 kg/km, on a 350 kg steel reel.</p><figure xml:id="spool-fig">
+
+<caption/>
+
+<image width="50%" source="images/ch03/spool/spool.jpg"/></figure>
+<p>How much weight is supported by the high tension polymer lifting sling?</p></statement><answer>
+<p><md><mrow>W = 10300 \textrm{ N}</mrow></md></p></answer><solution>
+<p>The entire weight of the wire and the spool is supported by the sling.  </p>
+<p>Remember that weight is not mass. The total weight in is found by multiplying the total mass by the gravitational constant <m>g</m>.</p>
+<p><md><mrow>W \amp = m g</mrow><mrow>\amp = (m_w + m_s )\,g</mrow><mrow>\amp=(.750 \textrm{ km} \cdot 927 \textrm{ kg}/\textrm{km} + 350 \textrm{ kg})\,g </mrow><mrow>\amp = 1045 \textrm{ kg} \cdot 9.81 \textrm{ m}/\textrm{s}^2 </mrow><mrow>\amp = 10300 \textrm{ N}</mrow></md></p></solution></example></subsection><subsection>
+
+<title>Two-force bodies</title>
+
+
+<p>As you might expect, a <term>two-force body</term> is a body with two forces acting on it, like the weight just discussed. As we just saw, in order for a two-force body to be in equilibrium the two forces must add to zero.  There are only three possible ways that this can happen:  </p>
+<p>The two forces must either </p>
+<p><ul>
+<li>		share the same line of action, have the same magnitude, and point away from each other, or</li>
+<li>		share the same line of action, have the same magnitude, and point towards each other, or</li>
+<li>		both forces must have zero magnitude.</li></ul></p>
+<p>When two forces have the same magnitude but act in diametrically opposite directions, we say that they are <term>equal and opposite</term>. When equal and opposite forces act on an object and they point towards each other we say that the object is <term>in compression</term>, when they point away from each other the object is <term>in tension</term>.  Tension and compression describe the internal state of the object.</p><figure>
+
+<caption>Examples of two-force bodies</caption>
+
+<image width="80%" source="images/ch03/twoforce/twoforce.pdf"/></figure>
+<p> Two force bodies appear frequently in multipart structures and machines which will be covered in <xref provisional="structures chapter"/>. Some examples of two force bodies are struts and linkages, ropes, cables and guy wires, and springs.  </p></subsection></section><section xml:id="CH03-2d-particles">
+
+<title>Particles in Two Dimensions</title>
+
+
+<p>The examples in the previous section were relatively simple since because all the forces involved act on one line of action, and that line defines the one and only dimension in the problem. Equilibrium is achieved when the forces acting one way were balanced by forces acting the opposite way. </p>
+<p>In this section we notch up the difficulty level. The balance required for equilibrium now involves two dimensions, and the problems usually have two unknown values to find.</p>
+<p>You are probably familiar with the three-dimensional <term>cartesian coordinate system</term> with orthogonal <m>x</m>-, <m>y</m>- and <m>z</m>- axes used to locate objects in 3-D space.  We will be working with that system later but now we will study situations where everything of importance occurs in a 2-D plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile, because they illustrate all the important principles of Engineering Statics while being easier to visualize and less mathematically complex.</p>
+<p>We will normally work in the "plane of the board," that is, a <term>cartesian</term> plane with a horizontal <m>x</m>-axis and a vertical <m>y</m>-axis.  This coordinate system can represent either the front, side, or top view of a system as appropriate.  In some problems it may be worthwhile to <term>rotate the coordinate</term> system, that is, to establish a coordinate system where the <m>x</m>-axis and <m>y</m>-axis have been rotated about the origin so they are no longer horizonal and vertical.  This is usually done to simplify the mathematics by avoiding simultaneous equations. </p>
+<p>The general procedure for solving equilibrium of a particle (or concurrent force) problems in two dimensions is to</p><example>
+
+<title>Cargo lift</title>
+
+<statement>
+<p>A 24 kN crate is being lowered into the cargo hold of a ship.  Boom <m>AB</m> is 20 m long and acts at a 40° angle from kingpost <m>AC</m>. The boom is held in this position by topping lift <m>BC</m> which has a 1:4 slope.</p>
+<p>Determine the forces in the boom and in the topping lift.</p><figure xml:id="boom-fig">
+
+<caption/>
+
+<image width="50%" source="images/ch03/boom/boom.pdf"/></figure></statement></example><example>
+
+<title>Utility Pole</title>
+
+<statement>
+<p>You are undoubtedly famliar with utility poles which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again?  Why is this?</p>
+<p>If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road.  This force is typically opposed by a "guy wire" pulling in the opposite direction which prevents the pole from moving (tipping over) due to unbalanced forces.  The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.</p>
+<p>Consider the utility pole next to the road shown below.  If each of the six cables pulls with a force of 10.0 kN, determine the magnitude of the tension in the guy wire.  </p><sidebyside width="40%" margins="5%"><figure xml:id="polepic">
+
+<caption>Utility pole</caption>
+
+<image source="images/ch03/utilitypole/pole.png"/></figure><figure xml:id="telephonepole">
+
+<caption>Top view</caption>
+
+<image source="images/ch03/utilitypole/utilitypole.pdf"/></figure></sidebyside></statement><answer>
+<p><md><mrow>G = 14.5 \text{ kN}</mrow></md></p></answer><solution>
+<p>A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.</p>
+<p>It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point.  However,  we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger.  This is an example of an <term>equivalent transformation</term>, a trick engineers use frequently to turn complex situations into  simpler ones.  It works here because all the tensions are equal, and the outside wires are equidistant from the center wire.  You must be careful to to justify all equivalent transformations, because they will lead to errors if they are not applied correctly.  Equivalent transformations will be discussed in greater detail in  <xref provisional="equivalent tranformation"/> later.  </p>
+<p><m>T</m> = 10.0 kN</p>
+<p>Begin by drawing a neat, labeled, free body diagram of the pole, establishing a coordinate system and indicating the directions of the forces.  Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the <m>x</m>-axis along the axis of symmetry.  Let <m>T</m> be the tension in one wire, and <m>G</m> be the tension of the guy wire.</p><figure xml:id="polefbd">
+
+<caption/>
+
+<image width="50%" source="images/ch03/utilitypole/fbd.svg"/></figure>
+<p>To solve apply the equations of equilibrium.  The symmetry of this problem means that the <m>\Sigma F_x</m> equation is sufficient. </p>
+<p><md><mrow>\Sigma F_x \amp = 0</mrow><mrow>G - 6\,T_x  \amp= 0G  </mrow><mrow>\amp= 6\,(T \cos 76°)</mrow><mrow>\amp= 14.5 \text{ kN}</mrow></md></p><aside>
+<p>This problem could have also been solved using the force triangle method. See <xref provisional="force triangle method"/>.</p></aside></solution></example></section></chapter>
