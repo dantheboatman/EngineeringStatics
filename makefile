@@ -109,13 +109,13 @@ pdf:
 	-rm $(PDFOUT)/images/*
 	-rm $(PDFOUT)/ggb/*
 	-rm $(PDFOUT)/*.*
-	make youtube
+	#make youtube
 	cp -a $(IMAGESOUT) $(PDFOUT)
 	cp -a $(IMAGESSRC) $(PDFOUT) 
 	cp -a $(GGBSRC) $(PDFOUT)
 #	cp -a $(WWOUT)/*.png $(PDFOUT)/images
 	cd $(PDFOUT); \
-	xsltproc -xinclude $(MBXSL)/mathbook-latex.xsl $(MAINFILE); \
+	xsltproc -xinclude -o index.tex $(MBXSL)/mathbook-latex.xsl $(MAINFILE); \
 	xelatex index.tex; \
 	xelatex index.tex; \
 	xelatex index.tex; 
