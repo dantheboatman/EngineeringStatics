@@ -18,8 +18,15 @@
   <xsl:param name="html.knowl.exercise.inline" select="no"/>
   <!-- don't put exercises or examples in knowls -->
   <!-- add weh custom templates -->
+ 
+ <!-- don't put solutions in knowls modifies template at line 337 in mathbook-html.xsl-->
+ <xsl:template match="solution" mode="is-hidden">
+  <xsl:text>false</xsl:text>
+ </xsl:template>
+ 
   <!-- Add numbas iframe -->
   <xsl:template match="interactive[@platform='numbas']">
     <iframe src="{slate/@source}/index.html" width="{slate/@width}" height="{slate/@height}"/>
   </xsl:template>
+
 </xsl:stylesheet>
