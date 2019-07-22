@@ -2,7 +2,7 @@
 
 <title>Chapter 0: Author Information</title>
 
-<section xml:id="pretext-info">
+<section xml:id="Pretext">
 
 <title><pretext/></title>
 
@@ -51,65 +51,86 @@
 <p>I've defined some latex macros in docinfo.ptx so </p>
 <p>		 <c>\vec{A}</c> will produce <m>\vec{A}</m></p>
 <p>		 <c>\ihat</c> will produce <m>\ihat</m></p>
-<p>		 <c>\jhat</c> will produce <m>\jhat</m></p></subsection></section><section xml:id="scriv-pretext-notes">
+<p>		 <c>\jhat</c> will produce <m>\jhat</m></p></subsection><subsection>
 
-<title>Scriv-<pretext/> Notes</title>
-
-<subsection>
-
-<title>Binder</title>
+<title>Images</title>
 
 
-<p>The Scrivener binder is used to organize the book</p>
-<p>Nested folders become chapter &gt; section &gt; subsection &gt; subsubsection by default.  The binder title becomes the division title.</p>
-<p>Single pages are styled as ptx-p and don't get a title in the output</p>
-<p>Nested pages are styled as ptx-para and get the title as a run-in title in the rendered document </p>
-<p>Chapters and sections using custom metadata xml:id will use it for @xml:id attribute.</p></subsection><subsection>
+<p>The preferred image types for the book for diagrams or drawings is <term>Scalable Vector Graphics</term>.  This format should be used for any diagrams or drawings you make if possible.   <c>SVG</c> files can be created with Inkscape, Geogebra, or other tools.  My CAD program doesn't natively export SVG files, but I can "print as pdf" and convert that file to an editable .svg file using the command line tool  <c>pdf2svg</c>.  Any diagram you create should have an 'actual' height of about 100 mm or 4 inches, or taller if necessary, but not more that 1 page tall  Diagrams will usually get scaled down when they go into the book.  On the web version, clicking on the scaled image will pop up a larger image.</p>
+<p>One huge advantages of SVG files is that they any text including <latex/> in the diagram gets properly rendered as it is placed in the book, so that the diagram text appears in the same font and size as the rest of the book.  Otherwise, if you have text elements in a diagram, they will get scaled along with the digram and may become unreadable at small sizes.</p>
+<p>Keep all resources used to produce each diagram together in a folder under your chapter in the /ptx/src/resources directory together. All pdf, png, and svg files will be copied from here to a common images folder for inclusion into the document. This way, images can be inserted by using their filename only.  Since all images will be in the same folder, no path is necessary, but all filenames must be unique so avoid common names like  <c>fbd.svg</c>.</p>
+<p>When you are finished creating the SVG file, open it with  Inkscape and "save as pdf", and choose the option "omit text in pdf and create <latex/> file." and save this in the same directory.  Two files will be created, a .pdf file with no text, and a .pdf_tex file which is a standalone <latex/> file which overlays properly rendered text on top of the .pdf image.</p>
+<p>These are scalable so that they will look good no matter what size they are rendered at.  Furthermore, if you include text or latex in an .svg file, Inkscape can export the file as </p>
+<p>Other acceptable file types</p>
+<p>Use <term>Portable Document Format</term>, .pdf to include things like manufacturers spec sheets.  You can use pdf for line drawing with no text</p>
+<p>Use <term>Portable Network Graphics,</term> .png in preference to .jpg for photographs.</p>
+<p>For annotated photographs, create a SVG file and import the image, then use the SVG tools to add text and arrows, etc.  Save as SVG, and also Save as PDF/no text, as described above.</p><example>
 
-<title>Transformations</title>
+<title>Example</title>
 
+<figure>
 
-<p>Scrivener post processing applies an xslt transformation to.</p>
-<p>Changes instances of <pretext/> in any case to to <tag>pretext/</tag></p>
-<p>Convert markdown style links to <tag>url</tag>: <url href="https://weh.maritme.edu/mechanics">Course Website</url></p>
-<p>Convert two dashes to an m dash:  --This sentence should start with an em dash.</p>
-<p>Strip leading bullets from ptx-ul paragraph style.</p>
-<p><ul><li>one</li><li>two</li><li>three</li></ul></p></subsection><subsection>
+<caption>Image with overlaid text.</caption>
 
-<title>Character styles</title>
+<image width="75%"><latex-image>
+\def\svgwidth{4in}
+\import{/Users/whaynes/ptx/statics/output/images/}{balloon.pdf_tex}
+</latex-image></image></figure>
+<p>This image was composed of three parts,</p>
+<p><ol><li>The x-z plane and the three ropes were drawn in Geogebra, and a screenshot was used to capture the image as a png.  For 2D drawings Geogebra can export svg or png directly.</li><li>The balloon was a png image.</li><li>Both were imported into a svg image in Inkscape, where the axis labels, point labels, and the height were added with the text tool. The dotted line, and the dimension arrows were drawn in using Inkscape's tools.</li></ol></p>
+<p>The composite image was saved as an svg file, then a copy was saved as a pdf file without text, along with  <c>balloon.pdf_tex</c> which was included in the source ptx as shown.</p></example></subsection></section><section xml:id="Demos">
 
+<title>Demos</title>
 
-<p>code:   <c>This is code style</c></p>
-<p>tag:   <tag>This is tag style</tag></p>
-<p>m:  <m> \sqrt{x^2 + y2}</m></p>
-<p>em:  This should be <em>italic</em></p>
-<p>term:  This should be a <term>term</term>.</p></subsection><subsection>
+<subsection xml:id="video_demo">
 
-<title>Paragraph styles</title>
+<title>Video</title>
 
+<example>
 
-<p>ptx-p:  This wraps the paragraph with a <tag>p</tag> tag.</p>
-<p>no style:  No p tag surrounds this paragraph.</p>
-<p>don't export:  Not copied to the output</p>
-<p>ptx-md:  Wraps each line with <tag>mrow</tag>, wraps group with <tag>p</tag><tag>md</tag></p>
-<p><md><mrow>\Sigma F_x \amp = 0</mrow><mrow>G - 6\,T_x  \amp= 0G  </mrow><mrow>\amp= 6\,(T \cos 76°)</mrow><mrow>\amp= 14.5 \text{ kN}</mrow></md></p></subsection><subsection>
-
-<title>Mathematics</title>
+<title>Embedded YouTube</title>
 
 
-<p>This is a sentence with inline math <m>r = \sqrt{x^2+y^2}</m> using the <term>m</term> character style.</p>
-<p>This is several lines of latex styled with the <term>ptx-md</term> paragraph style</p>
-<p><md><mrow>\Sigma F_x \amp = 0</mrow><mrow>G - 6\,T_x  \amp= 0G</mrow><mrow>\amp= 6\,(T \cos 76°)</mrow><mrow>\amp= 14.5 \text{ kN}</mrow></md></p>
-<p>These are equation directly marked up with <tag>me</tag></p>
-<p><me>\Sigma \vec{F} = 0</me></p>
-<p><me>a = 0 \implies \begin{cases} v=0\\v=C\end{cases}</me></p></subsection><subsection>
+<p> You can include video hosted at YouTube, or anywhere else on the internet.</p><figure>
 
-<title>Lists</title>
+<caption>Our fearless leader.</caption>
+
+<video youtube="6qeJf0pXdds" width="100%"/></figure></example></subsection><subsection xml:id="sage_demo">
+
+<title>Sage</title>
 
 
-<p>ptx-ol, or ptx-ul: wraps line with with <tag>li</tag><tag>/li</tag>  wraps all lines with </p>
-<p><tag>p</tag><tag>ol</tag> or <tag>p</tag><tag>ul</tag></p>
-<p>scriv2ptx strips any leading bullets you might add by formatting in Scrivener.</p>
-<p>		Amphibians</p>
-<p><ul><li>		     Frog</li><li>		     Salamander</li><li>		     Newt</li><li>		     Toad</li><li>		Freshwater Sport Fish</li><li>		     Walleye</li><li>		     Bass</li><li>		     Trout</li></ul></p>
-<p><ol><li>one</li><li>two </li><li>three</li></ol></p></subsection></section></chapter>
+<p>Sage is an open-source mathematics system which uses a Python-based syntax, which can be used to do complex calculation right in the browser. In the pdf version, a sample result is shown. </p><example>
+<p> Recall that the moment of a force about a point is the cross product of the force <m>\mathbf{F}</m> with the position vector <m>\mathbf{r}</m>. <md><mrow>\mathbf{M} = \mathbf{r} \times \mathbf{F}= \begin{vmatrix} \mathbf{i} \amp \mathbf{j} \amp \mathbf{k} \\ r_x \amp r_y \amp r_z\\ F_x \amp F_y \amp F_z \end{vmatrix}</mrow></md></p>
+<p>Given <m>\mathbf{r} = 4 \mathbf{i} + 5 \mathbf{j} - 2 \mathbf{k}</m> meters and <m>\mathbf{F} = 80 \mathbf{i} + 40 \mathbf{j} - 30 \mathbf{k} </m>, kN you can find the moment <m>\mathbf{M}</m> by entering the following into the Sage Cell below. When you click <c>Evaluate (Sage)</c> the components of <m>\mathbf{M}</m> will be calculated.</p><sage><input> r = vector([4, 5, -2]); F = vector([80, 40, -30]); r.cross_product(F) </input><output> (-70, -40, -240) </output></sage>
+<p>Note that you are defining <m>\mathbf{F}</m> and <m>\mathbf{r}</m>, and in the third line <c>r.cross_product(F)</c> is the expression to be evaluated. You'll have to work out the correct units for the moment yourself, however.</p></example></subsection><interactive xml:id="numbas-vector-addition" platform="numbas"><slate surface="numbas" source="numbas/question-39493-vector-addition-tip-to-tail-method" width="110%" height="1400px"/></interactive><interactive xml:id="numbas-lopping-shears" platform="numbas"><slate surface="numbas" source="numbas/question-44872-machine-lopping-shears" width="110%" height="1100px"/></interactive><interactive xml:id="numbas-method-of-sections" platform="numbas"><slate surface="numbas" source="numbas/question-43569-method-of-sections-pratt-truss" width="110%" height="2140px"/></interactive><subsection>
+
+<title>Geogebra</title>
+
+
+
+Interactive and animated geogebra diagrams may be included. In the <abbr>PDF</abbr> version they will render as a static image with a <abbr>QR</abbr> code link to the web version.
+Warning: Unintentional line breaks in the script will break it, and strings must be quoted with double-quotes. No underscores in xml:id.
+Note: to get the mbx program to work, I had to install <url href="https://github.com/sindresorhus/pageres-cli">pageres-cli</url> which required installation of <url href="https://nodejs.org/en/download/">nodejs</url>. On mac, this resulted in an installation error due to file permissions, and was resolved by installing pagres-cli this way  <c>sudo npm install --global pageres-cli --unsafe-perm=true</c><interactive xml:id="geogebra-astroid" platform="geogebra" width="100%" aspect="4:3"><slate xml:id="astroid" surface="geogebra" source="ggb/astroid.ggb" aspect="4:3" width="95%"> setCoordSystem(-6, 10, -6, 6); setLabelVisible("b", false); setLabelVisible("c", false); setLabelVisible("d", false); setAxisLabels(1,"r","s","t"); setGridVisible(true); evalCommand("r = Slider(1,4,0.1)"); enableShiftDragZoom(false); showResetIcon(true); </slate></interactive><interactive xml:id="three-d-vector-direction-theta" platform="geogebra" width="100%" aspect="3:2"><slate xml:id="rotate-3d-vec" surface="geogebra" source="ggb/3d-vector.ggb" aspect="3:2" width="95%"> showResetIcon(true); </slate></interactive><instructions>Rotate the diagram to see the force and angles in space.</instructions><interactive xml:id="geogebra-shear-and-bending-moment" platform="geogebra" aspect="6:5" width="100%"><slate xml:id="v-m-diagram" surface="geogebra" source="ggb/shear-and-moment-Building-Blocks.ggb" aspect="6:5" width="95%"> showResetIcon(true);</slate></interactive><instructions>Try moving the large red dots to see the effect of the load on the diagrams.</instructions><example>
+
+<title>2-D Vector addition</title>
+
+<interactive xml:id="interactive-addition" platform="geogebra" aspect="3:2" width="100%"><slate surface="geogebra" material="sc7usntz" aspect="3:2" width="95%"> enableShiftDragZoom(true); showResetIcon(true); </slate></interactive><instructions>
+Type this in the input box.
+
+	•	 <c>a = (2,1)</c> This creates a vector from its <m>x</m> and <m>y</m> components.
+	•	 <c>b = (2;120°)</c>This creates a vector from its magnitude and direction. You must include the degree sign  <c>°</c>; if you don't then the angle will be assumed to be in radians. Typing  <c>Option–o</c> or &gt; <c>Alt–o</c> will produce a degree sign.
+	•	 <c>r = a + b</c> This produces the resultant vector.
+
+</instructions>
+
+
+	•	In Geogebra, use a comma to separate rectangular components and a semicolon to separate magnitude and direction.
+	•	Lower case variables are vectors by default, and uppercase variables produce points.
+	•	You can scroll the graphing window with your mouse or zoom out or in with a scroll wheel.
+
+</example><example>
+
+<title>Animation</title>
+
+<interactive xml:id="backhoe" platform="geogebra" width="100%" aspect="3:2"><slate xml:id="animated-backhoe" surface="geogebra" source="ggb/animated-backhoe.ggb" aspect="3:2" width="95%"> showResetIcon(true); startAnimation(); enableShiftDragZoom(false); </slate></interactive><instructions>The play button controls the animation.</instructions></example></subsection></section></chapter>
