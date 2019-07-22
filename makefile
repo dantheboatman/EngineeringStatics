@@ -42,7 +42,7 @@ include Makefile.paths
 # the project distribution
 ###################################
 PRJSRC    = $(PRJ)/src/ptx
-IMAGESSRC = $(PRJ)/src/images
+IMAGESSRC = $(PRJ)/src/resources
 GGBSRC    = $(PRJ)/src/ggb
 NUMBASSRC = $(PRJ)/src/numbas
 CUSTOM    = $(PRJ)/custom
@@ -81,7 +81,6 @@ html:
 	install -d $(HTMLOUT)/images
 	install -d $(HTMLOUT)/ggb 
 	install -d $(HTMLOUT)/numbas
-	install -d $(IMAGESSRC)
 	install -d $(WWOUT)
 
 	-rm $(HTMLOUT)/*.html
@@ -90,8 +89,9 @@ html:
 	-rm $(HTMLOUT)/ggb/*
 	-rm $(HTMLOUT)/numbas/*
 	-rm $(HTMLOUT)/*.css
+	make images
 
-	cp -a $(IMAGESSRC) $(HTMLOUT)
+	cp -a $(IMAGESOUT) $(HTMLOUT)
 	cp -a $(GGBSRC) $(HTMLOUT)
 	cp -a $(NUMBASSRC) $(HTMLOUT)
 	cp $(CUSTOM)/*.css $(HTMLOUT)
@@ -104,21 +104,19 @@ pdf:
 	install -d $(OUTPUT)
 	install -d $(PDFOUT)
 	install -d $(PDFOUT)/images
-	install -d $(IMAGESOUT)
-	install -d $(IMAGESSRC)
+
 	-rm $(PDFOUT)/images/*
 	-rm $(PDFOUT)/ggb/*
 	-rm $(PDFOUT)/*.*
+	make images
 	#make youtube
 	cp -a $(IMAGESOUT) $(PDFOUT)
-	cp -a $(IMAGESSRC) $(PDFOUT) 
 	cp -a $(GGBSRC) $(PDFOUT)
 #	cp -a $(WWOUT)/*.png $(PDFOUT)/images
 	cd $(PDFOUT); \
-	xsltproc -xinclude -o index.tex $(MBXSL)/mathbook-latex.xsl $(MAINFILE); \
-	xelatex index.tex; \
-	xelatex index.tex; \
-	xelatex index.tex; 
+  xsltproc -xinclude -o statics.tex $(MBXSL)/mathbook-latex.xsl $(MAINFILE); \
+	open statics.tex;\
+	#xelatex statics.tex; 
 	
 merge:
 	cd $(OUTPUT); \
@@ -142,3 +140,20 @@ publish:
 	-rm $(APACHEDIR)/*.*
 	cp -R $(HTMLOUT)/* $(APACHEDIR)
 	open $(APACHEURL)
+	
+images:
+	install -d $(IMAGESSRC)
+	install -d $(IMAGESOUT)
+	-rm $(IMAGESOUT)/*
+	
+
+
+# these commands copy files to IMAGESOUT while flattening the heirarchy
+	find $(IMAGESSRC) -iname '*.jpg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.png' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.svg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.pdf' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+
+	# make svg images from inkscape pdfs with text removed
+	$(MB)/script/mbx -vv -p latex.font.size 11pt -c latex-image -f svg -d $(IMAGESOUT) $(MAINFILE)
