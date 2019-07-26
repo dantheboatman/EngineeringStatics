@@ -12,7 +12,7 @@
   <!-- 1 = equations number continuously through chapters -->
   <xsl:param name="numbering.theorems.level" select="1"/>
   <!-- 1 = example numbering controled by theorems -->
-  <xsl:param name="html.css.extra" select="'body.css'"/>
+  <xsl:param name="html.css.extra" select="'statics.css'"/>
   <!-- this adds my custom css to change the body font to serif -->
   <xsl:param name="html.knowl.example" select="no"/>
   <xsl:param name="html.knowl.exercise.inline" select="no"/>
