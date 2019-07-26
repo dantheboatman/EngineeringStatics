@@ -64,6 +64,7 @@ MBUSR = $(MB)/user
 
 # These paths hold the output 
 # 
+IMAGESGEN   = $(PRJ)/src/resources/generated
 OUTPUT     = $(PRJ)/output
 HTMLOUT    = $(OUTPUT)/html
 PDFOUT     = $(OUTPUT)/pdf
@@ -89,7 +90,7 @@ html:
 	-rm $(HTMLOUT)/ggb/*
 	-rm $(HTMLOUT)/numbas/*
 	-rm $(HTMLOUT)/*.css
-	make images
+	make output_copy
 
 	cp -a $(IMAGESOUT) $(HTMLOUT)
 	cp -a $(GGBSRC) $(HTMLOUT)
@@ -108,13 +109,13 @@ pdf:
 	-rm $(PDFOUT)/images/*
 	-rm $(PDFOUT)/ggb/*
 	-rm $(PDFOUT)/*.*
-	make images
+	make output_copy
 	#make youtube
 	cp -a $(IMAGESOUT) $(PDFOUT)
 	cp -a $(GGBSRC) $(PDFOUT)
 #	cp -a $(WWOUT)/*.png $(PDFOUT)/images
 	cd $(PDFOUT); \
-  xsltproc -xinclude -o statics.tex $(MBXSL)/mathbook-latex.xsl $(MAINFILE); \
+	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
 	open statics.tex;\
 	#xelatex statics.tex; 
 	
@@ -141,19 +142,27 @@ publish:
 	cp -R $(HTMLOUT)/* $(APACHEDIR)
 	open $(APACHEURL)
 	
-images:
+output_copy:
 	install -d $(IMAGESSRC)
 	install -d $(IMAGESOUT)
 	-rm $(IMAGESOUT)/*
-	
-
-
-# these commands copy files to IMAGESOUT while flattening the heirarchy
+# these commands copy resources to IMAGESOUT while flattening the heirarchy
+	find $(IMAGESSRC) -iname '*.ggb' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.jpg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.png' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.svg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.pdf' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 
-	# make svg images from inkscape pdfs with text removed
-	$(MB)/script/mbx -vv -p latex.font.size 11pt -c latex-image -f svg -d $(IMAGESOUT) $(MAINFILE)
+images:	
+	install -d $(IMAGESSRC)
+	install -d $(IMAGESGEN)
+	-rm $(IMAGESGEN)/*
+# make svg images from inkscape pdfs with text removed
+	$(MB)/script/mbx -vv -p latex.font.size 12pt -c latex-image -f svg -d $(IMAGESGEN) $(MAINFILE)
+# make thumbnails for embedded youtube videos	
+#	$(MB)/script/mbx -c youtube -d $(IMAGESGEN) $(MAINFILE)
+# make preview images for pdf
+#	$(MB)/script/mbx -vv -c preview -d $(IMAGESGEN) $(MAINFILE)
+		make output_copy
+
