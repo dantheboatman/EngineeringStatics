@@ -4,6 +4,7 @@
   <xsl:import href="../../../ptx/mathbook/xsl/mathbook-html.xsl"/>
   <!--  -->
   <!-- Customize mathbook behavior -->
+ <xsl:param name="chunk.level" select="3" />
   <xsl:param name="debug.chapter.start" select='0'/>
   <!-- start chapters with zero-->
   <xsl:param name="numbering.maximum.level" select="2"/>
