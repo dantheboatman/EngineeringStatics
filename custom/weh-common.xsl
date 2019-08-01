@@ -26,7 +26,6 @@
  <xsl:template match="interactive[@platform='numbas']">
   <iframe src="{slate/@source}/index.html" width="{slate/@width}" height="{slate/@height}"/>
  </xsl:template>
- 
- 
+
 
 </xsl:stylesheet>
