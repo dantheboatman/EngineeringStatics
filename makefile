@@ -66,7 +66,7 @@ MBUSR = $(MB)/user
 # 
 IMAGESGEN   = $(PRJ)/src/resources/generated
 OUTPUT     = $(PRJ)/output
-HTMLOUT    = $(OUTPUT)/html
+HTMLOUT    = $(OUTPUT)/textbook
 PDFOUT     = $(OUTPUT)/pdf
 IMAGESOUT  = $(OUTPUT)/images
 GGBOUT     = $(OUTPUT)/GGB
@@ -160,9 +160,9 @@ images:
 	-rm $(IMAGESGEN)/*
 # make svg images from inkscape pdfs with text removed
 	$(MB)/script/mbx -vv -p latex.font.size 12pt -c latex-image -f svg -d $(IMAGESGEN) $(MAINFILE)
-# make thumbnails for embedded youtube videos	
-#	$(MB)/script/mbx -c youtube -d $(IMAGESGEN) $(MAINFILE)
+#make thumbnails for embedded youtube videos	
+	/opt/local/bin/python $(MB)/script/mbx -c youtube -d $(IMAGESGEN) $(MAINFILE)
 # make preview images for pdf
-#	$(MB)/script/mbx -vv -c preview -d $(IMAGESGEN) $(MAINFILE)
+	$(MB)/script/mbx -vv -c preview -d $(IMAGESGEN) $(MAINFILE)
 		make output_copy
 
