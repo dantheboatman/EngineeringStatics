@@ -43,7 +43,6 @@ include Makefile.paths
 ###################################
 PRJSRC    = $(PRJ)/src/ptx
 IMAGESSRC = $(PRJ)/src/resources
-GGBSRC    = $(PRJ)/src/ggb
 NUMBASSRC = $(PRJ)/src/numbas
 CUSTOM    = $(PRJ)/custom
 CSS       = $(PRJ)/css
@@ -64,7 +63,9 @@ MBUSR = $(MB)/user
 
 # These paths hold the output 
 # 
-IMAGESGEN   = $(PRJ)/src/resources/generated
+RESOURCES   = $(PRJ)/src/resources
+MBX_OUT     = $(RESOURCES)/mbx
+
 OUTPUT     = $(PRJ)/output
 HTMLOUT    = $(OUTPUT)/textbook
 PDFOUT     = $(OUTPUT)/pdf
@@ -90,10 +91,9 @@ html:
 	-rm $(HTMLOUT)/ggb/*
 	-rm $(HTMLOUT)/numbas/*
 	-rm $(HTMLOUT)/*.css
-	make output_copy
+	make copy_images
 
 	cp -a $(IMAGESOUT) $(HTMLOUT)
-	cp -a $(GGBSRC) $(HTMLOUT)
 	cp -a $(NUMBASSRC) $(HTMLOUT)
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
@@ -107,13 +107,9 @@ pdf:
 	install -d $(PDFOUT)/images
 
 	-rm $(PDFOUT)/images/*
-	-rm $(PDFOUT)/ggb/*
 	-rm $(PDFOUT)/*.*
-	make output_copy
-	#make youtube
+	make copy_images
 	cp -a $(IMAGESOUT) $(PDFOUT)
-	cp -a $(GGBSRC) $(PDFOUT)
-#	cp -a $(WWOUT)/*.png $(PDFOUT)/images
 	cd $(PDFOUT); \
 	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
 	open statics.tex;\
@@ -124,45 +120,39 @@ merge:
 	xsltproc --xinclude --stringparam webwork.extraction $(WWOUT)/webwork-extraction.xml $(MBXSL)/pretext-merge.xsl $(MAINFILE) > merge.xml
 
 	
-# run this to scrape thumbnail images from YouTube for any YouTube videos
+# makes thumbnail images for youtube videos
 youtube:
-	install -d $(OUTPUT)
-	install -d $(IMAGESOUT)
-	-rm $(IMAGESOUT)/*.jpg
-	$(MB)/script/mbx -c youtube -d $(IMAGESOUT) $(OUTPUT)/merge.xml
+	install -d $(YOUTUBE_OUT)
+	-rm $(YOUTUBE_OUT)/*.jpg
+	python $(MB)/script/mbx -c youtube -d $(YOUTUBE_OUT) $(MAINFILE)
 
-preview:
-	install -d $(OUTPUT)
-	install -d $(IMAGESOUT)
-	-rm $(IMAGESOUT)/*.png
-	$(MB)/script/mbx -vv -c preview -d $(IMAGESOUT) $(OUTPUT)/merge.xml
+preview:  #makes preview images for interactives which don't define @preview
+	install -d $(MBX_OUT)/preview
+	-rm $(MBX_OUT)/preview/*.png
+	$(MB)/script/mbx -vv -c preview -d $(MBX_OUT)/preview $(MAINFILE)
 	
-publish:
-	-rm $(APACHEDIR)/*.*
-	cp -R $(HTMLOUT)/* $(APACHEDIR)
-	open $(APACHEURL)
+images:  # makes svg images from inkscape pdfs with text removed
+	install -d $(MBX_OUT)/latex_images
+	-rm $(MBX_OUT)/latex_images/*
+	$(MB)/script/mbx -v -c latex-image -f svg -d $(MBX_OUT)/latex_images $(MAINFILE)
 	
-output_copy:
+	
+copy_images:
 	install -d $(IMAGESSRC)
 	install -d $(IMAGESOUT)
 	-rm $(IMAGESOUT)/*
 # these commands copy resources to IMAGESOUT while flattening the heirarchy
-	find $(IMAGESSRC) -iname '*.ggb' -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(IMAGESSRC) -iname '*.jpg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(IMAGESSRC) -iname '*.png' -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(IMAGESSRC) -iname '*.svg' -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(IMAGESSRC) -iname '*.pdf' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.ggb'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.jpg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.png'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(IMAGESSRC) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 
-images:	
-	install -d $(IMAGESSRC)
-	install -d $(IMAGESGEN)
-	-rm $(IMAGESGEN)/*
-# make svg images from inkscape pdfs with text removed
-	$(MB)/script/mbx -vv -p latex.font.size 12pt -c latex-image -f svg -d $(IMAGESGEN) $(MAINFILE)
-#make thumbnails for embedded youtube videos	
-	/opt/local/bin/python $(MB)/script/mbx -c youtube -d $(IMAGESGEN) $(MAINFILE)
-# make preview images for pdf
-	$(MB)/script/mbx -vv -c preview -d $(IMAGESGEN) $(MAINFILE)
-		make output_copy
+
+publish: #supposed to copy everything to the webeserver directory
+	-rm $(APACHEDIR)/*.*
+	cp -R $(HTMLOUT)/* $(APACHEDIR)
+	open $(APACHEURL)
+
 
