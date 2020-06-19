@@ -6,4 +6,5 @@
  
   <!-- Customize html behavior -->
  <xsl:param name="chunk.level" select="3" />
+ <xsl:param name="html.annotation" select="'hypothesis'"/>
 </xsl:stylesheet>
