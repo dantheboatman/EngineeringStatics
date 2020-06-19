@@ -81,15 +81,13 @@ html:
 	install -d $(MBUSR)
 	install -d $(HTMLOUT)
 	install -d $(HTMLOUT)/images
-	install -d $(HTMLOUT)/ggb 
 	install -d $(HTMLOUT)/numbas
 	install -d $(WWOUT)
 
 	-rm $(HTMLOUT)/*.html
 	-rm $(HTMLOUT)/knowl/*.html
 	-rm $(HTMLOUT)/images/*
-	-rm $(HTMLOUT)/ggb/*
-	-rm $(HTMLOUT)/numbas/*
+	-rm -r $(HTMLOUT)/numbas/*
 	-rm $(HTMLOUT)/*.css
 	make copy_images
 
