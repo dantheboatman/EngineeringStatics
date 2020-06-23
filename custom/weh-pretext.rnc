@@ -1,0 +1,39 @@
+# Temporary adjustments to schema to make geogebra interactives validate 6/19/2020 weh
+
+include "../../mathbook/schema/pretext.rnc"
+Interactive =
+ element interactive {
+  UniqueID?,
+  attribute platform { text },
+  attribute preview { text }?,
+  attribute width { text }?,
+  attribute aspect { text }?,
+  Slate,
+  element instructions { BlockText | text }?
+ }
+Slate =
+ element slate {
+  UniqueID?,
+  attribute surface { text },
+  (attribute source { text }
+   | attribute material { text }),
+  attribute width { text }?,
+  attribute height { text }?,
+  attribute aspect { text }?,
+  text
+ }
+
+BlockStatement |= Interactive
+
+Figure |=
+ element figure { MetaDataCaption,  Interactive }
+
+SideBySide |= element sidebyside { SidebySideAttributes, (Figure | Poem | Tabular | Image | Video | Program | Console | Paragraph | Preformatted | List | Stack | Interactive)+ }
+
+
+Configuration |=
+ element html {
+  element baseurl {
+   attribute href { text }
+  }?
+ }
