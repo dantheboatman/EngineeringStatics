@@ -67,7 +67,7 @@ RESOURCES   = $(PRJ)/src/resources
 MBX_OUT     = $(RESOURCES)/mbx
 
 OUTPUT     = $(PRJ)/output
-HTMLOUT    = $(OUTPUT)/textbook
+HTMLOUT    = $(OUTPUT)/html
 PDFOUT     = $(OUTPUT)/pdf
 IMAGESOUT  = $(OUTPUT)/images
 GGBOUT     = $(OUTPUT)/GGB
