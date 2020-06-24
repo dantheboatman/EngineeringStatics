@@ -64,7 +64,7 @@ MBUSR = $(MB)/user
 # These paths hold the output 
 # 
 RESOURCES   = $(PRJ)/src/resources
-MBX_OUT     = $(RESOURCES)/mbx
+MBX_OUT     = $(RESOURCES)/generated
 
 OUTPUT     = $(PRJ)/output
 HTMLOUT    = $(OUTPUT)/html
@@ -72,8 +72,6 @@ PDFOUT     = $(OUTPUT)/pdf
 IMAGESOUT  = $(OUTPUT)/images
 GGBOUT     = $(OUTPUT)/GGB
 NUMBASOUT  = $(OUTPUT)/numbas
-PGOUT      = $(OUTPUT)/pg
-WWOUT      = $(OUTPUT)/webwork-extraction
 
 
 html:
@@ -82,7 +80,6 @@ html:
 	install -d $(HTMLOUT)
 	install -d $(HTMLOUT)/images
 	install -d $(HTMLOUT)/numbas
-	install -d $(WWOUT)
 
 	-rm $(HTMLOUT)/*.html
 	-rm $(HTMLOUT)/knowl/*.html
@@ -113,26 +110,24 @@ pdf:
 	open statics.tex;\
 	#xelatex statics.tex; 
 	
-merge:
-	cd $(OUTPUT); \
-	xsltproc --xinclude --stringparam webwork.extraction $(WWOUT)/webwork-extraction.xml $(MBXSL)/pretext-merge.xsl $(MAINFILE) > merge.xml
 
 	
 # makes thumbnail images for youtube videos
 youtube:
-	install -d $(YOUTUBE_OUT)
-	-rm $(YOUTUBE_OUT)/*.jpg
-	python $(MB)/script/mbx -c youtube -d $(YOUTUBE_OUT) $(MAINFILE)
+	install -d $(MBX_OUT)/youtube
+	-rm $(MBX_OUT)/youtube/*
+	$(MB)/pretext/pretext -c youtube -d $(MBX_OUT)/youtube $(MAINFILE)
 
 preview:  #makes preview images for interactives which don't define @preview
+# broken as of 6/23/2020
 	install -d $(MBX_OUT)/preview
-	-rm $(MBX_OUT)/preview/*.png
-	$(MB)/script/mbx -vv -c preview -d $(MBX_OUT)/preview $(MAINFILE)
+	-rm $(MBX_OUT)/preview/*
+	$(MB)/pretext/pretext -v -c preview -d $(MBX_OUT)/preview $(MAINFILE)
 	
 images:  # makes svg images from inkscape pdfs with text removed
 	install -d $(MBX_OUT)/latex_images
 	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/script/mbx -v -c latex-image -f svg -d $(MBX_OUT)/latex_images $(MAINFILE)
+	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images $(MAINFILE)
 	
 	
 copy_images:
