@@ -2,7 +2,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
  
- <xsl:param name="debug.chapter.start" select='0'/>
+ <xsl:param name="debug.chapter.start" select='2'/>
  <!-- start chapters with zero-->
  <xsl:param name="numbering.maximum.level" select="3"/>
  <!-- 3 = nothing deeper than a subsection gets a number -->
