@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_00">
+
+<title>Author Information</title>
+
+<section xml:id="pretext-info">
+
+<title><pretext/></title>
+
+<subsection xml:id="pretext-info-overview">
+
+<title>Overview</title>
+
+
+<p>by William Haynes @weh</p>
+<p>We will be authoring the Engineering Statics book using <url href="https://pretextbook.org"><pretext/></url>, storing the text, images and interactives on <url href="https://github.com">GitHub</url> using <url href="https://git-scm.com">git</url>, and converting everything into a website and a pdf book using <url href="https://www.w3.org/Style/XSL/">XSLT</url>. Finally we will post everything it on our <url href="https://EngineeringStatics.org">website</url> for students to use.</p>
+<p><pretext/> consists of two pieces, the XML markup and the XSLT processor.</p>
+<p>The source documents for the book are text files marked up using XML tags, similar to the way HTML documents are marked up, but the tags are specific to the requirements of academic textbooks. We will be using the extension <c>.ptx</c> to indicate <pretext/> files. The <pretext/> tags are formally defined by an <url href="https://pretextbook.org/doc/schema-litprog/pretext.pdf">XML Schema</url>, which specifies what are legal tags and where they can be used.</p>
+<p>Most likely you will want to see what the final result of your writing looks like. In order to see it in its final version, you can compile it with XSLT to create a local copy of the final version</p></subsection><subsection xml:id="pretext-info-workflow">
+
+<title>Workflow</title>
+
+
+<p>The main components necessary to make this all work are: </p>
+<p><ul><li>Local copies of the <pretext/> and Engineering Statics files</li><li>An XML aware text editor to edit the <pretext/> source.</li><li>The command line program git and a GitHub account.</li><li>An XSLT processor to convert the source text to html</li></ul></p>
+<p>When you have these installed and working on your computer, you will have everything you need to produce a local copy of the entire book. That way, you can edit something and then test it to see what it will look like in its final form. When you are satisfied with your work, you will use git to send it to the GitHub, where Dan or Will will integrate it into its proper place in the book, publish and upload to the website. </p>
+<p>If this sounds daunting to you, don't worry! <em>You don't have to do any of this while you create your first draft</em>. Please just write! Use any tools you are comfortable with, and I (@weh) will do the initial markup to <pretext/> for you. However, marking up the the draft is a one way trip. After that, any further edits and improvements must be made on the <pretext/> source. Don't spend any effort trying to make your draft look pretty because all styling will be handled by <pretext/>.</p></subsection><subsection xml:id="pretext-info-getting-set-up">
+
+<title>Getting set up</title>
+
+
+<p>The <url href="https://pretextbook.org"><pretext/></url> website has plenty of information on how to get started with <pretext/>. You will find quickstart instructions on the homepage which may be all you need as well as more detailed instructions and walkthrough videos.</p>
+<p><url href="https://pretextbook.org/doc/pnw/html/novices.html"><pretext/> for Novices Using Windows</url> has a detailed description of how to install the necessary tools.</p>
+<p><url href="https://pretextbook.org/doc/guide/html/"><pretext/> Guide</url> is the place to learn about <pretext/> and get started.</p>
+<p><url href="https://pretextbook.org/gfa/html/">Git for Authors</url> describes how to use git to add your content and corrections to the official repository.</p></subsection><subsection xml:id="pretext-info--tags">
+
+<title><pretext/> tags</title>
+
+
+<p>Here is a list of commonly used <pretext/> tags. Their purposes are mostly self evident. </p>
+<p>For details on the use of tags see Chapter 3 of the [Author's Guide](https://pretextbook.org/doc/author-guide/html/overview.html).</p>
+<p><ul cols="2"><li><tag>book</tag></li><li><tag>title</tag></li><li><tag>chapter</tag></li><li><tag>section</tag></li><li><tag>subsection</tag></li><li><tag>subsubsection</tag></li><li><tag>introduction</tag></li><li><tag>conclusion</tag></li><li><tag>objectives</tag></li><li><tag>example</tag></li><li><tag>exercises</tag></li><li><tag>exercise</tag></li><li><tag>hint</tag></li><li><tag>solution</tag></li><li><tag>aside</tag></li><li><tag>note</tag></li><li><tag>p</tag> basic paragraph, like html</li><li><tag>paragraph</tag> a paragraph with a run-in title</li><li><tag>em</tag> emphasis, renders as italics</li><li><tag>figure</tag> a numbered figure</li><li><tag>image</tag> contains filename of associated image file</li></ul></p>
+<p>Mathematics is described in the <url href="https://pretextbook.org/doc/author-guide/html/overview-math.html">Author's Guide</url></p>
+<p><ul cols="2"><li><tag>m</tag> inline math, uses LaTeX syntax, rendered with MathJax .</li><li><tag>me</tag> single equation, centered</li><li><tag>md</tag> display math, multiline </li><li><tag>men</tag> numbered equation</li><li><tag>mdn</tag> numbered display math</li></ul></p>
+<p>The <url href="https://pretextbook.org/doc/schema-litprog/pretext.pdf">XML Schema</url> describes the <pretext/> vocabulary: the legal tags and how they nest. It's formal and confusing, so you may be better off looking at the source of documents that do what you want first. Another reference is and the <url href="https://pretextbook.org/doc/schema-litprog/pretext.pdf">Schema documentation</url> which describes the schema </p></subsection><subsection xml:id="pretext-info-customizations">
+
+<title>Customizations</title>
+
+
+<p>I'll try to list all customizations any non-standard <pretext/> behaviors that I have implemented here.</p>
+<p>I've defined some latex macros in docinfo.ptx so </p>
+<p><c>\vec{A}</c> will produce <m>\vec{A}</m></p>
+<p><c>\ihat</c> will produce <m>\ihat</m></p>
+<p><c>\jhat</c> will produce <m>\jhat</m></p>
+<p><c>\khat</c> will produce <m>\khat</m></p></subsection><subsection xml:id="pretext-info-mbx">
+
+<title>MBX</title>
+
+
+<p>I had some trouble getting the <c>mbx</c> program working, with the message</p><pre>
+  File "/Users/whaynes/ptx/mathbook/script/mbx", line 771, in youtube_thumbnail
+    import requests
+ImportError: No module named requests
+</pre>
+<p>I tried installing the requests module with </p><pre> ==&gt;  sudo pip install requests</pre>
+<p>But it didn't work :(</p>
+<p>The problem was that when I tried to import the requests module with pip, it got installed into the wrong version of python. I had to do this to straighten it out. I'm using <url href="maports.org">macPorts</url>.</p><pre>
+==&gt;  port select --list python
+Available versions for python:
+none
+python27 (active)
+python27-apple
+python37 
+
+ ==&gt;  port select --list pip
+Available versions for pip:
+none
+pip27
+pip37 (active)
+
+ ==&gt;  sudo port select --set pip pip27
+Selecting 'pip27' for 'pip' succeeded. 'pip27' is now active.
+
+ ==&gt;  sudo pip install requests
+
+</pre>
+<p>Also, to get the <c>mbx</c> program to work, I had to install <url href="https://github.com/sindresorhus/pageres-cli">pageres-cli</url> which required installation of <url href="https://nodejs.org/en/download/">nodejs</url>. On mac, this resulted in an installation error due to file permissions, and was resolved by installing pagres-cli this way sudo </p><pre>&gt; npm install --global pageres-cli --unsafe-perm=true</pre></subsection></section><section xml:id="Chapter_00-images">
+
+<title>Images</title>
+
+
+<p>The preferred image types for the book for diagrams or drawings is <term>Scalable Vector Graphics</term>. This format should be used for any diagrams or drawings you make if possible. <c>SVG</c> files can be created with Inkscape, Geogebra, or other tools and can easily and accurately be converted to pdf documents. For photographs use <term>Portable Network Graphics</term> images (extension <c>.png</c>) if possible in preference to <c>JPEG</c> files. Any diagram you create should have an 'actual' height of about 100 mm or 4 inches, or taller if necessary, but not more that 1 page tall. Diagrams will get scaled down when they go into the book. On the web version, clicking on the scaled image will pop up a larger image.</p>
+<p>You will need to create or obtain a image file and store it with the <pretext/> source. </p>
+<p>Store all image files in the resources directory, in your chapter folder, and then in a folder named for the image. It's a good idea to include a text file in this directory with the copyright and source info for crediting the image. See <url href="https://wiki.creativecommons.org/wiki/best_practices_for_attribution">Best Practices for Attribution</url>. All <c>ggb</c>, <c>jpg</c>, <c>png</c>, <c>svg</c>, <c>pdf</c> and <c>pdf_tex</c> files will be copied from here to a common images folder for inclusion into the document. This way, images can be inserted by using their filename only. Since all images will be in the same folder, no path is necessary, but all filenames must be unique so avoid common names like <c>fbd.svg</c>.</p>
+<p>There are several ways to include the images into the book.</p>
+<p><ol><li>
+<p><em>Good</em>. If you want to place an image with no caption, and no number, then you must wrap an <tag>image</tag> tag with a <tag>sidebyside</tag> tag, as so: </p>
+<p><c>&lt;sidebyside&gt; &lt;image source='filename.ext' width=75%' /&gt;&lt;/sidebyside&gt;</c></p>
+<p>You will also need to save the actual image file in the resources directory, from where it will be copied to the output. See the <url href="https://pretextbook.org/doc/guide/html/overview-sidebyside.html"> Pretext Docs </url> for info on the sidebyside options.</p>
+<p>If you want the image to have a caption and a number, wrap the <tag>image</tag> tag with a <tag>figure</tag> tag instead and give it a <tag>title</tag>.</p></li><li>
+<p><em>Better</em>. Include a svg image for html and an identical pdf diagram for <latex/>. </p>
+<p>This produces better quality than method 1, because both <c>svg</c> and <c>pdf</c> files are vector based and therefore will scale properly if the document shrinks or grows. In this case you will need to create both files. Inkscape will read either, and export the other, so it is not difficult to produce both. Save both files in the resources directory. Note there is no extension included in the source attribute. <pretext/> will include the proper image for html in the html file and for <latex/> in the latex file.</p>
+<p>In this case the command to include the image is the same as before, but leave off the three letter extension. <pretext/> will select <c>svg</c> for html and <c>pdf</c> for <latex/>. </p>
+<p><c>&lt;image source='filename' width=75%' /&gt;</c></p></li><li>
+<p><em>Best</em>. Let <pretext/>/<latex/> overlay text on top of a static image, so that the font matches the body text, and <latex/> formulas can be used in the diagram.</p>
+<p>To do this you will need to create or edit an image using Inkscape or some other tool. In any event, open the <c>svg</c> file with Inkscape, and edit any text as necessary. <latex/> can be included in your labels, and colors and bold, and italic will be maintained but the text will use the document font. For annotated photographs, create a <c>svg</c> file and import the the png image, then use the SVG tools to add text and arrows, etc. Geogebra can export files as <c>svg</c>. My CAD program doesn't natively export <c>SVG</c> files, but I can "print as pdf" and convert that file to an editable <c>svg</c> file using the command line tool <c>pdf2svg</c>.</p>
+<p>When you are finished editing the <c>svg</c> file with Inkscape, save it as a <c>svg</c> file and also "save as pdf". Choose the option "omit text in pdf and create <latex/> file." and save this in the same directory. Alongside your <c>svg</c> image, two other files will be created, a <c>pdf</c> file with no text, and a <c>pdf_tex</c> file which is a standalone <latex/> file which overlays properly rendered text on top of the <c>pdf</c> image.</p>
+<p>The incantation to include this file is </p><pre> 
+&lt;image&gt;
+&lt;latex-image&gt;
+\pdftex[12pt]{filename}
+&lt;/latex-image&gt;
+&lt;/image&gt;
+</pre></li></ol></p>
+<p>The font side argument [12pt] is optional, but can be used to adjust the default size if necessary.</p><paragraphs xml:id="Chapter_00-images-example">
+
+<title>Example</title>
+
+
+<p>Here's an example of a <c>svg</c> image with text rendered by latex overlaid. The composite image was saved as an <c>svg</c> file, then a copy was saved as a <c>pdf</c> file without text, along with <c>balloon.pdf_tex</c> which was included in the source ptx as shown.</p><figure>
+
+<caption>Image with overlaid text.</caption>
+
+<image width="75%"><latex-image> \pdftex{balloon} </latex-image></image></figure>
+<p>This image was composed of three parts,</p>
+<p><ol><li>The x-z plane and the three ropes were drawn in Geogebra, and a screenshot was used to capture the image as a png. For 2D drawings Geogebra can export svg or png directly.</li><li>The balloon was a png image.</li><li>Both were imported into a svg image in Inkscape, where the axis labels, point labels, and the height were added with the text tool. The dotted line, and the dimension arrows were drawn in using Inkscape's tools.</li></ol></p>
+<p>If you look in the ptx/resources/ch03/balloon directory you will find all the intermediate files I used They are:</p>
+<p><ul><li><em>chap_2_P8.png</em> Jacob's original diagram</li><li><em>balloononly.png</em> The Balloon image without the lines or the dimensions, which I pulled and cleaned up from the original with photoshop. </li><li><em>background.ggb</em> A Geogebra file which I made to draw the ground plane and the cables. </li><li><em>background.png</em> The exported images from geogebra. Unfortunately Geogebra won't export 3d diagrams as svg, so I used png. </li><li><em>balloon.svg</em> A composite diagram I made in inkscape combining <em>ballooononly.png</em> and background.png and latex labels.</li><li><em>balloon.pdf</em> This file is the image without text, as exported from Inkscape.</li><li><em>balloon.pdf_tex</em> This file contains the instructions for the text and where to place it on top of balloon.pdf.</li></ul></p>
+<p>When <pretext/> Generates the book it makes a pdf file which composites the text on top of the ballon and inserts it into the Latex version of the book, and it also uses <em>pdf2svg</em> to make an SVG version to use for the web version.</p>
+<p/></paragraphs><paragraphs xml:id="Chapter_00-images-more-info">
+
+<title>More Info</title>
+
+
+<p><url href="https://castel.dev/post/lecture-notes-2/"/></p>
+<p>Multipage PDFs need all text on top layer</p>
+<p><url href="https://tex.stackexchange.com/questions/243499/sharelatex-pdf-inclusion-required-page-does-not-exist-5/350175#350175"/></p></paragraphs></section><section xml:id="demos">
+
+<title>Demos</title>
+
+<subsection xml:id="demos-video-demo">
+
+<title>Video Demo</title>
+
+
+<p>You can include video hosted at YouTube, or anywhere else on the internet.</p><figure>
+
+<caption>Our fearless leader.</caption>
+
+<video youtube="6qeJf0pXdds" width="100%"/></figure></subsection><subsection xml:id="demos-sage-demo">
+
+<title>Sage Demo</title>
+
+
+<p>Sage is an open-source mathematics system which uses a Python-based syntax, which can be used to do complex calculation right in the browser. In the pdf version, a sample result is shown.</p>
+<p>Recall that the moment of a force about a point is the cross product of the force <m>\vec{F}</m> with the position vector <m>\vec{r}</m>.</p>
+<p><md><mrow>\vec{M} = \vec{r} \times \vec{F}= \begin{vmatrix} \vec{i} \amp \vec{j} \amp \vec{k} </mrow><mrow>r_x \amp r_y \amp r_z\\ F_x \amp F_y \amp F_z \end{vmatrix}</mrow></md></p>
+<p>Given <m>\vec{r} = 4 \vec{i} + 5 \vec{j} - 2 \vec{k}</m> meters and <m>\vec{F} = 80 \vec{i} + 40 \vec{j} - 30 \vec{k}</m> kN you can find the moment <m>\vec{M}</m> by entering the following into the Sage Cell below. When you click <c>Evaluate (Sage)</c> the components of <m>\vec{M}</m> will be calculated.</p><sage><input> r = vector([4, 5, -2]); F = vector([80, 40, -30]); r.cross_product(F) </input><output> (-70, -40, -240) </output></sage>
+<p>Note that you are defining <m>\vec{F}</m> and <m>\vec{r}</m>, and in the third line <c>r.cross_product(F)</c> is the expression to be evaluated. You'll have to work out the correct units for the moment yourself, however.</p></subsection><subsection xml:id="demos-geogebra">
+
+<title>Geogebra</title>
+
+
+<p>Interactive and animated geogebra diagrams may be included. In the <abbr>PDF</abbr> version they will render as a static image with a <abbr>QR</abbr> code link to the web version.</p>
+<p>Warning: Unintentional line breaks in the script will break it, and strings must be quoted with double-quotes. No underscores in xml:id.</p>
+<p>Keep width of geogebra diagrams ~&lt; 565 px to avoid scroll bars.</p><interactive xml:id="geogebra-astroid" platform="geogebra" width="100%" aspect="4:3"><slate xml:id="astroid" surface="geogebra" source="images/astroid.ggb" aspect="4:3" width="95%"> setCoordSystem(-6, 10, -6, 6); setLabelVisible("b", false); setLabelVisible("c", false); setLabelVisible("d", false); setAxisLabels(1,"r","s","t"); setGridVisible(true); evalCommand("r = Slider(1,4,0.1)"); enableShiftDragZoom(false); showResetIcon(true); </slate></interactive><interactive xml:id="three-d-vector-direction-theta" platform="geogebra" width="100%" aspect="3:2"><slate xml:id="rotate-3d-vec" surface="geogebra" source="images/3d-vector.ggb" aspect="3:2" width="95%"> showResetIcon(true); </slate><instructions>Rotate the diagram to see the force and angles in space.</instructions></interactive><interactive xml:id="geogebra-shear-and-bending-moment" platform="geogebra" aspect="6:5" width="100%"><slate xml:id="v-m-diagram" surface="geogebra" source="images/shear-and-moment-Building-Blocks.ggb" aspect="6:5" width="95%"> showResetIcon(true);</slate><instructions>Try moving the large red dots to see the effect of the load on the diagrams.</instructions></interactive><interactive xml:id="interactive-addition" platform="geogebra" aspect="3:2" width="100%"><slate surface="geogebra" material="sc7usntz" aspect="3:2" width="95%"> enableShiftDragZoom(true); showResetIcon(true); </slate><instructions>
+<p>Type this in the input box. <ol><li><c>a = (2,1)</c> This creates a vector from its <m>x</m> and <m>y</m> components.</li><li><c>b = (2;120°)</c>This creates a vector from its magnitude and direction. You must include the degree sign <c>°</c>; if you don't then the angle will be assumed to be in radians. Typing <c>Option–o</c> or &gt; <c>Alt–o</c> will produce a degree sign.</li><li><c>r = a + b</c> This produces the resultant vector.</li></ol></p></instructions></interactive>
+<p><ul><li>In Geogebra, use a comma to separate rectangular components and a semicolon to separate magnitude and direction.</li><li>Lower case variables are vectors by default, and uppercase variables produce points.</li><li>You can scroll the graphing window with your mouse or zoom out or in with a scroll wheel.</li></ul></p><interactive xml:id="backhoe" platform="geogebra" width="100%" aspect="3:2"><slate xml:id="animated-backhoe" surface="geogebra" source="images/animated-backhoe.ggb" aspect="3:2" width="95%"> showResetIcon(true); startAnimation(); enableShiftDragZoom(false); </slate><instructions>The play button controls the animation.</instructions></interactive></subsection><subsection xml:id="demos-numbas">
+
+<title>Numbas</title>
+
+
+<p>Here are some examples of Numbas problems. This is only supported in the html version.</p><interactive xml:id="question-39493" platform="numbas" preview="numbas"><slate surface="numbas" source="numbas/question-39493-vector-addition-tip-to-tail-method" width="110%" height="1400px"/></interactive><interactive xml:id="question-44872" platform="numbas" preview="numbas"><slate surface="numbas" source="numbas/question-44872-machine-lopping-shears" width="110%" height="1100px"/></interactive><interactive xml:id="question-43569" platform="numbas" preview="numbas"><slate surface="numbas" source="numbas/question-43569-method-of-sections-pratt-truss" width="110%" height="2140px"/></interactive></subsection></section><section xml:id="Chapter_00-units-1">
+
+<title>Units-1</title>
+
+
+<p>Still working on a solution for the clumsy unit syntax.</p>
+<p>These abbreviations get translated by my units.xsl which is called as part of scriv2ptx.xsl</p>
+<p><ol><li><m>1010~\text{ lb} </m></li><li><m>100100~\text{ n} </m></li><li><m>10001000~\text{ kN} </m></li><li><m>1010~\text{ MN} </m></li><li><m>1.11.1~\text{ m} </m></li><li><m>1.11.1~\text{ cm} </m></li><li><m>1.11.1~\text{ mm} </m></li><li><m>1.11.1~\text{ ft} </m></li><li><m>1.11.1~\text{ in} </m></li><li><m>1212~\text{ N-m} </m></li><li><m>1212~\text{ ft-lb} </m></li><li><m>1212~\text{ in-lb} </m></li><li><m>1212~\text{ lb/ft} </m></li><li><m>1212~\text{ N/m} </m></li></ol></p>
+<p>Not working yet.</p>
+<p>I want to shorten up the syntax for units, for the units we use regularly and get it working in equations, too.</p></section></chapter>
