@@ -1,6 +1,29 @@
 # Temporary adjustments to schema to make geogebra interactives validate 6/19/2020 weh
+include "../../mathbook/schema/pretext.rnc" {
+ImageRaster =
+ element image {
+  PermanentID?,
+  attribute width { text }?,
+  attribute archive { text }?,
+  element description { TextShort }?,
+  attribute source { text },
+  Remix_info?
+ }
+ }
 
-include "../../mathbook/schema/pretext.rnc"
+# create attribution element for License Info
+Remix_info =
+ element remix {(
+  element title {text}|
+  element creator {attribute href { text }?, text? }|
+  element source {attribute href { text }?, text? }|
+  element license {attribute href { text }?, text?}|
+  element note {text})*
+ }    
+
+
+ 
+# define Interactive and Slate elements based on sample-doc
 Interactive =
  element interactive {
   UniqueID?,
@@ -9,6 +32,7 @@ Interactive =
   attribute width { text }?,
   attribute aspect { text }?,
   Slate,
+  Remix_info?,
   element instructions { BlockText | text }?
  }
 Slate =
@@ -22,15 +46,13 @@ Slate =
   attribute aspect { text }?,
   text
  }
-
+ 
+# add Interactives where used
 BlockStatement |= Interactive
-
-Figure |=
- element figure { MetaDataCaption,  Interactive }
-
+Figure |= element figure { MetaDataCaption, Interactive }
 SideBySide |= element sidebyside { SidebySideAttributes, (Figure | Poem | Tabular | Image | Video | Program | Console | Paragraph | Preformatted | List | Stack | Interactive)+ }
 
-
+# Permit html element in docinfo configuration
 Configuration |=
  element html {
   element baseurl {
