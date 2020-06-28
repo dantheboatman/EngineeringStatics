@@ -63,14 +63,13 @@ MBUSR = $(MB)/user
 
 # These paths hold the output 
 # 
-RESOURCES   = $(PRJ)/src/resources
+RESOURCES   = $(PRJSRC)/resources
 MBX_OUT     = $(RESOURCES)/generated
 
-OUTPUT     = $(PRJ)/output
+OUTPUT     = $(PRJ)/src/temp
 HTMLOUT    = $(PRJ)/docs
 PDFOUT     = $(OUTPUT)/pdf
 IMAGESOUT  = $(OUTPUT)/images
-GGBOUT     = $(OUTPUT)/GGB
 NUMBASOUT  = $(OUTPUT)/numbas
 
 
@@ -92,8 +91,12 @@ html:
 	cp -a $(NUMBASSRC) $(HTMLOUT)
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
+
+# run the preprocessor script on the joined source files, produce valid ptx
+# to be processed by standard scripts
+	xsltproc -xinclude -o $(PRJSRC)/book.ptx  $(MBUSR)/weh-stage-1.xsl $(MAINFILE)
 	cd $(HTMLOUT); \
-	xsltproc -xinclude --novalid  $(MBUSR)/weh-custom-html.xsl  $(MAINFILE);
+	xsltproc  $(MBUSR)/weh-custom-html.xsl $(PRJSRC)/book.ptx;
 	open $(HTMLOUT)/index.html
 
 pdf:
