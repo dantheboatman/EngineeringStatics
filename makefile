@@ -61,21 +61,20 @@ MBXSL = $(MB)/xsl
 MBUSR = $(MB)/user
 
 
-# These paths hold the output 
+# These paths hold the TEMP 
 # 
-RESOURCES   = $(PRJ)/src/resources
-MBX_OUT     = $(RESOURCES)/generated
+RESOURCES   = $(PRJSRC)/resources
+MBX_OUT     = $(IMAGESSRC)/generated/
 
-OUTPUT     = $(PRJ)/output
+TEMP       = $(PRJ)/src/temp
 HTMLOUT    = $(PRJ)/docs
-PDFOUT     = $(OUTPUT)/pdf
-IMAGESOUT  = $(OUTPUT)/images
-GGBOUT     = $(OUTPUT)/GGB
-NUMBASOUT  = $(OUTPUT)/numbas
+PDFOUT     = $(TEMP)/pdf
+IMAGESOUT  = $(TEMP)/images
+NUMBASOUT  = $(TEMP)/numbas
 
 
 html:
-	install -d $(OUTPUT)
+	install -d $(TEMP)
 	install -d $(MBUSR)
 	install -d $(HTMLOUT)
 	install -d $(HTMLOUT)/images
@@ -92,12 +91,14 @@ html:
 	cp -a $(NUMBASSRC) $(HTMLOUT)
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
+
+	make apply_stage1
 	cd $(HTMLOUT); \
-	xsltproc -xinclude --novalid  $(MBUSR)/weh-custom-html.xsl  $(MAINFILE);
+	xsltproc  $(MBUSR)/weh-custom-html.xsl $(PRJSRC)/book.ptx;
 	open $(HTMLOUT)/index.html
 
 pdf:
-	install -d $(OUTPUT)
+	install -d $(TEMP)
 	install -d $(PDFOUT)
 	install -d $(PDFOUT)/images
 
@@ -105,8 +106,9 @@ pdf:
 	-rm $(PDFOUT)/*.*
 	make copy_images
 	cp -a $(IMAGESOUT) $(PDFOUT)
+	make apply_stage1
 	cd $(PDFOUT); \
-	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
+	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(PRJSRC)/book.ptx; \
 	open statics.tex;\
 	#xelatex statics.tex; 
 	
@@ -119,7 +121,6 @@ youtube:
 	$(MB)/pretext/pretext -c youtube -d $(MBX_OUT)/youtube $(MAINFILE)
 
 preview:  #makes preview images for interactives which don't define @preview
-# broken as of 6/23/2020
 	install -d $(MBX_OUT)/preview
 	-rm $(MBX_OUT)/preview/*
 	$(MB)/pretext/pretext -v -c preview -d $(MBX_OUT)/preview $(MAINFILE)
@@ -127,7 +128,7 @@ preview:  #makes preview images for interactives which don't define @preview
 images:  # makes svg images from inkscape pdfs with text removed
 	install -d $(MBX_OUT)/latex_images
 	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images $(MAINFILE)
+	$(MB)/pretext/pretext -vv -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(PRJSRC)/book.ptx
 	
 	
 copy_images:
@@ -143,6 +144,12 @@ copy_images:
 	find $(IMAGESSRC) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 
 
+apply_stage1:
+# run the preprocessor script on the joined source files, produce valid ptx
+# to be processed by standard scripts
+	xsltproc -xinclude -o $(PRJSRC)/book.ptx  $(MBUSR)/weh-stage-1.xsl $(MAINFILE)
+
+	
 publish: #supposed to copy everything to the webeserver directory
 	-rm $(APACHEDIR)/*.*
 	cp -R $(HTMLOUT)/* $(APACHEDIR)

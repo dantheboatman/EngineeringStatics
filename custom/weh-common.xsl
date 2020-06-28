@@ -10,13 +10,9 @@
  <!-- 1 = equations number continuously through chapters -->
  <xsl:param name="numbering.theorems.level" select="1"/>
  <!-- 1 = example numbering controled by theorems -->
- <xsl:param name="html.css.extra" select="'statics.css'"/>
- <!-- this adds my custom css to change the body font to serif -->
- <xsl:param name="html.knowl.example" select="no"/>
- <xsl:param name="html.knowl.exercise.inline" select="no"/>
- <!-- don't put exercises or examples in knowls -->
+
  <!-- add weh custom templates -->
- 
+  
  <!-- don't put solutions in knowls modifies template at line 337 in mathbook-html.xsl-->
  <xsl:template match="solution" mode="is-hidden">
   <xsl:text>false</xsl:text>
