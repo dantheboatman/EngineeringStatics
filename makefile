@@ -91,8 +91,6 @@ html:
 	cp -a $(NUMBASSRC) $(HTMLOUT)
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
-
-	make apply_stage1
 	cd $(HTMLOUT); \
 	xsltproc  $(MBUSR)/weh-custom-html.xsl $(PRJSRC)/book.ptx;
 	open $(HTMLOUT)/index.html
@@ -106,7 +104,6 @@ pdf:
 	-rm $(PDFOUT)/*.*
 	make copy_images
 	cp -a $(IMAGESOUT) $(PDFOUT)
-	make apply_stage1
 	cd $(PDFOUT); \
 	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(PRJSRC)/book.ptx; \
 	open statics.tex;\
@@ -142,13 +139,6 @@ copy_images:
 	find $(IMAGESSRC) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(IMAGESSRC) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
-
-
-apply_stage1:
-# run the preprocessor script on the joined source files, produce valid ptx
-# to be processed by standard scripts
-	xsltproc -xinclude -o $(PRJSRC)/book.ptx  $(MBUSR)/weh-stage-1.xsl $(MAINFILE)
-
 	
 publish: #supposed to copy everything to the webeserver directory
 	-rm $(APACHEDIR)/*.*
