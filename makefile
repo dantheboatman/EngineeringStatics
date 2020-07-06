@@ -92,7 +92,7 @@ html:
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
 	cd $(HTMLOUT); \
-	xsltproc  $(MBUSR)/weh-custom-html.xsl $(PRJSRC)/book.ptx;
+	xsltproc -xinclude $(MBUSR)/weh-custom-html.xsl $(MAINFILE); \
 	open $(HTMLOUT)/index.html
 
 pdf:
@@ -105,7 +105,7 @@ pdf:
 	make copy_images
 	cp -a $(IMAGESOUT) $(PDFOUT)
 	cd $(PDFOUT); \
-	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(PRJSRC)/book.ptx; \
+	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); 
 	open statics.tex;\
 	#xelatex statics.tex; 
 	
@@ -125,7 +125,7 @@ preview:  #makes preview images for interactives which don't define @preview
 images:  # makes svg images from inkscape pdfs with text removed
 	install -d $(MBX_OUT)/latex_images
 	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/pretext/pretext -vv -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(PRJSRC)/book.ptx
+	$(MB)/pretext/pretext -vv -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE); 
 	
 	
 copy_images:
