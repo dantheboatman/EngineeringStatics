@@ -28,7 +28,6 @@ Remix_info =
      }
    | element note { text })*
  }
-
 # define Interactive and Slate elements based on sample-doc
 Interactive =
  element interactive {
@@ -39,8 +38,9 @@ Interactive =
   attribute aspect { text }?,
   Slate,
   Remix_info?,
-  element instructions { BlockText | text }?
+  element instructions { BlockText* | text }?
  }
+Figure |= element figure { MetaDataCaption, (Image | Tabular | SideBySide | SideBySideGroup | Video | MuseScore), Remix_info? }
 Slate =
  element slate {
   UniqueID?,
@@ -63,4 +63,6 @@ Configuration |=
    attribute href { text }
   }?
  }
-
+ 
+ #permit Paragrphs in solutions
+ Solution |= element solution { MetaDataTitleOptional, (BlockStatement | Paragraphs)+ }
