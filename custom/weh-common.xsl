@@ -2,6 +2,9 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
  
+ <!--turn off timestamp on output files, prevent spurious diff in git.-->
+ <xsl:param name="debug.datedfiles" select="'no'"/>
+ 
  <xsl:param name="debug.chapter.start" select='2'/>
  <!-- start chapters with zero-->
  <xsl:param name="numbering.maximum.level" select="3"/>
