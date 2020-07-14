@@ -17,9 +17,9 @@
  <!-- add weh custom templates -->
   
  <!-- don't put solutions in knowls modifies template at line 337 in mathbook-html.xsl-->
- <xsl:template match="solution" mode="is-hidden">
+ <!--<xsl:template match="solution" mode="is-hidden">
   <xsl:text>false</xsl:text>
- </xsl:template>
+ </xsl:template>-->
  
  <!-- Add numbas iframe -->
  <xsl:template match="interactive[@platform='numbas']">
