@@ -5,7 +5,7 @@
  <!--turn off timestamp on output files, prevent spurious diff in git.-->
  <xsl:param name="debug.datedfiles" select="'no'"/>
  
- <xsl:param name="debug.chapter.start" select='2'/>
+ <xsl:param name="debug.chapter.start" select='1'/>
  <!-- start chapters with zero-->
  <xsl:param name="numbering.maximum.level" select="3"/>
  <!-- 3 = nothing deeper than a subsection gets a number -->

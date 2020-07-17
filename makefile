@@ -133,7 +133,14 @@ preview:
 images: 
 	install -d $(MBX_OUT)/latex_images
 	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE); 
+	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
+
+debug:
+	make copy_images
+	install -d $(MBX_OUT)/latex_images
+	-rm $(MBX_OUT)/latex_images/*
+	$(MB)/pretext/pretext -vv -r multi-particle -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
+	open $(MBX_OUT)/latex_images/
 #
 # this copies all the source images and resources to the 
 # build/images folder, while flattening the hierarchy
@@ -148,6 +155,7 @@ copy_images:
 	find $(RESOURCES) -iname '*.png'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(RESOURCES) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
 	find $(RESOURCES) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	find $(RESOURCES) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 #
 # copies html to local webserver and opens index page
 #
