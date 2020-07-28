@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>statics introduction</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<script type="application/json" class="js-hypothesis-config">{
+    "openLoginForm": false;    "openSidebar": false;    "showHighlights": true;}</script><script src="https://hypothes.is/embed.js" async=""></script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="statics.css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" class="hidden-content" style="display:none">\(\require{cancel} \let\vecarrow\vec
+ \renewcommand{\vec}{\mathbf}
+ \newcommand{\ihat}{\vec{i}}
+ \newcommand{\jhat}{\vec{j}}
+ \newcommand{\khat}{\vec{k}}
+ \newcommand{\degree}{^\circ}
+ \DeclareMathOperator{\proj}{proj}
+ 
+ \definecolor{aliceblue}{HTML}{F0F8FF}
+ 
+ 
+ 
+ \newcommand{\kg}[1]{#1~\text{kg} }
+ \newcommand{\lbm}[1]{#1~\text{lb}_m }
+ \newcommand{\slug}[1]{#1~\text{slug} }
+
+ 
+ \newcommand{\m}[1]{#1~\text{m}}
+ \newcommand{\km}[1]{#1~\text{km}}
+ \newcommand{\cm}[1]{#1~\text{cm}}
+ \newcommand{\mm}[1]{#1~\text{mm}}
+ \newcommand{\ft}[1]{#1~\text{ft}}
+ \newcommand{\inch}[1]{#1~\text{in}}
+
+ 
+ \newcommand{\N}[1]{#1~\text{N} }
+ \newcommand{\kN}[1]{#1~\text{kN} }
+ \newcommand{\MN}[1]{#1~\text{MN} }
+ \newcommand{\lb}[1]{#1~\text{lb} }
+ \newcommand{\lbf}[1]{#1~\text{lb}_f }
+
+ 
+  \newcommand{\Nm}[1]{#1~\text{N}\!\cdot\!\text{m} }
+  \newcommand{\kNm}[1]{#1~\text{kN}\!\cdot\!\text{m} }
+  \newcommand{\ftlb}[1]{#1~\text{ft}\!\cdot\!\text{lb} }
+  \newcommand{\inlb}[1]{#1~\text{in}\!\cdot\!\text{lb} }
+  
+  
+  \newcommand{\lbperft}[1]{#1~\text{lb}/\text{ft} }
+  \newcommand{\Nperm}[1]{#1~\text{N}/\text{m} }
+  \newcommand{\kgperkm}[1]{#1~\text{kg}/\text{km} }
+
+  
+  
+ \newcommand{\aSI}[1]{#1~\text{m}/\text{s}^2 }
+  \newcommand{\aUS}[1]{#1~\text{ft}/\text{s}^2 } 
+  
+  
+  \newcommand{\unit}[1]{#1~\text{unit} }
+  \newcommand{\ang}[1]{#1^\circ }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<p class="byline"></p>
+</div>
+</div></div>
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="author-information-writing.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="author-information-writing.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="author-information-writing-units.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="author-information-writing.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="author-information-writing.html" title="Up">Up</a><a class="next-button button toolbar-item" href="author-information-writing-units.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link">
+<a href="Chapter_01.html" data-scroll="Chapter_01"><span class="codenumber">1</span> <span class="title">Introduction To Statics</span></a><ul>
+<li><a href="Chapter_01-introduction.html" data-scroll="Chapter_01-introduction">Introduction</a></li>
+<li><a href="newtons-laws.html" data-scroll="newtons-laws">Newton’s Laws of Motion</a></li>
+<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units">Units</a></li>
+<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces">Forces</a></li>
+<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving">Problem Solving</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
+<li><a href="Chapter_02-vectors-and-scalars.html" data-scroll="Chapter_02-vectors-and-scalars">Vectors and Scalars</a></li>
+<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
+<li><a href="vectors_2d.html" data-scroll="vectors_2d">Two-Dimensional Vectors</a></li>
+<li><a href="Chapter_02-three-dimensional-vectors.html" data-scroll="Chapter_02-three-dimensional-vectors">Three-Dimensional Vectors</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_03.html" data-scroll="Chapter_03"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
+<li><a href="ch3-intro.html" data-scroll="ch3-intro">Equilibrium</a></li>
+<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles">Particles</a></li>
+<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
+<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
+<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles">Particles in Three Dimensions</a></li>
+<li><a href="Chapter_03-examples.html" data-scroll="Chapter_03-examples">Examples</a></li>
+<li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalance</span></a><ul>
+<li><a href="Chapter_04-introduction.html" data-scroll="Chapter_04-introduction">Introduction</a></li>
+<li><a href="Chapter_04-scalar-moments.html" data-scroll="Chapter_04-scalar-moments">Scalar Moments</a></li>
+<li><a href="Chapter_04-cross-products.html" data-scroll="Chapter_04-cross-products">Cross Products</a></li>
+<li><a href="Chapter_04-moment-about-a-point-.html" data-scroll="Chapter_04-moment-about-a-point-">Moment about a Point</a></li>
+<li><a href="Chapter_04-moment-about-a-line.html" data-scroll="Chapter_04-moment-about-a-line">Moment about a Line</a></li>
+<li><a href="Chapter_04-moments-from-couples.html" data-scroll="Chapter_04-moments-from-couples">Moments from Couples</a></li>
+<li><a href="Chapter_04-equivalent-transformations.html" data-scroll="Chapter_04-equivalent-transformations">Equivalent Transformations</a></li>
+<li><a href="Chapter_04-statically-equivalent-systems.html" data-scroll="Chapter_04-statically-equivalent-systems">Statically Equivalent Systems</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_06.html" data-scroll="Chapter_06"><span class="codenumber">5</span> <span class="title">Equilibrium of Structures</span></a><ul>
+<li><a href="Chapter_06-introduction.html" data-scroll="Chapter_06-introduction">Introduction</a></li>
+<li><a href="Chapter_06-simple-trusses.html" data-scroll="Chapter_06-simple-trusses">Simple Trusses</a></li>
+<li><a href="method-of-joints.html" data-scroll="method-of-joints">The Method of Joints</a></li>
+<li><a href="method-of-sections.html" data-scroll="method-of-sections">The Method of Sections</a></li>
+<li><a href="frames-and-machines.html" data-scroll="frames-and-machines">Frames and Machines</a></li>
+<li><a href="Chapter_06-chapter-review.html" data-scroll="Chapter_06-chapter-review">Chapter Review</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_08.html" data-scroll="Chapter_08"><span class="codenumber">6</span> <span class="title">Internal Loadings</span></a><ul>
+<li><a href="ch08-definition.html" data-scroll="ch08-definition">Internal Loads</a></li>
+<li><a href="Chapter_08-sign-conventions.html" data-scroll="Chapter_08-sign-conventions">Sign Conventions</a></li>
+<li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal loads at a point</a></li>
+<li><a href="VM_diagrams.html" data-scroll="VM_diagrams">Shear and Bending Moment Diagrams</a></li>
+<li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">7</span> <span class="title">Friction</span></a><ul>
+<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
+<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
+<li><a href="Chapter_09-slipping-vs-tipping.html" data-scroll="Chapter_09-slipping-vs-tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
+<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
+<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
+<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
+<li class="link">
+<a href="useful-mathematics.html" data-scroll="useful-mathematics"><span class="codenumber">A</span> <span class="title">Useful Mathematics</span></a><ul>
+<li><a href="useful-mathematics-distance-formula.html" data-scroll="useful-mathematics-distance-formula">Distance Formula</a></li>
+<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa">Right Triangle Trigonometry</a></li>
+<li><a href="useful-mathematics-oblique-triangle-trigonometry.html" data-scroll="useful-mathematics-oblique-triangle-trigonometry">Oblique Triangle Trigonometry</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="backmatter-properties-of-steel-sections.html" data-scroll="backmatter-properties-of-steel-sections"><span class="codenumber">B</span> <span class="title">Properties of Steel Sections</span></a><ul>
+<li><a href="backmatter-properties-of-steel-sections-angles.html" data-scroll="backmatter-properties-of-steel-sections-angles">Angles</a></li>
+<li><a href="backmatter-properties-of-steel-sections-channels.html" data-scroll="backmatter-properties-of-steel-sections-channels">Channels</a></li>
+<li><a href="backmatter-properties-of-steel-sections-standard-sections.html" data-scroll="backmatter-properties-of-steel-sections-standard-sections">Standard Sections</a></li>
+<li><a href="backmatter-properties-of-steel-sections-wide-flange-sections.html" data-scroll="backmatter-properties-of-steel-sections-wide-flange-sections">Wide Flange Sections</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="author-information.html" data-scroll="author-information"><span class="codenumber">C</span> <span class="title">Author Information</span></a><ul>
+<li><a href="author-information-writing.html" data-scroll="author-information-writing">Writing</a></li>
+<li><a href="author-information-problem-solving.html" data-scroll="author-information-problem-solving">Problem Solving</a></li>
+<li><a href="pretext-info.html" data-scroll="pretext-info">PreTeXt Setup</a></li>
+<li><a href="author-information-pretext-tags.html" data-scroll="author-information-pretext-tags">Pretext tags</a></li>
+<li><a href="author-information-chapter-notes.html" data-scroll="author-information-chapter-notes">Chapter Notes</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="subsection" id="author-information-writing-introduction"><h2 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">C.1.1</span> <span class="title">introduction</span>
+</h2>
+<blockquote class="blockquote" id="blockquote-3">
+<p id="p-1413">Omit needless words.  Vigorous writing is concise.</p>
+<p id="p-1414">A sentence should contain no unnecessary words, a paragraph no unnecessary sentences, for the same reason that a drawing should have no unnecessary lines and a machine no unnecessary parts. This requires not that the writer make all his sentences short, or that he avoid all detail and treat his subjects only in outline, but that every word tell.</p>
+<cite class="attribution">―Strunk and White, <span class="booktitle">The Elements of Style</span></cite>
+</blockquote>
+<p id="p-1415">Bad —“The type of friction which Statics focuses on is dry friction.”</p>
+<p id="p-1416">Good —“Statics focuses on dry friction.”</p>
+<p id="p-1417">Bad —“All normal forces on a FBD should be pointing at (and not away from) the body.”</p>
+<p id="p-1418">Good —“Normal forces on a FBD should point towards the body.”</p>
+<article class="paragraphs" id="paragraphs-82"><h5 class="heading"><span class="title">Consistency.</span></h5>
+<p id="p-1419">What's our point of view?  It is all over the place in the text.</p>
+<p id="p-1420">Formal or informal?</p>
+<p id="p-1421">Are we directing and guiding the students?  “You start by...”</p>
+<p id="p-1422">Are we collaborating with the students?  “We can see that...”</p>
+<p id="p-1423">Are we the wise sage.  “Let us transition to the forces...”</p>
+<p id="p-1424">Should we avoid pronouns and just make statements.  “The result is...”</p>
+<ul id="p-1425" class="disc">
+<li id="li-375">Say free body diagram, not free-body diagram, alternately you can say <abbr class="acronym">FBD</abbr>. Never say FBD’s; you mean FBDs.</li>
+<li id="li-376">Say two-dimensional problem, not 2D problem or “two dimensional”</li>
+<li id="li-377">There is no hyphen in two dimensions.</li>
+<li id="li-378">\(x\) axis, not \(x\)-axis.</li>
+<li id="li-379">use double quotes <code class="code-inline tex2jax_ignore">&lt;q&gt;</code> to set off a word as a word, or better still if it is a term, use <code class="code-inline tex2jax_ignore">&lt;term&gt;</code> tag.</li>
+<li id="li-380">Use unordered lists when order is not significant.  Use ordered lists for things that <em class="emphasis">need</em> to be numbered, like a procedure.</li>
+<li id="li-381">Punctuate ordered lists with periods at the end of each item. Punctuate unordered list like one long sentence  i.e., commas or semicolons at the end of each item except the last, which gets a period</li>
+<li id="li-382">No “use your equations of equilibrium” Yes“the equations of equilibrium.”</li>
+<li id="li-383">Spell out clockwise and counter-clockwise, unless in space is limited, like in a table or caption.</li>
+<li id="li-384">Spell out numbers less than ten.</li>
+<li id="li-385">Maintain consistent capitalization in chapter/section titles - use title case.</li>
+<li id="li-386">Keep titles short enough to fit in one line in the  pretext sidebar.</li>
+<li id="li-387">Keep an eye out for 'emphasis' quotes or ALL CAPS.  Instead use the <code class="code-inline tex2jax_ignore">&lt;em&gt;</code> tag.</li>
+</ul></article><article class="paragraphs" id="paragraphs-83"><h5 class="heading"><span class="title">Math Typesetting.</span></h5>
+<p id="p-1426">Pay attention to details</p>
+<ul class="square">
+<li id="li-388">Points look like P, use no markup.</li>
+<li id="li-389">Vectors look like \(\vec{V}\text{,}\) markup as  <code class="code-inline tex2jax_ignore">&lt;m&gt;\vec{V}&lt;/m&gt;</code>.</li>
+<li id="li-390">Scalars and variables are italic, like \(A\text{,}\) or \(T\text{,}\) markup as  <code class="code-inline tex2jax_ignore">&lt;m&gt;T&lt;/m&gt;</code>.</li>
+<li id="li-391">Latex subscripts: variables should be italic, labels upright.  \(F_x\) vs. \(M_\text{cut}.\)</li>
+<li id="li-392">Use macros  <code class="code-inline tex2jax_ignore">\ihat</code>,  <code class="code-inline tex2jax_ignore">\jhat</code>,  <code class="code-inline tex2jax_ignore">\khat</code> for unit vectors.</li>
+<li id="li-393">Avoid  <code class="code-inline tex2jax_ignore">\cdot</code> for implied multiplication, it could be confused for dot product.</li>
+<li id="li-394">Put a space before differential quantities in integrals like so:   <code class="code-inline tex2jax_ignore">y = \int x\; dx</code>.</li>
+<li id="li-395">No parentheses around simple arguments of trig functions. Use \(\sin \alpha\text{,}\) not \(\sin (\alpha)\text{.}\) Use parentheses for ambiguous arguments \(\sin (2 \pi f t).\)</li>
+</ul></article><article class="paragraphs" id="paragraphs-84"><h5 class="heading"><span class="title">Notation.</span></h5>
+<p id="p-1427"><em class="alert">Vector Notation</em></p>
+<figure class="table table-like" id="table-12"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">C.1<span class="period">.</span></span><span class="space"> </span>Vector Notation</figcaption><table>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">Latex</td>
+<td class="l m b1 r0 l0 t0 lines">Result</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">Notes</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">default \vec{}</td>
+<td class="l m b1 r0 l0 t0 lines">\(\vec{F}\text{,}\)  \(\vec{F}_x\text{,}\) \(\vec{i}\text{,}\) \(\vec{j}\text{,}\) \(\vec{\alpha}\text{,}\) \(\vec{\lambda}\)</td>
+<td class="l m b1 r0 l0 t0 lines">Greek letters  are not bold</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell"></td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\ihat, \jhat, \khat</td>
+<td class="l m b1 r0 l0 t0 lines">\(\ihat\text{,}\) \(\jhat\text{,}\) \(\khat\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">Use these, not \vec{i} etc.</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\vecarrow</td>
+<td class="l m b1 r0 l0 t0 lines">\(\vecarrow{A}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell"></td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\overrightarrow</td>
+<td class="l m b1 r0 l0 t0 lines">\(\overrightarrow{A}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell"></td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\hat</td>
+<td class="l m b1 r0 l0 t0 lines">\(\hat{i}\text{,}\) \(\hat{j}\text{,}\) \(\hat{k}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell"></td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\textbf</td>
+<td class="l m b1 r0 l0 t0 lines">\(\textbf{F}, \)\(\textbf{\alpha}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">\textbf{\alpha} doesn't work</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\mathbf</td>
+<td class="l m b1 r0 l0 t0 lines">\(\mathbf{F}\text{,}\) \(\mathbf{\alpha}\text{,}\) \(\mathbf{i}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">upright, but greek letters aren't bold.</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\boldsymbol</td>
+<td class="l m b1 r0 l0 t0 lines">\(\boldsymbol{F}\text{,}\) \(\boldsymbol{\alpha}\text{,}\) \(\boldsymbol{\lambda}\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">bold greek letters, but italic</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\i \j (dotless)</td>
+<td class="l m b1 r0 l0 t0 lines">\(\i,\)\(\j\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">doesn't work in MathJax</td>
+</tr>
+<tr>
+<td class="l m b1 r0 l0 t0 lines">\imath, \jmath</td>
+<td class="l m b1 r0 l0 t0 lines">\(\imath\text{,}\) \(\jmath\)</td>
+<td class="l m b1 r0 l0 t0 lines" data-braille="last-cell">italic and dotless</td>
+</tr>
+</table></figure><p id="p-1428">Figure SS – This interactive allows you to input the vector components of \(\vec{F}_A\) and \(\vec{F}_B\) and then compute the magnitude of the projection of \(\vec{F}_A\) onto \(\vec{F}_B\)\(\left \| \proj_{\vec{F}_B}\vec{F}_A \right \|\text{,}\) the vector projection of \(\vec{F}_A\) onto \(\vec{F}_B\) (\(\proj_{\vec{F}_B}\vec{F}_A\)) and also the vector portion of \(\vec{F}_A\) which is perpendicular to \(\vec{F}_B\text{.}\) Source:</p>
+<p id="p-1429">Unit vectors without dots?  http://www.tapdancinggoats.com/latex-vector-notation.htm</p>
+<p id="p-1430">What notation for vector components?</p>
+<p id="p-1431">\(\vec{F} = (F_x, F_y, F_z)\) vs. \(\vec{F} = \langle F_x, F_y, F_z \rangle\text{,}\) \(\vec{F}=(20;\ang{30})\)</p>
+<p id="p-1432">What notation for polar representation?  I want to use angles &lt; 90° from a reference.</p>
+<p id="p-1433"><em class="alert">Absolute values, scalar components, matrices, determinants</em></p>
+<p id="p-1434">Single or double bars for absolute value?</p>
+<div class="displaymath" id="p-1435">
+\begin{gather*}
+\left | \proj_{\vec{F}_B}\vec{F}_A \right |\\
+\left \| \proj_{\vec{F}_B}\vec{F}_A \right \|
+\end{gather*}
+</div>
+<p id="p-1436">Notation for matrices and determinants?  I believe determinants are in vmatrix, matrices in bmatrix or matrix</p>
+<div class="displaymath" id="p-1437">
+\begin{align*}
+\vec{M} \amp = \vec{r} \times \vec{F}\\
+\amp = \det \begin{bmatrix} \ihat \amp \jhat \amp \khat \\ r_x \amp r_y \amp r_z \\ F_x \amp F_y \amp F_z \end{bmatrix}  = \begin{vmatrix} \ihat \amp \jhat \amp \khat \\ r_x \amp r_y \amp r_z \\ F_x \amp F_y \amp F_z \end{vmatrix} \\
+\amp = (r_y F_z- r_z F_y) \ihat - (r_x F_z - r_z F_x)\jhat - (r_x F_y - r_y F_x)\khat 
+\end{align*}
+</div>
+<p id="p-1438">What is the best notation for the projection operation?</p>
+<p id="p-1439">\(\proj^{\vec{F}_A}_{\vec{F}_B}\text{,}\) or  \(\proj_{\vec{F}_A/\vec{F}_B} \text{,}\) or</p>
+<p id="p-1440">\(\proj_{\vec{F}_A,\vec{F}_B} \text{,}\) or \(\proj_{\vec{F}_A}(\vec{F}_B)\text{.}\)</p></article></section></div></main>
+</div>
+</body>
+</html>
