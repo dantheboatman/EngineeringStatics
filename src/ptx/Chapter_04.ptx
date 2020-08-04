@@ -59,71 +59,28 @@ enableRightClick(false)
 enableShiftDragZoom(false)
 </slate><remix><creator href="https://weh.maritime.edu">William Haynes</creator><creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license><license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license><source href="http://www.geogebra.org/m/xnakpuqq"/></remix><instructions>
 <p>This interactive adds moment arms to the wrench example outlined in <xref ref="rhr3"/>.</p></instructions></interactive></figure>
-<p>Notice that the moment arm always points FROM the point you are taking the moment about TO the force’s line of action. Practice using the right-hand rule to determine the direction of the moment as you rotate the wrench and <m>\vec{F}</m>. We will introduce the use of the general position vector <m>\vec{r}</m> in the sections ahead.</p></section><section xml:id="Chapter_04-cross-products">
+<p>Notice that the moment arm always points FROM the point you are taking the moment about TO the force’s line of action. Practice using the right-hand rule to determine the direction of the moment as you rotate the wrench and <m>\vec{F}</m>. We will introduce the use of the general position vector <m>\vec{r}</m> in the sections ahead.</p>
+<p>Varignon’s Theorem is a mathematical simplification of taking cross products developed by French mathematician Pierre Varignon (1654 <ndash/> 1722) which was published in 1687. It states that the sum of the moments of multiple concurrent forces is equal to the moment of the resultant of those forces. In other words, to find the moment of a series of concurrent forces about a given point, we can sum the forces first to find the resultant and then calculate the moment of that resultant about the point of interest, or compute the moment of each individual force about the point of interest and then sum those moments to find the net moment about that point.</p>
+<p>Either method will give us equivalent results. </p>
+<p>This can be a convenient tool if you know the Cartesian components of a force (<m>F_x</m> and <m>F_y</m>) and want to calculate the moment of that force about a point.  Varignon’s Theorem tells you that you can calculate the moment of <m>F_x</m> and <m>F_y</m> about that point individually, and then add the results to find the net moment about the point.  As an added bonus, the <m>x</m> and <m>y</m> components of the position vector and the force vector are naturally perpendicular, so you do not need to apply the full cross product. Simply multiply the perpendicular components and assign signs for each moment from the right-hand rule. In the case of a two-dimensional moment this would look like:</p>
+<p><md><mrow>\vec{M}=\vec{r}\times\vec{F}</mrow><mrow>\vec{M}=\vec{r}_x\times\vec{F}_y + \vec{r}_y\times\vec{F}_x</mrow></md></p></section><section xml:id="cross-products">
 
-<title>Cross Products</title>
+<title>Moment Cross Products</title>
 
 <objectives><introduction>
 <p>At the end of this chapter you should be able to answer these questions.</p></introduction><ul>
-<li>How is a cross product different than a dot product?</li>
 <li>Where does the moment arm vector <m>\vec{r}</m> start and end?</li>
 <li>Why does Varignon’s Theorem give you the same answer as a determinate?</li></ul></objectives>
 <p>You may have noticed in <xref ref="ggb_xnakpuqq"/> that there were two different position vectors shown from bolt <m>A</m> to the line of action of the force <m>\vec{F}</m>. The more general of the two is <m>\vec{r}</m> which, by definition, goes from the point of interest to any point on the line of action of the force. You can use any <m>\vec{r }</m> that originates at  A and ends at a point on the line of action of <m>\vec{F}</m>, but the one down the handle of the wrench is probably the easiest to construct. </p>
 <p>Although we refer to the moment about a point (on the two-dimensional body), the moment is actually rotating about an axis. Using our standard <m>x</m>-<m>y</m> axes in the plane of the screen/paper, all two-dimensional moments rotate about a <m>z</m> axis which is perpendicular to the page/screen. </p>
-<p>Finding a cross product is a vector operation where you feed the cross product two vectors and it gives you a vector answer that is perpendicular to both vectors you crossed. The most basic equation for computing a cross product is </p>
-<p><men>\vec{A} \times \vec{B} = ( A )( B )\sin \theta \; \hat{\vec{u}}</men></p>
-<p>where <m>\theta</m> is the angle between the two vectors as shown in <xref ref="ggb_xnakpuqq"/> above, and <m>\hat{\vec{u}}</m> is the unit vector perpendicular to both <m>\vec{A}</m> and <m>\vec{B}</m>  with the direction coming from the right-hand rule.</p>
-<p>Before we get into the details of using matrices to cross full vectors, let us start with crossing unit vectors. One way to define the cross products of unit vectors is with the cross product circle shown in <xref ref="cross_product_circle_EE"/>. For example when you cross <m>\ihat</m> with <m>\jhat</m>  you are going in the positive direction (counterclockwise which is also the + RHR direction) around the blue inner circle and thus the answer is <m>+\khat</m>. But when you cross <m>\jhat</m> into <m>\ihat</m> you go in the negative (clockwise) direction around the circle and thus get a  <m>-\khat</m>. </p><figure xml:id="cross_product_circle_EE">
-
-<caption>
-Unit vector cross product circle. Notice that the order of cross products matter. If you put the vectors in the wrong order, you will introduce a negative value error.
-   </caption>
-
-<image width="30%" source="images/cross_product_circle.png"><remix><creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator><license href="https://creativecommons.org/choose/zero/">CC-0</license></remix></image></figure>
-<p>All the possible combinations of positive value unit vector cross products create the following equations</p>
-<p><md><mrow>\ihat \times \ihat \amp =0       \amp \ihat \times \jhat \amp = \khat \amp \ihat \times \khat \amp = -\jhat</mrow><mrow>\jhat \times \ihat \amp = -\khat \amp \jhat \times \jhat \amp = 0     \amp \jhat \times \khat \amp = \ihat </mrow><mrow>\khat \times \ihat \amp = \jhat  \amp \khat \times \jhat \amp =-\ihat \amp \khat \times \khat \amp =0 </mrow></md></p>
-<p>If you have any negative unit vectors it is easiest to separate the negative values until after you have taken the cross product. Therefore <me>-\jhat \times \ihat = (-1)\left ( \jhat \times \ihat \right )=(-1)(-\khat )=+\khat </me></p>
-<p>You will notice that all the terms in the cross product equation are quite similar to those of the dot product, with the exception of the unit vector <m>\hat{\vec{u}}</m>. This unit vector <m>\hat{\vec{u}}</m> is simple to find in a two-dimensional problem as it will always be perpendicular to the page/screen, but for three-dimensional cross products it is advisable to use a vector determinate which will be covered in the next section. Table aa below should help you contrast dot products and cross products.</p><table xml:id="contrast_dot_cross">
-
-<title>Contrast of dot products and cross products</title>
-
-<tabular halign="left" bottom="minor"><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
-<row><cell>
-<p>        Vector Operation</p></cell><cell>
-<p>        Fundamental Uses</p></cell><cell>
-<p>        Output Type and Equations</p></cell><cell>
-<p>        Does the vector order matter?</p></cell><cell>
-<p>        Physical Description of Output</p></cell></row>
-<row><cell>
-<p>        Dot Product</p></cell><cell>
-<p>        Finds the amount of one vector parallel to the other Finds amount of one vector projected onto another</p></cell><cell>
-<p>        Scalar <me>\vec{A} \cdot \vec{B} = A_x B_x + A_y B_y = ( A )( B )\cos \theta</me></p></cell><cell>
-<p>        No. <me>\vec{A}\cdot\vec{B}=\vec{B}\cdot\vec{A}</me></p></cell><cell>
-<p>        The magnitude is the product of the projection of the 1st vector onto the 2nd and the length of the 2nd vector. There is no direction but the value can be positive or negative.</p></cell></row>
-<row><cell>
-<p>        Cross Product</p></cell><cell>
-<p>        Finds the amount of one vector perpendicular to the other </p>
-<p>        Finds the moment (torque) of a force <m>\vec{F}</m> which is separated from the point of interest by a distance <m>\vec{r}</m></p></cell><cell>
-<p>        Vector <me>\vec{A} \times \vec{B}=  ( A )( B )\sin \theta\hat{\vec{u}}</me></p></cell><cell>
-<p>        Yes. <me>\vec{A}\times \vec{B}= \mathbf{-} \vec{B} \times \vec{A} </me></p></cell><cell>
-<p>        The magnitude is the product of the amount of the 1st vector which is perpendicular to the 2nd times the 2nd vector. The direction is perpendicular to both vectors with the sense determined by the right-hand rule</p></cell></row></tabular></table>
-<p>Often the most robust approach to finding the moment of a force is using the cross product of <m>\vec{r}</m> and <m>\vec{F}</m> in the equation: <men>\vec{M} = \vec{r} \times \vec{F}</men></p>
-<p>where <m>\vec{r}</m>  is a position vector from the point of interest to the line of action of the force, and <m>\vec{F}</m> is a force vector.</p>
-<p>As introduced in the previous section, if you know the angle <m>\theta</m> between <m>\vec{r}</m> and <m>\vec{F}</m> you can use </p>
-<p><md><mrow>\vec{r} \times \vec{F}\amp =\left |\vec{r} \right |  \left |\vec{F} \right |  \sin \theta \, \hat{\vec{u}}</mrow></md></p>
-<p>However if you know the components of the position <m>\vec{r}</m> and force <m>\vec{F}</m> vectors, it is typically most efficient to express the cross product as a determinant which includes both <m>\vec{r}</m> and <m>\vec{F}</m> in the form:
-<me>\vec{M}  = \vec{r} \times \vec{F} = \begin{bmatrix}
-\ihat \amp \jhat \amp \khat\\ 
-{r}_{x} \amp {r}_{y} \amp 0\\ 
-{F}_{x} \amp {F}_{y} \amp 0
-\end{bmatrix}</me></p>
-<p>There are a number of ways to compute determinants, but all methods fundamentally sum the products of the matrix diagonals. Therefore, in a two-dimensional cross product, the only components to cause a cross product are the perpendicular ones <m>\vec{r_x}\times \vec{F_y}</m>  and <m>\vec{r_y}\times \vec{F_x}</m>, which are also perpendicular to each other in a determinant. Hopefully you have already recognized that the process of multiplying the diagonals in a determinant fundamentally is doing the right-hand rule for you. For this reason, diagonal products angled down and to the right are all positive and the diagonal products angled down and to the left are all negative (as shown in Equation XX below). You can validate the signs as the equation <m>\vec{r_x}\times \vec{F_y}</m> is essentially <m>\left ( \ihat \times \jhat \right ){r_x}{F_y}</m>  and  <m>\left ( \ihat \times \jhat \right)  = +\khat</m>. Conversely, any parallel components between the moment arm <m>\vec{r}</m> and force <m>\vec{F}</m> make a cross product equal to zero.
+<p>Finding a cross product is a vector operation where you feed the cross product two vectors and it gives you a vector answer that is perpendicular to both vectors you crossed. The mathematics of cross products were discussed in <xref ref="cross-product-math" text="title"/> where the basic equation was given as <xref ref="cross-product-def"/> where <m>\theta</m> is the angle between the two vectors as shown in <xref ref="ggb_xnakpuqq"/> above, and <m>\hat{\vec{u}}</m> is the unit vector perpendicular to both <m>\vec{A}</m> and <m>\vec{B}</m>  with the direction coming from the right-hand rule.</p>
+<p>Evaluating a moment using this method, 
 <me>\vec{M} = \vec{r} \times \vec{F}  = 
-\begin{bmatrix}
+\begin{vmatrix}
 \ihat \amp \jhat \amp \khat\\ 
 {r}_{x} \amp {r}_{y} \amp 0\\ 
 {F}_{x} \amp {F}_{y} \amp 0
-\end{bmatrix}
+\end{vmatrix}
 \color{Peach}{
 \begin{matrix}
  \ihat \amp \jhat\\ 
@@ -138,11 +95,16 @@ Unit vector cross product circle. Notice that the order of cross products matter
 <li>The order must always be <m>\vec{r}\times\vec{F}</m>, never <m>\vec{F}\times\vec{r}</m>. Thus the moment arm <m>\vec{r}</m> appears in the middle line of the determinant and the force <m>\vec{F}</m> on the bottom line.</li>
 <li>The moment arm <m>\vec{r}</m> must always be measured from the point of interest to the force. Never from the force to the point.</li>
 <li>The signs of the components of <m>\vec{r}\text{ and }\vec{F}</m> must follow those of a right-hand coordinate system (covered in Ch 2). The most common right-hand coordinate system has the x-axis positive to the right, the y-axis positive upward, and the z-axis positive coming out of the screen/page.</li></ul></p>
-<p>Varignon’s Theorem is a mathematical simplification of taking cross products developed by French mathematician Pierre Varignon (1654 <ndash/> 1722) which was published in 1687. It states that the sum of the moments of multiple concurrent forces (which all act through one point) is equal to the moment of the resultant of those forces. In other words, to find the moment of a series of concurrent forces about a given point, we can sum the forces first to find the resultant and then calculate the moment of that resultant about the point of interest, or compute the moment of each individual force about the point of interest and then sum those moments to find the net moment about that point.</p>
-<p>Either method will give us equivalent results. </p>
-<p>This can be a convenient tool if you know the Cartesian components of a force (<m>F_x</m> and <m>F_y</m>) and want to calculate the moment of that force about a point.  Varignon’s Theorem tells you that you can calculate the moment of <m>F_x</m> and <m>F_y</m> about that point individually, and then add the results to find the net moment about the point.  As an added bonus, the <m>x</m> and <m>y</m> components of the position vector and the force vector are naturally perpendicular, so you do not need to apply the full cross product. Simply multiply the perpendicular components and assign signs for each moment from the right-hand rule. In the case of a two-dimensional moment this would look like:</p>
-<p><md><mrow>\vec{M}=\vec{r}\times\vec{F}</mrow><mrow>\vec{M}=\vec{r}_x\times\vec{F}_y + \vec{r}_y\times\vec{F}_x</mrow></md></p>
-<p>Note that fundamentally Varignon’s Theorem gives you exactly the same equation as a vector determinant, without having to set up the determinant and worry about all the terms which go to zero.</p>
+<p>Often the most robust approach to finding the moment of a force is using the cross product of <m>\vec{r}</m> and <m>\vec{F}</m> in the equation: <men>\vec{M} = \vec{r} \times \vec{F}</men></p>
+<p>where <m>\vec{r}</m>  is a position vector from the point of interest to the line of action of the force, and <m>\vec{F}</m> is a force vector.</p>
+<p>As introduced in the previous section, if you know the angle <m>\theta</m> between <m>\vec{r}</m> and <m>\vec{F}</m> you can use </p>
+<p><md><mrow>\vec{r} \times \vec{F}\amp =\left |\vec{r} \right |  \left |\vec{F} \right |  \sin \theta \, \hat{\vec{u}}</mrow></md></p>
+<p>However if you know the components of the position <m>\vec{r}</m> and force <m>\vec{F}</m> vectors, it is typically most efficient to express the cross product as a determinant which includes both <m>\vec{r}</m> and <m>\vec{F}</m> in the form:
+<me>\vec{M}  = \vec{r} \times \vec{F} = \begin{bmatrix}
+\ihat \amp \jhat \amp \khat\\ 
+{r}_{x} \amp {r}_{y} \amp 0\\ 
+{F}_{x} \amp {F}_{y} \amp 0
+\end{bmatrix}</me></p>
 <p>The interactive  below will allow you to observe the multiple ways to solve for moments that were covered in the previous sections and also let you practice finding moments using the various techniques (by hiding the solutions until after you have tried yourself).</p>
 <p/><figure xml:id="ggb_cgjzpe7k">
 
@@ -283,7 +245,7 @@ enableShiftDragZoom(false)
 
 
 <p>When you add forces together using the rules of vector addition, you are performing an equivalent transformation. You can swap out two or more components and replace them with a single equivalent resultant force.  </p>
-<p>Any number of <em>coincident</em> forces can be added together to produce a single resultant force. By definition, the lines of action of coincident forces all intersect at a common point. The resultant must be placed at this intersection point in order for this replacement to be equivalent.  This is because before and after the replacement, the moment about the intersection point is zero.  If the resultant was placed somewhere else, that would not be true.</p></paragraphs><paragraphs>
+<p>Any number of <em>concurrent</em> forces can be added together to produce a single resultant force. By definition, the lines of action of concurrent forces all intersect at a common point. The resultant must be placed at this intersection point in order for this replacement to be equivalent.  This is because before and after the replacement, the moment about the intersection point is zero.  If the resultant was placed somewhere else, that would not be true.</p></paragraphs><paragraphs>
 
 <title>Replacing a Force with its Component</title>
 
@@ -438,7 +400,7 @@ Statically equivalent systems
 <li>Determine the resultant moment about the specified point by considering all forces and concentrated moments on the original system.</li>
 <li>Determine the resultant force by adding all forces acting on the original system.</li>
 <li>Determine the resultant moment about a point in the original system</li>
-<li>Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment  at the selected point.</li></ol></p><investigation xml:id="-eccentric-loading">
+<li>Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment  at the selected point.</li></ol></p><investigation xml:id="eccentric-loading">
 
 <title>Eccentric loading</title>
 
