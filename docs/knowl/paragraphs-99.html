@@ -11,19 +11,17 @@
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-<article class="paragraphs"><h5 class="heading"><span class="title">Introduction.</span></h5>
-<p xmlns:svg="http://www.w3.org/2000/svg">Interactive and animated geogebra diagrams may be included. In the <abbr class="abbreviation">PDF</abbr> version they will render as a static image with a <abbr class="abbreviation">QR</abbr> code link to the web version.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">Warning: Unintentional line breaks in the script will break it, and strings must be quoted with double-quotes. I believe that if you have a commmand which throws an error, the remaining instructions are not executed</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">Keep width of geogebra diagrams ~&lt; 565 px to avoid scroll bars.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">in slate command:</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">No semicolons between commands</p>
-<p>Fitting</p>
-<ul class="square">
-<li>You you can use evalCommand('ZoomIn(xmin, ymin,xmax,ymax)') to size image to match aspect ratio.</li>
-<li>enableShiftDragZoom(false)</li>
-<li>enableRightClick(false)</li>
-<li>recalculateEnvironments()  Not sure what this does, but it seems good.</li>
-</ul>
-<p xmlns:svg="http://www.w3.org/2000/svg">To get text elements to fit properly, set everything to absolute position on screen, resize geogebra window to size of window in pretext, then place all the elements where you want them.  Fix, and prevent selection as necessary.</p></article><span class="incontext"><a href="author-information-problem-solving-geogebra-tips.html#paragraphs-99">in-context</a></span>
+<article class="paragraphs"><h5 class="heading"><span class="title">Troubleshooting Latex Images.</span></h5>
+<p xmlns:svg="http://www.w3.org/2000/svg">when running make images, if it doesn't complete</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Check that the path to the images in docinfo is correct.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg"><code class="code-inline tex2jax_ignore">LaTeX Error: Cannot determine size of graphic in ... (no BoundingBox)</code></p>
+<p xmlns:svg="http://www.w3.org/2000/svg">This error probably means that you are trying to us an SVG file in latex.  Needs to be PDF.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">I that's not it you can find the latex log file in the temporary folder created by the pretext script</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">set the -vv flag on the pretext/pretext script to get the path to the temporary folder</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Inside that will be an image-nn.tex and image-nn.log files left behind by the failed conversion.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Info in the log file may tell you where the problem is.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Compiling the image-nn.tex file will also help.  This calls the image.pdf_tex file which it needs access to, and will probably be where the problem actually is.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">My latex macro \cm{40} worked, but \m{0.4} was being split into two parts by \m{0 and .4} by inkscape, I think and I don't know why.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Latex images seem to be more trouble than they're worth.</p></article><span class="incontext"><a href="author-information-problem-solving.html#paragraphs-99">in-context</a></span>
 </body>
 </html>
