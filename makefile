@@ -100,13 +100,16 @@ html:
 
 pdf:
 	install -d $(BUILD)
+	install -d $(MBUSR)
 	install -d $(PDFOUT)
 	install -d $(PDFOUT)/images
 
 	-rm $(PDFOUT)/images/*
 	-rm $(PDFOUT)/*.*
+	# copy needed resources
 	make copy_images
 	cp -a $(IMAGESOUT) $(PDFOUT)
+	cp $(CUSTOM)/*.xsl $(MBUSR)
 
 	cd $(PDFOUT); \
 	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
@@ -135,12 +138,6 @@ images:
 	-rm $(MBX_OUT)/latex_images/*
 	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
 
-debug:
-	make copy_images
-	install -d $(MBX_OUT)/latex_images
-	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/pretext/pretext -vv -r multi-particle -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
-	open $(MBX_OUT)/latex_images/
 #
 # this copies all the source images and resources to the 
 # build/images folder, while flattening the hierarchy
