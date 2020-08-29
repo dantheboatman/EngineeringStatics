@@ -5,6 +5,8 @@
  <xsl:include href="weh-common.xsl"/>
 
  <!-- Customize latex behavior -->
+ 
+<xsl:param name="latex.geometry" select="'letterpaper,total={6in,9in}'"/>
  <xsl:template match="example" mode="tcb-style">
   <xsl:text>colback=aliceblue,</xsl:text>
  </xsl:template>
