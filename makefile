@@ -159,6 +159,6 @@ copy_images:
 publish:
 	-rm $(WEBDIR)/*.*
 	cp -R $(HTMLOUT)/* $(WEBDIR)
-	open $(BASEURL)
+	open $(BASEURL)/index.html
 
 
