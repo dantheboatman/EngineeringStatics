@@ -95,7 +95,7 @@ html:
 	cp $(CUSTOM)/*.css $(HTMLOUT)
 	cp $(CUSTOM)/*.xsl $(MBUSR)
 	cd $(HTMLOUT); \
-	xsltproc -xinclude $(MBUSR)/weh-custom-html.xsl $(MAINFILE); \
+	xsltproc -xinclude -stringparam publisher publisher.xml $(MBUSR)/weh-custom-html.xsl $(MAINFILE); \
 	open $(HTMLOUT)/index.html
 
 pdf:
@@ -112,7 +112,7 @@ pdf:
 	cp $(CUSTOM)/*.xsl $(MBUSR)
 
 	cd $(PDFOUT); \
-	xsltproc -xinclude -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
+	xsltproc -xinclude  -stringparam publisher publisher.xml -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
 	open  $(PDFOUT)/statics.tex
 	
 ##  Use the 'pretext' python script to generate various images from source.
