@@ -129,7 +129,7 @@ youtube:
 preview:  
 	install -d $(MBX_OUT)/preview
 	-rm $(MBX_OUT)/preview/*
-	$(MB)/pretext/pretext -v -c preview -d $(MBX_OUT)/preview $(MAINFILE);
+	$(MB)/pretext/pretext -vv -c preview -d $(MBX_OUT)/preview $(MAINFILE);
 #
 ##  renders latex text on Inkscape pdfs produces 
 #
@@ -137,6 +137,14 @@ images:
 	install -d $(MBX_OUT)/latex_images
 	-rm $(MBX_OUT)/latex_images/*
 	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
+
+## render asymptote
+#
+asy:  
+	install -d $(MBX_OUT)/asy
+	-rm $(MBX_OUT)/asy/*
+	$(MB)/pretext/pretext -vv -p /Users/whaynes/ptx/statics/src/ptx/publisher.xml -c asy -f svg -d $(MBX_OUT)/asy $(MAINFILE);
+
 
 #
 # this copies all the source images and resources to the 
