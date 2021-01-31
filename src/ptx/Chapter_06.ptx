@@ -1,430 +1,580 @@
-<?xml version="1.0" encoding="UTF-8"?><chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_06">
-
-<title>Equilibrium of Structures</title>
-
-<objectives><ul>
-<li>Why are some structures called “trusses” and others “frames and machines”?</li>
-<li>Why is a two-force member is associated with only a single unknown value?</li>
-<li>How can you identify the two-force members in a structure?</li>
-<li>How does Newton’s Third Law apply to interaction forces between connected members in structure?</li>
-<li>How do you conceptualize a load path from an applied load to the structure’s reactions?</li></ul></objectives><section xml:id="Chapter_06-introduction">
-
-<title>Introduction</title>
-
-
-<p>In this chapter you will conduct static analysis of multi-body structures. Broadly defined, a structure is any set of interconnected rigid bodies. The parts comprising the structure may move relative to one another, such as the blades in a pair of scissors, or they may be fixed relative to one another, such as the structural members within a bridge. </p>
-<p>Analysis of structures involves applying the techniques you have learned in the previous chapters to solve for the forces acting on and between individual members of the structure.  Fundamentally there is nothing new here, however the problems tend to have more unknown forces, and so are more involved and provide more opportunities for error than the problems you have previously encountered.  Clear diagrams and careful work are required, as always.</p><paragraphs>
-
-<title>Structures</title>
-
-
-<p>All structures fall into one of three broad categories: trusses, frames, and machines.  A key skill you will learn in this chapter is to properly classify structures. </p>
-<p/><figure xml:id="scissors">
-
-<caption>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_06">
+  <title>Equilibrium of Structures</title>
+  <objectives>
+    <ul>
+      <li>Why are some structures called “trusses” and others “frames and machines”?</li>
+      <li>Why is a two-force member is associated with only a single unknown value?</li>
+      <li>How can you identify the two-force members in a structure?</li>
+      <li>How does Newton’s Third Law apply to interaction forces between connected members in structure?</li>
+      <li>How do you conceptualize a load path from an applied load to the structure’s reactions?</li>
+    </ul>
+  </objectives>
+  <section xml:id="Chapter_06-introduction">
+    <title>Introduction</title>
+    <p>In this chapter you will conduct static analysis of multi-body structures. Broadly defined, a structure is any set of interconnected rigid bodies. The parts comprising the structure may move relative to one another, such as the blades in a pair of scissors, or they may be fixed relative to one another, such as the structural members within a bridge. </p>
+    <p>Analysis of structures involves applying the techniques you have learned in the previous chapters to solve for the forces acting on and between individual members of the structure.  Fundamentally there is nothing new here, however the problems tend to have more unknown forces, and so are more involved and provide more opportunities for error than the problems you have previously encountered.  Clear diagrams and careful work are required, as always.</p>
+    <paragraphs>
+      <title>Structures</title>
+      <p>All structures fall into one of three broad categories: trusses, frames, and machines.  A key skill you will learn in this chapter is to properly classify structures. </p>
+      <p/>
+      <figure xml:id="scissors">
+        <caption>
 Scissors and bridges are  examples of engineering structures. The scissors consist of three interconnected bodies.  The bridge is a truss.
 </caption>
-
-<sidebyside widths="50%  50%"><image source="images/scissors.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image><image source="images/bridge-505_1280.jpg"><remix><creator>Simon (pixabay.com)</creator><license href="https://creativecommons.org/choose/zero/">CC-0</license><source href="https://www.needpix.com/photo/download/473/bridge-usa-gorge-arizona-free-pictures-free-photos-free-images-royalty-free-free-illustrations"/></remix></image></sidebyside></figure>
-<p>A <em>truss</em> is a multi-body structure made up of long slender members connected at their ends in triangular subunits.  Truss members carry axial forces only,  Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example.  Trusses are also used for crane booms, radio towers and the like. They are lightweight and relatively strong.  Over the years many unique truss designs have been developed and are often named after the original designer.</p>
-<p>A <em>frame</em> is a multi-part, rigid, stationary structure primarily designed to support some type of load.  A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces.  Many common items can be considered frames.  Some examples: building structure, furniture, ladders, scaffolding, and more.</p>
-<p>A <em>machine</em> is very similar to a frame, except that it includes some moving parts.  The purpose of a machine is usually to provide a mechanical advantage and multiply forces.  Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.</p>
-<p><em>Solving</em> a structure means determining all forces acting on all the parts of the structure.  The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part.  The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.</p></paragraphs><paragraphs>
-
-<title>Two-force Members</title>
-
-
-<p>Identifying and analyzing two-force members will be very helpful when solving structures. Recall from <xref ref="two-force-bodies"/> that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but usually can be recognized because they connect to other bodies or supports with two frictionless pins, and have no other loading unless it is applied at the pins.</p>
-<p>In order for a two-force body to be in equilibrium, the forces must be 1) equal in magnitude, 2) opposite in direction, and 3) share the same line of action.  If the two forces tend to stretch the object we say it is in <em>tension</em>.  If they act the other way and squash the object, it is called <em>compression</em>. </p>
-<p/><image width="65%" source="images/tension-compress.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image>
-<p>The common way to express an axial force in a two-force member is with a magnitude and a sense, where the sense is either tension or compression. For example, look at the members and joints of a truss below.  Member <m>AB</m> is in tension, and the forces acting on it, also called <m>AB</m>, oppose each other and tend to stretch the member. These stretching forces are accompanied by equal and opposite forces, also called <m>AB</m> acting on pins <m>A</m> and <m>B</m>.  </p>
-<p>The free-body diagrams of the members can only verify that the forces on members are equal and opposite.  The free-body diagrams of the joints are required to relate the forces in the members to the external reaction and applied forces.</p><figure xml:id="joints-members">
-
-<caption>
+        <sidebyside widths="50%  50%">
+          <image source="images/scissors.png">
+            <remix>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+          <image source="images/bridge-505_1280.jpg">
+            <remix>
+              <creator>Simon (pixabay.com)</creator>
+              <license href="https://creativecommons.org/choose/zero/">CC-0</license>
+              <source href="https://www.needpix.com/photo/download/473/bridge-usa-gorge-arizona-free-pictures-free-photos-free-images-royalty-free-free-illustrations"/>
+            </remix>
+          </image>
+        </sidebyside>
+      </figure>
+      <p>A <em>truss</em> is a multi-body structure made up of long slender members connected at their ends in triangular subunits.  Truss members carry axial forces only,  Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example.  Trusses are also used for crane booms, radio towers and the like. They are lightweight and relatively strong.  Over the years many unique truss designs have been developed and are often named after the original designer.</p>
+      <p>A <em>frame</em> is a multi-part, rigid, stationary structure primarily designed to support some type of load.  A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces.  Many common items can be considered frames.  Some examples: building structure, furniture, ladders, scaffolding, and more.</p>
+      <p>A <em>machine</em> is very similar to a frame, except that it includes some moving parts.  The purpose of a machine is usually to provide a mechanical advantage and multiply forces.  Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.</p>
+      <p><em>Solving</em> a structure means determining all forces acting on all the parts of the structure.  The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part.  The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.</p>
+    </paragraphs>
+    <paragraphs>
+      <title>Two-force Members</title>
+      <p>Identifying and analyzing two-force members will be very helpful when solving structures. Recall from <xref ref="two-force-bodies"/> that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but usually can be recognized because they connect to other bodies or supports with two frictionless pins, and have no other loading unless it is applied at the pins.</p>
+      <p>In order for a two-force body to be in equilibrium, the forces must be 1) equal in magnitude, 2) opposite in direction, and 3) share the same line of action.  If the two forces tend to stretch the object we say it is in <em>tension</em>.  If they act the other way and squash the object, it is called <em>compression</em>. </p>
+      <p/>
+      <image width="65%" source="images/tension-compress.png">
+        <remix>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        </remix>
+      </image>
+      <p>The common way to express an axial force in a two-force member is with a magnitude and a sense, where the sense is either tension or compression. For example, look at the members and joints of a truss below.  Member <m>AB</m> is in tension, and the forces acting on it, also called <m>AB</m>, oppose each other and tend to stretch the member. These stretching forces are accompanied by equal and opposite forces, also called <m>AB</m> acting on pins <m>A</m> and <m>B</m>.  </p>
+      <p>The free-body diagrams of the members can only verify that the forces on members are equal and opposite.  The free-body diagrams of the joints are required to relate the forces in the members to the external reaction and applied forces.</p>
+      <figure xml:id="joints-members">
+        <caption>
 Interaction Forces and Action-Reaction Pairs.
    </caption>
-
-<image width="50%" source="images/joints-members.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure>
-<p/></paragraphs><insight>
-
-<title>Equilibrium of Multi-Body Systems</title>
-
-
-<p>When a complete truss is in equilibrium, each member of the truss, each joint, and each section are also in equilibrium. This continues all the way down to a single atom of the structure. This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts. </p>
-<p/><image width="75%" source="images/truss-fbds-td.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image>
-<p>You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns. </p></insight><paragraphs>
-
-<title>Interactions between members</title>
-
-
-<p>Since we are now dealing with multi-body systems, we need to recall Newton’s 3rd Law </p><blockquote>
-<p>For every action, there is an equal and opposite reaction.</p></blockquote>
-<p>This law applies to multi-body systems wherever one body connects to another.  At any interaction point, forces will be transferred a body to the interacting body as an equal and opposite forces.  The relation between the forces of the members on the pins, and the forces of the pins on the members shown in <xref ref="joints-members"/> illustrate this.</p>
-<p>When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently.  You may choose either direction for one, but the other <em>must</em> be equal and opposite. </p></paragraphs><paragraphs>
-
-<title>Load Paths</title>
-
-
-<p>Load paths can help you think about structural systems. Load paths show conceptually how an applied load like the floor load in the image below passes through the interconnected members of a structure until it ends up at the fixed support reaction. All structural systems, whether non-moving frames or moving machines have some sort of load path. This is also a good concept to think about while problem solving, where you need to computationally move from known values through the interconnected bodies of the system, solving for unknowns as you go.</p><figure xml:id="load_paths">
-
-<caption>
+        <image width="50%" source="images/joints-members.png">
+          <remix>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </figure>
+      <p/>
+    </paragraphs>
+    <insight>
+      <title>Equilibrium of Multi-Body Systems</title>
+      <p>When a complete truss is in equilibrium, each member of the truss, each joint, and each section are also in equilibrium. This continues all the way down to a single atom of the structure. This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts. </p>
+      <p/>
+      <image width="75%" source="images/truss-fbds-td.png">
+        <remix>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        </remix>
+      </image>
+      <p>You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns. </p>
+    </insight>
+    <paragraphs>
+      <title>Interactions between members</title>
+      <p>Since we are now dealing with multi-body systems, we need to recall Newton’s 3rd Law </p>
+      <blockquote>
+        <p>For every action, there is an equal and opposite reaction.</p>
+      </blockquote>
+      <p>This law applies to multi-body systems wherever one body connects to another.  At any interaction point, forces will be transferred a body to the interacting body as an equal and opposite forces.  The relation between the forces of the members on the pins, and the forces of the pins on the members shown in <xref ref="joints-members"/> illustrate this.</p>
+      <p>When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently.  You may choose either direction for one, but the other <em>must</em> be equal and opposite. </p>
+    </paragraphs>
+    <paragraphs>
+      <title>Load Paths</title>
+      <p>Load paths can help you think about structural systems. Load paths show conceptually how an applied load like the floor load in the image below passes through the interconnected members of a structure until it ends up at the fixed support reaction. All structural systems, whether non-moving frames or moving machines have some sort of load path. This is also a good concept to think about while problem solving, where you need to computationally move from known values through the interconnected bodies of the system, solving for unknowns as you go.</p>
+      <figure xml:id="load_paths">
+        <caption>
 Load paths
    </caption>
-
-<image width="75%" source="images/load_paths"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></paragraphs></section><section xml:id="Chapter_06-simple-trusses">
-
-<title>Simple Trusses</title>
-
-<objectives><ul>
-<li>What are simple trusses and how do they differ from other structural systems?</li>
-<li>What are the benefits and dangers of simple trusses?</li>
-<li>How can we determine the forces acting within simple truss systems?</li>
-<li>For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?</li>
-<li>How do we identify zero-force members in a truss and use their presence to simplify the analysis?</li></ul></objectives><subsection xml:id="Chapter_06-simple-trusses-overview-of-simple-trusses">
-
-<title>Overview of Simple Trusses</title>
-
-
-<p>Simple trusses are made purely of straight two-force members, connected with frictionless pins, and organized into triangles. Simple trusses, by definition, are statically determinate, having a sufficient number of equations to solve for all unknowns values. While the members of real-life trusses stretch and compress under load, we will continue to assume that all bodies we encounter are rigid.</p>
-<p>	When analyzing trusses, we are looking to identify the axial forces acting within each member for a given loading. In mechanics classes taken after statics, you will be able to use these axial forces to select a material and design the cross sectional properties of each member. Later in Ch 8: Internal Loading within Rigid Bodies chapter of this book, you will analyze additional internal loadings in members, including shear force and bending moment.</p>
-<p>	It is worth various types of forces that you will encounter on truss free-body diagrams. These are the forces you need to consider in truss systems. Since a truss system contains only two-force members, there will be no moments involved.</p>
-<p/>
-<p><dl>
-<li>
-
-<title> Applied Forces</title>
-
-
-<p> Applied forces are the external forces which a rigid body or system of rigid bodies is being designed to support. They are often given in a problem and you will be asked to find the reaction and interaction forces developed by them. </p></li>
-<li>
-
-<title> Body Forces</title>
-
-
-<p> Body forces are gravitational weight forces of rigid bodies within a system. To maintain the assumption that trusses are formed of two-force members, all included weight forces must be split in two and distributed to the pins on either end of a truss member. </p></li>
-<li>
-
-<title> Reaction Forces</title>
-
-
-<p> Reaction forces come from support pins, support rollers, or support two-force members interacting with the outside world. </p></li>
-<li>
-
-<title> Interaction Forces</title>
-
-
-<p> Interaction forces are caused by the connection of one body with all the others it touches. Hence, when looking at the force on a pin joint, we would include all the forces coming from all members and reactions connected to that pin joint. </p></li>
-<li>
-
-<title> Internal Forces</title>
-
-
-<p> Internal forces are the forces developed within the members of a truss. For trusses with straight members, the internal forces are compression and tension. </p></li></dl></p><insight>
-
-<title>The Danger of Simple Trusses</title>
-
-
-<p>Simple trusses have no structural redundancy, which makes them easy to solve using the techniques of this chapter, however this simplicity also has a dark side.  </p><image width="75%" source="images/1024px-NTSBSkagitRiverBridgeCollapse.jpg"><remix><creator>US Department of Transportation NSTB</creator><source href="https://commons.wikimedia.org/wiki/File:NTSBSkagitRiverBridgeCollapse.jpg"/><license href="https://creativecommons.org/choose/zero/">CC-0</license></remix></image>
-<p>These trusses are sometimes called  <em>fracture critical trusses</em> because the failure of a single component can lead to catastrophic failure of the entire structure.  With no redundancy, there is no alternative load path for the forces that normally would be supported by that member. You can visualize the fracture critical nature of simple trusses by thinking about a triangle with pinned corners. If one side of a triangle fails, the other two sides lose their support and will collapse. In a full truss made of only triangles, the collapse of one triangle starts a chain reaction which causes others to collapse as well. </p>
-<p>While fracture critical bridges are being replaced by more robust designs, there are still thousands in service across the United States. To read more about two specific fracture critical collapses search the internet for:
-<ul label="square">
-<li>Silver Bridge Collapse Ohio River</li>
-<li>I-5 Bridge Collapse Skagit River </li></ul></p></insight></subsection><subsection xml:id="identify-simple-truss">
-
-<title>Identifying Simple Trusses</title>
-
-
-<p>As discussed in Table 6-1 there are some rules which separate simple trusses from other systems of rigid bodies. 
-<ul label="square">
-<li>Simple trusses are made of all two-force members and all joints are modeled as frictionless pins. All applied and reaction forces are applied only to these joints.</li>
-<li>Simple trusses are made of triangles, which makes them rigid when removed from supports. Simple trusses are determinate, having a balance of equations and unknowns, following the equation: <me>\underbrace{2\times (\text{number of joints})}_{\text{system equations}} = \underbrace{(\text{number of reaction forces}) + (\text{number of members})}_{\text{system unknowns}}</me></li></ul></p>
-<p/>
-<p>A few additional notes include:
-<ul label="square">
-<li>Commonly, rigid trusses have only three reaction forces, resulting in the equation: <me>2\times (\text{number of joints})=3 + (\text{number of members})</me></li>
-<li>Unstable trusses lack the structural members to maintain their rigidity when removed from their supports. They can also be recognized using the equation above having more system equations on the left side of the equation above then system unknowns on the right.</li>
-<li>Truss systems with redundant members have fewer system equations on the left side of the equation above than the system unknowns on the right. While they are indeterminate in statics, in later courses you will learn equations to solve for member stretching and compression you will gain more equations for these trusses can be solved</li></ul></p><assemblage xml:id="identify-simple-truss-thinking-deeper-exposed-vs-unexposed-internal-forces">
-
-<title>Thinking Deeper: Exposed vs. Unexposed Internal Forces</title>
-
-
-<p>Cutting a straight member in a truss exposes the internal force which must be properly represented on the free-body diagram. Internal forces of a truss are all in equal and opposite pairs, think about the tension forces in a two-force member being equal and opposite pulling on each end. Hence, all interaction and internal forces which are not exposed by cutting or isolating members have an opposing force which effectively cancels them out. Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose all the forces which come from the interaction of the surrounding bodies. </p></assemblage></subsection><subsection xml:id="Chapter_06-simple-trusses-solving-trusses">
-
-<title>Solving Trusses</title>
-
-
-<p><q>Solving</q> a truss means identifying and determining the unknown forces carried by the members of the truss when supporting the assumed load.  This is only the first step of a thorough analysis of a truss structure. Later steps would include refining the initial analysis by considering other load conditions, accounting for the weight of the members, relaxing the requirement that the members be connected with frictionless pins, and ultimately determining the stresses in the structural members and the dimensions required in order to prevent failure. </p>
-<p>	Two major strategies to solve trusses will be covered in the following sections: the <xref ref="method-of-joints" text="title"/> and the <xref ref="method-of-sections" text="title"/>.   Either method may be used, but the Method of Joints is usually easier when finding  the forces in all the members, while the Method of Sections is a more efficient way to solve for specific members without solving the entire truss. It’s also possible to mix and match methods when necessary. </p>
-<p>	The first steps to solve a truss are the same regardless of the method you choose.  </p>
-<p>	First, ensure that the structure can be modeled as a simple truss, then draw and label a sketch of the entire truss.  Each joint should be labeled with a letter, and the members will be identified by their endpoints, so member <m>AB</m> is the member between joints <m>A</m> and <m>B</m>.  This will help you keep everything organized and consistent in later analysis.</p>
-<p>	Then, treat the entire truss as a rigid body and solve for the external reactions using the methods of <xref ref="Chapter_05"/>.  If the truss is cantilevered and unsupported at one end you may not actually need the reaction forces and may skip this step.  The reaction forces can be used later to check your work.</p><sidebyside><figure xml:id="joint-labels">
-
-<caption>
+        <image width="75%" source="images/load_paths">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </figure>
+    </paragraphs>
+  </section>
+  <section xml:id="Chapter_06-simple-trusses">
+    <title>Simple Trusses</title>
+    <objectives>
+      <ul>
+        <li>What are simple trusses and how do they differ from other structural systems?</li>
+        <li>What are the benefits and dangers of simple trusses?</li>
+        <li>How can we determine the forces acting within simple truss systems?</li>
+        <li>For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?</li>
+        <li>How do we identify zero-force members in a truss and use their presence to simplify the analysis?</li>
+      </ul>
+    </objectives>
+    <subsection xml:id="Chapter_06-simple-trusses-overview-of-simple-trusses">
+      <title>Overview of Simple Trusses</title>
+      <p>Simple trusses are made purely of straight two-force members, connected with frictionless pins, and organized into triangles. Simple trusses, by definition, are statically determinate, having a sufficient number of equations to solve for all unknowns values. While the members of real-life trusses stretch and compress under load, we will continue to assume that all bodies we encounter are rigid.</p>
+      <p>	When analyzing trusses, we are looking to identify the axial forces acting within each member for a given loading. In mechanics classes taken after statics, you will be able to use these axial forces to select a material and design the cross sectional properties of each member. Later in Ch 8: Internal Loading within Rigid Bodies chapter of this book, you will analyze additional internal loadings in members, including shear force and bending moment.</p>
+      <p>	It is worth various types of forces that you will encounter on truss free-body diagrams. These are the forces you need to consider in truss systems. Since a truss system contains only two-force members, there will be no moments involved.</p>
+      <p/>
+      <p>
+        <dl>
+          <li>
+            <title> Applied Forces</title>
+            <p> Applied forces are the external forces which a rigid body or system of rigid bodies is being designed to support. They are often given in a problem and you will be asked to find the reaction and interaction forces developed by them. </p>
+          </li>
+          <li>
+            <title> Body Forces</title>
+            <p> Body forces are gravitational weight forces of rigid bodies within a system. To maintain the assumption that trusses are formed of two-force members, all included weight forces must be split in two and distributed to the pins on either end of a truss member. </p>
+          </li>
+          <li>
+            <title> Reaction Forces</title>
+            <p> Reaction forces come from support pins, support rollers, or support two-force members interacting with the outside world. </p>
+          </li>
+          <li>
+            <title> Interaction Forces</title>
+            <p> Interaction forces are caused by the connection of one body with all the others it touches. Hence, when looking at the force on a pin joint, we would include all the forces coming from all members and reactions connected to that pin joint. </p>
+          </li>
+          <li>
+            <title> Internal Forces</title>
+            <p> Internal forces are the forces developed within the members of a truss. For trusses with straight members, the internal forces are compression and tension. </p>
+          </li>
+        </dl>
+      </p>
+      <insight>
+        <title>The Danger of Simple Trusses</title>
+        <p>Simple trusses have no structural redundancy, which makes them easy to solve using the techniques of this chapter, however this simplicity also has a dark side.  </p>
+        <image width="75%" source="images/1024px-NTSBSkagitRiverBridgeCollapse.jpg">
+          <remix>
+            <creator>US Department of Transportation NSTB</creator>
+            <source href="https://commons.wikimedia.org/wiki/File:NTSBSkagitRiverBridgeCollapse.jpg"/>
+            <license href="https://creativecommons.org/choose/zero/">CC-0</license>
+          </remix>
+        </image>
+        <p>These trusses are sometimes called  <em>fracture critical trusses</em> because the failure of a single component can lead to catastrophic failure of the entire structure.  With no redundancy, there is no alternative load path for the forces that normally would be supported by that member. You can visualize the fracture critical nature of simple trusses by thinking about a triangle with pinned corners. If one side of a triangle fails, the other two sides lose their support and will collapse. In a full truss made of only triangles, the collapse of one triangle starts a chain reaction which causes others to collapse as well. </p>
+        <p>While fracture critical bridges are being replaced by more robust designs, there are still thousands in service across the United States. To read more about two specific fracture critical collapses search the internet for:
+<ul label="square"><li>Silver Bridge Collapse Ohio River</li><li>I-5 Bridge Collapse Skagit River </li></ul></p>
+      </insight>
+    </subsection>
+    <subsection xml:id="identify-simple-truss">
+      <title>Identifying Simple Trusses</title>
+      <p>As discussed in Table 6-1 there are some rules which separate simple trusses from other systems of rigid bodies. 
+<ul label="square"><li>Simple trusses are made of all two-force members and all joints are modeled as frictionless pins. All applied and reaction forces are applied only to these joints.</li><li>Simple trusses are made of triangles, which makes them rigid when removed from supports. Simple trusses are determinate, having a balance of equations and unknowns, following the equation: <me>\underbrace{2\times (\text{number of joints})}_{\text{system equations}} = \underbrace{(\text{number of reaction forces}) + (\text{number of members})}_{\text{system unknowns}}</me></li></ul></p>
+      <p/>
+      <p>A few additional notes include:
+<ul label="square"><li>Commonly, rigid trusses have only three reaction forces, resulting in the equation: <me>2\times (\text{number of joints})=3 + (\text{number of members})</me></li><li>Unstable trusses lack the structural members to maintain their rigidity when removed from their supports. They can also be recognized using the equation above having more system equations on the left side of the equation above then system unknowns on the right.</li><li>Truss systems with redundant members have fewer system equations on the left side of the equation above than the system unknowns on the right. While they are indeterminate in statics, in later courses you will learn equations to solve for member stretching and compression you will gain more equations for these trusses can be solved</li></ul></p>
+      <assemblage xml:id="identify-simple-truss-thinking-deeper-exposed-vs-unexposed-internal-forces">
+        <title>Thinking Deeper: Exposed vs. Unexposed Internal Forces</title>
+        <p>Cutting a straight member in a truss exposes the internal force which must be properly represented on the free-body diagram. Internal forces of a truss are all in equal and opposite pairs, think about the tension forces in a two-force member being equal and opposite pulling on each end. Hence, all interaction and internal forces which are not exposed by cutting or isolating members have an opposing force which effectively cancels them out. Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose all the forces which come from the interaction of the surrounding bodies. </p>
+      </assemblage>
+    </subsection>
+    <subsection xml:id="Chapter_06-simple-trusses-solving-trusses">
+      <title>Solving Trusses</title>
+      <p><q>Solving</q> a truss means identifying and determining the unknown forces carried by the members of the truss when supporting the assumed load.  This is only the first step of a thorough analysis of a truss structure. Later steps would include refining the initial analysis by considering other load conditions, accounting for the weight of the members, relaxing the requirement that the members be connected with frictionless pins, and ultimately determining the stresses in the structural members and the dimensions required in order to prevent failure. </p>
+      <p>	Two major strategies to solve trusses will be covered in the following sections: the <xref ref="method-of-joints" text="title"/> and the <xref ref="method-of-sections" text="title"/>.   Either method may be used, but the Method of Joints is usually easier when finding  the forces in all the members, while the Method of Sections is a more efficient way to solve for specific members without solving the entire truss. It’s also possible to mix and match methods when necessary. </p>
+      <p>	The first steps to solve a truss are the same regardless of the method you choose.  </p>
+      <p>	First, ensure that the structure can be modeled as a simple truss, then draw and label a sketch of the entire truss.  Each joint should be labeled with a letter, and the members will be identified by their endpoints, so member <m>AB</m> is the member between joints <m>A</m> and <m>B</m>.  This will help you keep everything organized and consistent in later analysis.</p>
+      <p>	Then, treat the entire truss as a rigid body and solve for the external reactions using the methods of <xref ref="Chapter_05"/>.  If the truss is cantilevered and unsupported at one end you may not actually need the reaction forces and may skip this step.  The reaction forces can be used later to check your work.</p>
+      <sidebyside>
+        <figure xml:id="joint-labels">
+          <caption>
 Truss Labels.
    </caption>
-
-<image source="images/simple_truss_labels"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure><figure xml:id="truss_reactions">
-
-<caption>
+          <image source="images/simple_truss_labels">
+            <remix>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+        </figure>
+        <figure xml:id="truss_reactions">
+          <caption>
 Free body diagram.
    </caption>
-
-<image source="images/simple_truss_fbd"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></sidebyside></subsection><subsection xml:id="zero-force-members">
-
-<title>Zero-Force Members</title>
-
-
-<p>Sometimes a truss will contain one or more zero-force members.  As their name implies, zero-force members carry no force and thus support no load.  Zero-force members can be found by applying equilibrium equations to the joints at either end of a member, but you can save yourself some work if you can find and eliminate them before you begin.  Fortunately, zero-force members can easily be identified by inspection with two simple rules.
-<ul label="square">
-<li>Rule 1: If <em>two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.</li>
-<li>Rule 2: If <em>three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.</li></ul></p><sidebyside widths="33%  50%"><image source="images/ZFM-truss"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image><stack>
-<p>Consider the truss to the left.  Assume that the dimensions, angles and the magnitude of force <m>C</m> are given. At joint <m>B</m>, there are two vertical collinear members as well as a third member which is horizontal, so Rule 2 should apply.</p>
-<p>What does Rule 2 say about member <m>BD</m>? Can it tell us anything about member <m>DA</m>?</p></stack></sidebyside><sidebyside widths="75%  25%"><stack>
-<p>Cutting the members at the dotted boundary line exposes internal forces <m>BC</m>, <m>BD</m> and <m>BA</m>.  These forces act along the axis of the corresponding members by the nature of two-force members, and for convenience have been assumed in tension although that may turn out to be incorrect. </p>
-<p>Rule 2 applies here since <m>BA</m> and <m>BC</m> are collinear and <m>BD</m> is not.</p></stack><image source="images/ZFM_joint_B"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside><sidebyside widths="75% 25%"><stack>
-<p>The free-body diagram of joint <m>B</m> may be drawn by eliminating the cut members and only showing the forces themselves.</p>
-<p> The situation is simple enough to apply the equilibrium equations in your head. </p></stack><image source="images/ZFM_joint_B_fbd"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside>
-<p>Vertically, forces <m>BC</m> and <m>BA</m> must be equal, and horizontally, force <m>BD</m> must be zero to satisfy <m>\Sigma F_x = 0</m>.  We learn that member <m>BD</m> is a zero-force member.</p>
-<p>	While it is probably easiest to think about Rule 2 when the third member is perpendicular to the collinear pair, it does not have to be. Any perpendicular component must be zero which implies that the corresponding member is zero-force.</p><sidebyside widths="75%  25%"><stack>
-<p>Continuing the analysis at joint <m>D</m> draw its free-body diagram.  Keep in mind that if one end of a member is zero-force the whole member is zero-force.  Since member <m>BD</m> is zero-force, horizontal force <m>BD</m> acting on joint <m>D</m> is zero and need not be included on the free-body diagram, and the remaining three forces match the conditions to apply Rule 2.  </p></stack><image source="images/ZFM_joint_D_fbd"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside>
-<p>Analyzing the joint as before, but with a coordinate system aligned with the collinear pair, </p>
-<p><md><mrow>\Sigma F_y \amp = 0</mrow><mrow>- DA_y \amp = 0</mrow><mrow>DA \sin \theta \amp = 0</mrow></md></p>
-<p>This equation will be satisfied if <m>DA = 0</m> or if <m>\sin \theta = 0</m> but  the second condition is only true when <m>\theta = \ang{0}</m> or <m>\theta =\ang{90}</m>, which is not the case here.  Therefore, force DA must be zero, and we can conclude that member DA is a zero-force member as well.</p>
-<p>	Finding zero-force members is an iterative process. If you determine that a member is zero-force, eliminate it and you may find others.</p><sidebyside widths="75%  25%"><stack>
-<p>	Finally consider joint <m>C</m> and draw its free-body diagram.  Does either Rule apply to this joint? No.  You will need to solve two equilibrium equations with this free-body diagram to find the magnitudes of forces <m>CD</m> and <m>CB</m>.</p>
-<p>	On the other hand, if the horizontal load <m>C</m> was not present, then Rule 1 <em>would</em> apply and both members <m>BC</m> and <m>DC</m> would be zero-force.</p></stack><image source="images/ZFM_joint_C_fbd"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside><sidebyside widths="33%  50%"><image source="images/ZFM-truss-after"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image><stack>
-<p>The final truss after eliminating the zero-force members is shown to the left. Forces  <m>BC=BA</m> and <m>DC = DE</m> and the members may be replaced with longer members <m>AC</m> and <m>CE</m>.  </p>
-<p>The original truss has been reduced to a simpler triangular structure with only three internal forces to be found.  Once you are able to spot zero force members, this simplification can be made without drawing any digrams or performing any calculations.</p></stack></sidebyside><insight>
-
-<title>Why include Zero-Force Members?</title>
-
-
-<p>You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:
-<ul label="square">
-<li>We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em>actual</em> weight of <em>real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at a minimum support the weight of the member.</li>
-<li>Truss members are not actually rigid, and long slender members under compression will <em>buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin <m>D</m> if they were not replaced with a single member <m>CE</m> with sufficient rigidity.</li>
-<li>Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition <mdash/> think about how the load on a bridge shifts as a heavy truck drives across.</li></ul></p>
-<p>So finding a zero-force member in a determinate truss does not mean you can discard the member. Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing. After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles. If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or ‘floating’ forces that have no load path to the foundation.</p></insight><example xml:id="zero-force-members-zero-force-member-example-">
-
-<title>Zero-Force Member Example </title>
-
-<statement><sidebyside widths="50% 40%">
-<p>	Given the truss below, eliminate all the zero-force members, and draw the remaining truss.</p><image source="images/zero-force-1.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside>
-<p/></statement><answer>
-<p>	There are six zero-force members: <m>GH</m>, <m>FG</m>, <m>BF</m>, <m>EI</m>, <m>DE</m> and <m>CD</m>.</p></answer><solution>
-<p>Rule 1: 
-<ul label="square">
-<li>Due to two members meeting at unloaded joint <m>G</m>, both members <m>GH</m> and <m>FG</m> are zero-force members</li>
-<li>Due to two members meeting at unloaded joint <m>D</m>, both members <m>DE</m> and <m>CD</m> are zero-force members</li></ul></p>
-<p>Rule 2: 
-<ul label="square">
-<li>Due to three forces meeting at joining <m>B</m>, with two being collinear (internal forces in <m>AB</m> and <m>BC</m>) then <m>BF</m> is a zero-force member.</li>
-<li>Due to three forces meeting at joint <m>I</m>, with two being collinear (internal forces <m>IF</m> and <m>CI</m>), then <m>EI</m> is a zero-force member. Note that member <m>EI</m> does not need to be perpendicular to the collinear members to be a zero force.</li></ul></p><sidebyside widths="50% 50%">
-<p>	The remaining truss is shown. Note that once <m>EI</m> and <m>BF</m> are eliminated, you can effectively eliminate the joints <m>B</m> and <m>I</m> as the member forces in the collinear members will be equal. Also notice that the truss is still formed of triangles which fully support all of the applied forces.</p><image source="images/zero-force-2.png"><remix><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></sidebyside>
-<p/></solution></example>
-<p>	Try to find all the zero-force members in the truss in <xref ref="ggb_bf6c5jmx"/> below, once you believe you have found all of them, check out the step-by-step solution in the interactive.</p><figure xml:id="ggb_bf6c5jmx">
-
-<caption>
+          <image source="images/simple_truss_fbd">
+            <remix>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+        </figure>
+      </sidebyside>
+    </subsection>
+    <subsection xml:id="zero-force-members">
+      <title>Zero-Force Members</title>
+      <p>Sometimes a truss will contain one or more zero-force members.  As their name implies, zero-force members carry no force and thus support no load.  Zero-force members can be found by applying equilibrium equations to the joints at either end of a member, but you can save yourself some work if you can find and eliminate them before you begin.  Fortunately, zero-force members can easily be identified by inspection with two simple rules.
+<ul label="square"><li>Rule 1: If <em>two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.</li><li>Rule 2: If <em>three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.</li></ul></p>
+      <sidebyside widths="33%  50%">
+        <image source="images/ZFM-truss">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+        <stack>
+          <p>Consider the truss to the left.  Assume that the dimensions, angles and the magnitude of force <m>C</m> are given. At joint <m>B</m>, there are two vertical collinear members as well as a third member which is horizontal, so Rule 2 should apply.</p>
+          <p>What does Rule 2 say about member <m>BD</m>? Can it tell us anything about member <m>DA</m>?</p>
+        </stack>
+      </sidebyside>
+      <sidebyside widths="75%  25%">
+        <stack>
+          <p>Cutting the members at the dotted boundary line exposes internal forces <m>BC</m>, <m>BD</m> and <m>BA</m>.  These forces act along the axis of the corresponding members by the nature of two-force members, and for convenience have been assumed in tension although that may turn out to be incorrect. </p>
+          <p>Rule 2 applies here since <m>BA</m> and <m>BC</m> are collinear and <m>BD</m> is not.</p>
+        </stack>
+        <image source="images/ZFM_joint_B">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </sidebyside>
+      <sidebyside widths="75% 25%">
+        <stack>
+          <p>The free-body diagram of joint <m>B</m> may be drawn by eliminating the cut members and only showing the forces themselves.</p>
+          <p> The situation is simple enough to apply the equilibrium equations in your head. </p>
+        </stack>
+        <image source="images/ZFM_joint_B_fbd">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </sidebyside>
+      <p>Vertically, forces <m>BC</m> and <m>BA</m> must be equal, and horizontally, force <m>BD</m> must be zero to satisfy <m>\Sigma F_x = 0</m>.  We learn that member <m>BD</m> is a zero-force member.</p>
+      <p>	While it is probably easiest to think about Rule 2 when the third member is perpendicular to the collinear pair, it does not have to be. Any perpendicular component must be zero which implies that the corresponding member is zero-force.</p>
+      <sidebyside widths="75%  25%">
+        <stack>
+          <p>Continuing the analysis at joint <m>D</m> draw its free-body diagram.  Keep in mind that if one end of a member is zero-force the whole member is zero-force.  Since member <m>BD</m> is zero-force, horizontal force <m>BD</m> acting on joint <m>D</m> is zero and need not be included on the free-body diagram, and the remaining three forces match the conditions to apply Rule 2.  </p>
+        </stack>
+        <image source="images/ZFM_joint_D_fbd">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </sidebyside>
+      <p>Analyzing the joint as before, but with a coordinate system aligned with the collinear pair, </p>
+      <p>
+        <md>
+          <mrow>\Sigma F_y \amp = 0</mrow>
+          <mrow>- DA_y \amp = 0</mrow>
+          <mrow>DA \sin \theta \amp = 0</mrow>
+        </md>
+      </p>
+      <p>This equation will be satisfied if <m>DA = 0</m> or if <m>\sin \theta = 0</m> but  the second condition is only true when <m>\theta = \ang{0}</m> or <m>\theta =\ang{90}</m>, which is not the case here.  Therefore, force DA must be zero, and we can conclude that member DA is a zero-force member as well.</p>
+      <p>	Finding zero-force members is an iterative process. If you determine that a member is zero-force, eliminate it and you may find others.</p>
+      <sidebyside widths="75%  25%">
+        <stack>
+          <p>	Finally consider joint <m>C</m> and draw its free-body diagram.  Does either Rule apply to this joint? No.  You will need to solve two equilibrium equations with this free-body diagram to find the magnitudes of forces <m>CD</m> and <m>CB</m>.</p>
+          <p>	On the other hand, if the horizontal load <m>C</m> was not present, then Rule 1 <em>would</em> apply and both members <m>BC</m> and <m>DC</m> would be zero-force.</p>
+        </stack>
+        <image source="images/ZFM_joint_C_fbd">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </sidebyside>
+      <sidebyside widths="33%  50%">
+        <image source="images/ZFM-truss-after">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+        <stack>
+          <p>The final truss after eliminating the zero-force members is shown to the left. Forces  <m>BC=BA</m> and <m>DC = DE</m> and the members may be replaced with longer members <m>AC</m> and <m>CE</m>.  </p>
+          <p>The original truss has been reduced to a simpler triangular structure with only three internal forces to be found.  Once you are able to spot zero force members, this simplification can be made without drawing any digrams or performing any calculations.</p>
+        </stack>
+      </sidebyside>
+      <insight>
+        <title>Why include Zero-Force Members?</title>
+        <p>You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:
+<ul label="square"><li>We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em>actual</em> weight of <em>real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at a minimum support the weight of the member.</li><li>Truss members are not actually rigid, and long slender members under compression will <em>buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin <m>D</m> if they were not replaced with a single member <m>CE</m> with sufficient rigidity.</li><li>Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition <mdash/> think about how the load on a bridge shifts as a heavy truck drives across.</li></ul></p>
+        <p>So finding a zero-force member in a determinate truss does not mean you can discard the member. Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing. After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles. If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or ‘floating’ forces that have no load path to the foundation.</p>
+      </insight>
+      <example xml:id="zero-force-members-zero-force-member-example-">
+        <title>Zero-Force Member Example </title>
+        <statement>
+          <sidebyside widths="50% 40%">
+            <p>	Given the truss below, eliminate all the zero-force members, and draw the remaining truss.</p>
+            <image source="images/zero-force-1.png">
+              <remix>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              </remix>
+            </image>
+          </sidebyside>
+          <p/>
+        </statement>
+        <answer>
+          <p>	There are six zero-force members: <m>GH</m>, <m>FG</m>, <m>BF</m>, <m>EI</m>, <m>DE</m> and <m>CD</m>.</p>
+        </answer>
+        <solution>
+          <p>Rule 1: 
+<ul label="square"><li>Due to two members meeting at unloaded joint <m>G</m>, both members <m>GH</m> and <m>FG</m> are zero-force members</li><li>Due to two members meeting at unloaded joint <m>D</m>, both members <m>DE</m> and <m>CD</m> are zero-force members</li></ul></p>
+          <p>Rule 2: 
+<ul label="square"><li>Due to three forces meeting at joining <m>B</m>, with two being collinear (internal forces in <m>AB</m> and <m>BC</m>) then <m>BF</m> is a zero-force member.</li><li>Due to three forces meeting at joint <m>I</m>, with two being collinear (internal forces <m>IF</m> and <m>CI</m>), then <m>EI</m> is a zero-force member. Note that member <m>EI</m> does not need to be perpendicular to the collinear members to be a zero force.</li></ul></p>
+          <sidebyside widths="50% 50%">
+            <p>	The remaining truss is shown. Note that once <m>EI</m> and <m>BF</m> are eliminated, you can effectively eliminate the joints <m>B</m> and <m>I</m> as the member forces in the collinear members will be equal. Also notice that the truss is still formed of triangles which fully support all of the applied forces.</p>
+            <image source="images/zero-force-2.png">
+              <remix>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              </remix>
+            </image>
+          </sidebyside>
+          <p/>
+        </solution>
+      </example>
+      <p>	Try to find all the zero-force members in the truss in <xref ref="ggb_bf6c5jmx"/> below, once you believe you have found all of them, check out the step-by-step solution in the interactive.</p>
+      <figure xml:id="ggb_bf6c5jmx">
+        <caption>
 This interactive will allow you to see the full and iterative evaluation of zero-force members, including both Rule 1 and Rule 2, on the included truss.
 </caption>
-
-<interactive platform="geogebra" width="100%" aspect="4:3"><slate aspect="4:3" surface="geogebra" width="95%" material="bf6c5jmx">
+        <interactive platform="geogebra" width="100%" aspect="4:3">
+          <slate aspect="4:3" surface="geogebra" width="95%" material="bf6c5jmx">
 showResetIcon(true)
 enableRightClick(false)
 enableShiftDragZoom(false)
-</slate><remix><creator href="mailto:Randy.Mondragon@colostate.edu">Randy Mondragon</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license><license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license><source href="http://www.geogebra.org/m/bf6c5jmx"/></remix><instructions/></interactive></figure></subsection></section><section xml:id="method-of-joints">
-
-<title>Method of Joints</title>
-
-<objectives><ul>
-<li>What are the important components to include on a free-body diagram of a joint in a truss?</li>
-<li>How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</li>
-<li>How do we ensure that tension or compression in a member is properly represented?</li></ul></objectives>
-<p>	The <term>method of joints</term> is a process used to solve for the unknown forces acting on members of a <term>truss</term>. The method centers on the joints or connection points between the members, and it is useful if you need to solve for all the unknown forces in a truss structure.</p>
-<p> The process used in the method of joints is outlined below: <ol>
-<li>
-<p>First, determine if the structure is a truss and if it is determinate. See <xref ref="identify-simple-truss"/></p></li>
-<li>
-<p>Identify and eliminate all zero-force members. This is not required, but can minimize your computations. See <xref ref="zero-force-members"/> above.</p></li>
-<li>
-<p>Next, determine if you need to solve for the reactions first using the full section free-body diagram, or if you can solve for them as part of the Method of Joints. Joints are treated as a series of particles. As all forces on joints are concurrent, these forces can be solved with equilibrium force equations, but moment equations do not add any information. Thus each 2D joint yields two equations (<m>\Sigma F_x=0</m> and <m>\Sigma F_y=0</m>). To be able to solve for the unknowns at a joint in a step-by-step fashion, you’ll need ≤ 2 unknowns at each joint and ≥ 1 known force at each joint. If there are no joints that satisfy this condition and you would like to solve for the unknown forces in a step-by-step manner, then you will need to solve for the truss reactions first before starting the Method of Joints.</p>
-<p>Note that you could write out all the equations for each free-body diagram and solve them all simultaneously with a linear algebra matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</p></li>
-<li>
-<p>Next, represent the forces at each joint with a free-body diagram. It is simplest to:
-<ul label="square">
-<li>Draw one joint free-body diagram at a time</li>
-<li>Always draw known forces in their known direction and value (whether external, reaction, or interaction),</li>
-<li>Draw unknown forces in assumed directions and uniquely label them. A common practice for trusses is to assume that all unknown forces are in tension (or pulling away from the free-body diagram of the pin) and label them based on the member they represent (like<m> F_{AB}</m>).</li></ul></p></li>
-<li>
-<p>Finally, write out and solve the force equilibrium equations for each of the joint free-body diagrams. If you assumed that all forces were tensile earlier, remember that negative answers indicate compressive forces in the members.</p></li></ol></p><figure xml:id="ggb_fvuugvb4">
-
-<caption>
+</slate>
+          <remix>
+            <creator href="mailto:Randy.Mondragon@colostate.edu">Randy Mondragon</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+            <source href="http://www.geogebra.org/m/bf6c5jmx"/>
+          </remix>
+          <instructions/>
+        </interactive>
+      </figure>
+    </subsection>
+  </section>
+  <section xml:id="method-of-joints">
+    <title>Method of Joints</title>
+    <objectives>
+      <ul>
+        <li>What are the important components to include on a free-body diagram of a joint in a truss?</li>
+        <li>How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</li>
+        <li>How do we ensure that tension or compression in a member is properly represented?</li>
+      </ul>
+    </objectives>
+    <p>	The <term>method of joints</term> is a process used to solve for the unknown forces acting on members of a <term>truss</term>. The method centers on the joints or connection points between the members, and it is useful if you need to solve for all the unknown forces in a truss structure.</p>
+    <p> The process used in the method of joints is outlined below: <ol><li><p>First, determine if the structure is a truss and if it is determinate. See <xref ref="identify-simple-truss"/></p></li><li><p>Identify and eliminate all zero-force members. This is not required, but can minimize your computations. See <xref ref="zero-force-members"/> above.</p></li><li><p>Next, determine if you need to solve for the reactions first using the full section free-body diagram, or if you can solve for them as part of the Method of Joints. Joints are treated as a series of particles. As all forces on joints are concurrent, these forces can be solved with equilibrium force equations, but moment equations do not add any information. Thus each 2D joint yields two equations (<m>\Sigma F_x=0</m> and <m>\Sigma F_y=0</m>). To be able to solve for the unknowns at a joint in a step-by-step fashion, you’ll need ≤ 2 unknowns at each joint and ≥ 1 known force at each joint. If there are no joints that satisfy this condition and you would like to solve for the unknown forces in a step-by-step manner, then you will need to solve for the truss reactions first before starting the Method of Joints.</p><p>Note that you could write out all the equations for each free-body diagram and solve them all simultaneously with a linear algebra matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</p></li><li><p>Next, represent the forces at each joint with a free-body diagram. It is simplest to:
+<ul label="square"><li>Draw one joint free-body diagram at a time</li><li>Always draw known forces in their known direction and value (whether external, reaction, or interaction),</li><li>Draw unknown forces in assumed directions and uniquely label them. A common practice for trusses is to assume that all unknown forces are in tension (or pulling away from the free-body diagram of the pin) and label them based on the member they represent (like<m> F_{AB}</m>).</li></ul></p></li><li><p>Finally, write out and solve the force equilibrium equations for each of the joint free-body diagrams. If you assumed that all forces were tensile earlier, remember that negative answers indicate compressive forces in the members.</p></li></ol></p>
+    <figure xml:id="ggb_fvuugvb4">
+      <caption>
 Interactive showing how the method of joints creates free-body diagrams of each joint for you to solve for the internal tension and compression forces. In this interactive forces are labeled <m>\vec{F}</m>, internal tension forces <m>\vec{T}</m>, and internal compression forces <m>\vec{C}</m>. To meet the ≤ 2 unknowns at each joint and ≥ 1 known force at each joint criteria, you could either solve for the reactions at <m>B</m> and <m>D</m> first or go straight into the method of joints, starting at <m>C</m>, then moving to <m>D</m>, and finally to <m>B</m> (where you could check your work).
 </caption>
-
-<interactive platform="geogebra" width="100%" aspect="4:3"><slate aspect="4:3" surface="geogebra" width="95%" material="fvuugvb4">
+      <interactive platform="geogebra" width="100%" aspect="4:3">
+        <slate aspect="4:3" surface="geogebra" width="95%" material="fvuugvb4">
 showResetIcon(true)
 enableRightClick(false)
 enableShiftDragZoom(false)
-</slate><remix><creator href="https://weh.maritime.edu">William Haynes</creator><creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license><license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license><source href="http://www.geogebra.org/m/fvuugvb4"/></remix><instructions/></interactive></figure></section><section xml:id="method-of-sections">
-
-<title>Method of Sections</title>
-
-<objectives><ul>
-<li>How do we determine an appropriate section to cut through a truss?</li>
-<li>How are equilibrium equations applied to a section?</li></ul></objectives>
-<p>The Method of Sections is a more targeted process than the Method of Joints, which is used to solve for the unknown forces within a limited number of members in a truss. The method involves cutting the truss into individual sections and analyzing each section as a separate rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p><paragraphs>
-
-<title>Using the Method of Sections</title>
-
-
-<p>First, determine if a truss can be modeled as a simple truss (see Identifying Simple Trusses above).</p>
-<p>Identify and eliminate all zero-force members. The eliminate of zero-force members is not required but can minimize your computations, see Zero-Force Members above.</p>
-<p>Next, take out your imaginary chain saw and evaluate various section cuts through the entire truss. These cuts should include some (or all) of the members you are asked to solve for. </p>
-<p>	Note that every cut member exposes the internal axial force which exists in that member. Hence if you cut three members, you’ll have three new unknowns to solve for. Exposing four (or more) members is not advised as you only have three equilibrium equations to solve for the exposed axial force unknown values. </p>
-<p>	Technically, the cut does not need to be a straight line, but often it is.</p>
-<p/><figure xml:id="ggb_wxh9nsbc">
-
-<caption/>
-
-<interactive platform="geogebra" width="100%" aspect="4:3"><slate aspect="4:3" surface="geogebra" width="95%" material="wxh9nsbc">
+</slate>
+        <remix>
+          <creator href="https://weh.maritime.edu">William Haynes</creator>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+          <source href="http://www.geogebra.org/m/fvuugvb4"/>
+        </remix>
+        <instructions/>
+      </interactive>
+    </figure>
+  </section>
+  <section xml:id="method-of-sections">
+    <title>Method of Sections</title>
+    <objectives>
+      <ul>
+        <li>How do we determine an appropriate section to cut through a truss?</li>
+        <li>How are equilibrium equations applied to a section?</li>
+      </ul>
+    </objectives>
+    <p>The Method of Sections is a more targeted process than the Method of Joints, which is used to solve for the unknown forces within a limited number of members in a truss. The method involves cutting the truss into individual sections and analyzing each section as a separate rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p>
+    <paragraphs>
+      <title>Using the Method of Sections</title>
+      <p>First, determine if a truss can be modeled as a simple truss (see Identifying Simple Trusses above).</p>
+      <p>Identify and eliminate all zero-force members. The eliminate of zero-force members is not required but can minimize your computations, see Zero-Force Members above.</p>
+      <p>Next, take out your imaginary chain saw and evaluate various section cuts through the entire truss. These cuts should include some (or all) of the members you are asked to solve for. </p>
+      <p>	Note that every cut member exposes the internal axial force which exists in that member. Hence if you cut three members, you’ll have three new unknowns to solve for. Exposing four (or more) members is not advised as you only have three equilibrium equations to solve for the exposed axial force unknown values. </p>
+      <p>	Technically, the cut does not need to be a straight line, but often it is.</p>
+      <p/>
+      <figure xml:id="ggb_wxh9nsbc">
+        <caption/>
+        <interactive platform="geogebra" width="100%" aspect="4:3">
+          <slate aspect="4:3" surface="geogebra" width="95%" material="wxh9nsbc">
 showResetIcon(true)
 enableRightClick(false)
 enableShiftDragZoom(false)
-</slate><remix><creator href="mailto:Randy.Mondragon@colostate.edu">Randy Mondragon</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license><license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license><source href="http://www.geogebra.org/m/wxh9nsbc"/></remix><instructions/></interactive></figure>
-<p><ol>
-<li>Solve for reactions (if needed). If your section free-body diagram will include reaction forces, go back to your full section free-body diagram and solve for the reactions you will need on your section free-body diagram. </li>
-<li>Draw your section free-body diagram:</li>
-<li>	Always draw known forces in their known direction and value (whether external, reaction, or interaction) and make sure to include any applied and reaction force which are also applied to the portion of your truss remaining. </li>
-<li>	Draw unknown forces in assumed directions and uniquely label them. A common practice for trusses is to assume that all unknown forces are in tension (or pulling away from the free-body diagram of the pin) and label them based on the member they represent (like <m>F_{AB}</m>).</li>
-<li>	Write out and solve the force equilibrium equations for your section free-body diagram.  If you assumed that all forces were tensile earlier, remember that negative answers indicate compressive forces in the members.</li>
-<li>	If you have not solved for the required members with one section cut, then add a Method of Joints step or another Method of Sections step. Recall that is is possible to mix and match methods when necessary.</li></ol></p></paragraphs></section><section xml:id="frames-and-machines">
-
-<title>Frames and Machines</title>
-
-<objectives><ul>
-<li>How are frames and machines different from trusses?</li>
-<li>Why can the method of joints and method of sections not be used for frames and machines?</li>
-<li>How do we identify if a structure is independently rigid?</li>
-<li>How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</li></ul></objectives><subsection xml:id="frames-and-machines-frames-and-machines">
-
-<title>Frames and Machines</title>
-
-
-<p>Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two points of application of point loads, distributed loads present and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in Ch 5 Equilibrium of Rigid Bodies were all multi-force bodies. Refer to Table 6-1 for the details of how frames and machines compare to other equilibrium systems.</p>
-<p>By definition:</p>
-<p><term>	Frames</term> are rigid, stationary structures designed to support loads, and must include at least one multi-force member. </p>
-<p><term>	Machines</term> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by given their interacting and applied forces.</p>
-<p>	Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p><sidebyside widths="50% 50%"><figure xml:id="stool">
-
-<caption>
+</slate>
+          <remix>
+            <creator href="mailto:Randy.Mondragon@colostate.edu">Randy Mondragon</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+            <source href="http://www.geogebra.org/m/wxh9nsbc"/>
+          </remix>
+          <instructions/>
+        </interactive>
+      </figure>
+      <p>
+        <ol>
+          <li>Solve for reactions (if needed). If your section free-body diagram will include reaction forces, go back to your full section free-body diagram and solve for the reactions you will need on your section free-body diagram. </li>
+          <li>Draw your section free-body diagram:</li>
+          <li>	Always draw known forces in their known direction and value (whether external, reaction, or interaction) and make sure to include any applied and reaction force which are also applied to the portion of your truss remaining. </li>
+          <li>	Draw unknown forces in assumed directions and uniquely label them. A common practice for trusses is to assume that all unknown forces are in tension (or pulling away from the free-body diagram of the pin) and label them based on the member they represent (like <m>F_{AB}</m>).</li>
+          <li>	Write out and solve the force equilibrium equations for your section free-body diagram.  If you assumed that all forces were tensile earlier, remember that negative answers indicate compressive forces in the members.</li>
+          <li>	If you have not solved for the required members with one section cut, then add a Method of Joints step or another Method of Sections step. Recall that is is possible to mix and match methods when necessary.</li>
+        </ol>
+      </p>
+    </paragraphs>
+  </section>
+  <section xml:id="frames-and-machines">
+    <title>Frames and Machines</title>
+    <objectives>
+      <ul>
+        <li>How are frames and machines different from trusses?</li>
+        <li>Why can the method of joints and method of sections not be used for frames and machines?</li>
+        <li>How do we identify if a structure is independently rigid?</li>
+        <li>How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</li>
+      </ul>
+    </objectives>
+    <subsection xml:id="frames-and-machines-frames-and-machines">
+      <title>Frames and Machines</title>
+      <p>Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two points of application of point loads, distributed loads present and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in Ch 5 Equilibrium of Rigid Bodies were all multi-force bodies. Refer to Table 6-1 for the details of how frames and machines compare to other equilibrium systems.</p>
+      <p>By definition:</p>
+      <p><term>	Frames</term> are rigid, stationary structures designed to support loads, and must include at least one multi-force member. </p>
+      <p><term>	Machines</term> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by given their interacting and applied forces.</p>
+      <p>	Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p>
+      <sidebyside widths="50% 50%">
+        <figure xml:id="stool">
+          <caption>
 This stool is a frame as its legs are not two force members and is rigid, therefore no part can move relative to the other parts.
    </caption>
-
-<image source="images/stool.jpg"><remix/></image></figure><figure xml:id="vice-grips-photo">
-
-<caption>
+          <image source="images/stool.jpg">
+            <remix/>
+          </image>
+        </figure>
+        <figure xml:id="vice-grips-photo">
+          <caption>
 This pair of locking pliers is a machine as it contains multi-force members and has parts that can move relative to one another.
    </caption>
-
-<image source="images/vice-grips-photo.jpg"><remix/></image></figure></sidebyside>
-<p>	Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure.</p>
-<p>	The method used to analyze frames involves disassembling the structure into individual rigid bodies; we <q>take the structure apart.</q> and analyze each part separately.  Each component is analyzed as an independent rigid body. This leads to equilibrium equations for each component, and due to Newton’s Third Law, every interaction force and couple is one half of a complementary pair. The interacting force of body <m>A</m> on <m>B</m> is equal and opposite to the force of body <m>B</m> on body <m>A</m> and the free-body diagrams must reflect this.</p>
-<p/>
-<p>Remember from Chapter 5 Rigid Body Equilibrium how you were limited to three linearly independent equations per rigid body free-body diagram? It turns out that the relationship still holds here, but now we have more free-body diagrams to use. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:
-<ul label="square">
-<li><em>Two-force members. One equation:</em> Recall that two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins. The available equation simply tells you that the force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</li>
-<li><em>Multi-force rigid body with concurrent forces. Two equations:</em> These are the same type of problems you solved in Ch. 3: Equilibrium of Particles with only two equations available <m>\Sigma F_x = 0</m>  and  <m>\Sigma F_y = 0</m>. </li>
-<li><em>Multi-force rigid body with offset forces and/or couples. Three equations:</em> These are the most general body types where you can use  <m>\Sigma F_x = 0</m>,  <m>\Sigma F_y = 0</m>,  and<m> \Sigma M = 0</m> to solve for three unknowns.</li></ul></p></subsection><subsection xml:id="frames-and-machines-analysis-procedure">
-
-<title>Analysis Procedure</title>
-
-
-<p>The process used to analyze frames and machines is outlined below:
-<ol>
-<li>
-<p>First, determine if we can model the entire structure as a rigid body. </p>
-<p>To do this, the structure needs to be independently rigid. This means that it would be rigid even if we separated it from its supports. Look for triangles formed among the members, as triangles are inherently rigid.</p>
-<p>If the structure is independently rigid, you will be able to model the structure as a single rigid body to determine the reaction forces acting on the structure. If the structure is not independently rigid then skip this step.</p>
-<p/><figure xml:id="frame-ex-1">
-
-<caption>
+          <image source="images/vice-grips-photo.jpg">
+            <remix/>
+          </image>
+        </figure>
+      </sidebyside>
+      <p>	Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure.</p>
+      <p>	The method used to analyze frames involves disassembling the structure into individual rigid bodies; we <q>take the structure apart.</q> and analyze each part separately.  Each component is analyzed as an independent rigid body. This leads to equilibrium equations for each component, and due to Newton’s Third Law, every interaction force and couple is one half of a complementary pair. The interacting force of body <m>A</m> on <m>B</m> is equal and opposite to the force of body <m>B</m> on body <m>A</m> and the free-body diagrams must reflect this.</p>
+      <p/>
+      <p>Remember from Chapter 5 Rigid Body Equilibrium how you were limited to three linearly independent equations per rigid body free-body diagram? It turns out that the relationship still holds here, but now we have more free-body diagrams to use. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:
+<ul label="square"><li><em>Two-force members. One equation:</em> Recall that two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins. The available equation simply tells you that the force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</li><li><em>Multi-force rigid body with concurrent forces. Two equations:</em> These are the same type of problems you solved in Ch. 3: Equilibrium of Particles with only two equations available <m>\Sigma F_x = 0</m>  and  <m>\Sigma F_y = 0</m>. </li><li><em>Multi-force rigid body with offset forces and/or couples. Three equations:</em> These are the most general body types where you can use  <m>\Sigma F_x = 0</m>,  <m>\Sigma F_y = 0</m>,  and<m> \Sigma M = 0</m> to solve for three unknowns.</li></ul></p>
+    </subsection>
+    <subsection xml:id="frames-and-machines-analysis-procedure">
+      <title>Analysis Procedure</title>
+      <p>The process used to analyze frames and machines is outlined below:
+<ol><li><p>First, determine if we can model the entire structure as a rigid body. </p><p>To do this, the structure needs to be independently rigid. This means that it would be rigid even if we separated it from its supports. Look for triangles formed among the members, as triangles are inherently rigid.</p><p>If the structure is independently rigid, you will be able to model the structure as a single rigid body to determine the reaction forces acting on the structure. If the structure is not independently rigid then skip this step.</p><p/><figure xml:id="frame-ex-1"><caption>
 If, and only if, the structure is independently rigid, you should analyze the whole structure as a single rigid body to solve for the reaction forces. Note the triangle formed between pins <m>B</m>, <m>C</m>, and <m>D</m>.
-   </caption>
-
-<image width="70%" source="images/frame-ex-1.png"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></li>
-<li>
-<p>Next draw a free-body diagram for each of the members in the structure. You will need to include all forces acting on each member, including:
-<ul label="square">
-<li>All applied forces/couples that may be acting at the members.</li>
-<li>Interaction forces from two-force members. Recall, at connection points with two-force members there will be single force of unknown magnitude but the known direction (the forces will act along the line between the two connection points on the member).</li>
-<li>Next, add in the remaining reaction forces/couples at the connection points between members. For forces with an unknown magnitude and direction (such as in pin joints) the forces are often drawn in as having unknown x and y components.</li></ul></p>
-<p>Remember that the interaction forces/couples between connected bodies will be equal and opposite.</p><figure xml:id="frame-ex-2">
-
-<caption>
+   </caption><image width="70%" source="images/frame-ex-1.png"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></li><li><p>Next draw a free-body diagram for each of the members in the structure. You will need to include all forces acting on each member, including:
+<ul label="square"><li>All applied forces/couples that may be acting at the members.</li><li>Interaction forces from two-force members. Recall, at connection points with two-force members there will be single force of unknown magnitude but the known direction (the forces will act along the line between the two connection points on the member).</li><li>Next, add in the remaining reaction forces/couples at the connection points between members. For forces with an unknown magnitude and direction (such as in pin joints) the forces are often drawn in as having unknown x and y components.</li></ul></p><p>Remember that the interaction forces/couples between connected bodies will be equal and opposite.</p><figure xml:id="frame-ex-2"><caption>
 Separate the structure into individual components and draw a free-body diagram of each component. It is important to remember that the forces at each connection point are equal and opposite.
-   </caption>
-
-<image width="70%" source="images/frame-ex-2.png"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></li>
-<li>
-<p>Write out the equilibrium equations for each free-body diagram. </p></li>
-<li>
-<p>Finally, solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. If your algebra tells you that any force/couple is negative, that indicates that the assumed direction of that term should be flipped in direction.</p></li></ol></p><insight>
-
-<title>Why does the Method of Joints work on trusses but fail on Frames and Machines?</title>
-
-
-<p>	We can solve trusses using the methods of joints and method of sections because all members of a truss are considered to be two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em>one</em> unknown.</p>
-<p>Frames and machines are made of multi-force members and cutting these, in general, exposes:
-<ul label="square">
-<li>A force with an unknown magnitude acting in an unknown direction. </li>
-<li>A bending moment at the plane of the cut. </li></ul></p>
-<p>	Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve. </p>
-<p>	Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems, draw and analyze free-body diagrams of the components.</p></insight></subsection></section><section xml:id="Chapter_06-chapter-review">
-
-<title>Chapter Review</title>
-
-<introduction>
-<p>We now have covered all of the equilibrium types in the table below. You should be able to compare and contrast the various types of equilibrium, draw the free-body diagrams associated with each, and know which equations allow you to solve for the unknowns of each case.</p><!--todo this section doesn't compile to latex -->
-<p>This sections below summarize the various types of equilibrium topics, and give solving techniques and number of equations available for each.</p></introduction><subsection xml:id="Chapter_06-chapter-review-particle-equilibrium-">
-
-<title>Particle Equilibrium </title>
-
-
-<p>         An object may be treated as a particle when the forces acting on it are coincident, that is, all of their lines of action intersect at a common point.  In this case, they produce no moment to rotate the object, and <m>\Sigma \vec{M} = 0</m> is not helpful.</p>
-<p><m>\Sigma \vec{F} = 0 </m></p>
-<p>         2D → </p>
-<p><md><mrow>         2\; \Sigma F\amp =0 \text{ equations} </mrow><mrow>         \amp = 2 \text{ unknowns}  </mrow></md></p>
-<p>         3D →</p>
-<p><md><mrow>         3\; \Sigma F\amp =0 \text{ equations} </mrow><mrow>         \amp = 3 \text{ unknowns}</mrow></md></p></subsection><subsection xml:id="Chapter_06-chapter-review-rigid-body-equilibrium-">
-
-<title>Rigid Body Equilibrium </title>
-
-
-<p>         With rigid body equilibrium some forces acting on the object will tend to rotate it, and moment equilibrium must be considered. </p>
-<p><m>\Sigma \vec{F} = 0</m> and <m>\Sigma \vec{M} = 0</m> equations.</p>
-<p>         2D → </p>
-<p><md><mrow>         2\; \Sigma F\amp =0 </mrow><mrow>         + 1\; \Sigma M\amp =0 \text{ equations} </mrow><mrow>          \amp = 3 \text{ unknowns}  </mrow></md></p>
-<p>          3D → </p>
-<p><md><mrow>          3\;\Sigma F\amp =0 </mrow><mrow>          + 3\; \Sigma M\amp =0 \text{ equations} </mrow><mrow>          \amp = 6 \text{ unknowns}</mrow></md></p></subsection><subsection xml:id="Chapter_06-chapter-review-trusses">
-
-<title>Trusses</title>
-
-
-<p>A truss is a structure which that consists entirely of two-force members, and only carries forces at the joints between members</p>
-<p>Two-force members and loading at joints allow free-body diagram of joints to expose axial loads in members.</p>
-<p>2D →</p>
-<p><md><mrow>         2\; \Sigma F\amp =0 \text{ equations per joint} </mrow><mrow>         \amp = (\text{reactions}) + (\text{members}) </mrow></md></p>
-<p>3D →</p>
-<p><md><mrow>        3\; \Sigma F\amp =0 \text{ equations per joint}) </mrow><mrow>        \amp = (\text{reactions}) + (\text{members})</mrow></md></p></subsection><subsection xml:id="Chapter_06-chapter-review-frames-and-machines">
-
-<title>Frames and Machines</title>
-
-
-<p>Frames and machines are structures which contain multiple rigid body systems.  Frames don't move and are designed to support loads.  Frames differ from trusses because they contain at least one multi-force member.  Machines are generally are designed to multiply forces, and usually have moving parts.  Both frames and machines can be solved by the same methods. </p>
-<p>The mix of two-force and multiforce bodies require free-body diagrams of rigid bodies where interactions between bodies are equal and opposite.</p>
-<p>Can apply <m>\Sigma F=0</m> and <m>\Sigma M=0 </m>equations for each body to solve for total unknowns.</p>
-<p>2D →</p>
-<p><md><mrow>         2\;\Sigma F\amp =0 </mrow><mrow>         + 1\; \Sigma M\amp =0 \text{ equations per multiforce body} </mrow><mrow>         + 1\; \Sigma F\amp =0 \text{ equation per two-force body} </mrow></md></p>
-<p>3D →</p>
-<p><md><mrow>         (3\; \Sigma F\amp =0 </mrow><mrow>         + 3\; \Sigma M\amp =0 \text{ equations per multiforce body} </mrow><mrow>         + 1\; \Sigma F\amp =0 \text{ equation per two-force body}</mrow></md></p></subsection></section></chapter>
+   </caption><image width="70%" source="images/frame-ex-2.png"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></li><li><p>Write out the equilibrium equations for each free-body diagram. </p></li><li><p>Finally, solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. If your algebra tells you that any force/couple is negative, that indicates that the assumed direction of that term should be flipped in direction.</p></li></ol></p>
+      <insight>
+        <title>Why does the Method of Joints work on trusses but fail on Frames and Machines?</title>
+        <p>	We can solve trusses using the methods of joints and method of sections because all members of a truss are considered to be two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em>one</em> unknown.</p>
+        <p>Frames and machines are made of multi-force members and cutting these, in general, exposes:
+<ul label="square"><li>A force with an unknown magnitude acting in an unknown direction. </li><li>A bending moment at the plane of the cut. </li></ul></p>
+        <p>	Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve. </p>
+        <p>	Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems, draw and analyze free-body diagrams of the components.</p>
+      </insight>
+    </subsection>
+  </section>
+  <section xml:id="Chapter_06-chapter-review">
+    <title>Chapter Review</title>
+    <introduction>
+      <p>We now have covered all of the equilibrium types in the table below. You should be able to compare and contrast the various types of equilibrium, draw the free-body diagrams associated with each, and know which equations allow you to solve for the unknowns of each case.</p>
+      <!--todo this section doesn't compile to latex -->
+      <p>This sections below summarize the various types of equilibrium topics, and give solving techniques and number of equations available for each.</p>
+    </introduction>
+    <subsection xml:id="Chapter_06-chapter-review-particle-equilibrium-">
+      <title>Particle Equilibrium </title>
+      <p>         An object may be treated as a particle when the forces acting on it are coincident, that is, all of their lines of action intersect at a common point.  In this case, they produce no moment to rotate the object, and <m>\Sigma \vec{M} = 0</m> is not helpful.</p>
+      <p>
+        <m>\Sigma \vec{F} = 0 </m>
+      </p>
+      <p>         2D → </p>
+      <p>
+        <md>
+          <mrow>         2\; \Sigma F\amp =0 \text{ equations} </mrow>
+          <mrow>         \amp = 2 \text{ unknowns}  </mrow>
+        </md>
+      </p>
+      <p>         3D →</p>
+      <p>
+        <md>
+          <mrow>         3\; \Sigma F\amp =0 \text{ equations} </mrow>
+          <mrow>         \amp = 3 \text{ unknowns}</mrow>
+        </md>
+      </p>
+    </subsection>
+    <subsection xml:id="Chapter_06-chapter-review-rigid-body-equilibrium-">
+      <title>Rigid Body Equilibrium </title>
+      <p>         With rigid body equilibrium some forces acting on the object will tend to rotate it, and moment equilibrium must be considered. </p>
+      <p><m>\Sigma \vec{F} = 0</m> and <m>\Sigma \vec{M} = 0</m> equations.</p>
+      <p>         2D → </p>
+      <p>
+        <md>
+          <mrow>         2\; \Sigma F\amp =0 </mrow>
+          <mrow>         + 1\; \Sigma M\amp =0 \text{ equations} </mrow>
+          <mrow>          \amp = 3 \text{ unknowns}  </mrow>
+        </md>
+      </p>
+      <p>          3D → </p>
+      <p>
+        <md>
+          <mrow>          3\;\Sigma F\amp =0 </mrow>
+          <mrow>          + 3\; \Sigma M\amp =0 \text{ equations} </mrow>
+          <mrow>          \amp = 6 \text{ unknowns}</mrow>
+        </md>
+      </p>
+    </subsection>
+    <subsection xml:id="Chapter_06-chapter-review-trusses">
+      <title>Trusses</title>
+      <p>A truss is a structure which that consists entirely of two-force members, and only carries forces at the joints between members</p>
+      <p>Two-force members and loading at joints allow free-body diagram of joints to expose axial loads in members.</p>
+      <p>2D →</p>
+      <p>
+        <md>
+          <mrow>         2\; \Sigma F\amp =0 \text{ equations per joint} </mrow>
+          <mrow>         \amp = (\text{reactions}) + (\text{members}) </mrow>
+        </md>
+      </p>
+      <p>3D →</p>
+      <p>
+        <md>
+          <mrow>        3\; \Sigma F\amp =0 \text{ equations per joint}) </mrow>
+          <mrow>        \amp = (\text{reactions}) + (\text{members})</mrow>
+        </md>
+      </p>
+    </subsection>
+    <subsection xml:id="Chapter_06-chapter-review-frames-and-machines">
+      <title>Frames and Machines</title>
+      <p>Frames and machines are structures which contain multiple rigid body systems.  Frames don't move and are designed to support loads.  Frames differ from trusses because they contain at least one multi-force member.  Machines are generally are designed to multiply forces, and usually have moving parts.  Both frames and machines can be solved by the same methods. </p>
+      <p>The mix of two-force and multiforce bodies require free-body diagrams of rigid bodies where interactions between bodies are equal and opposite.</p>
+      <p>Can apply <m>\Sigma F=0</m> and <m>\Sigma M=0 </m>equations for each body to solve for total unknowns.</p>
+      <p>2D →</p>
+      <p>
+        <md>
+          <mrow>         2\;\Sigma F\amp =0 </mrow>
+          <mrow>         + 1\; \Sigma M\amp =0 \text{ equations per multiforce body} </mrow>
+          <mrow>         + 1\; \Sigma F\amp =0 \text{ equation per two-force body} </mrow>
+        </md>
+      </p>
+      <p>3D →</p>
+      <p>
+        <md>
+          <mrow>         (3\; \Sigma F\amp =0 </mrow>
+          <mrow>         + 3\; \Sigma M\amp =0 \text{ equations per multiforce body} </mrow>
+          <mrow>         + 1\; \Sigma F\amp =0 \text{ equation per two-force body}</mrow>
+        </md>
+      </p>
+    </subsection>
+  </section>
+</chapter>

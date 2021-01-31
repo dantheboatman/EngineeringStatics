@@ -1,6 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?><chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_10">
-
-<title>Moments of Inertia</title>
-
-
-<p>TBD</p></chapter>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_10">
+  <title>Moment of Inertia</title>
+  <objectives>
+    <ul>
+      <li>What is the difference between the area and mass moments of inertia? </li>
+      <li>What is the neutral axis of a beam?</li>
+      <li>Explain the similarities and differences between computing a centroid and an area moment of inertia.</li>
+    </ul>
+  </objectives>
+  <introduction>
+    <p>As you know, two dimensional shapes like rectangles and circles have some useful properties like area, perimeter, and centroid. These are purely <em>geometric</em> properties since they belong to the shape alone, in contrast to <em>physical</em> properties like weight and mass which belong to real physical objects.</p>
+    <p>In this chapter we introduce a new geometric property which you may not be familiar with, named the <term>Area Moment of Inertia</term>. We will use the symbol <m>I</m> to represent this property.  The area moment of inertia is always measured from a specific axis, and this is indicated with a subscript such as <m>I_x</m>.  This is pronounced as <blockquote><q>Area moment of inertia with respect to the <m>x</m> axis</q>.</blockquote>  Since this name is so unwieldy, we tend to simply call it the <term>Moment of Inertia</term>, as we did in the title of this chapter.  </p>
+    <p>There is a corresponding physical property named <term>Mass Moment of Inertia</term>, which confusingly also gets called <q>moment of inertia</q> even though it is not the same thing.  In this book we will use the term <q>moment of inertia</q> to mean the geometric property and use <q>mass moment of mnertia</q> for the physical property.  We will briefly mention the mass moment of inertia later in this chapter, but leave the full discussion of that topic for another course.  </p>
+  </introduction>
+  <p>three related integrals</p>
+  <p>
+    <m>A = \int d_A</m>
+  </p>
+  <p>
+    <m>Q_x = \int y dA</m>
+  </p>
+  <p>
+    <m>I_x = \int y^2 dA</m>
+  </p>
+  <section xml:id="Chapter_10-area-moment-of-inertia">
+    <title>Area Moment of Inertia</title>
+    <p>The area moment of inertia is a measure describing how an area is distributed with respect to a selected axis. Fundamentally, an area which is located farther from an axis is more important that area which is closer to the axis.. </p>
+    <p>Area moments of inertia are a two-dimensional measure of the distribution of an area away from an axis. Their primary application is for structural engineering or machine design to find the distribution of a cross-sectional area, which helps compute a structural member’s stiffness. These area moments of inertia are the focus of the rest of this chapter and the version you will use in classes like Mechanics of Materials, Machine Design, and Structural Analysis.</p>
+    <p>Both area and mass moments of inertia use the same variable <m>I_{\text{axis}}</m>, which always includes a subscript of the axis that the moment of inertia is taken around. This axis subscript is similar to the axis denoted for sums of moments  in <xref ref="Chapter_04"/>. </p>
+    <warning>
+      <p>The <em>mass</em> moment of inertia from physics is not the same as the <m>area</m> moment of inertia in Statics!  </p>
+      <p>This can be confusing since both are commonly shortened to <q>moment of inertia</q> and both use the same symbol.  They have different units however, and the correct moment of inertia can easily be determined from context or with a unit analysis.</p>
+    </warning>
+    <insight>
+      <title>Beam bending</title>
+      <p>To get a feel for the moment of inertia, find a ruler, a yardstick, or something similar: long with a rectangular cross section. Try to bend the ruler both when it's flat and also when it's turned on edge. Why is it easier to bend the ruler one way than the other? It is the same object, made of the same material either way. The answer has to due with the moment of inertia, and how it relates to the bending axis. </p>
+      <image width="75%" source="images/10-ruler.png"/>
+      <p/>
+      <p>Figure AA - (top) Bending a ruler when flat around the x-axis is relatively easy compared to (bottom) bending a ruler around the z-axis.</p>
+      <p>As engineers we are not satisfied with merely knowing that it's harder to bend a ruler one way than the other , we’d like to know <em>how much harder</em>?  </p>
+      <p>For a <m>\inch{1/8}</m>  thick ruler that is <m>\inch{1}</m> tall, the bending resistance about the <m>x</m> axis when the ruler is upright is over 20 times less than the bending resistance the other way, about the <m>z</m> axis. </p>
+      <p>To further see where the moment of inertia comes into play, consider the bending resistance provided by a beam, as shown below. As you apply opposing moments at either the ends of a beam, it will bend into an arc of a circle of some radius.</p>
+      <image width="75%" source="images/10-bent-beam.png"/>
+      <p/>
+      <p>Figure BB - Beam of length L which is being bent by opposing couple moments, with +/- signs from the right-hand rule, and is being bent to an arc with angle $\theta$.</p>
+      <p>The equation relating the terms in Figure SS is: 
+<men>M=\theta \left (\frac{EI}{L} \right )</men> where: <ul label=""><li><p><m>E</m> is a material stiffness property called Young’s Modulus or the modulus of elasticity (bending steel is harder than bending wood),</p></li><li><p><m>L</m> is the length of the beam (a longer stick bends more than a short one), and</p></li><li><p><m>I</m> is the moment of inertia of the cross-section of the beam (beams with larger moment of inertia about the bending axis are stiffer).</p></li></ul></p>
+      <p>The sag, or <term>deflection</term>, of a beam when supporting a load is also related to these factors, and the specifics of the load as well.  For example, if a beam is loaded with a concentrated load <m>P</m> at its center it will by <m>\delta_{\text{max}}</m> at its midpoint where <me>\delta_{\text{max}}=\frac{PL^3}{48 EI}</me></p>
+    </insight>
+    <question>
+      <statement>
+        <p>If you had three wooden 2x6’s, which incidentally only measure 1.5 in by 5.5 in, and you were asked to build the stiffest beam possible, which beam cross-section do you think would be best? How many times stiffer do you think that one cross-section is than the other?</p>
+        <image width="50%" source="images/10-sandwich-beam.png"/>
+        <p/>
+      </statement>
+      <answer>
+        <p>The I-beam has more than 3.6 times the stiffness of the sandwich beam! You will learn how to make these computations in the sections below.</p>
+      </answer>
+    </question>
+  </section>
+</chapter>
