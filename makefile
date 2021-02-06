@@ -75,6 +75,8 @@ MBUSR = $(MB)/user
 #
 #
 html:
+	make tidy
+	
 	install -d $(BUILD)
 	install -d $(MBUSR)
 	install -d $(HTMLOUT)
@@ -97,7 +99,7 @@ html:
 	cd $(HTMLOUT); \
 	xsltproc -xinclude -stringparam publisher publisher.xml $(MBUSR)/weh-custom-html.xsl $(MAINFILE); \
 	open $(HTMLOUT)/index.html
-
+	
 pdf:
 	install -d $(BUILD)
 	install -d $(MBUSR)
@@ -169,4 +171,11 @@ publish:
 	cp -R $(HTMLOUT)/* $(WEBDIR)
 	open $(BASEURL)/index.html
 
+#Formats all pretext files consistently
+
+tidy:
+	for file in  $(SOURCE)/*.ptx ; do \
+		echo "Tidying up:" $${file} ; \
+		xmllint --format -o $${file}  $${file}; \
+	done 
 
