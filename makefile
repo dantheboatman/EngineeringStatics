@@ -77,28 +77,34 @@ MBUSR = $(MB)/user
 html:
 	make tidy
 	
-	install -d $(BUILD)
-	install -d $(MBUSR)
-	install -d $(HTMLOUT)
-	install -d $(HTMLOUT)/images
-	install -d $(HTMLOUT)/numbas
+	@install -d $(BUILD)
+	@install -d $(MBUSR)
+	@install -d $(HTMLOUT)
+	@install -d $(HTMLOUT)/images
+	@install -d $(HTMLOUT)/numbas
 
 # Clear out the HTML folder
-	-rm $(HTMLOUT)/*.html
-	-rm $(HTMLOUT)/knowl/*.html
-	-rm $(HTMLOUT)/images/*
-	-rm -r $(HTMLOUT)/numbas/*
-	-rm $(HTMLOUT)/*.css
+	@echo "clear the html folder"
+	@rm -r $(HTMLOUT)/*
+#	@-rm $(HTMLOUT)/knowl/*.html
+#	@-rm $(HTMLOUT)/images/*
+#	@-rm -r $(HTMLOUT)/numbas/*
+#	@-rm $(HTMLOUT)/*.css
 	
 # copy needed resources
 	make copy_images
-	cp -a $(IMAGESOUT) $(HTMLOUT)
-	cp -a $(NUMBASSRC) $(HTMLOUT)
-	cp $(CUSTOM)/*.css $(HTMLOUT)
-	cp $(CUSTOM)/*.xsl $(MBUSR)
+	@echo "build HTML pages"
+
+	@cp -a $(IMAGESOUT) $(HTMLOUT)
+	@cp -a $(NUMBASSRC) $(HTMLOUT)
+	@cp $(CUSTOM)/*.css $(HTMLOUT)
+	@cp $(CUSTOM)/*.xsl $(MBUSR)
+	
+	
 	cd $(HTMLOUT); \
-	xsltproc -xinclude -stringparam publisher publisher.xml $(MBUSR)/weh-custom-html.xsl $(MAINFILE); \
+	xsltproc -xinclude -stringparam publisher publisher.xml $(MBUSR)/weh-custom-html.xsl $(MAINFILE)
 	open $(HTMLOUT)/index.html
+	@echo "done.\n"
 	
 pdf:
 	install -d $(BUILD)
@@ -114,7 +120,7 @@ pdf:
 	cp $(CUSTOM)/*.xsl $(MBUSR)
 
 	cd $(PDFOUT); \
-	xsltproc -xinclude  -stringparam publisher publisher.xml -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE); \
+	xsltproc -xinclude  -stringparam publisher publisher.xml -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE)
 	open  $(PDFOUT)/statics.tex
 	
 ##  Use the 'pretext' python script to generate various images from source.
@@ -153,16 +159,16 @@ asy:
 # build/images folder, while flattening the hierarchy
 #
 copy_images:
-	install -d $(BUILD)
-	install -d $(IMAGESOUT)
-	-rm $(IMAGESOUT)/*
+	@install -d $(BUILD)
+	@install -d $(IMAGESOUT)
+	@-rm $(IMAGESOUT)/*
 # these commands copy resources to IMAGESOUT while flattening the heirarchy
-	find $(RESOURCES) -iname '*.ggb'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(RESOURCES) -iname '*.jpg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(RESOURCES) -iname '*.png'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(RESOURCES) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(RESOURCES) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	find $(RESOURCES) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.ggb'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.jpg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.png'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
+	@find $(RESOURCES) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
 #
 # copies html to local webserver and opens index page
 #
@@ -174,8 +180,7 @@ publish:
 #Formats all pretext files consistently
 
 tidy:
-	for file in  $(SOURCE)/*.ptx ; do \
-		echo "Tidying up:" $${file} ; \
+	@for file in  $(SOURCE)/*.ptx ; do \
 		xmllint --format -o $${file}  $${file}; \
 	done 
 

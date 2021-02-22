@@ -3,14 +3,15 @@ require 'json'
 
 aisc = File.read('../aisc-shapes-database-v15.0.json')
 
-DESC = "C"  # W, S, C, L
-units = 1  # 0 US, 1 SI
+DESC = "L"  # W, S, C, L
+units = 0  # 0 US, 1 SI
 
 rows = JSON.parse(aisc)['root']['row'].select {|r| r['Type'] == DESC}
 L =
     [['EDI_Std_Nomenclature', 'Description', '<m>d \\times \\,b \\times \\,t</m>', '<m>d \\times \\,b \\times \\,t</m>'],
      ['W', '<m>W</m>', 'lb/ft', 'kg/m'], ['A', '<m>A</m>', '<m>\text{in}^2</m>', '<m>\\text{mm}^2</m>'],
-     ['b', '<m>b</m>', 'in', 'mm'], ['d', '<m>d</m>', 'in', 'mm'],
+     ['b', '<m>b</m>', 'in', 'mm'], 
+     ['d', '<m>d</m>', 'in', 'mm'],
      ['t', '<m>t</m>', 'in', 'mm'],
      ['x', '<m>\\bar{x}</m>', 'in', 'mm'],
      ['y', '<m>\\bar{y}</m>', 'in', 'mm'],

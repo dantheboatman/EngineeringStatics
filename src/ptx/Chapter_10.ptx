@@ -1,62 +1,589 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_10">
-  <title>Moment of Inertia</title>
+  <title>Moments of Inertia</title>
   <objectives>
     <ul>
-      <li>What is the difference between the area and mass moments of inertia? </li>
+      <li>What is an area moment of inertia?</li>
+      <li>What is the difference between the area and mass moments of inertia? </li>
       <li>What is the neutral axis of a beam?</li>
       <li>Explain the similarities and differences between computing a centroid and an area moment of inertia.</li>
     </ul>
   </objectives>
   <introduction>
-    <p>As you know, two dimensional shapes like rectangles and circles have some useful properties like area, perimeter, and centroid. These are purely <em>geometric</em> properties since they belong to the shape alone, in contrast to <em>physical</em> properties like weight and mass which belong to real physical objects.</p>
-    <p>In this chapter we introduce a new geometric property which you may not be familiar with, named the <term>Area Moment of Inertia</term>. We will use the symbol <m>I</m> to represent this property.  The area moment of inertia is always measured from a specific axis, and this is indicated with a subscript such as <m>I_x</m>.  This is pronounced as <blockquote><q>Area moment of inertia with respect to the <m>x</m> axis</q>.</blockquote>  Since this name is so unwieldy, we tend to simply call it the <term>Moment of Inertia</term>, as we did in the title of this chapter.  </p>
-    <p>There is a corresponding physical property named <term>Mass Moment of Inertia</term>, which confusingly also gets called <q>moment of inertia</q> even though it is not the same thing.  In this book we will use the term <q>moment of inertia</q> to mean the geometric property and use <q>mass moment of mnertia</q> for the physical property.  We will briefly mention the mass moment of inertia later in this chapter, but leave the full discussion of that topic for another course.  </p>
-  </introduction>
-  <p>three related integrals</p>
-  <p>
-    <m>A = \int d_A</m>
-  </p>
-  <p>
-    <m>Q_x = \int y dA</m>
-  </p>
-  <p>
-    <m>I_x = \int y^2 dA</m>
-  </p>
-  <section xml:id="Chapter_10-area-moment-of-inertia">
-    <title>Area Moment of Inertia</title>
-    <p>The area moment of inertia is a measure describing how an area is distributed with respect to a selected axis. Fundamentally, an area which is located farther from an axis is more important that area which is closer to the axis.. </p>
-    <p>Area moments of inertia are a two-dimensional measure of the distribution of an area away from an axis. Their primary application is for structural engineering or machine design to find the distribution of a cross-sectional area, which helps compute a structural member’s stiffness. These area moments of inertia are the focus of the rest of this chapter and the version you will use in classes like Mechanics of Materials, Machine Design, and Structural Analysis.</p>
-    <p>Both area and mass moments of inertia use the same variable <m>I_{\text{axis}}</m>, which always includes a subscript of the axis that the moment of inertia is taken around. This axis subscript is similar to the axis denoted for sums of moments  in <xref ref="Chapter_04"/>. </p>
+    <p>Area moments of inertia are a measure of the distribution of a two-dimensional area around a particular axis.  Fundamentally, the portions of a shape which are located farther from the specified axis are more important than the parts which are closer. The primary application is in structural engineering and machine design where they are used to determine a structural member’s stiffness.  Another  application is in Fluid Mechanics where they are used to determine the effect of pressure on a submerged surface.  We will use the symbol <m>I</m> for this property, along with a subscript to indicate the specific axis, so for example, <m>I_x</m> would indicate the <q>Area moment of inertia with respect to the <m>x</m> axis</q>.</p>
     <warning>
-      <p>The <em>mass</em> moment of inertia from physics is not the same as the <m>area</m> moment of inertia in Statics!  </p>
-      <p>This can be confusing since both are commonly shortened to <q>moment of inertia</q> and both use the same symbol.  They have different units however, and the correct moment of inertia can easily be determined from context or with a unit analysis.</p>
+      <p>The <em>mass</em> moment of inertia you learned about in Physics is not the same as the <m>area</m> moment of inertia in Statics!  </p>
+      <p>This can be confusing since both are commonly shortened to <q>moment of inertia</q> and both use the same symbol, <m>I</m>.  They have different units however, and the intended moment of inertia can easily be determined from context or with a unit analysis.</p>
     </warning>
-    <insight>
-      <title>Beam bending</title>
-      <p>To get a feel for the moment of inertia, find a ruler, a yardstick, or something similar: long with a rectangular cross section. Try to bend the ruler both when it's flat and also when it's turned on edge. Why is it easier to bend the ruler one way than the other? It is the same object, made of the same material either way. The answer has to due with the moment of inertia, and how it relates to the bending axis. </p>
-      <image width="75%" source="images/10-ruler.png"/>
-      <p/>
-      <p>Figure AA - (top) Bending a ruler when flat around the x-axis is relatively easy compared to (bottom) bending a ruler around the z-axis.</p>
-      <p>As engineers we are not satisfied with merely knowing that it's harder to bend a ruler one way than the other , we’d like to know <em>how much harder</em>?  </p>
-      <p>For a <m>\inch{1/8}</m>  thick ruler that is <m>\inch{1}</m> tall, the bending resistance about the <m>x</m> axis when the ruler is upright is over 20 times less than the bending resistance the other way, about the <m>z</m> axis. </p>
-      <p>To further see where the moment of inertia comes into play, consider the bending resistance provided by a beam, as shown below. As you apply opposing moments at either the ends of a beam, it will bend into an arc of a circle of some radius.</p>
-      <image width="75%" source="images/10-bent-beam.png"/>
-      <p/>
-      <p>Figure BB - Beam of length L which is being bent by opposing couple moments, with +/- signs from the right-hand rule, and is being bent to an arc with angle $\theta$.</p>
-      <p>The equation relating the terms in Figure SS is: 
-<men>M=\theta \left (\frac{EI}{L} \right )</men> where: <ul label=""><li><p><m>E</m> is a material stiffness property called Young’s Modulus or the modulus of elasticity (bending steel is harder than bending wood),</p></li><li><p><m>L</m> is the length of the beam (a longer stick bends more than a short one), and</p></li><li><p><m>I</m> is the moment of inertia of the cross-section of the beam (beams with larger moment of inertia about the bending axis are stiffer).</p></li></ul></p>
-      <p>The sag, or <term>deflection</term>, of a beam when supporting a load is also related to these factors, and the specifics of the load as well.  For example, if a beam is loaded with a concentrated load <m>P</m> at its center it will by <m>\delta_{\text{max}}</m> at its midpoint where <me>\delta_{\text{max}}=\frac{PL^3}{48 EI}</me></p>
-    </insight>
-    <question>
-      <statement>
-        <p>If you had three wooden 2x6’s, which incidentally only measure 1.5 in by 5.5 in, and you were asked to build the stiffest beam possible, which beam cross-section do you think would be best? How many times stiffer do you think that one cross-section is than the other?</p>
-        <image width="50%" source="images/10-sandwich-beam.png"/>
+  </introduction>
+  <section xml:id="Chapter_10-integral-properties-of-shapes">
+    <title>Integral Properties of Shapes</title>
+    <objectives>
+      <ul>
+        <li>
+          <p>Why does the area moment of inertia integral equation include a distance squared term?</p>
+        </li>
+        <li>
+          <p>When performing a single integral, either <m>dx</m> or <m>dy</m>, what is your differential element <m>dA</m> shape?</p>
+        </li>
+      </ul>
+    </objectives>
+    <introduction>
+      <p>As you know, two dimensional shapes like rectangles and circles have properties such as area, perimeter, and centroid. These are purely <em>geometric</em> properties since they belong to the shape alone, in contrast to <em>physical</em> properties like weight and mass which belong to real physical objects. </p>
+      <p>In this section we introduce several new geometric properties useful in engineering including the <term>Area Moment of Inertia</term>. </p>
+      <!--TODO Check this interactive /Users/whaynes/ptx/statics/src/resources/ch10/ggb/MOI-potato.ggb-->
+      <p>The integral properties of shapes, along with the names and symbols commonly used to represent them are given in the table below. You are already familiar with <em>area</em> from Geometry and the <em>first moment of area</em> from <xref ref="Chapter_07"/>. The remaining properties are the subject of this chapter. They all have a similar form, and can be evaluated using similar integration techniques. </p>
+      <p>The interactive diagram below defines the terms which apply to all of the property definitions below. It shows a generic plane area <m>A</m>, divided into differential elements <m>dA = dx\ dy</m>. The differential element <m>dA</m> is an infinitesimally tiny rectangle centered about point <m>(x,y)</m>, which can range over the entire area.  The distances to the element from the <m>y</m> axis, the <m>x</m> axis and the origin are designated  <m>x</m>, <m>y</m>, and <m>r</m> respectively. The centroid of the entire area is located at <m>(\bar{x},\bar{y})</m>. </p>
+      <figure xml:id="MOI-potato-ggb">
+        <caption>Definitions for area properties
+</caption>
+        <sidebyside width="75%">
+          <interactive xml:id="MOI-potato_interactive" aspect="3:2" platform="geogebra" preview="images/MOI-potato">
+            <slate xml:id="MOI-potato_slate" aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb">
+recalculateEnvironments()
+enableRightClick(false)
+</slate>
+            <remix>
+              <creator href="https://weh.maritime.edu">William Haynes</creator>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+            </remix>
+            <instructions/>
+          </interactive>
+        </sidebyside>
+      </figure>
+      <tabular>
+        <col width="25%"/>
+        <col width="40%"/>
+        <row header="yes">
+          <cell>Definition</cell>
+          <cell>Name</cell>
+          <cell>More Information</cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>A =\int_A dA</me>
+            </p>
+          </cell>
+          <cell>
+            <p>Area</p>
+          </cell>
+          <cell>
+            <xref ref="area-of-a-general-spandrel"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>Q_x =\int_A y\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <line>First Moment of Area</line>
+            <line> (with respect to the <m>x</m> axis)</line>
+          </cell>
+          <cell>
+            <xref ref="Chapter_07"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>Q_y =\int_A x\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <line>First Moment of Area</line>
+            <line> (with respect to the <m>y</m> axis)</line>
+          </cell>
+          <cell>
+            <xref ref="Chapter_07"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>I_x =\int_A y^2\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <line>Second Moment of Area, or </line>
+            <line>Moment of Inertia </line>
+            <line>(with respect to the <m>x</m> axis)</line>
+          </cell>
+          <cell>
+            <xref first="MOI-rectangle" last="MOI-other-shapes"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>I_y =\int_A x^2\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <line>Second Moment of Area, or </line>
+            <line>Moment of Inertia </line>
+            <line>(with respect to the <m>y</m> axis)</line>
+          </cell>
+          <cell>
+            <xref first="MOI-rectangle" last="MOI-other-shapes"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>J_O =\int_A r^2\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <p>Polar Moment of Inertia</p>
+          </cell>
+          <cell>
+            <xref ref="polar-moment"/>
+          </cell>
+        </row>
+        <row>
+          <cell>
+            <p>
+              <me>I_xy =\int_A x\ y\ dA</me>
+            </p>
+          </cell>
+          <cell>
+            <p>Product of Inertia</p>
+          </cell>
+          <cell>
+            <xref ref="products-of-inertia"/>
+          </cell>
+        </row>
+      </tabular>
+      <p>All of these properties are defined as integrals over an area <m>A</m>.  These integrals may be evaluated by double-integrating over <m>x</m> and <m>y</m> in Cartesian coordinates or <m>r</m> and <m>\theta</m> in polar coordinates. They can also be evaluated using single integration using the methods demonstrated in <xref ref="MOI-triangle"/>.</p>
+      <p>None of these integrals can be evaluated until a specific shape is chosen.  When shape has been specified, the bounding functions and integration limits can be determined and only then may the integral be solved using appropriate integration techniques.  If the shape is specified in general terms, say a rectangle with base <m>b</m> and height <m>h</m>, then the result of the integration will be a formula for the property applicable to all similar shapes. </p>
+    </introduction>
+    <subsection xml:id="Chapter_10-integral-properties-of-shapes-area">
+      <title>Area</title>
+      <p>The total <term>area</term> of a shape is found by integrating the differential elements of area over the entire shape. <men>A = \int_A dA</men>. The limit on this integral is indicated with an <m>A</m> to indicate that the integration is carried out over the entire area.  The resulting value will have units of <m>[\text{length}]^2</m> and does not depend on the position of the shape on the coordinate plane.</p>
+      <p>Since the area formulas for common shapes are well known, you only need to use integration in uncommon situations.</p>
+    </subsection>
+    <subsection xml:id="Chapter_10-integral-properties-of-shapes-first-moment-of-area">
+      <title>First Moment of Area</title>
+      <p>The <term>first moment of area</term>, which was introduced in <xref ref="Chapter_07"/>, is defined by these two equations.
+<mdn><mrow xml:id="first-moment">Q_x \amp = \int_A y\ dA \amp Q_y \amp = \int_A x\ dA</mrow></mdn> and has units of <m>[\text{length}]^3</m>.</p>
+      <p>The first moment of area with respect to an axis is a measure of the distribution of the shape about an axis. It depends on the shape and also its location on the coordinate plain. Portions of area on the negative side of the selected axis make the first moment smaller, while areas on the positive side make it larger. If the shape’s centroid is located exactly on the axis, the integral will sum to zero because the contributions of area above and below the axis cancel each other.</p>
+      <p>The average value of the first moment of area is found by is found by dividing the first moment by the area of the shape, and the result indicates the distance from the axis to centroid of the shape.
+<me>\bar{x}=\frac{\sum  \bar{x}_{i} A_i}{\sum  A_i} \quad \bar{y}=\frac{\sum  \bar{y}_{i} A_i}{\sum  A_i}
+</me>. </p>
+    </subsection>
+    <subsection xml:id="moment-of-inertia-intro">
+      <title>Moment of Inertia</title>
+      <p>The <term>area moment of inertia</term>, the subject of this chapter, is defined by these two equations.
+<mdn><mrow xml:id="MOI">I_x \amp = \int_A y^2\ dA \amp I_y \amp = \int_A x^2\ dA</mrow></mdn> and has units of <m>[\text{length}]^4</m>.</p>
+      <p>As you can see, these equations are similar to the equations for the  <xref ref="first-moment">first moment of area</xref>, except that the distance terms <m>x</m> and <m>y</m> are now squared.  In recognition of the similarity, the area moments of inertia are also known as the <term>second moments of area</term>.  We will use the terms moment of inertia and second moment interchangeably.  These two quantities are sometimes designated as <em>rectangular</em> moments of inertia to distinguish them from the polar moment of inertia described in the next section.</p>
+      <p>Like the first moment, the second moment of area provides a measure of the distribution of area around an axis, but in this case the distance to each element is squared.  This gives increased importance to portions of the area which are far from the axis. Squaring the distance means that identical elements on opposite sides of the axis <em>both</em> contribute to the sum rather than cancel each other out as they do in the first moment.  As a result, the moment of inertia is always a positive quantity.</p>
+      <p>Two identical shapes can have completely different moments of inertia, depending on how the shape is distributed around the axis. A shape with most of its area close to the axis has a smaller moment of inertia than the same shape would if its area was distributed farther from the axis. This is a non-linear effect, because when the distance term is doubled, the contribution of that element to the sum increases fourfold. </p>
+      <question>
+        <statement>
+          <p>These three triangles are all the same size.  Rank them from largest to largest smallest moment of inertia with respect to the <m>y</m> axis.</p>
+          <image width="75%" source="images/MOI-three-triangles"/>
+        </statement>
+        <answer>
+          <p>From smallest to largest: <m>I_C &gt;  I_A &gt; I_B</m>.</p>
+        </answer>
+        <solution>
+          <p>Although the areas of all three triangles are the same, triangle <m>B</m> has the area on both sides of the <m>y</m> axis and relatively close to it, and so has the smallest <m>I</m>, while triangle <m>C</m> has the most of its area far from the <m>y</m> axis which makes its moment of inertia largest.  We will be able to show later that the <m>I_C = 3 I_A = 9 I_B</m>. </p>
+        </solution>
+      </question>
+      <p>Moving a shape away from the axis (or moving the axis away from the shape) increases its moment of inertia, and moving it closer to the axis decreases it, until it crosses to the other side of the axis, and then its moment of inertia will begin to increase again.</p>
+      <p>The minimum moment of inertia occurs when the centroid of the shape falls on the axis.  When this occurs, the moment of inertia is called the <term>centroidal moment of inertia. </term> A bar over the symbol <m>I</m> is used to indicate that a moment of inertia is centroidal.  So for example, <m>\bar{I}_x</m> and <m>\bar{I}_y</m> represent the <q>centroidal moment of inertia with respect to the <m>x</m> axis</q> and the <q> the centroidal moment of inertia with respect to the <m>y</m> axis.</q>  The bar in this case does not mean that moment of inertia is a vector quantity. Note that a shape can have multiple centroidal moments of inertia, because more than one axis can pass through the centroid of a shape.  In this text, we will only the vertical and horizontal axes, but they are not the only possibilities. </p>
+      <p>The centroidal moment of inertia is particularly important.  We will see in <xref ref="parallel-axis-theorem"/> that if we know a shape’s centroidal moment of inertia for some axis direction, it is a simple process to calculate the moment of inertia of the shape about any other parallel axis.  The moment of inertia is used in Mechanics of Materials to find stress and deflection in beams and to determine the load which will cause a column to buckle.</p>
+      <p>We stated earlier that the centroidal moment of inertia is the minimum moment of inertia, but by this we mean, the minimum moment of inertia for a particular axis direction, for example horizontal.  Other centroidal axes may may have a different moment of inertia, either larger or smaller than the moment of inertia about a horizontal centroidal axis.   The centroidal axes which have the absolute minimum and maximum moment of inertia are called the principle axes.  The principle axes are not necessarily horizontal and vertical.</p>
+      <insight>
+        <title>Beam bending</title>
+        <p>To get a feel for how moment of inertia effects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section. </p>
+        <p>Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the <m>x</m> axis while it’s flat is easy compared to bending it the other way, around the <m>z</m> axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way. </p>
+        <p>The answer has to due with the moment of inertia, and how it relates to the bending axis. </p>
         <p/>
-      </statement>
-      <answer>
-        <p>The I-beam has more than 3.6 times the stiffness of the sandwich beam! You will learn how to make these computations in the sections below.</p>
-      </answer>
-    </question>
+        <p>
+          <!-- todo get captions out of the diagram here.-->
+        </p>
+        <figure xml:id="MOI-ruler">
+          <caption>
+Bending a ruler. 
+</caption>
+          <image width="75%" source="images/MOI-ruler.png">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+        </figure>
+        <p>As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know <em>how much harder</em>?</p>
+        <p>For a <m>\inch{1/8}</m>  thick ruler that is <m>\inch{1}</m> tall, the bending resistance about the <m>z</m> axis is over 20 times more than the bending resistance the other way, about the <m>x</m> axis. </p>
+        <p>To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius.  A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.</p>
+        <figure xml:id="MOI-bent-beam">
+          <caption>
+Beam of length <m>L</m> which is being bent by opposing couple moments to an arc with angle <m>\theta</m>.
+</caption>
+          <image width="50%" source="images/MOI-bent-beam.png">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+        </figure>
+        <p/>
+        <p>You will learn in Mechanics of Materials that the relationship is: 
+<men>M=\theta \left (\frac{EI}{L} \right )</men> where: <ul label=""><li><p><m>E</m> is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material.</p></li><li><p><m>L</m> is the length of the beam, and</p></li><li><p><m>I</m> is the moment of inertia of the cross-section of the beam about the bending axis.</p></li><li><m>M</m> is the moment applied to the ends of the beam, and</li><li><m>\theta</m> is the curvature of the beam.</li></ul> Since <m>E</m> and <m>I</m> are in the numerator and <m>L</m> is in the denominator, a longer beam is more flexible and larger values of <m>E</m> or <m>I</m> make the beam stiffer.  With those properties fixed, angle <m>\theta</m> is directly proportional to the moment <m>M</m>.</p>
+        <p>The sag, or <term>deflection</term>, of a beam when supporting a load is also related to these factors, and the placement of the load as well.  For example, if a beam is loaded with a concentrated force <m>P</m> at its center its maximum deflection <m>\delta_{\text{max}}</m> will occur at the midpoint, with <me>\delta_{\text{max}}=\frac{PL^3}{48 EI}</me>
+            </p>
+      </insight>
+    </subsection>
+    <subsection xml:id="Chapter_10-integral-properties-of-shapes-polar-moment-of-inertia">
+      <title>Polar Moment of Inertia</title>
+      <p>The <term>polar moment of inertia</term> is defined as
+<mdn><mrow xml:id="polar-MOI">J_z \amp = \int_A r^2\ dA </mrow></mdn> and has units of <m>[\text{length}]^4</m>.</p>
+      <p>The polar moment of inertia is a another measure of the distribution of an area but, in this case, about a point at the origin rather than about an axis. One important application of this value is to quantify the resistance of a shaft to torsion or twisting due to the shape of its cross-section.</p>
+      <p>There is a particularly simple relationship between the polar moment of inertia and the rectangular moments of inertia. Referring to  diagram <xref ref="MOI-potato-ggb"/>, apply the Pythagorean theorem <m>r^2 = x^2 +y^2</m> to the <xref ref="polar-MOI">definition</xref> of the polar moment of inertia to get
+<md><mrow>J_z \amp =  \int_A r^2\ dA</mrow><mrow>\amp =  \int_A (x^2 + y^2) \ dA</mrow><mrow>\amp  =  \int_A x^2  dA + \int_A y^2  dA</mrow><mrow>J_Z \amp =  I_x  + I_y</mrow></md>.</p>
+      <insight>
+        <title>Why don't we call the polar moment of inertia <m>I_z</m>?</title>
+        <p>The squared distance in the polar moment of inertia formula is the distance from the <m>z</m> axis, so it would seem reasonable to name the polar moment <m>I_z</m> to be consistent with <m>I_x</m> and <m>I_y,</m> which use distances from the <m>x</m> and <m>y</m> axes.</p>
+        <p>Instead engineers use the letter <m>J</m> to represent this quantity.  Why?</p>
+        <p>If areas only existed in the <m>x</m>-<m>y</m> plane, this would be fine, but the real world is three-dimensional, so <m>I_z</m> must be reserved to use with areas in the <m>x</m>-<m>z</m> or <m>y</m>-<m>z</m> plane.  </p>
+        <p>As shown in the interactive, the rectangular moment of inertia <m>I</m> involves rotating element <m>dA</m> about out-of-plane around an in-plain axis, and the polar moment <m>J</m> involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things. </p>
+        <!--TODO Check this interactive /Users/whaynes/ptx/statics/src/resources/ch10/ggb/MOI-Ixyz.ggb-->
+        <figure xml:id="MOI-Ixyz-ggb">
+          <caption> In-plane and out-of-plane rotation of element <m>dA</m> about the <m>x</m>, <m>y</m> and <m>z</m> axes.</caption>
+          <sidebyside width="75%">
+            <interactive xml:id="MOI-Ixyz_interactive" aspect="3:2" platform="geogebra" preview="images/MOI-Ixyz.png">
+              <slate xml:id="MOI-Ixyz_slate" aspect="3:2" surface="geogebra" source="images/MOI-Ixyz.ggb">
+recalculateEnvironments()
+enableRightClick(false)
+enableShiftDragZoom(false)
+</slate>
+              <remix>
+                <creator href="https://weh.maritime.edu">William Haynes</creator>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+              </remix>
+              <instructions>
+                <p>Click on the labeled rectangle to change the view. Rotate element <m>dA</m>.</p>
+              </instructions>
+            </interactive>
+          </sidebyside>
+        </figure>
+      </insight>
+    </subsection>
+    <subsection xml:id="Chapter_10-integral-properties-of-shapes-product-of-inertia">
+      <title>Product of Inertia</title>
+      <p>The final property of interest is the <term>product of inertia</term> and it is defined as 
+<mdn><mrow>I_{xy} \amp = \int_A x y\ dA </mrow></mdn> where <m>x</m> and <m>y</m> are defined as in <xref ref="MOI-potato-ggb"/>. Like the others, the units associated with this quantity are <m>[\text{length}]^4</m>. The name was chosen because the distance squared term in the integral is the <em>product</em> of the element’s coordinates.    In contrast to the other area moments, which are always positive, the product of inertia can be a positive or negative value.  If either the <m>x</m> or the <m>y</m> axis passes through an axis of symmetry, the product of inertia will be zero.</p>
+      <p>The product of inertia is used by structural engineers to determine how a beam or column with a non-symmetrical cross section, like a channel or angle section, will twist when a load is applied.  Another application is to determine how to rotate the coordinate system to produce the absolute maximum and minimum rectangular moments of inertia.  These are known as the <term>principle axes</term> of the shape.</p>
+    </subsection>
+  </section>
+  <section xml:id="MOI-rectangle">
+    <title>Moment of Inertia of a Rectangle</title>
+    <introduction>
+      <p>In this section and the next we will use the integral <xref ref="MOI"> definitions of moment of inertia</xref> to find the moments of inertia of five common shapes: rectangle, triangle, circle, semi-circle, and quarter-circle with respect to a specified axis.  The integration techniques demonstrated can be used to find the moment of inertia of any two-dimensional shape about any desired axis.</p>
+      <p>Moments of inertia depend on both the shape, and the axis. Pay attention to the placement of the axis with respect to the shape, because if the axis is located elsewhere or oriented differently, the results will be different.  </p>
+      <p>We will begin with the simplest case: the moment of inertia of a rectangle about a horizontal axis located at its base. This case arises frequently and is especially simple because the boundaries of the shape are all constants. </p>
+      <sidebyside widths="66% 33%">
+        <stack>
+          <p>Consider the <m>(b \times h)</m> rectangle shown. This rectangle is oriented with its bottom-left corner at the origin and its upper-right corner at the point <m>(b,h)</m>, where <m>b</m> and <m>h</m> are constants.  What is its moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
+        </stack>
+        <interactive xml:id="moi-rectangle-diagram-ggb" aspect="5:6" platform="geogebra" preview="images/moi-rectangle-diagram">
+          <slate xml:id="moi-rectangle-diagram" aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram-33.ggb"/>
+        </interactive>
+      </sidebyside>
+      <p>To find the moment of inertia, the area is divided into square differential elements <m>dA</m> at <m>(x,y)</m> where <m>x</m> and <m>y</m> can range over the entire rectangle and the integral is evaluated using double integration. </p>
+      <p>The differential element <m>dA</m> has width <m>dx</m> and height <m>dy</m>, so <men>dA = dx\ dy = dy\ dx</men>. It would seem like this is an insignificant difference, but the order of <m>dx</m> and <m>dy</m> in this expression determines the order of integration of the double integral.  We will try both ways in the next two sections, and see that the result is identical.</p>
+    </introduction>
+    <subsection xml:id="dx-first">
+      <title>
+        <m>dA = dx\ dy</m>
+      </title>
+      <p>First, we will evaluate <xref ref="MOI"/>  using <m>dA = dx\ dy</m>.  </p>
+      <p>If you are not familiar with double integration, briefly you can think of a double integral as two normal single integrals, one <sq>inside</sq> and the other <sq>outside,</sq> which are evaluated one at a time from the inside out.  Our integral becomes 
+<md><mrow>I_x \amp =  \int_A y^2 dA  </mrow><mrow>\amp =  \iint y^2 \underbrace{dx\ dy}_{dA}</mrow><mrow>\amp = \underbrace{\int_\text{bottom}^\text{top} \underbrace{\left [ \int_\text{left}^\text{right} y^2 dx \right  ]}_\text{inside} dy }_\text{outside}</mrow></md>
+         </p>
+      <p>The limits on double integrals are usually <em>functions</em> of <m>x</m> or <m>y</m>, but for this rectangle the limits are all <em>constants</em>. The bottom and top limits are <m>y=0</m> and <m>y=h</m>; the left and right limits are <m>x=0</m> and <m>x = b</m>.  Note that the <m>y^2</m> term can be taken out of the inside integral, because in terms of <m>x</m>, it is constant.</p>
+      <p>Inserting <m>dx\ dy</m> for  <m>dA</m> and the limits into <xref ref="MOI"/>, and integrating  starting with the inside integral gives
+<md><mrow>I_x   \amp \int_A y^2 dA </mrow><mrow>  \amp = \int_0^h \int_0^b y^2\ dx\ dy </mrow><mrow>  \amp = \int_0^h y^2 \int_0^b dx \ dy </mrow><mrow>  \amp = \int_0^h y^2 \boxed{ b \ dy} </mrow><mrow>  \amp = b \int_0^h y^2\ dy </mrow><mrow>  \amp = b \left . \frac{y^3}{3} \right \vert_0^h </mrow></md>.</p>
+      <p>Evaluating the limit gives the result <men xml:id="Ix-rectangle">I_x = \frac{b h^3}{3}</men>.  This is the formula for the moment of inertia of a rectangle about an axis passing through its base, and is worth remembering.</p>
+      <p>The boxed quantity is the <em>result</em> of the inside integral times <m>dx</m>, and can be interpreted as the <em>differential area</em> of a horizontal strip,  <me>dA = b\ dy</me>. This will allow us to set up a problem as a single integral using strips and skip the inside integral completely as we will see in <xref ref="MOI-other-shapes"/>.</p>
+      <p>This result means that the moment of inertia of the rectangle depends only on the dimensions of the base and height and has units <m>[\text{length}]^4</m>. The height term is cubed and the base is not, which is unsurprising because the moment of inertia gives more importance to parts of the shape which are farther away from the axis.  Doubling the width of the rectangle will double <m>I_x</m> but doubling the height will increase <m>I_x</m>  eightfold.  In all moment of inertia formulas, the dimension perpendicular to the axis is always  cubed.</p>
+      <warning>
+        <p>This result is for this particular situation; you will get a different result for a different shape or a different axis.</p>
+      </warning>
+    </subsection>
+    <subsection xml:id="dy-first">
+      <title>
+        <m>dA = dy\ dx</m>
+      </title>
+      <p>Now, we will evaluate <xref ref="MOI"/> using <m>dA = dy\ dx</m> which reverses the order of integration and means that the integral over <m>y</m> gets conducted first. Since the distance-squared term <m>y^2</m> is a function of <m>y</m> it remains inside the inside integral this time and the result of the inside intergral is not an area as it was previously.</p>
+      <p>Inserting <m>dy\ dx</m> for <m>dA</m> and the limits into <xref ref="MOI"/>, and integrating gives 
+<md><mrow>I_x  \amp = \int_A y^2\ dA </mrow><mrow>\amp =  \int_0^b  \int_0^h y^2 \ dy  \ dx</mrow><mrow>\amp =  \int_0^b \left . \frac{y^3}{3} \ dy \right \vert_0^h \ dx</mrow><mrow>  \amp =   \int_0^b  \boxed{\frac{h^3}{3}\ dx} </mrow><mrow>  \amp =   \frac{h^3}{3} \int_0^b  \  dx </mrow><mrow>I_x  \amp =  \frac{bh^3}{3}</mrow></md>.</p>
+      <p>As before, the result is the moment of inertia of a rectangle with base <m>b</m> and height <m>h</m>, about an axis passing through its base.  We have found that the moment of inertia of a rectangle about an axis through its base is <xref ref="Ix-rectangle"/>, the same as before. </p>
+      <sidebyside widths="85% 15%">
+        <p>The boxed quantity is the <em>result</em> of the inside integral times <m>dx</m>, and can be interpreted as the<em> differential moment of inertia</em> of a vertical strip about the <m>x</m> axis. This is consistent our previous result.  The vertical strip has a base of <m>dx</m> and a height of <m>h</m>, so its moment of inertia must be <me>dI_x =  \frac{h^3}{3} dx</me> above by <xref ref="Ix-rectangle"/>.</p>
+        <image source="images/MOI-dIx"/>
+      </sidebyside>
+      <p>We can use these results to set up problems as a single integral which sums the moments of inertia of the differential strips which cover the area.</p>
+      <example xml:id="dy-first-i_y-of-a-rectangle">
+        <title><m>I_y</m> of a Rectangle</title>
+        <statement>
+          <p>Find the moment of inertia of the rectangle defined in about the <m>y</m> axis using square differential elements <m>dA</m>.</p>
+        </statement>
+        <answer>
+          <p>
+            <me>I_x = \frac{1}{3} hb^3</me>
+          </p>
+        </answer>
+        <solution>
+          <sidebyside widths="66% 33%">
+            <p>Following the same procedure as before, we divide the rectangle into square differential elements <m>dA = dx\ dy</m> and evaluate the double integral for <m>I_y</m> from <xref ref="MOI"/> first by integrating over <m>x</m>, and then over <m>y</m>.
+<md><mrow>I_y  \amp = \int_A x^2 dA </mrow><mrow>\amp =  \int_0^h \int_0^b x^2\ dx\ dy</mrow><mrow>\amp =  \int_0^h \left [ \int_0^b x^2\ dx \right ] \ dy</mrow><mrow> \amp =  \int_0^h \left [ \frac{x^3}{3}\right ]_0^b \ dy</mrow><mrow>  \amp =   \int_0^h \boxed{\frac{b^3}{3} dy} </mrow><mrow>  \amp =   \frac{b^3}{3} y \Big |_0^h </mrow><mrow>I_y  \amp =  \frac{b^3h}{3}</mrow></md>
+                  </p>
+            <image source="images/MOI-rect-square-da-x-y"/>
+          </sidebyside>
+          <p>The formula for <m>I_y</m> is the same as the formula as we found previously for <m>I_x</m> except that the base and height terms have reversed roles.  Here, the horizontal dimension is cubed and the vertical dimension is the linear term.  In all moment of inertia formulas, the dimension perpendicular to the axis is cubed.</p>
+        </solution>
+        <solution>
+          <sidebyside widths="66% 33%">
+            <p>This solution demonstrates that the result is the same when the order of integration is reversed. This time we evaluate <m>I_y</m> by dividing the rectangle into square differential elements <m>dA = dy\ dx</m> so the inside integral is now with respect to <m>y</m> and the outside integral is with respect to <m>x</m>. 
+<md><mrow>I_y  \amp = \int_A x^2\ dA </mrow><mrow>\amp =  \int_0^b x^2 \left [ \int_0^h \ dy \right ] \ dx</mrow><mrow>  \amp =   \int_0^b x^2\ \boxed{h\ dx} </mrow><mrow>  \amp =   h \int_0^b x^2\  dx </mrow><mrow>  \amp =  h \left . \frac{x^3}{3} \right |_0^b </mrow><mrow>I_y  \amp =  \frac{hb^3}{3}</mrow></md>
+                  </p>
+            <image source="images/MOI-rect-square-da-x-y"/>
+          </sidebyside>
+        </solution>
+      </example>
+    </subsection>
+    <subsection xml:id="MOI-rectangle-centroidal-moment-of-inertia">
+      <title>Centroidal Moment of Inertia</title>
+      <p>As discussed in <xref ref="moment-of-inertia-intro"/>, a moment of inertia about an axis passing through the area's centroid is a <em>Centroidal</em> Moment of Inertia, indicated with a bar over the symbol <m>I</m>.  </p>
+      <p>The following example finds the centroidal moment of inertia for a rectangle using integration.</p>
+      <example xml:id="MOI-rectangle-centroidal-moment-of-inertia-centroidal-moment-of-inertia-of-a-rectangle">
+        <title>Centroidal Moment of Inertia of a Rectangle</title>
+        <statement>
+          <sidebyside widths="30% 70%">
+            <image source="images/MOI-rect-centroidal"/>
+            <p>Use integration to find the moment of inertia of a <m>(b \times h)</m> rectangle about the  <m>x'</m> and <m>y'</m> axes passing through its centroid.  </p>
+          </sidebyside>
+        </statement>
+        <answer>
+          <p><md><mrow>\bar{I}_{x'} \amp =   \frac{1}{12}bh^3</mrow><mrow>\bar{I}_{y'} \amp =   \frac{1}{12}hb^3</mrow></md>.</p>
+        </answer>
+        <solution>
+          <p>We can use the same approach with <m>dA = dy\ dx</m>, but now the limits of integration over <m>y</m> are now from  <m>-h/2</m> to <m>h/2</m>. 
+<md><mrow>\bar{I}_{x'}  \amp = \int_A y^2\ dA </mrow><mrow>\amp =  \int_0^b  \int_{-h/2}^{h/2} y^2 \ dy  \ dx</mrow><mrow>\amp =  \int_0^b  \left [ \frac{y^3}{3} \ dy \right ]_{-h/2}^{h/2} \ dx</mrow><mrow>  \amp =   \frac{h^3}{12} \int_0^b \ dx </mrow><mrow>\bar{I}_{x'}  \amp =  \frac{bh^3}{12}</mrow></md>
+               </p>
+          <p>The convention is to place a bar over the symbol <m>I</m> when the the axis is centroidal.  Notice that the centroidal moment of inertia of the rectangle is smaller than the corresponding  moment of inertia about the baseline.  </p>
+          <p>The solution for <m>\bar{I}_{y'}</m> is similar.</p>
+        </solution>
+      </example>
+      <insight>
+        <title>Stresses in a Rectangular Beam</title>
+        <p>To provide some context for the equations governing area moments of inertia, let’s examine the internal forces within a bending beam. First, define a transverse axis through the centroid of the beam’s cross section called the neutral axis. </p>
+        <p>When a beam is bent, the neutral axis does not stretch or compress but always stays the same “neutral” length. When a beam is loaded, it will experience internal compression above the neutral axis and internal tension below the neutral as shown in the diagram below. </p>
+        <p>Notice how the internal compression and tension increase linearly with <m>d</m>, the distance from the neutral axis. While <m>d</m> is a general variable for a distance, recall that  <m>\bar{y}_{\text{el}}</m> is specifically the distance from your chosen axis to the centroid of an element of the cross-sectional area. </p>
+        <p>All <m>\bar{y}_{\text{el}}</m> distances are measured in the vertical direction and <m>\bar{x}_{\text{el}}</m> are measured in the horizontal direction.</p>
+        <p/>
+        <figure xml:id="MOI-beam-stresses">
+          <caption>
+When a beam is subject to a bending moment, it must resist this moment with internal tension and compression forces to keep from deforming (bending). Running horizontally through the centroid of the beam is the neutral axis, which is the line on the beam with no internal forces and will not stretch or compress. When analyzing beams with gravity-driven (vertical) loads, we often compute the area moment of inertia about this horizontal neutral axis.
+</caption>
+          <image width="50%" source="images/MOI-beam-stresses.png">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            </remix>
+          </image>
+        </figure>
+        <p>Think about summing the moments both internal and external at the neutral axis of the beam cut face from Figure CC. The magnitude of the internal compression and tension increase with both 1) the distance from the neutral axis and 2) the increasing magnitude of the internal forces away from the neutral axis.  </p>
+        <p>This dual dependence on the distance  <m>\bar{y}_{\text{el}}</m> means that the resistance to bending provided by any point in the cross-section is directly proportional to the square of the distance from the neutral axis. The overall bending resistance of a cross-section is defined as the area moment of inertia. </p>
+        <p>Similar to how the numerator of the centroid equation uses the 1st moment of area, area moments of inertia use the 2nd moment of area.  The most common location to measure the area moment of inertia is about the centroid. This chapter will also cover how to find the area moment of inertia from other axis locations. The general equation for the area moment of inertia about the x-axis is: <me>I_x=\int_A \bar{y}_{\text{el}}^2\ dA</me>
+            </p>
+        <p/>
+        <p>And if the loading is horizontal (pushing side-to-side) on the beam, we would measure its lateral bending resistance with the area moment of inertia about the <m>y</m> axis:  <me>I_y=\int_A \bar{x}_{\text{el}}^2\ dA</me>
+            </p>
+        <p/>
+        <p>, or alternately, the <term>Second Moment of Area</term>
+            </p>
+        <p>Therefore, while the beam is bending vertically, the beam’s cross-section determines how much the beam bends. Because the <m>\bar{y}_{\text{el}}</m> is squared in the integral above, the more material you have farther off the neutral axis, the bigger <m>I_x</m> will get. And because <m>dA</m> also depends on   <m>\bar{y}_{\text{el}}</m>, the area moment of inertia about the <m>x</m> axis (<m>I_x</m>) actually increases as a cubic. </p>
+      </insight>
+    </subsection>
+  </section>
+  <section xml:id="MOI-triangle">
+    <title>Moment of Inertia of a Triangle</title>
+    <p>We saw in the last section that when solving <xref ref="MOI"/> the double integration could be conducted in either order, and that the result of completing the inside integral was a single integral.  We will use these observations to optimize the process of finding moments of inertia for other shapes by avoiding double integration.</p>
+    <p>The most straightforward approach is to use the definitions of the moment of inertia <xref ref="MOI"/> along with strips <em>parallel</em> to the designated axis, <ie/> horizontal strips when you want to find the moment of inertia about the <m>x</m> axis and vertical strips for the moment of inertia about the <m>y</m> axis.  </p>
+    <aside>
+      <p>The reason for this restriction because in order for <xref ref="MOI"/> to work on a strip instead of a differential square, all parts of the strip must be the same distance away from the axis. </p>
+    </aside>
+    <p>This approach will work as long as the bounding functions can be described as a function of <m>y</m> as well as a function of <m>y</m> in order to integrate with respect to <m>y</m> for the vertical strip, and with respect to <m>x</m> for the horizontal strip.</p>
+    <sidebyside widths="50% 50%">
+      <stack>
+        <p>Consider the <m>(b \times h)</m> right triangle located in the first quadrant with is base on the <m>x</m> axis.</p>
+        <p>What is its moment of inertia of this triangle with respect to the <m>x</m> and <m>y</m> axes?</p>
+      </stack>
+      <interactive xml:id="triangle-diagram_interactive" aspect="6:5" platform="geogebra" preview="images/triangle-diagram">
+        <slate xml:id="triangle-diagram_slate" aspect="6:5" surface="geogebra" source="images/triangle-diagram.ggb">
+enableRightClick(false)
+</slate>
+        <instructions/>
+      </interactive>
+    </sidebyside>
+    <!--TODO Check this interactive /Users/whaynes/ptx/statics/src/resources/ch10/10.3 integration/triangle-diagram.ggb-->
+    <p>As we did when finding centroids in <xref ref="centroids-by-integration"/> we need to evaluate the bounding function of the triangle.  The bottom are constant values, <m>y=0</m> and <m>x=b</m>, but the top boundary is a straight line passing through the origin and the point at <m>(b,h)</m>, which has the equation <men xml:id="straight-line"> y(x) = \frac{h}{b} x</men>.  By inspection we see that the a vertical strip extends from the <m>x</m> axis to the function so <m>dA= y\ dx</m>.</p>
+    <p>We will find <m>I_y</m> using vertical strips, since they're parallel to the <m>y</m> axis, by evaluating this integral with <m>dA =  y\ dx</m>, and substituting <m>\frac{h}{b} x</m> for <m>y</m>
+         <md><mrow>I_y \amp =  \int_A x^2\ dA</mrow><mrow>\amp =  \int_0^b x^2\ y\ dx</mrow><mrow>\amp =  \int_0^b x^2 \left (\frac{h}{b} x \right ) dx</mrow><mrow>\amp =  \frac{h}{b} \int_0^b x^3 dx</mrow><mrow>\amp = \frac{h}{b} \left . \frac{x^4}{4} \right\vert_0^b</mrow><mrow>I_y \amp =  \frac{hb^3}{4}</mrow></md>.</p>
+    <p>And we will find <m>I_x</m> using horizontal strips, by evaluating this integral with <m>dA =  (b-x) dy</m>
+         <md><mrow> I_x \amp =  \int_A y^2 dA </mrow></md>.</p>
+    <p>Since we are expressing <m>dA</m> in terms of <m>dy</m>, everything inside the integral must be constant or expressed in terms of <m>y</m> in order to integrate.  In particular, we will need to solve <xref ref="straight-line"/> for <m>x</m> as a function of <m>y.</m>  This is not difficult. <me> x(y) = \frac{b}{h} y </me>.  Once this has been done, evaluating the integral is straightforward.
+<md><mrow>I_x \amp =  \int_A y^2\ dA</mrow><mrow>\amp =  \int_0^h y^2 (b-x)\ dy</mrow><mrow>\amp =  \int_0^h y^2 \left (b - \frac{b}{h} y \right ) dy</mrow><mrow>\amp =  b\int_0^h y^2 dy - \frac{b}{h} \int_0^h y^3 dy</mrow><mrow>\amp = \frac{bh^3}{3} - \frac{b}{h} \frac{h^4}{4} </mrow><mrow>I_y \amp =  \frac{bh^3}{12}</mrow></md>
+      </p>
+  </section>
+  <section xml:id="MOI-other-shapes">
+    <title>Moment of Inertia of Other Shapes</title>
+    <p>We saw in <xref ref="MOI-triangle"/> that a straightforward way to find the moment of inertia of a shape using a single integration is to use strips which are parallel to the axis, so vertical strips to find <m>I_y</m> and horizontal strips to find <m>I_x</m>. To do this we had to express the bounding function two ways: y = f(x) and x = g(y).  There are many functions where this is not easy to do, so another approach is needed.</p>
+    <p>As an example, consider the function <m>y = f(x) = x^3+x</m> between <m>x = 0</m> and <m>x=1</m>, shown in the diagram.  </p>
+    <sidebyside widths="60% 40%">
+      <p>For this area there is no difficulty finding <m>I_y</m> using vertical strips <m>dA = y\ dx</m>,
+<md><mrow>I_y \amp =   \int_0^1 x^2  y\ dx</mrow><mrow>\amp =  \int_0^1 x^2 (x^3+x) dx</mrow><mrow>\amp =  \int_0^1 x^5 + x^3 dx</mrow><mrow>\amp =  \left . \frac{x^6}{6} + \frac{x^4}{4} \right \vert_0^1</mrow><mrow>I_y \amp =  \frac{5}{12}</mrow></md>
+         </p>
+      <image source="images/MOI-rect-x^3+x"/>
+    </sidebyside>
+    <p>Finding <m>I_x</m> using horizontal strips is not so easy. In fact, the integral that needs to be solved is this monstrosity
+<md><mrow>I_x \amp =  \int_A y^2 (1-x) dy</mrow><mrow>\amp =  \int_0^2 y^2 \left (1- \frac{\sqrt[3]{2} \left ( \sqrt{81 y^2 + 12} + 9y \right )^{2/3} - 2 \sqrt[3]{3}}{6^{2/3} \sqrt[3]{\sqrt{81 y^2 + 12} + 9y}} \right ) dy</mrow></md>.</p>
+    <p>Clearly, a better approach would be helpful.</p>
+    <p>This approach doesn't work when the boundary is not easily expressed in terms of </p>
+    <p>We have shown that <m>I_x= \int y_{\text{el}}^2\ dA</m> and <m>I_y= \int x_{\text{el}}^2\ dA</m>. In calculating <m>I_x</m>, it is most advantageous to use a differential area which has a <m>dy</m> in it <mdash/> a horizontal element <mdash/> so that the integral of <m>y^2\ dA</m> is straightforward to calculate. Similarly, calculating <m>I_y</m> is introduced with vertical differential elements so that <m>x^2\ dA</m> has a <m>dy</m> term.</p>
+    <p>However, as curves become more complicated, it is not always trivial to use these differential areas. </p>
+    <p/>
+    <image width="75%" source="images/MOI-v-vs-h-strips.jpg"/>
+    <p>In the shape above, <m>dA</m> for the vertical integral is <m>(x^3+x)\ dx</m>. So <m>I_y</m> can be calculated by hand. However, the horizontal differential element on the right is less straightforward. There <m>dA</m> would be <m>(6-x)\ dy</m>. But to be able to integrate you would need to express <m>x</m> in terms of <m>y</m>. Solving <m>y = x^3+x</m> for <m>x</m> in terms of <m>y</m> does not lead to something pleasant to integrate. </p>
+    <p>The alternative is to use the vertical differential element to calculate <m>I_x</m>. Warning: there is no short-cut like setting <m>y</m> equal to the centroid of the differential element that works in the integral.</p>
+    <p>Instead, fall back on  <m>I_x= \int y_{\text{el}}^2\ dA</m>
+      </p>
+    <p>This is always true. So instead of finding the area of the differential element, we now want to find the area moment of inertia of the differential element. Since most of our differential areas are rectangles, find the moment of inertia of the rectangle dA and then add them up (integrate) <m>I_x</m> and <m>I_y</m>.</p>
+    <p/>
+    <image width="50%" source="images/MOI-v-strip.png"/>
+    <p><m>I_y</m> is the same as before: <m>I_y= \int x_{\text{el}}^2\ dA</m> where <m>x=x_{\text{el}}</m> and now we can find <m>I_x</m> using
+<men>I_x = \frac{1}{12} bh^3 + Ad^2</men>
+      </p>
+    <p>where <m>A, b, h,</m> and <m>d</m> are as labeled in orange in the figure above. Note that <m>d</m> is the vertical distance from the <m>x</m> axis to the centroid of the rectangle, which is equal to the average distance between the top <m>y_2</m> and bottom <m>y_1</m> of the rectangle.</p>
+    <p>Alternately, if you happen to know <m>x_2</m> and <m>x_1</m> are in terms of <m>y</m>, then you can use a horizontal differential element to solve for both <m>I_x</m> and <m>I_y</m>.</p>
+    <p>Once you understand that, you don't need to have any of these formulas memorized. And all the complicated diagrams in the previous video boil down to <m>1/12 bh^3 + Ad^2</m> which is a formula you probably already know (orange labels below).</p>
+    <p>So, if you happen to know what <m>y_2</m> and <m>y_1</m> are in terms of <m>x</m>, then you can use a vertical differential element to solve for both. </p>
+    <image width="50%" source="images/MOI-h-strip.png"/>
+    <p/>
+    <p><m>I_x</m> is the same as before: <me>I_x= \int dI_x = \int y_{\text{el}}^2\ dA</me> and now we can find <m>I_y</m> using <me>I_y = \frac{1}{12} b^3h + Ad^2</me> where <m>A, b, h,</m> and <m>d</m> are as labeled in orange above.</p>
+    <conclusion>
+      <p>As shown below, if you choose a square element to compute your moments of inertia, your equations for <m>I_x</m> and <m>I_y</m> will always be the the same, but you will need to compute a double integral and incorporate the shape of your area in your integration bounds. Alternatively, if you express your differential area <m>dA</m> as a rectangle, you can use the equations in the left figure below.</p>
+      <image width="75%" source="images/MOI-strips-square.jpg"/>
+      <p/>
+    </conclusion>
+  </section>
+  <section xml:id="polar-moment">
+    <title>Polar Moment of Inertia</title>
+    <objectives>
+      <ul>
+        <li>How are polar moments of inertia similar and different to area moments of inertia about either a horizontal or vertical axis?</li>
+      </ul>
+    </objectives>
+    <p>Polar MOI of a hollow shaft</p>
+    <p>When a rigid body is subjected to a torsion, the body will experience internal shearing forces as shown in the figure. These stresses are oriented in such a way that they counteract the external torsional load to maintain equilibrium.</p>
+    <figure>
+      <caption>
+Section-cut view of internal shearing forces developed to withstand external torsion <m>T</m>. Notice how the internal shearing forces are zero at the cross section’s neutral axis and increase linearly as a function of the radius <m>r</m>.
+</caption>
+      <image width="50%" source="images/MOI-shaft.png">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        </remix>
+      </image>
+    </figure>
+    <p>The moment exerted by the stress at any point will be the stress times the moment arm, which also increases linearly as we move away from the neutral axis. This means that the resistance to torsional loading provided by any one point on the cross section is directly proportional to the square of the distance from the neutral axis. We can sum up the resistances to torsional loading then using the second polar area moment of inertia <m>I_z</m>, where our distances are measured from the neutral axis:
+<me>J_z=\int_A r^2\ dA</me>
+      </p>
+    <p/>
+    <figure xml:id="MOI-shaft-end-view">
+      <caption>
+The Polar Moment of Inertia About the Neutral Axis
+</caption>
+      <image width="75%" source="images/MOI-shaft-end-view.png">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        </remix>
+      </image>
+    </figure>
+    <p/>
+    <p>Conveniently the polar moment of inertia can also be computed from the area moments of inertia about the <m>x</m> and <m>y</m> axes. As the radius of a circle can also be described by the equation
+<me>r^2 = x^2 + y^2</me>
+      </p>
+    <p/>
+    <p>It follows that the polar moment of inertia <m>J_z</m> is also equal to the sum of the area moments of inertia about the x and z axes
+<me>J_z=I_x+I_y</me>
+      </p>
+    <p/>
+  </section>
+  <section xml:id="radius-of-gyration">
+    <title>Radius of Gyration</title>
+    <p>The radius of gyration is an alternate way of expressing the distribution of area away from an axis which combines the effects of the moments of inertia and cross sectional area.  </p>
+    <p>The radius of gyration can be thought of as the radial distance to a thin strip which has the same area and the same moment of inertia around a specific axis as the original shape. Compared to the moment of inertia, the radius of gyration is easier to visualize since it’s a distance, rather than a distance to the fourth power.</p>
+    <!-- todo Needs a diagram -->
+    <!-- todo is this radius referring to an 'area' moment of inertia, or a 'volume' moment of inertia, or a 'mass' moment of inertia.  Shells would imply the last two. \-->
+    <p>Numerically the radius of gyration is about axis <m>o</m>
+         <men>k_o = \sqrt{\frac{I_o}{A}}</men>
+      </p>
+    <p/>
+    <p>Solving for the moment of inertia I_o gives us another way of computing the moment of inertia is the radius of gyration and cross sectional area are both given
+<me>I_o = k_o^2\ A</me>
+      </p>
+    <p/>
+    <p>Governs buckling of columns.</p>
+    <p>Alternate interpretation - root mean square average distance of material from an axis.</p>
+    <p>Note that the radius of gyration and the moment of inertia are always measured around the same axis. Among other uses, in structural design the radius of gyration is used to estimate the stiffness of structural columns.</p>
+  </section>
+  <section xml:id="products-of-inertia">
+    <title>Products of Inertia</title>
+    <objectives>
+      <ul>
+        <li>Why do we need to quantify the product of inertia for beams?</li>
+        <li>Why is the product of inertia of a symmetrical cross section zero?</li>
+      </ul>
+    </objectives>
+    <p>COMES UP WHEN FINDING PRICIPLE AXES, AXIS FOR MAX AND MIN MOMENT OF INERTIA</p>
+    <p>Often beam cross-sections are symmetrical, like a rectangle, circle, or I-beam. Conveniently these symmetrical cross-section beams only deflect along their length, in the plane of the applied forces, which is a function of the cross-sectional area moment of inertia. But there are many asymmetrical shapes, like C-channels or L-shaped angle iron, which additionally twist when used as a beam. The product of inertia is used to quantify the degree of twist in asymmetrical cross-section beams.</p>
+    <p>The equation for the product of inertia is similar to that of the moment of inertia, but instead of being based upon the square of either the x or y distance from the given axis, the product of inertia is based on the product of the distance from each axis <me> I_{xy} = \int_A {x}{y}\ dA</me>.</p>
+    <p/>
+    <!--todo needs defining diagram-->
+    <p>When using an axis that is centered on a shape’s centroid, this equation turns out to be zero if the shape is symmetrical about either the centroidal <m>x</m> or <m>y</m> axes as shown in below.</p>
+    <p/>
+    <figure xml:id="product-of-inertia-pic">
+      <caption>
+Sample shapes with a product of inertia equal to zero  vs shapes with a non-zero product of inertia.
+</caption>
+      <image width="75%" source="images/product-of-inertia.png">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        </remix>
+      </image>
+    </figure>
+    <p>We can also apply the parallel axis theorem to products of inertia for either a single body or a body formed of composite parts.
+<md><mrow>I_{xy} \amp = \bar{I}_{xy} +A x y  \amp \amp \text{For a single body }</mrow><mrow>I_{xy} \amp = \sum \left( \bar{I}_{xy} +A\bar{x}_{\text{el}} \bar{y}_{\text{el}} \right ) \amp \amp \text{For a body of composite parts}</mrow></md>
+      </p>
+    <p>Note that XREF Table AA does not include product of inertia equations. They can be either computed with the integral equation. </p>
+  </section>
+  <section xml:id="Chapter_10-mass-moment-of-inertia">
+    <title>Mass Moment of Inertia</title>
+    <p>you may recall it from physics where you learned that <m>T = I \alpha</m> was the rotational analog of <m>F = m\ a</m>.  In this case <m>I</m> is the <em>mass</em> moment of inertia.</p>
+    <p>The mass moment of inertia is  the three-dimensional measure of a rigid body’s resistance to rotation around an axis. Their primary use is for dynamic (moving) systems to determine the amount of torque you need to meet your desired angular acceleration. Mass moments of inertia are covered in more detail and used extensively in the rigid body kinetics portion of Dynamics.</p>
+    <p>TBD</p>
+    <p>Everything is the same except instead of <m>dA</m>, use <m>dM</m>.  Units then are mL^2.  Used in rotational dynamics.</p>
   </section>
 </chapter>

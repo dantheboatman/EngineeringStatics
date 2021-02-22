@@ -1,6 +1,6 @@
 # Engineering Statics
 
-This is the source repository for [*Engineering Statics*](https://engineeringstatics.org), a free, open-source, university-level textbook.
+This is the source repository for [*Engineering Statics*](https://engineeringstatics.org), a free, open-source, university-level OER textbook.
 
 The online  version  is available at [engieeringstatics.org](), and a pdf version for print or tablet use is planned.
 
