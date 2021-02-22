@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>statics Moment of Inertia of Composite Shapes</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="statics.css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" id="latex-macros" class="hidden-content" style="display:none">\(\require{cancel} \let\vecarrow\vec
+ \renewcommand{\vec}{\mathbf}
+ \newcommand{\ihat}{\vec{i}}
+ \newcommand{\jhat}{\vec{j}}
+ \newcommand{\khat}{\vec{k}}
+ \DeclareMathOperator{\proj}{proj}
+
+ 
+ \definecolor{aliceblue}{HTML}{F0F8FF}
+ 
+ 
+ 
+ \newcommand{\kg}[1]{#1~\text{kg} }
+ \newcommand{\lbm}[1]{#1~\text{lb}_m }
+ \newcommand{\slug}[1]{#1~\text{slug} }
+
+ 
+ \newcommand{\m}[1]{#1~\text{m}}
+ \newcommand{\km}[1]{#1~\text{km}}
+ \newcommand{\cm}[1]{#1~\text{cm}}
+ \newcommand{\mm}[1]{#1~\text{mm}}
+ \newcommand{\ft}[1]{#1~\text{ft}}
+ \newcommand{\inch}[1]{#1~\text{in}}
+
+ 
+ \newcommand{\N}[1]{#1~\text{N} }
+ \newcommand{\kN}[1]{#1~\text{kN} }
+ \newcommand{\MN}[1]{#1~\text{MN} }
+ \newcommand{\lb}[1]{#1~\text{lb} }
+ \newcommand{\lbf}[1]{#1~\text{lb}_f }
+
+ 
+  \newcommand{\Nm}[1]{#1~\text{N}\!\cdot\!\text{m} }
+  \newcommand{\kNm}[1]{#1~\text{kN}\!\cdot\!\text{m} }
+  \newcommand{\ftlb}[1]{#1~\text{ft}\!\cdot\!\text{lb} }
+  \newcommand{\inlb}[1]{#1~\text{in}\!\cdot\!\text{lb} }
+  
+  
+  \newcommand{\lbperft}[1]{#1~\text{lb}/\text{ft} }
+  \newcommand{\lbperin}[1]{#1~\text{lb}/\text{in} }
+  \newcommand{\Nperm}[1]{#1~\text{N}/\text{m} }
+  \newcommand{\kgperkm}[1]{#1~\text{kg}/\text{km} }
+  \newcommand{\psinch}[1]{#1~\text{lb}/\text{in}^2 }
+  \newcommand{\pqinch}[1]{#1~\text{lb}/\text{in}^3 }
+   \newcommand{\psf}[1]{#1~\text{lb}/\text{ft}^2 }
+  \newcommand{\pqf}[1]{#1~\text{lb}/\text{ft}^3 }
+  \newcommand{\Nsm}[1]{#1~\text{N}/\text{m}^2 }
+  \newcommand{\kgsm}[1]{#1~\text{kg}/\text{m}^2 }
+  \newcommand{\kgqm}[1]{#1~\text{kg}/\text{m}^3 }
+  \newcommand{\Pa}[1]{#1~\text{Pa} }
+  \newcommand{\kPa}[1]{#1~\text{kPa} }
+
+  
+  
+ \newcommand{\aSI}[1]{#1~\text{m}/\text{s}^2 }
+  \newcommand{\aUS}[1]{#1~\text{ft}/\text{s}^2 } 
+  
+  
+  \newcommand{\unit}[1]{#1~\text{unit} }
+  \newcommand{\ang}[1]{#1^\circ }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<p class="byline"></p>
+</div>
+</div></div>
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="parallel-axis-theorem-section.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_10.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="polar-moment.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="parallel-axis-theorem-section.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_10.html" title="Up">Up</a><a class="next-button button toolbar-item" href="polar-moment.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter"><span class="title">Front Matter</span></a><ul>
+<li><a href="acknowledgement.html" data-scroll="acknowledgement">Acknowledgements</a></li>
+<li><a href="preface.html" data-scroll="preface">Preface</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_01.html" data-scroll="Chapter_01"><span class="codenumber">1</span> <span class="title">Introduction To Statics</span></a><ul>
+<li><a href="Chapter_01-introduction.html" data-scroll="Chapter_01-introduction">Introduction</a></li>
+<li><a href="newtons-laws.html" data-scroll="newtons-laws">Newton’s Laws of Motion</a></li>
+<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units">Units</a></li>
+<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces">Forces</a></li>
+<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving">Problem Solving</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
+<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors">Vectors</a></li>
+<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
+<li><a href="Chapter_02-two-dimensional-coordinate-systems.html" data-scroll="Chapter_02-two-dimensional-coordinate-systems">Two Dimensional Coordinate Systems</a></li>
+<li><a href="coordinates-3d.html" data-scroll="coordinates-3d">Three Dimensional Coordinate Systems</a></li>
+<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors">Unit Vectors</a></li>
+<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
+<li><a href="dot_products_2D.html" data-scroll="dot_products_2D">Dot Products</a></li>
+<li><a href="cross-product-math.html" data-scroll="cross-product-math">Cross Products</a></li>
+<li><a href="Chapter_02-notation.html" data-scroll="Chapter_02-notation">Notation</a></li>
+<li><a href="Chapter_02-summary.html" data-scroll="Chapter_02-summary">Summary</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_03.html" data-scroll="Chapter_03"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
+<li><a href="ch3-intro.html" data-scroll="ch3-intro">Equilibrium</a></li>
+<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles">Particles</a></li>
+<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
+<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
+<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles">Particles in Three Dimensions</a></li>
+<li><a href="Chapter_03-examples.html" data-scroll="Chapter_03-examples">Examples</a></li>
+<li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalance</span></a><ul>
+<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
+<li><a href="Chapter_04-scalar-moments.html" data-scroll="Chapter_04-scalar-moments">Scalar Moments</a></li>
+<li><a href="cross-products.html" data-scroll="cross-products">Moment Cross Products</a></li>
+<li><a href="Chapter_04-moment-about-a-point-.html" data-scroll="Chapter_04-moment-about-a-point-">Moment about a Point</a></li>
+<li><a href="Chapter_04-moment-about-a-line.html" data-scroll="Chapter_04-moment-about-a-line">Moment about a Line</a></li>
+<li><a href="Chapter_04-moments-from-couples.html" data-scroll="Chapter_04-moments-from-couples">Moments from Couples</a></li>
+<li><a href="Chapter_04-equivalent-transformations.html" data-scroll="Chapter_04-equivalent-transformations">Equivalent Transformations</a></li>
+<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems">Statically Equivalent Systems</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_05.html" data-scroll="Chapter_05"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
+<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
+<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom">Degree of Freedom</a></li>
+<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium">Equations of Equilibrium</a></li>
+<li><a href="Chapter_05-solution-strategies.html" data-scroll="Chapter_05-solution-strategies">Solution Strategies</a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
+<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy">Stability and Determinacy</a></li>
+<li><a href="Chapter_05-three-dimensional-equilibrium.html" data-scroll="Chapter_05-three-dimensional-equilibrium">Three-dimensional Equilibrium</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_06.html" data-scroll="Chapter_06"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
+<li><a href="Chapter_06-introduction.html" data-scroll="Chapter_06-introduction">Introduction</a></li>
+<li><a href="Chapter_06-simple-trusses.html" data-scroll="Chapter_06-simple-trusses">Simple Trusses</a></li>
+<li><a href="method-of-joints.html" data-scroll="method-of-joints">Method of Joints</a></li>
+<li><a href="method-of-sections.html" data-scroll="method-of-sections">Method of Sections</a></li>
+<li><a href="frames-and-machines.html" data-scroll="frames-and-machines">Frames and Machines</a></li>
+<li><a href="Chapter_06-chapter-review.html" data-scroll="Chapter_06-chapter-review">Chapter Review</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_07.html" data-scroll="Chapter_07"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
+<li><a href="weghted-average.html" data-scroll="weghted-average">Weighted Averages</a></li>
+<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity">Center of Gravity</a></li>
+<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass">Center of Mass</a></li>
+<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids">Centroids</a></li>
+<li><a href="composite-parts.html" data-scroll="composite-parts">Centroids using Composite Parts</a></li>
+<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function">Average Value of a Function</a></li>
+<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
+<li><a href="Chapter_07-distributed-loads.html" data-scroll="Chapter_07-distributed-loads">Distributed Loads</a></li>
+<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
+<li><a href="exercises-2.html" data-scroll="exercises-2">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_08.html" data-scroll="Chapter_08"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
+<li><a href="ch08-definition.html" data-scroll="ch08-definition">Internal Loads</a></li>
+<li><a href="Chapter_08-sign-conventions.html" data-scroll="Chapter_08-sign-conventions">Sign Conventions</a></li>
+<li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal Loads at a Point</a></li>
+<li><a href="VM_diagrams.html" data-scroll="VM_diagrams">Shear and Bending Moment Diagrams</a></li>
+<li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
+<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
+<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
+<li><a href="Chapter_09-slipping-vs-tipping.html" data-scroll="Chapter_09-slipping-vs-tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
+<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
+<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
+<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_10.html" data-scroll="Chapter_10"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
+<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes">Integral Properties of Shapes</a></li>
+<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes">Moments of Inertia of Common Shapes</a></li>
+<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section">Parallel Axis Theorem</a></li>
+<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes" class="active">Moment of Inertia of Composite Shapes</a></li>
+<li><a href="polar-moment.html" data-scroll="polar-moment">Polar Moment of Inertia</a></li>
+<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
+<li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
+<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
+<li class="link">
+<a href="useful-mathematics.html" data-scroll="useful-mathematics"><span class="codenumber">A</span> <span class="title">Useful Mathematics</span></a><ul>
+<li><a href="useful-mathematics-distance-formula.html" data-scroll="useful-mathematics-distance-formula">Distance Formula</a></li>
+<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa">Right Triangle Trigonometry</a></li>
+<li><a href="los-loc.html" data-scroll="los-loc">Oblique Triangle Trigonometry</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="AISC-properties.html" data-scroll="AISC-properties"><span class="codenumber">B</span> <span class="title">Properties of Steel Sections</span></a><ul>
+<li><a href="AISC-angles.html" data-scroll="AISC-angles">Angles</a></li>
+<li><a href="AISC-properties-channels.html" data-scroll="AISC-properties-channels">Channels</a></li>
+<li><a href="AISC-properties-standard-sections.html" data-scroll="AISC-properties-standard-sections">Standard Sections</a></li>
+<li><a href="AISC-properties-wide-flange-sections.html" data-scroll="AISC-properties-wide-flange-sections">Wide Flange Sections</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="Chapter_10-moment-of-inertia-of-composite-shapes"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">10.4</span> <span class="title">Moment of Inertia of Composite Shapes</span>
+</h2>
+<article class="objectives goal-like" id="objectives-48"><h6 class="heading"><span class="type">Key Questions</span></h6>
+<ul class="disc">
+<li id="li-523">Where do the common shape area moment of inertia equations come from?</li>
+<li id="li-524">What is the parallel axis theorem?</li>
+<li id="li-525">When do you need to apply the parallel axis theorem?</li>
+<li id="li-526">About which point do you find the smallest area moments of inertia? What is it about this point that is so special?</li>
+</ul></article><section class="introduction" id="introduction-38"><p id="p-2157">In this section we will find the moment of inertia of shapes formed by combining simple shapes like rectangles, triangles and circles much the same way we did to find centroids in <a href="composite-parts.html" class="internal" title="Section 7.5: Centroids using Composite Parts">Section 7.5</a>.</p>
+<p id="p-2158">The procedure is to divide the complex shape into its sub shapes and then use the centroidal moment of inertia formulas from <a class="xref" data-knowl="./knowl/MOI-table.html" title="Table 10.3.9: Moments of Inertia of Common Shapes">Table 10.3.9</a>, along with the parallel axis theorem  <a class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a> to calculate the moments of inertia of parts, and finally combine them to find the moment of inertia of the original shape.</p></section><section class="subsection" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span>
+</h3>
+<p id="p-2159">For a composite shape made up of \(n\) subparts, the moment of inertia of the whole shape is the sum of the moments of inertia of the individual parts, however the moment of inertia of any holes are subtracted from the total of the positive areas.</p>
+<p id="p-2160">Moments of inertia are always calculated relative to a specific axis, so the moments of inertia of all the sub shapes must  be calculated with respect to this same axis, which will usually involve applying the parallel axis theorem.</p>
+<div class="displaymath">
+\begin{align}
+I   \amp = \sum_{i=0}^{n}  (I)_i \ = \sum_{i=0}^{n} \left (\bar{I}+A d^2 \right )_i  \text{.}\label{MOI-composite-formula}\tag{10.4.1}
+\end{align}
+</div>
+<p id="p-2161"></p>
+<p id="p-2162">The method is demonstrated in the following examples.</p>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-beam-design"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-beam-design"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.1</span><span class="period">.</span><span class="space"> </span><span class="title">Beam Design.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-beam-design"><article class="example example-like"><p id="p-2163">You have three \(\ft{24}\) long wooden 2\(\times\)6’s and you want to nail them together them to make the stiffest possible beam.  The stiffness of a beam is proportional to the moment of inertia of the beam's cross-section about a horizontal axis passing through its centroid.  The actual dimensions of nominal 2\(\times\)6 lumber are \(\inch{1.5}\) by \(\inch{5.5}\text{.}\)</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:23%;margin-right:23%;">
+<div class="sbspanel" style="width:37.037037037037%;justify-content:flex-start;"><img src="images/examples-beam-2x6-sandwich.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+<div class="sbspanel" style="width:37.037037037037%;justify-content:flex-start;"><img src="images/examples-beam-2x6-I.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+</div></div>
+<p id="p-2164"></p>
+<p id="p-2165">Which of the arrangements will be the stiffest, and what is the ratio of the two moments of inertia?</p>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-70" id="answer-70"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-70"><div class="answer solution-like">
+<div class="displaymath" id="p-2166">
+\begin{align*}
+(I_x)_1 \amp =  \inch{62.5}^4\\
+(I_x)_2 \amp =  \inch{226}^4
+\end{align*}
+</div>
+<p id="p-2167">The I-beam has more than 3.6 times the stiffness of the sandwich beam!</p>
+</div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-81" id="solution-81"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-81"><div class="solution solution-like">
+<p id="p-2168">Given: \(b = \inch{1.5}\text{,}\) \(h=\inch{5.5}\text{.}\)</p>
+<p id="p-2169">In case 1 the centroids of all three rectangles are on the \(x\) axis, so the parallel axis theorem is unnecessary.</p>
+<div class="displaymath">
+\begin{align*}
+(I_x)_1 \amp =  \sum_{i= 1}^3 \bar{I} + A d^2\\
+\amp =    3  \frac{bh^3}{12} \\
+\amp =    \frac{(1.5)(5.5)^3}{4}   \\
+(I_x)_1 \amp =  \inch{62.5}^4
+\end{align*}
+</div>
+<p id="p-2170">This value is the same as the moment of inertia of a \((\inch{4.5} \times \inch{5.5})\) rectangle about its centroid.</p>
+<p id="p-2171">In case 2, the parallel axis theorem must be used for the upper and lower rectangles, since their centroids are not on the \(x\) axis.</p>
+<div class="displaymath">
+\begin{align*}
+(I_x)_2 \amp =  \sum_{i = 1}^3 \bar{I} + A d^2\\
+\amp =    \left( \frac{bh^3}{12} \right) +  2 \left[ \frac{1}{12}hb^3 + (bh) ( h/2 + b/2 )^2 \right]\\
+\amp =    \frac{(1.5)(5.5)^3 }{12} + 2\left[ \frac{(1.5)^3(5.5)}{12}  + (1.5 \times 5.5)(3.5)^2 \right ]\\
+\amp =      \inch{20.8}^4 + 2 \left[ \inch{1.547}^4 + \inch{101.6}^4 \right ] \\
+(I_x)_2 \amp =  \inch{226}^4
+\end{align*}
+</div>
+<div class="displaymath" id="p-2172">
+\begin{equation*}
+(I_x)_2 / (I_x)_1 = 3.61
+\end{equation*}
+</div>
+<p id="p-2173">The I-beam is about 3.6 times stiffer than the sandwich beam.  This optimization of material usage is the reason we use I-beams.</p>
+</div></div>
+</div></article></div>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-t-shape"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-t-shape"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.2</span><span class="period">.</span><span class="space"> </span><span class="title">T Shape.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-t-shape"><article class="example example-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel" style="width:41.025641025641%;justify-content:center;"><img src="images/examples-T-shape.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+<div class="sbspanel" style="width:56.4102564102564%;justify-content:center;"><p id="p-2174">Find the moment of inertia of the T shape about the \(x\) and \(y\) axes.</p></div>
+</div></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-71" id="answer-71"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-71"><div class="answer solution-like"><div class="displaymath" id="p-2175">
+\begin{align*}
+I_x \amp =  (I_x)_1 + (I_x)_2 \amp =  \mm{11.04 \times 10^6}^4\\
+I_y \amp =  (I_y)_1 + (I_y)_2 \amp =  \mm{8.64 \times 10^6}^4
+\end{align*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-82" id="solution-82"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-82"><div class="solution solution-like">
+<article class="paragraphs" id="paragraphs-119"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<p id="p-2176">Divide the T shape into a  \(\mm{30} \times \mm{60}\) vertical rectangle (1), and a \(\mm{90} \times \mm{20}\) horizontal rectangle (2) then add the moments of inertia of the two parts.</p>
+<div class="displaymath">
+\begin{align*}
+I_x \amp = (I_x)_1 +  (I_x)_2 \amp I_y \amp =   (I_y)_1 +  (I_y)_2 
+\end{align*}
+</div></article><article class="paragraphs" id="paragraphs-120"><h5 class="heading"><span class="title">MOI about the \(x\) Axis.</span></h5>
+<p id="p-2177">The bottom edge of rectangle 1 is on the \(x\) axis.  Using the formula from <a class="xref" data-knowl="./knowl/MOI-table.html" title="Table 10.3.9: Moments of Inertia of Common Shapes">Table 10.3.9</a> gives</p>
+<div class="displaymath">
+\begin{equation*}
+(I_x)_1 = \frac{bh^3}{3} =\frac{ (30)(60)^3}{3} = \mm{2.16 \times 10^6}^4\text{.}
+\end{equation*}
+</div>
+<p id="p-2178">The centroid of rectangle 2 is located \(\mm{70}\) above the \(x\) axis so we must use the parallel axis theorem <a class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a>, so</p>
+<div class="displaymath">
+\begin{align*}
+(I_x)_2 \amp =  \bar{I} + A d^2\\
+\amp =  \frac{b h^3}{12} + (b h) d^2\\
+\amp =  \frac{(90)(20)^3}{12} + (90 \times 20) ( 70)^2\\
+(I_x)_2 \amp =  \mm{8.88 \times 10^6}^4\text{.}
+\end{align*}
+</div>
+<p id="p-2179">The moment of inertia of the entire T shape about the \(x\) axis is the sum of these two values,</p>
+<div class="displaymath">
+\begin{equation*}
+I_x = (I_x)_1 + (I_x)_2 = \mm{11.04 \times 10^6}^4\text{.}
+\end{equation*}
+</div></article><article class="paragraphs" id="paragraphs-121"><h5 class="heading"><span class="title">MOI about the \(y\) Axis.</span></h5>
+<p id="p-2180">We can use the same procedure to find the moment of inertia about the \(y\) axis, however it is usually more convenient to organize all the necessary information in a table rather than writing the equations explicitly.</p>
+<p id="p-2181">We will use the parallel axis theorem for both rectangles with \(d\) representing the distance between the \(y\) axis and the centroid of the part.  In this example \(d\) is the same for both parts, but that will not always be true.</p>
+<div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Part</td>
+<td class="c m b0 r0 l0 t0 lines">Dimensions</td>
+<td class="c m b0 r0 l0 t0 lines">\(\bar{I}_y = hb^3/12\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A=bh\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(d\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A d^2\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(I_y=\bar{I} + A d^2\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Units</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^2\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">1</td>
+<td class="c m b1 r0 l0 t0 lines">\(b= 30,\ h=60\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(135\times 10^3\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(1800\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(45\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(3.645 \times 10^6\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(3.78 \times 10^6\)</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">2</td>
+<td class="c m b2 r0 l0 t0 lines">\(b =90,\ h=20\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(1.215 \times 10^6\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(1800\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(45\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(3.645 \times 10^6\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(4.86 \times 10^6\)</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Total</td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines">\(8.64 \times 10^6\)</td>
+</tr>
+</table></div>
+<div class="displaymath" id="p-2182">
+\begin{equation*}
+I_y = (I_y)_1 + (I_y)_2 = \mm{8.64 \times 10^6}^4
+\end{equation*}
+</div></article>
+</div></div>
+</div></article></div>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-fillet"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-fillet"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.3</span><span class="period">.</span><span class="space"> </span><span class="title">Fillet.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-fillet"><article class="example example-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel" style="width:41.025641025641%;justify-content:center;"><img src="images/examples-fillet.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+<div class="sbspanel" style="width:56.4102564102564%;justify-content:center;"><p id="p-2183">Find the moment inertia of the area about the \(x\) axis.</p></div>
+</div></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-72" id="answer-72"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-72"><div class="answer solution-like"><div class="displaymath" id="p-2184">
+\begin{equation*}
+I_x = \inch{1350}^4
+\end{equation*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-83" id="solution-83"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-83"><div class="solution solution-like">
+<article class="paragraphs" id="paragraphs-122"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel" style="width:56.4102564102564%;justify-content:center;">
+<p id="p-2185">First, divide the area into four parts:</p>
+<ol class="decimal">
+<li id="li-527">a \(\inch{9} \times \inch{3}\) rectangle</li>
+<li id="li-528">a \(\inch{6} \times \inch{3}\) rectangle</li>
+<li id="li-529">a \(\inch{3} \times \inch{4}\) rectangle, and</li>
+<li id="li-530">a removed quarter-circle with a \(\inch{3}\) radius.</li>
+</ol>
+</div>
+<div class="sbspanel" style="width:41.025641025641%;justify-content:center;"><img src="images/examples-fillet-parts.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+</div></div>
+<p id="p-2186">Then set up a table and apply the parallel axis theorem <a class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a> as in the previous example.  Since the quarter-circle is removed, subtract its moment of inertia from total of the other shapes.</p></article><article class="paragraphs" id="paragraphs-123"><h5 class="heading"><span class="title">MOI about the \(y\) Axis.</span></h5>
+<p id="p-2187">The centroidal moment of inertia of a quarter-circle, from <a class="xref" data-knowl="./knowl/MOI-table.html" title="Table 10.3.9: Moments of Inertia of Common Shapes">Table 10.3.9</a> is</p>
+<div class="displaymath">
+\begin{align*}
+I_x\amp = \left(\frac{\pi}{16} - \frac{4}{9\pi}\right) r^4\\
+\amp =  0.0549\ r^4
+\end{align*}
+</div>
+<p id="p-2188">The distance from the top edge of the quarter-circle down to its centroid is \(\dfrac{4r}{3\pi}= \inch{1.273}\text{,}\) so the distance from the \(x\) axis to its centroid is</p>
+<div class="displaymath">
+\begin{equation*}
+d = 6 - 1.27 = \inch{4.727}\text{.}
+\end{equation*}
+</div>
+<p id="p-2189">Fill out the table of information.</p>
+<div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Part</td>
+<td class="c m b0 r0 l0 t0 lines">Dimensions</td>
+<td class="c m b0 r0 l0 t0 lines">\(\bar{I}_x\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(d =\bar{y}\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A d^2\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(I_y=\bar{I} + A d^2\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Units</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}^2\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{inch}^4\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">1</td>
+<td class="c m b1 r0 l0 t0 lines">\(b= 9,\ h=3\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh^3/12 = 20.25\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(27\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(1.5\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(60.75\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(81\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">2</td>
+<td class="c m b1 r0 l0 t0 lines">\(b =6,\ h=3\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh^3/12 = 283\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(18\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(4.5\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(364.5\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(647.5\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">3</td>
+<td class="c m b1 r0 l0 t0 lines">\(b= 3,\ h=4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh^3/12 = 16\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(12\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(8\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(768\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(784\)</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">4</td>
+<td class="c m b2 r0 l0 t0 lines">\(r=3\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(0.0549\ r^4 = 4.45\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(7.07\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(4.727\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(158.0\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(162.4\)</td>
+</tr>
+</table></div>
+<p id="p-2190">Take care to subtract the moment of inertia of the removed quarter-circle from the total.</p>
+<div class="displaymath">
+\begin{equation*}
+I_x = (I_x)_1 + (I_x)_2 + (I_x)_3 - 1 (I_x)_4 = \inch{1350}^4\text{.}
+\end{equation*}
+</div></article>
+</div></div>
+</div></article></div>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-concrete-pipe-casing"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-concrete-pipe-casing"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.4</span><span class="period">.</span><span class="space"> </span><span class="title">Concrete Pipe Casing.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-concrete-pipe-casing"><article class="example example-like"><p id="p-2191">The cross section of a concrete pipe casing composed of a rectangular block, a triangular wedge, and a circular pipe formed through the middle of the block is shown below.</p>
+<p id="p-2192">As the pipe casing will be subject to various loads, find the area moment of inertia of the cross section about the \(x\) and \(y\) axes.</p>
+<p id="p-2193"></p>
+<div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="images/MOI-composite-shape.png" style="width: 100%; height: auto;" alt=""></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-73" id="answer-73"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-73"><div class="answer solution-like"><div class="displaymath" id="p-2194">
+\begin{align*}
+I_x   \amp =  \inch{3202}^4  \amp  I_y  \amp =  \inch{18951}^4
+\end{align*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-84" id="solution-84"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-84"><div class="solution solution-like">
+<article class="paragraphs" id="paragraphs-124"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<p id="p-2195">Organize all the necessary information into a table, then total  the moments of inertia of the parts to get the moment of inertia of the whole shape.  Remember that the hole is removed from the shape, so its contribution to the total moment of inertia is negative.</p></article><article class="paragraphs" id="paragraphs-125"><h5 class="heading"><span class="title">Table.</span></h5>
+<div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Part</td>
+<td class="c m b0 r0 l0 t0 lines">\(A_i\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(d_{x_i}\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(d_{y_i}\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A_i d_{x}^2\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A d_{y}^2\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(\bar{I}_x\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(\bar{I}_y\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Units</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}^2\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{in}^4\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Rectangle 1<br>\(b = 14,\)<br>\(h = 10\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh\)<br>\(=140\)</td>
+<td class="c m b1 r0 l0 t0 lines">7</td>
+<td class="c m b1 r0 l0 t0 lines">-3</td>
+<td class="c m b1 r0 l0 t0 lines">6860</td>
+<td class="c m b1 r0 l0 t0 lines">1260</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh^3/12\)<br>\(=1167\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(b^3h/12\)<br>\(=2287\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Triangle 2<br>\(b = 8,\)<br>\(h = 10\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh/2\)<br>\(=40\)</td>
+<td class="c m b1 r0 l0 t0 lines">16.67</td>
+<td class="c m b1 r0 l0 t0 lines">-4.67</td>
+<td class="c m b1 r0 l0 t0 lines">11111</td>
+<td class="c m b1 r0 l0 t0 lines">871.1</td>
+<td class="c m b1 r0 l0 t0 lines">\(bh^3/36\)<br>\(=222.2\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(b^3h/12\)<br>\(=142.2\)</td>
+</tr>
+<tr>
+<td class="c m b3 r0 l0 t0 lines">Circular Hole 3<br>\(r = 3\)</td>
+<td class="c m b3 r0 l0 t0 lines">\(-\pi r^2\)<br>\(=-28.27\)</td>
+<td class="c m b3 r0 l0 t0 lines">7</td>
+<td class="c m b3 r0 l0 t0 lines">-3</td>
+<td class="c m b3 r0 l0 t0 lines">-1385</td>
+<td class="c m b3 r0 l0 t0 lines">-254.5</td>
+<td class="c m b3 r0 l0 t0 lines">\(-\pi r^4/4\)<br>\(=-63.62\)</td>
+<td class="c m b3 r0 l0 t0 lines">\(-\pi r^4/4\)<br>\(=-63.62\)</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Total</td>
+<td class="c m b0 r0 l0 t0 lines">151.7</td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines">16586</td>
+<td class="c m b0 r0 l0 t0 lines">1877</td>
+<td class="c m b0 r0 l0 t0 lines">1325</td>
+<td class="c m b0 r0 l0 t0 lines">2365</td>
+</tr>
+</table></div></article><article class="paragraphs" id="paragraphs-126"><h5 class="heading"><span class="title">Total.</span></h5>
+<div class="displaymath" id="p-2196">
+\begin{align*}
+(I_x)_1 \amp =  \left[ \bar{I}_x + A d_y^2 \right]_1=  \inch{2427}^4  \amp (I_y)_1 \amp =  \left[\bar{I}_y + A d_x^2\right]_1  =  \inch{9147}^4\\
+(I_x)_2 \amp =  \left[\bar{I}_x + A d_y^2\right]_2 =  \inch{1093}^4 \amp (I_y)_2 \amp =  \left[\bar{I}_y + A d_x^2\right]_2  =  \inch{11253}^4\\
+(I_x)_3 \amp =  \left[\bar{I}_x + A d_y^2\right]_3 =  -\inch{318.1}^4 \amp(I_y)_3 \amp =  \left[\bar{I}_y + A d_x^2\right]_3  =  -\inch{1449}^4\\
+I_x \amp = \sum (I_x)_i =\inch{3202}^4\amp I_y \amp = \sum (I_y)_i = \inch{18951}^4
+\end{align*}
+</div>
+<p id="p-2197">Alternately, you could find the moments of inertia by adding the sums of the columns, since you are adding the same values together, just in a different order.</p>
+<div class="displaymath">
+\begin{align*}
+I_x \amp = \sum \bar{I}_x  + \sum Ad_y^2=\inch{3202}^4\amp I_y \amp = \sum \bar{I}_y + \sum A d_x^2= \inch{18951}^4
+\end{align*}
+</div></article>
+</div></div>
+</div></article></div>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-interactive-composite-rectangles"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-interactive-composite-rectangles"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.5</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Composite Rectangles.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-composite-area-method-interactive-composite-rectangles"><article class="example example-like"><p id="p-2198">This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points.</p>
+<p id="p-2199">Use the interactive to practice computing the moments of inertia of this shape about the system \(x\) axis.  It is convenient to collect all the needed information in a table.</p>
+<figure class="figure figure-like" id="composite-MOI-ggb"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel" style="width:100%;justify-content:flex-start;">
+<div style="width:540px;"></div>
+<iframe id="composite-MOI_interactive" width="540" height="459" src="composite-MOI_interactive-if.html"></iframe>
+</div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.4.6<span class="period">.</span></span><span class="space"> </span>Moment of Inertia of a Rectangle</figcaption></figure></article></div></section><section class="subsection" id="Chapter_10-moment-of-inertia-of-composite-shapes-structural-steel-sections"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span>
+</h3>
+<p id="p-2200">Steel is a strong, versatile, and durable material commonly used for girders, beams, and columns in steel structures such as buildings, bridges, and ships.  When possible designers prefer to use prefabricated <em class="emphasis">Standardized Structural Steel</em> to minimize material cost.</p>
+<p id="p-2201">Structural steel is available in a variety of shapes called <em class="emphasis">sections</em>, shown below.  These include universal beams and columns (W, S), structural channels (C), equal and unequal angle sections (L), Tee shapes (T), rectangular, square and round hollow structural sections (HSS), bar, rod, and plate.  All are available in a range of sizes from small to huge.  Steel sections are manufactured by hot or cold rolling or fabricated by welding flat or curved steel plates together.</p>
+<figure class="figure figure-like" id="AISC-samples"><div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="images/AISC-samples.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.4.7<span class="period">.</span></span><span class="space"> </span>AISC Standard Sections: Left to right -- Wide-Flange (W), American Standard (S) , Channel (C),  Equal Angle (L), Unequal Angle (L), Structural Tee (T), Rectangle (HSS), Square (HSS), Round (HSS).</figcaption></figure><p id="p-2202">Designers and engineers must select the most appropriate and economical section which can support the potential tension, compression, shear, torsion and bending loads.   Tables of properties of Standard Steel Sections are published by the  American Institute of Steel Construction, and are used to simplify the process.  The tables contain important properties of the sections, including dimensions, cross sectional area, weight per foot, and moment of inertia about vertical and horizontal axes.  An abbreviated subset of the AISC tables are available in <a href="AISC-properties.html" class="internal" title="Appendix B: Properties of Steel Sections">Appendix B</a>.</p>
+<p id="p-2203">In this section we will use the information in the AISC tables to find the moments of inertia of standard sections and also of composite shapes incorporating standard sections.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel" style="width:66.6666666666667%;justify-content:center;"><p id="p-2204">The top and bottom pieces of an I-beam are called flanges. The middle portion is referred to as the web. The flanges take most of the internal compression and tension forces as they are located the furthest from the neutral axis, and the web mainly acts to support any shear forces and hold the two flanges apart.  The transverse axis through the centroid of the cross section is called the neutral axis, and cutting plane through the beam at the neutral axis is called the neutral plane, or neutral surface.  This surface does not lengthen or shorten during bending.</p></div>
+<div class="sbspanel" style="width:30.7692307692308%;justify-content:center;"><figure class="figure figure-like" id="AISC-Nomenclature"><img src="images/AISC-Nomenclature.svg" role="img" style="width: 100%; height: auto;" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.4.8<span class="period">.</span></span><span class="space"> </span>Beam Nomenclature</figcaption></figure></div>
+</div></div>
+<article class="example example-like" id="Chapter_10-moment-of-inertia-of-composite-shapes-structural-steel-sections-built-up-beam"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Chapter_10-moment-of-inertia-of-composite-shapes-structural-steel-sections-built-up-beam"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">10.4.9</span><span class="period">.</span><span class="space"> </span><span class="title">Built-up beam.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Chapter_10-moment-of-inertia-of-composite-shapes-structural-steel-sections-built-up-beam"><article class="example example-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel" style="width:56.4102564102564%;justify-content:center;">
+<p id="p-2205">A built-up beam consists of two L8\(\times \)4\(\times\)1/2 angles attached to a 8\(\times\)1 plate as shown.  Determine</p>
+<ol class="lower-alpha">
+<li id="li-531">the distance from the \(x\) axis to the neutral axis, which passes through the centroid of the combined shape, and</li>
+<li id="li-532">the moment of inertia of the combined shape about the neutral axis.</li>
+</ol>
+</div>
+<div class="sbspanel" style="width:41.025641025641%;justify-content:center;"><img src="images/AISC-example-1.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+</div></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-74" id="answer-74"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-74"><div class="answer solution-like"><div class="displaymath" id="p-2206">
+\begin{align*}
+\bar{y} \amp \amp =   \inch{1.245}\\
+I_{x'} \amp \amp =   \inch{58.6}^4
+\end{align*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-85" id="solution-85"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-85"><div class="solution solution-like">
+<article class="paragraphs" id="paragraphs-127"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<p id="p-2207">Determine the properties of the sub shapes with respect to the \(x\) axis, and then use them to find the neutral axis.</p>
+<p id="p-2208">Use the parallel axis theorem to find the moment of inertia of the parts with respect to the neutral axis.</p>
+<p id="p-2209">Take advantage of the fact that the two angles are identical and positioned similarly.</p></article><article class="paragraphs" id="paragraphs-128"><h5 class="heading"><span class="title">Find the neutral axis.</span></h5>
+<p id="p-2210">For one L\(8\times 4\times 1/2\) angle, from <a href="AISC-angles.html" class="internal" title="Section B.1: Angles">Section B.1</a></p>
+<div class="displaymath">
+\begin{align*}
+A_\text{L} \amp =  \inch{4.75}^2\\
+\bar{y}_\text{L} \amp =  \inch{1.98}\\
+\bar{I}_\text{L} \amp =  \inch{17.3}^4\text{.}
+\end{align*}
+</div>
+<p id="p-2211">For the \(b = \inch{8},\) \(h = \inch{1}\) rectangle</p>
+<div class="displaymath">
+\begin{align*}
+A_\text{R} \amp =  bh = \inch{8}^2\\
+\bar{y}_\text{R} \amp  =-h/2 = \inch{-0.5}\\
+\bar{I}_\text{R}  \amp =  \frac{bh^3}{12}  =  \frac{8}{12}  =   \inch{6.67}^4\text{.}
+\end{align*}
+</div>
+<p id="p-2212">Find the distance to the neutral axis</p>
+<div class="displaymath">
+\begin{align*}
+\bar{y} \amp =  \frac{\sum A_i \bar{y_i}}{\sum A_i} =  \frac{ 2 A_\text{L} \bar{y}_\text{L} + A_\text{R} \bar{y}_\text{R} } {2 A_\text{L} + A_\text{R}}\\
+\amp =  \frac{ 2 (4.75)(1.98) + (4)(-0.5)} { 2(4.75) + 4}\\
+\bar{y} \amp =  \inch{1.245}\text{.}
+\end{align*}
+</div></article><article class="paragraphs" id="paragraphs-129"><h5 class="heading"><span class="title">Find the Moment of Inertia.</span></h5>
+<p id="p-2213">The distance between  the neutral axis is and the centroids of the subparts are</p>
+<div class="displaymath">
+\begin{align*}
+d_\text{R} \amp =  | \bar{y} - \bar{y}_\text{R} |  =  | 1.245 - (-.0.5)| =  \inch{1.745}\\
+d_\text{L} \amp =  | \bar{y} - \bar{y}_\text{L} | =  | 1.245 - 1.98|  = \inch{0.735}\text{.}
+\end{align*}
+</div>
+<p id="p-2214">The moment of inertia of the rectangle about the \(x'\) axis</p>
+<div class="displaymath">
+\begin{align*}
+I_x' \amp =  [\bar{I} + A d^2]_\text{R}\\
+\amp =   6.67 + (4)(1.745)^2 \\
+\amp =  \inch{18.85}^4\text{.}
+\end{align*}
+</div>
+<p id="p-2215">The moment of inertia of one angle about the \(x'\) axis</p>
+<div class="displaymath">
+\begin{align*}
+I_x' \amp =  [\bar{I} + A d^2]_\text{R}\\
+\amp =   17.3 + (4.75)(0.735)^2 \\
+\amp =  \inch{19.87}^4\text{.}
+\end{align*}
+</div>
+<p id="p-2216">The moment of inertia of the built up beam about the neutral axis</p>
+<div class="displaymath">
+\begin{align*}
+I_{x'} \amp = \sum (I_{x'})_i  \\
+\amp =   2 (I_{x'})_\text{L} + (I_{x'})_\text{R}\\
+\amp =  2(19.87) + 18.85\\
+I_{x'} \amp =  \inch{58.6}^4\text{.}
+\end{align*}
+</div></article>
+</div></div>
+</div></article></div></section></section></div></main>
+</div>
+</body>
+</html>
