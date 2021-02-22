@@ -4,15 +4,6 @@
  
  <!--turn off timestamp on output files, prevent spurious diff in git.-->
  <xsl:param name="debug.datedfiles" select="'no'"/>
- <xsl:param name="numbering.maximum.level" select="3"/>
- 
- <!-- 3 = nothing deeper than a subsection gets a number -->
- <!--<xsl:param name="numbering.equations.level" select="1"/>
- <!-\- 1 = equations number continuously through chapters -\->
- <xsl:param name="numbering.theorems.level" select="1"/>
- <!-\- 1 = example numbering controled by theorems -\->-->
-
-
  
  <!-- Add numbas iframe -->
  <xsl:template match="interactive[@platform='numbas']">

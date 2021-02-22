@@ -5,8 +5,6 @@
   <xsl:import href="./weh-common.xsl"/>
 
   <!-- Customize html behavior -->
-  <xsl:param name="html.annotation" select="'hypothesis'"/>
-  <xsl:param name="html.css.extra" select="'statics.css'"/>
- <!-- <xsl:param name="html.knowl.example" select="'yes'"/>-->
-
+<!--  <xsl:param name="html.annotation" select="'hypothesis'"/>
+-->  <xsl:param name="html.css.extra" select="'statics.css'"/>
  </xsl:stylesheet>
