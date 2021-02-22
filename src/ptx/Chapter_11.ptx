@@ -1,10 +1,240 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_11">
   <title>Interactives Sandbox</title>
+  <figure xml:id="asymptote-image">
+    <caption>Test asymptote diagram from a ggb applet</caption>
+    <image width="100%">
+      <asymptote>
+ /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+import graph; size(25.cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(12); defaultpen(dps); /* default pen style */ real xmin = -15., xmax = 10., ymin = -10., ymax = 10.;  /* image dimensions */
+pen evevev = rgb(0.8980392156862745,0.8980392156862745,0.8980392156862745); pen eqeqeq = rgb(0.8784313725490196,0.8784313725490196,0.8784313725490196); pen xdxdff = rgb(0.49019607843137253,0.49019607843137253,1.); 
+pair R1 = (7.,6.), R2 = (-10.,-6.), Q1 = (-10.,-1.), Q2 = (3.,-6.), C_R = (-1.5,0.), C_Q = (-3.5,-3.5); 
+
+filldraw(R2--(-10.,6.)--R1--(7.,-6.)--cycle, evevev, linewidth(2.)); 
+filldraw(Q1--(3.,-1.)--Q2--R2--cycle, white, linewidth(2.) + white); 
+filldraw(shift((-0.564748201438849,1.6366906474820144))*xscale(0.5)*yscale(0.5)*arc((0,0),1,0.,90.)--(-0.564748201438849,1.6366906474820144)--cycle, black, linewidth(2.)); 
+filldraw(shift((-0.564748201438849,1.6366906474820144))*xscale(0.5)*yscale(0.5)*arc((0,0),1,180.,270.)--(-0.564748201438849,1.6366906474820144)--cycle, black, linewidth(0.8)); 
+ /* draw grid of horizontal/vertical lines */
+pen gridstyle = linewidth(0.7) + eqeqeq; real gridx = 1., gridy = 1.; /* grid intervals */
+for(real i = ceil(xmin/gridx)*gridx; i &lt;= floor(xmax/gridx)*gridx; i += gridx)
+ draw((i,ymin)--(i,ymax), gridstyle);
+for(real i = ceil(ymin/gridy)*gridy; i &lt;= floor(ymax/gridy)*gridy; i += gridy)
+ draw((xmin,i)--(xmax,i), gridstyle);
+ /* end grid */ 
+
+Label laxis; laxis.p = fontsize(12); 
+xaxis(xmin, xmax, Ticks(laxis, Step = 5., Size = 2, NoZero),EndArrow(6), above = true); 
+yaxis(ymin, ymax, Ticks(laxis, Step = 5., Size = 2, NoZero),EndArrow(6), above = true); /* draws axes; NoZero hides '0' label */ 
+ /* draw figures */
+draw(R2--(-10.,6.), linewidth(1.2)); 
+draw((-10.,6.)--R1, linewidth(1.2)); 
+draw(R1--(7.,-6.), linewidth(1.2)); 
+draw((7.,-6.)--R2, linewidth(1.2)); 
+draw(Q1--(3.,-1.), linewidth(1.2)); 
+draw((3.,-1.)--Q2, linewidth(1.2)); 
+draw(Q2--R2, linewidth(1.2) + white); 
+draw(R2--Q1, linewidth(1.2) + white); /* special point *//* special point */
+draw(circle((-0.564748201438849,1.6366906474820144), 0.5), linewidth(1.2)); 
+draw((-10.,-2.)--(3.,-2.), linewidth(0.8) + eqeqeq); 
+draw((-10.,-3.)--(3.,-3.), linewidth(0.8) + eqeqeq); 
+draw((-10.,-4.)--(3.,-4.), linewidth(0.8) + eqeqeq); 
+draw((-10.,-5.)--(3.,-5.), linewidth(0.8) + eqeqeq); 
+draw(R2--Q2, linewidth(0.8) + eqeqeq); 
+draw((-9.,-6.)--(-9.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-8.,-6.)--(-8.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-7.,-6.)--(-7.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-6.,-6.)--(-6.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-5.,-6.)--(-5.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-4.,-6.)--(-4.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-3.,-6.)--(-3.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-2.,-6.)--(-2.,-1.), linewidth(0.8) + eqeqeq); 
+draw((-1.,-6.)--(-1.,-1.), linewidth(0.8) + eqeqeq); 
+draw((0.,-6.)--(0.,-1.), linewidth(0.8) + eqeqeq); 
+draw((1.,-6.)--(1.,-1.), linewidth(0.8) + eqeqeq); 
+draw((2.,-6.)--(2.,-1.), linewidth(0.8) + eqeqeq); 
+draw(Q2--(3.,-1.), linewidth(0.8) + eqeqeq); 
+draw((xmin, 1.75*xmin + 2.625)--(xmax, 1.75*xmax + 2.625), linewidth(0.8) + linetype("4 4") + xdxdff); /* line */
+ /* dots and labels */
+dot(R1,linewidth(4.pt) + red); 
+dot(R2,linewidth(4.pt) + red); 
+dot(Q1,linewidth(4.pt) + blue); 
+dot(Q2,linewidth(4.pt) + blue); dot(C_R,linewidth(0.75pt) + red + invisible,UnFill(0)); 
+label("$C_1$", (-3.536895674300254,-0.6870229007633588), NE * labelscalefactor,red); dot(C_Q,linewidth(0.75pt) + blue + invisible,UnFill(0)); 
+label("$C_2$", (-5.674300254452926,-4.198473282442748), NE * labelscalefactor,blue); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */</asymptote>
+    </image>
+  </figure>
+  <paragraphs>
+    <title>GGB best practices</title>
+    <figure>
+      <caption>weh.maritime.edu</caption>
+      <sidebyside width="75%">
+        <interactive preview="images/MOI-MOI_definitions">
+          <slate source="images/MOI-MOI_definitions.ggb"/>
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+            <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+          </remix>
+        </interactive>
+      </sidebyside>
+    </figure>
+    <p>For a bare interactive, set the aspect ratio on the Interactive and the slate, then wrap with a <tag>sidebyside</tag> to center or add instructions as shown here. This can't be referenced with an <tag>xref</tag>.  Give the interactive and slate unique xml:ids and set the preview image to a pdf file with the same name as the interactive like  <c>MOI-potato.pdf</c>.  The .pdf filetype is not required.</p>
+    <sidebyside widths="75% 25%">
+      <interactive preview="images/MOI-potato">
+        <slate source="images/MOI-potato.ggb"/>
+      </interactive>
+      <p>You can move the element of area <m>dA</m> or the entire shape by moving the red dots.</p>
+    </sidebyside>
+    <p>If you just want a centered interactive, you will still need a sidebyside, until <pretext/> is updated with full support for interactives.</p>
+    <sidebyside width="75%">
+      <interactive preview="images/MOI-potato">
+        <slate source="images/MOI-potato.ggb"/>
+      </interactive>
+    </sidebyside>
+    <figure>
+      <caption>This is the caption. Note: width='75%' </caption>
+      <sidebyside width="75%">
+        <interactive preview="images/MOI-potato">
+          <slate source="images/MOI-potato.ggb"/>
+          <instructions>Instructions are placed above the interactive.</instructions>
+        </interactive>
+      </sidebyside>
+    </figure>
+    <figure>
+      <caption>This is the caption. Note: width='50%' </caption>
+      <sidebyside width="50%">
+        <interactive preview="images/MOI-potato">
+          <slate source="images/MOI-potato.ggb"/>
+        </interactive>
+      </sidebyside>
+    </figure>
+  </paragraphs>
+  <paragraphs>
+    <title>GGB bare interactive tests</title>
+    <p>1. no aspect ratio on either. result: Square-- initially see scroll bars and 100% width</p>
+    <interactive width="100%" platform="geogebra" preview="images/MOI-potato">
+      <slate surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>2. aspect ratio 3:2 on interactive.  Result is square and half width??  Everything is shrunk including fonts?</p>
+    <interactive aspect="3:2" width="100%" platform="geogebra" preview="images/MOI-potato">
+      <slate surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>3. aspect on surface.  Ratio is respected on ggb, but reserved space for 1:1 ratio</p>
+    <interactive width="100%" platform="geogebra" preview="images/MOI-potato">
+      <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>4. aspect on both  This seems best.  Not too much space afterwords.  Scroll bars initially</p>
+    <interactive aspect="3:2" width="100%" platform="geogebra" preview="images/MOI-potato">
+      <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>5. aspect on both, with width=75%. Scaling works. Sometimes scroll bars.</p>
+    <interactive aspect="3:2" width="75%" platform="geogebra" preview="images/MOI-potato">
+      <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>6. Same as 5, but add instructions to interactive.</p>
+    <interactive aspect="3:2" width="75%" platform="geogebra" preview="images/MOI-potato">
+      <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+      <instructions> Here are some instructions for the interactive.</instructions>
+    </interactive>
+    <p>6. Same as 5, but add add margins to try to center.  Result: margins are not respected on either interactive or slate.</p>
+    <interactive aspect="3:2" width="70%" margins="15% 15%" platform="geogebra" preview="images/MOI-potato">
+      <slate aspect="3:2" width="70%" margins="15% 15%" surface="geogebra" source="images/MOI-potato.ggb"/>
+    </interactive>
+    <p>7. Same as 5, wrap with bare side-by-side to center. Width must be set on SBS, By default margins='auto'.  Result: this does what I want it to do.</p>
+    <sidebyside width="75%">
+      <interactive aspect="3:2" platform="geogebra" preview="images/MOI-potato">
+        <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+      </interactive>
+    </sidebyside>
+    <p>8.  Like 7, but add pseudo instructions to the right in the SBS</p>
+    <sidebyside widths="75% 25%">
+      <interactive aspect="3:2" platform="geogebra" preview="images/MOI-potato">
+        <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+      </interactive>
+      <p>You can move the element of area <m>dA</m> or the entire shape by moving the red dots.</p>
+    </sidebyside>
+    <p>9.  Like 8, but put the pseudo instructions on the left in the SBS.  Note that the text is now small.</p>
+    <sidebyside widths="75% 25%">
+      <p>You can move the element of area <m>dA</m> or the entire shape by moving the red dots.</p>
+      <interactive aspect="3:2" platform="geogebra" preview="images/MOI-potato">
+        <slate aspect="3:2" surface="geogebra" source="images/MOI-potato.ggb"/>
+      </interactive>
+    </sidebyside>
+  </paragraphs>
+  <figure xml:id="incline-triangle">
+    <caption>Caption</caption>
+    <interactive xml:id="incline-triangle-interactive" platform="geogebra" width="90%" aspect="2:1.05" preview="images/incline-triangle.pdf">
+      <slate xml:id="incline-triangle-ggb" aspect="2:1" surface="geogebra" source="images/incline-triangle.ggb">
+enableRightClick(false)
+enableShiftDragZoom(false)
+</slate>
+    </interactive>
+  </figure>
+  <p>Notes: </p>
+  <p>	1.	bold items need to be adjusted</p>
+  <p>	2.	aspect ratio is a bit taller on interactive than on slate so that scroll bars aren't drawn.</p>
+  <p>	3.	Try to stick with this naming convention for xml:ids</p>
+  <p>	4.	enableRightClick and EnableShiftDragZoom don't seem to work</p>
+  <p>	5.	don't forget to include path to image i.e. images/filename.pdf</p>
+  <p>	6.	can leave out figure and caption for images within examples</p>
+  <p>	7.	</p>
+  <figure xml:id="vector_addition_methods">
+    <caption>Methods of Vector addition</caption>
+    <interactive xml:id="ggb_vector_addition_methods" platform="geogebra" width="100%" aspect="4:3" preview="images/incline-triangle.pdf">
+      <slate xml:id="arpnfrhp" aspect="4:3" surface="geogebra" material="arpnfrhp" width="95%">enableShiftDragZoom(true);</slate>
+      <remix>
+        <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+        <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+        <license href="https://www.geogebra.org/tos">Geogebra Terms of Use</license>
+        <source href="https://www.geogebra.org/m/arpnfrhp"/>
+      </remix>
+      <instructions/>
+    </interactive>
+  </figure>
+  <paragraphs>
+    <title>Geogebra Standards</title>
+    <p>Try to maintain these</p>
+    <p>	1.	Moveable elements are red or secondary color blue</p>
+    <p>	2.	Point size = 3.5 tick</p>
+    <p>	3.	Grid Color  lightest gray</p>
+    <p>	4.	Points labeled in latex.</p>
+    <p>	5.	sliders width 50px, size 4px</p>
+    <p>	6.	use font size 14 and text size small  </p>
+    <p>	7.	Absolute size for export 1 unit = 1 cm.</p>
+    <p>	8.	Axis arrow use choice 3</p>
+    <p>Diagram scaling for Pretext</p>
+    <p>Standard Point BL, TR, AR  for bottom left, top right and aspect ratio</p>
+    <p>place BL, then define TR = BL + AR.  Set graphics window to BR to TL.  Can adjust AR and BL in Pretext as needed.</p>
+    <p>Save a pdf alongside the ggb for static display in pdf version of the book.</p>
+  </paragraphs>
+  <paragraphs>
+    <title>Geogebra size tests</title>
+    <p>If geogebra diagram is shrunk, then point sizes, line widths and fonts must be increased.  Need to establish sizes for 100, 75 and 33%  </p>
+    <p>for 33% see moi-rectangle-diagram-33.ggb</p>
+    <p>Best choice for interface font:  14 point -- closest to body text size</p>
+    <p>Best choice for text size: Small -- will be similar to interface font</p>
+    <p>Item labels are in interface font</p>
+    <p>Text sizes remain constant as diagram width changes</p>
+    <p>Size of grid and objects shrink with diagram width</p>
+    <interactive aspect="1:1" width="75%" platform="geogebra">
+      <slate aspect="1:1" surface="geogebra" source="images/ggb-size-test.ggb"/>
+    </interactive>
+    <interactive aspect="1:1" width="50%" platform="geogebra">
+      <slate aspect="1:1" surface="geogebra" source="images/ggb-size-test.ggb"/>
+    </interactive>
+    <interactive aspect="1:1" width="33%" platform="geogebra">
+      <slate aspect="1:1" surface="geogebra" source="images/ggb-size-test.ggb"/>
+    </interactive>
+  </paragraphs>
   <paragraphs>
     <title>Geogebra bare vs sbs</title>
     <interactive aspect="5:6" platform="geogebra">
-      <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram-33.ggb"/>
+      <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram.ggb"/>
     </interactive>
     <sidebyside widths="50% 50%">
       <stack>
@@ -12,7 +242,7 @@
         <p>What is its moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
       </stack>
       <interactive aspect="5:6" platform="geogebra">
-        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram-33.ggb"/>
+        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram.ggb"/>
       </interactive>
     </sidebyside>
     <sidebyside widths="60% 40%">
@@ -21,7 +251,7 @@
         <p>What is its moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
       </stack>
       <interactive aspect="5:6" platform="geogebra">
-        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram-33.ggb"/>
+        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram.ggb"/>
       </interactive>
     </sidebyside>
     <sidebyside widths="70% 30%">
@@ -30,7 +260,7 @@
         <p>What is its moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
       </stack>
       <interactive aspect="5:6" platform="geogebra">
-        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram-33.ggb"/>
+        <slate aspect="5:6" surface="geogebra" source="images/moi-rectangle-diagram.ggb"/>
       </interactive>
     </sidebyside>
   </paragraphs>
