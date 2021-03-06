@@ -1,186 +1,130 @@
-###########
-# Simplified version of makefiles found here: 
-# https://github.com/PCCMathSAC/orcca
-# WEH 1/21/19
-# WEH 7/12/20 revised
-
-##################################################
-# This is not a "true" makefile, since it does not
-# operate on dependencies.  It is more of a shell
-# script, sharing common configurations
-##################################################
-
-##################################################
-# The Makefile.paths file contains customized versions
-# of locations of the principal components of this
-# project and names of various helper executables
-include Makefile.paths
-##################################################
-
-##################################################
-# Project directory ($PRJ) Layout and function
-##################################################
+include makefile.locations.mk
 #
-#-Statics/
+################################################################################
+# Main functions
+################################################################################
+# 
+## make html version for local viewing
 #
-#---source/          : All source files for Statics Book
-#---- ptx/           : ptx files, one per chapter, plus main driver
-#---- numbas/        : contains numbas questions
-#---- resources/     : images and ggb files organized by chapter,
-#                    : folders/subfolders for convenience only, all 
-#                    : filenames in resources/ must be unique. No checking.
-#---custom/          : publication customizations
-#---build/           : all content can be regenerated
-#-----html/          : website built here with 'make html'
-#-----pdf/           : tex files put here with 'make pdf', then run xelatex
-#-----latex-images/  : images from source put here with 'make images'
-#-----images/        : all resources flattened here with make copy_images'
-#---docs/            : live site for github pages, copy build/html here to publish
-#---meta/            : information and tools about the project.
-##################################################
-
-
-###################################
-# These hold the sources that make
-# the book after processing.
-SOURCE    = $(PRJ)/src/ptx
-RESOURCES = $(PRJ)/src/resources
-NUMBASSRC = $(PRJ)/src/numbas
-CUSTOM    = $(PRJ)/custom
-CSS       = $(CUSTOM)
-XSL       = $(CUSTOM)
-BUILD     = ${PRJ}/build
-####################################
-# The books's main driver file
-MAINFILE  = $(SOURCE)/begin_here.ptx
-###################################
-# These hold the things made that are
-# generated from the source
-MBX_OUT    = $(RESOURCES)/generated
-HTMLOUT    = $(BUILD)/html
-PDFOUT     = $(BUILD)/pdf
-IMAGESOUT  = $(BUILD)/images
-NUMBASOUT  = $(BUILD)/numbas
-###################################
-# These paths are subdirectories of
-# the Mathbook XML distribution
-# MBUSR is where extension files get copied
-# so relative paths work properly
-MBXSL = $(MB)/xsl
-MBUSR = $(MB)/user
-#
-###################################
-# make recipes type 'make html'
-# to compile the book to $(HTMLOUT)
-#
-#
-html:
-	make tidy
-	
-	@install -d $(BUILD)
-	@install -d $(MBUSR)
-	@install -d $(HTMLOUT)
-	@install -d $(HTMLOUT)/images
-	@install -d $(HTMLOUT)/numbas
-
-# Clear out the HTML folder
-	@echo "clear the html folder"
-	@rm -r $(HTMLOUT)/*
-#	@-rm $(HTMLOUT)/knowl/*.html
-#	@-rm $(HTMLOUT)/images/*
-#	@-rm -r $(HTMLOUT)/numbas/*
-#	@-rm $(HTMLOUT)/*.css
-	
-# copy needed resources
-	make copy_images
-	@echo "build HTML pages"
-
-	@cp -a $(IMAGESOUT) $(HTMLOUT)
-	@cp -a $(NUMBASSRC) $(HTMLOUT)
-	@cp $(CUSTOM)/*.css $(HTMLOUT)
-	@cp $(CUSTOM)/*.xsl $(MBUSR)
-	
-	
+HTML: info folders css xslt numbas $(images) tidy 
 	cd $(HTMLOUT); \
-	xsltproc -xinclude -stringparam publisher publisher.xml $(MBUSR)/weh-custom-html.xsl $(MAINFILE)
-	open $(HTMLOUT)/index.html
-	@echo "done.\n"
-	
-pdf:
-	install -d $(BUILD)
-	install -d $(MBUSR)
-	install -d $(PDFOUT)
-	install -d $(PDFOUT)/images
-
-	-rm $(PDFOUT)/images/*
-	-rm $(PDFOUT)/*.*
-	# copy needed resources
-	make copy_images
-	cp -a $(IMAGESOUT) $(PDFOUT)
-	cp $(CUSTOM)/*.xsl $(MBUSR)
-
+	xsltproc -xinclude -stringparam publisher $(PUBLISHER) $(HTMLXSLT) $(MAINFILE) 
+	open -a $(BROWSER)  $(BASEURL)
+#
+## move local html files to web directory
+#
+publish:
+	-rm $(WEBDIR)/*.*
+	cp -R $(HTMLOUT)/* $(WEBDIR)
+	open $(WEBDIR)/index.html
+#
+##  make pdf version
+#
+pdf:  info folders css xslt numbas $(images) tidy
+	ln -s $(IMAGESOUT) $(PDFOUT)/images
 	cd $(PDFOUT); \
-	xsltproc -xinclude  -stringparam publisher publisher.xml -o statics.tex $(MBUSR)/weh-custom-latex.xsl $(MAINFILE)
-	open  $(PDFOUT)/statics.tex
+	xsltproc -xinclude  -stringparam publisher $(PUBLISHER) -o statics.tex $(LATEXXSLT) $(MAINFILE)
+	open $(PDFOUT)/statics.tex
+
+###############################################################################
+# Image resource processing
+###############################################################################
+#
+# Search path for resources. Look in all the sub folders of $(RESOURCES)
+VPATH = $(shell find  $(RESOURCES) -type d)
+#
+# this sets the type of resources that are to go into the book
+# currently everything -- could be improved: no pdf for html, no svg or ggb for pdf.
+resource_types= -iname "*.png" -o -iname "*.jpg" -o -iname "*.svg" -o -iname "*.ggb" -o -iname "*.pdf"
+#
+#
+# Find the names of the resources
+resources:= $(notdir $(shell find  $(RESOURCES)  $(resource_types) ))
+#
+# Set path of resources to go to $(IMAGESOUT) folder, flattened
+# This is what copies new images out only when they change or are missing.
+images:= $(addprefix $(IMAGESOUT)/, $(resources))
+#
+#
+# this is a default rule which copies the files to $(IMAGESOUT),  
+$(IMAGESOUT)/%:  %
+	@echo ---copied $(<F) to $(IMAGESOUT)
+	@cp $< $@
+#
+#
+################################################################################
+## Just copy other resources
+################################################################################
+#
+# numbas, css, and xslt don't use dependencies, just copy everything evertime.
+
+numbas: $(NUMBAS)
+	@echo Copy Numbas Files
+	@cp -a $(NUMBAS) $(HTMLOUT)
+
+css: $(CUSTOM)/*.css
+	@echo Copy CSS
+	@cp $(CUSTOM)/*.css $(HTMLOUT)
 	
-##  Use the 'pretext' python script to generate various images from source.
+xslt: $(CUSTOM)/*.xsl
+	@echo Copy XSLT
+	@cp $(CUSTOM)/*.xsl $(MBUSR)
+
+	
+################################################################################
+##  Use the 'pretext/pretext' python script to generate certain images from source.
+###############################################################################
 #
-##  makes thumbnail images for youtube videos
-#
+##  makes thumbnail images for youtube videos#
 youtube:
 	install -d $(MBX_OUT)/youtube
 	-rm $(MBX_OUT)/youtube/*
 	$(MB)/pretext/pretext -c youtube -d $(MBX_OUT)/youtube $(MAINFILE);
 #
-##  makes preview images for interactives which don't define @preview
-#
+##  makes preview images for interactives which don't define @preview#
 preview:  
 	install -d $(MBX_OUT)/preview
 	-rm $(MBX_OUT)/preview/*
 	$(MB)/pretext/pretext -vv -c preview -d $(MBX_OUT)/preview $(MAINFILE);
 #
-##  renders latex text on Inkscape pdfs produces 
-#
-images: 
-	install -d $(MBX_OUT)/latex_images
-	-rm $(MBX_OUT)/latex_images/*
-	$(MB)/pretext/pretext -v -c latex-image -f svg -d $(MBX_OUT)/latex_images/ $(MAINFILE);
-
-## render asymptote
-#
+## render asymptote code#
 asy:  
 	install -d $(MBX_OUT)/asy
 	-rm $(MBX_OUT)/asy/*
-	$(MB)/pretext/pretext -vv -p /Users/whaynes/ptx/statics/src/ptx/publisher.xml -c asy -f svg -d $(MBX_OUT)/asy $(MAINFILE);
-
-
+	$(MB)/pretext/pretext -vv -p $(PUBLISHER) -c asy -f svg -d $(MBX_OUT)/asy $(MAINFILE);
 #
-# this copies all the source images and resources to the 
-# build/images folder, while flattening the hierarchy
 #
-copy_images:
-	@install -d $(BUILD)
-	@install -d $(IMAGESOUT)
-	@-rm $(IMAGESOUT)/*
-# these commands copy resources to IMAGESOUT while flattening the heirarchy
-	@find $(RESOURCES) -iname '*.ggb'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	@find $(RESOURCES) -iname '*.jpg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	@find $(RESOURCES) -iname '*.png'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	@find $(RESOURCES) -iname '*.svg'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	@find $(RESOURCES) -iname '*.pdf'     -exec  cp -n \{\} $(IMAGESOUT)/ \;
-	@find $(RESOURCES) -iname '*.pdf_tex' -exec  cp -n \{\} $(IMAGESOUT)/ \;
+###############################################
+#  Utilities
+###############################################
+info:
+	@echo   PreText Source-------- $(MAINFILE)
+	@echo   HTML XSLT file-------- $(HTMLXSLT)
+	@echo   LaTeX XSLT file------- $(LATEXXSLT)
+	@echo   Publisher file-------- $(PUBLISHER)
+	@echo   Resource Folder------- $(RESOURCES)
+	@echo   BUILD----------------- $(realpath $(BUILD))
+	@echo   HTMLOUT--------------- $(HTMLOUT)
+	@echo   IMAGESOUT------------- $(IMAGESOUT)
 #
-# copies html to local webserver and opens index page
+clean:
+	-rm -r $(HTMLOUT)
+	-rm -r $(PDFOUT)/*
 #
-publish:
-	-rm $(WEBDIR)/*.*
-	cp -R $(HTMLOUT)/* $(WEBDIR)
-	open $(BASEURL)/index.html
-
+folders:
+	@[ -d $(BUILD) ] || mkdir $(BUILD)
+	@[ -d $(HTMLOUT) ] || mkdir $(HTMLOUT)
+	@[ -d $(PDFOUT) ] || mkdir $(PDFOUT)
+	@[ -d $(IMAGESOUT) ] || mkdir $(IMAGESOUT)
+#
 #Formats all pretext files consistently
-
 tidy:
-	@for file in  $(SOURCE)/*.ptx ; do \
-		xmllint --format -o $${file}  $${file}; \
+	@echo tidying up ptx files:
+	for file in  $(SOURCE)/*.ptx ; do \
+		xmllint --format -o $${file}  $${file};\
 	done 
+#
+debug: 
+	@echo $(VPATH)
 
+.PHONY: info folders numbas css xslt tidy debug
