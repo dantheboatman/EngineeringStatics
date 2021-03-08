@@ -1,4 +1,21 @@
 include makefile.locations.mk
+##
+# Search path for resources. Look in all the sub folders of $(RESOURCES)
+VPATH:= $(shell find  $(RESOURCES) -type d)
+#
+# this sets the type of resources that are to go into the book
+# currently everything -- could be improved: no pdf for html, no svg or ggb for pdf.
+resource_types:= -iname "*.png" -o -iname "*.jpg" -o -iname "*.svg" -o -iname "*.ggb" -o -iname "*.pdf"
+#
+#
+# Find the names of the resources
+resources:= $(notdir $(shell find  $(RESOURCES)  $(resource_types) ))
+#
+# Set path of resources to go to $(IMAGESOUT) folder, flattened
+# This is what copies new images out only when they change or are missing.
+images:= $(addprefix $(IMAGESOUT)/, $(resources))
+#
+
 #
 ################################################################################
 # Main functions
@@ -20,35 +37,25 @@ publish:
 #
 ##  make pdf version
 #
+DRAFTMSG :=  DRAFT-$(shell date +%F)
+#
 pdf:  info folders css xslt numbas $(images) tidy
-	ln -s $(IMAGESOUT) $(PDFOUT)/images
+	-ln -s $(IMAGESOUT) $(PDFOUT)/images
 	cd $(PDFOUT); \
-	xsltproc -xinclude  -stringparam publisher $(PUBLISHER) -o statics.tex $(LATEXXSLT) $(MAINFILE)
+	xsltproc -xinclude  -stringparam watermark.text $(DRAFTMSG) -stringparam publisher $(PUBLISHER) -o statics.tex $(LATEXXSLT) $(MAINFILE)
 	open $(PDFOUT)/statics.tex
 
 ###############################################################################
 # Image resource processing
 ###############################################################################
-#
-# Search path for resources. Look in all the sub folders of $(RESOURCES)
-VPATH = $(shell find  $(RESOURCES) -type d)
-#
-# this sets the type of resources that are to go into the book
-# currently everything -- could be improved: no pdf for html, no svg or ggb for pdf.
-resource_types= -iname "*.png" -o -iname "*.jpg" -o -iname "*.svg" -o -iname "*.ggb" -o -iname "*.pdf"
-#
-#
-# Find the names of the resources
-resources:= $(notdir $(shell find  $(RESOURCES)  $(resource_types) ))
-#
-# Set path of resources to go to $(IMAGESOUT) folder, flattened
-# This is what copies new images out only when they change or are missing.
-images:= $(addprefix $(IMAGESOUT)/, $(resources))
-#
+#  Terminal Colors
+RED:= `tput setaf 1`
+GREEN:= `tput setaf 2`
+RESET=`tput sgr0`
 #
 # this is a default rule which copies the files to $(IMAGESOUT),  
 $(IMAGESOUT)/%:  %
-	@echo ---copied $(<F) to $(IMAGESOUT)
+	@echo $(GREEN)---copied $(<F) to $(IMAGESOUT) $(RESET)
 	@cp $< $@
 #
 #
@@ -119,12 +126,13 @@ folders:
 #
 #Formats all pretext files consistently
 tidy:
-	@echo tidying up ptx files:
+	@echo  tidying up ptx files:
 	for file in  $(SOURCE)/*.ptx ; do \
 		xmllint --format -o $${file}  $${file};\
 	done 
 #
+
 debug: 
-	@echo $(VPATH)
+	@echo  $(DRAFTMSG)
 
 .PHONY: info folders numbas css xslt tidy debug
