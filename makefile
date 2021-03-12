@@ -33,7 +33,7 @@ HTML: info folders css xslt numbas $(images) tidy
 publish:
 	-rm $(WEBDIR)/*.*
 	cp -R $(HTMLOUT)/* $(WEBDIR)
-	open $(BASEURL)/index.html
+	open $(WEBDIR)/index.html
 #
 ##  make pdf version
 #
@@ -134,5 +134,6 @@ tidy:
 
 debug: 
 	@echo  $(DRAFTMSG)
-
+	open $(WEBDIR)/index.html
+	
 .PHONY: info folders numbas css xslt tidy debug
