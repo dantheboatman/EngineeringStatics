@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>statics Particles in Three Dimensions</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="statics.css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" id="latex-macros" class="hidden-content" style="display:none">\(\require{cancel} \let\vecarrow\vec
+ \renewcommand{\vec}{\mathbf}
+ \newcommand{\ihat}{\vec{i}}
+ \newcommand{\jhat}{\vec{j}}
+ \newcommand{\khat}{\vec{k}}
+ \DeclareMathOperator{\proj}{proj}
+
+ 
+ \definecolor{aliceblue}{HTML}{F0F8FF}
+ 
+ 
+ 
+ \newcommand{\kg}[1]{#1~\text{kg} }
+ \newcommand{\lbm}[1]{#1~\text{lb}_m }
+ \newcommand{\slug}[1]{#1~\text{slug} }
+
+ 
+ \newcommand{\m}[1]{#1~\text{m}}
+ \newcommand{\km}[1]{#1~\text{km}}
+ \newcommand{\cm}[1]{#1~\text{cm}}
+ \newcommand{\mm}[1]{#1~\text{mm}}
+ \newcommand{\ft}[1]{#1~\text{ft}}
+ \newcommand{\inch}[1]{#1~\text{in}}
+
+ 
+ \newcommand{\N}[1]{#1~\text{N} }
+ \newcommand{\kN}[1]{#1~\text{kN} }
+ \newcommand{\MN}[1]{#1~\text{MN} }
+ \newcommand{\lb}[1]{#1~\text{lb} }
+ \newcommand{\lbf}[1]{#1~\text{lb}_f }
+
+ 
+  \newcommand{\Nm}[1]{#1~\text{N}\!\cdot\!\text{m} }
+  \newcommand{\kNm}[1]{#1~\text{kN}\!\cdot\!\text{m} }
+  \newcommand{\ftlb}[1]{#1~\text{ft}\!\cdot\!\text{lb} }
+  \newcommand{\inlb}[1]{#1~\text{in}\!\cdot\!\text{lb} }
+  
+  
+  \newcommand{\lbperft}[1]{#1~\text{lb}/\text{ft} }
+  \newcommand{\lbperin}[1]{#1~\text{lb}/\text{in} }
+  \newcommand{\Nperm}[1]{#1~\text{N}/\text{m} }
+  \newcommand{\kgperkm}[1]{#1~\text{kg}/\text{km} }
+  \newcommand{\psinch}[1]{#1~\text{lb}/\text{in}^2 }
+  \newcommand{\pqinch}[1]{#1~\text{lb}/\text{in}^3 }
+   \newcommand{\psf}[1]{#1~\text{lb}/\text{ft}^2 }
+  \newcommand{\pqf}[1]{#1~\text{lb}/\text{ft}^3 }
+  \newcommand{\Nsm}[1]{#1~\text{N}/\text{m}^2 }
+  \newcommand{\kgsm}[1]{#1~\text{kg}/\text{m}^2 }
+  \newcommand{\kgqm}[1]{#1~\text{kg}/\text{m}^3 }
+  \newcommand{\Pa}[1]{#1~\text{Pa} }
+  \newcommand{\kPa}[1]{#1~\text{kPa} }
+
+  
+  
+ \newcommand{\aSI}[1]{#1~\text{m}/\text{s}^2 }
+  \newcommand{\aUS}[1]{#1~\text{ft}/\text{s}^2 } 
+  
+  
+  \newcommand{\unit}[1]{#1~\text{unit} }
+  \newcommand{\ang}[1]{#1^\circ }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<p class="byline"></p>
+</div>
+</div></div>
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_03-examples.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_03-examples.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter"><span class="title">Front Matter</span></a><ul>
+<li><a href="acknowledgement.html" data-scroll="acknowledgement">Acknowledgements</a></li>
+<li><a href="frontmatter-.html" data-scroll="frontmatter-">Preface</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_01.html" data-scroll="Chapter_01"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
+<li><a href="Chapter_01-introduction.html" data-scroll="Chapter_01-introduction">Introduction</a></li>
+<li><a href="newtons-laws.html" data-scroll="newtons-laws">Newton’s Laws of Motion</a></li>
+<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units">Units</a></li>
+<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces">Forces</a></li>
+<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving">Problem Solving</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
+<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors">Vectors</a></li>
+<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
+<li><a href="Chapter_02-two-dimensional-coordinate-systems.html" data-scroll="Chapter_02-two-dimensional-coordinate-systems">Two Dimensional Coordinate Systems</a></li>
+<li><a href="coordinates-3d.html" data-scroll="coordinates-3d">Three Dimensional Coordinate Systems</a></li>
+<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors">Unit Vectors</a></li>
+<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
+<li><a href="dot_products_2D.html" data-scroll="dot_products_2D">Dot Products</a></li>
+<li><a href="cross-product-math.html" data-scroll="cross-product-math">Cross Products</a></li>
+<li><a href="Chapter_02-notation.html" data-scroll="Chapter_02-notation">Notation</a></li>
+<li><a href="Chapter_02-summary.html" data-scroll="Chapter_02-summary">Summary</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_03.html" data-scroll="Chapter_03"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
+<li><a href="ch3-intro.html" data-scroll="ch3-intro">Equilibrium</a></li>
+<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles">Particles</a></li>
+<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
+<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
+<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles" class="active">Particles in Three Dimensions</a></li>
+<li><a href="Chapter_03-examples.html" data-scroll="Chapter_03-examples">Examples</a></li>
+<li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
+<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
+<li><a href="Chapter_04-scalar-moments.html" data-scroll="Chapter_04-scalar-moments">Scalar Moments</a></li>
+<li><a href="cross-products.html" data-scroll="cross-products">Moment Cross Products</a></li>
+<li><a href="Chapter_04-moment-about-a-point-.html" data-scroll="Chapter_04-moment-about-a-point-">Moment about a Point</a></li>
+<li><a href="Chapter_04-moment-about-a-line.html" data-scroll="Chapter_04-moment-about-a-line">Moment about a Line</a></li>
+<li><a href="Chapter_04-moments-from-couples.html" data-scroll="Chapter_04-moments-from-couples">Moments from Couples</a></li>
+<li><a href="Chapter_04-equivalent-transformations.html" data-scroll="Chapter_04-equivalent-transformations">Equivalent Transformations</a></li>
+<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems">Statically Equivalent Systems</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_05.html" data-scroll="Chapter_05"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
+<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
+<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom">Degree of Freedom</a></li>
+<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium">Equations of Equilibrium</a></li>
+<li><a href="Chapter_05-solution-strategies.html" data-scroll="Chapter_05-solution-strategies">Solution Strategies</a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
+<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy">Stability and Determinacy</a></li>
+<li><a href="Chapter_05-three-dimensional-equilibrium.html" data-scroll="Chapter_05-three-dimensional-equilibrium">Three-dimensional Equilibrium</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_06.html" data-scroll="Chapter_06"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
+<li><a href="Chapter_06-introduction.html" data-scroll="Chapter_06-introduction">Introduction</a></li>
+<li><a href="Chapter_06-simple-trusses.html" data-scroll="Chapter_06-simple-trusses">Simple Trusses</a></li>
+<li><a href="method-of-joints.html" data-scroll="method-of-joints">Method of Joints</a></li>
+<li><a href="method-of-sections.html" data-scroll="method-of-sections">Method of Sections</a></li>
+<li><a href="frames-and-machines.html" data-scroll="frames-and-machines">Frames and Machines</a></li>
+<li><a href="Chapter_06-chapter-review.html" data-scroll="Chapter_06-chapter-review">Chapter Review</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_07.html" data-scroll="Chapter_07"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
+<li><a href="weghted-average.html" data-scroll="weghted-average">Weighted Averages</a></li>
+<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity">Center of Gravity</a></li>
+<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass">Center of Mass</a></li>
+<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids">Centroids</a></li>
+<li><a href="composite-parts.html" data-scroll="composite-parts">Centroids using Composite Parts</a></li>
+<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function">Average Value of a Function</a></li>
+<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
+<li><a href="Chapter_07-distributed-loads.html" data-scroll="Chapter_07-distributed-loads">Distributed Loads</a></li>
+<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
+<li><a href="exercises-2.html" data-scroll="exercises-2">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_08.html" data-scroll="Chapter_08"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
+<li><a href="ch08-definition.html" data-scroll="ch08-definition">Internal Loads</a></li>
+<li><a href="Chapter_08-sign-conventions.html" data-scroll="Chapter_08-sign-conventions">Sign Conventions</a></li>
+<li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal Loads at a Point</a></li>
+<li><a href="VM_diagrams.html" data-scroll="VM_diagrams">￼Shear and Bending Moment Diagrams</a></li>
+<li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
+<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
+<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
+<li><a href="Chapter_09-slipping-vs-tipping.html" data-scroll="Chapter_09-slipping-vs-tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
+<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
+<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
+<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_10.html" data-scroll="Chapter_10"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
+<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes">Integral Properties of Shapes</a></li>
+<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes">Moments of Inertia of Common Shapes</a></li>
+<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section">Parallel Axis Theorem</a></li>
+<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes">Moment of Inertia of Composite Shapes</a></li>
+<li><a href="polar-moment.html" data-scroll="polar-moment">Polar Moment of Inertia</a></li>
+<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
+<li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
+<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
+<li class="link">
+<a href="useful-mathematics.html" data-scroll="useful-mathematics"><span class="codenumber">A</span> <span class="title">Useful Mathematics</span></a><ul>
+<li><a href="useful-mathematics-distance-formula.html" data-scroll="useful-mathematics-distance-formula">Distance Formula</a></li>
+<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa">Right Triangle Trigonometry</a></li>
+<li><a href="los-loc.html" data-scroll="los-loc">Oblique Triangle Trigonometry</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="AISC-properties.html" data-scroll="AISC-properties"><span class="codenumber">B</span> <span class="title">Properties of Steel Sections</span></a><ul>
+<li><a href="AISC-angles.html" data-scroll="AISC-angles">Angles</a></li>
+<li><a href="AISC-properties-channels.html" data-scroll="AISC-properties-channels">Channels</a></li>
+<li><a href="AISC-properties-standard-sections.html" data-scroll="AISC-properties-standard-sections">Standard Sections</a></li>
+<li><a href="AISC-properties-wide-flange-sections.html" data-scroll="AISC-properties-wide-flange-sections">Wide Flange Sections</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="ch3-3d-particles"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span>
+</h2>
+<section class="introduction" id="introduction-11"><p id="p-623">The world we live in has three dimensions.  One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three dimensions.</p>
+<p id="p-624">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</p></section><section class="subsection" id="ch3-3d-particles-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span>
+</h3>
+<p id="p-625">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis \(z\) to our existing two-dimensional frame.</p>
+<p id="p-626">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the \(x\) axis is horizontal, and the \(y\) axis is vertical just as in a two-dimensional situation.  The \(z\) axis is determined by the <a class="xref" data-knowl="./knowl/rhr2.html" title="Figure 4.1.3">right hand rule</a>.  Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive \(x\) axis.  Then curl your fingers towards the positive \(y\) axis.  Your thumb will point in the direction of the positive \(z\) axis.  In this case, if the positive \(x\) axis is horizontal and to the right, and the positive y-axis is vertical and upwards, then the positive \(z\) axis will be coming <em class="emphasis">towards</em> you.  Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others.  The right hand rule is important in many aspects of engineering, so make sure that you understand how it works.  Mistakes will lead to sign errors.</p></section><section class="subsection" id="ch3-3d-particles-free-body-diagrams"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span>
+</h3>
+<p id="p-627">Drawing a <abbr class="acronym">FBD</abbr> in three-dimensions can be difficult.  It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet.  Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information.  When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need three angles.  When drawing the free-body diagram, you usually only label one of these, many times you don’t label any angles, but instead use geometry to show the direction that the vector points.</p></section><section class="subsection" id="ch3-3d-particles-angles"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.3</span> <span class="title">Angles</span>
+</h3>
+<p id="p-628">As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the \(x\) axis, the angle with respect to the \(y\) axis and the angle with respect to the \(z\) axis. The three angles mentioned above are not necessarily located in any of the coordinate planes.  Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis.  The plane made by those three points is not necessarily the \(xy\text{,}\) \(yz\text{,}\) or \(xz\) plane.  It is most likely a “tilted” plane.</p>
+<div style="width:600px;">Rotate the diagram to see the force and angles in space.</div>
+<iframe id="ggb_3d-direction-angles_interactive" width="600" height="300" src="ggb_3d-direction-angles_interactive-if.html"></iframe><p id="p-629">The angle the vector makes with the positive \(x\)-axis is usually labeled \(\theta_x\text{,}\) but any Greek letter will do.  The angle the vector makes with the positive \(y\) axis is usually labeled \(\theta_y\text{;}\) and the angle the vector makes with the positive \(z\) is is usually labeled \(\theta_z\text{.}\)</p>
+<p id="p-630">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</p>
+<p id="p-631">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</p>
+<p id="p-632">Let’s suppose that the line of action goes through two points \(A\) and \(B\text{,}\) and the direction of the force is from \(A\) towards \(B\text{.}\)  The first step in determining the three angles is to write the distance vector from point \(A\) towards point \(B\text{.}\)  Let’s call this vector \(r_{AB}\text{.}\)  Starting at point \(A\text{,}\) you need to determine how to get to point \(B\) by moving in each of the three directions.  Ask yourself: to get from point \(A\) to point \(B\) do I have to move in the \(x\) direction? If so, how far do I have to travel?  This becomes the \(x\) component of the vector \(r_{AB}\) namely \(r_{AB_x}\text{.}\)  Next, to get from point \(A\) to point \(B\) how far do I move in \(y\) direction? This distance is \(r_{AB_y}\text{.}\)  Finally, to get from point A to point B how far do I move in the z-direction?  This distance is \(r_{AB_z}\text{.}\)</p>
+<p id="p-633">When writing these components pay attention to which way you move along the axes.  If you travel towards the positive end of an axis, the corresponding component gets a positive sign.  Travel towards the negative end results in a negative sign. The sign is important.</p>
+<p id="p-634">Once you have determine the components of the distance vector \(r_{AB}\text{,}\) then determine the total distance from point \(A\) to \(B\) using the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation A.1.2">three-dimensional Pythagorean Theorem</a>.</p>
+<div class="displaymath" id="p-635">
+\begin{equation*}
+{r_{AB}}= \sqrt{(r_{AB_x})^2 + (r_{AB_y})^2 +(r_{AB_z})^2}
+\end{equation*}
+</div>
+<p id="p-636">Lastly, the angles are determined by the direction cosines, namely</p>
+<div class="displaymath" id="p-637">
+\begin{align*}
+\cos \theta_x \amp = \dfrac{R_{AB_x}}{R_{AB}}  \quad \amp \cos \theta_y \amp= \dfrac{R_{AB_y}}{R_{AB}} \quad \amp \cos \theta_z \amp = \dfrac{R_{AB_z}}{R_{AB}}
+\end{align*}
+</div>
+<p id="p-638">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</p>
+<div class="displaymath" id="p-639">
+\begin{align*}
+\dfrac{R_{AB_x}}{R_{AB}} \amp = \dfrac{F_x}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F}
+\end{align*}
+</div>
+<p id="p-640">So,</p>
+<div class="displaymath" id="p-641">
+\begin{align*}
+F_x \amp = \left(\dfrac{R_{AB_x}}{R_{AB}}\right) F  \quad \amp F_y \amp = \left(\dfrac{R_{AB_y}}{R_{AB}}\right) F \quad \amp F_z \amp = \left(\dfrac{R_{AB_z}}{R_{AB}}\right) F 
+\end{align*}
+</div>
+<p id="p-642">Now, that is a bit of math there, but the important things to remember are:</p>
+<ul class="square">
+<li id="li-153">You need three angles to determine the direction of a force in three dimensions.</li>
+<li id="li-154">You can use the geometry to get them from a distance vector that lies along the line of action of the force.</li>
+</ul></section><section class="subsection" id="ch3-3d-particles-general-procedure"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">3.5.4</span> <span class="title">General Procedure</span>
+</h3>
+<p id="p-643">The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method.  The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis.  When working in three dimensions there are three important angles, but the general procedure is the same.  The overall procedure is presented here and then each of the new steps is explained in more detail.</p>
+<ol class="decimal">
+<li id="li-155">
+<em class="emphasis">Identify the particle.</em> The particle will be the object or point where the lines of action of all the forces intersect.</li>
+<li id="li-156">
+<em class="emphasis">Establish a coordinate system.</em> Normally this will be a system with the origin at the particle or directly below the particle, a horizontal \(x\) axis, a vertical \(y\) axis, and the \(z\) axis coming out of the page and towards you.  It is important to follow the right-hand rule when defining the coordinate system.</li>
+<li id="li-157">
+<em class="emphasis">Draw a free-body diagram.</em> The <abbr class="acronym">FBD</abbr> shows the object and all the forces acting on it, and defines the symbols we will use.  Every force should be labeled with a roman letter to represent its magnitude. Appropriate angles should be represented by a greek letter  with a subscript indicating which axis the angle of the vector is measured against.</li>
+<li id="li-158">
+<em class="emphasis">State any given values</em> and identify the unknown values.</li>
+<li id="li-159">
+<em class="emphasis">Determine the direction of each of the force vectors.</em> Angles are usually determined by the geometry.</li>
+<li id="li-160">
+<em class="emphasis">Count knowns and unknowns.</em> At this point you should have no more than three unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution.</li>
+<li id="li-161">
+<em class="emphasis">Formulate equilibrium equations.</em> Based on the free-body diagram and using the symbols you have selected, formulate the three equilibrium equations.</li>
+<li id="li-162">
+<em class="emphasis">Simplify.</em> Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles.</li>
+<li id="li-163">
+<em class="emphasis">Substitute values for symbols.</em> When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers.</li>
+<li id="li-164">
+<em class="emphasis">Check your work.</em> Have you made any algebra or trig mistakes? If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?</li>
+</ol></section></section></div></main>
+</div>
+</body>
+</html>

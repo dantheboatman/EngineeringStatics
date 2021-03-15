@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>statics Solution Strategies</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['\\(','\\)']]
+    },
+    asciimath2jax: {
+        ignoreClass: ".*",
+        processClass: "has_am"
+    },
+    jax: ["input/AsciiMath"],
+    extensions: ["asciimath2jax.js"],
+    TeX: {
+        extensions: ["extpfeil.js", "autobold.js", "https://pretextbook.org/js/lib/mathjaxknowl.js", "AMScd.js", ],
+        // scrolling to fragment identifiers is controlled by other Javascript
+        positionToHash: false,
+        equationNumbers: { autoNumber: "none", useLabelIds: true, },
+        TagSide: "right",
+        TagIndent: ".8em",
+    },
+    // HTML-CSS output Jax to be dropped for MathJax 3.0
+    "HTML-CSS": {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+    CommonHTML: {
+        scale: 88,
+        mtextFontInherit: true,
+    },
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="statics.css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" id="latex-macros" class="hidden-content" style="display:none">\(\require{cancel} \let\vecarrow\vec
+ \renewcommand{\vec}{\mathbf}
+ \newcommand{\ihat}{\vec{i}}
+ \newcommand{\jhat}{\vec{j}}
+ \newcommand{\khat}{\vec{k}}
+ \DeclareMathOperator{\proj}{proj}
+
+ 
+ \definecolor{aliceblue}{HTML}{F0F8FF}
+ 
+ 
+ 
+ \newcommand{\kg}[1]{#1~\text{kg} }
+ \newcommand{\lbm}[1]{#1~\text{lb}_m }
+ \newcommand{\slug}[1]{#1~\text{slug} }
+
+ 
+ \newcommand{\m}[1]{#1~\text{m}}
+ \newcommand{\km}[1]{#1~\text{km}}
+ \newcommand{\cm}[1]{#1~\text{cm}}
+ \newcommand{\mm}[1]{#1~\text{mm}}
+ \newcommand{\ft}[1]{#1~\text{ft}}
+ \newcommand{\inch}[1]{#1~\text{in}}
+
+ 
+ \newcommand{\N}[1]{#1~\text{N} }
+ \newcommand{\kN}[1]{#1~\text{kN} }
+ \newcommand{\MN}[1]{#1~\text{MN} }
+ \newcommand{\lb}[1]{#1~\text{lb} }
+ \newcommand{\lbf}[1]{#1~\text{lb}_f }
+
+ 
+  \newcommand{\Nm}[1]{#1~\text{N}\!\cdot\!\text{m} }
+  \newcommand{\kNm}[1]{#1~\text{kN}\!\cdot\!\text{m} }
+  \newcommand{\ftlb}[1]{#1~\text{ft}\!\cdot\!\text{lb} }
+  \newcommand{\inlb}[1]{#1~\text{in}\!\cdot\!\text{lb} }
+  
+  
+  \newcommand{\lbperft}[1]{#1~\text{lb}/\text{ft} }
+  \newcommand{\lbperin}[1]{#1~\text{lb}/\text{in} }
+  \newcommand{\Nperm}[1]{#1~\text{N}/\text{m} }
+  \newcommand{\kgperkm}[1]{#1~\text{kg}/\text{km} }
+  \newcommand{\psinch}[1]{#1~\text{lb}/\text{in}^2 }
+  \newcommand{\pqinch}[1]{#1~\text{lb}/\text{in}^3 }
+   \newcommand{\psf}[1]{#1~\text{lb}/\text{ft}^2 }
+  \newcommand{\pqf}[1]{#1~\text{lb}/\text{ft}^3 }
+  \newcommand{\Nsm}[1]{#1~\text{N}/\text{m}^2 }
+  \newcommand{\kgsm}[1]{#1~\text{kg}/\text{m}^2 }
+  \newcommand{\kgqm}[1]{#1~\text{kg}/\text{m}^3 }
+  \newcommand{\Pa}[1]{#1~\text{Pa} }
+  \newcommand{\kPa}[1]{#1~\text{kPa} }
+
+  
+  
+ \newcommand{\aSI}[1]{#1~\text{m}/\text{s}^2 }
+  \newcommand{\aUS}[1]{#1~\text{ft}/\text{s}^2 } 
+  
+  
+  \newcommand{\unit}[1]{#1~\text{unit} }
+  \newcommand{\ang}[1]{#1^\circ }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<p class="byline"></p>
+</div>
+</div></div>
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_05-equations-of-equilibrium.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_05.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_05-equilibrium-examples-.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_05-equations-of-equilibrium.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_05.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_05-equilibrium-examples-.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter"><span class="title">Front Matter</span></a><ul>
+<li><a href="acknowledgement.html" data-scroll="acknowledgement">Acknowledgements</a></li>
+<li><a href="frontmatter-.html" data-scroll="frontmatter-">Preface</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_01.html" data-scroll="Chapter_01"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
+<li><a href="Chapter_01-introduction.html" data-scroll="Chapter_01-introduction">Introduction</a></li>
+<li><a href="newtons-laws.html" data-scroll="newtons-laws">Newton’s Laws of Motion</a></li>
+<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units">Units</a></li>
+<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces">Forces</a></li>
+<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving">Problem Solving</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
+<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors">Vectors</a></li>
+<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
+<li><a href="Chapter_02-two-dimensional-coordinate-systems.html" data-scroll="Chapter_02-two-dimensional-coordinate-systems">Two Dimensional Coordinate Systems</a></li>
+<li><a href="coordinates-3d.html" data-scroll="coordinates-3d">Three Dimensional Coordinate Systems</a></li>
+<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors">Unit Vectors</a></li>
+<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
+<li><a href="dot_products_2D.html" data-scroll="dot_products_2D">Dot Products</a></li>
+<li><a href="cross-product-math.html" data-scroll="cross-product-math">Cross Products</a></li>
+<li><a href="Chapter_02-notation.html" data-scroll="Chapter_02-notation">Notation</a></li>
+<li><a href="Chapter_02-summary.html" data-scroll="Chapter_02-summary">Summary</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_03.html" data-scroll="Chapter_03"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
+<li><a href="ch3-intro.html" data-scroll="ch3-intro">Equilibrium</a></li>
+<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles">Particles</a></li>
+<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
+<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
+<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles">Particles in Three Dimensions</a></li>
+<li><a href="Chapter_03-examples.html" data-scroll="Chapter_03-examples">Examples</a></li>
+<li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
+<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
+<li><a href="Chapter_04-scalar-moments.html" data-scroll="Chapter_04-scalar-moments">Scalar Moments</a></li>
+<li><a href="cross-products.html" data-scroll="cross-products">Moment Cross Products</a></li>
+<li><a href="Chapter_04-moment-about-a-point-.html" data-scroll="Chapter_04-moment-about-a-point-">Moment about a Point</a></li>
+<li><a href="Chapter_04-moment-about-a-line.html" data-scroll="Chapter_04-moment-about-a-line">Moment about a Line</a></li>
+<li><a href="Chapter_04-moments-from-couples.html" data-scroll="Chapter_04-moments-from-couples">Moments from Couples</a></li>
+<li><a href="Chapter_04-equivalent-transformations.html" data-scroll="Chapter_04-equivalent-transformations">Equivalent Transformations</a></li>
+<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems">Statically Equivalent Systems</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_05.html" data-scroll="Chapter_05"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
+<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
+<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom">Degree of Freedom</a></li>
+<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium">Equations of Equilibrium</a></li>
+<li><a href="Chapter_05-solution-strategies.html" data-scroll="Chapter_05-solution-strategies" class="active">Solution Strategies</a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
+<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy">Stability and Determinacy</a></li>
+<li><a href="Chapter_05-three-dimensional-equilibrium.html" data-scroll="Chapter_05-three-dimensional-equilibrium">Three-dimensional Equilibrium</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_06.html" data-scroll="Chapter_06"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
+<li><a href="Chapter_06-introduction.html" data-scroll="Chapter_06-introduction">Introduction</a></li>
+<li><a href="Chapter_06-simple-trusses.html" data-scroll="Chapter_06-simple-trusses">Simple Trusses</a></li>
+<li><a href="method-of-joints.html" data-scroll="method-of-joints">Method of Joints</a></li>
+<li><a href="method-of-sections.html" data-scroll="method-of-sections">Method of Sections</a></li>
+<li><a href="frames-and-machines.html" data-scroll="frames-and-machines">Frames and Machines</a></li>
+<li><a href="Chapter_06-chapter-review.html" data-scroll="Chapter_06-chapter-review">Chapter Review</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_07.html" data-scroll="Chapter_07"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
+<li><a href="weghted-average.html" data-scroll="weghted-average">Weighted Averages</a></li>
+<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity">Center of Gravity</a></li>
+<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass">Center of Mass</a></li>
+<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids">Centroids</a></li>
+<li><a href="composite-parts.html" data-scroll="composite-parts">Centroids using Composite Parts</a></li>
+<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function">Average Value of a Function</a></li>
+<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
+<li><a href="Chapter_07-distributed-loads.html" data-scroll="Chapter_07-distributed-loads">Distributed Loads</a></li>
+<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
+<li><a href="exercises-2.html" data-scroll="exercises-2">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_08.html" data-scroll="Chapter_08"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
+<li><a href="ch08-definition.html" data-scroll="ch08-definition">Internal Loads</a></li>
+<li><a href="Chapter_08-sign-conventions.html" data-scroll="Chapter_08-sign-conventions">Sign Conventions</a></li>
+<li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal Loads at a Point</a></li>
+<li><a href="VM_diagrams.html" data-scroll="VM_diagrams">￼Shear and Bending Moment Diagrams</a></li>
+<li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
+<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
+<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
+<li><a href="Chapter_09-slipping-vs-tipping.html" data-scroll="Chapter_09-slipping-vs-tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
+<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
+<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
+<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_10.html" data-scroll="Chapter_10"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
+<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes">Integral Properties of Shapes</a></li>
+<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes">Moments of Inertia of Common Shapes</a></li>
+<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section">Parallel Axis Theorem</a></li>
+<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes">Moment of Inertia of Composite Shapes</a></li>
+<li><a href="polar-moment.html" data-scroll="polar-moment">Polar Moment of Inertia</a></li>
+<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
+<li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
+<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
+<li class="link">
+<a href="useful-mathematics.html" data-scroll="useful-mathematics"><span class="codenumber">A</span> <span class="title">Useful Mathematics</span></a><ul>
+<li><a href="useful-mathematics-distance-formula.html" data-scroll="useful-mathematics-distance-formula">Distance Formula</a></li>
+<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa">Right Triangle Trigonometry</a></li>
+<li><a href="los-loc.html" data-scroll="los-loc">Oblique Triangle Trigonometry</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="AISC-properties.html" data-scroll="AISC-properties"><span class="codenumber">B</span> <span class="title">Properties of Steel Sections</span></a><ul>
+<li><a href="AISC-angles.html" data-scroll="AISC-angles">Angles</a></li>
+<li><a href="AISC-properties-channels.html" data-scroll="AISC-properties-channels">Channels</a></li>
+<li><a href="AISC-properties-standard-sections.html" data-scroll="AISC-properties-standard-sections">Standard Sections</a></li>
+<li><a href="AISC-properties-wide-flange-sections.html" data-scroll="AISC-properties-wide-flange-sections">Wide Flange Sections</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="Chapter_05-solution-strategies"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">5.4</span> <span class="title">Solution Strategies</span>
+</h2>
+<p id="p-858">There are many sets of independent equations which you are able to use to solve two-dimensional equilibrium problems. The most typical set of equations used are:</p>
+<div class="displaymath">
+\begin{align*}
+\Sigma\vec{F}_x\amp=0 \amp \Sigma\vec{F}_y\amp=0 \amp \Sigma\vec{M}_o\amp=0
+\end{align*}
+</div>
+<p id="p-859">If you choose this typical set of equations, you have two decisions to make to help decrease the amount of math you need to solve for the unknowns. First, choose an axis system. To decrease the number of terms in the \(\Sigma \vec{F}_x\) and \(\Sigma \vec{F}_y\) equations, pick an axis system that lines up with as many unknown force vectors as possible. Second, you can sum moments around any point on or off the body, so try to select:</p>
+<ul class="square">
+<li id="li-223">a point at the intersection of as many force lines-of-action as possible, and</li>
+<li id="li-224">a point which minimizes the number of unknowns in your moment equation.</li>
+</ul>
+<p id="p-860">Sometimes the two factors will optimize the same point. Other times, there are compromises to make. Do not sweat these two decisions too hard in the beginning; the selection of any axis and any point to sum moments around will give you the same answer.</p>
+<p id="p-861">The typical choice of equations stated above are certainly not the only set of equations that can be used. Any force equations can be replaced with a linearly independent moment equation, so the other possibilities are:</p>
+<ol class="decimal">
+<li id="li-225">The typical choice, two equations summing forces in perpendicular directions and one moment equation.<div class="displaymath">
+\begin{align*}
+\Sigma\vec{F}_x\amp=0 \amp\Sigma\vec{F}_y\amp=0 \amp\Sigma\vec{M}_o\amp=0\text{, or} 
+\end{align*}
+</div>
+</li>
+<li id="li-226">two moment equations and force equation.  This choice is used for equilibrium involving parallel forces.<div class="displaymath">
+\begin{align*}
+\Sigma\vec{F}_x\amp=0 \amp\Sigma\vec{M}_A\amp=0 \amp\Sigma\vec{M}_B\amp=0\text{, or} 
+\end{align*}
+</div>
+</li>
+<li id="li-227">three moment equations, such as<div class="displaymath">
+\begin{align*}
+\Sigma\vec{M}_A\amp=0 \amp\Sigma\vec{M}_B\amp=0 \amp\Sigma\vec{M}_C\amp=0\text{.}
+\end{align*}
+</div>The three points chosen must not be collinear, i.e. they must not all lie on the same straight line.</li>
+</ol>
+<p id="p-862">While following one of the three rules above does guarantee the <em class="emphasis">independence</em> of your equations, you have further freedom to choose equations that help you to find efficient solutions. Efficiency, in this case, is defined as the desire to avoid simultaneous equations when possible. This efficiency is based on the fact that equations with only a single unknown are faster to solve than multiple-unknown equations that require substitution, linear algebra, or other solution techniques. The four choices which contribute to setting up efficient equations are the selection of 1) equilibrium equations, 2) the axis, 3) the points you sum moments around, and finally, 4) the <em class="emphasis">order</em> in which you solve the equations.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:60%;justify-content:flex-start;"><p id="p-863">Consider the L-shaped body supported by a roller on the left end and a pin on the lower right end shown in the diagram. The body supports a horizontal force applied at the elbow and a constant-value torsional couple-moment on the left end.</p></div>
+<div class="sbspanel" style="width:35%;justify-content:flex-start;"><img src="images/FBD_ex1prob_drawing.png" style="width: 100%; height: auto;" alt=""></div>
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:60%;justify-content:flex-start;"><p id="p-864">Following the five steps to create a free-body diagram (isolate, axis, load, support, and dimension) we can create the free-body diagram shown here. Notice that there are three unknowns which we will solve for using equations of equilibrium.</p></div>
+<div class="sbspanel" style="width:35%;justify-content:flex-start;"><img src="images/FBD_ex1FBD1.png" style="width: 100%; height: auto;" alt=""></div>
+</div></div>
+<p id="p-865">Some equations of equilibrium are simpler to solve than others. If an equation yields only a single unknown, it is a good starting point as multiple-unknown / multiple-equations sets can take more effort to solve, especially under the stress of a quiz or exam. The equations below are all valid equilibrium equations that could serve as a starting point for your computations.</p>
+<div class="displaymath">
+\begin{align*}
+\Sigma \vec{F}_x \amp= 0 \amp \Sigma \vec{M}_A \amp= 0\\
+\Sigma \vec{M}_B \amp= 0 \amp \Sigma \vec{F}_y \amp= 0\\
+\nearrow_+ \Sigma \vec{F}_{45^{\circ}}\amp= 0 \amp \Sigma \vec{M}_{any}\amp= 0
+\end{align*}
+</div>
+<p id="p-866">Note that we have written six equations to show the breadth of possibilities, but when you solve two-dimensional equilibrium problems, you are limited to three independent equations. Selecting more equations does not give you more information, it only confirms what you already knew, like \(0 = 0\) or \(A_x = A_x\text{.}\) Once you have selected your three equations, the free-body diagram is now represented in equation form to enable you to solve for unknowns present on the free-body diagram.</p>
+<p id="p-867">The signs (\(\pm\)) of all known and unknown terms in your equations of equilibrium come from the axis system you draw as part of your free-body diagram. The only exception to this rule in the set above is the equation \(\nearrow_+ \vec{F}_{\ang{45}}= 0\) which is essentially defining an additional axis at \(\ang{45}\) above horizontal.</p>
+<p id="p-868">The steps below walk through the second of the three options for independent equation sets: three moment equations not involving three co-linear points. This option turns out to be an efficient solution pathway for this system. Step 1 will sum moments around point \(B\text{,}\) yielding a single unknown — \(F_3\text{.}\) Step 2 sums moments around point C to solve for \(F_2\text{.}\) Step 3 sums moments around point A to solve for \(F_1\text{.}\) Finally, Step 4 (optional) draws the free-body diagram with all forces presented in the correct direction.</p>
+<article class="question example-like" id="question-5"><a data-knowl="" class="id-ref question-knowl original" data-refid="hk-question-5"><h6 class="heading">
+<span class="type">Question</span><span class="space"> </span><span class="codenumber">5.4.1</span><span class="period">.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-question-5"><article class="question example-like"><p id="p-869">Step 1: Which equations of equilibrium give me the fewest unknown values?</p>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-34" id="answer-34"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-34"><div class="answer solution-like">
+<p id="p-870">Summing forces in the \(y\) direction or summing moments about points \(B\) or \(C\text{.}\) Selected  \(\Sigma \vec{M}_B=0\)</p>
+<div class="displaymath">
+\begin{align*}
+\sum \vec{M}_B \amp = 0\\
++\ftlb{300} + (\ft{6})F_3 \amp = 0\\
+F_3 \amp = \lb{-50}
+\end{align*}
+</div>
+<p id="p-871">Note that the negative value of \(F_3\) let us know that the correct direction (\(\leftarrow\)) was opposite the hypothesized direction in our free-body diagram.</p>
+</div></div>
+</div></article></div>
+<article class="question example-like" id="question-6"><a data-knowl="" class="id-ref question-knowl original" data-refid="hk-question-6"><h6 class="heading">
+<span class="type">Question</span><span class="space"> </span><span class="codenumber">5.4.2</span><span class="period">.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-question-6"><article class="question example-like"><p id="p-872">Step 2: Is there another equation of equilibrium that only has one unknown?</p>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-35" id="answer-35"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-35"><div class="answer solution-like">
+<p id="p-873">Summing forces in the \(y\)-direction or summing moments about point \(A\) or \(B\text{.}\)</p>
+<p id="p-874">Selected  \(\sum \vec{M}_C =0\text{.}\)</p>
+<div class="displaymath">
+\begin{align*}
+\sum\vec{M}_C  \amp = 0\\
++\ftlb{300}+ (\ft{6})\lb{50} - (\ft{6})F_2  \amp = 0\\
+F_2\amp = \lb{+100}
+\end{align*}
+</div>
+<p id="p-875">Note that the positive value of \(F_2\) confirms that we assumed the correct direction (\(\rightarrow\)) on our free-body diagram.</p>
+</div></div>
+</div></article></div>
+<article class="question example-like" id="question-7"><a data-knowl="" class="id-ref question-knowl original" data-refid="hk-question-7"><h6 class="heading">
+<span class="type">Question</span><span class="space"> </span><span class="codenumber">5.4.3</span><span class="period">.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-question-7"><article class="question example-like"><p id="p-876">Step 3:  Which equations of equilibrium give me the fewest unknown values?</p>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-36" id="answer-36"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-36"><div class="answer solution-like">
+<p id="p-877">Summing forces in the \(y\)-direction or summing moments about points \(A\) or \(B\text{.}\) Selected  \(\mathbf{\Sigma \vec{M_A}=0}\text{.}\)</p>
+<div class="displaymath">
+\begin{align*}
+\sum \vec{M}_A  \amp = 0\\
++\ftlb{300} -(\ft{6})\lb{50}+ (\ft{10})F_1  \amp = 0\\
+F_1\amp = 0
+\end{align*}
+</div>
+<p id="p-878">Note that this is the same value we would have found if we had summed forces in the \(y\) direction \(\Sigma \vec{F}_y=0\text{.}\)</p>
+</div></div>
+</div></article></div>
+<article class="question example-like" id="question-8"><a data-knowl="" class="id-ref question-knowl original" data-refid="hk-question-8"><h6 class="heading">
+<span class="type">Question</span><span class="space"> </span><span class="codenumber">5.4.4</span><span class="period">.</span>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-question-8"><article class="question example-like"><p id="p-879">Step 4 Do the direction and magnitude of the final vectors make sense?</p>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-37" id="answer-37"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-37"><div class="answer solution-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="sbspanel" style="width:47.3684210526316%;justify-content:flex-start;"><p id="p-880">Yes, the final values all seem to make sense: 1) the sum of the horizontal forces is zero, 2) there are no vertical forces, and 3) summing the moments about either \(B\) or \(C\) gives a net moment of zero.</p></div>
+<div class="sbspanel" style="width:47.3684210526316%;justify-content:flex-start;"><img src="images/FBD_ex1FBD2.png" style="width: 100%; height: auto;" alt=""></div>
+</div></div></div></div>
+</div></article></div>
+<p id="p-881">Notice that to solve for the three unknowns that we summed moments about \(A\text{,}\) \(B\text{,}\) and \(C\text{.}\) Each equation was efficient — yielding a single unknown. The same solutions could have been found with any other set of equations following the three rules shared previously. If you choose another equation that has not already been used, you will end up checking our solutions. In the case of \(\Sigma \vec{F}_x=0\) we would find that \(\lb{100}-\lb{50}-\lb{50}=0\) which confirms that our solutions are accurate.</p>
+<p id="p-882">As a reflection, the equations below show several different starting strategies for solving this problem.</p>
+<p id="p-883">It’s worthwhile to think ahead about your choice of equilibrium equations and select a set which will make the mathematics easier.  Here are some possible strategies for solving this example.</p>
+<div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/strategy-fbd.svg" role="img" style="width: 100%; height: auto;" alt=""></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><p id="p-884">Equation Set</p></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><p id="p-885">Unknowns</p></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><p id="p-886">Strategy</p></div>
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-887">
+\begin{equation*}
+\begin{cases} 
+①\; \Sigma F_x = 0 \\
+②\; \Sigma F_y = 0\\ 
+③\; \Sigma M_C = 0 
+\end{cases} 
+\end{equation*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-888">
+\begin{gather*}
+F_1, F_3\\
+F_2\\
+F_1
+\end{gather*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><ol id="p-889" class="decimal">
+<li id="li-228"><p id="p-890">Solve \(③\) for \(F_1\text{.}\)</p></li>
+<li id="li-229"><p id="p-891">Solve \(②\) for \(F_3\text{.}\)</p></li>
+<li id="li-230"><p id="p-892">Solve \(①\) for \(F_2\text{.}\)</p></li>
+</ol></div>
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-893">
+\begin{equation*}
+\begin{cases} 
+①\; \Sigma M_B = 0\\
+②\;\Sigma M_C = 0\\ 
+③\; \Sigma F_y = 0 
+\end{cases} 
+\end{equation*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-894">
+\begin{gather*}
+F_3\\
+F_1\\
+F_2
+\end{gather*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><ol id="p-895" class="decimal">
+<li id="li-231"><p id="p-896">Solve \(①\) for \(F_3\text{.}\)</p></li>
+<li id="li-232"><p id="p-897">Solve \(②\) for \(F_1\text{.}\)</p></li>
+<li id="li-233"><p id="p-898">Solve \(③\) for \(F_2\text{.}\)</p></li>
+</ol></div>
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-899">
+\begin{equation*}
+\begin{cases} ①\; \Sigma F_x = 0\\ 
+②\; \Sigma M_A = 0\\ 
+②\; \Sigma M_D = 0 
+\end{cases} 
+\end{equation*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-900">
+\begin{gather*}
+F_1, F_3\\
+F_2, F_3\\
+F_1, F_3
+\end{gather*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><p id="p-901">Solve \(2 \times 2\) system of equations,\(\){\(①, ③\)}, for \(F_1\) and \(F_3\text{,}\) then use result in \(②\) to find \(F_3\text{.}\)</p></div>
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-902">
+\begin{equation*}
+\begin{cases} 
+①\; \Sigma M_O = 0\\ 
+②\;\Sigma M_A = 0\\ 
+②\;\Sigma M_D = 0 \end{cases} 
+\end{equation*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><div class="displaymath" id="p-903">
+\begin{gather*}
+F_1, F_2\\
+F_2, F_3\\
+F_1, F_3
+\end{gather*}
+</div></div>
+<div class="sbspanel" style="width:33.3333333333333%;justify-content:center;"><p id="p-904">Solve \(3 \times 3\) system of equations,\(\){\(①\text{,}\) \(②\text{,}\) \(③\)} for \(F_1\text{,}\) \(F_2\) and \(F_3\text{.}\)</p></div>
+</div></div></section></div></main>
+</div>
+</body>
+</html>
