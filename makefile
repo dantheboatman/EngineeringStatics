@@ -116,7 +116,7 @@ info:
 #
 clean:
 	-rm -r $(HTMLOUT)
-	-rm -r $(PDFOUT)/*
+#	-rm -r $(PDFOUT)/*
 #
 folders:
 	@[ -d $(BUILD) ] || mkdir $(BUILD)
