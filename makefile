@@ -33,6 +33,7 @@ HTML: info folders css xslt numbas $(images) tidy
 publish:
 	-rm $(WEBDIR)/*.*
 	cp -R $(HTMLOUT)/* $(WEBDIR)
+	echo engineeringstatics.org $(WEBDIR)/CNAME
 	open $(WEBDIR)/index.html
 #
 ##  make pdf version
