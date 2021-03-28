@@ -8,7 +8,7 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>statics Weighted Averages</title>
+<title>Statics: Weighted Averages</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
@@ -116,13 +116,14 @@ MathJax.Hub.Config({
   
   \newcommand{\unit}[1]{#1~\text{unit} }
   \newcommand{\ang}[1]{#1^\circ }
+  \newcommand{\sec}[1]{#1~\text{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
 \)</div>
 <header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
-<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline"></p>
 </div>
 </div></div>
@@ -223,7 +224,7 @@ MathJax.Hub.Config({
 <li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
 <li><a href="distributed-loads.html" data-scroll="distributed-loads">Distributed Loads</a></li>
 <li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
-<li><a href="exercises-7.html" data-scroll="exercises-7">Exercises</a></li>
+<li><a href="exercises-6.html" data-scroll="exercises-6">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -233,7 +234,7 @@ MathJax.Hub.Config({
 <li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal Loads at a Point</a></li>
 <li><a href="VM_diagrams.html" data-scroll="VM_diagrams">￼Shear and Bending Moment Diagrams</a></li>
 <li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
-<li><a href="exercises-8.html" data-scroll="exercises-8">Exercises</a></li>
+<li><a href="exercises-7.html" data-scroll="exercises-7">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -245,7 +246,7 @@ MathJax.Hub.Config({
 <li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
 <li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
 <li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
-<li><a href="exercises-9.html" data-scroll="exercises-9">Exercises</a></li>
+<li><a href="exercises-8.html" data-scroll="exercises-8">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -258,7 +259,7 @@ MathJax.Hub.Config({
 <li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
 <li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
 <li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
-<li><a href="exercises-10.html" data-scroll="exercises-10">Exercises</a></li>
+<li><a href="exercises-9.html" data-scroll="exercises-9">Exercises</a></li>
 </ul>
 </li>
 <li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
@@ -283,43 +284,43 @@ MathJax.Hub.Config({
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="weghted-average"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.1</span> <span class="title">Weighted Averages</span>
 </h2>
-<p id="p-1059">You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is</p>
+<p id="p-1048">You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is</p>
 <div class="displaymath">
 \begin{equation*}
 \frac{1+2+3+4}{4} = 2.5
 \end{equation*}
 </div>
-<p id="p-1060">More formally, if \(a\) is a set with \(n\) elements, then the average, or <em class="alert">mean</em> value is</p>
+<p id="p-1049">More formally, if \(a\) is a set with \(n\) elements, then the average, or <em class="alert">mean</em> value is</p>
 <div class="displaymath">
 \begin{equation}
 \bar{a} = \frac{1}{n} \sum_{i=1}^n a_i = \frac{a_1 + a_2 + \dots + a_n}{n} \text{.}\tag{7.1.1}
 \end{equation}
 </div>
 <p class="continuation">The bar over the \(a\) indicates that this is a mean value. This average is also called the <dfn class="terminology">arithmetic mean</dfn>. When calculating an arithmetic mean, each number is equally important when evaluating the average.</p>
-<p id="p-1061">In situations where some values are more important than others, we use a <dfn class="terminology">weighted average</dfn>. A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken.  The credit values are called the <dfn class="terminology">weighting factors</dfn>.</p>
-<p id="p-1062">In general terms a weighted average is</p>
+<p id="p-1050">In situations where some values are more important than others, we use a <dfn class="terminology">weighted average</dfn>. A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken.  The credit values are called the <dfn class="terminology">weighting factors</dfn>.</p>
+<p id="p-1051">In general terms a weighted average is</p>
 <div class="displaymath">
 \begin{equation}
 \bar{a} = \frac{\sum a_i w_i}{\sum {w_i}} \label{weighted-average}\tag{7.1.2}
 \end{equation}
 </div>
 <p class="continuation">Where \(a_i\) are the values we are averaging and \(w_i\) are the corresponding weighting factors.  The weighting factors are different for each item being averaged, so \(w_i\) is the weighting factor for value \(a_i\text{.}\) In this book we will not write the limits on the sums, and understand that the intent is always to sum over all the values.   Notice that if the weighting factors are all identical, they can be factored out of the sums so the weighted average and the arithmetic mean will be the same.</p>
-<p id="p-1063">Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter.   All three are <em class="emphasis">points</em> located at the “center” the object, but the meaning of “center” depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.</p>
+<p id="p-1052">Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter.   All three are <em class="emphasis">points</em> located at the “center” the object, but the meaning of “center” depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.</p>
 <article class="example example-like" id="Example-course-grades"><a data-knowl="" class="id-ref example-knowl original" data-refid="hk-Example-course-grades"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Course Grades.</span>
-</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Example-course-grades"><article class="example example-like"><p id="p-1064">The mechanics syllabus says that homework is 10%, two exams are 25% each, and the final is worth 40%.  You have a 40 on the first exam, a 70 on the second exam, and your homework grade is 90.</p>
-<p id="p-1065">What do you have to earn on the final exam to get a 70 in the class?</p>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-Example-course-grades"><article class="example example-like"><p id="p-1053">The mechanics syllabus says that homework is 10%, two exams are 25% each, and the final is worth 40%.  You have a 40 on the first exam, a 70 on the second exam, and your homework grade is 90.</p>
+<p id="p-1054">What do you have to earn on the final exam to get a 70 in the class?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-39" id="answer-39"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-39"><div class="answer solution-like"><p id="p-1066">You need a 77.5 on the final to get a 70 for the class.</p></div></div>
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-39" id="answer-39"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-39"><div class="answer solution-like"><p id="p-1055">You need a 77.5 on the final to get a 70 for the class.</p></div></div>
 <a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-38" id="solution-38"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-38"><div class="solution solution-like">
-<p id="p-1067">Your known grades and the weighting factors are</p>
+<p id="p-1056">Your known grades and the weighting factors are</p>
 <div class="displaymath">
 \begin{align*}
 G_i \amp =  \left [40, 80, 90, FE \right]\\
 w_i  \amp =  \left [25\%, 25\%, 10\%, 40\% \right ]
 \end{align*}
 </div>
-<p id="p-1068">To find what you need on the final so that you average grade \(\bar{G}\) is a 70</p>
+<p id="p-1057">To find what you need on the final so that you average grade \(\bar{G}\) is a 70</p>
 <div class="displaymath">
 \begin{align*}
 \bar{G} \amp= \frac{\sum G_i w_i}{\sum w_i}\\

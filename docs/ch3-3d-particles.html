@@ -8,7 +8,7 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>statics Particles in Three Dimensions</title>
+<title>Statics: Particles in Three Dimensions</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script type="text/x-mathjax-config">
@@ -116,13 +116,14 @@ MathJax.Hub.Config({
   
   \newcommand{\unit}[1]{#1~\text{unit} }
   \newcommand{\ang}[1]{#1^\circ }
+  \newcommand{\sec}[1]{#1~\text{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
 \)</div>
 <header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/equilibrium_logo.svg" alt="Logo image"></a><div class="title-container">
-<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics</span></a></h1>
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline"></p>
 </div>
 </div></div>
@@ -223,7 +224,7 @@ MathJax.Hub.Config({
 <li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
 <li><a href="distributed-loads.html" data-scroll="distributed-loads">Distributed Loads</a></li>
 <li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
-<li><a href="exercises-7.html" data-scroll="exercises-7">Exercises</a></li>
+<li><a href="exercises-6.html" data-scroll="exercises-6">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -233,7 +234,7 @@ MathJax.Hub.Config({
 <li><a href="Chapter_08-internal-loads-at-a-point.html" data-scroll="Chapter_08-internal-loads-at-a-point">Internal Loads at a Point</a></li>
 <li><a href="VM_diagrams.html" data-scroll="VM_diagrams">￼Shear and Bending Moment Diagrams</a></li>
 <li><a href="Chapter_08-conclusion.html" data-scroll="Chapter_08-conclusion">Conclusion</a></li>
-<li><a href="exercises-8.html" data-scroll="exercises-8">Exercises</a></li>
+<li><a href="exercises-7.html" data-scroll="exercises-7">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -245,7 +246,7 @@ MathJax.Hub.Config({
 <li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
 <li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
 <li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
-<li><a href="exercises-9.html" data-scroll="exercises-9">Exercises</a></li>
+<li><a href="exercises-8.html" data-scroll="exercises-8">Exercises</a></li>
 </ul>
 </li>
 <li class="link">
@@ -258,7 +259,7 @@ MathJax.Hub.Config({
 <li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
 <li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
 <li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
-<li><a href="exercises-10.html" data-scroll="exercises-10">Exercises</a></li>
+<li><a href="exercises-9.html" data-scroll="exercises-9">Exercises</a></li>
 </ul>
 </li>
 <li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
@@ -283,76 +284,76 @@ MathJax.Hub.Config({
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="ch3-3d-particles"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span>
 </h2>
-<section class="introduction" id="introduction-11"><p id="p-596">The world we live in has three dimensions.  One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three dimensions.</p>
-<p id="p-597">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</p></section><section class="subsection" id="ch3-3d-particles-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-9"><p id="p-585">The world we live in has three dimensions.  One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three dimensions.</p>
+<p id="p-586">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</p></section><section class="subsection" id="ch3-3d-particles-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span>
 </h3>
-<p id="p-598">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis \(z\) to our existing two-dimensional frame.</p>
-<p id="p-599">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the \(x\) axis is horizontal, and the \(y\) axis is vertical just as in a two-dimensional situation.  The \(z\) axis is determined by the <a class="xref" data-knowl="./knowl/rhr2.html" title="Figure 4.1.3">right hand rule</a>.  Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive \(x\) axis.  Then curl your fingers towards the positive \(y\) axis.  Your thumb will point in the direction of the positive \(z\) axis.  In this case, if the positive \(x\) axis is horizontal and to the right, and the positive y axis is vertical and upwards, then the positive \(z\) axis will be coming <em class="emphasis">towards</em> you.  Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others.  The right hand rule is important in many aspects of engineering, so make sure that you understand how it works.  Mistakes will lead to sign errors.</p></section><section class="subsection" id="ch3-3d-particles-free-body-diagrams"><h3 class="heading hide-type">
+<p id="p-587">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis \(z\) to our existing two-dimensional frame.</p>
+<p id="p-588">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the \(x\) axis is horizontal, and the \(y\) axis is vertical just as in a two-dimensional situation.  The \(z\) axis is determined by the <a class="xref" data-knowl="./knowl/rhr2.html" title="Figure 4.1.3">right hand rule</a>.  Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive \(x\) axis.  Then curl your fingers towards the positive \(y\) axis.  Your thumb will point in the direction of the positive \(z\) axis.  In this case, if the positive \(x\) axis is horizontal and to the right, and the positive y axis is vertical and upwards, then the positive \(z\) axis will be coming <em class="emphasis">towards</em> you.  Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others.  The right hand rule is important in many aspects of engineering, so make sure that you understand how it works.  Mistakes will lead to sign errors.</p></section><section class="subsection" id="ch3-3d-particles-free-body-diagrams"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span>
 </h3>
-<p id="p-600">Drawing a <abbr class="acronym">FBD</abbr> in three-dimensions can be difficult.  It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet.  Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information.  When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need three angles.  When drawing the free-body diagram, you usually only label one of these, many times you don’t label any angles, but instead use geometry to show the direction that the vector points.</p></section><section class="subsection" id="ch3-3d-particles-angles"><h3 class="heading hide-type">
+<p id="p-589">Drawing a <abbr class="acronym">FBD</abbr> in three-dimensions can be difficult.  It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet.  Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information.  When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need three angles.  When drawing the free-body diagram, you usually only label one of these, many times you don’t label any angles, but instead use geometry to show the direction that the vector points.</p></section><section class="subsection" id="ch3-3d-particles-angles"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.3</span> <span class="title">Angles</span>
 </h3>
-<p id="p-601">As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the \(x\) axis, the angle with respect to the \(y\) axis and the angle with respect to the \(z\) axis. The three angles mentioned above are not necessarily located in any of the coordinate planes.  Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis.  The plane made by those three points is not necessarily the \(xy\text{,}\) \(yz\text{,}\) or \(xz\) plane.  It is most likely a “tilted” plane.</p>
+<p id="p-590">As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the \(x\) axis, the angle with respect to the \(y\) axis and the angle with respect to the \(z\) axis. The three angles mentioned above are not necessarily located in any of the coordinate planes.  Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis.  The plane made by those three points is not necessarily the \(xy\text{,}\) \(yz\text{,}\) or \(xz\) plane.  It is most likely a “tilted” plane.</p>
 <div style="width:600px;">Rotate the diagram to see the force and angles in space.</div>
-<iframe id="ggb_3d-direction-angles_interactive" width="600" height="300" src="ggb_3d-direction-angles_interactive-if.html"></iframe><p id="p-602">The angle the vector makes with the positive \(x\) axis is usually labeled \(\theta_x\text{,}\) but any Greek letter will do.  The angle the vector makes with the positive \(y\) axis is usually labeled \(\theta_y\text{;}\) and the angle the vector makes with the positive \(z\) is is usually labeled \(\theta_z\text{.}\)</p>
-<p id="p-603">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</p>
-<p id="p-604">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</p>
-<p id="p-605">Let’s suppose that the line of action goes through two points \(A\) and \(B\text{,}\) and the direction of the force is from \(A\) towards \(B\text{.}\)  The first step in determining the three angles is to write the distance vector from point \(A\) towards point \(B\text{.}\)  Let’s call this vector \(r_{AB}\text{.}\)  Starting at point \(A\text{,}\) you need to determine how to get to point \(B\) by moving in each of the three directions.  Ask yourself: to get from point \(A\) to point \(B\) do I have to move in the \(x\) direction? If so, how far do I have to travel?  This becomes the \(x\) component of the vector \(r_{AB}\) namely \(r_{AB_x}\text{.}\)  Next, to get from point \(A\) to point \(B\) how far do I move in \(y\) direction? This distance is \(r_{AB_y}\text{.}\)  Finally, to get from point A to point B how far do I move in the z-direction?  This distance is \(r_{AB_z}\text{.}\)</p>
-<p id="p-606">When writing these components pay attention to which way you move along the axes.  If you travel towards the positive end of an axis, the corresponding component gets a positive sign.  Travel towards the negative end results in a negative sign. The sign is important.</p>
-<p id="p-607">Once you have determine the components of the distance vector \(r_{AB}\text{,}\) then determine the total distance from point \(A\) to \(B\) using the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">three-dimensional Pythagorean Theorem</a>.</p>
-<div class="displaymath" id="p-608">
+<iframe id="ggb_3d-direction-angles_interactive" width="600" height="300" src="ggb_3d-direction-angles_interactive-if.html"></iframe><p id="p-591">The angle the vector makes with the positive \(x\) axis is usually labeled \(\theta_x\text{,}\) but any Greek letter will do.  The angle the vector makes with the positive \(y\) axis is usually labeled \(\theta_y\text{;}\) and the angle the vector makes with the positive \(z\) is is usually labeled \(\theta_z\text{.}\)</p>
+<p id="p-592">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</p>
+<p id="p-593">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</p>
+<p id="p-594">Let’s suppose that the line of action goes through two points \(A\) and \(B\text{,}\) and the direction of the force is from \(A\) towards \(B\text{.}\)  The first step in determining the three angles is to write the distance vector from point \(A\) towards point \(B\text{.}\)  Let’s call this vector \(r_{AB}\text{.}\)  Starting at point \(A\text{,}\) you need to determine how to get to point \(B\) by moving in each of the three directions.  Ask yourself: to get from point \(A\) to point \(B\) do I have to move in the \(x\) direction? If so, how far do I have to travel?  This becomes the \(x\) component of the vector \(r_{AB}\) namely \(r_{AB_x}\text{.}\)  Next, to get from point \(A\) to point \(B\) how far do I move in \(y\) direction? This distance is \(r_{AB_y}\text{.}\)  Finally, to get from point A to point B how far do I move in the z-direction?  This distance is \(r_{AB_z}\text{.}\)</p>
+<p id="p-595">When writing these components pay attention to which way you move along the axes.  If you travel towards the positive end of an axis, the corresponding component gets a positive sign.  Travel towards the negative end results in a negative sign. The sign is important.</p>
+<p id="p-596">Once you have determine the components of the distance vector \(r_{AB}\text{,}\) then determine the total distance from point \(A\) to \(B\) using the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">three-dimensional Pythagorean Theorem</a>.</p>
+<div class="displaymath" id="p-597">
 \begin{equation*}
 {r_{AB}}= \sqrt{(r_{AB_x})^2 + (r_{AB_y})^2 +(r_{AB_z})^2}
 \end{equation*}
 </div>
-<p id="p-609">Lastly, the angles are determined by the direction cosines, namely</p>
-<div class="displaymath" id="p-610">
+<p id="p-598">Lastly, the angles are determined by the direction cosines, namely</p>
+<div class="displaymath" id="p-599">
 \begin{align*}
 \cos \theta_x \amp = \dfrac{R_{AB_x}}{R_{AB}}  \quad \amp \cos \theta_y \amp= \dfrac{R_{AB_y}}{R_{AB}} \quad \amp \cos \theta_z \amp = \dfrac{R_{AB_z}}{R_{AB}}
 \end{align*}
 </div>
-<p id="p-611">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</p>
-<div class="displaymath" id="p-612">
+<p id="p-600">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</p>
+<div class="displaymath" id="p-601">
 \begin{align*}
 \dfrac{R_{AB_x}}{R_{AB}} \amp = \dfrac{F_x}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F}
 \end{align*}
 </div>
-<p id="p-613">So,</p>
-<div class="displaymath" id="p-614">
+<p id="p-602">So,</p>
+<div class="displaymath" id="p-603">
 \begin{align*}
 F_x \amp = \left(\dfrac{R_{AB_x}}{R_{AB}}\right) F  \quad \amp F_y \amp = \left(\dfrac{R_{AB_y}}{R_{AB}}\right) F \quad \amp F_z \amp = \left(\dfrac{R_{AB_z}}{R_{AB}}\right) F 
 \end{align*}
 </div>
-<p id="p-615">Now, that is a bit of math there, but the important things to remember are:</p>
+<p id="p-604">Now, that is a bit of math there, but the important things to remember are:</p>
 <ul class="square">
-<li id="li-153">You need three angles to determine the direction of a force in three dimensions.</li>
-<li id="li-154">You can use the geometry to get them from a distance vector that lies along the line of action of the force.</li>
+<li id="li-166">You need three angles to determine the direction of a force in three dimensions.</li>
+<li id="li-167">You can use the geometry to get them from a distance vector that lies along the line of action of the force.</li>
 </ul></section><section class="subsection" id="ch3-3d-particles-general-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.4</span> <span class="title">General Procedure</span>
 </h3>
-<p id="p-616">The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method.  The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis.  When working in three dimensions there are three important angles, but the general procedure is the same.  The overall procedure is presented here and then each of the new steps is explained in more detail.</p>
+<p id="p-605">The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method.  The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis.  When working in three dimensions there are three important angles, but the general procedure is the same.  The overall procedure is presented here and then each of the new steps is explained in more detail.</p>
 <ol class="decimal">
-<li id="li-155">
+<li id="li-168">
 <em class="emphasis">Identify the particle.</em> The particle will be the object or point where the lines of action of all the forces intersect.</li>
-<li id="li-156">
+<li id="li-169">
 <em class="emphasis">Establish a coordinate system.</em> Normally this will be a system with the origin at the particle or directly below the particle, a horizontal \(x\) axis, a vertical \(y\) axis, and the \(z\) axis coming out of the page and towards you.  It is important to follow the right-hand rule when defining the coordinate system.</li>
-<li id="li-157">
+<li id="li-170">
 <em class="emphasis">Draw a free-body diagram.</em> The <abbr class="acronym">FBD</abbr> shows the object and all the forces acting on it, and defines the symbols we will use.  Every force should be labeled with a roman letter to represent its magnitude. Appropriate angles should be represented by a greek letter  with a subscript indicating which axis the angle of the vector is measured against.</li>
-<li id="li-158">
+<li id="li-171">
 <em class="emphasis">State any given values</em> and identify the unknown values.</li>
-<li id="li-159">
+<li id="li-172">
 <em class="emphasis">Determine the direction of each of the force vectors.</em> Angles are usually determined by the geometry.</li>
-<li id="li-160">
+<li id="li-173">
 <em class="emphasis">Count knowns and unknowns.</em> At this point you should have no more than three unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution.</li>
-<li id="li-161">
+<li id="li-174">
 <em class="emphasis">Formulate equilibrium equations.</em> Based on the free-body diagram and using the symbols you have selected, formulate the three equilibrium equations.</li>
-<li id="li-162">
+<li id="li-175">
 <em class="emphasis">Simplify.</em> Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles.</li>
-<li id="li-163">
+<li id="li-176">
 <em class="emphasis">Substitute values for symbols.</em> When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers.</li>
-<li id="li-164">
+<li id="li-177">
 <em class="emphasis">Check your work.</em> Have you made any algebra or trig mistakes? If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?</li>
 </ol></section></section></div></main>
 </div>

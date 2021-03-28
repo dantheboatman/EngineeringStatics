@@ -12,12 +12,24 @@
 </head>
 <body>
 <h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading"><span class="type">Paragraph</span></h6>
-<p>You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:</p>
+<p>The process used in the method of joints is outlined below:</p>
+<ol class="decimal">
+<li><p xmlns:svg="http://www.w3.org/2000/svg">First, determine if the structure is a truss and if it is determinate. See <a href="Chapter_06-simple-trusses.html#identify-simple-truss" class="internal" title="Subsection 6.2.2: Identifying Simple Trusses">Subsection 6.2.2</a></p></li>
+<li><p xmlns:svg="http://www.w3.org/2000/svg">Identify and eliminate all zero-force members. This is not required, but can minimize your computations. See <a href="Chapter_06-simple-trusses.html#zero-force-members" class="internal" title="Subsection 6.2.4: Zero-Force Members">Subsection 6.2.4</a> above.</p></li>
+<li>
+<p xmlns:svg="http://www.w3.org/2000/svg">Next, determine if you need to solve for the reactions first using the full section free-body diagram, or if you can solve for them as part of the Method of Joints. Joints are treated as a series of particles. As all forces on joints are concurrent, these forces can be solved with equilibrium force equations, but moment equations do not add any information. Thus each 2D joint yields two equations (\(\Sigma F_x=0\) and \(\Sigma F_y=0\)). To be able to solve for the unknowns at a joint in a step-by-step fashion, you’ll need ≤ 2 unknowns at each joint and ≥ 1 known force at each joint. If there are no joints that satisfy this condition and you would like to solve for the unknown forces in a step-by-step manner, then you will need to solve for the truss reactions first before starting the Method of Joints.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">Note that you could write out all the equations for each free-body diagram and solve them all simultaneously with a linear algebra matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</p>
+</li>
+<li>
+<p>Next, represent the forces at each joint with a free-body diagram. It is simplest to:</p>
 <ul class="square">
-<li>We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em xmlns:svg="http://www.w3.org/2000/svg" class="emphasis">actual</em> weight of <em xmlns:svg="http://www.w3.org/2000/svg" class="emphasis">real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at a minimum support the weight of the member.</li>
-<li>Truss members are not actually rigid, and long slender members under compression will <em xmlns:svg="http://www.w3.org/2000/svg" class="emphasis">buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin \(D\) if they were not replaced with a single member \(CE\) with sufficient rigidity.</li>
-<li>Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition — think about how the load on a bridge shifts as a heavy truck drives across.</li>
+<li>Draw one joint free-body diagram at a time</li>
+<li>Always draw known forces in their known direction and value (whether external, reaction, or interaction),</li>
+<li>Draw unknown forces in assumed directions and uniquely label them. A common practice for trusses is to assume that all unknown forces are in tension (or pulling away from the free-body diagram of the pin) and label them based on the member they represent (like\(F_{AB}\)).</li>
 </ul>
-<span class="incontext"><a href="Chapter_06-simple-trusses.html#p-979">in-context</a></span>
+</li>
+<li><p xmlns:svg="http://www.w3.org/2000/svg">Finally, write out and solve the force equilibrium equations for each of the joint free-body diagrams. If you assumed that all forces were tensile earlier, remember that negative answers indicate compressive forces in the members.</p></li>
+</ol>
+<span class="incontext"><a href="method-of-joints.html#p-979">in-context</a></span>
 </body>
 </html>
