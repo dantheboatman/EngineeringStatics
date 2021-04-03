@@ -61,7 +61,7 @@ MathJax.Hub.Config({
  \newcommand{\ihat}{\vec{i}}
  \newcommand{\jhat}{\vec{j}}
  \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+ \DeclareMathOperator{\proj}{Proj}
 
  
  \definecolor{aliceblue}{HTML}{F0F8FF}
@@ -162,7 +162,6 @@ MathJax.Hub.Config({
 <li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
 <li><a href="dot_products_2D.html" data-scroll="dot_products_2D">Dot Products</a></li>
 <li><a href="cross-product-math.html" data-scroll="cross-product-math">Cross Products</a></li>
-<li><a href="Chapter_02-summary.html" data-scroll="Chapter_02-summary">Summary</a></li>
 <li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
 </ul>
 </li>
@@ -286,70 +285,70 @@ MathJax.Hub.Config({
 </h2>
 <article class="objectives goal-like" id="objectives-29"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-315">How are frames and machines different from trusses?</li>
-<li id="li-316">Why can the method of joints and method of sections not be used for frames and machines?</li>
-<li id="li-317">How do we identify if a structure is independently rigid?</li>
-<li id="li-318">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</li>
+<li id="li-302">How are frames and machines different from trusses?</li>
+<li id="li-303">Why can the method of joints and method of sections not be used for frames and machines?</li>
+<li id="li-304">How do we identify if a structure is independently rigid?</li>
+<li id="li-305">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</li>
 </ul></article><section class="subsection" id="frames-and-machines-frames-and-machines"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.1</span> <span class="title">Frames and Machines</span>
 </h3>
-<p id="p-995">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two points of application of point loads, distributed loads present and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in Ch 5 Equilibrium of Rigid Bodies were all multi-force bodies. Refer to Table 6-1 for the details of how frames and machines compare to other equilibrium systems.</p>
-<p id="p-996">By definition:</p>
-<p id="p-997"><dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads, and must include at least one multi-force member.</p>
-<p id="p-998"><dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by given their interacting and applied forces.</p>
-<p id="p-999">Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p>
+<p id="p-1025">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two points of application of point loads, distributed loads present and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in Ch 5 Equilibrium of Rigid Bodies were all multi-force bodies. Refer to Table 6-1 for the details of how frames and machines compare to other equilibrium systems.</p>
+<p id="p-1026">By definition:</p>
+<p id="p-1027"><dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads, and must include at least one multi-force member.</p>
+<p id="p-1028"><dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by given their interacting and applied forces.</p>
+<p id="p-1029">Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel" style="width:50%;justify-content:flex-start;"><figure class="figure figure-like" id="stool"><img src="images/stool.jpg" style="width: 100%; height: auto;" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>This stool is a frame as its legs are not two force members and is rigid, therefore no part can move relative to the other parts.</figcaption></figure></div>
-<div class="sbspanel" style="width:50%;justify-content:flex-start;"><figure class="figure figure-like" id="vice-grips-photo"><img src="images/vice-grips-photo.jpg" style="width: 100%; height: auto;" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.2<span class="period">.</span></span><span class="space"> </span>This pair of locking pliers is a machine as it contains multi-force members and has parts that can move relative to one another.</figcaption></figure></div>
+<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="stool"><img src="images/stool.jpg" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>This stool is a frame as its legs are not two force members and is rigid, therefore no part can move relative to the other parts.</figcaption></figure></div>
+<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="vice-grips-photo"><img src="images/vice-grips-photo.jpg" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.2<span class="period">.</span></span><span class="space"> </span>This pair of locking pliers is a machine as it contains multi-force members and has parts that can move relative to one another.</figcaption></figure></div>
 </div></div>
-<p id="p-1000">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure.</p>
-<p id="p-1001">The method used to analyze frames involves disassembling the structure into individual rigid bodies; we “take the structure apart.” and analyze each part separately.  Each component is analyzed as an independent rigid body. This leads to equilibrium equations for each component, and due to Newton’s Third Law, every interaction force and couple is one half of a complementary pair. The interacting force of body \(A\) on \(B\) is equal and opposite to the force of body \(B\) on body \(A\) and the free-body diagrams must reflect this.</p>
-<p id="p-1002"></p>
-<p id="p-1003">Remember from Chapter 5 Rigid Body Equilibrium how you were limited to three linearly independent equations per rigid body free-body diagram? It turns out that the relationship still holds here, but now we have more free-body diagrams to use. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</p>
+<p id="p-1030">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure.</p>
+<p id="p-1031">The method used to analyze frames involves disassembling the structure into individual rigid bodies; we “take the structure apart.” and analyze each part separately.  Each component is analyzed as an independent rigid body. This leads to equilibrium equations for each component, and due to Newton’s Third Law, every interaction force and couple is one half of a complementary pair. The interacting force of body \(A\) on \(B\) is equal and opposite to the force of body \(B\) on body \(A\) and the free-body diagrams must reflect this.</p>
+<p id="p-1032"></p>
+<p id="p-1033">Remember from Chapter 5 Rigid Body Equilibrium how you were limited to three linearly independent equations per rigid body free-body diagram? It turns out that the relationship still holds here, but now we have more free-body diagrams to use. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</p>
 <ul class="square">
-<li id="li-319">
+<li id="li-306">
 <em class="emphasis">Two-force members. One equation:</em> Recall that two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins. The available equation simply tells you that the force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</li>
-<li id="li-320">
+<li id="li-307">
 <em class="emphasis">Multi-force rigid body with concurrent forces. Two equations:</em> These are the same type of problems you solved in Ch. 3: Equilibrium of Particles with only two equations available \(\Sigma F_x = 0\)  and  \(\Sigma F_y = 0\text{.}\)</li>
-<li id="li-321">
+<li id="li-308">
 <em class="emphasis">Multi-force rigid body with offset forces and/or couples. Three equations:</em> These are the most general body types where you can use  \(\Sigma F_x = 0\text{,}\)  \(\Sigma F_y = 0\text{,}\)  and\(\Sigma M = 0\) to solve for three unknowns.</li>
 </ul></section><section class="subsection" id="frames-and-machines-analysis-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.2</span> <span class="title">Analysis Procedure</span>
 </h3>
-<p id="p-1004">The process used to analyze frames and machines is outlined below:</p>
+<p id="p-1034">The process used to analyze frames and machines is outlined below:</p>
 <ol class="decimal">
-<li id="li-322">
-<p id="p-1005">First, determine if we can model the entire structure as a rigid body.</p>
-<p id="p-1006">To do this, the structure needs to be independently rigid. This means that it would be rigid even if we separated it from its supports. Look for triangles formed among the members, as triangles are inherently rigid.</p>
-<p id="p-1007">If the structure is independently rigid, you will be able to model the structure as a single rigid body to determine the reaction forces acting on the structure. If the structure is not independently rigid then skip this step.</p>
-<p id="p-1008"></p>
-<figure class="figure figure-like" id="frame-ex-1"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="images/frame-ex-1.png" style="width: 100%; height: auto;" alt=""></div>
+<li id="li-309">
+<p id="p-1035">First, determine if we can model the entire structure as a rigid body.</p>
+<p id="p-1036">To do this, the structure needs to be independently rigid. This means that it would be rigid even if we separated it from its supports. Look for triangles formed among the members, as triangles are inherently rigid.</p>
+<p id="p-1037">If the structure is independently rigid, you will be able to model the structure as a single rigid body to determine the reaction forces acting on the structure. If the structure is not independently rigid then skip this step.</p>
+<p id="p-1038"></p>
+<figure class="figure figure-like" id="frame-ex-1"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="images/frame-ex-1.png" class="contained" alt=""></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.3<span class="period">.</span></span><span class="space"> </span>If, and only if, the structure is independently rigid, you should analyze the whole structure as a single rigid body to solve for the reaction forces. Note the triangle formed between pins \(B\text{,}\) \(C\text{,}\) and \(D\text{.}\)</figcaption></figure>
 </li>
-<li id="li-323">
-<p id="p-1009">Next draw a free-body diagram for each of the members in the structure. You will need to include all forces acting on each member, including:</p>
+<li id="li-310">
+<p id="p-1039">Next draw a free-body diagram for each of the members in the structure. You will need to include all forces acting on each member, including:</p>
 <ul class="square">
-<li id="li-324">All applied forces/couples that may be acting at the members.</li>
-<li id="li-325">Interaction forces from two-force members. Recall, at connection points with two-force members there will be single force of unknown magnitude but the known direction (the forces will act along the line between the two connection points on the member).</li>
-<li id="li-326">Next, add in the remaining reaction forces/couples at the connection points between members. For forces with an unknown magnitude and direction (such as in pin joints) the forces are often drawn in as having unknown x and y components.</li>
+<li id="li-311">All applied forces/couples that may be acting at the members.</li>
+<li id="li-312">Interaction forces from two-force members. Recall, at connection points with two-force members there will be single force of unknown magnitude but the known direction (the forces will act along the line between the two connection points on the member).</li>
+<li id="li-313">Next, add in the remaining reaction forces/couples at the connection points between members. For forces with an unknown magnitude and direction (such as in pin joints) the forces are often drawn in as having unknown x and y components.</li>
 </ul>
-<p id="p-1010">Remember that the interaction forces/couples between connected bodies will be equal and opposite.</p>
-<figure class="figure figure-like" id="frame-ex-2"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="images/frame-ex-2.png" style="width: 100%; height: auto;" alt=""></div>
+<p id="p-1040">Remember that the interaction forces/couples between connected bodies will be equal and opposite.</p>
+<figure class="figure figure-like" id="frame-ex-2"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="images/frame-ex-2.png" class="contained" alt=""></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.4<span class="period">.</span></span><span class="space"> </span>Separate the structure into individual components and draw a free-body diagram of each component. It is important to remember that the forces at each connection point are equal and opposite.</figcaption></figure>
 </li>
-<li id="li-327"><p id="p-1011">Write out the equilibrium equations for each free-body diagram.</p></li>
-<li id="li-328"><p id="p-1012">Finally, solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. If your algebra tells you that any force/couple is negative, that indicates that the assumed direction of that term should be flipped in direction.</p></li>
+<li id="li-314"><p id="p-1041">Write out the equilibrium equations for each free-body diagram.</p></li>
+<li id="li-315"><p id="p-1042">Finally, solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. If your algebra tells you that any force/couple is negative, that indicates that the assumed direction of that term should be flipped in direction.</p></li>
 </ol>
 <article class="insight remark-like" id="insight-7"><a data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-7"><h6 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.5.5</span><span class="period">.</span><span class="space"> </span><span class="title">Why does the Method of Joints work on trusses but fail on Frames and Machines?</span>
-</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-7"><article class="insight remark-like"><p id="p-1013">We can solve trusses using the methods of joints and method of sections because all members of a truss are considered to be two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</p>
-<p id="p-1014">Frames and machines are made of multi-force members and cutting these, in general, exposes:</p>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-7"><article class="insight remark-like"><p id="p-1043">We can solve trusses using the methods of joints and method of sections because all members of a truss are considered to be two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</p>
+<p id="p-1044">Frames and machines are made of multi-force members and cutting these, in general, exposes:</p>
 <ul class="square">
-<li id="li-329">A force with an unknown magnitude acting in an unknown direction.</li>
-<li id="li-330">A bending moment at the plane of the cut.</li>
+<li id="li-316">A force with an unknown magnitude acting in an unknown direction.</li>
+<li id="li-317">A bending moment at the plane of the cut.</li>
 </ul>
-<p id="p-1015">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</p>
-<p id="p-1016">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems, draw and analyze free-body diagrams of the components.</p></article></div></section></section></div></main>
+<p id="p-1045">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</p>
+<p id="p-1046">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems, draw and analyze free-body diagrams of the components.</p></article></div></section></section></div></main>
 </div>
 </body>
 </html>
