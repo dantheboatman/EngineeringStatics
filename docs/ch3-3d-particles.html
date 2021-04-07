@@ -40,7 +40,15 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script>$(function () {
+    // Make *any* div with class 'sagecell-sage' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-sage',
+                           linked: true,
+                           languages: ['sage'],
+                           evalButtonText: 'Evaluate (Sage)'});
+});
+</script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
 </script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
@@ -61,7 +69,7 @@ MathJax.Hub.Config({
  \newcommand{\ihat}{\vec{i}}
  \newcommand{\jhat}{\vec{j}}
  \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{Proj}
+ \DeclareMathOperator{\proj}{proj}
 
  
  \definecolor{aliceblue}{HTML}{F0F8FF}
@@ -129,10 +137,10 @@ MathJax.Hub.Config({
 </div></div>
 <nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_03-examples.html" title="Next">Next</a></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="exercises-2.html" title="Next">Next</a></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_03-examples.html" title="Next">Next</a>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="CH03-2d-particles.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_03.html" title="Up">Up</a><a class="next-button button toolbar-item" href="exercises-2.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
 <div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -156,7 +164,7 @@ MathJax.Hub.Config({
 <a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
 <li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors">Vectors</a></li>
 <li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
-<li><a href="Chapter_02-two-dimensional-coordinate-systems.html" data-scroll="Chapter_02-two-dimensional-coordinate-systems">Two Dimensional Coordinate Systems</a></li>
+<li><a href="cartesian-coords-2d.html" data-scroll="cartesian-coords-2d">Two Dimensional Coordinate Systems</a></li>
 <li><a href="coordinates-3d.html" data-scroll="coordinates-3d">Three Dimensional Coordinate Systems</a></li>
 <li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors">Unit Vectors</a></li>
 <li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
@@ -172,7 +180,6 @@ MathJax.Hub.Config({
 <li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
 <li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
 <li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles" class="active">Particles in Three Dimensions</a></li>
-<li><a href="Chapter_03-examples.html" data-scroll="Chapter_03-examples">Examples</a></li>
 <li><a href="exercises-2.html" data-scroll="exercises-2">Exercises</a></li>
 </ul>
 </li>
@@ -283,56 +290,65 @@ MathJax.Hub.Config({
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="ch3-3d-particles"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span>
 </h2>
-<section class="introduction" id="introduction-10"><p id="p-601">The world we live in has three dimensions.  One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three dimensions.</p>
+<section class="introduction" id="introduction-10"><p id="p-601">The world we live in has three dimensions.  One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.</p>
 <p id="p-602">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</p></section><section class="subsection" id="ch3-3d-particles-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span>
 </h3>
 <p id="p-603">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis \(z\) to our existing two-dimensional frame.</p>
-<p id="p-604">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the \(x\) axis is horizontal, and the \(y\) axis is vertical just as in a two-dimensional situation.  The \(z\) axis is determined by the <a class="xref" data-knowl="./knowl/rhr2.html" title="Figure 4.1.3">right hand rule</a>.  Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive \(x\) axis.  Then curl your fingers towards the positive \(y\) axis.  Your thumb will point in the direction of the positive \(z\) axis.  In this case, if the positive \(x\) axis is horizontal and to the right, and the positive y axis is vertical and upwards, then the positive \(z\) axis will be coming <em class="emphasis">towards</em> you.  Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others.  The right hand rule is important in many aspects of engineering, so make sure that you understand how it works.  Mistakes will lead to sign errors.</p></section><section class="subsection" id="ch3-3d-particles-free-body-diagrams"><h3 class="heading hide-type">
+<p id="p-604">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the \(x\) axis is horizontal, and the \(y\) axis is vertical just as in a two-dimensional situation.  The orientation of the \(z\) axis is determined by the <a class="xref" data-knowl="./knowl/rhr2.html" title="Figure 4.1.3">right hand rule</a>.  Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive \(x\) axis.  Then curl your fingers towards the positive \(y\) axis.  Your thumb will point in the direction of the positive \(z\) axis.  In this case, if the positive \(x\) axis is horizontal and to the right and the positive \(y\) axis is vertical and upwards, the positive \(z\) axis will be coming <em class="emphasis">towards</em> you.  Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others.  The right hand rule is important in many aspects of engineering, so make sure that you understand how it works.  Mistakes will lead to sign errors.</p></section><section class="subsection" id="ch3-3d-particles-free-body-diagrams"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span>
 </h3>
-<p id="p-605">Drawing a <abbr class="acronym">FBD</abbr> in three-dimensions can be difficult.  It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet.  Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information.  When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need three angles.  When drawing the free-body diagram, you usually only label one of these, many times you don’t label any angles, but instead use geometry to show the direction that the vector points.</p></section><section class="subsection" id="ch3-3d-particles-angles"><h3 class="heading hide-type">
+<p id="p-605">As we did before, we begin our analysis by drawing a free body diagram which shows all forces and moment acting on the object of interest. Drawing a <abbr class="acronym">FBD</abbr> in three-dimensions can be difficult.  It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet.  Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information.  When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need two or three angles.</p></section><section class="subsection" id="ch3-3d-particles-angles"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.3</span> <span class="title">Angles</span>
 </h3>
-<p id="p-606">As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the \(x\) axis, the angle with respect to the \(y\) axis and the angle with respect to the \(z\) axis. The three angles mentioned above are not necessarily located in any of the coordinate planes.  Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis.  The plane made by those three points is not necessarily the \(xy\text{,}\) \(yz\text{,}\) or \(xz\) plane.  It is most likely a “tilted” plane.</p>
-<aside class="aside aside-like" id="aside-20"><h6 class="heading"><span class="title">Instructions.</span></h6>
-<p id="p-607">Rotate the diagram to see the force and angles in space.</p></aside><iframe id="ggb_3d-direction-angles_interactive" width="600" height="300" src="ggb_3d-direction-angles_interactive-if.html"></iframe><p id="p-608">The angle the vector makes with the positive \(x\) axis is usually labeled \(\theta_x\text{,}\) but any Greek letter will do.  The angle the vector makes with the positive \(y\) axis is usually labeled \(\theta_y\text{;}\) and the angle the vector makes with the positive \(z\) is is usually labeled \(\theta_z\text{.}\)</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:48%;"><p id="p-606">As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the \(x\) axis, the angle with respect to the \(y\) axis and the angle with respect to the \(z\) axis. The three angles mentioned above are not necessarily located in any of the coordinate planes.  Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis.  The plane made by those three points is not necessarily the \(xy\text{,}\) \(yz\text{,}\) or \(xz\) plane.  It is most likely a “tilted” plane.</p></div>
+<div class="sbspanel top" style="width:48%;"><figure class="figure figure-like" id="figure-36"><iframe id="ggb_3d-direction-angles_interactive" width="288" height="288" src="ggb_3d-direction-angles_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.1<span class="period">.</span></span><span class="space"> </span>Direction Cosine Angles</figcaption></figure></div>
+</div></div>
+<p id="p-608">The angle the vector makes with the positive \(x\) axis is usually labeled \(\theta_x\text{,}\) but any Greek letter will do.  The angle the vector makes with the positive \(y\) axis is usually labeled \(\theta_y\text{;}\) and the angle the vector makes with the positive \(z\) is is usually labeled \(\theta_z\text{.}\)</p>
 <p id="p-609">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</p>
 <p id="p-610">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</p>
-<p id="p-611">Let’s suppose that the line of action goes through two points \(A\) and \(B\text{,}\) and the direction of the force is from \(A\) towards \(B\text{.}\)  The first step in determining the three angles is to write the distance vector from point \(A\) towards point \(B\text{.}\)  Let’s call this vector \(r_{AB}\text{.}\)  Starting at point \(A\text{,}\) you need to determine how to get to point \(B\) by moving in each of the three directions.  Ask yourself: to get from point \(A\) to point \(B\) do I have to move in the \(x\) direction? If so, how far do I have to travel?  This becomes the \(x\) component of the vector \(r_{AB}\) namely \(r_{AB_x}\text{.}\)  Next, to get from point \(A\) to point \(B\) how far do I move in \(y\) direction? This distance is \(r_{AB_y}\text{.}\)  Finally, to get from point A to point B how far do I move in the z-direction?  This distance is \(r_{AB_z}\text{.}\)</p>
-<p id="p-612">When writing these components pay attention to which way you move along the axes.  If you travel towards the positive end of an axis, the corresponding component gets a positive sign.  Travel towards the negative end results in a negative sign. The sign is important.</p>
-<p id="p-613">Once you have determine the components of the distance vector \(r_{AB}\text{,}\) then determine the total distance from point \(A\) to \(B\) using the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">three-dimensional Pythagorean Theorem</a>.</p>
-<div class="displaymath" id="p-614">
-\begin{equation*}
-{r_{AB}}= \sqrt{(r_{AB_x})^2 + (r_{AB_y})^2 +(r_{AB_z})^2}
-\end{equation*}
+<p id="p-611">Let’s suppose that the line of action goes through two points \(A\) and \(B\text{,}\) and the direction of the force is from \(A\) towards \(B\text{.}\)  The first step in determining the three angles is to write the distance vector from point \(A\) towards point \(B\text{.}\)  Let’s call this vector \(\vec{r}_{AB}\text{.}\)  Starting at point \(A\text{,}\) you need to determine how to get to point \(B\) by moving in each of the three directions.  Ask yourself: to get from point \(A\) to point \(B\) do I have to move in the \(x\) direction? If so, how far do I have to travel?  This becomes the \(x\) component of the vector \(\vec{r}_{AB}\) namely \(r_{AB_x}\text{.}\)  Next, to get from point \(A\) to point \(B\) how far do I move in \(y\) direction? This distance is \(r_{AB_y}\text{.}\)  Finally, to get from point A to point B how far do I move in the z-direction?  This distance is \(r_{AB_z}\text{.}\)</p>
+<p id="p-612">When writing these scalar components pay attention to which way you move along the axes.  If you travel towards the positive end of an axis, the corresponding scalar component gets a positive sign.  Travel towards the negative end results in a negative sign. The sign is important.</p>
+<p id="p-613">Once you have determined the components of the distance vector \(r_{AB}\text{,}\) you can determine the total distance from point \(A\) to \(B\) using the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">three-dimensional Pythagorean Theorem</a></p>
+<div class="displaymath">
+\begin{equation}
+{r_{AB}}= \sqrt{(r_{AB_x})^2 + (r_{AB_y})^2 +(r_{AB_z})^2}\label{pythag-3d}\tag{3.5.1}
+\end{equation}
 </div>
-<p id="p-615">Lastly, the angles are determined by the direction cosines, namely</p>
-<div class="displaymath" id="p-616">
+<p id="p-614">Lastly, the angles are determined by the direction cosines, namely</p>
+<div class="displaymath">
 \begin{align*}
-\cos \theta_x \amp = \dfrac{R_{AB_x}}{R_{AB}}  \quad \amp \cos \theta_y \amp= \dfrac{R_{AB_y}}{R_{AB}} \quad \amp \cos \theta_z \amp = \dfrac{R_{AB_z}}{R_{AB}}
+\cos \theta_x   \amp =  \dfrac{r_{AB_x}}{r_{AB}}  \amp   \cos \theta_y  \amp =  \dfrac{r_{AB_y}}{r_{AB}} \amp  \cos \theta_z   \amp =  \dfrac{r_{AB_z}}{r_{AB}}
 \end{align*}
 </div>
-<p id="p-617">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</p>
-<div class="displaymath" id="p-618">
+<p id="p-615">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</p>
+<div class="displaymath">
 \begin{align*}
-\dfrac{R_{AB_x}}{R_{AB}} \amp = \dfrac{F_x}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F} \quad \amp \dfrac{R_{AB_y}}{R_{AB}} \amp = \dfrac{F_y}{F}
+\dfrac{r_{AB_x}}{r_{AB}}   \amp =  \dfrac{F_x}{F} \amp  \dfrac{r_{AB_y}}{r_{AB}}   \amp =  \dfrac{F_y}{F} \amp  \dfrac{r_{AB_y}}{r_{AB}}   \amp =  \dfrac{F_y}{F}\text{.}
 \end{align*}
 </div>
-<p id="p-619">So,</p>
-<div class="displaymath" id="p-620">
+<p class="continuation">So,</p>
+<div class="displaymath">
 \begin{align*}
-F_x \amp = \left(\dfrac{R_{AB_x}}{R_{AB}}\right) F  \quad \amp F_y \amp = \left(\dfrac{R_{AB_y}}{R_{AB}}\right) F \quad \amp F_z \amp = \left(\dfrac{R_{AB_z}}{R_{AB}}\right) F 
+F_x   \amp =  \left(\dfrac{r_{AB_x}}{r_{AB}}\right) F  \amp   F_y   \amp =  \left(\dfrac{r_{AB_y}}{r_{AB}}\right) F \amp  F_z   \amp =  \left(\dfrac{r_{AB_z}}{r_{AB}}\right) F 
 \end{align*}
 </div>
-<p id="p-621">Now, that is a bit of math there, but the important things to remember are:</p>
+<p id="p-616">Now, that is a bit of math there, but the important things to remember are:</p>
 <ul class="square">
-<li id="li-153">You need three angles to determine the direction of a force in three dimensions.</li>
+<li id="li-153">You can use three angles to determine the direction of a force in three dimensions.</li>
 <li id="li-154">You can use the geometry to get them from a distance vector that lies along the line of action of the force.</li>
-</ul></section><section class="subsection" id="ch3-3d-particles-general-procedure"><h3 class="heading hide-type">
+</ul>
+<p id="p-617">The three direction cosine angles are not mutually independent.  From <a class="xref" data-knowl="./knowl/pythag-3d.html" title="Equation 3.5.1">(3.5.1)</a> you can easily show that</p>
+<div class="displaymath">
+\begin{equation}
+\cos \theta_x^2 + \cos \theta_y^2 + \cos \theta_z^2 = 1 \text{,}\tag{3.5.2}
+\end{equation}
+</div>
+<p class="continuation">so if you know two direction cosine angles you can find the third from this relationship.</p></section><section class="subsection" id="ch3-3d-particles-general-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.4</span> <span class="title">General Procedure</span>
 </h3>
-<p id="p-622">The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method.  The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis.  When working in three dimensions there are three important angles, but the general procedure is the same.  The overall procedure is presented here and then each of the new steps is explained in more detail.</p>
+<p id="p-618">The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method.  The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis.  When working in three dimensions there are three important angles, but the general procedure is the same.  The overall procedure is presented here and then each of the new steps is explained in more detail.</p>
 <ol class="decimal">
 <li id="li-155">
 <em class="emphasis">Identify the particle.</em> The particle will be the object or point where the lines of action of all the forces intersect.</li>
@@ -354,7 +370,162 @@ F_x \amp = \left(\dfrac{R_{AB_x}}{R_{AB}}\right) F  \quad \amp F_y \amp = \left(
 <em class="emphasis">Substitute values for symbols.</em> When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers.</li>
 <li id="li-164">
 <em class="emphasis">Check your work.</em> Have you made any algebra or trig mistakes? If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?</li>
-</ol></section></section></div></main>
+</ol>
+<article class="example example-like" id="Balloon"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">Balloon.</span>
+</h6>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:50%;">
+<p id="p-619">A hot air balloon \(\ft{30}\) above the ground is tethered by three cables as shown below.</p>
+<p id="p-620">If the balloon is pulling upwards with a force of \(\lb{900}\text{,}\) what is the tension in each of the three cables?</p>
+<p id="p-621">The grid lines on the ground plane are spaced \(\ft{10}\) apart.</p>
+</div>
+<div class="sbspanel middle" style="width:45%;"><img src="images/Ch03-balloon.svg" role="img" class="contained" alt=""></div>
+</div></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-33" id="answer-33"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-33"><div class="answer solution-like"><div class="displaymath" id="p-622">
+\begin{align*}
+A \amp = \lb{540} \amp B \amp = \lb{469} \amp C \amp = \lb{361}
+\end{align*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-35" id="solution-35"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-35"><div class="solution solution-like">
+<section class="paragraphs" id="paragraphs-35"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;">
+<p id="p-623">The three tensions are the unknowns which we can find by applying the three equilibrium equations.</p>
+<p id="p-624">We'll establish a coordinate system with the origin directly below the balloon and the \(y\) axis vertical, then draw and label a free-body diagram.</p>
+<p id="p-625">Next we'll use the given information to find two points on each line of action, and use them to find the components of each force in terms of the unknowns.</p>
+</div>
+<div class="sbspanel top" style="width:50%;"><img src="images/Ch03-balloon-fbd.svg" role="img" class="contained" alt=""></div>
+</div></div>
+<p id="p-626">When the \(x\text{,}\) \(y\) and \(z\) components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.</p></section><section class="paragraphs" id="paragraphs-36"><h5 class="heading"><span class="title">Geometry.</span></h5>
+<p id="p-627">From the diagram, the coordinates of the points are</p>
+<div class="displaymath" id="p-628">
+\begin{align*}
+\text{A} \amp= (-20,0,0)\amp  \text{B}\amp= (30,0,20) \amp \text{C}\amp= (0,0,-20) \amp \text{D} \amp = (0,30,0)
+\end{align*}
+</div>
+<p id="p-629">Use the point coordinates to find the \(x\text{,}\) \(y\) and \(z\) components of the forces.</p>
+<div class="displaymath" id="p-630">
+\begin{align*}
+A_x \amp = \frac{-20}{L_A} A \amp A_y \amp = \frac{-30}{L_A} A \amp A_z \amp = \frac{0}{L_A} A \\
+B_x \amp = \frac{30}{L_B} B \amp B_y \amp = \frac{-30}{L_B} B \amp B_z \amp = \frac{20}{L_B} B \\
+C_x \amp = \frac{0}{L_C} C\amp C_y \amp = \frac{-30}{L_C} C\amp C_z \amp = \frac{-20}{L_C} C
+\end{align*}
+</div>
+<p id="p-631">Where \(L_A\text{,}\) \(L_B\) and \(L_C\) are the lengths of the three cables found with the <a class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">distance formula</a>.</p>
+<div class="displaymath" id="p-632">
+\begin{align*}
+L_A \amp= \sqrt{(-20)^2 + (-30)^2+ 0^2} \amp= \ft{36.1}\\
+L_B \amp= \sqrt{30^2 + (-30)^2 +20^2} \amp= \ft{46.9}\\
+L_C \amp= \sqrt{0^2+(-30)^2 + 20^2} \amp= \ft{36.1}
+\end{align*}
+</div></section><section class="paragraphs" id="paragraphs-37"><h5 class="heading"><span class="title">Equilibrium Equations.</span></h5>
+<p id="p-633">Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.</p>
+<div class="displaymath" id="p-634">
+\begin{align*}
+\Sigma F_x \amp = 0\\
+\amp  A_x + B_x  + C_x = 0\\
+\amp  - \frac{20}{36.1} A +  \frac{30}{46.9} B + 0\, C = 0\\
+A \amp= 1.15\, B \amp (1)\\\\
+\Sigma F_z  \amp= 0\\
+\amp A_z + B_z + C_z = 0\\
+\amp  0\, A +  \frac{20}{46.9}B -\frac{20}{36.1} C = 0\\
+C \amp= 0.769 \,B \amp (2)\\\\
+\Sigma F_y  \amp= 0\\
+\amp A_y + B_y  + C_z + D = 0\\
+\amp -\frac{20}{36.1} A -\frac{30}{46.9} B - \frac{30}{36.1} C + 900 = 0\\
+\amp 0.555\, A +  0.640\, B + 0.831\, C = \lb{900} \amp (3)
+\end{align*}
+</div>
+<p id="p-635">Solving these equations simultaneously yields the answers we are seeking.  One way to do this is to substitute equations (1) and (2) into (3) to eliminate \(A\) and \(C\) and solve the resulting equation for \(B\text{.}\)</p>
+<div class="displaymath" id="p-636">
+\begin{align*}
+0.555\, (1.15\, B) +  0.640\, B + 0.831\, (0.769 \,B) \amp= \lb{900}\\
+1.917 B \amp = \lb{900}\\
+B \amp = \lb{469}
+\end{align*}
+</div>
+<p id="p-637">With \(B\) known, substitute it into equations (1) and (2) to find \(A\) and \(C\text{.}\)</p>
+<div class="displaymath" id="p-638">
+\begin{align*}
+A \amp = 1.15\, B  \amp C  \amp =0.769\, B \\
+\amp = \lb{540}  \amp    \amp = \lb{361}
+\end{align*}
+</div></section>
+</div></div>
+</div></article><article class="example example-like" id="Skycam"><h6 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Skycam.</span>
+</h6>
+<p id="p-639">The skycam at Stanford University Stadium has a mass of \(\kg{20}\) and is supported by three cables as shown.  Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.</p>
+<aside class="aside aside-like" id="aside-22"><h6 class="heading"><span class="title">Instructions.</span></h6>
+<p id="p-640"><p id="p-641">Rotating the interactive diagram may help you visualize the situation.</p></p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><img src="images/640px-Sky_Cam_at_Stanford.jpg" class="contained" alt=""></div>
+<div class="sbspanel top" style="width:50%;"><iframe id="ggb_skycam-labeled_interactive" width="300" height="200" src="ggb_skycam-labeled_interactive-if.html"></iframe></div>
+</div></div>
+<div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-34" id="answer-34"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-34"><div class="answer solution-like"><div class="displaymath" id="p-643">
+\begin{align*}
+A \amp =  \N{196.4} \amp B \amp =  \N{192.2} \amp C \amp =  \N{98.5}
+\end{align*}
+</div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-36" id="solution-36"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-36"><div class="solution solution-like">
+<p id="p-644">In this situation, the directions of all four forces are specified by the angles in the free body diagram, and the magnitude of the weight is known.  The three unknowns are the magnitudes of forces \(\vec{A}\text{,}\) \(\vec{B}\text{,}\) and \(\vec{C}\text{.}\)</p>
+<div class="displaymath">
+\begin{equation*}
+W = m g = \kg{20}\ \aSI{9.81} = \N{196.2}
+\end{equation*}
+</div>
+<p id="p-645">We will first find unit vectors in the directions of the four forces by inspection of the free body diagram.  This step requires visualizing the components unit vectors, and determining the angles each makes with the coordinate axis.</p>
+<div class="displaymath">
+\begin{align*}
+\hat{\vec{W}}  \amp =  \langle 0, -1, 0 \rangle \\
+\hat{\vec{A}} \amp =  \langle \cos \ang{35}, \cos{55} , 0 \rangle\\
+\hat{\vec{B}} \amp =  \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75} , -\cos \ang{15} \cos \ang{60} \rangle\\
+\hat{\vec{C}} \amp =  \langle 0, \cos{70} , \cos \ang{20} \rangle
+\end{align*}
+</div>
+<p id="p-646">Particle equilibrium requires that \(\sum \vec{F} = 0\text{,}\) so,</p>
+<div class="displaymath">
+\begin{equation*}
+A\ \hat{\vec{A}} + B\ \hat{\vec{B}} + C\ \hat{\vec{C}}  =  - W\ \hat{\vec{W}}\text{.}
+\end{equation*}
+</div>
+<p class="continuation">This is a 3 \(\times\) 3 system of three simultaneous equation, one for each coordinate direction, which needs to be solved for \(A\text{,}\) \(B\text{,}\) and \(C\text{.}\)</p>
+<div class="displaymath">
+\begin{align*}
+A \cos \ang{35} - B \cos \ang{15} \cos \ang{30} + 0 \amp =  0 \amp \amp \amp (\Sigma F_x \amp= 0)\\
+A \cos \ang{55} + B \cos \ang{30} + C \cos \ang{70} \amp =  \N{196.2} \amp \amp \amp (\Sigma F_y \amp= 0)\\
+0 - \cos \ang{15} \cos \ang{60} + C \cos \ang{20} \amp =  0 \amp \amp \amp (\Sigma F_x \amp= 0)
+\end{align*}
+</div>
+<p id="p-647">These can be solved by any method you choose.  Here we will use Sage.  Evaluating the coefficients and expressing the equations in matrix form gives</p>
+<div class="displaymath">
+\begin{equation*}
+\begin{bmatrix} 0.819 \amp -0.837 \amp  0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix}
+\begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} \text{.}
+\end{equation*}
+</div>
+<p id="p-648">This is an equation in the form</p>
+<div class="displaymath">
+\begin{equation*}
+[A][x] =[B]\text{.}
+\end{equation*}
+</div>
+<p class="continuation">Entering the coefficient matrixes into Sage.</p>
+<div class="hidden-sagecell-sage" id="sage-2"><script type="text/x-sage">A = Matrix([[0.819,-0.837,0],[0.574,0.259, 0.342],[0,-0.482,0.940]])
+B = vector([0, 196.2, 0])
+x = A.solve_right(B)
+x
+</script></div>
+<p id="p-649">After evaluating, we learn that</p>
+<div class="displaymath">
+\begin{align*}
+A \amp =  \N{196.4} \amp B \amp =  \N{192.2} \amp C \amp =  \N{98.5}\text{.}
+\end{align*}
+</div>
+</div></div>
+</div></article></section></section></div></main>
 </div>
 </body>
 </html>

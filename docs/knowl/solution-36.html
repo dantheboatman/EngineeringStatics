@@ -9,14 +9,76 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>$(function () {
+    // Make *any* div with class 'sagecell-sage' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-sage',
+                           linked: true,
+                           languages: ['sage'],
+                           evalButtonText: 'Evaluate (Sage)'});
+});
+</script>
 </head>
 <body>
 <div class="solution solution-like">
 <h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading">
-<span class="type">Solution</span><span class="space"> </span><span class="codenumber">3.6.2.1</span><span class="period">.</span>
+<span class="type">Solution</span><span class="space"> </span><span class="codenumber">3.5.3.1</span><span class="period">.</span>
 </h6>
-<p xmlns:svg="http://www.w3.org/2000/svg">[TBD]</p>
+<p>In this situation, the directions of all four forces are specified by the angles in the free body diagram, and the magnitude of the weight is known.  The three unknowns are the magnitudes of forces \(\vec{A}\text{,}\) \(\vec{B}\text{,}\) and \(\vec{C}\text{.}\)</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+W = m g = \kg{20}\ \aSI{9.81} = \N{196.2}
+\end{equation*}
 </div>
-<span class="incontext"><a href="Chapter_03-examples.html#solution-36">in-context</a></span>
+<p>We will first find unit vectors in the directions of the four forces by inspection of the free body diagram.  This step requires visualizing the components unit vectors, and determining the angles each makes with the coordinate axis.</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{align*}
+\hat{\vec{W}}  \amp =  \langle 0, -1, 0 \rangle \\
+\hat{\vec{A}} \amp =  \langle \cos \ang{35}, \cos{55} , 0 \rangle\\
+\hat{\vec{B}} \amp =  \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75} , -\cos \ang{15} \cos \ang{60} \rangle\\
+\hat{\vec{C}} \amp =  \langle 0, \cos{70} , \cos \ang{20} \rangle
+\end{align*}
+</div>
+<p>Particle equilibrium requires that \(\sum \vec{F} = 0\text{,}\) so,</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+A\ \hat{\vec{A}} + B\ \hat{\vec{B}} + C\ \hat{\vec{C}}  =  - W\ \hat{\vec{W}}\text{.}
+\end{equation*}
+</div>
+<p class="continuation">This is a 3 \(\times\) 3 system of three simultaneous equation, one for each coordinate direction, which needs to be solved for \(A\text{,}\) \(B\text{,}\) and \(C\text{.}\)</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{align*}
+A \cos \ang{35} - B \cos \ang{15} \cos \ang{30} + 0 \amp =  0 \amp \amp \amp (\Sigma F_x \amp= 0)\\
+A \cos \ang{55} + B \cos \ang{30} + C \cos \ang{70} \amp =  \N{196.2} \amp \amp \amp (\Sigma F_y \amp= 0)\\
+0 - \cos \ang{15} \cos \ang{60} + C \cos \ang{20} \amp =  0 \amp \amp \amp (\Sigma F_x \amp= 0)
+\end{align*}
+</div>
+<p>These can be solved by any method you choose.  Here we will use Sage.  Evaluating the coefficients and expressing the equations in matrix form gives</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+\begin{bmatrix} 0.819 \amp -0.837 \amp  0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix}
+\begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} \text{.}
+\end{equation*}
+</div>
+<p>This is an equation in the form</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+[A][x] =[B]\text{.}
+\end{equation*}
+</div>
+<p class="continuation">Entering the coefficient matrixes into Sage.</p>
+<div class="sagecell-sage" id="sage-2"><script type="text/x-sage">A = Matrix([[0.819,-0.837,0],[0.574,0.259, 0.342],[0,-0.482,0.940]])
+B = vector([0, 196.2, 0])
+x = A.solve_right(B)
+x
+</script></div>
+<p>After evaluating, we learn that</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{align*}
+A \amp =  \N{196.4} \amp B \amp =  \N{192.2} \amp C \amp =  \N{98.5}\text{.}
+\end{align*}
+</div>
+</div>
+<span class="incontext"><a href="ch3-3d-particles.html#solution-36">in-context</a></span>
 </body>
 </html>
