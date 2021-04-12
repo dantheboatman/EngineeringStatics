@@ -24,15 +24,21 @@ First, prevent standard pretext from emitting  the interactive instructions in a
       <xsl:apply-templates select="." mode="iframe-interactive"/>
    </xsl:template>
   
-<!-- then, write the interactive's instructions (if any) in an aside before the container containing an interactive.-->
-  <xsl:template match="//p[following-sibling::*[descendant::instructions and position()='1' and not( parent::sidebyside)]]" mode="assembly">
-   <p><xsl:apply-templates mode="identity"/></p>
-    <xsl:if test="./following-sibling::*//instructions !=''">
+  <!-- write instructions, if any, as an aside -->
+  <xsl:template match="interactive/instructions">
+    <xsl:if test=". !=''">
       <aside>
-        <title>Instructions</title>
-        <p><xsl:apply-templates select="./following-sibling::*[1]//instructions" mode='identity'/></p>
+        <title>Interactive Diagram</title>
+        <xsl:apply-templates select="." mode='identity'/>
       </aside>
     </xsl:if>
+  </xsl:template>
+  
+<!-- This writes the interactive's instructions before the container containing an interactive, during assembly.-->
+<!-- It leaves a copy of the instructions in the interactive, but it is not rendered due to template above -->
+  <xsl:template match="sidebyside | figure[not(ancestor::sidebyside)] | interactive[not(ancestor::figure) and not(ancestor::sidebyside)]" mode="assembly">
+    <xsl:apply-templates select=".//instructions"/>
+    <xsl:apply-templates mode="identity" select="." />
   </xsl:template>
   
 <!-- ===================================-->

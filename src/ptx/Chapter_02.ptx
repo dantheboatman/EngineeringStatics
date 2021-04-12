@@ -15,6 +15,9 @@
       <li>Contrast the two ways to compute unit vectors along any line</li>
     </ul>
   </objectives>
+  <introduction>
+    <p><term>Vectors</term> represent physical quantities which have magnitude and a direction.   Vectors are identified by a symbolic name which will be typeset in bold like <m>\vec{r}</m> or <m>\vec{F}</m> to indicate its vector nature.  The primary vector quantity you will encounter in statics will be <term>force</term>, but <term>moment</term> and <term>position</term> vectors are also important. Computations involving vectors must always consider the directionality of each term and follow the rules of vector algebra as described in this chapter.  </p>
+  </introduction>
   <section xml:id="Chapter_02-vectors">
     <title>Vectors</title>
     <objectives>
@@ -24,7 +27,6 @@
         <li>What is the difference between the sense and orientation of a vector?</li>
       </ul>
     </objectives>
-    <p><term>Vectors</term> represent physical quantities which have magnitude and a direction.   Vectors are identified by a symbolic name which will be typeset in bold like <m>\vec{r}</m> or <m>\vec{F}</m> to indicate its vector nature.  The primary vector quantity you will encounter in statics will be force, but moment and position vectors are also important. Computations involving vectors must always consider the directionality of each term and follow the rules of vector algebra as described in this chapter.  </p>
     <sidebyside width="48%" margins="0%">
       <p>You can visualize a vector as an <term>arrow</term> pointing in a particular direction. The <term>tip</term> is the pointed end and the <term>tail</term> the trailing end. The tip and tail of a vector define a <term>line of action</term>. A line of action can be thought of as an invisible string along which a vector can slide. Sliding a vector along its line of action does not change its magnitude or its direction.  Sliding a vector can be a handy way to simplify vector problems. </p>
       <figure xml:id="fig-ggb-1d-definitions">
@@ -813,7 +815,7 @@ where <m>\theta</m> in the equation is the angle between between the two vectors
         </solution>
       </example>
     </subsection>
-    <subsection xml:id="dot_products_2D-vector-projection">
+    <subsection xml:id="vector-projections">
       <title>Vector Projection</title>
       <p>The dot product is used to find the <term>projectio</term>n of one vector onto another. You can think of a projection of <m>\vec{B}</m> on <m>\vec{A}</m> as a vector the length of the shadow of <m>\vec{B}</m> on the line of action of <m>\vec{A}</m> when the sun is directly above <m>\vec{A}</m>.  More precisely, the projection of <m>\vec{B}</m> onto <m>\vec{A}</m> produces the rectangular component of <m>\vec{B}</m> in the direction <em>parallel</em> to <m>\vec{A}</m>.  This is one side of a rectangle aligned with <m>\vec{A}</m>, having <m>\vec{B}</m> as its diagonal.  </p>
       <p>This is illustrated in <xref ref="ggb_dot_product"/>, where <m>\vec{u}</m> is the projection of <m>\vec{B}</m> onto <m>\vec{A}</m>, or alternately <m>\vec{u}</m> is the rectangular component of <m>\vec{B}</m> in the direction of <m>\vec{A}</m>. </p>
@@ -826,13 +828,14 @@ where <m>\theta</m> in the equation is the angle between between the two vectors
         <xi:include href="interactives.ptx" xpointer="ggb_2d-dot-product_interactive"/>
       </figure>
       <p>The interactive shows that the projection is the adjacent side of a right triangle with <m>\vec{B}</m> as the hypotenuse.  From the definition of the dot product <xref ref="dot-product-2"/> we find that <me>\vec{A}\cdot \vec{B} = A ( B\ \cos \theta) = A\ \|\proj_A B\|</me>, where <m>B\ \cos \theta</m> is the scalar component of the projection.  So, the dot product of <m>\vec{A}</m> and <m>\vec{B}</m> gives us the projection of <m>\vec{B}</m> onto <m>\vec{A}</m> times the magnitude of <m>\vec{A}</m>. This value will be positive when <m>\theta &lt; \ang{90}</m>, negative when <m>\theta &gt; \ang{90}</m>, and zero when the vectors are perpendicular because of the properties of the cosine function. </p>
-      <p>So, to find the scalar value of the projection of <m>\vec{B}</m> onto <m>\vec{A}</m> we have</p>
+      <p>So, to find the scalar value of the projection of <m>\vec{B}</m> onto <m>\vec{A}</m> we divide by the magnitude of <m>\vec{A}</m>
+         </p>
       <p>
-        <men xml:id="projection2">\left \|\proj_{\vec{A}}\vec{B}\right \| =\frac{\vec{A}\cdot \vec{B}}{A}=\hat{\vec{A}}\cdot \vec{B}</men>
+        <men xml:id="projection2"> \|\proj_{\vec{A}}\vec{B} \| =\frac{\vec{A}\cdot \vec{B}}{A}=\hat{\vec{A}}\cdot \vec{B}</men>
       </p>
       <p>The final simplified form is written in terms of the unit vector in the direction vector <m>\hat{\vec{A}}=\dfrac{\vec{A}}{A}</m>.</p>
       <p>If you want the <em>vector</em> projection of <m>\vec{B}</m> onto <m>\vec{A}</m>, as opposed to the <em>scalar</em> projection  we just found, multiply the scalar projection by the unit vector <m>\hat{\vec{A}}</m>
-            <men>\proj_{\vec{A}}\vec{B} ={\left (\hat{\vec{A}} \cdot \vec{B} \right )\hat{\vec{A}}}</men>.</p>
+            <men xml:id="projection3">\proj_{\vec{A}}\vec{B} = \|\proj_{\vec{A}}\vec{B} \| \hat{\vec{A}} = \left (\hat{\vec{A}} \cdot \vec{B} \right )\hat{\vec{A}}</men>.</p>
       <p>Similarly, the vector projection of <m>\vec{A}</m> onto <m>\vec{B}</m> is <men>\proj_{\vec{B}}\vec{A} ={\left (\vec{A} \cdot \hat{\vec{B}} \right )\hat{\vec{B}}}</men>.</p>
       <p>The spatial interpretation of the results the scalar projection <m>\|\proj_A B\|</m> is <ul label="square"><li><title>Positive value</title><p> means that <m>\vec{A}</m> and <m>\vec{B}</m> are generally in the same direction.</p></li><li><title>Negative value</title><p>means that <m>\vec{A}</m> and <m>\vec{B}</m> are generally in opposite directions.</p></li><li><title>Zero</title><p>means that <m>\vec{A}</m>  and <m>\vec{B}</m>  are perpendicular.</p></li><li><title>Magnitude smaller than <m>\vec{B}</m>
                   </title><p> This is the most common answer. The vectors are neither parallel nor perpendicular.</p></li><li><title>Magnitude equal to <m>\vec{B}</m>
@@ -869,43 +872,11 @@ where <m>\theta</m> in the equation is the angle between between the two vectors
         </stack>
         <xi:include href="interactives.ptx" xpointer="ggb_cross-product_interactive"/>
       </sidebyside>
-      <p>The cross product is a vector multiplication process defined by  <men xml:id="cross-product-def">\vec{A} \times \vec{B}=  A \; B \sin \theta \; \hat{\vec{u}}</men>.   The result is a vector mutually perpendicular to the first two with a sense determined by the right hand rule.  If <m>\vec{A}</m> and <m>\vec{B}</m> are in the <m>xy</m> plane, this is <me> \vec{A} \times \vec{B}=(A_y B_x - A_x B_y)\ \khat</me>.   The operation is not commutative, in fact <me>\vec{A}\times \vec{B}= - \vec{B} \times \vec{A} </me>.</p>
+      <p>The cross product is a vector multiplication process defined by  <men xml:id="cross-product-def">\vec{A} \times \vec{B}=  A \; B \sin \theta \; \hat{\vec{u}}</men>.   The result is a vector mutually perpendicular to the first two with a sense determined by the right hand rule.  If <m>\vec{A}</m> and <m>\vec{B}</m> are in the <m>xy</m> plane, this is <men xml:id="cross-product-det"> \vec{A} \times \vec{B}=(A_y B_x - A_x B_y)\ \khat</men>.   The operation is not commutative, in fact <me>\vec{A}\times \vec{B}= - \vec{B} \times \vec{A} </me>.</p>
       <p>The magnitude of the cross product is the product of the perpendicular component of <m>\vec{A}</m> with the magnitude of <m>\vec{B},</m> which is also the area of the parallelogram formed by vectors <m>\vec{A}</m> and <m>\vec{B}</m>.  The magnitude of the cross product is zero if <m>\vec{A}</m> and <m>\vec{B}</m> are parallel, and it is maximum when they are perpendicular.</p>
-      <p>You will notice that all the terms in the cross product equation are quite similar to those of the dot product, with the exception of the unit vector <m>\hat{\vec{u}}</m> and the use of <m>\sin</m> rather than <m>\cos</m>. This unit vector <m>\hat{\vec{u}}</m> is simple to find in a two-dimensional problem as it will always be perpendicular to the page, but for three-dimensional cross products it is advisable to use a vector determinant method discussed here.</p>
+      <p>Ntice that all the terms in the cross product equation are similar to those of the dot product, except that <m>\sin</m> is used rather than <m>\cos</m> and the product includes a unit vector <m>\hat{\vec{u}}</m> making the result a vector. This unit vector <m>\hat{\vec{u}}</m> is simple to find in a two-dimensional problem as it will always be perpendicular to the page, but for three-dimensional cross products it is advisable to use a vector determinant method discussed here.</p>
     </introduction>
-    <subsection xml:id="cross-product-math-cross-product-of-unit-vectors">
-      <title>Cross Product of Unit Vectors</title>
-      <p>Since unit vectors have a magnitude of one and are perpendicular to each other, the magnitude of the cross product of two perpendicular unit vectors will be one by <xref ref="cross-product-def"/>. The direction is determined by the right hand rule. On the other hand, whenever you cross a unit vector with itself, the result is zero since <m>\theta=0</m>. </p>
-      <p>One way to apply the right hand rule is to hold your right hand flat and point your fingers in the direction of the first vector, then curl them towards the second vector.  When you do, your thumb will be oriented in the direction of the cross product.</p>
-      <p>To illustrate, imagine unit vectors <m>\ihat</m> and <m>\jhat</m> drawn on a white board in the normal orientation <mdash/>
-            <m>\ihat</m> pointing right, <m>\jhat</m> pointing up.  Orient your right hand with your fingers pointing to the right along <m>\ihat</m>, then curl them towards <m>\jhat</m> and your thumb will point out of the board and establish that the direction of <m>\ihat \times \jhat=\khat</m>.  Now try to cross <m>-\ihat</m> with <m>\jhat</m> and you will find that your thumb now points into the board.</p>
-      <p>You should be able to convince yourself that the cross products of the positive unit vectors are</p>
-      <p>
-        <md>
-          <mrow>\ihat \times \ihat \amp =0       \amp \ihat \times \jhat \amp = \khat \amp \ihat \times \khat \amp = -\jhat</mrow>
-          <mrow>\jhat \times \ihat \amp = -\khat \amp \jhat \times \jhat \amp = 0     \amp \jhat \times \khat \amp = \ihat </mrow>
-          <mrow>\khat \times \ihat \amp = \jhat  \amp \khat \times \jhat \amp =-\ihat \amp \khat \times \khat \amp =0 </mrow>
-        </md>
-      </p>
-      <sidebyside widths="66% 30%" margins="0%">
-        <stack>
-          <p>An alternate way to remember this is to use the cross product circle shown. For example when you cross <m>\ihat</m> with <m>\jhat</m>  you are going in the positive (counterclockwise) direction around the blue inner circle and thus the answer is <m>+\khat</m>. But when you cross <m>\jhat</m> into <m>\ihat</m> you go in the negative (clockwise) direction around the circle and thus get a  <m>-\khat</m>.  Remember that the order of cross products matter. If you put the vectors in the wrong order you will introduce a sign error.</p>
-          <p>If you have any negative unit vectors it is easiest to separate the negative values until after you have taken the cross product, so for example <me>-\jhat \times \ihat = (-1)\left ( \jhat \times \ihat \right )=(-1)(-\khat )=+\khat </me>.</p>
-        </stack>
-        <figure xml:id="cross_product_circle_EE">
-          <caption>
-Unit vector cross product circle. 
-   </caption>
-          <image source="images/cross-product-circle">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/">CC-0</license>
-            </remix>
-          </image>
-        </figure>
-      </sidebyside>
-    </subsection>
-    <subsection xml:id="cross-product-math-cross-product-of-arbitrary-vectors">
+    <subsection xml:id="vector-cross-products">
       <title>Cross Product of Arbitrary Vectors</title>
       <p>The cross product of two three-dimensional vectors can be calculated by evaluating the <em>determinant</em> of this <m>3 \times 3</m> matrix. 
 <men xml:id="cross-product-1"> 
@@ -926,16 +897,20 @@ B_x \amp B_y  \amp B_z \end{vmatrix}
       <p>Finally a <m>2 \times 2</m> determinant can be evaluated with the formula
 <men> \begin{vmatrix} a \amp b \\ c \amp d\end{vmatrix} = a d - b c</men>
          </p>
-      <p>In practice, the easiest way to do this is to use the augmented determinant below, where the  first two columns have been copied and placed after the determinant.  The cross product is then calculated by adding the product of the red diagonals and subtracting the product of blue diagonals.</p>
-      <image width="50%" source="images/cross_product_diagonals">
-        <remix>
-          <creator href="https://weh.maritime.edu">William Haynes</creator>
-          <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-        </remix>
-      </image>
-      <p>
-        <men xml:id="cross-product-2">\vec{A} \times \vec{B}  =   (A_y B_z  - A_z B_y) \ihat + ( A_z B_x -A_x B_z) \jhat + (A_x B_y  - A_y B_x)\khat</men>
-      </p>
+      <p>After simplifying, the resulting formula for a three-dimensional cross product is
+<men xml:id="cross-product-2">\vec{A} \times \vec{B}  =   (A_y B_z  - A_z B_y) \ihat - ( A_x B_z - A_z B_x) \jhat + (A_x B_y  - A_y B_x)\khat</men>
+         </p>
+      <p>In practice, the easiest way to remember this equation is to use the augmented determinant below, where the first two columns have been copied and placed after the determinant.  The cross product is then calculated by adding the product of the red diagonals and subtracting the product of blue diagonals. </p>
+      <figure xml:id="augmented-determinant">
+        <caption> Augmented determinant </caption>
+        <image width="50%" source="images/cross_product_diagonals">
+          <remix>
+            <creator href="https://weh.maritime.edu">William Haynes</creator>
+            <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+          </remix>
+        </image>
+      </figure>
+      <p> The result is <men xml:id="cross-product-3">\vec{A} \times \vec{B}  =   (A_y B_z  - A_z B_y) \ihat + ( A_z B_x -A_x B_z) \jhat + (A_x B_y  - A_y B_x)\khat</men>,  which is mathematically equivalent to equation <xref ref="cross-product-2"/>.</p>
       <p>In two dimensions, vectors <m>\vec{A}</m> and <m>\vec{B}</m> have no <m>z</m> components, so <xref ref="cross-product-1"/> reduces to
 <men xml:id="cross-prod-2d">\vec{A} \times \vec{B}  = \begin{vmatrix}\ihat \amp \jhat \amp \khat \\ A_x \amp A_y \amp 0 \\ B_x \amp B_y  \amp 0 \end{vmatrix} = (A_x B_y - A_y B_x) \khat </men>.  This equation produces the same result as equation 
 <xref ref="cross-product-def"/> and you may use it if it is more convenient.</p>
@@ -1056,6 +1031,38 @@ A.cross_product(B)
           <p>Try changing the third line to  <c>B.cross_product(A)</c>.  What changes?</p>
         </solution>
       </example>
+    </subsection>
+    <subsection xml:id="cross-product-math-cross-product-of-unit-vectors">
+      <title>Cross Product of Unit Vectors</title>
+      <p>Since unit vectors have a magnitude of one and are perpendicular to each other, the magnitude of the cross product of two perpendicular unit vectors will be one by <xref ref="cross-product-def"/>. The direction is determined by the right hand rule. On the other hand, whenever you cross a unit vector with itself, the result is zero since <m>\theta=0</m>. </p>
+      <p>One way to apply the right hand rule is to hold your right hand flat and point your fingers in the direction of the first vector, then curl them towards the second vector.  When you do, your thumb will be oriented in the direction of the cross product.</p>
+      <p>To illustrate, imagine unit vectors <m>\ihat</m> and <m>\jhat</m> drawn on a white board in the normal orientation <mdash/>
+            <m>\ihat</m> pointing right, <m>\jhat</m> pointing up.  Orient your right hand with your fingers pointing to the right along <m>\ihat</m>, then curl them towards <m>\jhat</m> and your thumb will point out of the board and establish that the direction of <m>\ihat \times \jhat=\khat</m>.  Now try to cross <m>-\ihat</m> with <m>\jhat</m> and you will find that your thumb now points into the board.</p>
+      <p>You should be able to convince yourself that the cross products of the positive unit vectors are</p>
+      <p>
+        <md>
+          <mrow>\ihat \times \ihat \amp =0       \amp \ihat \times \jhat \amp = \khat \amp \ihat \times \khat \amp = -\jhat</mrow>
+          <mrow>\jhat \times \ihat \amp = -\khat \amp \jhat \times \jhat \amp = 0     \amp \jhat \times \khat \amp = \ihat </mrow>
+          <mrow>\khat \times \ihat \amp = \jhat  \amp \khat \times \jhat \amp =-\ihat \amp \khat \times \khat \amp =0 </mrow>
+        </md>
+      </p>
+      <sidebyside widths="66% 30%" margins="0%">
+        <stack>
+          <p>An alternate way to remember this is to use the cross product circle shown. For example when you cross <m>\ihat</m> with <m>\jhat</m>  you are going in the positive (counterclockwise) direction around the blue inner circle and thus the answer is <m>+\khat</m>. But when you cross <m>\jhat</m> into <m>\ihat</m> you go in the negative (clockwise) direction around the circle and thus get a  <m>-\khat</m>.  Remember that the order of cross products matter. If you put the vectors in the wrong order you will introduce a sign error.</p>
+          <p>If you have any negative unit vectors it is easiest to separate the negative values until after you have taken the cross product, so for example <me>-\jhat \times \ihat = (-1)\left ( \jhat \times \ihat \right )=(-1)(-\khat )=+\khat </me>.</p>
+        </stack>
+        <figure xml:id="cross_product_circle_EE">
+          <caption>
+Unit vector cross product circle. 
+   </caption>
+          <image source="images/cross-product-circle">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/choose/zero/">CC-0</license>
+            </remix>
+          </image>
+        </figure>
+      </sidebyside>
     </subsection>
   </section>
   <exercises>
