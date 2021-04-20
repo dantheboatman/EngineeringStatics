@@ -43,7 +43,7 @@ DRAFTMSG :=  DRAFT-$(shell date +%F)
 pdf:  info folders css xslt numbas $(images) tidy
 	-ln -s $(IMAGESOUT) $(PDFOUT)/images
 	cd $(PDFOUT); \
-	xsltproc -xinclude  -stringparam watermark.text $(DRAFTMSG) -stringparam publisher $(PUBLISHER) -o statics.tex $(LATEXXSLT) $(MAINFILE)
+	xsltproc -xinclude  -stringparam publisher $(PUBLISHER) -o statics.tex $(LATEXXSLT) $(MAINFILE)
 	open $(PDFOUT)/statics.tex
 
 ###############################################################################
