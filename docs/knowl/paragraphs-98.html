@@ -11,27 +11,39 @@
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-<section class="paragraphs"><h5 class="heading"><span class="title">Set up the integrals.</span></h5>
-<p>The bounding functions in this example are the \(x\) axis, the vertical line \(x = b\text{,}\) and the straight line through the origin with a slope of \(\frac{h}{b}\text{.}\) Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
+<section class="paragraphs"><h5 class="heading"><span class="title">Solve the integrals.</span></h5>
+<p>The area of a semicircle is well known, so there is no need to actually evaluate \(A = \int dA\text{,}\)</p>
 <div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
-y = f(x) = \frac{h}{b} x
+A = \int dA = \frac{\pi r^2}{2}\text{.}
 \end{equation*}
 </div>
-<p class="continuation">and any point on this line is designated \((x,y)\text{.}\)</p>
-<p>The strip extends from \((x,0)\) on the \(x\) axis to \((x,y)\) on the function, has a height of \(y\text{,}\) and a differential width \(dx\text{.}\)  The area of this strip is</p>
+<p>Since the semi-circle is symmetrical about the \(y\) axis,</p>
 <div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{equation*}
-dA = y dx\text{.}
+Q_y = \int \bar{x}_{\text{el}}\; dA= 0\text{.}
 \end{equation*}
 </div>
-<p>The centroid of the strip is located at its midpoint so, by inspection</p>
+<p class="continuation">This is because each element of area to the right of the \(y\) axis is balanced by a corresponding element the same distance the left which cancel each other out in the sum.</p>
+<p>All that remains is to evaluate the integral \(Q_x\) in the numerator of</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+\bar{y} = \frac{Q_x}{A} = \frac{\bar{y}_{\text{el}}\; dA}{A}
+\end{equation*}
+</div>
+<p>The differential area \(dA\) is the product of two differential quantities, we will need to perform a double integration.</p>
 <div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{align*}
-\bar{x}_{\text{el}} \amp = x \\
-\bar{y}_{\text{el}} \amp = y/2
+Q_x \amp =  \int \bar{y}_{\text{el}} dA  \\
+\amp =  \int_0^\pi \int_0^r (\rho \sin \theta) \rho \; d\rho\; d\theta\\
+\amp =  \int_0^\pi \sin \theta \left[ \int_0^r \rho^2 \; d\rho\right ] d\theta\\
+\amp =  \int_0^\pi \sin \theta \left[ \frac{\rho^3} {3}\right ]_0^r \; d\theta\\
+\amp =  \frac{r^3}{3} \ \int_0^\pi \sin \theta \; d\theta\\
+\amp =  \frac{r^3}{3} \left[ - \cos \theta \right]_0^\pi\\
+\amp =  -\frac{r^3}{3} \left[ \cos \pi - \cos 0 \right ]\\
+\amp =  -\frac{r^3}{3} \left[ (-1) - (1) \right ]\\
+Q_x \amp =  \frac{2}{3} r^3
 \end{align*}
-</div>
-<p xmlns:svg="http://www.w3.org/2000/svg">With vertical strips the variable of integration is \(x\text{,}\) and the limits are \(x=0\) to \(x=b\text{.}\)</p></section><span class="incontext"><a href="centroids-by-integration.html#paragraphs-98">in-context</a></span>
+</div></section><span class="incontext"><a href="centroids-by-integration.html#paragraphs-98">in-context</a></span>
 </body>
 </html>

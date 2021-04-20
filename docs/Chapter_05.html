@@ -40,7 +40,15 @@ MathJax.Hub.Config({
         mtextFontInherit: true,
     },
 });
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML-full"></script><script>$(function () {
+    // Make *any* div with class 'sagecell-sage' an executable Sage cell
+    // Their results will be linked, only within language type
+    sagecell.makeSagecell({inputLocation: 'div.sagecell-sage',
+                           linked: true,
+                           languages: ['sage'],
+                           evalButtonText: 'Evaluate (Sage)'});
+});
+</script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
 </script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
@@ -116,7 +124,7 @@ MathJax.Hub.Config({
   
   \newcommand{\unit}[1]{#1~\text{unit} }
   \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\sec}[1]{#1~\text{s} }
+  \newcommand{\second}[1]{#1~\text{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -129,10 +137,10 @@ MathJax.Hub.Config({
 </div></div>
 <nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="exercises-3.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="book-1.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_05-free-body-diagrams.html" title="Next">Next</a></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="exercises-3.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="book-1.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_05-introduction.html" title="Next">Next</a></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="exercises-3.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="book-1.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_05-free-body-diagrams.html" title="Next">Next</a>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="exercises-3.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="book-1.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_05-introduction.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
 <div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -189,13 +197,14 @@ MathJax.Hub.Config({
 </li>
 <li class="link active">
 <a href="Chapter_05.html" data-scroll="Chapter_05"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
-<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
+<li><a href="Chapter_05-introduction.html" data-scroll="Chapter_05-introduction">Introduction</a></li>
 <li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom">Degree of Freedom</a></li>
+<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
 <li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium">Equations of Equilibrium</a></li>
-<li><a href="Chapter_05-solution-strategies.html" data-scroll="Chapter_05-solution-strategies">Solution Strategies</a></li>
-<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
+<li><a href="Chapter_05-2d-rigid-body-equilibrium.html" data-scroll="Chapter_05-2d-rigid-body-equilibrium">2D Rigid Body Equilibrium</a></li>
+<li><a href="Chapter_05-3d-rigid-body-equilibrium.html" data-scroll="Chapter_05-3d-rigid-body-equilibrium">3D Rigid Body Equilibrium</a></li>
 <li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy">Stability and Determinacy</a></li>
-<li><a href="Chapter_05-three-dimensional-equilibrium.html" data-scroll="Chapter_05-three-dimensional-equilibrium">Three-dimensional Equilibrium</a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
 <li><a href="exercises-4.html" data-scroll="exercises-4">Exercises</a></li>
 </ul>
 </li>
@@ -238,7 +247,7 @@ MathJax.Hub.Config({
 <a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
 <li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
 <li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
-<li><a href="Chapter_09-slipping-vs-tipping.html" data-scroll="Chapter_09-slipping-vs-tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-slipping-vs--tipping.html" data-scroll="Chapter_09-slipping-vs--tipping">Slipping vs. Tipping</a></li>
 <li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
 <li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
 <li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
@@ -281,16 +290,16 @@ MathJax.Hub.Config({
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="chapter" id="Chapter_05"><h2 class="heading">
 <span class="type">Chapter</span> <span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span>
 </h2>
-<section class="introduction" id="introduction-14"><p id="p-803">In this chapter we will investigate the equilibrium of simple rigid bodies like your book, phone, or pencil. The important difference between rigid bodies and particles is that rigid bodies have the potential to rotate around a point or axis, while particles do not.</p>
-<p id="p-804">For rigid body equilibrium, we need to maintain translational equilibrium with \(\Sigma \vec{F}=0\) and also maintain a balance of rotational forces and couple moments with a new equilibrium equation:  \(\Sigma \vec{M}=0\text{.}\)</p></section><nav class="summary-links"><ul>
-<li><a href="Chapter_05-free-body-diagrams.html"><span class="codenumber">5.1</span> <span class="title">Free Body Diagrams</span></a></li>
+<nav class="summary-links"><ul>
+<li><a href="Chapter_05-introduction.html"><span class="codenumber">5.1</span> <span class="title">Introduction</span></a></li>
 <li><a href="Chapter_05-degree-of-freedom.html"><span class="codenumber">5.2</span> <span class="title">Degree of Freedom</span></a></li>
-<li><a href="Chapter_05-equations-of-equilibrium.html"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></li>
-<li><a href="Chapter_05-solution-strategies.html"><span class="codenumber">5.4</span> <span class="title">Solution Strategies</span></a></li>
-<li><a href="Chapter_05-equilibrium-examples-.html"><span class="codenumber">5.5</span> <span class="title">Equilibrium Examples</span></a></li>
-<li><a href="Chapter_05-stability-and-determinacy.html"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></li>
-<li><a href="Chapter_05-three-dimensional-equilibrium.html"><span class="codenumber">5.7</span> <span class="title">Three-dimensional Equilibrium</span></a></li>
-<li><a href="exercises-4.html"><span class="codenumber">5.8</span> <span class="title">Exercises</span></a></li>
+<li><a href="Chapter_05-free-body-diagrams.html"><span class="codenumber">5.3</span> <span class="title">Free Body Diagrams</span></a></li>
+<li><a href="Chapter_05-equations-of-equilibrium.html"><span class="codenumber">5.4</span> <span class="title">Equations of Equilibrium</span></a></li>
+<li><a href="Chapter_05-2d-rigid-body-equilibrium.html"><span class="codenumber">5.5</span> <span class="title">2D Rigid Body Equilibrium</span></a></li>
+<li><a href="Chapter_05-3d-rigid-body-equilibrium.html"><span class="codenumber">5.6</span> <span class="title">3D Rigid Body Equilibrium</span></a></li>
+<li><a href="Chapter_05-stability-and-determinacy.html"><span class="codenumber">5.7</span> <span class="title">Stability and Determinacy</span></a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html"><span class="codenumber">5.8</span> <span class="title">Equilibrium Examples</span></a></li>
+<li><a href="exercises-4.html"><span class="codenumber">5.9</span> <span class="title">Exercises</span></a></li>
 </ul></nav></section></div></main>
 </div>
 </body>
