@@ -69,7 +69,7 @@ NUMBAS    = $(PRJ)/src/numbas
 CUSTOM    = $(PRJ)/custom
 
 ##################################################
-# BUILD directory ($BUILD)  Generated Files
+# OUTPUT Directories - Built from source
 ##################################################
 BUILD      = $(PRJ)/build
 HTMLOUT    = ~/Sites/localhost/statics
