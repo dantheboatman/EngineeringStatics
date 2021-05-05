@@ -12,14 +12,27 @@
 </head>
 <body>
 <article class="insight remark-like"><h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading">
-<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.2.4</span><span class="period">.</span><span class="space"> </span><span class="title">Stresses in a Rectangular Beam.</span>
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Torsional Stress.</span>
 </h6>
-<p xmlns:svg="http://www.w3.org/2000/svg">To provide some context for area moments of inertia, let’s examine the internal forces in a elastic beam. Assume that some external load is causing an external bending moment which is opposed by the internal forces exposed at a cut.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">When an elastic beam is loaded from above, it will sag.  Fibers on the top surface will compress and fibers on the bottom surface will stretch, while somewhere in between the fibers will neither stretch or compress.  The points where the fibers are not deformed defines a transverse axis, called the <dfn class="terminology">neutral axis</dfn>.  The neutral axis passes through the centroid of the beam’s cross section.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">The change in length of the fibers are caused by internal compression and tension forces which increase linearly with distance from the neutral axis. The internal forces sum to zero in the horizontal direction, but they produce a net couple-moment which resists the external bending moment.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg"></p>
-<figure class="figure figure-like"><div xmlns:svg="http://www.w3.org/2000/svg" class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/MOI-beam-stresses.png" class="contained" alt=""></div>
-<figcaption xmlns:svg="http://www.w3.org/2000/svg"><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.2.5<span class="period">.</span></span><span class="space"> </span>Internal forces in a beam caused by an external load.</figcaption></figure><p xmlns:svg="http://www.w3.org/2000/svg">Think about summing the internal moments about the neutral axis on the beam cut face.  This moment at a point on the face increases with with the square of the distance \(y\) of the point from the neutral axis because both the internal force and the moment arm are proportional to this distance.  The appearance of \(y^2\) in this relationship is what connects a bending beam to the area moment of inertia.</p>
-<p xmlns:svg="http://www.w3.org/2000/svg">The shape of the beam’s cross-section determines how easily the beam bends. A beam with more material farther from the neutral axis will have a larger moment of inertia and be stiffer. Of course, the material of which the beam is made is also a factor, but it is independent of this geometrical factor.</p></article><span class="incontext"><a href="MOI-common-shapes.html#insight-19">in-context</a></span>
+<p xmlns:svg="http://www.w3.org/2000/svg">The polar moment of inertia is an important factor in the design of drive shafts.  When a shaft is subjected to torsion, it experiences internal distributed shearing forces throughout its cross-section which counteract the external torsional load.</p>
+<p>This distributed shearing force is called <dfn xmlns:svg="http://www.w3.org/2000/svg" class="terminology">shear stress</dfn>, and is usually given the symbol tau, \(\tau\text{.}\) Shear stress is zero at the neutral axis and increases linearly with \(r\) to a maximum value, \(\tau_\text{max}\) at the outside surface where \(r=c\text{,}\) so</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+\tau = \tau_\text{max}\frac{r}{c}
+\end{equation*}
+</div>
+<figure class="figure figure-like"><div xmlns:svg="http://www.w3.org/2000/svg" class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/MOI-shaft.png" class="contained" alt=""></div>
+<figcaption xmlns:svg="http://www.w3.org/2000/svg"><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.5.2<span class="period">.</span></span><span class="space"> </span>Section-cut view of a shaft, showing shearing forces developed to withstand external torsion \(T\text{.}\)</figcaption></figure><p>The force at any point is \(dF = \tau\ dA\text{,}\) and the moment \(dM\) exerted at any point is \(dF\) times the moment arm, which is \(r\text{.}\)  The total moment is the integral of this quantity over the area of the cross section, and is proportional to the polar moment of inertia.</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{align*}
+T \amp= \int dM\\
+\amp = \int r\ dF\\
+\amp=  \int_A r\ \tau_\text{max} \frac{r}{c} \  dA\\
+\amp =  \frac{\tau_\text{max}}{c} \int_A r^2\ dA\\
+T \amp =  \frac{\tau_\text{max}}{c} J\\
+\tau_\text{max} \amp = \frac{Tc}{J}
+\end{align*}
+</div>
+<p xmlns:svg="http://www.w3.org/2000/svg">This is the relationship between the maximum stress in a circular shaft and the applied torque \(T\)  and  the geometric properties of the shaft, \(J_O\) and \(c\text{.}\)</p></article><span class="incontext"><a href="polar-moment.html#insight-19">in-context</a></span>
 </body>
 </html>

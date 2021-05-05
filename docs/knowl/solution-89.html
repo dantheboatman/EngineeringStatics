@@ -13,22 +13,91 @@
 <body>
 <div class="solution solution-like">
 <h6 xmlns:svg="http://www.w3.org/2000/svg" class="heading">
-<span class="type">Solution</span><span class="space"> </span><span class="codenumber">10.3.3.1</span><span class="period">.</span>
+<span class="type">Solution</span><span class="space"> </span><span class="codenumber">10.4.2.1</span><span class="period">.</span>
 </h6>
-<p xmlns:svg="http://www.w3.org/2000/svg">For the triangle the moment of we have the following information: \(I_x  =  bh^3/12\text{,}\) \(A =  bh/2\text{,}\) and \(d = \bar{y} =  h/3\text{.}\)</p>
-<p>Looking for \(\bar{I}_{x'}\text{:}\)</p>
+<section class="paragraphs"><h5 class="heading"><span class="title">Strategy.</span></h5>
+<p>Divide the T shape into a  \(\mm{30} \times \mm{60}\) vertical rectangle (1), and a \(\mm{90} \times \mm{20}\) horizontal rectangle (2) then add the moments of inertia of the two parts.</p>
 <div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
 \begin{align*}
-I \amp =  \bar{I} + A d^2 \amp  \amp \text{Parallel Axis Theorem, general statement}\\
-\bar{I}_{x'} \amp =  I_x - A (\bar{y})^2 \amp  \amp \text{Parallel Axis Theorem, backwards}\\
-\amp =   \frac{bh^3}{12} - \frac{bh}{2} \left( \frac{h}{3} \right )^2 \amp  \amp \text{Insert values for triangle}\\
-\amp =  b h^3 \left[ \frac{1}{12} - \frac{1}{18} \right ]\amp  \amp \text{Factor out common terms}\\
-\amp =  b h^3 \left[ \frac{3}{36} - \frac{2}{36} \right ]\amp  \amp \text{Common denominator}\\
-\bar{I}_{x'} \amp =  \frac{b h^3}{36} \amp  \amp \text{Result}
+I_x \amp = (I_x)_1 +  (I_x)_2 \amp I_y \amp =   (I_y)_1 +  (I_y)_2 
+\end{align*}
+</div></section><section class="paragraphs"><h5 class="heading"><span class="title">MOI about the \(x\) Axis.</span></h5>
+<p>The bottom edge of rectangle 1 is on the \(x\) axis.  Using the formula from <a href="parallel-axis-theorem-section.html#MOI-table" class="internal" title="Subsection 10.3.2: Moments of Inertia Table">Subsection 10.3.2</a> gives</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+(I_x)_1 = \frac{bh^3}{3} =\frac{ (30)(60)^3}{3} = \mm{2.16 \times 10^6}^4\text{.}
+\end{equation*}
+</div>
+<p>The centroid of rectangle 2 is located \(\mm{70}\) above the \(x\) axis so we must use the parallel axis theorem <a class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a>, so</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{align*}
+(I_x)_2 \amp =  \bar{I} + A d^2\\
+\amp =  \frac{b h^3}{12} + (b h) d^2\\
+\amp =  \frac{(90)(20)^3}{12} + (90 \times 20) ( 70)^2\\
+(I_x)_2 \amp =  \mm{8.88 \times 10^6}^4\text{.}
 \end{align*}
 </div>
-<p xmlns:svg="http://www.w3.org/2000/svg">The procedure for \(\bar{I}_y\) is similar, or you can simply reverse the roles of \(b\) and \(h\text{.}\)</p>
+<p>The moment of inertia of the entire T shape about the \(x\) axis is the sum of these two values,</p>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+I_x = (I_x)_1 + (I_x)_2 = \mm{11.04 \times 10^6}^4\text{.}
+\end{equation*}
+</div></section><section class="paragraphs"><h5 class="heading"><span class="title">MOI about the \(y\) Axis.</span></h5>
+<p xmlns:svg="http://www.w3.org/2000/svg">We can use the same procedure to find the moment of inertia about the \(y\) axis, however it is usually more convenient to organize all the necessary information in a table rather than writing the equations explicitly.</p>
+<p xmlns:svg="http://www.w3.org/2000/svg">We will use the parallel axis theorem for both rectangles with \(d\) representing the distance between the \(y\) axis and the centroid of the part.  In this example \(d\) is the same for both parts, but that will not always be true.</p>
+<div class="tabular-box natural-width"><table xmlns:svg="http://www.w3.org/2000/svg" class="tabular">
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Part</td>
+<td class="c m b0 r0 l0 t0 lines">Dimensions</td>
+<td class="c m b0 r0 l0 t0 lines">\(\bar{I}_y = hb^3/12\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A=bh\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(d\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(A d^2\)</td>
+<td class="c m b0 r0 l0 t0 lines">\(I_y=\bar{I} + A d^2\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">Units</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^2\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(\text{mm}^4\)</td>
+</tr>
+<tr>
+<td class="c m b1 r0 l0 t0 lines">1</td>
+<td class="c m b1 r0 l0 t0 lines">\(b= 30,\ h=60\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(135\times 10^3\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(1800\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(45\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(3.645 \times 10^6\)</td>
+<td class="c m b1 r0 l0 t0 lines">\(3.78 \times 10^6\)</td>
+</tr>
+<tr>
+<td class="c m b2 r0 l0 t0 lines">2</td>
+<td class="c m b2 r0 l0 t0 lines">\(b =90,\ h=20\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(1.215 \times 10^6\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(1800\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(45\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(3.645 \times 10^6\)</td>
+<td class="c m b2 r0 l0 t0 lines">\(4.86 \times 10^6\)</td>
+</tr>
+<tr>
+<td class="c m b0 r0 l0 t0 lines">Total</td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines"></td>
+<td class="c m b0 r0 l0 t0 lines">\(8.64 \times 10^6\)</td>
+</tr>
+</table></div>
+<div xmlns:svg="http://www.w3.org/2000/svg" class="displaymath">
+\begin{equation*}
+I_y = (I_y)_1 + (I_y)_2 = \mm{8.64 \times 10^6}^4
+\end{equation*}
+</div></section>
 </div>
-<span class="incontext"><a href="parallel-axis-theorem-section.html#solution-89">in-context</a></span>
+<span class="incontext"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#solution-89">in-context</a></span>
 </body>
 </html>
