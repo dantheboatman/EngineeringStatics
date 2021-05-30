@@ -38,8 +38,6 @@ publish:
 #
 ##  make pdf version
 #
-DRAFTMSG :=  DRAFT-$(shell date +%F)
-#
 pdf:  info folders css xslt numbas $(images) tidy
 	-ln -s $(IMAGESOUT) $(PDFOUT)/images
 	cd $(PDFOUT); \
