@@ -31,10 +31,13 @@ HTML: info folders css xslt numbas $(images) tidy
 ## move local html files to web directory
 #
 publish:
-	-rm $(WEBDIR)/*.*
-	cp -R $(HTMLOUT)/* $(WEBDIR)
-	echo engineeringstatics.org $(WEBDIR)/CNAME
-	open $(WEBDIR)/index.html
+	-rm -r $(WEBDIR)/* 
+	cp -R $(HTMLOUT)/ $(WEBDIR)
+	echo engineeringstatics.org > $(WEBDIR)/CNAME
+	mkdir $(WEBDIR)/pdf
+	cp $(PDFOUT)/statics.pdf $(WEBDIR)/pdf
+	open $(WEBDIR)
+#	open $(WEBDIR)/index.html
 #
 ##  make pdf version
 #
@@ -118,6 +121,7 @@ clean:
 #	-rm -r $(PDFOUT)/*
 #
 folders:
+	@[ -d $(WEBDIR) ] || mkdir $(WEBDIR)
 	@[ -d $(BUILD) ] || mkdir $(BUILD)
 	@[ -d $(HTMLOUT) ] || mkdir $(HTMLOUT)
 	@[ -d $(PDFOUT) ] || mkdir $(PDFOUT)
