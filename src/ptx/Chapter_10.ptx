@@ -451,28 +451,32 @@ Internal forces in a beam caused by an external load.
           </p>
         </answer>
         <solution>
-          <paragraphs>
-            <title>Set up the integral</title>
-            <p>The area is bounded by the functions
+          <p>
+            <ol>
+              <li>
+                <title>Set up the integral</title>
+                <p>The area is bounded by the functions
 <md><mrow>y_2 \amp =  x/4 \amp y_2 \amp =  x^2/2</mrow></md>
-                  </p>
-            <p>By equating the two functions, we learn that they intersect at <m>(0,0)</m> and <m>(1/2,1/8)</m>, so the limits on <m>x</m> are <m>x=0</m> and <m>x=1/2</m>. </p>
-            <p>The differential area <m>dA</m> for vertical strip is <me>dA = (y_2-y_1)\ dx = \left (\frac{x}{4} - \frac{x^2}{2} \right)dx</me>.</p>
-          </paragraphs>
-          <paragraphs>
-            <title>Find <m>I_y</m>
-                  </title>
-            <p>For vertical strips, which are parallel to the <m>y</m> axis we can use the definition of the Moment of Inertia.
+                        </p>
+                <p>By equating the two functions, we learn that they intersect at <m>(0,0)</m> and <m>(1/2,1/8)</m>, so the limits on <m>x</m> are <m>x=0</m> and <m>x=1/2</m>. </p>
+                <p>The differential area <m>dA</m> for vertical strip is <me>dA = (y_2-y_1)\ dx = \left (\frac{x}{4} - \frac{x^2}{2} \right)dx</me>.</p>
+              </li>
+              <li>
+                <title>Find <m>I_y</m>
+                        </title>
+                <p>For vertical strips, which are parallel to the <m>y</m> axis we can use the definition of the Moment of Inertia.
 <md><mrow>I_y \amp =  \int   x^2 dA</mrow><mrow>\amp = \int_0^{0.5} {x^2} \left ( \frac{x}{4} - \frac{x^2}{2} \right ) dx</mrow><mrow>\amp=  \int_0^{1/2} \left( \frac{x^3}{4} - \frac{x^4}{2} \right) dx </mrow><mrow>\amp=  \left . \left( \frac{x^4}{16} - \frac{x^5}{12} \right )\right \vert_0^{1/2}</mrow><mrow>\amp=  \left( \frac{({1/2})^4}{16} - \frac{{(1/2)}^5}{10} \right ) </mrow><mrow> \amp = \frac{1}{64} \left( \frac{1}{4}- \frac{1}{5} \right)</mrow><mrow>I_y \amp =  \frac{1}{1280}  =  \cm{7.81 \times 10^{-4}}^4</mrow></md>
-                  </p>
-          </paragraphs>
-          <paragraphs>
-            <title>Find <m>I_x</m>
-                  </title>
-            <p>For vertical strips, which are perpendicular to the <m>x</m> axis, we will take subtract the moment of inertia of the area below <m>y_1</m> from the moment of inertia of the area below <m>y_2</m>.
+                        </p>
+              </li>
+              <li>
+                <title>Find <m>I_x</m>
+                        </title>
+                <p>For vertical strips, which are perpendicular to the <m>x</m> axis, we will take subtract the moment of inertia of the area below <m>y_1</m> from the moment of inertia of the area below <m>y_2</m>.
 <md><mrow>I_x   \amp =  \int_{A_2} dI_x - \int_{A_1} dI_x</mrow><mrow>  \amp =  \int_0^{1/2} \frac{y_2^3}{3} dx - \int_0^{1/2} \frac{y_1^3}{3}   dx</mrow><mrow>  \amp =  \frac{1}{3} \int_0^{1/2} \left[\left(\frac{x}{4}\right)^3 -\left(\frac{x^2}{2}\right)^3 \right] dx</mrow><mrow>  \amp =  \frac{1}{3} \int_0^{1/2} \left[\frac{x^3}{64} -\frac{x^6}{8} \right] dx</mrow><mrow>  \amp =  \frac{1}{3} \left[\frac{x^4}{256} -\frac{x^7}{56} \right]_0^{1/2} </mrow><mrow>I_x  \amp = \frac{1}{28672} = 3.49 \times  \cm{10^{-6}}^4 </mrow></md>
-                  </p>
-          </paragraphs>
+                        </p>
+              </li>
+            </ol>
+          </p>
         </solution>
       </example>
     </subsection>
@@ -514,56 +518,78 @@ Internal forces in a beam caused by an external load.
       <p>You may choose to divide the shape into square differential elements to compute the moment of inertia, using the fundamental definitions,   The disadvantage of this approach is that you need to set up and compute a double integral.  Identifying the correct limits on the integrals is often difficult.</p>
       <p>If you would like to avoid double integration, you may use vertical or horizontal strips, but you must take care to apply the correct integral.  If you use vertical strips to find <m>I_y</m> or horizontal strips to find <m>I_x</m>, then you can still use <xref ref="MOI"/>, but skip the double integration.  When the entire strip is the same distance from the designated axis, integrating with a parallel strip is equivalent to performing the inside integration of <xref ref="MOI"/>.</p>
       <p>As we have seen, it can be difficult to solve the bounding functions properly in terms of <m>x</m> or <m>y</m> to use parallel strips.  In this case, you can use vertical strips to find <m>I_x</m> or horizontal strips to find <m>I_y</m> as discussed by integrating the differential moment of inertia of the strip, as discussed in <xref ref="MOI-differential-strips"/>.</p>
-      <sbsgroup>
-        <sidebyside>
-          <p>Element</p>
-          <p>
-            <me>dA</me>
-          </p>
-          <p>
-            <me>dI_x</me>
-          </p>
-          <p>
-            <me>dI_y</me>
-          </p>
-        </sidebyside>
-        <sidebyside>
-          <image source="images/MOI-summary-dxdy"/>
-          <p>
-            <me>dx\ dy \text{ or } dy\ dx</me>
-          </p>
-          <p>
-            <me>y^2\ dA</me>
-          </p>
-          <p>
-            <me>x^2\ dA</me>
-          </p>
-        </sidebyside>
-        <sidebyside>
-          <image source="images/MOI-summary-a-x-dy"/>
-          <p>
-            <me>(a-x)\ dy</me>
-          </p>
-          <p>
-            <me>y^2\ dA</me>
-          </p>
-          <p>
-            <me>\dfrac{(a^3-x^3)}{3}\ dx</me>
-          </p>
-        </sidebyside>
-        <sidebyside>
-          <image source="images/MOI-summary-y-dx"/>
-          <p>
-            <me>y\ dx</me>
-          </p>
-          <p>
-            <me>\dfrac{y^3}{3}\ dx</me>
-          </p>
-          <p>
-            <me>x^2\ dA</me>
-          </p>
-        </sidebyside>
-      </sbsgroup>
+      <table>
+        <title>Moment of Inertia Integration Strategies</title>
+        <tabular bottom="minor">
+          <col width="15%" halign="center"/>
+          <col width="20%" halign="center"/>
+          <col width="20%" halign="center"/>
+          <col width="20%" halign="center"/>
+          <row header="yes" bottom="medium">
+            <cell>Element</cell>
+            <cell>
+              <m>dA</m>
+            </cell>
+            <cell>
+              <m>dI_x</m>
+            </cell>
+            <cell>
+              <m>dI_y</m>
+            </cell>
+          </row>
+          <row>
+            <cell>
+              <image source="images/MOI-summary-dxdy"/>
+            </cell>
+            <cell>
+              <line>
+                <m>dx\ dy</m>
+              </line>
+              <line> or </line>
+              <line>
+                <m>dy\ dx</m>
+              </line>
+            </cell>
+            <cell>
+              <m>y^2\ dA</m>
+            </cell>
+            <cell>
+              <m>x^2\ dA</m>
+            </cell>
+          </row>
+          <row>
+            <cell>
+              <image source="images/MOI-summary-a-x-dy"/>
+            </cell>
+            <cell>
+              <m>(a-x)\ dy</m>
+            </cell>
+            <cell>
+              <m>y^2\ dA</m>
+            </cell>
+            <cell>
+              <m>\dfrac{(a^3-x^3)}{3}\ dx </m>
+            </cell>
+          </row>
+          <row>
+            <cell>
+              <image source="images/MOI-summary-y-dx"/>
+            </cell>
+            <cell>
+              <m>y\ dx</m>
+            </cell>
+            <cell>
+              <m>\dfrac{y^3}{3}\ dx</m>
+            </cell>
+            <cell>
+              <m>x^2\ dA</m>
+            </cell>
+          </row>
+        </tabular>
+      </table>
+      <p>
+        <!--todo images are not allowed in tables -->
+      </p>
     </subsection>
   </section>
   <section xml:id="parallel-axis-theorem-section">
@@ -873,124 +899,128 @@ Definitions for the parallel axis theorem.
           </p>
         </answer>
         <solution>
-          <paragraphs>
-            <title>Strategy</title>
-            <p>Divide the T shape into a  <m>\mm{30} \times \mm{60}</m> vertical rectangle (1), and a <m>\mm{90} \times \mm{20}</m> horizontal rectangle (2) then add the moments of inertia of the two parts. 
+          <p>
+            <ol>
+              <li>
+                <title>Strategy</title>
+                <p>Divide the T shape into a  <m>\mm{30} \times \mm{60}</m> vertical rectangle (1), and a <m>\mm{90} \times \mm{20}</m> horizontal rectangle (2) then add the moments of inertia of the two parts. 
 <md><mrow>I_x \amp = (I_x)_1 +  (I_x)_2 \amp I_y \amp =   (I_y)_1 +  (I_y)_2 </mrow></md>
-                  </p>
-          </paragraphs>
-          <paragraphs>
-            <title>MOI about the <m>x</m> Axis</title>
-            <p>The bottom edge of rectangle 1 is on the <m>x</m> axis.  Using the formula from <xref ref="MOI-table"/> gives<me>(I_x)_1 = \frac{bh^3}{3} =\frac{ (30)(60)^3}{3} = \mm{2.16 \times 10^6}^4</me>.</p>
-            <p>The centroid of rectangle 2 is located <m>\mm{70}</m> above the <m>x</m> axis so we must use the parallel axis theorem <xref ref="parallel-axis-theorem"/>, so  
+                        </p>
+              </li>
+              <li>
+                <title>MOI about the <m>x</m> Axis</title>
+                <p>The bottom edge of rectangle 1 is on the <m>x</m> axis.  Using the formula from <xref ref="MOI-table"/> gives<me>(I_x)_1 = \frac{bh^3}{3} =\frac{ (30)(60)^3}{3} = \mm{2.16 \times 10^6}^4</me>.</p>
+                <p>The centroid of rectangle 2 is located <m>\mm{70}</m> above the <m>x</m> axis so we must use the parallel axis theorem <xref ref="parallel-axis-theorem"/>, so  
 <md><mrow>(I_x)_2 \amp =  \bar{I} + A d^2</mrow><mrow>\amp =  \frac{b h^3}{12} + (b h) d^2
 </mrow><mrow>\amp =  \frac{(90)(20)^3}{12} + (90 \times 20) ( 70)^2
 </mrow><mrow>(I_x)_2 \amp =  \mm{8.88 \times 10^6}^4</mrow></md>.</p>
-            <p>The moment of inertia of the entire T shape about the <m>x</m> axis is the sum of these two values,<me>I_x = (I_x)_1 + (I_x)_2 = \mm{11.04 \times 10^6}^4</me>.</p>
-          </paragraphs>
-          <paragraphs>
-            <title>MOI about the <m>y</m> Axis</title>
-            <p>We can use the same procedure to find the moment of inertia about the <m>y</m> axis, however it is usually more convenient to organize all the necessary information in a table rather than writing the equations explicitly.  </p>
-            <p>We will use the parallel axis theorem for both rectangles with <m>d</m> representing the distance between the <m>y</m> axis and the centroid of the part.  In this example <m>d</m> is the same for both parts, but that will not always be true.  </p>
-            <tabular halign="center">
-              <row>
-                <cell>Part</cell>
-                <cell>Dimensions</cell>
-                <cell>
-                  <m>\bar{I}_y = hb^3/12</m>
-                </cell>
-                <cell>
-                  <m>A=bh</m>
-                </cell>
-                <cell>
-                  <m>d</m>
-                </cell>
-                <cell>
-                  <m>A d^2</m>
-                </cell>
-                <cell>
-                  <m>I_y=\bar{I} + A d^2</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>Units</cell>
-                <cell>
-                  <m>\text{mm}</m>
-                </cell>
-                <cell>
-                  <m>\text{mm}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{mm}^2</m>
-                </cell>
-                <cell>
-                  <m>\text{mm}</m>
-                </cell>
-                <cell>
-                  <m>\text{mm}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{mm}^4</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>1</cell>
-                <cell>
-                  <m>b= 30,\ h=60</m>
-                </cell>
-                <cell>
-                  <m>135\times 10^3</m>
-                </cell>
-                <cell>
-                  <m>1800</m>
-                </cell>
-                <cell>
-                  <m>45</m>
-                </cell>
-                <cell>
-                  <m>3.645 \times 10^6</m>
-                </cell>
-                <cell>
-                  <m>3.78 \times 10^6</m>
-                </cell>
-              </row>
-              <row bottom="medium">
-                <cell>2</cell>
-                <cell>
-                  <m>b =90,\ h=20</m>
-                </cell>
-                <cell>
-                  <m>1.215 \times 10^6</m>
-                </cell>
-                <cell>
-                  <m>1800</m>
-                </cell>
-                <cell>
-                  <m>45</m>
-                </cell>
-                <cell>
-                  <m>3.645 \times 10^6</m>
-                </cell>
-                <cell>
-                  <m>4.86 \times 10^6</m>
-                </cell>
-              </row>
-              <row>
-                <cell>Total</cell>
-                <cell/>
-                <cell/>
-                <cell/>
-                <cell/>
-                <cell/>
-                <cell>
-                  <m>8.64 \times 10^6</m>
-                </cell>
-              </row>
-            </tabular>
-            <p>
-              <me>I_y = (I_y)_1 + (I_y)_2 = \mm{8.64 \times 10^6}^4</me>
-            </p>
-          </paragraphs>
+                <p>The moment of inertia of the entire T shape about the <m>x</m> axis is the sum of these two values,<me>I_x = (I_x)_1 + (I_x)_2 = \mm{11.04 \times 10^6}^4</me>.</p>
+              </li>
+              <li>
+                <title>MOI about the <m>y</m> Axis</title>
+                <p>We can use the same procedure to find the moment of inertia about the <m>y</m> axis, however it is usually more convenient to organize all the necessary information in a table rather than writing the equations explicitly.  </p>
+                <p>We will use the parallel axis theorem for both rectangles with <m>d</m> representing the distance between the <m>y</m> axis and the centroid of the part.  In this example <m>d</m> is the same for both parts, but that will not always be true.  </p>
+                <tabular halign="center">
+                  <row>
+                    <cell>Part</cell>
+                    <cell>Dimensions</cell>
+                    <cell>
+                      <m>\bar{I}_y = hb^3/12</m>
+                    </cell>
+                    <cell>
+                      <m>A=bh</m>
+                    </cell>
+                    <cell>
+                      <m>d</m>
+                    </cell>
+                    <cell>
+                      <m>A d^2</m>
+                    </cell>
+                    <cell>
+                      <m>I_y=\bar{I} + A d^2</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>Units</cell>
+                    <cell>
+                      <m>\text{mm}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{mm}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{mm}^2</m>
+                    </cell>
+                    <cell>
+                      <m>\text{mm}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{mm}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{mm}^4</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>1</cell>
+                    <cell>
+                      <m>b= 30,\ h=60</m>
+                    </cell>
+                    <cell>
+                      <m>135\times 10^3</m>
+                    </cell>
+                    <cell>
+                      <m>1800</m>
+                    </cell>
+                    <cell>
+                      <m>45</m>
+                    </cell>
+                    <cell>
+                      <m>3.645 \times 10^6</m>
+                    </cell>
+                    <cell>
+                      <m>3.78 \times 10^6</m>
+                    </cell>
+                  </row>
+                  <row bottom="medium">
+                    <cell>2</cell>
+                    <cell>
+                      <m>b =90,\ h=20</m>
+                    </cell>
+                    <cell>
+                      <m>1.215 \times 10^6</m>
+                    </cell>
+                    <cell>
+                      <m>1800</m>
+                    </cell>
+                    <cell>
+                      <m>45</m>
+                    </cell>
+                    <cell>
+                      <m>3.645 \times 10^6</m>
+                    </cell>
+                    <cell>
+                      <m>4.86 \times 10^6</m>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell>Total</cell>
+                    <cell/>
+                    <cell/>
+                    <cell/>
+                    <cell/>
+                    <cell/>
+                    <cell>
+                      <m>8.64 \times 10^6</m>
+                    </cell>
+                  </row>
+                </tabular>
+                <p>
+                  <me>I_y = (I_y)_1 + (I_y)_2 = \mm{8.64 \times 10^6}^4</me>
+                </p>
+              </li>
+            </ol>
+          </p>
         </solution>
       </example>
       <example xml:id="Chapter_10-example-fillet">
@@ -1007,151 +1037,155 @@ Definitions for the parallel axis theorem.
           </p>
         </answer>
         <solution>
-          <paragraphs>
-            <title>Strategy</title>
-            <sidebyside widths="55% 40%" valign="middle">
-              <p>First, divide the area into four parts: 
+          <p>
+            <ol>
+              <li>
+                <title>Strategy</title>
+                <sidebyside widths="55% 40%" valign="middle">
+                  <p>First, divide the area into four parts: 
 <ol><li>a <m>\inch{9} \times \inch{3}</m> rectangle</li><li>a <m>\inch{6} \times \inch{3}</m> rectangle</li><li>a <m>\inch{3} \times \inch{4}</m> rectangle, and </li><li>a removed quarter-circle with a <m>\inch{3}</m> radius.</li></ol>
-                     </p>
-              <image width="30%" source="images/examples-fillet-parts"/>
-            </sidebyside>
-            <p>Then set up a table and apply the parallel axis theorem <xref ref="parallel-axis-theorem"/> as in the previous example.  Since the quarter-circle is removed, subtract its moment of inertia from total of the other shapes.</p>
-          </paragraphs>
-          <paragraphs>
-            <title>MOI about the <m>y</m> Axis</title>
-            <p>The centroidal moment of inertia of a quarter-circle, from <xref ref="MOI-table"/> is
+                           </p>
+                  <image width="30%" source="images/examples-fillet-parts"/>
+                </sidebyside>
+                <p>Then set up a table and apply the parallel axis theorem <xref ref="parallel-axis-theorem"/> as in the previous example.  Since the quarter-circle is removed, subtract its moment of inertia from total of the other shapes.</p>
+              </li>
+              <li>
+                <title>MOI about the <m>y</m> Axis</title>
+                <p>The centroidal moment of inertia of a quarter-circle, from <xref ref="MOI-table"/> is
 <md><mrow>I_x\amp = \left(\frac{\pi}{16} - \frac{4}{9\pi}\right) r^4</mrow><mrow>\amp =  0.0549\ r^4</mrow></md>
-                  </p>
-            <p>The distance from the top edge of the quarter-circle down to its centroid is <m>\dfrac{4r}{3\pi}= \inch{1.273}</m>, so the distance from the <m>x</m> axis to its centroid is <me>d = 6 - 1.27 = \inch{4.727}</me>.</p>
-            <p>Fill out the table of information.</p>
-            <tabular halign="center">
-              <row>
-                <cell>Part</cell>
-                <cell>Dimensions</cell>
-                <cell>
-                  <m>\bar{I}_x</m>
-                </cell>
-                <cell>
-                  <m>A</m>
-                </cell>
-                <cell>
-                  <m>d =\bar{y}</m>
-                </cell>
-                <cell>
-                  <m>A d^2</m>
-                </cell>
-                <cell>
-                  <m>I_y=\bar{I} + A d^2</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>Units</cell>
-                <cell>
-                  <m>\text{inch}</m>
-                </cell>
-                <cell>
-                  <m>\text{inch}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{inch}^2</m>
-                </cell>
-                <cell>
-                  <m>\text{inch}</m>
-                </cell>
-                <cell>
-                  <m>\text{inch}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{inch}^4</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>1</cell>
-                <cell>
-                  <m>b= 9,\ h=3</m>
-                </cell>
-                <cell>
-                  <m>bh^3/12 = 20.25</m>
-                </cell>
-                <cell>
-                  <m>27</m>
-                </cell>
-                <cell>
-                  <m>1.5</m>
-                </cell>
-                <cell>
-                  <m>60.75</m>
-                </cell>
-                <cell>
-                  <m>81</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>2</cell>
-                <cell>
-                  <m>b =6,\ h=3</m>
-                </cell>
-                <cell>
-                  <m>bh^3/12 = 283</m>
-                </cell>
-                <cell>
-                  <m>18</m>
-                </cell>
-                <cell>
-                  <m>4.5</m>
-                </cell>
-                <cell>
-                  <m>364.5</m>
-                </cell>
-                <cell>
-                  <m>647.5</m>
-                </cell>
-              </row>
-              <row bottom="minor">
-                <cell>3</cell>
-                <cell>
-                  <m>b= 3,\ h=4</m>
-                </cell>
-                <cell>
-                  <m>bh^3/12 = 16</m>
-                </cell>
-                <cell>
-                  <m>12</m>
-                </cell>
-                <cell>
-                  <m>8</m>
-                </cell>
-                <cell>
-                  <m>768</m>
-                </cell>
-                <cell>
-                  <m>784</m>
-                </cell>
-              </row>
-              <row bottom="medium">
-                <cell>4</cell>
-                <cell>
-                  <m>r=3</m>
-                </cell>
-                <cell>
-                  <m>0.0549\ r^4 = 4.45</m>
-                </cell>
-                <cell>
-                  <m>7.07</m>
-                </cell>
-                <cell>
-                  <m>4.727</m>
-                </cell>
-                <cell>
-                  <m>158.0</m>
-                </cell>
-                <cell>
-                  <m>162.4</m>
-                </cell>
-              </row>
-            </tabular>
-            <p>Take care to subtract the moment of inertia of the removed quarter-circle from the total. <me>I_x = (I_x)_1 + (I_x)_2 + (I_x)_3 - 1 (I_x)_4 = \inch{1350}^4</me>.</p>
-          </paragraphs>
+                        </p>
+                <p>The distance from the top edge of the quarter-circle down to its centroid is <m>\dfrac{4r}{3\pi}= \inch{1.273}</m>, so the distance from the <m>x</m> axis to its centroid is <me>d = 6 - 1.27 = \inch{4.727}</me>.</p>
+                <p>Fill out the table of information.</p>
+                <tabular halign="center">
+                  <row>
+                    <cell>Part</cell>
+                    <cell>Dimensions</cell>
+                    <cell>
+                      <m>\bar{I}_x</m>
+                    </cell>
+                    <cell>
+                      <m>A</m>
+                    </cell>
+                    <cell>
+                      <m>d =\bar{y}</m>
+                    </cell>
+                    <cell>
+                      <m>A d^2</m>
+                    </cell>
+                    <cell>
+                      <m>I_y=\bar{I} + A d^2</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>Units</cell>
+                    <cell>
+                      <m>\text{inch}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{inch}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{inch}^2</m>
+                    </cell>
+                    <cell>
+                      <m>\text{inch}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{inch}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{inch}^4</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>1</cell>
+                    <cell>
+                      <m>b= 9,\ h=3</m>
+                    </cell>
+                    <cell>
+                      <m>bh^3/12 = 20.25</m>
+                    </cell>
+                    <cell>
+                      <m>27</m>
+                    </cell>
+                    <cell>
+                      <m>1.5</m>
+                    </cell>
+                    <cell>
+                      <m>60.75</m>
+                    </cell>
+                    <cell>
+                      <m>81</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>2</cell>
+                    <cell>
+                      <m>b =6,\ h=3</m>
+                    </cell>
+                    <cell>
+                      <m>bh^3/12 = 283</m>
+                    </cell>
+                    <cell>
+                      <m>18</m>
+                    </cell>
+                    <cell>
+                      <m>4.5</m>
+                    </cell>
+                    <cell>
+                      <m>364.5</m>
+                    </cell>
+                    <cell>
+                      <m>647.5</m>
+                    </cell>
+                  </row>
+                  <row bottom="minor">
+                    <cell>3</cell>
+                    <cell>
+                      <m>b= 3,\ h=4</m>
+                    </cell>
+                    <cell>
+                      <m>bh^3/12 = 16</m>
+                    </cell>
+                    <cell>
+                      <m>12</m>
+                    </cell>
+                    <cell>
+                      <m>8</m>
+                    </cell>
+                    <cell>
+                      <m>768</m>
+                    </cell>
+                    <cell>
+                      <m>784</m>
+                    </cell>
+                  </row>
+                  <row bottom="medium">
+                    <cell>4</cell>
+                    <cell>
+                      <m>r=3</m>
+                    </cell>
+                    <cell>
+                      <m>0.0549\ r^4 = 4.45</m>
+                    </cell>
+                    <cell>
+                      <m>7.07</m>
+                    </cell>
+                    <cell>
+                      <m>4.727</m>
+                    </cell>
+                    <cell>
+                      <m>158.0</m>
+                    </cell>
+                    <cell>
+                      <m>162.4</m>
+                    </cell>
+                  </row>
+                </tabular>
+                <p>Take care to subtract the moment of inertia of the removed quarter-circle from the total. <me>I_x = (I_x)_1 + (I_x)_2 + (I_x)_3 - 1 (I_x)_4 = \inch{1350}^4</me>.</p>
+              </li>
+            </ol>
+          </p>
         </solution>
       </example>
       <example xml:id="Chapter_10-example-concrete-pipe-casing">
@@ -1170,203 +1204,207 @@ Definitions for the parallel axis theorem.
           </p>
         </answer>
         <solution>
-          <paragraphs>
-            <title>Strategy</title>
-            <p>Organize all the necessary information into a table, then total  the moments of inertia of the parts to get the moment of inertia of the whole shape.  Remember that the hole is removed from the shape, so its contribution to the total moment of inertia is negative.</p>
-          </paragraphs>
-          <paragraphs>
-            <title>Table</title>
-            <tabular bottom="minor" halign="center">
-              <row bottom="none">
-                <cell>Part </cell>
-                <cell>
-                  <m>A_i</m>
-                </cell>
-                <cell>
-                  <m>d_{x_i}</m>
-                </cell>
-                <cell>
-                  <m>d_{y_i}</m>
-                </cell>
-                <cell>
-                  <m>A_i d_{x}^2</m>
-                </cell>
-                <cell>
-                  <m>A d_{y}^2</m>
-                </cell>
-                <cell>
-                  <m>\bar{I}_x</m>
-                </cell>
-                <cell>
-                  <m>\bar{I}_y</m>
-                </cell>
-              </row>
-              <row>
-                <cell>Units </cell>
-                <cell>
-                  <m>\text{in}^2</m>
-                </cell>
-                <cell>
-                  <m>\text{in}</m>
-                </cell>
-                <cell>
-                  <m>\text{in}</m>
-                </cell>
-                <cell>
-                  <m>\text{in}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{in}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{in}^4</m>
-                </cell>
-                <cell>
-                  <m>\text{in}^4</m>
-                </cell>
-              </row>
-              <row>
-                <cell>
-                  <line>Rectangle 1</line>
-                  <line>
-                    <m>b = 14,</m>
-                  </line>
-                  <line>
-                    <m>h = 10</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m>bh</m>
-                  </line>
-                  <line>
-                    <m>=140</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>7</line>
-                </cell>
-                <cell> -3 </cell>
-                <cell> 6860</cell>
-                <cell> 1260 </cell>
-                <cell>
-                  <line>
-                    <m>bh^3/12</m>
-                  </line>
-                  <line>
-                    <m>=1167</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m>b^3h/12</m>
-                  </line>
-                  <line>
-                    <m>=2287</m>
-                  </line>
-                </cell>
-              </row>
-              <row>
-                <cell>
-                  <line>Triangle 2</line>
-                  <line>
-                    <m>b = 8,</m>
-                  </line>
-                  <line>
-                    <m>h = 10</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m>bh/2</m>
-                  </line>
-                  <line>
-                    <m>=40</m>
-                  </line>
-                </cell>
-                <cell> 16.67</cell>
-                <cell>-4.67</cell>
-                <cell> 11111 </cell>
-                <cell> 871.1 </cell>
-                <cell>
-                  <line>
-                    <m>bh^3/36</m>
-                  </line>
-                  <line>
-                    <m>=222.2</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m>b^3h/12</m>
-                  </line>
-                  <line>
-                    <m>=142.2</m>
-                  </line>
-                </cell>
-              </row>
-              <row bottom="major">
-                <cell>
-                  <line>Circular Hole 3</line>
-                  <line>
-                    <m>r = 3</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m> -\pi r^2</m>
-                  </line>
-                  <line>
-                    <m>=-28.27</m>
-                  </line>
-                </cell>
-                <cell>7</cell>
-                <cell>-3</cell>
-                <cell>-1385</cell>
-                <cell>-254.5 </cell>
-                <cell>
-                  <line>
-                    <m>-\pi r^4/4</m>
-                  </line>
-                  <line>
-                    <m>=-63.62</m>
-                  </line>
-                </cell>
-                <cell>
-                  <line>
-                    <m>-\pi r^4/4</m>
-                  </line>
-                  <line>
-                    <m>=-63.62</m>
-                  </line>
-                </cell>
-              </row>
-              <row bottom="none">
-                <cell> Total</cell>
-                <cell> 151.7 </cell>
-                <cell/>
-                <cell/>
-                <cell> 16586 </cell>
-                <cell> 1877 </cell>
-                <cell> 1325 </cell>
-                <cell> 2365 </cell>
-              </row>
-            </tabular>
-          </paragraphs>
-          <paragraphs>
-            <title>Total</title>
-            <p>
-              <md>
-                <mrow>(I_x)_1 \amp =  \left[ \bar{I}_x + A d_y^2 \right]_1=  \inch{2427}^4  \amp (I_y)_1 \amp =  \left[\bar{I}_y + A d_x^2\right]_1  =  \inch{9147}^4</mrow>
-                <mrow>(I_x)_2 \amp =  \left[\bar{I}_x + A d_y^2\right]_2 =  \inch{1093}^4 \amp (I_y)_2 \amp =  \left[\bar{I}_y + A d_x^2\right]_2  =  \inch{11253}^4</mrow>
-                <mrow>(I_x)_3 \amp =  \left[\bar{I}_x + A d_y^2\right]_3 =  -\inch{318.1}^4 \amp(I_y)_3 \amp =  \left[\bar{I}_y + A d_x^2\right]_3  =  -\inch{1449}^4</mrow>
-                <mrow>I_x \amp = \sum (I_x)_i =\inch{3202}^4\amp I_y \amp = \sum (I_y)_i = \inch{18951}^4</mrow>
-              </md>
-            </p>
-            <p>Alternately, you could find the moments of inertia by adding the sums of the columns, since you are adding the same values together, just in a different order.
+          <p>
+            <ol>
+              <li>
+                <title>Strategy</title>
+                <p>Organize all the necessary information into a table, then total  the moments of inertia of the parts to get the moment of inertia of the whole shape.  Remember that the hole is removed from the shape, so its contribution to the total moment of inertia is negative.</p>
+              </li>
+              <li>
+                <title>Table</title>
+                <tabular bottom="minor" halign="center">
+                  <row bottom="none">
+                    <cell>Part </cell>
+                    <cell>
+                      <m>A_i</m>
+                    </cell>
+                    <cell>
+                      <m>d_{x_i}</m>
+                    </cell>
+                    <cell>
+                      <m>d_{y_i}</m>
+                    </cell>
+                    <cell>
+                      <m>A_i d_{x}^2</m>
+                    </cell>
+                    <cell>
+                      <m>A d_{y}^2</m>
+                    </cell>
+                    <cell>
+                      <m>\bar{I}_x</m>
+                    </cell>
+                    <cell>
+                      <m>\bar{I}_y</m>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell>Units </cell>
+                    <cell>
+                      <m>\text{in}^2</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}^4</m>
+                    </cell>
+                    <cell>
+                      <m>\text{in}^4</m>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell>
+                      <line>Rectangle 1</line>
+                      <line>
+                        <m>b = 14,</m>
+                      </line>
+                      <line>
+                        <m>h = 10</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m>bh</m>
+                      </line>
+                      <line>
+                        <m>=140</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>7</line>
+                    </cell>
+                    <cell> -3 </cell>
+                    <cell> 6860</cell>
+                    <cell> 1260 </cell>
+                    <cell>
+                      <line>
+                        <m>bh^3/12</m>
+                      </line>
+                      <line>
+                        <m>=1167</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m>b^3h/12</m>
+                      </line>
+                      <line>
+                        <m>=2287</m>
+                      </line>
+                    </cell>
+                  </row>
+                  <row>
+                    <cell>
+                      <line>Triangle 2</line>
+                      <line>
+                        <m>b = 8,</m>
+                      </line>
+                      <line>
+                        <m>h = 10</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m>bh/2</m>
+                      </line>
+                      <line>
+                        <m>=40</m>
+                      </line>
+                    </cell>
+                    <cell> 16.67</cell>
+                    <cell>-4.67</cell>
+                    <cell> 11111 </cell>
+                    <cell> 871.1 </cell>
+                    <cell>
+                      <line>
+                        <m>bh^3/36</m>
+                      </line>
+                      <line>
+                        <m>=222.2</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m>b^3h/12</m>
+                      </line>
+                      <line>
+                        <m>=142.2</m>
+                      </line>
+                    </cell>
+                  </row>
+                  <row bottom="major">
+                    <cell>
+                      <line>Circular Hole 3</line>
+                      <line>
+                        <m>r = 3</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m> -\pi r^2</m>
+                      </line>
+                      <line>
+                        <m>=-28.27</m>
+                      </line>
+                    </cell>
+                    <cell>7</cell>
+                    <cell>-3</cell>
+                    <cell>-1385</cell>
+                    <cell>-254.5 </cell>
+                    <cell>
+                      <line>
+                        <m>-\pi r^4/4</m>
+                      </line>
+                      <line>
+                        <m>=-63.62</m>
+                      </line>
+                    </cell>
+                    <cell>
+                      <line>
+                        <m>-\pi r^4/4</m>
+                      </line>
+                      <line>
+                        <m>=-63.62</m>
+                      </line>
+                    </cell>
+                  </row>
+                  <row bottom="none">
+                    <cell> Total</cell>
+                    <cell> 151.7 </cell>
+                    <cell/>
+                    <cell/>
+                    <cell> 16586 </cell>
+                    <cell> 1877 </cell>
+                    <cell> 1325 </cell>
+                    <cell> 2365 </cell>
+                  </row>
+                </tabular>
+              </li>
+              <li>
+                <title>Total</title>
+                <p>
+                  <md>
+                    <mrow>(I_x)_1 \amp =  \left[ \bar{I}_x + A d_y^2 \right]_1=  \inch{2427}^4  \amp (I_y)_1 \amp =  \left[\bar{I}_y + A d_x^2\right]_1  =  \inch{9147}^4</mrow>
+                    <mrow>(I_x)_2 \amp =  \left[\bar{I}_x + A d_y^2\right]_2 =  \inch{1093}^4 \amp (I_y)_2 \amp =  \left[\bar{I}_y + A d_x^2\right]_2  =  \inch{11253}^4</mrow>
+                    <mrow>(I_x)_3 \amp =  \left[\bar{I}_x + A d_y^2\right]_3 =  -\inch{318.1}^4 \amp(I_y)_3 \amp =  \left[\bar{I}_y + A d_x^2\right]_3  =  -\inch{1449}^4</mrow>
+                    <mrow>I_x \amp = \sum (I_x)_i =\inch{3202}^4\amp I_y \amp = \sum (I_y)_i = \inch{18951}^4</mrow>
+                  </md>
+                </p>
+                <p>Alternately, you could find the moments of inertia by adding the sums of the columns, since you are adding the same values together, just in a different order.
 <md><mrow>I_x \amp = \sum \bar{I}_x  + \sum Ad_y^2=\inch{3202}^4\amp I_y \amp = \sum \bar{I}_y + \sum A d_x^2= \inch{18951}^4</mrow></md>
-                  </p>
-          </paragraphs>
+                        </p>
+              </li>
+            </ol>
+          </p>
         </solution>
       </example>
       <example xml:id="Chapter_10-example-interactive--composite-rectangles">
@@ -1430,34 +1468,38 @@ Beam Nomenclature
           </p>
         </answer>
         <solution>
-          <paragraphs>
-            <title>Strategy</title>
-            <p>Determine the properties of the sub shapes with respect to the <m>x</m> axis, and then use them to find the neutral axis.  </p>
-            <p>Use the parallel axis theorem to find the moment of inertia of the parts with respect to the neutral axis.  </p>
-            <p>Take advantage of the fact that the two angles are identical and positioned similarly. </p>
-          </paragraphs>
-          <paragraphs>
-            <title>Find the neutral axis</title>
-            <p>For one L<m>8\times 4\times 1/2</m> angle, from <xref ref="AISC-angles"/>
-                     <md><mrow>A_\text{L} \amp =  \inch{4.75}^2</mrow><mrow>\bar{y}_\text{L} \amp =  \inch{1.98}</mrow><mrow>\bar{I}_\text{L} \amp =  \inch{17.3}^4</mrow></md>.</p>
-            <p>For the <m>b = \inch{8},</m>
-                     <m>h = \inch{1}</m> rectangle
+          <p>
+            <ol>
+              <li>
+                <title>Strategy</title>
+                <p>Determine the properties of the sub shapes with respect to the <m>x</m> axis, and then use them to find the neutral axis.  </p>
+                <p>Use the parallel axis theorem to find the moment of inertia of the parts with respect to the neutral axis.  </p>
+                <p>Take advantage of the fact that the two angles are identical and positioned similarly. </p>
+              </li>
+              <li>
+                <title>Find the neutral axis</title>
+                <p>For one L<m>8\times 4\times 1/2</m> angle, from <xref ref="AISC-angles"/>
+                           <md><mrow>A_\text{L} \amp =  \inch{4.75}^2</mrow><mrow>\bar{y}_\text{L} \amp =  \inch{1.98}</mrow><mrow>\bar{I}_\text{L} \amp =  \inch{17.3}^4</mrow></md>.</p>
+                <p>For the <m>b = \inch{8},</m>
+                           <m>h = \inch{1}</m> rectangle
 <md><mrow>A_\text{R} \amp =  bh = \inch{8}^2</mrow><mrow>\bar{y}_\text{R} \amp  =-h/2 = \inch{-0.5}</mrow><mrow>\bar{I}_\text{R}  \amp =  \frac{bh^3}{12}  =  \frac{8}{12}  =   \inch{6.67}^4</mrow></md>.</p>
-            <p>Find the distance to the neutral axis
+                <p>Find the distance to the neutral axis
 <md><mrow>\bar{y} \amp =  \frac{\sum A_i \bar{y_i}}{\sum A_i} =  \frac{ 2 A_\text{L} \bar{y}_\text{L} + A_\text{R} \bar{y}_\text{R} } {2 A_\text{L} + A_\text{R}}</mrow><mrow>\amp =  \frac{ 2 (4.75)(1.98) + (4)(-0.5)} { 2(4.75) + 4}</mrow><mrow>\bar{y} \amp =  \inch{1.245}</mrow></md>.</p>
-          </paragraphs>
-          <paragraphs>
-            <title>Find the Moment of Inertia </title>
-            <p>The distance between  the neutral axis is and the centroids of the subparts are 
+              </li>
+              <li>
+                <title>Find the Moment of Inertia </title>
+                <p>The distance between  the neutral axis is and the centroids of the subparts are 
 <md><mrow>d_\text{R} \amp =  | \bar{y} - \bar{y}_\text{R} |  =  | 1.245 - (-.0.5)| =  \inch{1.745}</mrow><mrow>d_\text{L} \amp =  | \bar{y} - \bar{y}_\text{L} | =  | 1.245 - 1.98|  = \inch{0.735}</mrow></md>.</p>
-            <p>The moment of inertia of the rectangle about the <m>x'</m> axis
+                <p>The moment of inertia of the rectangle about the <m>x'</m> axis
 <md><mrow>I_x' \amp =  [\bar{I} + A d^2]_\text{R}</mrow><mrow>\amp =   6.67 + (4)(1.745)^2 </mrow><mrow>\amp =  \inch{18.85}^4</mrow></md>.</p>
-            <p>The moment of inertia of one angle about the <m>x'</m> axis
+                <p>The moment of inertia of one angle about the <m>x'</m> axis
 <md><mrow>I_x' \amp =  [\bar{I} + A d^2]_\text{R}</mrow><mrow>\amp =   17.3 + (4.75)(0.735)^2 </mrow><mrow>\amp =  \inch{19.87}^4</mrow></md>.</p>
-            <p>The moment of inertia of the built up beam about the neutral axis
+                <p>The moment of inertia of the built up beam about the neutral axis
 <md><mrow>I_{x'} \amp = \sum (I_{x'})_i  </mrow><mrow> \amp =   2 (I_{x'})_\text{L} + (I_{x'})_\text{R}
 </mrow><mrow>\amp =  2(19.87) + 18.85</mrow><mrow>I_{x'} \amp =  \inch{58.6}^4</mrow></md>.</p>
-          </paragraphs>
+              </li>
+            </ol>
+          </p>
         </solution>
       </example>
     </subsection>

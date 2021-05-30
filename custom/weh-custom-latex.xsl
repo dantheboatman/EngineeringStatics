@@ -15,8 +15,9 @@
 <!--xsl:param name="watermark.text" select="concat(date:day-in-month(),' ',date:month-name(), ' ', date:year())"/-->
  
 
- <xsl:template match="example" mode="tcb-style">
+<!-- remove aliceblue background on examples
+  <xsl:template match="example" mode="tcb-style">
   <xsl:text>colback=aliceblue,</xsl:text>
  </xsl:template>
-
+-->
 </xsl:stylesheet>
