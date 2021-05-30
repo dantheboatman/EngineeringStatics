@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Statics: Section Cut Method</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://sagecell.sagemath.org/embedded_sagecell.js"></script><script>window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    useLabelIds: true,
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore",
+    processHtmlClass: "has_am",
+  },
+  chtml: {
+    scale: 0.88,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/0.13/pretext_add_on.js"></script><script xmlns:svg="http://www.w3.org/2000/svg" src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script xmlns:svg="http://www.w3.org/2000/svg">sagecellEvalName='Evaluate (Sage)';
+</script><link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/banner_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/toc_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/knowls_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/style_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/colors_default.css" rel="stylesheet" type="text/css">
+<link xmlns:svg="http://www.w3.org/2000/svg" href="https://pretextbook.org/css/0.31/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="statics.css">
+<!-- 2019-10-12: Temporary - CSS file for experiments with styling --><link xmlns:svg="http://www.w3.org/2000/svg" href="developer.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="mathbook-book has-toc has-sidebar-left">
+<a class="assistive" href="#content">Skip to main content</a><div xmlns:svg="http://www.w3.org/2000/svg" id="latex-macros" class="hidden-content" style="display:none">\(\require{cancel} \let\vecarrow\vec
+ \renewcommand{\vec}{\mathbf}
+ \newcommand{\ihat}{\vec{i}}
+ \newcommand{\jhat}{\vec{j}}
+ \newcommand{\khat}{\vec{k}}
+ \DeclareMathOperator{\proj}{proj}
+
+
+
+ 
+ \newcommand{\kg}[1]{#1~\text{kg} }
+ \newcommand{\lbm}[1]{#1~\text{lb}_m }
+ \newcommand{\slug}[1]{#1~\text{slug} }
+
+ 
+ \newcommand{\m}[1]{#1~\text{m}}
+ \newcommand{\km}[1]{#1~\text{km}}
+ \newcommand{\cm}[1]{#1~\text{cm}}
+ \newcommand{\mm}[1]{#1~\text{mm}}
+ \newcommand{\ft}[1]{#1~\text{ft}}
+ \newcommand{\inch}[1]{#1~\text{in}}
+
+ 
+ \newcommand{\N}[1]{#1~\text{N} }
+ \newcommand{\kN}[1]{#1~\text{kN} }
+ \newcommand{\MN}[1]{#1~\text{MN} }
+ \newcommand{\lb}[1]{#1~\text{lb} }
+ \newcommand{\lbf}[1]{#1~\text{lb}_f }
+
+ 
+  \newcommand{\Nm}[1]{#1~\text{N}\!\cdot\!\text{m} }
+  \newcommand{\kNm}[1]{#1~\text{kN}\!\cdot\!\text{m} }
+  \newcommand{\ftlb}[1]{#1~\text{ft}\!\cdot\!\text{lb} }
+  \newcommand{\inlb}[1]{#1~\text{in}\!\cdot\!\text{lb} }
+  
+  
+  \newcommand{\lbperft}[1]{#1~\text{lb}/\text{ft} }
+  \newcommand{\lbperin}[1]{#1~\text{lb}/\text{in} }
+  \newcommand{\Nperm}[1]{#1~\text{N}/\text{m} }
+  \newcommand{\kgperkm}[1]{#1~\text{kg}/\text{km} }
+  \newcommand{\psinch}[1]{#1~\text{lb}/\text{in}^2 }
+  \newcommand{\pqinch}[1]{#1~\text{lb}/\text{in}^3 }
+   \newcommand{\psf}[1]{#1~\text{lb}/\text{ft}^2 }
+  \newcommand{\pqf}[1]{#1~\text{lb}/\text{ft}^3 }
+  \newcommand{\Nsm}[1]{#1~\text{N}/\text{m}^2 }
+  \newcommand{\kgsm}[1]{#1~\text{kg}/\text{m}^2 }
+  \newcommand{\kgqm}[1]{#1~\text{kg}/\text{m}^3 }
+  \newcommand{\Pa}[1]{#1~\text{Pa} }
+  \newcommand{\kPa}[1]{#1~\text{kPa} }
+
+  
+  
+ \newcommand{\aSI}[1]{#1~\text{m}/\text{s}^2 }
+  \newcommand{\aUS}[1]{#1~\text{ft}/\text{s}^2 } 
+  
+  
+  \newcommand{\unit}[1]{#1~\text{unit} }
+  \newcommand{\ang}[1]{#1^\circ }
+  \newcommand{\second}[1]{#1~\text{s} }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\)</div>
+<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="images/Cover_Screenshot_notext_144x144.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+</div></div>
+<nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
+<div class="navbar-top-buttons">
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="VM_diagrams.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_08.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="VM_relations.html" title="Next">Next</a></span></div>
+</div>
+<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="VM_diagrams.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_08.html" title="Up">Up</a><a class="next-button button toolbar-item" href="VM_relations.html" title="Next">Next</a>
+</div>
+</div></nav></header><div class="page">
+<div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<nav id="toc"><ul>
+<li class="link frontmatter">
+<a href="frontmatter.html" data-scroll="frontmatter"><span class="title">Front Matter</span></a><ul>
+<li><a href="acknowledgement.html" data-scroll="acknowledgement">Acknowledgements</a></li>
+<li><a href="preface.html" data-scroll="preface">Preface</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_01.html" data-scroll="Chapter_01"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
+<li><a href="newtons-laws.html" data-scroll="newtons-laws">Newton’s Laws of Motion</a></li>
+<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units">Units</a></li>
+<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces">Forces</a></li>
+<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving">Problem Solving</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_02.html" data-scroll="Chapter_02"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
+<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors">Vectors</a></li>
+<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors">One-Dimensional Vectors</a></li>
+<li><a href="cartesian-coords-2d.html" data-scroll="cartesian-coords-2d">Two Dimensional Coordinate Systems</a></li>
+<li><a href="coordinates-3d.html" data-scroll="coordinates-3d">Three Dimensional Coordinate Systems</a></li>
+<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors">Unit Vectors</a></li>
+<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D">Vector Addition</a></li>
+<li><a href="dot_products_2D.html" data-scroll="dot_products_2D">Dot Products</a></li>
+<li><a href="cross-product-math.html" data-scroll="cross-product-math">Cross Products</a></li>
+<li><a href="exercises-1.html" data-scroll="exercises-1">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_03.html" data-scroll="Chapter_03"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
+<li><a href="ch3-intro.html" data-scroll="ch3-intro">Equilibrium</a></li>
+<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles">Particles</a></li>
+<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles">Particles in One Dimension</a></li>
+<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles">Particles in Two Dimensions</a></li>
+<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles">Particles in Three Dimensions</a></li>
+<li><a href="exercises-2.html" data-scroll="exercises-2">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
+<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
+<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
+<li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
+<li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
+<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems">Statically Equivalent Systems</a></li>
+<li><a href="exercises-3.html" data-scroll="exercises-3">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_05.html" data-scroll="Chapter_05"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
+<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom">Degree of Freedom</a></li>
+<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams">Free Body Diagrams</a></li>
+<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium">Equations of Equilibrium</a></li>
+<li><a href="Chapter_05-2d-rigid-body-equilibrium.html" data-scroll="Chapter_05-2d-rigid-body-equilibrium">2D Rigid Body Equilibrium</a></li>
+<li><a href="Chapter_05-3d-rigid-body-equilibrium.html" data-scroll="Chapter_05-3d-rigid-body-equilibrium">3D Rigid Body Equilibrium</a></li>
+<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy">Stability and Determinacy</a></li>
+<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-">Equilibrium Examples</a></li>
+<li><a href="exercises-4.html" data-scroll="exercises-4">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_06.html" data-scroll="Chapter_06"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
+<li><a href="Chapter_06-structures.html" data-scroll="Chapter_06-structures">Structures</a></li>
+<li><a href="Chapter_06-interactions-between-members.html" data-scroll="Chapter_06-interactions-between-members">Interactions between members</a></li>
+<li><a href="Chapter_06-trusses.html" data-scroll="Chapter_06-trusses">Trusses</a></li>
+<li><a href="method-of-joints.html" data-scroll="method-of-joints">Method of Joints</a></li>
+<li><a href="method-of-sections.html" data-scroll="method-of-sections">Method of Sections</a></li>
+<li><a href="frames-and-machines.html" data-scroll="frames-and-machines">Frames and Machines</a></li>
+<li><a href="Chapter_06-summary.html" data-scroll="Chapter_06-summary">Summary</a></li>
+<li><a href="exercises-5.html" data-scroll="exercises-5">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_07.html" data-scroll="Chapter_07"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
+<li><a href="weghted-average.html" data-scroll="weghted-average">Weighted Averages</a></li>
+<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity">Center of Gravity</a></li>
+<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass">Center of Mass</a></li>
+<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids">Centroids</a></li>
+<li><a href="composite-parts.html" data-scroll="composite-parts">Centroids using Composite Parts</a></li>
+<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function">Average Value of a Function</a></li>
+<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration">Centroids using Integration</a></li>
+<li><a href="distributed-loads.html" data-scroll="distributed-loads">Distributed Loads</a></li>
+<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics">Fluid Statics</a></li>
+<li><a href="exercises-6.html" data-scroll="exercises-6">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_08.html" data-scroll="Chapter_08"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
+<li><a href="Chapter_08-internal-loads.html" data-scroll="Chapter_08-internal-loads">Internal Loads</a></li>
+<li><a href="VM_sign_convention.html" data-scroll="VM_sign_convention">Sign Conventions</a></li>
+<li><a href="internal_load_at_point.html" data-scroll="internal_load_at_point">Internal Loads at a Point</a></li>
+<li><a href="VM_diagrams.html" data-scroll="VM_diagrams">Shear and Bending Moment Diagrams</a></li>
+<li><a href="section_cut_method.html" data-scroll="section_cut_method" class="active">Section Cut Method</a></li>
+<li><a href="VM_relations.html" data-scroll="VM_relations">Relation Between Loading, Shear and Moment</a></li>
+<li><a href="graphical_method.html" data-scroll="graphical_method">Graphical Method</a></li>
+<li><a href="integration_method.html" data-scroll="integration_method">Integration Method</a></li>
+<li><a href="Chapter_08-geogebra-interactives.html" data-scroll="Chapter_08-geogebra-interactives">Geogebra Interactives</a></li>
+<li><a href="Chapter_08-summary.html" data-scroll="Chapter_08-summary">Summary</a></li>
+<li><a href="exercises-7.html" data-scroll="exercises-7">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_09.html" data-scroll="Chapter_09"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
+<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction">Dry Friction</a></li>
+<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction">Block and Wedge Friction</a></li>
+<li><a href="Chapter_09-slipping-vs--tipping.html" data-scroll="Chapter_09-slipping-vs--tipping">Slipping vs. Tipping</a></li>
+<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction">Screw Friction</a></li>
+<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction">Flexible Belt Friction</a></li>
+<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction">Journal Bearing Friction</a></li>
+<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction">Disc Friction</a></li>
+<li><a href="exercises-8.html" data-scroll="exercises-8">Exercises</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="Chapter_10.html" data-scroll="Chapter_10"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
+<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes">Integral Properties of Shapes</a></li>
+<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes">Moments of Inertia of Common Shapes</a></li>
+<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section">Parallel Axis Theorem</a></li>
+<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes">Moment of Inertia of Composite Shapes</a></li>
+<li><a href="polar-moment.html" data-scroll="polar-moment">Polar Moment of Inertia</a></li>
+<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec">Radius of Gyration</a></li>
+<li><a href="products-of-inertia.html" data-scroll="products-of-inertia">Products of Inertia</a></li>
+<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia">Mass Moment of Inertia</a></li>
+<li><a href="exercises-9.html" data-scroll="exercises-9">Exercises</a></li>
+</ul>
+</li>
+<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter"><span class="title">Back Matter</span></a></li>
+<li class="link"><a href="notation.html" data-scroll="notation"><span class="codenumber">A</span> <span class="title">Notation</span></a></li>
+<li class="link">
+<a href="useful-mathematics.html" data-scroll="useful-mathematics"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a><ul>
+<li><a href="distance-formula.html" data-scroll="distance-formula">Distance Formula</a></li>
+<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa">Right Triangle Trigonometry</a></li>
+<li><a href="los-loc.html" data-scroll="los-loc">Oblique Triangle Trigonometry</a></li>
+</ul>
+</li>
+<li class="link">
+<a href="AISC-properties.html" data-scroll="AISC-properties"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a><ul>
+<li><a href="AISC-angles.html" data-scroll="AISC-angles">Angles</a></li>
+<li><a href="AISC-channels.html" data-scroll="AISC-channels">Channels</a></li>
+<li><a href="AISC-standard-sections.html" data-scroll="AISC-standard-sections">Standard Sections</a></li>
+<li><a href="AISC-wide-flange.html" data-scroll="AISC-wide-flange">Wide Flange Sections</a></li>
+</ul>
+</li>
+</ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
+</div></div>
+<main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="section_cut_method"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">8.5</span> <span class="title">Section Cut Method</span>
+</h2>
+<p id="p-1548">In this section we'll extend the method of <a href="internal_load_at_point.html" class="internal" title="Section 8.3: Internal Loads at a Point">Section 8.3</a> where we found internal loadings at a specific point to make shear and bending moment diagrams.  The procedure is similar except that the cut is taken at a variable position designated by \(x\) instead of at a specified point.  The analysis produces <em class="emphasis">equations</em> for shear and bending moments as functions of \(x\text{.}\)  Shear and bending moment diagrams are plots of these equations, and the internal loads at any particular point can be found by substituting the point’s location into the equations.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:55%;"><p id="p-1549">As an example, we will use a cantilevered beam fixed to a wall on its left end and subject to a vertical force \(P\) on its right end as an example.  Global equilibrium requires that the reactions at the fixed support at \(A\) are a vertical force \(A_y = P\text{,}\) and a counter-clockwise moment \(M_A = P L\text{.}\)</p></div>
+<div class="sbspanel middle" style="width:40%;"><img src="images/cantilevered-beam-ex0.svg" role="img" class="contained" alt=""></div>
+</div></div>
+<p id="p-1550">By taking a cut at a distance \(x\) from the left we can draw two free-body diagrams with lengths \(x\) and \((L-x)\text{.}\)  This beam has <em class="emphasis">one</em> loading segment, because no matter where \(x\) is chosen, the free-body diagrams shown in <a class="xref" data-knowl="./knowl/cuts_1.html" title="Figure 8.5.1">Figure 8.5.1</a> (b) and (c) are correct.  The internal loadings are named \(V(x)\) and \(M(x)\) to indicate that they are functions of \(x\text{.}\)</p>
+<figure class="figure figure-like" id="cuts_1"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="figure-139"><img src="images/cantilevered-beam-ex1.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Cut at position \(x\text{.}\)</figcaption></figure></div>
+<div class="sbspanel top" style="width:25%;"><figure class="figure figure-like" id="figure-140"><img src="images/cantilevered-beam-ex2.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Left FBD.</figcaption></figure></div>
+<div class="sbspanel top" style="width:25%;"><figure class="figure figure-like" id="figure-141"><img src="images/cantilevered-beam-ex3.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(c)</span><span class="space"> </span>Right FBD.</figcaption></figure></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.5.1<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1551">To find the shear and loading functions, we apply the equilibrium to one of the free-body diagrams.  Either side will work, so we’ll select the right-hand portion as it doesn’t require us to find the reactions at \(A\text{.}\)  Letting \(L\) be the length of the beam and \((L-x)\) the length of the right portion, we find</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:15%;margin-right:15%;">
+<div class="sbspanel top" style="width:50%;"><div class="displaymath" id="p-1552">
+\begin{align*}
+\Sigma F_y \amp = 0 \amp \Sigma M_\text{cut} \amp = 0\\
+V(x) \amp = P \amp M(x) \amp = - P(L-x)
+\end{align*}
+</div></div>
+<div class="sbspanel top" style="width:35.7142857142857%;"><img src="images/cantilevered-beam-ex3.svg" role="img" class="contained" alt=""></div>
+</div></div>
+<p id="p-1553">The plots of the equations for \(V(x)\) and \(M(x)\) are shown below in <a class="xref" data-knowl="./knowl/vm-cantilever.html" title="Figure 8.5.2">Figure 8.5.2</a>.  These equations indicate that the shear force \(V(x)\) is constant \(P\) over the length of the beam and the moment \(M(x)\) is a linear function of the position of the cut, \(x\) starting at \(-PL\) at \(x=0\) and linearly increasing to zero at \(x=L\text{.}\) Note that the graphs are only valid from \(0 \le x \le L\text{,}\) so the curves outside this range is show as dotted lines.  These two graphs are usually drawn stacked beneath the diagram of the beam and loading.</p>
+<figure class="figure figure-like" id="vm-cantilever"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;">
+<div class="sbspanel top" style="width:44.4444444444444%;"><figure class="figure figure-like" id="figure-143"><img src="images/cantilever-V.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(a)</span><span class="space"> </span>\(V(x)\) vs. \(x\)</figcaption></figure></div>
+<div class="sbspanel top" style="width:44.4444444444444%;"><figure class="figure figure-like" id="figure-144"><img src="images/cantilever-M.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(b)</span><span class="space"> </span>\(M(x)\) vs. \(x\)</figcaption></figure></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.5.2<span class="period">.</span></span><span class="space"> </span>Shear and Bending Moment Diagrams</figcaption></figure><p id="p-1554">The previous example was simple because because only one <abbr class="acronym">FBD</abbr> was necessary for any point on the beam, but many beams are more complex.  Beams with multiple loads must be divided into loading segments between the points where loads are applied or where distributed loads begin or end.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:55%;"><p id="p-1555">Consider the simply supported beam \(AD\) with a uniformly distributed load load \(w\) over the first segment from \(A\) to \(B\text{,}\) and two vertical loads \(B\) and  \(C\text{.}\)</p></div>
+<div class="sbspanel middle" style="width:40%;"><img src="images/simple-beam-ex0.svg" role="img" class="contained" alt=""></div>
+</div></div>
+<p id="p-1556">This beam has three loading segments so you must draw three free-body diagrams and analyze each segment independently. For each, make an imaginary cut through the segment, then draw a new free-body diagram of the portion to the left (or right) of the cut.  Always assume that the exposed internal shear force and internal bending moment act in the positive direction according to the <a href="VM_sign_convention.html" class="internal" title="Section 8.2: Sign Conventions">sign convention</a>.</p>
+<figure class="figure figure-like" id="figure-145"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:20%;"><figure class="figure figure-like" id="figure-146"><img src="images/simple-beam-ex1.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(a)</span><span class="space"> </span>\(0 \lt x \lt 1\)</figcaption></figure></div>
+<div class="sbspanel top" style="width:30%;"><figure class="figure figure-like" id="figure-147"><img src="images/simple-beam-ex2.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(b)</span><span class="space"> </span>\(1 \lt x \lt 2\)</figcaption></figure></div>
+<div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="figure-148"><img src="images/simple-beam-ex3.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(c)</span><span class="space"> </span>\(2 \lt x \lt 3 \)</figcaption></figure></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.5.3<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1557">After the equilibrium equations are applied to each segment, the resulting equations \(V(x)\) and \(M(x)\) from each segment are joined to plot the shear and moment diagrams.  These diagrams help us visualize the values of \(V\) and \(M\) throughout the beam.</p></section></div></main>
+</div>
+</body>
+</html>
