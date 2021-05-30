@@ -1,41 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_08">
   <title>Internal Loadings</title>
-  <objectives>
-    <ul>
-      <li>Identify the three basic internal loadings in two-dimensional systems.</li>
-      <li>Articulate the standard sign convention for internal forces.</li>
-      <li>Develop free-body diagrams that include internal loads.</li>
-      <li>Use static equilibrium to calculate the unknown internal loadings at a single point on a rigid body.</li>
-      <li>Articulate the mathematical relationship between load, shear, and moment in beams.</li>
-      <li>Construct shear and bending moment diagrams using multiple approaches.</li>
-    </ul>
-  </objectives>
   <introduction>
     <p>One of the fundamental assumptions we make in statics is that bodies are <em>rigid</em>, that is, they do not deform, bend, or change shape when forces and moments are applied. While we know that this assumption is not true for real materials, we are building the analytical tools necessary to analyze deformation. In this chapter you will learn to compute the internal loads, which are the forces and moments within a body which hold it together as it supports its own weight and any applied loads. </p>
     <p>The chapter begins with a discussion of internal forces and moments and defines a new sign conventions especially for them.  Discussion of how to find internal loads at a specific point within a rigid body follows.  The chapter concludes with three techniques to find internal loads throughout a beam. Note that the words <em>loads</em> or <em>loading</em> as opposed to <em>forces</em> are used here when we are referring to both forces and bending moments.</p>
-    <p>In courses you take after statics, finding the internal loading is the first step you will take to determine stresses, strains, deformations and ultimately select the appropriate shape, size, and material necessary for structural elements to safely support the applied loads. So you are advised to pay attention, and master this topic.</p>
-    <insight>
-      <title>Deformation</title>
-      <p>The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials (like drywall). For example, for a <m>\ft{20}</m> span, the deflection would need to be less than <me>\delta = \dfrac{\ft{20} \cdot \dfrac{\inch{12}}{\ft{1}}}{360}=\inch{0.667}</me>.</p>
-      <p/>
-      <p>To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal loadings that arise from the externally applied loads, which you will learn in this chapter.</p>
-    </insight>
+    <p>In courses you take after statics, determining the internal loading is the first step you will take to find stresses, strains, deformations and ultimately select the appropriate shape, size, and material necessary for structural elements to safely support the applied loads. So you are advised to pay attention, and master this topic.</p>
   </introduction>
   <section xml:id="Chapter_08-internal-loads">
     <title>Internal Loads</title>
-    <p>In <xref ref="two-force-bodies"/> you were introduced to axial internal loadings, loadings which were either tension or compression, or possibly zero. This section will explain two other internal loads found in two-dimensional systems, the internal shear and internal bending moment.</p>
+    <p>In <xref ref="two-force-bodies"/> you were introduced to axial internal loadings, loadings which were either tension or compression, or possibly zero. This section will explain two other internal loads found in two-dimensional systems, the <term>internal</term>
+         <term>shear</term> and <term>internal</term>
+         <term>bending moment</term>.</p>
     <p>Internal loads are present at every point within a rigid body, but they always occur in equal-and-opposite pairs which cancel each other out, so they’re not obvious.  They’re there however, and when an object is cut (in your imagination) into two parts the internal loads become visible and can be determined. </p>
-    <p>You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end.  Now imagine that we cut the member at some point along its length.  To maintain equilibrium, forces must exist at the cut location.  These forces are the internal forces and they are act in the axial direction along the long axis of the member.</p>
+    <p>You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end.  Now imagine that we cut the member at some point along its length.  To maintain equilibrium forces must exist at the cut, equal and opposite to the external forces. These forces are internal forces.</p>
     <p/>
     <figure xml:id="ggb_tension_compression">
       <caption>Internal Loading in a straight two-force member.</caption>
       <xi:include href="interactives.ptx" xpointer="ggb_tension_compression_interactive"/>
     </figure>
-    <p>Now let’s examine the two-force member shown in <xref ref="dogleg_cut"/>. This time, the member is <em>L</em> shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding forces perpendicular to the cuts won't produce static equilibrium since the forces aren't in opposing directions.  If you cut vertically and apply horizontal forces, that won't produce equilibrium either because equal and opposite forces offset like this form a couple and the pieces will rotate. This means that something is missing!</p>
+    <p>Now let’s examine the two-force member shown in <xref ref="dogleg_cut"/>. This time, the member is <em>L</em> shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding an equal and opposite horizontal force at the cut won't produce static equilibrium because the two forces form a couple which causes the piece to rotate. This means that something is missing!</p>
     <figure xml:id="dogleg_cut">
-      <caption>An L shaped two-force member shown in equilibrium and after being cut into sections and an horizontal force applied. This force alone does not create equilibrium.</caption>
-      <image width="90%" source="images/dogleg_4">
+      <caption>A horizontal force alone does not create equilibrium.</caption>
+      <image width="60%" source="images/dogleg-cut">
         <remix>
           <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
           <license href="https://creativecommons.org/choose/zero/"/>
@@ -43,950 +29,731 @@
       </image>
     </figure>
     <p/>
-    <p>If you recall, two dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy for static equilibrium.</p>
-    <p><m>\Sigma F_x = 0</m> prevented translation in the <m>x</m> direction, </p>
-    <p><m>\Sigma F_y = 0</m> prevented translation in the <m>y</m> direction, and </p>
-    <p><m>\Sigma M_z = 0</m> prevented rotation. </p>
-    <p>	Since we know the two halves must be in equilibrium, we must balance forces in the <m>x</m> and <m>y</m> directions and clockwise and counterclockwise moments. Assuming the material is rigid, the connection between the two halves resists both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction and a couple-moment reaction as shown in the free-body diagrams of <xref ref="dogleg_cut_fbd"/>. We have resolved the force reaction into components parallel and perpendicular to the cut, and these components have special names in the context of internal loads: </p>
-    <p>	The internal force component perpendicular to the cut is called the <term>normal force</term>. This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the the normal force may also be properly called an <term>axial force</term>.</p>
-    <p>	The internal force component parallel to the cut is called the <term>shear force</term>. The word shear refers to the shearing between that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.</p>
-    <p>	The internal couple-moment is called the <term>bending moment</term> because it tends to bend the material by rotating the cut surface. </p>
-    <p>	To be concise, the shear force is often simply referred to as <term>shear,</term> and the bending moment as <term>moment</term>; together with the normal or axial force the three are referred to as the <q>internal loading</q>.  The symbol <m>\vec{V}</m> is commonly chosen for the shear force, and <m>\vec{A}</m>, <m>\vec{P}</m> or <m>\vec{N}</m> for the normal force.</p>
-    <p/>
-    <figure xml:id="dogleg_cut_fbd">
+    <p>Two-dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy for static equilibrium.
+<md><mrow>\Sigma F_x \amp =  0 \amp \amp \text{ prevents translation in the} x \text{ direction,} </mrow><mrow>\Sigma F_y \amp =  0 \amp \amp \text{ prevents translation in the} y \text{ direction, and} </mrow><mrow>\Sigma M \amp =  0 \amp\amp \text{ prevents rotation.} </mrow></md>
+      </p>
+    <p>Assuming the material is rigid, the connection between the two halves must resist both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction <em>and</em> a couple-moment reaction as shown in the free-body diagrams of <xref ref="dogleg-internal"/>. This internal loading is actually a simplification of a more complex loading distributed across the section plane. The couple <m>\vec{M}</m> represents the net rotational effect of the force system on the surface of the cut.</p>
+    <figure xml:id="dogleg-internal">
       <caption>
-The object from <xref ref="dogleg_cut"/> showing the actual internal loading consisting of a normal force <m>\vec{A}</m>, a shear force <m>\vec{V}</m>, and bending moment <m>\vec{M}</m>
+The internal loading represented as an equal and opposite force <m>\vec{F}</m> and a bending moment <m>\vec{M}</m>
          </caption>
-      <image width="75%" source="images/dogleg_fbd.png">
+      <image width="60%" source="images/dogleg-internal">
         <remix>
           <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
           <license href="https://creativecommons.org/choose/zero/"/>
         </remix>
       </image>
     </figure>
+    <p>The horizontal force can also be resolved into orthogonal components parallel and perpendicular to the cut. These components have special names in the context of internal loads. </p>
+    <figure>
+      <caption>The internal loading represented as a normal force <m>\vec{N}</m>, a shear force <m>\vec{V}</m>, and bending moment <m>\vec{M}</m>
+         </caption>
+      <image width="60%" source="images/dogleg-V-M">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/choose/zero/"/>
+        </remix>
+      </image>
+    </figure>
+    <p/>
+    <p>The internal force component perpendicular to the cut is called the <term>normal force</term>. This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the the normal force may also be properly called an <term>axial force</term>.</p>
+    <p>The internal force component parallel to the cut is called the <term>shear force</term>. The word shear refers to the shearing between that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.</p>
+    <p>The internal couple-moment is called the <term>bending moment</term> because it tends to bend the material by rotating the cut surface. </p>
+    <p>The shear force is often simply referred to as <term>shear,</term> and the bending moment as <term>moment</term>; together with the normal or axial force the three are referred to as the <q>internal loading</q>.  The symbol <m>\vec{V}</m> is commonly chosen for the shear force, and <m>\vec{A}</m>, <m>\vec{P}</m> or <m>\vec{N}</m> for the normal force and <m>\vec{M}</m> for the bending moment.</p>
+    <p/>
     <figure xml:id="ggb_bell_crank">
       <caption>
-Internal Loading in a straight two-force member.</caption>
+Internal Loading in a L shaped member.</caption>
       <xi:include href="interactives.ptx" xpointer="ggb_bell_crank_interactive"/>
     </figure>
     <insight>
-      <title>Resultant Loading</title>
-      <p>	The internal loadings are a simplification of what actually is a more complex loading distributed across the section plane. We can represent this complex force distribution with a single resultant force <m>\vec{F}</m> and couple <m>\vec{M}</m>. Force  <m>\vec{F}</m>  can be resolved into two orthogonal components, one parallel and the other perpendicular to the cut. The couple <m>\vec{M}</m> is the internal bending moment and represents the net rotational effect of the force system on the surface of the cut. </p>
-      <image width="75%" source="images/dogleg_internal.png">
-        <remix>
-          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-          <license href="https://creativecommons.org/choose/zero/"/>
-        </remix>
-      </image>
-      <p>	The shear force <m>\vec{V}</m> and normal force <m>\vec{N}</m> components of a force equal and opposite to <m>\vec{F}</m> on each <acro>FBD</acro>. The bending moment <m>\vec{M}</m> resists the force-couple created by the two <m>\vec{F}</m> forces.</p>
+      <title>Deformation</title>
+      <p>The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a <m>\ft{20}</m> span, the deflection would need to be less than <me>\delta = \dfrac{\ft{20} \cdot \dfrac{\inch{12}}{\ft{1}}}{360}=\inch{0.667}</me>.</p>
+      <p/>
+      <p>To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal loadings that arise from the externally applied loads, using the methods of this chapter.</p>
     </insight>
   </section>
-  <section xml:id="Chapter_08-sign-conventions">
+  <section xml:id="VM_sign_convention">
     <title>Sign Conventions</title>
     <p>	When talking about internal loads our standard sign convention for forces and moments is not good enough.  We can't, for instance, just call a vertical shear force positive if it points up  and negative if it points down, because internal forces always occur in pairs so at any given point a shear force is <em>both</em> up and down.  The direction of the internal force at a point depends on which side of the cut you’re looking at. </p>
     <p>	So to define the state of internal loads at a point we need a better sign convention.  Although the choice is somewhat arbitrary, agreeing on a <em>standard</em> sign convention allows us to have consistency across our calculations and to communicate the internal state clearly to others. The standard sign conventions defined here are used for internal loadings at a point and also for the shear and bending moment diagrams which are discussed in <xref ref="VM_diagrams"/>. </p>
     <p>	Be aware that although this new sign convention applies all internal loads, it doesn't change the sign convention for the  equations of equilibrium  at all, so you will continue to solve them in the same way you alway have.</p>
-    <p>	The standard convention for each of the three internal loads is summarized <xref ref="VM_sign_convention"/>.</p>
-    <list xml:id="VM_sign_convention">
-      <title>Sign Convention for Internal Loading</title>
-      <ul>
-        <li>
-          <sidebyside widths="70% 30%">
-            <p><alert>Positive Shear</alert> On a vertical cut, a positive shear acts down when looking towards the cut from the right, and up when looking from the left. </p>
-            <image source="images/shearVM">
-              <remix>
-                <creator href="https://weh.maritime.edu">William Haynes</creator>
-                <license href="https://creativecommons.org/choose/zero/">CC-0</license>
-              </remix>
-            </image>
-          </sidebyside>
-        </li>
-        <li>
-          <sidebyside widths="70% 30%">
-            <p><alert>Positive Normal Force</alert> On a vertical cut, a positive normal force tends to stretch the object. </p>
-            <image source="images/normalVM">
-              <remix>
-                <creator href="https://weh.maritime.edu">William Haynes</creator>
-                <license href="https://creativecommons.org/choose/zero/">CC-0</license>
-              </remix>
-            </image>
-          </sidebyside>
-        </li>
-        <li>
-          <sidebyside widths="70% 30%">
-            <p><alert>Positive Bending Moment</alert> On a vertical cut, a positive bending moment tends to deform the object with an upward curvature.</p>
-            <image source="images/bendingMomentVM">
-              <remix>
-                <creator href="https://weh.maritime.edu">William Haynes</creator>
-                <license href="https://creativecommons.org/choose/zero/">CC-0</license>
-              </remix>
-            </image>
-          </sidebyside>
-        </li>
-      </ul>
-    </list>
+    <p>	The standard sign convention used for shear force, normal force, and bending moment is shown below.      
+<ul><li><title> Positive Shear</title><sidebyside widths="25% 70%" margins="0%"><image source="images/shearVM"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/choose/zero/">CC-0</license></remix></image><p>Positive shear forces tends to rotate the object counterclockwise, <ie/> the shear forces act down when looking towards the cut from the right, and up when looking from the left. </p></sidebyside></li><li><title>Positive Normal Force</title><sidebyside widths="25% 70%" margins="0%"><image source="images/normalVM"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/choose/zero/">CC-0</license></remix></image><p>
+          Positive normal forces tends to stretch the object. </p></sidebyside></li><li><title>Positive Bending Moment</title><sidebyside widths="25% 70%" margins="0%"><image source="images/bendingMomentVM"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/choose/zero/">CC-0</license></remix></image><p>
+         Positive bending moments tends to deform the object with an upward curvature.</p></sidebyside></li></ul>
+      </p>
     <question>
       <p>	We have defined positive internal loads by looking at the <q>front</q> side of the object.  Would the results change if you walked around the object and analyzed it from the other side?  </p>
     </question>
   </section>
-  <section xml:id="Chapter_08-internal-loads-at-a-point">
+  <section xml:id="internal_load_at_point">
     <title>Internal Loads at a Point</title>
-    <p>	This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body. </p>
-    <p>Consider the frame shown in <xref ref="frame_space_diagram"/>, consisting of two two-force members, <m>GD</m> and <m>BE</m>, and two multiforce members, <m>AD</m> and <m>CF</m>. Since no information is provided, assume that the components have negligible weight.  The internal loading within the two-force members is purely axial, but the multiforce members will be subject to the complete set of internal loadings.</p>
-    <p/>
-    <figure xml:id="frame_space_diagram">
-      <caption>
-A frame supporting a load at <m>E</m>.
+    <introduction>
+      <p>	This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body. </p>
+      <sidebyside widths="65% 30%" margins="0%" valign="middle">
+        <p>Consider the frame shown in <xref ref="frame_space_diagram"/> consisting of two-force members <m>GD</m> and <m>BE</m>, and multiforce members <m>AD</m> and <m>CF</m>. Since no information is provided, we can assume that the components have negligible weight.  The internal loading within the two-force members is purely axial, but the multiforce members will be subject to the complete set of internal loadings.</p>
+        <figure xml:id="frame_space_diagram">
+          <caption>
+A frame supporting a load at <m>F</m>.
 </caption>
-      <image width="25%" source="images/frame_0.png">
-        <remix>
-          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-          <license href="https://creativecommons.org/choose/zero/"/>
-        </remix>
-      </image>
-    </figure>
-    <p>To find the internal loadings at a specific point within one of the members, we make an imaginary cut there. </p>
-    <p><xref ref="frame_1"/> shows the free-body digram of member <m>AD</m>, with a proposed cut between points <m>D</m> and <m>C</m>. The free-body diagram is shown with reactions for pinned connections at <m>A</m> and <m>C</m> and forces from the two-force members at locations <m>B</m> and <m>D</m>. </p>
-    <p/>
-    <figure xml:id="frame_1">
-      <caption>
-Free body diagram of frame member <m>AD</m> with a dotted line indicating the imaginary cut used to analyze the internal forces within.
-</caption>
-      <image width="20%" source="images/frame_1.png">
-        <remix>
-          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-          <license href="https://creativecommons.org/choose/zero/"/>
-        </remix>
-      </image>
-    </figure>
-    <p>Once the location of the cut has been decided, we separate the free-body diagram of the member into two independent free-body diagrams, one above the cut and one below. This is analogous to the Method of Sections technique of <xref ref="Chapter_06"/>. The free-body diagrams for the two sections of the member are shown in <xref ref="frame_2"/>.  The three internal forces are are exposed and labeled <m>\vec{A}</m>, <m>\vec{V}</m>, and <m>\vec{M}</m>. Either free-body diagram can be used to solve for the internal forces, so it is wise to choose the easier one.   Recognizing which one is easier takes practice, but look for the piece with more knowns and fewer unknown values.</p>
-    <p/>
-    <figure xml:id="frame_2">
-      <caption>
-Free body diagrams for the two sections of member <m>AD</m> after cutting and exposing the internal forces.
-</caption>
-      <image width="40%" source="images/frame_2.png">
-        <remix>
-          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-          <license href="https://creativecommons.org/choose/zero/"/>
-        </remix>
-      </image>
-    </figure>
-    <p>Note that the internal loadings at the cut are drawn in the positive direction according to the <xref ref="VM_sign_convention" text="custom">sign conventions</xref> for internal loads, that they act in opposite direction either side of the cut, and they would cancel out if the object was put back together.</p>
-    <p>You can also use this technique to solve for the internal loads on a beam with a distributed load, as shown in the examples below.</p>
-    <p>In the examples we will examine the process for finding the internal loadings at a specific point in a beam. The steps to find the internal shear force, normal force, and bending moment at the midpoint of the beam will be shown.</p>
-    <example xml:id="Chapter_08-example-internal-loads-in-a-simply-supported-beam">
-      <title>Internal loads in a simply supported beam</title>
-      <statement>
-        <p/>
-        <p>Consider a beam of length <m>L</m> which is supported by a pin at <m>A</m> and a roller at <m>B</m>. The beam is subjected to a uniformly distributed force <m>w</m> with units of [force/length], and a horizontal force <m>F</m> applied to point <m>B</m>.  Find the internal loads at the midpoint.</p>
-        <image width="50%" source="images/uniform_space.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </statement>
-      <answer>
-        <p>At the midpoint of the beam,</p>
-        <p>
-          <md>
-            <mrow>A \amp = F</mrow>
-            <mrow>V \amp = 0 </mrow>
-            <mrow>M \amp = wL^2/8 </mrow>
-          </md>
-        </p>
-      </answer>
-      <solution>
-        <paragraphs>
-          <title>Find the external reactions</title>
-          <p>
-            <!--todo Consider splitting this up with a titled list -->
-          </p>
-          <p>Begin by drawing a free-body diagram of the entire beam, simplified by replacing the distributed load <m>w</m> with an equivalent concentrated load at the centroid of the rectangle. The magnitude of the equivalent load <m>W</m> is equal to the <q>area</q> under the rectangular loading curve. <me>W = w(L)</me>
-               </p>
-          <p/>
-          <image width="50%" source="images/uniform_fbd1.png">
+          <image source="images/frame_0">
             <remix>
               <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
               <license href="https://creativecommons.org/choose/zero/"/>
             </remix>
           </image>
-          <p>Then apply and simplify the equations of equilibrium to find the external reactions at <m>A</m> and <m>B</m>.</p>
-          <p>
-            <md>
-              <mrow>\Sigma M_A\amp=0</mrow>
-              <mrow>-(wL)(\cancel{L}/2)+(B_y)\cancel{L}\amp=0</mrow>
-              <mrow>B_y \amp =wL/2 </mrow>
-              <mrow>\Sigma F_x\amp=0   </mrow>
-              <mrow>-A_x+F\amp=0 </mrow>
-              <mrow>A_x\amp=F \\</mrow>
-              <mrow>\Sigma F_y\amp =0</mrow>
-              <mrow>A_y-wL +B_y\amp =0</mrow>
-              <mrow>A_y\amp =wL-wL/2</mrow>
-              <mrow>\amp = wL/2 </mrow>
-            </md>
-          </p>
-        </paragraphs>
-        <paragraphs>
-          <title>Cut the beam</title>
-          <p>Cut the beam at the point of interest and separate the beam into two sections.</p>
-          <p>For this example cut is taken at the midpoint.</p>
-          <sidebyside width="40%">
-            <image source="images/uniform_fbd3.png">
-              <remix>
-                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-                <license href="https://creativecommons.org/choose/zero/"/>
-              </remix>
-            </image>
-            <image source="images/uniform_fbd2.png">
+        </figure>
+      </sidebyside>
+      <sidebyside widths="65% 30%" margins="0%" valign="middle">
+        <stack>
+          <p>To find the internal loadings at a specified point within one of the members, we make an imaginary cut there. </p>
+          <p><xref ref="frame_1"/> shows the free-body digram of member <m>AD</m>, with a proposed cut between points <m>D</m> and <m>C</m>. The free-body diagram is shown with reactions for pinned connections at <m>A</m> and <m>C</m> and forces from the two-force members at locations <m>B</m> and <m>D</m>. </p>
+        </stack>
+        <figure xml:id="frame_1">
+          <caption>
+Wavy line indicates the location of the imaginary cut.
+</caption>
+          <image source="images/frame_1">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/choose/zero/"/>
+            </remix>
+          </image>
+        </figure>
+      </sidebyside>
+      <sidebyside widths="65% 30%" margins="0%" valign="middle">
+        <p>We then separate the free-body diagram of the member into two independent free-body diagrams, one above the cut and one below. This is analogous to the Method of Sections technique of <xref ref="Chapter_06"/>. The free-body diagrams for the two sections of the member are shown in <xref ref="frame_2"/>.  The three internal forces are are exposed and labeled <m>V</m>, <m>N</m>, and <m>M</m>. Either free-body diagram can be used to solve for the internal forces, so it is wise to choose the easier one.   Recognizing which one is easier takes practice, but look for the piece with more known and fewer unknown values.</p>
+        <figure xml:id="frame_2">
+          <caption>
+Internal forces are exposed by the cut.
+</caption>
+          <image source="images/frame_2">
+            <remix>
+              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+              <license href="https://creativecommons.org/choose/zero/"/>
+            </remix>
+          </image>
+        </figure>
+      </sidebyside>
+      <p>Note that the internal loadings at the cut are drawn in the positive direction according to the <xref ref="VM_sign_convention" text="custom">sign conventions</xref> for internal loads, that they act in opposite direction either side of the cut, and they cancel out if the object is put back together.</p>
+      <p>This technique can be used to find the internal loads at any point within any object. In the examples below we will  finding the internal loadings at a specific point in load carrying beams.</p>
+      <example xml:id="Chapter_08-example-internal-loads-in-a-simply-supported-beam">
+        <title>Internal loads in a simply supported beam</title>
+        <statement>
+          <p/>
+          <sidebyside widths="65% 35%" margins="0%" valign="middle">
+            <stack>
+              <p>A beam of length <m>L</m> is supported by a pin at <m>A</m> and a roller at <m>B</m> and is subjected to a horizontal force <m>F</m> applied to point <m>B</m> and a uniformly distributed load over its entire length.  The intensity of the distributed load is <m>w</m> with units of [force/length]. </p>
+              <p> Find the internal loads at the midpoint of the beam.</p>
+            </stack>
+            <image source="images/uniform_0">
               <remix>
                 <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
                 <license href="https://creativecommons.org/choose/zero/"/>
               </remix>
             </image>
           </sidebyside>
-          <p>Notice that as the beam is cut in two, the distributed load <m>w</m> is cut as well. </p>
-          <p>Each of these distributed load halves will support equivalent point loads of <m>wL/2</m> acting through the centroid of each cut half.</p>
-          <p/>
-          <p>At each cut, a shear force, a normal force, and a bending moment will be exposed, and these need to be included on the free-body diagram. </p>
-          <p>At this point, we don't know the actual directions of the internal loads, but we do know that they act in opposite directions.  We will assume that they act in the positive sense as defined by the <xref ref="VM_sign_convention"/>.</p>
-          <p>The next steps will add the internal loads one at a time.</p>
-        </paragraphs>
-        <paragraphs>
-          <title>Add Normal Forces</title>
-          <image width="50%" source="images/uniform_normal.png">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/"/>
-            </remix>
-          </image>
-          <p/>
-          <p>Axial forces are positive in tension and act in opposite directions on the two halves of the cut beam. </p>
-        </paragraphs>
-        <paragraphs>
-          <title>Add Shear Forces</title>
-          <image width="50%" source="images/uniform_shear.png">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/"/>
-            </remix>
-          </image>
-          <p>Positive shear forces act down when looking at the cut from the right, and up when looking at the cut from the left. </p>
-          <p>An alternate definition of positive shears is that the positive shears cause clockwise rotation. This definition is useful if you are dealing with a vertical column instead of a horizontal beam.</p>
-          <p/>
-        </paragraphs>
-        <paragraphs>
-          <title>Add Bending Moment</title>
-          <image width="50%" source="images/uniform_M2.png">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/"/>
-            </remix>
-          </image>
-          <p>Bending moments are positive when the moment tends to bend the beam into a smiling U-shape. Negative moments bend the beam into a frowning shape. </p>
-          <p>For vertical columns, positive bending moments bend a beam into a C shape and negative into a backward C-shape.</p>
-        </paragraphs>
-        <p>The final free-body diagrams look like this.</p>
-        <p/>
-        <image width="70%" source="images/uniform_fbd4.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-        <p>Horizontal beams should always have assumed internal loadings in these directions at the cut, indicating that you have assumed <em>positive</em> shear, <em>positive</em> normal force and <em>positive</em> bending moments at that point.</p>
-        <paragraphs>
-          <title>Solve for the internal loads</title>
-          <p>You may uses either <acro>FBD</acro> to find the internal loads using the techniques you have already learned. So, with a standard <m>xy</m> coordinate system, forces to the left or up are positive when summing forces and counterclockwise moments are positive when summing moments.</p>
-        </paragraphs>
-        <p>Using the left free-body diagram and substituting in the reactions, we get:</p>
-        <p>
-          <md>
-            <mrow>\Sigma F_x\amp=0</mrow>
-            <mrow>-A_x+A\amp=0 </mrow>
-            <mrow>A \amp = A_x = F\\</mrow>
-            <mrow>\Sigma F_y\amp=0</mrow>
-            <mrow>A_y-wL/2-V\amp=0</mrow>
-            <mrow>V \amp = wL/2 - wL/2 </mrow>
-            <mrow>\amp = 0  \\</mrow>
-            <mrow>\Sigma M_\text{cut}\amp=0</mrow>
-            <mrow>(wL/2)(L/4)-(A_y)(L/2)+M\amp=0</mrow>
-            <mrow>M \amp = - wL^2/8 + wL^2/4</mrow>
-            <mrow> \amp = wL^2/8 </mrow>
-          </md>
-        </p>
-        <p>Using the right side free-body diagram we get:</p>
-        <p>
-          <md>
-            <mrow>\Sigma F_x\amp=0</mrow>
-            <mrow>-A+F\amp=0</mrow>
-            <mrow>A \amp= F\\</mrow>
-            <mrow>\Sigma F_y\amp=0</mrow>
-            <mrow>V-wL/2+B_y\amp=0</mrow>
-            <mrow>V \amp= wL/2 - B_y</mrow>
-            <mrow>\amp = wL/2 - wL/2</mrow>
-            <mrow>\amp = 0\\</mrow>
-            <mrow>\Sigma M_\text{cut}\amp=0</mrow>
-            <mrow>-M-(L/4)(wL/2)+(L/2)(B_y)\amp=0</mrow>
-            <mrow>M\amp=-W L^2/8 + wL^2/4)</mrow>
-            <mrow>\amp =  WL^2/8</mrow>
-          </md>
-        </p>
-      </solution>
-    </example>
-    <p>Regardless of which side is chosen, we get the same results for the internal loads at the chosen point.</p>
-    <p>When you solve for the internal loadings, the results can be either positive, negative, or sometimes zero. Negative values indicate that the actual direction of the load is opposite to the assumed direction.  Since we assumed all three internal loads were positive as defined by the <xref ref="VM_sign_convention"/>, a negative answer means that the load actually acts in the negative direction.</p>
-    <example xml:id="Chapter_08-example-internal-loads-in-a-cantilever-beam">
-      <title>Internal loads in a cantilever beam</title>
-      <statement>
-        <p>Consider a cantilever beam which is supported by a fixed connection at <m>A</m>, and loaded by a vertical force <m>P</m> and horizontal force <m>F</m> at the free end <m>B</m>.  Determine the internal loads at a point a distance <m>a</m> from the left end.</p>
-        <image width="50%" source="images/cantilever1">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-        <p>	In order to analyze this situation you should: </p>
-      </statement>
-      <answer>
-        <p>At the midpoint,</p>
-        <p>
-          <md>
-            <mrow>N = F</mrow>
-            <mrow>V = A_y</mrow>
-            <mrow>M = - Pb</mrow>
-          </md>
-        </p>
-      </answer>
-      <solution>
-        <paragraphs>
-          <title>Determine the reactions</title>
-          <p>Draw an <acro>FBD</acro> of the entire, un-cut beam and determine the reactions. </p>
-          <image width="50%" source="images/cantilever2">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/"/>
-            </remix>
-          </image>
-          <p>Notice that only the applied loads and support reactions are included on this un-cut beam <acro>FBD</acro>. The internal loads are only exposed and shown on a <acro>FBD</acro> after the beam is cut.</p>
-          <note>
-            <p>If you pick the right <acro>FBD</acro> in the next step, you may not need to do this.  Think ahead!</p>
-          </note>
-          <p>Use this free-body diagram and the equations of equilibrium to determine the external reaction forces.
-<md><mrow>\Sigma F_x \amp =  0  \amp\amp \implies \amp A_x \amp =  F</mrow><mrow>\Sigma F_y \amp =  0 \amp\amp \implies \amp A_y \amp =  P</mrow><mrow>\Sigma M_A \amp =  0 \amp\amp \implies \amp M_A \amp =  PL</mrow></md>
-               </p>
-        </paragraphs>
-        <paragraphs>
-          <title>Section the beam</title>
-          <p>Take a cut at the point of interest and draw a <acro>FBD</acro> of either or both parts.</p>
-          <note>
-            <p>Try to choose the simpler free-body diagram.  If one part has no external reactions, then you can skip the previous step.</p>
-          </note>
-          <image width="50%" source="images/cantilever3">
-            <remix>
-              <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-              <license href="https://creativecommons.org/choose/zero/"/>
-            </remix>
-          </image>
-          <p>The free-body diagrams of both portions have been drawn with the internal loads indicated in the positive direction defined by the <xref ref="VM_sign_convention" text="custom">standard sign convention</xref>.</p>
-          <p>The axial force is shown in tension on both parts.  This force has been named <m>\vec{N}</m> so its name doesn't conflict with the forces at point <m>A</m>.  </p>
-          <p>The shear force <m>\vec{V}</m> is positive when the shear is down on the right face of the cut and up on the left face. </p>
-          <p>	he  bending moment <m>\vec{M}</m> is positive if the bending direction would tend to bend the beam into a concave upward curve. </p>
-          <p>Always assume that the unknown internal loads act in the positive direction as defined by the standard sign convention. </p>
-        </paragraphs>
-        <paragraphs>
-          <title>Solve for the internal loads</title>
-          <p>	Solve for the three unknown internal loads.</p>
+        </statement>
+        <answer>
+          <p>At the midpoint of the beam,</p>
           <p>
             <md>
-              <mrow>\Sigma F_x = 0 \implies N = F</mrow>
-              <mrow>\Sigma F_y = 0 \implies V = A_y</mrow>
-              <mrow>\Sigma M_\text{cut} = 0 \implies M = - Pb</mrow>
+              <mrow>A \amp = F</mrow>
+              <mrow>V \amp = 0 </mrow>
+              <mrow>M \amp = wL^2/8 </mrow>
             </md>
           </p>
-          <p>	Once you have found the reactions and drawn a free-body diagram of the simpler portion with the normal force, shear force, and bending moment assumed positive, you then solve for the unknown values and signs just like any other equilibrium problem.</p>
-        </paragraphs>
-      </solution>
-    </example>
-    <p>This workflow typically includes:
-<ul label="square"><li>A horizontal <m>x</m> and vertical <m>y</m> axes system.</li><li>Three equilibrium equations, usually <m>\Sigma F_x=0</m>, <m>\Sigma F_y=0</m>, and <m>\Sigma M_z=0</m> to solve for the three unknown internal loads.</li></ul>
-      </p>
-    <p>	The values of the normal force <m>\vec{N}</m>, the shear force <m>\vec{V}</m>, and the bending moment <m>\vec{M}</m> may be positive, zero, or negative depending on the applied loads.  When the sign of the load is known, the direction is also known.</p>
-    <p/>
-    <figure xml:id="ggb_internal_loading">
-      <caption>Internal loading in a beam with a uniformly varying load.</caption>
-      <xi:include href="interactives.ptx" xpointer="ggb_triangle-load-cut_interactive"/>
-    </figure>
+        </answer>
+        <solution>
+          <paragraphs>
+            <title>Find the external reactions</title>
+            <p>
+              <!--todo Consider splitting this up with a titled list -->
+            </p>
+            <sidebyside widths="65% 35%" margins="0%" valign="middle">
+              <p>Begin by drawing a free-body diagram of the entire beam, simplified by replacing the distributed load <m>w</m> with an equivalent concentrated load at the centroid of the rectangle. The magnitude of the equivalent load <m>W</m> is equal to the <q>area</q> under the rectangular loading curve. <me>W = w(L)</me>
+                     </p>
+              <image source="images/uniform_1">
+                <remix>
+                  <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                  <license href="https://creativecommons.org/choose/zero/"/>
+                </remix>
+              </image>
+            </sidebyside>
+            <p>Then apply and simplify the equations of equilibrium to find the external reactions at <m>A</m> and <m>B</m>.
+<md><mrow>\Sigma M_A \amp = 0</mrow><mrow>-(wL)(\cancel{L}/2)+(B)\cancel{L} \amp = 0</mrow><mrow>B   \amp = wL/2 </mrow><mrow/><mrow>\Sigma F_x \amp = 0 </mrow><mrow>-A_x+F \amp = 0</mrow><mrow>A_x \amp = F</mrow><mrow/><mrow>\Sigma F_y  \amp = 0</mrow><mrow>A_y-wL +B_y  \amp = 0</mrow><mrow>A_y  \amp = wL-wL/2</mrow><mrow>  \amp =  wL/2</mrow></md>
+                  </p>
+          </paragraphs>
+          <paragraphs>
+            <title>Cut the beam</title>
+            <p>Cut the beam at the point of interest and separate the beam into two sections.  Notice that as the beam is cut in two, the distributed load <m>w</m> is cut as well.  Each of these distributed load halves will support equivalent point loads of <m>wL/2</m> acting through the centroid of each cut half.</p>
+            <sidebyside width="50%">
+              <image source="images/uniform_2">
+                <remix>
+                  <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                  <license href="https://creativecommons.org/choose/zero/"/>
+                </remix>
+              </image>
+              <image source="images/uniform_3">
+                <remix>
+                  <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                  <license href="https://creativecommons.org/choose/zero/"/>
+                </remix>
+              </image>
+            </sidebyside>
+          </paragraphs>
+          <paragraphs>
+            <title>Add the internal forces</title>
+            <p>At each cut, a shear force, a normal force, and a bending moment will be exposed, and these need to be included on the free-body diagram. </p>
+            <p>At this point, we don't know the actual directions of the internal loads, but we do know that they act in opposite directions.  We will assume that they act in the positive sense as defined by the <xref ref="VM_sign_convention" text="custom"> standard sign convention</xref>.</p>
+            <p>Axial forces are positive in tension and act in opposite directions on the two halves of the cut beam. </p>
+            <p>Positive shear forces act down when looking at the cut from the right, and up when looking at the cut from the left. An alternate definition of positive shears is that the positive shears cause clockwise rotation. This definition is useful if you are dealing with a vertical column instead of a horizontal beam.</p>
+            <p/>
+            <p>Bending moments are positive when the moment tends to bend the beam into a smiling U-shape. Negative moments bend the beam into a frowning shape. </p>
+            <p>For vertical columns, positive bending moments bend a beam into a C shape and negative into a backward C-shape.</p>
+            <p>The final free-body diagrams look like this. </p>
+            <image width="60%" source="images/uniform_4">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+            <p>Horizontal beams should always have assumed internal loadings in these directions at the cut, indicating that you have assumed <em>positive</em> shear, <em>positive</em> normal force and <em>positive</em> bending moments at that point.</p>
+          </paragraphs>
+          <paragraphs>
+            <title>Solve for the internal forces</title>
+            <p>You may uses either <acro>FBD</acro> to find the internal loads using the techniques you have already learned. So, with a standard <m>xy</m> coordinate system, forces to the left or up are positive when summing forces and counterclockwise moments are positive when summing moments.</p>
+          </paragraphs>
+          <p>Using the left free-body diagram and substituting in the reactions, we get:
+<md><mrow>\Sigma F_x \amp = 0</mrow><mrow>-A_x+A \amp = 0</mrow><mrow>A   \amp =  A_x  =  F</mrow><mrow/><mrow>\Sigma F_y \amp = 0</mrow><mrow>A_y-wL/2-V \amp = 0</mrow><mrow>V   \amp =  wL/2 - wL/2</mrow><mrow>V  \amp =  0</mrow><mrow/><mrow>\Sigma M_\text{cut} \amp = 0</mrow><mrow>(wL/2)(L/4)-(A_y)(L/2)+M \amp = 0</mrow><mrow>M   \amp =  - wL^2/8 + wL^2/4</mrow><mrow>M  \amp =  wL^2/8</mrow></md>
+               </p>
+          <p>Using the right side free-body diagram we get:
+<md><mrow>\Sigma F_x \amp = 0</mrow><mrow>-A+F \amp = 0</mrow><mrow>A  \amp =  F</mrow><mrow/><mrow>\Sigma F_y \amp = 0</mrow><mrow>V-wL/2+B_y \amp = 0</mrow><mrow>V  \amp =  wL/2 - B_y</mrow><mrow>V  \amp =  wL/2 - wL/2</mrow><mrow> V \amp =  0</mrow><mrow/><mrow>\Sigma M_\text{cut} \amp = 0</mrow><mrow>-M-(L/4)(wL/2)+(L/2)(B_y) \amp = 0</mrow><mrow>M \amp = -W L^2/8 + wL^2/4</mrow><mrow> M \amp = WL^2/8</mrow></md>
+               </p>
+        </solution>
+      </example>
+      <p>Regardless of which side is chosen, we get the same results for the internal loads at the chosen point.</p>
+      <p>When you solve for the internal loadings, the results can be either positive, negative, or sometimes zero. Negative values indicate that the actual direction of the load is opposite to the assumed direction.  Since we assumed all three internal loads were positive as defined by the <xref ref="VM_sign_convention" text="custom">standard sign convention</xref>, a negative answer means that the load actually acts in the opposite direction to the vector shown on the free-body diagram.</p>
+      <example xml:id="Chapter_08-example-internal-loads-in-a-cantilever-beam">
+        <title>Internal loads in a cantilever beam</title>
+        <statement>
+          <sidebyside widths="65% 35%" margins="0%" valign="middle">
+            <p>Consider a cantilever beam which is supported by a fixed connection at <m>A</m>, and loaded by a vertical force <m>P</m> and horizontal force <m>F</m> at the free end <m>B</m>.  Determine the internal loads at a point a distance <m>a</m> from the left end.</p>
+            <image source="images/cantilever_0">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+          </sidebyside>
+        </statement>
+        <hint xml:id="Chapter_08-">
+          <p>If you think ahead, you may not need to find the reactions at <m>A</m>.</p>
+        </hint>
+        <answer>
+          <p>At the midpoint,</p>
+          <p>
+            <md>
+              <mrow>N = F</mrow>
+              <mrow>V = A_y</mrow>
+              <mrow>M = - Pb</mrow>
+            </md>
+          </p>
+        </answer>
+        <solution>
+          <paragraphs>
+            <title>Determine the reactions</title>
+            <sidebyside widths="65% 35%" margins="0%" valign="middle">
+              <p>Draw an <acro>FBD</acro> of the entire, un-cut beam and determine the reactions. </p>
+              <image source="images/cantilever_1">
+                <remix>
+                  <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                  <license href="https://creativecommons.org/choose/zero/"/>
+                </remix>
+              </image>
+            </sidebyside>
+            <p>Notice that only the applied loads and support reactions are included on this un-cut beam <acro>FBD</acro>. The internal loads are only exposed and shown on a <acro>FBD</acro> after the beam is cut.</p>
+            <p>Use this free-body diagram and the equations of equilibrium to determine the external reaction forces.
+<md><mrow>\Sigma F_x \amp =  0  \amp\amp \implies \amp A_x \amp =  F</mrow><mrow>\Sigma F_y \amp =  0 \amp\amp \implies \amp A_y \amp =  P</mrow><mrow>\Sigma M_A \amp =  0 \amp\amp \implies \amp M_A \amp =  PL</mrow></md>
+                  </p>
+          </paragraphs>
+          <paragraphs>
+            <title>Section the beam</title>
+            <p>Take a cut at the point of interest and draw a <acro>FBD</acro> of either or both parts.  Try to choose the simpler free-body diagram.  If one side has no external reactions, then you can skip the previous step if you choose that side.</p>
+            <image width="70%" source="images/cantilever_2">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+            <p>The free-body diagrams of both portions have been drawn with the internal loads indicated in the positive direction defined by the <xref ref="VM_sign_convention" text="custom">standard sign convention</xref>.</p>
+            <p>The axial force is shown in tension on both parts.  This force has been named <m>\vec{N}</m> so its name doesn't conflict with the forces at point <m>A</m>.  </p>
+            <p>The shear force <m>\vec{V}</m> is positive when the shear is down on the right face of the cut and up on the left face. </p>
+            <p>	he  bending moment <m>\vec{M}</m> is positive if the bending direction would tend to bend the beam into a concave upward curve. </p>
+            <p>Always assume that the unknown internal loads act in the positive direction as defined by the standard sign convention. </p>
+          </paragraphs>
+          <paragraphs>
+            <title>Solve for the internal loads</title>
+            <p>	Solve for the three unknown internal loads.</p>
+            <p>
+              <md>
+                <mrow>\Sigma F_x = 0 \implies N = F</mrow>
+                <mrow>\Sigma F_y = 0 \implies V = A_y</mrow>
+                <mrow>\Sigma M_\text{cut} = 0 \implies M = - Pb</mrow>
+              </md>
+            </p>
+            <p>	Once you have found the reactions and drawn a free-body diagram of the simpler portion with the normal force, shear force, and bending moment assumed positive, you then solve for the unknown values and signs just like any other equilibrium problem.</p>
+          </paragraphs>
+        </solution>
+      </example>
+      <p>This workflow typically includes:
+<ul><li>Establishing a horizontal <m>x</m> and vertical <m>y</m> coordinate system.</li><li>Taking a cut at the point of interest.</li><li>Assuming that the internal force act in the positive direction and drawing a free-body diagram accordingly</li><li>Using <m>\Sigma F_x=0</m>, <m>\Sigma F_y=0</m>, and <m>\Sigma M_z=0</m> to solve for the three unknown internal loads.</li></ul>
+         </p>
+      <p>	The  shear force <m>V</m>, normal force <m>N</m>, and bending moment <m>M</m> are scalar components and they may be positive, zero, or negative depending on the applied loads.  The signs of the scalar components together with the sign convention for internal loads establish the actual directions of the shear force, normal force and bending moment vectors.</p>
+    </introduction>
+    <subsection xml:id="Chapter_08-interactive-internal-loading">
+      <title>Interactive Internal Loading</title>
+      <p>The internal loading inside a beam depends on the load that the beam is supporting and differs from point to point.  This simply supported beam supports a uniformly varying load.  The interactive traces out the value of the shear and bending moment as you move point <m>C</m>.  Can you deduce the relation between the triangular loading and the value of the shear and bending moment?</p>
+      <p/>
+      <figure xml:id="ggb_internal_loading">
+        <caption>Internal loading in a beam with a uniformly varying load.</caption>
+        <xi:include href="interactives.ptx" xpointer="ggb_triangle-load-cut_interactive"/>
+      </figure>
+    </subsection>
   </section>
   <section xml:id="VM_diagrams">
-    <title>￼Shear and Bending Moment Diagrams</title>
+    <title>Shear and Bending Moment Diagrams</title>
     <introduction>
-      <p>The previous section addressed a method to find shear and bending moment at a single point, which is useful, but this technique is of little use if you want to know the shear and moment at <em>every</em> point in the object.  Shear and bending moment diagrams are a way for us to do that, easily.</p>
-      <p>We will limit our analysis in this chapter to beams, which are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s </p>
-      <p>where it is most likely to fail. To find these weak points, we need to check the internal loading at every point along the beam’s full length. We use shear and bending moment diagrams to do this.</p>
-      <p>You will learn three related but different methods to produce shear and bending moment diagrams, and the chapter will conclude with a comparison of the advantages and disadvantages of each method.</p>
+      <p>Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these weak points, we need to check the internal loading at every point along the beam’s full length. </p>
+      <p>The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at <em>every</em> point in the object you will need a more powerful approach.    This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.</p>
     </introduction>
     <subsection xml:id="Chapter_08-shear-and-bending-moment-diagrams">
       <title>Shear and Bending Moment Diagrams</title>
-      <p>Shear and moment diagrams are graphs of the internal shear and bending moment plotted along the length of the beam. They allow us to find where the maximum loads occur in order to prevent failure and to optimize the design to reduce the overall weight and cost of a structure. </p>
-      <p>Since beams primarily support vertical loads, the normal forces are small and also independent of shear and moment, so they will not be considered in this section.</p>
-      <p>Beams can be supported in a variety of ways as shown in <xref ref="beam_supports"/>. Beam support types include:  
-<ol><li>a simply supported beam with a pin on one end and a roller at the other, </li><li>a cantilevered beam which is fixed on one end, and </li><li>an overhanging beam which acts as a combination of a simply supported and cantilever beam.</li></ol>
+      <p>Shear and moment diagrams are graphs which show the internal shear and bending moment plotted along the length of the beam. They allow us to <em>see</em> where the maximum loads occur so that we can optimize the design to prevent failures and reduce the overall weight and cost of the structure. </p>
+      <p>Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.</p>
+      <p>Beams can be supported in a variety of ways as shown in <xref ref="beam_supports"/>. The common support methods are <ul><li><term>Simply Supported</term> Supported by a pin on one end and a roller at the other. </li><li><term>Cantilevered</term> Fixed at one end, and unsupported at the other.</li><li><term>Overhanging</term> One or both ends overhang the supports.</li></ul>
          </p>
       <p/>
       <figure xml:id="beam_supports">
-        <caption> 
-Beam supports.
-</caption>
-        <image width="75%" source="images/beam_supports.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
+        <caption>Beam Supports</caption>
+        <sidebyside width="33%">
+          <figure>
+            <caption>Simply Supported</caption>
+            <image source="images/simply-supported-beam">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+          </figure>
+          <figure>
+            <caption>Cantilevered</caption>
+            <image source="images/cantilevered-beam">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+          </figure>
+          <figure>
+            <caption>Overhanging</caption>
+            <image source="images/overhanging-beam">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/choose/zero/"/>
+              </remix>
+            </image>
+          </figure>
+        </sidebyside>
       </figure>
-    </subsection>
-    <subsection xml:id="Chapter_08-section-cut-method">
-      <title>Section Cut Method</title>
-      <p>In this section we'll extend the previous method where we found internal loadings at a specific point to find the internal load at every point by developing equations, by cutting at an variable location <m>x</m>.</p>
-      <p>The difference between cutting a beam at a specific point, and cutting at point <m>x</m> is that the resulting equilibrium equations will include <m>x</m> rather than a known distance, and the resulting equations for shear and moment will be functions of <m>x</m>. To find the internal loads at a specific point we can just substitute in that   point’s location for <m>x</m>.</p>
-      <p>As an example, we will use a cantilevered beam fixed to a wall on its left end and subject to a vertical force <m>P</m> on its right end as an example.</p>
-      <p>By taking a cut at a location a distance <m>x</m> from the left we can draw two free-body diagrams with lengths <m>x</m> and <m>(L-x)</m>.  This beam has <em>one</em> loading segment, because no matter where <m>x</m> is chosen, the free-body diagrams shown in <xref ref="cuts_1"/> are correct.</p>
-      <p/>
-      <figure xml:id="cuts_1">
-        <caption/>
-        <image width="55%" source="images/cuts1.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </figure>
-      <p>To find the shear and loading functions, apply the equilibrium to one of the free-body diagrams.  Either side will work, so we’ll select the right-hand portion as it doesn’t require us to find the reactions at <m>A</m>. </p>
-      <p>Using a standard coordinate system, the equations of equilibrium are:</p>
-      <p>
-        <md>
-          <mrow>\Sigma F_y\amp=0</mrow>
-          <mrow>V-P\amp=0</mrow>
-          <mrow>\Sigma M_\text{cut}\amp=0</mrow>
-          <mrow>-M-P(L-x)\amp=0</mrow>
-        </md>
-      </p>
-      <p>where <m>L</m> is the length of the beam. </p>
-      <p>We can solve these to find that  <m>V=P</m> and <m>M=-P(x-L)</m>. This indicates that the shear force <m>V</m> is constant over the length of the beam and the moment <m>M</m> is a linear function of location <m>x</m>.</p>
-      <p>This example was simple because because only one <acro>FBD</acro> was necessary for any point on the beam. But many beams are more complex than this one. Beams with multiple loads must be broken into loading segments between each point where a load is applied or changes. </p>
-      <p>The beam in <xref ref="cuts_2"/> has three loading segments but the procedure is similar, however in this case you must draw and analyze three free-body diagrams, one for each segment. </p>
-      <p/>
-      <figure xml:id="cuts_2">
-        <caption> 
-The <acro>FBD</acro> of a simply supported beam <m>AB</m> with a constant value distributed load <m>w</m> and two vertical loads <m>P_1</m> and  <m>P_2</m>.
-</caption>
-        <image width="40%" source="images/cuts2.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </figure>
-      <p>If we make an imaginary cut through the second segment, we can draw a new free-body diagram of the segment to the left of the cut as shown in <xref ref="cuts_3"/>
-         </p>
-      <p/>
-      <figure xml:id="cuts_3">
-        <caption> 
-Free body diagram of a section of the beam from <xref ref="cuts_2"/> to the left of the cut location including the assumed positive shear and moment internal loads.
-</caption>
-        <image width="50%" source="images/cuts3.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </figure>
-      <p>The equations of <m>V</m> and <m>M</m> from each segment are joined to plot the shear and moment diagrams.  These diagrams help us visualize the change in the values of <m>V</m> and <m>M</m> everywhere within the beam. </p>
-      <p>When writing equations for loading segments, you may choose either
-<ul label="square"><li><em>global equations</em><mdash/> all segments use the same origin, usually at the left end of the beam.</li><li><em>local equations</em><mdash/> each segment uses its own origin, usually at the left end of the segment.</li></ul>
-         </p>
-      <p>	Often local equations are easier because you can simply use the variable <m>x</m> in your equations as opposed to <q><m>x</m> + constant</q>, and you do not have to project the <m>y</m>-intercept values back to an axis system which is not adjacent to the segment.</p>
-      <figure xml:id="ggb_global_local">
-        <caption>
-Interactive demonstrating the difference between global and local equations.
-</caption>
-        <xi:include href="interactives.ptx" xpointer="ggb_translate-coord-sys_interactive"/>
-      </figure>
-      <p>	Notice as you change the slope, global intercept, and location of point <m>A</m> that the only values that shift between local and global equations are the <m>y</m> intercept values (<m>b'</m> vs. <m>b'</m>) and the <m>x</m> coordinate of <m>A</m>.</p>
-      <p/>
-    </subsection>
-    <subsection xml:id="VM_relations">
-      <title>Relation Between Loading, Shear and Moment</title>
-      <p>Suppose that we have a simply supported beam upon which there is an applied load <m>w(x)</m> which is distributed on the beam by some function of position, <m>x</m>, as shown in <xref ref="arbitrary_load_nn"/>.</p>
-      <figure xml:id="arbitrary_load_nn">
-        <caption>
-A simply supported beam with a distributed load that is a function of beam position <m>w(x)</m>.
-</caption>
-        <image width="50%" source="images/arbitrary_load.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </figure>
-      <p>If we select a small section of this beam to look at closely, we can assume a free-body diagram such as shown in <xref ref="arbitrary_slice_oo"/>. </p>
-      <p/>
-      <figure xml:id="arbitrary_slice_oo">
-        <caption>
-A free-body diagram of a small section of the beam with a width of <m>\Delta x</m> Given that we assume <m>\Delta x</m> is infinitely short, we can also assume that the distributed load value is constant over this small distance.
-</caption>
-        <image width="30%" source="images/arbitrary_slice.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-      </figure>
-      <p>Apply force equilibrium in the vertical direction gives allows us to make the following derivation:</p>
-      <p>
-        <md>
-          <mrow>\sum F_y\amp=0</mrow>
-          <mrow>V+w(\Delta x)-(V+\Delta V)\amp=0</mrow>
-          <mrow>\frac {\Delta V}{\Delta x}\amp=w</mrow>
-          <mrow>\lim_{\Delta x \to\ 0} \frac {\Delta V}{\Delta x}\amp\Rightarrow \frac {dV}{dx}=w</mrow>
-        </md>
-      </p>
-      <p/>
-      <p>This final equation tells us that, at a given location, the slope of the shear V is the value of the loading <m>w</m>. Furthermore, if we multiply both sides by <m>dx</m>, we can integrate to find that </p>
-      <p>
-        <me>\Delta V=\int w\ dx</me>
-      </p>
-      <p/>
-      <p>In words, this equation says that over a given distance, the change in the shear <m>V</m> is the area under the loading curve, <m>w</m>.</p>
-      <p>Now looking at the internal bending moments on the <acro>FBD</acro> in <xref ref="arbitrary_slice_oo"/>, when we apply moment equilibrium about the centroid <m>G</m> of the element:</p>
-      <p>
-        <md>
-          <mrow>\sum M_G \amp =0</mrow>
-          <mrow>-\frac {\Delta x}{2}V-\frac {\Delta x}{2}(V+\Delta V)-M+(M+\Delta M)\amp=0</mrow>
-          <mrow>\frac {\Delta M}{\Delta x}\amp=\frac{1}{2}(2V+\Delta V)</mrow>
-          <mrow>\lim_{\Delta x \to\ 0} \frac {\Delta M}{\Delta x}\amp\Rightarrow \frac {dM}{dx}=V</mrow>
-        </md>
-      </p>
-      <p/>
-      <p>This final equation tells us that, the slope of the moment diagram is the value of the shear. Furthermore, if we multiply both sides by <m>dx</m>, we can integrate to find that </p>
-      <p>
-        <me>\Delta M=\int V\ dx</me>
-      </p>
-      <p/>
-      <p>In words, this equation says that over a given segment, the change in the moment value is the area under the shear curve.</p>
-      <p>Hence, your loading, shear, and moment are related directly by the basic derivatives and integrals that you learned in Calculus I. These relationships are summarized in <xref ref="VM_relations_cc"/> below.</p>
-      <table xml:id="VM_relations_cc">
-        <title>Summary of the relationships between loading <m>w</m>, internal shear force <m>V</m>, and internal bending moment <m>M</m>
-            </title>
-        <tabular halign="left" valign="top" bottom="minor">
-          <col width="40%"/>
-          <col width="30%"/>
-          <col width="30%"/>
-          <row bottom="major">
-            <cell>
-              <p>         Relating</p>
-            </cell>
-            <cell>
-              <p>         Derivatives (slopes)</p>
-            </cell>
-            <cell>
-              <p>         Integrals (areas)</p>
-            </cell>
-          </row>
-          <row>
-            <cell>
-              <p>         Loading function <m>w(x)</m> with shear function <m>V(x</m>)</p>
-            </cell>
-            <cell>
-              <p>
-                <men>\frac {dV}{dx}=w(x)</men>
-              </p>
-              <p>The slope of the shear diagram at <m>x</m> is the value of the loading function at <m>x</m>. </p>
-            </cell>
-            <cell>
-              <p>
-                <men>\Delta V=\int w(x)\ dx</men>
-              </p>
-              <p>The change in the shear diagram is the area under the loading function.</p>
-            </cell>
-          </row>
-          <row>
-            <cell>
-              <p>         Shear function <m>V(x)</m> with moment function <m>M(x)</m>
-                     </p>
-            </cell>
-            <cell>
-              <p>
-                <men>\frac {dM}{dx}=V(x)</men>
-              </p>
-              <p>The slope of the moment diagram is the value of the shear at the same position.</p>
-            </cell>
-            <cell>
-              <p>
-                <men>\Delta M=\int V(x)\ dx</men>
-              </p>
-              <p>The change in the moment between two points is the area under the shear curve.</p>
-            </cell>
-          </row>
-        </tabular>
-      </table>
-      <!-- todo add example of VM diagram for a function of x.  -->
-    </subsection>
-    <subsection xml:id="Chapter_08-graphical-method">
-      <title>Graphical Method</title>
-      <subsubsection xml:id="Chapter_08-application-of-the-graphical-method">
-        <title>Application of the graphical method</title>
-        <p>This graphical technique is a quick and intuitive way to draw shear and moment diagrams. This technique is really a graphical integration process; you integrate from load <m>w(x)</m> to shear <m>V(x)</m> to moment <m>M(x)</m>, from top to bottom.  You have  derivatives the other direction.</p>
-        <p>The curves show the relationships between loading, shear, and moment of each diagram with jumps, slopes, and areas.
-<ul label="square"><li><alert>Jumps</alert><mdash/> vertical changes in shear and moment diagrams.</li><li><alert>Slopes</alert><mdash/> gradual changes in shear and moment diagrams.</li><li><alert>Areas</alert><mdash/><q>areas</q> under the load and shear curves.  The area under the loading curve is actually a force, and the area under the shear curve is a moment.</li></ul>
-            </p>
-        <p><xref ref="VM_summary"/> Summarize the relationships between load, shear and moment.  You can explore the behavior using the interactive in <xref ref="VM_building_blocks"/>.</p>
-        <table xml:id="VM_summary">
-          <title>Graphical relationships between loading, shear, and moment of a beam as they relate to jumps, slopes, and areas for each diagram.</title>
-          <tabular halign="left" valign="top" bottom="minor">
-            <col width="25%"/>
-            <col width="25%"/>
-            <col width="25%"/>
-            <col width="25%"/>
-            <row bottom="major">
-              <cell>
-                <p>         Load</p>
-              </cell>
-              <cell>
-                <p>         Jumps</p>
-              </cell>
-              <cell>
-                <p>         Slopes</p>
-              </cell>
-              <cell>
-                <p>         Areas</p>
-              </cell>
-            </row>
-            <row>
-              <cell>
-                <p>         Shear</p>
-              </cell>
-              <cell>
-                <p>         Concentrated loads cause the shear to jump by the same amount.   Upward loads cause upward jumps.</p>
-              </cell>
-              <cell>
-                <p>          The value of the load is the slope of the shear.</p>
-              </cell>
-              <cell>
-                <p>         The change in the shear is equal to the area under the loading curve.  </p>
-                <p>
-                  <m>\Delta V=\int w(x) dx</m>
-                </p>
-              </cell>
-            </row>
-            <row>
-              <cell>
-                <p>         Moment</p>
-              </cell>
-              <cell>
-                <p>        Concentrated moments on the beam have no effect on the shear curve, but cause jumps on the moment curve.  Counterclockwise moments cause downward jumps and vice-versa.</p>
-              </cell>
-              <cell>
-                <p>         The value of shear at a point is the slope of the moment at that point. </p>
-                <p><m>V</m> = <m>+ M</m> slope (↗)  <m>V = − M</m> slope (↘)</p>
-              </cell>
-              <cell>
-                <p>        Change in the moment is equal to the area under a shear curve.  </p>
-                <p>
-                  <m>M=\int V  dx</m>
-                </p>
-              </cell>
-            </row>
-          </tabular>
-        </table>
-        <figure xml:id="VM_building_blocks">
-          <caption>Building Blocks for Shear and Moment Diagrams</caption>
-          <xi:include href="interactives.ptx" xpointer="ggb_VM-building-blocks_interactive"/>
-        </figure>
-      </subsubsection>
-      <subsubsection xml:id="Chapter_08-step-by-step">
-        <title>Step-by-step</title>
-        <p>Shear and bending moment diagrams are governed by these equations and must be consistent with them.</p>
-        <p>
-          <md>
-            <mrow>1. \amp\amp \dfrac{dV}{dx} \amp = w(x)              \amp 3.\amp\amp \dfrac{dM}{dx} \amp = V(x) </mrow>
-            <mrow>2. \amp\amp \Delta V       \amp = \int_a^b w(x)\,dx \amp 4.\amp\amp \Delta M \amp= \int_a^b V(x)\,dx </mrow>
-          </md>
-        </p>
-        <p>
-          <ol>
-            <li>
-              <p>First, <alert>determine the reaction forces</alert> and moments by drawing a free-body diagram of the entire beam and applying the equilibrium equations. Double check that your reactions are correct.</p>
-            </li>
-            <li>
-              <p>Establish the shear graph with a horizontal axis below the beam and a vertical axis to represent shear. Positive shears will be plotted above the <m>x</m>axis and negative below.</p>
-            </li>
-            <li>
-              <p>Make vertical lines at all the <q>interesting points</q>, <ie/> points where concentrated forces or moments act on the beam and at the beginning and end of any distributed loads. This divides the beam into segments between vertical lines.</p>
-            </li>
-            <li>
-              <p><alert>Draw the shear diagram</alert> by starting with a dot at <m>x = 0</m>, <m>V = 0</m> then proceeding from left to right until you reach the end of the beam. Choose and label a scale which keeps the diagram a reasonable size. <ol><li><p>Whenever you encounter a concentrated force, jump up or down by that value.</p></li><li><p>Whenever you encounter a concentrated moment, do not jump.</p></li><li><p>Whenever you encounter a distributed load, move up or down by the <q>area</q> under the loading curve over the length of the segment, according to equation 2. The <q>area</q> is actually a force.</p></li><li><p>The slope of the curve at each point <m>x</m> is given by equation 1. Distributed loads cause the shear diagram to have a slope equal to the negative value of the load at that point. For unloaded segments of the beam, the slope is zero, i.e. the shear curve is horizontal. For segments with uniformly distributed load, the slope is constant.</p></li><li><p>The shear diagram should start and end at <m>V = 0</m>. If it doesn’t, recheck your work.</p></li></ol>
-                     </p>
-            </li>
-            <li>
-              <p> Add another interesting point wherever the shear diagram crosses the <m>x</m>-axis, and determine the <m>x</m> position of the zero crossing.</p>
-            </li>
-            <li>
-              <p>After you have completed the shear diagram, <alert>calculate the area under the shear</alert> curve for each segment. Areas above the axis are positive, areas below the axis are negative. The areas represent moments and the sum of the areas plus the values of any concentrated moments should add to zero. If they don’t, then recheck your work.</p>
-            </li>
-            <li>
-              <p>Establish the moment graph with a horizontal axis below the shear diagram and a vertical axis to represent moment. Positive moments will be plotted above the <m>x</m> axis and negative below.</p>
-            </li>
-            <li>
-              <p><alert>Draw and label dots on the moment diagram</alert> by starting with a dot at <m>x = 0, M = 0</m> then proceed from left to right placing dots until you reach the end of the beam. As you move over each segment move up or down from the current value by the <q>area</q> under the shear curve for that segment and place a dot on the graph. In this step, you are applying equation 4. <ol><li><p>Positive areas cause the moment to increase, negative areas cause it to decrease.</p></li><li><p>If you encounter a concentrated moment, jump straight up or down by the amount of the moment and place a dot. Clockwise moments cause upward jumps and counterclockwise moments cause downward jumps.</p></li><li><p>When you reach the end of the beam you should return to <m>M = 0</m>. If you don’t, then recheck your work.</p></li></ol>
-                     </p>
-            </li>
-            <li>
-              <p><alert>Connect the dots with correctly shaped lines</alert>. Segments under constant shear are straight lines, segments under changing shear are curves. The general curvature of the lines can be determined by considering equation 3.</p>
-            </li>
-          </ol>
-        </p>
-      </subsubsection>
-      <conclusion>
-        <p>Every shear and bending moment diagram problem should include:
-<ol><li>A neat, accurate, labeled free-body diagram of the entire structure, and the work to find the reactions. For this work, you may replace the distributed loads with equivalent concentrated loads.</li><li>A neat, properly scaled diagram of the beam showing its reactions and <q>true</q> loads.  Distributed loads must be shown this diagram, because their distributed nature is significant.</li><li>A large graph of the shear and bending moment functions drawn directly below the scaled beam diagram.  It is convenient to draw this graph on graph paper.</li><li>Show the correct shape and curvature for each curve segment: zero, constant slope, polynomial.  Changes in curve shapes should align with the load which causes them. Indicate the scale used for shear and moment, and use a straightedge.</li><li>Indicate values of shear and moment at maximums, minimums and points of inflection</li><li>Any other work need to justify your results.</li></ol>
-            </p>
-      </conclusion>
-    </subsection>
-    <subsection xml:id="Chapter_08-calculus-method">
-      <title>Calculus Method</title>
-      <introduction>
-        <p>	In <xref ref="VM_relations_cc"/> we learned that loading, shear and bending moments are related by integral and differential equation, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.</p>
-        <p>	However, there are times that the graphical technique falls short when the areas are more complicated than rectangles or triangles. For example, a uniformly varying load, which is a 1st-degree linear function of <m>x</m>, integrates to a 2nd-degree parabolic shear function, and a 3rd degree cubic moment function.  To use the graphical method you will need to find the area under the parabolic shear curve to compute the cubic moment.   When the loading becomes more complex it is better to use perform the integration directly. </p>
-        <p>	We use the same fundamental equations in this section as you used in the graphical method </p>
-        <p>
-          <md>
-            <mrow>\Delta V\amp =\int w(x) dx \amp \Delta M \amp=\int V dx</mrow>
-          </md>
-        </p>
-        <p>	But, instead of finding areas and slopes you will obtain an equation for the load as a function of <m>x</m>, then integrate it to find the shear function. The  integral equations are the change in the shear and moment, thus you will need starting values for each segment. </p>
-        <p>	The starting values come from either the ending value of the previous segment or point loads or point moments. Because of the requirement for these segment starting values, no segment can be computed in isolation from the other segments. Physically this means that the shear and moment along a beam are not just due to the loading in one segment, but are related to the loading on the rest of the beam as well.</p>
-        <table xml:id="VM_load_table">
-          <title> Equations for various loading types in a segment. </title>
-          <tabular halign="left" valign="top" bottom="minor">
-            <col width="33%"/>
-            <col width="33%"/>
-            <col width="34%"/>
-            <row bottom="major">
-              <cell>
-                <p>Loading type in a segment</p>
-              </cell>
-              <cell>
-         Equation
-        </cell>
-              <cell>
-         Description
-        </cell>
-            </row>
-            <row>
-              <cell>
-         between point loads
-        </cell>
-              <cell>
-                <p>
-                  <m> w=0</m>
-                </p>
-              </cell>
-              <cell>
-                <p>load between point loads will result in no change in the shear (<m>V</m>) between point loads (only happens when self-weight of the beam is ignored)</p>
-              </cell>
-            </row>
-            <row>
-              <cell>
-                <p>distributed loads (rectangular area)</p>
-              </cell>
-              <cell>
-                <p>constant value</p>
-              </cell>
-              <cell>
-                <p>value is negative (-) if the load is downward (↓) and positive (+) if the load is upward (↑)</p>
-              </cell>
-            </row>
-            <row>
-              <cell>
-                <p>changing loads (triangular or trapezoidal area)</p>
-              </cell>
-              <cell>
-                <m>= mx + b</m>
-              </cell>
-              <cell>
-                <p>defined by the arrow tips of the distributed load  = slope (rise/run)  = distance from datum (global or local to segment, see Global vs Local functions for segment equations above) <m> = y</m> intercept at <m>x = 0</m>
-                        </p>
-              </cell>
-            </row>
-            <row>
-              <cell>
-                <p>other loading distribution</p>
-              </cell>
-              <cell>
-                <p>
-                  <m>= f(x)</m>
-                </p>
-              </cell>
-              <cell>
-                <p>defined by the arrow tips of the distributed load</p>
-                <p>	Note that point and uniformly distributed loads can easily be handled with the graphical method and do not require the use of the calculus method.</p>
-                <p>	As most gravitational distributed loads are drawn with the arrows pointing down and resting on the beam, slide distributed loads along their line of action so that their tails are on the beam and their tips define your equation.</p>
-              </cell>
-            </row>
-          </tabular>
-        </table>
-      </introduction>
-      <subsubsection xml:id="Chapter_08-application-of-the-calculus-method">
-        <title>Application of the Calculus Method</title>
-        <p>
-          <ol>
-            <li>
-              <p>You can either start with this method from the start of your problem or, to be more time-efficient, use the graphical method until the point you need to find areas of more complicated shapes than rectangles and triangles.</p>
-            </li>
-            <li>
-              <p>You will need to have solved the loading segment to the left of your desired segment.</p>
-            </li>
-            <li>
-              <p>Write an equation for the loading <m>w</m> in the segment, see <xref ref="VM_load_table"/>.</p>
-            </li>
-            <li>
-              <p>Integrate the loading equation <m>w(x)</m> to find the change in the shear <m>V</m> and include the shear value at the beginning of your loading segment including the influence of any point loads at that location (equivalent to the integration constant)</p>
-            </li>
-            <li>
-              <p>Integrate the shear equation <m>w(x)</m> to find the change in the bending moment M and include the moment value at the beginning of your loading segment including the influence of any point couple-moments at that location (equivalent to the integration constant)</p>
-            </li>
-            <li>
-              <p> To find maximum values <ol><li><p>         For shear, use <m>V(x)</m> equation to compute</p></li><li><p>         For moment, use <m>M(x)</m> to compute. If the value of the maximum moment is in the middle of a loading segment (often where the shear value is zero), set the <m>V(x)=0</m>, solve for x and then put that distance value into the moment <m>M(x)</m> equation. See the example below)</p></li></ol>
-                     </p>
-            </li>
-          </ol>
-        </p>
-        <image width="75%" source="images/function_of_x.png">
-          <remix>
-            <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-            <license href="https://creativecommons.org/choose/zero/"/>
-          </remix>
-        </image>
-        <p/>
-      </subsubsection>
-    </subsection>
-    <subsection xml:id="Chapter_08-geogebra-interactives">
-      <title>Geogebra Interactives</title>
-      <introduction>
-        <p>You can use the interactives below to practice drawing shear and moment diagrams.  You can change the position of the loads and change their magnitudes and observe how the diagrams change, or you can click <c>New Problem</c> to generate a new problem.</p>
-        <p>After exploring the diagrams and seeing how they relate to each other, turn off the solutions and try for yourself.  You will very likely see problems like these on an exam.</p>
-      </introduction>
-      <subsubsection xml:id="Chapter_08-concentrated-forces">
-        <title>Concentrated Forces</title>
-        <xi:include href="interactives.ptx" xpointer="ggb_VM_1_interactive"/>
-      </subsubsection>
-      <subsubsection xml:id="Chapter_08-concentrated-force-and-moment">
-        <title>Concentrated Force and Moment</title>
-        <xi:include href="interactives.ptx" xpointer="ggb_VM_2_interactive"/>
-      </subsubsection>
-      <subsubsection xml:id="Chapter_08-distributed-load">
-        <title>Distributed Load</title>
-        <xi:include href="interactives.ptx" xpointer="ggb_VM_3_interactive"/>
-      </subsubsection>
-      <subsubsection xml:id="Chapter_08-combination-load">
-        <title>Combination Load</title>
-        <xi:include href="interactives.ptx" xpointer="ggb_VM_4_interactive"/>
-      </subsubsection>
-      <subsubsection xml:id="Chapter_08-arbitrary-load">
-        <title>Arbitrary Load</title>
-        <xi:include href="interactives.ptx" xpointer="ggb_VM_5_interactive"/>
-      </subsubsection>
     </subsection>
   </section>
-  <section xml:id="Chapter_08-conclusion">
-    <title>Conclusion</title>
-    <p>You have likely realized that in engineering (and life) that there are multiple ways to solve a problem. The four different techniques in this chapter to compute internal loadings are a demonstration of this. </p>
-    <p>The table below may help you consider the advantages and disadvantages of each method. In the end, the decision of which method to useis yours, and the better you know each method the easier it will be to choose the one which is both applicable and efficient.</p>
-    <!--todo this shouldn't be a table-->
-    <table>
-      <title>Summary of the methods to solve for internal loadings along with the advantages and disadvantages of each.</title>
-      <tabular>
+  <section xml:id="section_cut_method">
+    <title>Section Cut Method</title>
+    <p>In this section we'll extend the method of <xref ref="internal_load_at_point"/> where we found internal loadings at a specific point to make shear and bending moment diagrams.  The procedure is similar except that the cut is taken at a variable position designated by <m>x</m> instead of at a specified point.  The analysis produces <em>equations</em> for shear and bending moments as functions of <m>x</m>.  Shear and bending moment diagrams are plots of these equations, and the internal loads at any particular point can be found by substituting the point’s location into the equations.  </p>
+    <sidebyside widths="55% 40%" margins="0%" valign="middle">
+      <p>As an example, we will use a cantilevered beam fixed to a wall on its left end and subject to a vertical force <m>P</m> on its right end as an example.  Global equilibrium requires that the reactions at the fixed support at <m>A</m> are a vertical force <m>A_y = P</m>, and a counter-clockwise moment <m>M_A = P L</m>.</p>
+      <image source="images/cantilevered-beam-ex0"/>
+    </sidebyside>
+    <p>By taking a cut at a distance <m>x</m> from the left we can draw two free-body diagrams with lengths <m>x</m> and <m>(L-x)</m>.  This beam has <em>one</em> loading segment, because no matter where <m>x</m> is chosen, the free-body diagrams shown in <xref ref="cuts_1"/> (b) and (c) are correct.  The internal loadings are named <m>V(x)</m> and <m>M(x)</m> to indicate that they are functions of <m>x</m>.</p>
+    <figure xml:id="cuts_1">
+      <caption/>
+      <sidebyside widths="40% 25% 25%" margins="0%">
+        <figure>
+          <caption>Cut at position <m>x</m>.</caption>
+          <image source="images/cantilevered-beam-ex1"/>
+        </figure>
+        <figure>
+          <caption>Left FBD.</caption>
+          <image source="images/cantilevered-beam-ex2"/>
+        </figure>
+        <figure>
+          <caption>Right FBD.</caption>
+          <image source="images/cantilevered-beam-ex3"/>
+        </figure>
+      </sidebyside>
+    </figure>
+    <p>To find the shear and loading functions, we apply the equilibrium to one of the free-body diagrams.  Either side will work, so we’ll select the right-hand portion as it doesn’t require us to find the reactions at <m>A</m>.  Letting <m>L</m> be the length of the beam and <m>(L-x)</m> the length of the right portion, we find</p>
+    <sidebyside widths="35% 25%" margins="15%">
+      <p>
+        <md>
+          <mrow>\Sigma F_y \amp = 0 \amp \Sigma M_\text{cut} \amp = 0</mrow>
+          <mrow>V(x) \amp = P \amp M(x) \amp = - P(L-x)</mrow>
+        </md>
+      </p>
+      <image source="images/cantilevered-beam-ex3"/>
+    </sidebyside>
+    <p>The plots of the equations for <m>V(x)</m> and <m>M(x)</m> are shown below in <xref ref="vm-cantilever"/>.  These equations indicate that the shear force <m>V(x)</m> is constant <m>P</m> over the length of the beam and the moment <m>M(x)</m> is a linear function of the position of the cut, <m>x</m> starting at <m>-PL</m> at <m>x=0</m> and linearly increasing to zero at <m>x=L</m>. Note that the graphs are only valid from <m>0 \le x \le L</m>, so the curves outside this range is show as dotted lines.  These two graphs are usually drawn stacked beneath the diagram of the beam and loading.</p>
+    <figure xml:id="vm-cantilever">
+      <caption>Shear and Bending Moment Diagrams</caption>
+      <sidebyside width="40%">
+        <figure>
+          <caption><m>V(x)</m> vs. <m>x</m>
+               </caption>
+          <image source="images/cantilever-V"/>
+        </figure>
+        <figure>
+          <caption><m>M(x)</m> vs. <m>x</m>
+               </caption>
+          <image source="images/cantilever-M"/>
+        </figure>
+      </sidebyside>
+    </figure>
+    <p>The previous example was simple because because only one <acro>FBD</acro> was necessary for any point on the beam, but many beams are more complex.  Beams with multiple loads must be divided into loading segments between the points where loads are applied or where distributed loads begin or end.</p>
+    <sidebyside widths="55% 40%" margins="0%" valign="middle">
+      <p>Consider the simply supported beam <m>AD</m> with a uniformly distributed load load <m>w</m> over the first segment from <m>A</m> to <m>B</m>, and two vertical loads <m>B</m> and  <m>C</m>. </p>
+      <image source="images/simple-beam-ex0"/>
+    </sidebyside>
+    <p>This beam has three loading segments so you must draw three free-body diagrams and analyze each segment independently. For each, make an imaginary cut through the segment, then draw a new free-body diagram of the portion to the left (or right) of the cut.  Always assume that the exposed internal shear force and internal bending moment act in the positive direction according to the <xref ref="VM_sign_convention" text="custom">sign convention</xref>.</p>
+    <figure>
+      <caption/>
+      <sidebyside widths="20% 30% 40%" margins="0%">
+        <figure>
+          <caption>
+            <m>0 \lt x \lt 1</m>
+          </caption>
+          <image source="images/simple-beam-ex1"/>
+        </figure>
+        <figure>
+          <caption>
+            <m>1 \lt x \lt 2</m>
+          </caption>
+          <image source="images/simple-beam-ex2"/>
+        </figure>
+        <figure>
+          <caption>
+            <m>2 \lt x \lt 3 </m>
+          </caption>
+          <image source="images/simple-beam-ex3"/>
+        </figure>
+      </sidebyside>
+    </figure>
+    <p>After the equilibrium equations are applied to each segment, the resulting equations <m>V(x)</m> and <m>M(x)</m> from each segment are joined to plot the shear and moment diagrams.  These diagrams help us visualize the values of <m>V</m> and <m>M</m> throughout the beam. </p>
+    <!--todo  this really needs a numeric example and plot to demonstrate -->
+  </section>
+  <section xml:id="VM_relations">
+    <title>Relation Between Loading, Shear and Moment</title>
+    <p>Suppose that we have a simply supported beam upon which there is an applied load <m>w(x)</m> which is distributed on the beam by some function of position, <m>x</m>, as shown in <xref ref="arbitrary-load-ex0"/>.</p>
+    <figure xml:id="arbitrary-load-ex0">
+      <caption>
+A simply supported beam with a distributed load that is a function of beam position <m>w(x)</m>.
+</caption>
+      <image width="40%" source="images/arbitrary-load-ex0">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/choose/zero/"/>
+        </remix>
+      </image>
+    </figure>
+    <p>If we select a small section of this beam from <m>x</m> to <m>x+\Delta x</m> to look at closely, we have the free-body diagram  shown in <xref ref="arbitrary-load-ex1"/>. </p>
+    <p/>
+    <figure xml:id="arbitrary-load-ex1">
+      <caption>
+A free-body diagram of a small section of the beam with a width of <m>\Delta x</m>
+         </caption>
+      <image width="30%" source="images/arbitrary-load-ex1">
+        <remix>
+          <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+          <license href="https://creativecommons.org/choose/zero/"/>
+        </remix>
+      </image>
+    </figure>
+    <p>Since <m>\Delta x</m>  is infinitely narrow, we can assume that the distributed load over this small distance is constant and equal to the value at <m>x</m>, and call it <m>w</m>.</p>
+    <p>Applying the force equilibrium in the vertical direction gives the following result:
+<md><mrow>\sum F_y \amp = 0</mrow><mrow>V+w (\Delta x)-(V+\Delta V) \amp = 0</mrow><mrow>\frac {\Delta V}{\Delta x} \amp = w</mrow></md>
+      </p>
+    <p>Taking the limit of both sides as <m>\Delta x</m> approaches 0, we get this important result
+<md><mrow>\lim_{\Delta x \to\ 0}\left( \frac {\Delta V}{\Delta x} \right) \amp= \lim_{\Delta x \to\ 0}\left( w \right)</mrow><mrow>\frac {dV}{dx}\amp = w</mrow></md>
+      </p>
+    <p/>
+    <p>This equation tells us that, at a given location <m>x</m>, the slope of the shear function <m>V(x)</m> there is the value of the loading directly above, <m>w(x)</m>. Furthermore, if we multiply both sides by <m>dx</m>, we can integrate to find that </p>
+    <p>
+      <me>\Delta V=\int w(x) \ dx</me>
+    </p>
+    <p/>
+    <p>In words, this equation says that over a given distance, the change in the shear <m>V</m> between two points is the area under the loading curve between them.</p>
+    <p>Now looking at the internal bending moments on the <acro>FBD</acro> in <xref ref="arbitrary-load-ex1"/>, when we apply moment equilibrium about the centroid of the element, and take the limit similarly,</p>
+    <p>
+      <md>
+        <mrow>\sum M \amp =0</mrow>
+        <mrow>-\frac {\Delta x}{2}V-\frac {\Delta x}{2}(V+\Delta V)-M+(M+\Delta M)\amp=0</mrow>
+        <mrow>\frac {\Delta M}{\Delta x}\amp=\frac{1}{2}(2V+\Delta V)</mrow>
+        <mrow>\lim_{\Delta x \to\ 0}\left( \frac {\Delta M}{\Delta x}\right)\amp= \lim_{\Delta x \to\ 0}\left(V+\frac{\Delta V}{2}\right)</mrow>
+        <mrow>\frac {dM}{dx} \amp =V</mrow>
+      </md>
+    </p>
+    <p/>
+    <p>This final equation tells us that, the slope of the moment diagram is the value of the shear. Furthermore, if we multiply both sides by <m>dx</m>, we can integrate to find that </p>
+    <p>
+      <me>\Delta M=\int V\ dx</me>
+    </p>
+    <p/>
+    <p>In words, this equation says that over a given segment, the change in the moment value is the area under the shear curve.</p>
+    <p>Hence, the functional relationships between the internal shear force <m>V(x)</m>, internal bending moment <m>M(x)</m> at a point <m>x</m>, and the value of the loading at that point <m>w(x)</m> are are simply the derivatives and integrals that you learned in Calculus I.  These relationships are summarized below.</p>
+    <sidebyside widths="40% 40%" margins="10%">
+      <p>  The slope of the shear function at <m>x</m> is the value of the loading function at the same position. An upward load is considered a positive load.</p>
+      <p>
+        <men xml:id="VMV1">\frac {dV}{dx}=w(x)</men>
+      </p>
+    </sidebyside>
+    <sidebyside widths="40% 40%" margins="10%">
+      <p>The change in the shear value between two points is the area under the loading function between those points.</p>
+      <p>
+        <men xml:id="VMV2"> \Delta V=\int_a^b w(x)\ dx</men>
+      </p>
+    </sidebyside>
+    <sidebyside widths="40% 40%" margins="10%">
+      <p>The slope of the moment function at <m>x</m> is the value of the shear at the same position.</p>
+      <p>
+        <men xml:id="VMM1">\frac {dM}{dx}=V(x)</men>
+      </p>
+    </sidebyside>
+    <sidebyside widths="40% 40%" margins="10%">
+      <p>The change in the moment value between two points is the area under the shear curve between those points.</p>
+      <p>
+        <men xml:id="VMM2">\Delta M=\int_a^b V(x)\ dx</men>
+      </p>
+    </sidebyside>
+    <!-- todo add example of VM diagram for a function of x.  -->
+    <p>Shear and bending moment digrams show the effect of the load on the internal forces within the beam and are a graphical representation of equations <xref first="VMV1" last="VMM2"/>.  The diagrams are made up of jumps, slopes and areas as a result of the load.
+<ul><li><alert>Jumps</alert>  are vertical changes in shear and moment diagrams.</li><li><alert>Slopes</alert>  are gradual changes in shear and moment diagrams. Positive slopes go up and to the right.</li><li><alert>Areas</alert>    are <q>areas</q> under the loading and shear curves.  The area under the loading curve is actually a force, and the area under the shear curve is actually a moment.</li></ul>
+      </p>
+    <table xml:id="VM_summary">
+      <title>Effect of load on shear and bending moments.</title>
+      <tabular halign="left" valign="top">
         <col width="25%"/>
         <col width="25%"/>
         <col width="25%"/>
         <col width="25%"/>
-        <row>
-          <cell>Method</cell>
-          <cell>Description</cell>
-          <cell>Advantages</cell>
-          <cell>Disadvantages</cell>
-        </row>
-        <row>
+        <row bottom="major">
           <cell>
-            <p>Section Cut to find Internal Loadings at a Single Point</p>
+            <p>         Diagram</p>
           </cell>
           <cell>
-            <p>Cut a rigid body at a specific location to expose and then solve for the internal loadings at that location</p>
+            <p>         Jumps</p>
           </cell>
           <cell>
-            <p>is computationally efficient</p>
-            <p>works for any shape rigid body (not just beams)</p>
-            <p>takes advantage of tools you have already learned in previous chapters </p>
+            <p>         Slopes</p>
           </cell>
           <cell>
-            <p>requires knowledge of specialized sign conventions for internal loadings</p>
-            <p> only reveals internal loading values at a single point</p>
-            <p>does not reveal all values of shear and moment for a body</p>
+            <p>         Areas</p>
           </cell>
         </row>
         <row>
           <cell>
-            <p>Section Cut Equations for Shear and Moment Diagrams </p>
+            <p>         Shear</p>
           </cell>
           <cell>
-            <p>Break a beam into loading segments and develop equations for shear and moment using a cut through each section</p>
+            <p>         Concentrated forces cause the shear diagram to jump by the same amount.   Upward loads cause upward jumps.</p>
           </cell>
           <cell>
-            <p>allows computation without calculus computations or knowledge</p>
+            <p>          The  slope of the shear diagram at a point is equal to the value of the distributed load above that point.  An downward distributed load will give the shear diagram a negative slope.</p>
           </cell>
           <cell>
-            <p>requires knowledge of specialized sign conventions for internal loadings</p>
-            <p>is computationally time-intensive</p>
-            <p>computational steps lack conceptual cross-checks </p>
+            <p>         The change in the shear between two points is equal to the corresponding area under the loading curve.</p>
           </cell>
+        </row>
+        <row bottom="minor">
+          <cell/>
+          <cell>
+            <p>Concentrated moments on the beam have no effect on the shear diagram.</p>
+          </cell>
+          <cell/>
+          <cell/>
         </row>
         <row>
           <cell>
-            <p>Graphical Method for Shear and Moment Diagrams</p>
+            <p>         Moment</p>
           </cell>
           <cell>
-            <p>Use mathematical relationship among loading, shear, and moment to graphically create shear and moment diagrams</p>
+            <p>        Concentrated moments cause jumps on the moment curve.  Counterclockwise moments cause downward jumps and vice-versa.</p>
           </cell>
           <cell>
-            <p>requires only simple computations to support conceptual relationships</p>
-            <p> conceptual nature allows many cross-checks for accuracy </p>
-            <p> handles point loads, uniform distributed loads, and couple-moments</p>
+            <p>         The slope of the moment diagram at a point is equal to the value of shear at that point.   A positive shear causes a positive slope on the moment diagram and vice-versa.</p>
           </cell>
           <cell>
-            <p>requires solid calculus knowledge of slopes and areas related to derivatives and integrals</p>
-            <p> requires you learn a few simple graphical rules and that you work from left to right</p>
-          </cell>
-        </row>
-        <row>
-          <cell>
-            <p>Calculus-Based Equations for Shear and Moment Diagrams </p>
-          </cell>
-          <cell>
-            <p>Use mathematical relationship among loading, shear, and moment to develop equations for shear and moment diagrams</p>
-          </cell>
-          <cell>
-            <p>allows shear and moment diagram computation of complicated loading distributions (e.g. non-uniform distributed loads) </p>
-          </cell>
-          <cell>
-            <p>requires accurate computation of derivatives and integrals</p>
-            <p> requires you learn a few simple graphical rules for concentrated forces and couple-moments</p>
+            <p>        Change in the moment between two points is equal to the corresponding area under a shear curve.</p>
           </cell>
         </row>
       </tabular>
     </table>
+    <p>You can use the interactive below to explore how changes to concentrated load <m>P</m> and distributed load <m>w</m> affects the slopes, jumps, and areas of the resulting shear and bending moment diagrams.</p>
+    <figure xml:id="VM_building_blocks">
+      <caption>Building Blocks for Shear and Moment Diagrams</caption>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM-building-blocks_interactive"/>
+    </figure>
+  </section>
+  <section xml:id="graphical_method">
+    <title>Graphical Method</title>
+    <p>If you have a firm grasp on the relations between load, shear and bending moments <xref ref="VM_relations"/>, the graphical method is a quick and intuitive way to draw shear and moment diagrams. This technique is really a graphical integration process; you integrate from load <m>w(x)</m> to shear <m>V(x)</m> to moment <m>M(x)</m>, from top to bottom, or differentiate from bottom to top.</p>
+    <p>Shear and bending moment diagrams are governed by  equations <xref first="VMV1" last="VMM2"/> and must be consistent with them.
+      <md><mrow>\dfrac{dV}{dx} \amp = w(x)              \amp \dfrac{dM}{dx} \amp = V(x) </mrow><mrow>\Delta V       \amp = \int_a^b w(x)\,dx \amp \Delta M \amp= \int_a^b V(x)\,dx </mrow></md>
+      </p>
+    <p>Shear and bending moment diagram problems should include:
+<ol><li>A neat, accurate, labeled free-body diagram of the entire structure, and the work to find the reactions. For this work, you may replace the distributed loads with equivalent concentrated loads.</li><li>A neat, properly scaled diagram of the beam showing its reactions and <q>true</q> loads.  Distributed loads must be shown this diagram, because their distributed nature is significant.</li><li>A large graph of the shear and bending moment functions drawn directly below the scaled beam diagram.  It is convenient to draw this graph on graph paper.</li><li>The correct shape and curvature for each curve segment: zero, constant slope, polynomial.  Changes in curve shapes should align with the load which causes them. Indicate the scale used for shear and moment, and use a straightedge.</li><li>Values of shear and moment at maximums, minimums and points of inflection.</li><li>Any other work need to justify your results.</li></ol>
+      </p>
+    <p>You can draw shear and bending moments efficiently and accurately using this procedure <ol><li>       First, <em>determine the reaction forces</em> and moments by drawing a free-body diagram of the entire beam and applying the equilibrium equations. Double check that your reactions are correct.</li><li>       Establish the shear graph with a horizontal axis below the beam and a vertical axis to represent shear. Positive shears will be plotted above the <m>x</m> axis and negative below.</li><li>       Make vertical lines at all the <q>interesting points</q>, <ie/> points where concentrated forces or moments act on the beam and at the beginning and end of any distributed loads. This divides the beam into segments between vertical lines.</li><li><p><em>Draw the shear diagram</em> by starting with a dot at <m>x = 0</m>, <m>V = 0</m> then proceeding from left to right until you reach the end of the beam. Choose and label a scale which keeps the diagram a reasonable size. <ol><li>        Whenever you encounter a concentrated force, jump up or down by that value</li><li>        Whenever you encounter a concentrated moment, do not jump.</li><li>        Whenever you encounter a distributed load, move up or down by the <q>area</q> under the loading curve over the length of the segment, according to equation <xref ref="VMV2"/>. The <q>area</q> is actually a force.</li><li>         The slope of the curve at each point <m>x</m> is given by <xref ref="VMV1"/>. Distributed loads cause the shear diagram to have a slope equal to value of the distributed load at that point.   For unloaded segments of the beam, the slope is zero, i.e. the shear curve is horizontal. For segments with uniformly distributed load, the slope is constant.  Downward loads cause downward slopes.</li><li>         The shear diagram should start and end at <m>V = 0</m>. If it doesn’t, recheck your work.</li></ol>
+               </p></li><li>       Add another interesting point wherever the shear diagram crosses the <m>x</m>-axis, and determine the <m>x</m> position of the zero crossing.</li><li>       After you have completed the shear diagram, <em>calculate the area under the shear curve</em> for each segment. Areas above the axis are positive, areas below the axis are negative. The areas represent moments and the sum of the areas plus the values of any concentrated moments should add to zero. If they don’t, then recheck your work.</li><li>       Establish the moment graph with a horizontal axis below the shear diagram and a vertical axis to represent moment. Positive moments will be plotted above the <m>x</m> axis and negative below.</li><li><p><em> Draw and label dots on the moment diagram</em> by starting with a dot at <m>x = 0, M = 0</m> then proceed from left to right placing dots until you reach the end of the beam. As you move over each segment move up or down from the current value by the <q>area</q> under the shear curve for that segment and place a dot on the graph. In this step, you are applying <xref ref="VMM2"/>. 
+<ol><li>         Positive areas cause the moment to increase, negative areas cause it to decrease.</li><li>         If you encounter a concentrated moment, jump straight up or down by the amount of the moment and place a dot. Clockwise moments cause upward jumps and counterclockwise moments cause downward jumps.</li><li>         When you reach the end of the beam you should return to <m>M = 0</m>. If you don’t, then recheck your work.</li></ol>
+               </p></li><li><em>Connect the dots with correctly shaped lines</em>. Segments under constant shear are straight lines, segments under changing shear are curves. The general curvature of the lines can be determined by considering equation <xref ref="VMM1"/>.</li></ol>
+      </p>
+  </section>
+  <section xml:id="integration_method">
+    <title>Integration Method</title>
+    <introduction>
+      <p>In <xref ref="VM_relations"/> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.  Beams consisting of point and uniformly distributed loads only do not require the use of the calculus method.</p>
+      <p>However, there are times that the graphical technique falls short when the areas are more complicated than rectangles or triangles. For example, a uniformly varying load, which is a firs degree linear function of <m>x</m>, integrates to a second degree parabolic shear function, and a third degree cubic moment function.  To use the graphical method you would need to find the area under the parabolic shear curve to compute the cubic moment.   When the loading becomes more complex it is better to use perform the integration directly. </p>
+      <p>We will use fundamental equations <xref ref="VMV2"/> and <xref ref="VMM2"/> to find the shear and bending moment functions <md><mrow>\Delta V\amp =\int_a^b w(x)\ dx \amp \Delta M\amp=\int_a^b V(x)\ dx</mrow></md> but instead of finding areas and slopes using geometry, we will integrate the load function <m>w(x)</m> to find the <m>\Delta V</m>, then integrate that result to find the  <m>\Delta M</m>. </p>
+      <p>These results are the change in shear and moment over a segment; to find the actual shear and moment functions <m>V(x)</m> and <m>M(x)</m> for the entire beam we will need to find initial values for each segment.   This is equivalent to using boundary conditions to find  the constant of integration when solving a differential equation. The initial values come from either the final value of the previous segment or from point loads or point moments. Because of the requirement for these segment starting values, no segment can be computed in isolation from the other segments. Physically this means that the shear and moment along a beam are not just due to the loading in one segment, but are related to the loading on the rest of the beam as well.</p>
+    </introduction>
+    <subsection xml:id="Chapter_08-determining-loading-functions">
+      <title>Determining Loading Functions</title>
+      <p>Before you can find shear and bending moment functions with integration you must know the equation for the load on each segment of the beam.  These equations may be given in the problem statement if you're lucky, or you may have to determine them from a loading diagram.  </p>
+      <p>When determining equations for loading segments, you may choose either <em>global equations</em>, where all segments use the same origin, usually at the left end of the beam, or <em>local equations</em>,  where each segment uses its own origin, usually at the left end of the segment. Often local equations are easier because you can simply use the variable <m>x</m> in your equations as opposed to <q><m>x</m> + constant</q>, and you do not have to project the <m>y</m>-intercept values back to an axis system which is not adjacent to the segment.  See interactive <xref ref="ggb_global_local"/> to explore the difference between local and global equations.</p>
+      <p>When determining equations for the loading segments from the load diagram, consider the following.
+<ul><li><title>No load</title><p>Whenever there is no load at all on a segment there will be no change in the shear on the segment.  On such sections the loading function is <me>w(x) = 0</me>. Note that this can only occur when the weight of the beam itself is neglected. </p></li><li><title>Uniformly Distributed Load</title><p> A uniformly distributed load is constant over the segment and results in a rectangular shear diagram.    The loading function on such sections is <me>w(x) = C </me>. The constant value is negative if the load points down, and positive if it points upward.</p></li><li><title>Uniformly Varying Load </title><p>In this case the loading function varies linearly, and will produce a triangular or trapezoidal shear function.  The loading function is a straight line. <me>w(x) = m x + b</me>.  The slope <m>m</m> and intercept <m>b</m> must be determined from the statement, and will depend on whether you are writing a global or local equation.  </p></li><li><title>Arbitrary Load</title><p>The loading function will be a given function of <m>x</m>. <me> w(x) = f(x)</me>. </p><p>Most gravitational distributed loads are drawn with the arrows pointing down and resting on the beam.  If you slide these along their line of action so that their tails are on the beam, the tips define the loading equation.</p></li></ul>
+         </p>
+      <p>This interactive compares the local and global equations for a beam segment with a uniformly varying load.</p>
+      <figure xml:id="ggb_global_local">
+        <caption>
+Global vs. Local coordinate systems.
+</caption>
+        <xi:include href="interactives.ptx" xpointer="ggb_translate-coord-sys_interactive"/>
+      </figure>
+      <p/>
+      <!--todo  Not sure the point of this explanation.  Needs more detail and an example -->
+    </subsection>
+    <subsection xml:id="Chapter_08-application-of-the-calculus-method">
+      <title>Application of the Calculus Method</title>
+      <p>
+        <ol>
+          <li>
+            <p>You can either start with this method from the start of your problem or, to be more time-efficient, use the graphical method until the point you need to find areas of more complicated shapes than rectangles and triangles.</p>
+          </li>
+          <li>
+            <p>You will need to have solved the loading segment to the left of your desired segment.</p>
+          </li>
+          <li>
+            <p>Write an equation for the loading <m>w</m> in the segment using either local or global coordinates.</p>
+          </li>
+          <li>
+            <p>Integrate the loading equation <m>w(x)</m> to find the change in the shear <m>\Delta V</m> and include the shear value at the beginning of your loading segment including the influence of any point loads at that location, which is equivalent to the integration constant.</p>
+          </li>
+          <li>
+            <p>Integrate the shear equation <m>w(x)</m> to find the change in the bending moment <m>\Delta M</m> and include the moment value at the beginning of your loading segment including the influence of any point couple-moments at that location, equivalent to the integration constant.</p>
+          </li>
+          <li>
+            <p> To find maximum values <ol><li><p>         For shear, use <m>V(x)</m> equation.</p></li><li><p>         For moment, use <m>M(x)</m>. If the value of the maximum moment is in the middle of a loading segment (often where the shear value is zero), set the <m>V(x)=0</m>, solve for <m>x</m> and then put that distance value into the moment <m>M(x)</m> equation.</p></li></ol>
+                  </p>
+          </li>
+        </ol>
+      </p>
+      <example xml:id="Chapter_08-example-example">
+        <title>Example</title>
+        <statement>
+          <sidebyside widths="60% 40%" margins="0%" valign="middle">
+            <p>Use the integration method to find the equations for shear and moment as a function of <m>x</m>, for a simply supported beam carrying a uniformly distributed load <m>w</m> over its entire length <m>L</m>.</p>
+            <image source="images/VM-integration-1"/>
+          </sidebyside>
+        </statement>
+        <answer>
+          <p>
+            <md>
+              <mrow>V(x) \amp =  w\left( \frac{L}{2} -x\right ) \amp M(x) \amp =  \frac{w}{2} (Lx - x^2)</mrow>
+            </md>
+          </p>
+        </answer>
+        <solution>
+          <p/>
+          <p>This beam has only one load section, and on that section the load is constant so, <me>w(x)= w</me>. There is a pinned connection at <m>x=0</m> which provides a vertical force and no concentrated moment, so the initial conditions there are <m>V(0) = wL/2</m>, and <m>M(0) = 0</m>.  </p>
+          <p>Integrating equations <xref ref="VMV2"/> and <xref ref="VMM2"/> we have.</p>
+          <sidebyside widths="60% 40%" margins="0%" valign="middle">
+            <p>
+              <md>
+                <mrow>\Delta V \amp =  - \int_0^x w(x) \ dx</mrow>
+                <mrow>V(x) - V_0 \amp =  -w x </mrow>
+                <mrow>V(x)\amp =  \frac{wL}{2} - wx</mrow>
+                <mrow>\amp =  w\left(\frac{L}{2} - x\right) </mrow>
+                <mrow/>
+              </md>
+            </p>
+            <image source="images/VM-integration-2"/>
+          </sidebyside>
+          <sidebyside widths="60% 40%" margins="0%" valign="middle">
+            <p>
+              <md>
+                <mrow>\Delta M \amp =  \int_0^x V(x) \ dx</mrow>
+                <mrow>V(x)- \cancelto{0}{M_0} \amp =  \int_0^x   w\left(\frac{L}{2} - x \right) \ dx </mrow>
+                <mrow>V(x) \amp =  \frac{w}{2} (Lx - x^2)</mrow>
+              </md>
+            </p>
+            <image source="images/VM-integration-3"/>
+          </sidebyside>
+        </solution>
+      </example>
+    </subsection>
+  </section>
+  <section xml:id="Chapter_08-geogebra-interactives">
+    <title>Geogebra Interactives</title>
+    <introduction>
+      <p>You can use the interactives below to practice drawing shear and moment diagrams.  You can change the position of the loads and change their magnitudes and observe how the diagrams change, or you can click <c>New Problem</c> to generate a new problem.</p>
+      <p>After exploring the diagrams and seeing how they relate to each other, turn off the solutions and try for yourself.  You will very likely see problems like these on an exam.</p>
+    </introduction>
+    <subsection xml:id="Chapter_08-concentrated-forces">
+      <title>Concentrated Forces</title>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM_1_interactive"/>
+    </subsection>
+    <subsection xml:id="Chapter_08-concentrated-force-and-moment">
+      <title>Concentrated Force and Moment</title>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM_2_interactive"/>
+    </subsection>
+    <subsection xml:id="Chapter_08-distributed-load">
+      <title>Distributed Load</title>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM_3_interactive"/>
+    </subsection>
+    <subsection xml:id="Chapter_08-combination-load">
+      <title>Combination Load</title>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM_4_interactive"/>
+    </subsection>
+    <subsection xml:id="Chapter_08-arbitrary-load">
+      <title>Arbitrary Load</title>
+      <xi:include href="interactives.ptx" xpointer="ggb_VM_5_interactive"/>
+    </subsection>
+  </section>
+  <section xml:id="Chapter_08-summary">
+    <title>Summary</title>
+    <p>You have likely realized that in engineering (and life) that there are multiple ways to solve a problem. The four different techniques to compute internal loadings discussed in this chapter are a demonstration of this.  In the end, the choice of which method to use is yours; the better you know each method the easier it will be to choose the one which is most applicable and efficient.</p>
+    <p>The list below summarizes each of the four approaches and their advantages and disadvantages.</p>
+    <list>
+      <title>Summary of Methods to find Internal Loadings.</title>
+      <ul>
+        <li>     In <xref ref="internal_load_at_point"/> we exposed the internal forces at a specific point inside a rigid body by taking a cut at that location and applying the equilibrium equations. This approach is computationally efficient, works for any  rigid body and takes advantage of tools you have learned in previous chapters.  It requires knowledge of sign conventions for internal loadings, but only reveals internal loading values at the selected point.</li>
+        <li>In <xref ref="section_cut_method"/>  we generalized the previous approach by taking a cut at a variable location, and analyzed the equilibrium equations in terms of <m>x</m>.  The results were <em>functions</em> which describe shear and moment at every point within the beam, rather than at a specific location.  This method requires breaking a beam into loading segments and writing and solving equations for each segment.  The equations are then plotted to give shear and bending moment diagrams.  This method is abstract and the results lack conceptual cross-checks.</li>
+        <li>In <xref ref="graphical_method"/> we used the mathematical relationships between loading, shear, and bending moment to draw shear and moment diagrams directly.  The method is quick and requires only a few simple computations to determine the critical values. The approach provides many cross-checks for accuracy.  It is most suitable for beams loaded with concentrated forces, concentrated moments, and uniformly distributed loads, but is not usually suitable for more complex distributed loads.  It is essential to have a solid grasp of the integral and differential relations between loading, shear and moment discussed in <xref ref="VM_relations"/> to use this method.</li>
+        <li>In <xref ref="integration_method"/> we discussed the most general approach to determine internal loads.  In the approach, the load is described as a piecewise function of <m>x</m>, which is integrated twice to develop equations for shear and moment.  This method can used for arbitrarily complicated loading distributions, and can be used by software solutions. Applying this method by hand requires accurate integration and differentiation,  and application of boundary conditions.</li>
+      </ul>
+    </list>
   </section>
   <exercises>
     <interactive xml:id="numbas-chapter-8" width="100%" aspect="1:8" platform="numbas" preview="numbas">

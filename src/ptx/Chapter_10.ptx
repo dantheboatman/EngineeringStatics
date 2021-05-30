@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_10">
   <title>Moments of Inertia</title>
-  <objectives>
-    <ul>
-      <li>What is an area moment of inertia?</li>
-      <li>What is the difference between the area and mass moments of inertia? </li>
-      <li>What is the neutral axis of a beam?</li>
-      <li>Explain the similarities and differences between computing a centroid and an area moment of inertia.</li>
-    </ul>
-  </objectives>
   <introduction>
     <p>Area moments of inertia are a measure of the distribution of a two-dimensional area around a particular axis.  Fundamentally, the portions of a shape which are located farther from the axis are more important than the parts which are closer. The primary application is in structural engineering and machine design where they are used to determine a structural member’s stiffness.  Another  application is in Fluid Mechanics where they are used to determine the effect of pressure on a submerged surface.  We will use the symbol <m>I</m> for this property, along with a subscript to indicate the specific axis, so for example, <m>I_x</m> would indicate the <q>Area moment of inertia with respect to the <m>x</m> axis.</q>
       </p>
@@ -522,78 +514,56 @@ Internal forces in a beam caused by an external load.
       <p>You may choose to divide the shape into square differential elements to compute the moment of inertia, using the fundamental definitions,   The disadvantage of this approach is that you need to set up and compute a double integral.  Identifying the correct limits on the integrals is often difficult.</p>
       <p>If you would like to avoid double integration, you may use vertical or horizontal strips, but you must take care to apply the correct integral.  If you use vertical strips to find <m>I_y</m> or horizontal strips to find <m>I_x</m>, then you can still use <xref ref="MOI"/>, but skip the double integration.  When the entire strip is the same distance from the designated axis, integrating with a parallel strip is equivalent to performing the inside integration of <xref ref="MOI"/>.</p>
       <p>As we have seen, it can be difficult to solve the bounding functions properly in terms of <m>x</m> or <m>y</m> to use parallel strips.  In this case, you can use vertical strips to find <m>I_x</m> or horizontal strips to find <m>I_y</m> as discussed by integrating the differential moment of inertia of the strip, as discussed in <xref ref="MOI-differential-strips"/>.</p>
-      <table>
-        <title>Moment of Inertia Integration Strategies</title>
-        <tabular bottom="minor">
-          <col width="15%" halign="center"/>
-          <col width="20%" halign="center"/>
-          <col width="20%" halign="center"/>
-          <col width="20%" halign="center"/>
-          <row header="yes" bottom="medium">
-            <cell>Element</cell>
-            <cell>
-              <m>dA</m>
-            </cell>
-            <cell>
-              <m>dI_x</m>
-            </cell>
-            <cell>
-              <m>dI_y</m>
-            </cell>
-          </row>
-          <row>
-            <cell>
-              <image source="images/MOI-summary-dxdy"/>
-            </cell>
-            <cell>
-              <line>
-                <m>dx\ dy</m>
-              </line>
-              <line> or </line>
-              <line>
-                <m>dy\ dx</m>
-              </line>
-            </cell>
-            <cell>
-              <m>y^2\ dA</m>
-            </cell>
-            <cell>
-              <m>x^2\ dA</m>
-            </cell>
-          </row>
-          <row>
-            <cell>
-              <image source="images/MOI-summary-a-x-dy"/>
-            </cell>
-            <cell>
-              <m>(a-x)\ dy</m>
-            </cell>
-            <cell>
-              <m>y^2\ dA</m>
-            </cell>
-            <cell>
-              <m>\dfrac{(a^3-x^3)}{3}\ dx </m>
-            </cell>
-          </row>
-          <row>
-            <cell>
-              <image source="images/MOI-summary-y-dx"/>
-            </cell>
-            <cell>
-              <m>y\ dx</m>
-            </cell>
-            <cell>
-              <m>\dfrac{y^3}{3}\ dx</m>
-            </cell>
-            <cell>
-              <m>x^2\ dA</m>
-            </cell>
-          </row>
-        </tabular>
-      </table>
-      <p>
-        <!--todo images are not allowed in tables -->
-      </p>
+      <sbsgroup>
+        <sidebyside>
+          <p>Element</p>
+          <p>
+            <me>dA</me>
+          </p>
+          <p>
+            <me>dI_x</me>
+          </p>
+          <p>
+            <me>dI_y</me>
+          </p>
+        </sidebyside>
+        <sidebyside>
+          <image source="images/MOI-summary-dxdy"/>
+          <p>
+            <me>dx\ dy \text{ or } dy\ dx</me>
+          </p>
+          <p>
+            <me>y^2\ dA</me>
+          </p>
+          <p>
+            <me>x^2\ dA</me>
+          </p>
+        </sidebyside>
+        <sidebyside>
+          <image source="images/MOI-summary-a-x-dy"/>
+          <p>
+            <me>(a-x)\ dy</me>
+          </p>
+          <p>
+            <me>y^2\ dA</me>
+          </p>
+          <p>
+            <me>\dfrac{(a^3-x^3)}{3}\ dx</me>
+          </p>
+        </sidebyside>
+        <sidebyside>
+          <image source="images/MOI-summary-y-dx"/>
+          <p>
+            <me>y\ dx</me>
+          </p>
+          <p>
+            <me>\dfrac{y^3}{3}\ dx</me>
+          </p>
+          <p>
+            <me>x^2\ dA</me>
+          </p>
+        </sidebyside>
+      </sbsgroup>
     </subsection>
   </section>
   <section xml:id="parallel-axis-theorem-section">
