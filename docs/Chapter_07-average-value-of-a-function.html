@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -330,8 +344,8 @@
 </h6>
 <p id="p-1204">How far is it from the earth to the sun?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><p id="p-1205">92,958,412 miles</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-52" id="solution-52"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-52"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><p id="p-1205">92,958,412 miles</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-52" id="solution-52"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-52"><div class="solution solution-like">
 <p id="p-1206">Siri says that “The average distance from the earth to the sun is 92,958,412 miles.”</p>
 <p id="p-1207">That’s a pretty exact answer.  What does it mean, exactly?  From what point on the earth to what point on the sun?</p>
 <p id="p-1208">If the earth and sun were perfect spheres, we could use the distance between their centroids.  With more information about shape and density, we could find their centers of mass and measure between those points.</p>

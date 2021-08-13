@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -301,9 +315,9 @@
 <p id="p-1058">All interactions between bodies are equal and opposite action-reaction pairs.</p>
 <p id="p-1059">When solving frames and machines</p>
 <ul class="disc">
-<li id="li-314">Two-force members provide one useful equilibrium equation, and can determine one unknown.</li>
-<li id="li-315">In two dimensions, rigid bodies result in two two scalar force equations and one scalar moment equation. Up to three unknowns can be determined.</li>
-<li id="li-316">In three dimensions, rigid bodies produce three scalar force equations and scalar three moment equations. Up to six unknowns can be determined.</li>
+<li id="li-314"><p id="p-derived-li-314">Two-force members provide one useful equilibrium equation, and can determine one unknown.</p></li>
+<li id="li-315"><p id="p-derived-li-315">In two dimensions, rigid bodies result in two two scalar force equations and one scalar moment equation. Up to three unknowns can be determined.</p></li>
+<li id="li-316"><p id="p-derived-li-316">In three dimensions, rigid bodies produce three scalar force equations and scalar three moment equations. Up to six unknowns can be determined.</p></li>
 </ul></section></section></div></main>
 </div>
 </body>

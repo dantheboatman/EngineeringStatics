@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,8 +292,8 @@
 </h2>
 <article class="objectives goal-like" id="objectives-3"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-27">What are some of the fundamental types of forces used in statics?</li>
-<li id="li-28">Why do we often simplify distributed forces with equivalent forces?</li>
+<li id="li-27"><p id="p-derived-li-27">What are some of the fundamental types of forces used in statics?</p></li>
+<li id="li-28"><p id="p-derived-li-28">Why do we often simplify distributed forces with equivalent forces?</p></li>
 </ul></article><p id="p-67">Statics is a course about forces and we will have a lot to say about them.  At its simplest, a force is a “push or pull,” but forces come from a variety of sources and occur in many different situations.  As such we need a specialized vocabulary to talk about them. We are also interested in forces that cause rotation, and we have special terms to describe these too.</p>
 <p id="p-68">As an example of the types of forces you will encounter in statics consider the forces affecting a box on a rough surface being pulled by a cable. The loading on the box can be represented by four different types of force. The cable causes a point force, the normal and friction forces are reaction forces, and the weight is a body force.</p>
 <p id="p-69"></p>

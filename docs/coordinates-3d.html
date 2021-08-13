@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,9 +292,9 @@
 </h2>
 <article class="objectives goal-like" id="objectives-8"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-58">What is a right-hand Cartesian coordinate system?</li>
-<li id="li-59">What are direction cosine angles and why are they always less than 180°?</li>
-<li id="li-60">How are spherical coordinates different than cylindrical coordinates?</li>
+<li id="li-58"><p id="p-derived-li-58">What is a right-hand Cartesian coordinate system?</p></li>
+<li id="li-59"><p id="p-derived-li-59">What are direction cosine angles and why are they always less than 180°?</p></li>
+<li id="li-60"><p id="p-derived-li-60">How are spherical coordinates different than cylindrical coordinates?</p></li>
 </ul></article><section class="introduction" id="introduction-6"><p id="p-156">In this section we will discuss four methods to specify points and vectors in three-dimensional space.</p>
 <p id="p-157">The most commonly use method is an extension of two-dimensional <dfn class="terminology">rectangular coordinates</dfn> to three-dimensions. Alternately, points and vectors in three dimensions can be specified in terms of <dfn class="terminology">direction cosines</dfn>, or using <dfn class="terminology">spherical</dfn> or cylindrical coordinate systems. These will be discussed in the following sections.</p>
 <p id="p-158">You will often need to convert from one representation to another. Good visualization skills are helpful here.</p></section><section class="subsection" id="Chapter_02-rectangular-coordinates"><h3 class="heading hide-type">
@@ -293,8 +307,7 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 \end{align*}
 </div>
 <p id="p-161">For nearly all three-dimensional problems, you will need the rectangular \(x\text{,}\) \(y\text{,}\) and \(z\) locations of points in space and components of vectors before proceeding with the computations. If you are given the components upfront, then you are set to move forward, but otherwise you will need to transform one coordinate system into rectangular coordinates.</p>
-<aside class="aside aside-like" id="aside-3"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-162">Move the red point to move the vector in space.  Click the red point to switch between \(x\)-\(y\) mode and \(z\) mode.</p> <p id="p-163">The vector can be visualized as the diagonal of a rectangular box with the \(x\text{,}\) \(y\text{,}\) and \(z\) components as the side lengths.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-16"><iframe id="ggb_rectangular-coordinates-3d_interactive" width="360" height="360" src="ggb_rectangular-coordinates-3d_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.1<span class="period">.</span></span><span class="space"> </span>Three-Dimensional Rectangular Coordinates</figcaption></figure></div></div></div>
+<aside class="aside aside-like" id="aside-3"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-16"><iframe id="ggb_rectangular-coordinates-3d_interactive" width="360" height="360" src="ggb_rectangular-coordinates-3d_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.1<span class="period">.</span></span><span class="space"> </span>Three-Dimensional Rectangular Coordinates</figcaption></figure></div></div></div>
 <article class="insight remark-like" id="insight-1"><a data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-1"><h6 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">2.4.2</span><span class="period">.</span><span class="space"> </span><span class="title">Right Handed Coordinate Systems.</span>
 </h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-1"><article class="insight remark-like"><p id="p-166">Does it matter which way the axes are oriented?  Is it ok to make the \(x\) axis point left or the \(y\) axis point down?</p>
@@ -311,8 +324,7 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 </h3>
 <p id="p-171">The direction of a vector in two-dimensional systems could be expressed clearly with a single angle measured from a reference axis, but adding an additional dimension means that one angle is no longer enough.</p>
 <p id="p-172">One way to define the direction of a three-dimensional vector is by using <dfn class="terminology">direction cosine angles</dfn>, also commonly known as <dfn class="terminology">coordinate direction angles</dfn>. The direction cosine angles are the angles between the positive \(x\text{,}\) \(y\text{,}\) and \(z\) axes to a given vector and are traditionally named \(\theta_x\text{,}\) \(\theta_y\text{,}\) and \(\theta_z\text{.}\)   Three dimensional vectors, components, and angle are often difficult to visualize because they do not commonly lie in the Cartesian planes.</p>
-<aside class="aside aside-like" id="aside-4"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-173">Move the red point to move the vector in space.  Click the red point to switch between \(x\)-\(y\) mode and \(z\) mode.</p> <p id="p-174">Note that the red, blue and green triangles are right triangles although it is not always easy to see this.  The vector is the hypotenuse and the adjacent sides are the \(x\text{,}\) \(y\text{,}\) and \(z\) rectangular components.  The rectangular components and the direction angles are shown.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-18"><iframe id="direction-cosines-3d_interactive" width="360" height="360" src="direction-cosines-3d_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.4<span class="period">.</span></span><span class="space"> </span>Direction Cosine Angles</figcaption></figure></div></div></div>
+<aside class="aside aside-like" id="aside-4"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-18"><iframe id="direction-cosines-3d_interactive" width="360" height="360" src="direction-cosines-3d_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.4<span class="period">.</span></span><span class="space"> </span>Direction Cosine Angles</figcaption></figure></div></div></div>
 <p id="p-177">We can relate the components of a vector to its direction cosine angles using the following equations.</p>
 <div class="displaymath">
 \begin{align}
@@ -321,36 +333,34 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 </div>
 <p id="p-178">Note the component in the numerator of each direction cosine equation is positive or negative as defined by the coordinate system, and the vector magnitude in the denominator is always positive.  From these equations, we can conclude that:</p>
 <ul class="disc">
-<li id="li-61">Direction cosines are signed value between -1 and 1.</li>
-<li id="li-62">Direction cosine angles must always be between \(\ang{0}\) and \(\ang{180}\) or<div class="displaymath">
+<li id="li-61"><p id="p-derived-li-61">Direction cosines are signed value between -1 and 1.</p></li>
+<li id="li-62"><p id="p-derived-li-62">Direction cosine angles must always be between \(\ang{0}\) and \(\ang{180}\) or<div class="displaymath">
 \begin{equation*}
 \ang{0} \le \theta_n \le \ang{180}.
 \end{equation*}
-</div>
-</li>
-<li id="li-63">Any direction cosine angle greater than \(\ang{90}\) indicates a negative component along that respective axis. Spatially this is because all direction cosine angles are measured from the positive side of each axis. Mathematically this is because the cosine of any angle less than \(\ang{90}\) is numerically negative.</li>
+</div></p></li>
+<li id="li-63"><p id="p-derived-li-63">Any direction cosine angle greater than \(\ang{90}\) indicates a negative component along that respective axis. Spatially this is because all direction cosine angles are measured from the positive side of each axis. Mathematically this is because the cosine of any angle less than \(\ang{90}\) is numerically negative.</p></li>
 </ul></section><section class="subsection" id="Chapter_02-spherical-coordinates"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span>
 </h3>
 <p id="p-179">In spherical coordinates, points are specified with these three coordinates</p>
 <ul class="disc">
-<li id="li-64">\(r\text{,}\)  the distance from the origin to the tip of the vector,</li>
-<li id="li-65">\(\theta\text{,}\) the angle, measured counterclockwise from the  positive \(x\) axis to the projection of the vector onto the \(xy\) plane,  and</li>
-<li id="li-66">\(\phi\text{,}\) the polar angle from the \(z\) axis to the vector.</li>
+<li id="li-64"><p id="p-derived-li-64">\(r\text{,}\)  the distance from the origin to the tip of the vector,</p></li>
+<li id="li-65"><p id="p-derived-li-65">\(\theta\text{,}\) the angle, measured counterclockwise from the  positive \(x\) axis to the projection of the vector onto the \(xy\) plane,  and</p></li>
+<li id="li-66"><p id="p-derived-li-66">\(\phi\text{,}\) the polar angle from the \(z\) axis to the vector.</p></li>
 </ul>
-<aside class="aside aside-like" id="aside-5"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-180">Use the red point to move the tip of the vector anywhere on the spherical surface. The rectangular and spherical coordinates are shown.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-19"><iframe id="ggb_spherical-coordinates_interactive" width="360" height="360" src="ggb_spherical-coordinates_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.5<span class="period">.</span></span><span class="space"> </span>Spherical Coordinate System</figcaption></figure></div></div></div>
+<aside class="aside aside-like" id="aside-5"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-19"><iframe id="ggb_spherical-coordinates_interactive" width="360" height="360" src="ggb_spherical-coordinates_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.5<span class="period">.</span></span><span class="space"> </span>Spherical Coordinate System</figcaption></figure></div></div></div>
 <article class="question example-like" id="question-1"><h6 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">2.4.6</span><span class="period">.</span>
 </h6>
 <p id="p-182">What the differences between polar coordinates and terrestrial latitude/longitude locations?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-6" id="answer-6"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-6"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-6" id="answer-6"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-6"><div class="answer solution-like">
 <p id="p-183">In terrestrial measurements</p>
 <ul class="disc">
-<li id="li-67">Coordinate \(r\) is not needed since all points are on the surface of the globe.</li>
-<li id="li-68">Latitude is measured \(\ang{0}\) to \(\ang{180}\) East or West of the prime meridian, rather than \(\ang{0}\) to \(\ang{360}\) counterclockwise from the \(x\) axis.</li>
-<li id="li-69">Longitude is measured  \(\ang{0}\) to \(\ang{180}\) North or South of the equator, where as polar angle \(\phi\) is \(\ang{0}\) to \(\ang{180}\) measured from the “North Pole”.</li>
+<li id="li-67"><p id="p-derived-li-67">Coordinate \(r\) is not needed since all points are on the surface of the globe.</p></li>
+<li id="li-68"><p id="p-derived-li-68">Latitude is measured \(\ang{0}\) to \(\ang{180}\) East or West of the prime meridian, rather than \(\ang{0}\) to \(\ang{360}\) counterclockwise from the \(x\) axis.</p></li>
+<li id="li-69"><p id="p-derived-li-69">Longitude is measured  \(\ang{0}\) to \(\ang{180}\) North or South of the equator, where as polar angle \(\phi\) is \(\ang{0}\) to \(\ang{180}\) measured from the “North Pole”.</p></li>
 </ul>
 </div></div>
 </div></article><p id="p-184">When vectors are specified using cylindrical coordinates the magnitude of the vector is used instead of distance \(r\) from the origin to the point.</p>
@@ -369,12 +379,11 @@ A_y \amp= A'\sin \theta = A \sin \phi \sin \theta\tag{2.4.5}
 <p id="p-187">Cylindrical coordinate system are seldom used in statics, however they are useful in certain geometries.  Cylindrical coordinates extend two-dimensional polar coordinates by adding a \(z\) coordinate indicating the distance above or below the \(xy\) plane.</p>
 <p id="p-188">Points are specified with these three cylindrical coordinates.</p>
 <ul class="disc">
-<li id="li-70">\(r\text{,}\) the distance from the origin to the projection of the tip of the vector onto the \(xy\) plane,</li>
-<li id="li-71">\(\theta\text{,}\) the angle, measured counterclockwise from the  positive \(x\) axis to the projection of the vector onto the \(xy\) plane</li>
-<li id="li-72">\(z\text{,}\) the vertical height of the vector tip.</li>
+<li id="li-70"><p id="p-derived-li-70">\(r\text{,}\) the distance from the origin to the projection of the tip of the vector onto the \(xy\) plane,</p></li>
+<li id="li-71"><p id="p-derived-li-71">\(\theta\text{,}\) the angle, measured counterclockwise from the  positive \(x\) axis to the projection of the vector onto the \(xy\) plane</p></li>
+<li id="li-72"><p id="p-derived-li-72">\(z\text{,}\) the vertical height of the vector tip.</p></li>
 </ul>
-<aside class="aside aside-like" id="aside-6"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-189">Use the red point to move the tip of the vector along the cylindrical surface. The rectangular and cylindrical coordinates are shown.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-20"><iframe id="ggb_cylindrical-coordinates_interactive" width="360" height="360" src="ggb_cylindrical-coordinates_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.7<span class="period">.</span></span><span class="space"> </span>Cylindrical Coordinate System</figcaption></figure></div></div></div>
+<aside class="aside aside-like" id="aside-6"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><figure class="figure figure-like" id="figure-20"><iframe id="ggb_cylindrical-coordinates_interactive" width="360" height="360" src="ggb_cylindrical-coordinates_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.4.7<span class="period">.</span></span><span class="space"> </span>Cylindrical Coordinate System</figcaption></figure></div></div></div>
 <p id="p-191">Unfortunately, not all problems give the angles \(\theta\) and \(\phi\) as defined here here; so you will need to find them from the given angles in other situations.</p>
 <p id="p-192">You can use the interactive diagram in this section to practice visualizing and finding the components of a vector from a given magnitude and polar angles \(\theta\) and \(\phi\text{.}\) You should be able to find the \(x\text{,}\) \(y\text{,}\) and \(z\) coordinates given direction angles or spherical coordinates, and vise-versa.</p></section></section></div></main>
 </div>

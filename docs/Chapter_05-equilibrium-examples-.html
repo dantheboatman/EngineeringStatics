@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -277,11 +291,7 @@
 <span class="type">Section</span> <span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span>
 </h2>
 <p id="p-932">You can use these interactives to explore how the reactions supporting rigid bodies are affected by the loads applied.  You can use the equations of equilibrium to solve for the unknown reactions, and check your work.</p>
-<aside class="aside aside-like" id="aside-36"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-933">This interactive shows graphically how the reactions force at a pin \(A\) and roller \(B\) change as the locations and direction of external force \(P\) and the location of the roller at \(B\) change.  If you solve for the reactions using the equilibrium equations, you can check your answers with show solution button.</p></aside><figure class="figure figure-like" id="ggb_5-1"><iframe id="ggb_reactions-pin-roller_interactive" width="450" height="225" src="ggb_reactions-pin-roller_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.1<span class="period">.</span></span><span class="space"> </span>Rigid body Equilibrium</figcaption></figure><aside class="aside aside-like" id="aside-37"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-935">This interactive shows graphically how the reactions force and moment at fixed connection \(A\) change as the locations and direction loads \(B\) and \(C\) are changed.  If you solve for the reactions using the equilibrium equations, you can check your answers with show solution button.</p></aside><figure class="figure figure-like" id="ggb_5-2"><iframe id="ggb_beam-cantilever_interactive" width="450" height="225" src="ggb_beam-cantilever_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.2<span class="period">.</span></span><span class="space"> </span>Cantilever beam</figcaption></figure><aside class="aside aside-like" id="aside-38"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-937">This interactive shows graphically how the reactions force at a pin \(A\) and roller \(B\) change as in response to changes in the load C.  The locations of the pin, roller and load are adjustable.  If you solve for the reactions using the equilibrium equations, you can check your answers with show solution button.</p></aside><figure class="figure figure-like" id="ggb_5-3"><iframe id="ggb_beam-simply-supported_interactive" width="450" height="225" src="ggb_beam-simply-supported_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.3<span class="period">.</span></span><span class="space"> </span>Beam with concentrated load</figcaption></figure><aside class="aside aside-like" id="aside-39"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-939">This interactive shows graphically how the reactions force at a pin \(A\) and roller \(B\) change as in response to changes load \(C\) and a couple-moment at \(D\text{.}\)  The locations of the pin, roller and loads are adjustable.  If you solve for the reactions using the equilibrium equations, you can check your answers with show solution button.</p></aside><figure class="figure figure-like" id="ggb_5-4"><iframe id="ggb_beam-simply-supported-w-couple_interactive" width="450" height="225" src="ggb_beam-simply-supported-w-couple_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.4<span class="period">.</span></span><span class="space"> </span>Beam with concentrated force and couple moment</figcaption></figure></section></div></main>
+<aside class="aside aside-like" id="aside-36"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_5-1"><iframe id="ggb_reactions-pin-roller_interactive" width="450" height="225" src="ggb_reactions-pin-roller_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.1<span class="period">.</span></span><span class="space"> </span>Rigid body Equilibrium</figcaption></figure><aside class="aside aside-like" id="aside-37"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_5-2"><iframe id="ggb_beam-cantilever_interactive" width="450" height="225" src="ggb_beam-cantilever_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.2<span class="period">.</span></span><span class="space"> </span>Cantilever beam</figcaption></figure><aside class="aside aside-like" id="aside-38"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_5-3"><iframe id="ggb_beam-simply-supported_interactive" width="450" height="225" src="ggb_beam-simply-supported_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.3<span class="period">.</span></span><span class="space"> </span>Beam with concentrated load</figcaption></figure><aside class="aside aside-like" id="aside-39"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_5-4"><iframe id="ggb_beam-simply-supported-w-couple_interactive" width="450" height="225" src="ggb_beam-simply-supported-w-couple_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.7.4<span class="period">.</span></span><span class="space"> </span>Beam with concentrated force and couple moment</figcaption></figure></section></div></main>
 </div>
 </body>
 </html>

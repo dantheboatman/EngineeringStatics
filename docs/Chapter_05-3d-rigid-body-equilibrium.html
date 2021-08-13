@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,9 +292,9 @@
 </h2>
 <article class="objectives goal-like" id="objectives-20"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-248">What are the similarities and differences between solving two-dimensional and three-dimensional equilibrium problems?</li>
-<li id="li-249">Why are some three-dimensional reaction couple-moments “available but not engaged”?</li>
-<li id="li-250">What kinds of problems are solvable using linear algebra?</li>
+<li id="li-248"><p id="p-derived-li-248">What are the similarities and differences between solving two-dimensional and three-dimensional equilibrium problems?</p></li>
+<li id="li-249"><p id="p-derived-li-249">Why are some three-dimensional reaction couple-moments “available but not engaged”?</p></li>
+<li id="li-250"><p id="p-derived-li-250">What kinds of problems are solvable using linear algebra?</p></li>
 </ul></article><p id="p-903">Three-dimensional systems are closer to reality than two-dimensional systems and the basic principles to solving both are the same,  however they are generally harder solve because of the additional degrees of freedom involved and the difficulty visualizing and determining distances, forces and moments in three dimensions.</p>
 <p id="p-904">Three-dimensional problems are usually solved using vector algebra rather than the scalar approach used in the last section. The main differences are that directions are described with unit vectors rather than with angles, and moments are determined using the vector cross product rather scalar methods.  Because they have more possible unknowns it is harder to find efficient equations to solve by hand.  A problem might involve solving a system of up to six equations and six unknowns, in which case it is best solved using linear algebra and technology.</p>
 <section class="paragraphs" id="paragraphs-27"><h5 class="heading"><span class="title">Resolving Forces and Moments into Components.</span></h5>

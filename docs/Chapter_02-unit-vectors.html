@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,21 +292,20 @@
 </h2>
 <article class="objectives goal-like" id="objectives-9"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-73">Why are unit vectors useful?</li>
-<li id="li-74">What are the unit vectors along the Cartesian x, y, and z axes?</li>
-<li id="li-75">How do you find the force vector components of known force magnitude along a geometric line?</li>
-<li id="li-76">How can you find unit vector components from direction cosine angles?</li>
+<li id="li-73"><p id="p-derived-li-73">Why are unit vectors useful?</p></li>
+<li id="li-74"><p id="p-derived-li-74">What are the unit vectors along the Cartesian x, y, and z axes?</p></li>
+<li id="li-75"><p id="p-derived-li-75">How do you find the force vector components of known force magnitude along a geometric line?</p></li>
+<li id="li-76"><p id="p-derived-li-76">How can you find unit vector components from direction cosine angles?</p></li>
 </ul></article><section class="introduction" id="introduction-7"><p id="p-193">A unit vector is a vector with a magnitude of one and no units.  As such, a unit vector represents a pure direction. By convention a unit vector is indicated by a <em class="emphasis">hat</em> over a vector symbol. This may sound like a new concept, but it’s a simple one, directly related to the unit circle, the Pythagorean Theorem, and the definitions of sine and cosine.</p></section><section class="subsection" id="unit-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span>
 </h3>
 <p id="p-194">A unit vector can point in any direction, but because they occur so frequently the unit vectors in each of the three Cartesian coordinate directions are given their own symbols, which are:</p>
 <ul class="disc">
-<li id="li-77">\(\ihat\text{,}\) for the unit vector pointing in the \(x\) direction,</li>
-<li id="li-78">\(\jhat\text{,}\) for the unit vector pointing in the \(y\) direction, and</li>
-<li id="li-79">\(\khat\text{,}\) for the unit vector pointing in the \(z\) direction..</li>
+<li id="li-77"><p id="p-derived-li-77">\(\ihat\text{,}\) for the unit vector pointing in the \(x\) direction,</p></li>
+<li id="li-78"><p id="p-derived-li-78">\(\jhat\text{,}\) for the unit vector pointing in the \(y\) direction, and</p></li>
+<li id="li-79"><p id="p-derived-li-79">\(\khat\text{,}\) for the unit vector pointing in the \(z\) direction..</p></li>
 </ul>
-<aside class="aside aside-like" id="aside-7"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-195">This interactive shows the graphical relations between the unit vector \(\hat{\vec{F}}\) and the unit circle.  \(\ihat\) and \(\jhat\) are the standard unit vectors in the \(x\) and \(y\) directions.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<aside class="aside aside-like" id="aside-7"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;">
 <p id="p-196">This interactive shows a unit vector \(\hat{\vec{F}}\) as well as the standard unit vectors \(\ihat\) and \(\jhat\text{.}\)</p>
 <p id="p-197">The \(x\) and \(y\) components of a point on the unit circle are also the scalar components of \(\hat{\vec{F}}\text{,}\) so</p>
@@ -340,18 +353,17 @@ F_y \amp =  \sin \theta\\
 <p id="p-207"></p>
 <p id="p-208">This interactive shows vector \(\vec{F}\text{,}\) its associated unit vector \(\hat{\vec{F}}\text{,}\) and expressions for \(\vec{F}\) in terms of its unit vector \(\hat{\vec{F}}\text{.}\)</p>
 <p id="p-209"></p>
-<aside class="aside aside-like" id="aside-8"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-210">This interactive shows the graphical expression and component values of force \(\vec{F}\) and its unit vector \(\hat{\textbf{F}}\text{.}\)</p></aside><figure class="figure figure-like" id="ggb_unit_vector"><iframe id="ggb_unit_vector_interactive" width="600" height="300" src="ggb_unit_vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.1<span class="period">.</span></span><span class="space"> </span>Unit Vectors</figcaption></figure><article class="example example-like" id="Chapter_02-example-find-unit-vector-of-a-force"><h6 class="heading">
+<aside class="aside aside-like" id="aside-8"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_unit_vector"><iframe id="ggb_unit_vector_interactive" width="600" height="300" src="ggb_unit_vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.1<span class="period">.</span></span><span class="space"> </span>Unit Vectors</figcaption></figure><article class="example example-like" id="Chapter_02-example-find-unit-vector-of-a-force"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">Find unit vector of a force.</span>
 </h6>
 <p id="p-212">Find the unit vector corresponding to a \(\N{100}\) force at 60° from the \(x\)-axis.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-7" id="answer-7"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-7"><div class="answer solution-like"><div class="displaymath" id="p-213">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-7" id="answer-7"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-7"><div class="answer solution-like"><div class="displaymath" id="p-213">
 \begin{equation*}
 \hat{\vec{F}} =  (1\; ; 60°) = \langle \cos 60°, \sin 60° \rangle
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-8" id="solution-8"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-8"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-8" id="solution-8"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-8"><div class="solution solution-like">
 <p id="p-214">In polar coordinates, the unit vector is a vector of magnitude 1, pointing in the same direction as the force, so, by inspection</p>
 <div class="displaymath">
 \begin{align*}
@@ -427,8 +439,7 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </li>
 </ol>
 <p id="p-226">The interactive below can be used to visualize the displacement vector and its unit vector, and practice this procedure.</p>
-<aside class="aside aside-like" id="aside-9"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-227">This interactive shows \(\vec{r}_{AB}\text{,}\) the displacement vector from \(\vec{A}\) to \(\vec{B}\) and the corresponding unit displacement vector \(\lambda_{AB}\text{.}\)</p> <p id="p-228">You may change \(\vec{A}\) and \(\vec{B}\) by moving the red dots.  Click the dot to switch between \(x\)-\(y\) mode and \(z\) mode.  Coordinates of \(\vec{A}\) and \(\vec{B}\) can also be entered into the table directly.</p></aside><figure class="figure figure-like" id="unit_vectors_3d"><iframe id="ggb_3d-direction-vector_interactive" width="600" height="450" src="ggb_3d-direction-vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.3<span class="period">.</span></span><span class="space"> </span>Unit Vectors in Space</figcaption></figure><article class="example example-like" id="Chapter_02-example-component-in-a-specified-direction"><h6 class="heading">
+<aside class="aside aside-like" id="aside-9"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="unit_vectors_3d"><iframe id="ggb_3d-direction-vector_interactive" width="600" height="450" src="ggb_3d-direction-vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.3<span class="period">.</span></span><span class="space"> </span>Unit Vectors in Space</figcaption></figure><article class="example example-like" id="Chapter_02-example-component-in-a-specified-direction"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.5.4</span><span class="period">.</span><span class="space"> </span><span class="title">Component in a Specified Direction.</span>
 </h6>
 <div class="introduction" id="introduction-8">
@@ -438,16 +449,16 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 <article class="task exercise-like" id="task-1"><h6 class="heading"><span class="codenumber">(a)</span></h6>
 <p id="p-233">Draw a good diagram.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-3" id="hint-3"><span class="type">Hint</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-3"><div class="hint solution-like"><p id="p-234">The interactive in <a class="xref" data-knowl="./knowl/unit_vectors_3d.html" title="Figure 2.5.3">Figure 2.5.3</a> may be useful for this problem.</p></div></div>
+<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-3" id="hint-3"><span class="type">Hint.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-hint-3"><div class="hint solution-like"><p id="p-234">The interactive in <a class="xref" data-knowl="./knowl/unit_vectors_3d.html" title="Figure 2.5.3">Figure 2.5.3</a> may be useful for this problem.</p></div></div>
 </div></article><article class="task exercise-like" id="task-2"><h6 class="heading"><span class="codenumber">(b)</span></h6>
 <p id="p-235">Find the displacement vector from \(A\) to \(B\text{.}\)</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-8" id="answer-8"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-8"><div class="answer solution-like"><div class="displaymath" id="p-236">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-8" id="answer-8"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-8"><div class="answer solution-like"><div class="displaymath" id="p-236">
 \begin{align*}
 \vec{AB} \amp=\m{\left &lt;-4.5,-1.5,4.3\right &gt;}
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-9" id="solution-9"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-9"><div class="solution solution-like"><div class="displaymath" id="p-237">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-9" id="solution-9"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-9"><div class="solution solution-like"><div class="displaymath" id="p-237">
 \begin{align*}
 \vec{AB} \amp =\left(B_x-A_x \right )\ihat+\left(B_y-A_y \right )\jhat+\left(B_z-A_z \right )\khat\\
 \amp =\m{\left [ \left(-2.5-2 \right )\ihat+\left(1.5-3 \right )\jhat+\left(2.2-(-2.1) \right )\khat \right ]}\\
@@ -458,12 +469,12 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div></article><article class="task exercise-like" id="task-3"><h6 class="heading"><span class="codenumber">(c)</span></h6>
 <p id="p-238">Find the magnitude of the displacement vector.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-9" id="answer-9"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-9"><div class="answer solution-like"><div class="displaymath" id="p-239">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-9" id="answer-9"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-9"><div class="answer solution-like"><div class="displaymath" id="p-239">
 \begin{align*}
 \left|\vec{AB}\right |\amp = \m{6.402}
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-10" id="solution-10"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-10"><div class="solution solution-like"><div class="displaymath" id="p-240">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-10" id="solution-10"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-10"><div class="solution solution-like"><div class="displaymath" id="p-240">
 \begin{align*}
 \left|\vec{AB}\right |\amp =\sqrt{(\Delta_x)^2+(\Delta_y)^2+(\Delta_z)^2}\\
 \amp         =\sqrt{\m{(-4.5)^2+(-1.5)^2+4.3^2 }^2}\\
@@ -474,12 +485,12 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div></article><article class="task exercise-like" id="task-4"><h6 class="heading"><span class="codenumber">(d)</span></h6>
 <p id="p-241">Find the unit vector pointing from \(A\) to \(B\text{.}\)</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-10" id="answer-10"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-10"><div class="answer solution-like"><div class="displaymath" id="p-242">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-10" id="answer-10"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-10"><div class="answer solution-like"><div class="displaymath" id="p-242">
 \begin{align*}
 \widehat{\vec{AB}} \amp =\left\langle -0.7,-0.23,0.67\right \rangle
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-11" id="solution-11"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-11"><div class="solution solution-like"><div class="displaymath" id="p-243">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-11" id="solution-11"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-11"><div class="solution solution-like"><div class="displaymath" id="p-243">
 \begin{align*}
 \widehat{\vec{AB}}\amp= \left \langle \frac{\Delta_x}{|\vec{AB}|},\frac{\Delta_y}{|\vec{AB}|},\frac{\Delta_z}{|\vec{AB}|} \right \rangle \\
 \amp =\left \langle \frac{-4.5}{6.402},\frac{-1.5}{6.402},\frac{4.3}{6.402}\right \rangle\\
@@ -489,12 +500,12 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div></article><article class="task exercise-like" id="task-5"><h6 class="heading"><span class="codenumber">(e)</span></h6>
 <p id="p-244">Find the force vector.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-11" id="answer-11"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-11"><div class="answer solution-like"><div class="displaymath" id="p-245">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-11" id="answer-11"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-11"><div class="answer solution-like"><div class="displaymath" id="p-245">
 \begin{gather*}
 \vec{F}_{AB}= \kN{ \left \langle -3.51,-1.17,3.36 \right \rangle }
 \end{gather*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-12" id="solution-12"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-12"><div class="solution solution-like"><div class="displaymath" id="p-246">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-12" id="solution-12"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-12"><div class="solution solution-like"><div class="displaymath" id="p-246">
 \begin{align*}
 \vec{F}_{AB} \amp = F_{AB} \; \widehat{\vec{AB}}\\
 \amp =\kN{5} \left \langle -0.7,-0.23,0.67\right \rangle\\
@@ -503,8 +514,8 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div></div></div>
 </div></article></article><p id="p-247">Given the properties of unit vectors, there are some conceptual checks you can make after computing unit vector components which can prevent subsequent errors.</p>
 <ul class="disc">
-<li id="li-84">The signs of unit vector components need to match the signs of the original position vector. A unit vector has the same line of action and sense as the position vector but is scaled down to one unit in magnitude.</li>
-<li id="li-85">Components of a unit vector must be between -1 and 1. If the magnitude of a unit vector is one, then it is impossible for it to have rectangular components larger than one.</li>
+<li id="li-84"><p id="p-derived-li-84">The signs of unit vector components need to match the signs of the original position vector. A unit vector has the same line of action and sense as the position vector but is scaled down to one unit in magnitude.</p></li>
+<li id="li-85"><p id="p-derived-li-85">Components of a unit vector must be between -1 and 1. If the magnitude of a unit vector is one, then it is impossible for it to have rectangular components larger than one.</p></li>
 </ul></section><section class="subsection" id="Chapter_02-unit-vectors-and-direction-cosines"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span>
 </h3>

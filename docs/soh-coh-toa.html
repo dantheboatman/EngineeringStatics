@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,42 +290,42 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="soh-coh-toa"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span>
 </h2>
-<p id="p-2181">A <dfn class="terminology">right triangle</dfn> is a triangle containing a 90° angle.</p>
-<p id="p-2182">The side opposite to the right angle is called the <dfn class="terminology">hypotenuse</dfn>.</p>
-<p id="p-2183">The other two angles add to 90° and are called <dfn class="terminology">complementary angles</dfn>.</p>
+<p id="p-2180">A <dfn class="terminology">right triangle</dfn> is a triangle containing a 90° angle.</p>
+<p id="p-2181">The side opposite to the right angle is called the <dfn class="terminology">hypotenuse</dfn>.</p>
+<p id="p-2182">The other two angles add to 90° and are called <dfn class="terminology">complementary angles</dfn>.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:40%;"><img src="images/useful-right-triangle.svg" role="img" class="contained" alt=""></div>
 <div class="sbspanel top" style="width:60%;"><img src="images/useful-trig-functions.svg" role="img" class="contained" alt=""></div>
 </div></div>
-<p id="p-2184">The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic <dfn class="terminology">SOH-COH-TOA</dfn>.</p>
-<div class="displaymath" id="p-2185">
+<p id="p-2183">The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic <dfn class="terminology">SOH-COH-TOA</dfn>.</p>
+<div class="displaymath" id="p-2184">
 \begin{align*}
 \sin\theta \amp= \frac{\textrm{opposite}}{\textrm{hypotenuse}} \amp \cos\theta \amp= \frac{\textrm{adjacent}}{\textrm{hypotenuse}} \amp \tan\theta \amp= \frac{\textrm{opposite}}{\textrm{adjacent}}
 \end{align*}
 </div>
-<p id="p-2186">and their inverses,</p>
-<div class="displaymath" id="p-2187">
+<p id="p-2185">and their inverses,</p>
+<div class="displaymath" id="p-2186">
 \begin{align*}
 \theta \amp = \sin^{-1} \left(\frac{\textrm{opposite}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \cos^{-1} \left(\frac{\textrm{adjacent}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \tan^{-1} \left(\frac{\textrm{opposite}}{\textrm{adjacent}}\right)
 \end{align*}
 </div>
 <section class="paragraphs" id="paragraphs-43"><h5 class="heading"><span class="title">Facts.</span></h5>
-<p id="p-2188">The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.</p>
+<p id="p-2187">The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.</p>
 <ul class="disc">
-<li id="li-567">\(\sin\text{,}\) \(\cos\) and \(\tan\) are functions of an angle and their values are unitless ratios of lengths.</li>
-<li id="li-568">The inverse trig functions are functions of unitless ratios and their results are angles.</li>
-<li id="li-569">The sine of an angle equals the cosine of its complement and vice-versa.</li>
-<li id="li-570">The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.</li>
-<li id="li-571">The sine, cosine, and tangent of angles between 0 and 90° are always positive.</li>
-<li id="li-572">The inverse trig functions of positive numbers will always yield angles between 0 and 90°</li>
-<li id="li-573">The legs of a right triangle are always shorter than the hypotenuse.</li>
-<li id="li-574">Only right triangles have a hypotenuse.</li>
+<li id="li-566"><p id="p-derived-li-566">\(\sin\text{,}\) \(\cos\) and \(\tan\) are functions of an angle and their values are unitless ratios of lengths.</p></li>
+<li id="li-567"><p id="p-derived-li-567">The inverse trig functions are functions of unitless ratios and their results are angles.</p></li>
+<li id="li-568"><p id="p-derived-li-568">The sine of an angle equals the cosine of its complement and vice-versa.</p></li>
+<li id="li-569"><p id="p-derived-li-569">The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.</p></li>
+<li id="li-570"><p id="p-derived-li-570">The sine, cosine, and tangent of angles between 0 and 90° are always positive.</p></li>
+<li id="li-571"><p id="p-derived-li-571">The inverse trig functions of positive numbers will always yield angles between 0 and 90°</p></li>
+<li id="li-572"><p id="p-derived-li-572">The legs of a right triangle are always shorter than the hypotenuse.</p></li>
+<li id="li-573"><p id="p-derived-li-573">Only right triangles have a hypotenuse.</p></li>
 </ul></section><section class="paragraphs" id="paragraphs-44"><h5 class="heading"><span class="title">Hints.</span></h5>
-<p id="p-2189">Here are some useful tips for angle calculations</p>
+<p id="p-2188">Here are some useful tips for angle calculations</p>
 <ul class="disc">
-<li id="li-575">Take care that your calculator is set in <em class="emphasis">degrees mode</em> for this course.</li>
-<li id="li-576">Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.</li>
-<li id="li-577">Following this advice will avoid unwanted signs and incorrect directions caused because \(\dfrac{-a}{b} = \dfrac{a}{-b}\text{,}\) and \(\dfrac{a}{b} = \dfrac{-a}{-b}\) and the calculator can't distinguish between them.</li>
+<li id="li-574"><p id="p-derived-li-574">Take care that your calculator is set in <em class="emphasis">degrees mode</em> for this course.</p></li>
+<li id="li-575"><p id="p-derived-li-575">Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.</p></li>
+<li id="li-576"><p id="p-derived-li-576">Following this advice will avoid unwanted signs and incorrect directions caused because \(\dfrac{-a}{b} = \dfrac{a}{-b}\text{,}\) and \(\dfrac{a}{b} = \dfrac{-a}{-b}\) and the calculator can't distinguish between them.</p></li>
 </ul></section></section></div></main>
 </div>
 </body>

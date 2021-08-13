@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,10 +292,10 @@
 </h2>
 <article class="objectives goal-like" id="objectives-26"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-325">What is the difference between a centroid, center of gravity and a center of mass?</li>
-<li id="li-326">When will the centroid, center of gravity and center of mass refer to the same point</li>
-<li id="li-327">Why do the equations for the center of gravity, mass, volume, and area all have the same structure?</li>
-</ul></article><section class="introduction" id="introduction-22"><p id="p-1114">A centroid is a weighted average like the center of gravity, but weighted with a geometric property like area or volume, and not a physical property like weight or mass.  This means that centroids are properties of pure shapes, not physical objects.  They represent the coordinates of the “middle” of the shape.</p>
+<li id="li-325"><p id="p-derived-li-325">What is the difference between a centroid, center of gravity and a center of mass?</p></li>
+<li id="li-326"><p id="p-derived-li-326">When will the centroid, center of gravity and center of mass refer to the same point</p></li>
+<li id="li-327"><p id="p-derived-li-327">Why do the equations for the center of gravity, mass, volume, and area all have the same structure?</p></li>
+</ul></article><section class="introduction" id="introduction-24"><p id="p-1114">A centroid is a weighted average like the center of gravity, but weighted with a geometric property like area or volume, and not a physical property like weight or mass.  This means that centroids are properties of pure shapes, not physical objects.  They represent the coordinates of the “middle” of the shape.</p>
 <p id="p-1115">The defining equations for centroids are similar to the equations for<a class="xref" data-knowl="./knowl/center_of_gravity.html" title="Equation 7.2.2">Centers of Gravity (7.2.2)</a> but with <em class="emphasis">volume</em>  used as the weighting factor for three-dimensional shapes</p>
 <div class="displaymath">
 \begin{equation}
@@ -306,12 +320,12 @@
 <div class="sbspanel middle" style="width:40%;"><img src="images/ibeam-centroid.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-44" id="answer-44"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-44"><div class="answer solution-like"><div class="displaymath" id="p-1120">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-44" id="answer-44"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-44"><div class="answer solution-like"><div class="displaymath" id="p-1120">
 \begin{equation*}
 \bar{x} = \bar{y} = \cm{3.5}
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-50" id="solution-50"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-50"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-50" id="solution-50"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-50"><div class="solution solution-like">
 <p id="p-1121">The cross section is symmetrical about both a vertical and horizontal centerline.  The centroid is at the intersection, in the middle.  The coordinates are measured from the origin, in the bottom left of the diagram.</p>
 <div class="displaymath">
 \begin{equation*}

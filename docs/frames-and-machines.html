@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,11 +292,11 @@
 </h2>
 <article class="objectives goal-like" id="objectives-25"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-298">How are frames and machines different from trusses?</li>
-<li id="li-299">Why can the method of joints and method of sections not be used for frames and machines?</li>
-<li id="li-300">How do we identify if a structure is independently rigid?</li>
-<li id="li-301">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</li>
-</ul></article><section class="introduction" id="introduction-20"><p id="p-1031">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> were all multi-force bodies.</p>
+<li id="li-298"><p id="p-derived-li-298">How are frames and machines different from trusses?</p></li>
+<li id="li-299"><p id="p-derived-li-299">Why can the method of joints and method of sections not be used for frames and machines?</p></li>
+<li id="li-300"><p id="p-derived-li-300">How do we identify if a structure is independently rigid?</p></li>
+<li id="li-301"><p id="p-derived-li-301">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</p></li>
+</ul></article><section class="introduction" id="introduction-22"><p id="p-1031">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> were all multi-force bodies.</p>
 <p id="p-1032">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.</p>
 <p id="p-1033"><dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads and must include at least one multi-force member.</p>
 <p id="p-1034"><dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by their interacting and applied forces.</p>
@@ -294,12 +308,9 @@
 <p id="p-1036">Analyzing frames and machines involves disassembling the structure into individual rigid bodies; we “take the structure apart” and analyze each part separately.  Each component is analyzed as an independent rigid body. This leads to equilibrium equations for each component, and by Newton’s Third Law, every interaction force and couple is one half of a complementary pair. The interacting force of body \(A\) on \(B\) is equal and opposite to the force of body \(B\) on body \(A\) and the free-body diagrams must reflect this.</p>
 <p id="p-1037">In  <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations.  By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</p>
 <ul class="disc">
-<li id="li-302">
-<em class="emphasis">Two-force members. One equation.</em> Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins.  The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</li>
-<li id="li-303">
-<em class="emphasis">Objects with concurrent forces and no couple-moments. Two equations</em>  These are the problems you solved in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>\.  There are two equations available \(\Sigma F_x = 0\)  and  \(\Sigma F_y = 0\text{.}\)</li>
-<li id="li-304">
-<em class="emphasis">Multi-force rigid body with offset forces and/or couples. Three equations</em> These are the most general body types where you can use  \(\Sigma F_x = 0\text{,}\)  \(\Sigma F_y = 0\text{,}\)  and\(\Sigma M = 0\) to solve for three unknowns.</li>
+<li id="li-302"><p id="p-derived-li-302"><em class="emphasis">Two-force members. One equation.</em> Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins.  The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</p></li>
+<li id="li-303"><p id="p-derived-li-303"><em class="emphasis">Objects with concurrent forces and no couple-moments. Two equations</em>  These are the problems you solved in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>\.  There are two equations available \(\Sigma F_x = 0\)  and  \(\Sigma F_y = 0\text{.}\)</p></li>
+<li id="li-304"><p id="p-derived-li-304"><em class="emphasis">Multi-force rigid body with offset forces and/or couples. Three equations</em> These are the most general body types where you can use  \(\Sigma F_x = 0\text{,}\)  \(\Sigma F_y = 0\text{,}\)  and\(\Sigma M = 0\) to solve for three unknowns.</p></li>
 </ul></section><section class="subsection" id="frames-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.6.1</span> <span class="title">Procedure</span>
 </h3>
@@ -312,9 +323,9 @@
 <li id="li-306">
 <p id="p-1041">Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:</p>
 <ul class="disc">
-<li id="li-307">Applied forces and couples and the weights of the components if non-negligible.</li>
-<li id="li-308">Interaction forces due to two-force members.  There will be force of unknown magnitude but the known direction at  points connected to two-force members.  The forces will act along the line between the two connection points.</li>
-<li id="li-309">All reaction forces and couples at the connection points between members. Forces with an unknown magnitude and direction are usually represented by  unknown \(x\) and \(y\) components, but can also be represented as a force with unknown magnitude acting in an unknown direction.</li>
+<li id="li-307"><p id="p-derived-li-307">Applied forces and couples and the weights of the components if non-negligible.</p></li>
+<li id="li-308"><p id="p-derived-li-308">Interaction forces due to two-force members.  There will be force of unknown magnitude but the known direction at  points connected to two-force members.  The forces will act along the line between the two connection points.</p></li>
+<li id="li-309"><p id="p-derived-li-309">All reaction forces and couples at the connection points between members. Forces with an unknown magnitude and direction are usually represented by  unknown \(x\) and \(y\) components, but can also be represented as a force with unknown magnitude acting in an unknown direction.</p></li>
 </ul>
 <p id="p-1042">All interaction forces and couples between connected bodies <em class="emphasis">must</em> be shown as equal-and-opposite action-reaction pairs.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
@@ -330,8 +341,8 @@
 </h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-7"><article class="insight remark-like"><p id="p-1045">We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</p>
 <p id="p-1046">Frames and machines are made of multi-force members and cutting these, in general, exposes:</p>
 <ul class="disc">
-<li id="li-312">A force with an unknown magnitude acting in an unknown direction, and</li>
-<li id="li-313">A bending moment at the plane of the cut.</li>
+<li id="li-312"><p id="p-derived-li-312">A force with an unknown magnitude acting in an unknown direction, and</p></li>
+<li id="li-313"><p id="p-derived-li-313">A bending moment at the plane of the cut.</p></li>
 </ul>
 <p id="p-1047">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</p>
 <p id="p-1048">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</p></article></div></section></section></div></main>

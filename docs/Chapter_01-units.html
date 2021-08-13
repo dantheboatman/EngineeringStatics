@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,9 +292,9 @@
 </h2>
 <article class="objectives goal-like" id="objectives-2"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-16">What are the similarities and differences between the SI and US Customary Unity Systems?</li>
-<li id="li-17">How do you convert a value into different units?</li>
-<li id="li-18">When a Statics problem lists the pounds [lb] of a body, is this referring to pounds-force [lbf] or pounds-mass [lbm]?</li>
+<li id="li-16"><p id="p-derived-li-16">What are the similarities and differences between the SI and US Customary Unity Systems?</p></li>
+<li id="li-17"><p id="p-derived-li-17">How do you convert a value into different units?</p></li>
+<li id="li-18"><p id="p-derived-li-18">When a Statics problem lists the pounds [lb] of a body, is this referring to pounds-force [lbf] or pounds-mass [lbm]?</p></li>
 </ul></article><p id="p-49">Most quantities used in engineering consist of a numeric value and an associated unit. The value by itself is meaningless, unless, except when the quantity is unitless.</p>
 <p id="p-50">In the United States there are two primary unit systems in use. The International System of Units, SI, abbreviated from the French <i class="foreign">Système international (d'unités)</i> is the modern form of the metric system and is the most widely used system of measurement. It comprises a coherent system of units of measurement built on seven base units: the second, meter, kilogram, ampere, kelvin, mole, candela.  In statics, the only the first three base units are used.   All other units required are derived from combinations of the base units.  Prefixes to unit names are used to specify the base-10 multiple of the original unit.</p>
 <p id="p-51">The other unit system in use is the United States customary system.  This system was developed from the measurement system in use in the British Empire before the US became an independent country. However, the United Kingdom’s system of measures was overhauled in 1824 to create the Imperial system, changing the definitions of some units. Therefore, while many US units are similar to their Imperial counterparts, there are significant differences between the systems. The base units in the customary system for time, distance, and mass are the second, foot, and slug.</p>
@@ -293,8 +307,8 @@
 <p class="continuation">In metric units, the most common force unit is the newton, abbreviated \(\!\N{}\text{,}\) where one newton is a kilogram multiplied by a meter per second squared. This means that a one-newton force would cause a one-kilogram object to accelerate at a rate of one-meter-per-second-squared. In English units, the most common unit is the pound-force \([\!\lbf{}]\text{,}\) or pound \([\!\lb{}]\) for short, where one pound is the force which can accelerate a mass of one slug at one foot per second squared.  Many physics texts use pounds mass \([\!\lbm{}]\) exclusively instead of slugs, where  \(\slug{1} = \lbm{32.174}\text{.}\) This text will use slugs as they are the standard mass unit in US customary system and so are analogous to kilograms in the SI system.</p>
 <p id="p-53">The unit of force for the two unit systems in terms of the base units are</p>
 <ul class="no-marker">
-<li id="li-19">\(\N{1} = 1 \dfrac{[\!\kg{}][\!\m{}]}{[\!\second{}^2]}\) in SI units, and</li>
-<li id="li-20">\(\lb{1}= 1 \dfrac{[\!\slug{}][\!\ft{}]}{[\!\second{}^2]}\) in US customary units.</li>
+<li id="li-19"><p id="p-derived-li-19">\(\N{1} = 1 \dfrac{[\!\kg{}][\!\m{}]}{[\!\second{}^2]}\) in SI units, and</p></li>
+<li id="li-20"><p id="p-derived-li-20">\(\lb{1}= 1 \dfrac{[\!\slug{}][\!\ft{}]}{[\!\second{}^2]}\) in US customary units.</p></li>
 </ul>
 <p id="p-54">When you find the weight of an object from its mass you are applying Newton’s Second Law.</p>
 <figure class="table table-like" id="units_table"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">1.2.1<span class="period">.</span></span><span class="space"> </span>Fundamental Units</figcaption><div class="tabular-box natural-width"><table class="tabular">
@@ -340,21 +354,21 @@ W = mg\text{.}\tag{1.2.1}
 <p class="continuation">Gravitational acceleration \(g\) varies up to about 0.5% across the earth’s surface due to factors including latitude and elevation, but for the purpose of this course the values in <a class="xref" data-knowl="./knowl/units_table.html" title="Table 1.2.1: Fundamental Units">Table 1.2.1</a> are sufficiently accurate.</p>
 <p id="p-57">Awareness of units will help you prevent errors in your engineering calculations. You should always:</p>
 <ul class="disc">
-<li id="li-21">Pay attention to the units of every quantity in the problem.  Forces should have force units, distances should have distance units etc.</li>
-<li id="li-22">Use the unit system given in the problem statement.</li>
-<li id="li-23">Avoid unit conversions when possible.  If you must, convert given values to a consistent set of units and stick with them.</li>
-<li id="li-24">Check your work for unit consistency.  You can only add or subtract quantities which have the same units. When multiplying or dividing quantities with units, multiply or divide the units as well. The units on both sides of the equals sign must be the equivalent.</li>
-<li id="li-25">Develop a sense of the magnitudes of the units and consider your answers for reasonableness.  A kilogram is about 2.2 times as massive as a pound-mass and a newton weighs about a quarter pound.</li>
-<li id="li-26">Be sure to include units with every answer.</li>
+<li id="li-21"><p id="p-derived-li-21">Pay attention to the units of every quantity in the problem.  Forces should have force units, distances should have distance units etc.</p></li>
+<li id="li-22"><p id="p-derived-li-22">Use the unit system given in the problem statement.</p></li>
+<li id="li-23"><p id="p-derived-li-23">Avoid unit conversions when possible.  If you must, convert given values to a consistent set of units and stick with them.</p></li>
+<li id="li-24"><p id="p-derived-li-24">Check your work for unit consistency.  You can only add or subtract quantities which have the same units. When multiplying or dividing quantities with units, multiply or divide the units as well. The units on both sides of the equals sign must be the equivalent.</p></li>
+<li id="li-25"><p id="p-derived-li-25">Develop a sense of the magnitudes of the units and consider your answers for reasonableness.  A kilogram is about 2.2 times as massive as a pound-mass and a newton weighs about a quarter pound.</p></li>
+<li id="li-26"><p id="p-derived-li-26">Be sure to include units with every answer.</p></li>
 </ul>
 <article class="example example-like" id="example-1"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span>
 </h6>
 <p id="p-58">How much does a \(\kg{5}\) bag of flour weigh?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-1" id="hint-1"><span class="type">Hint</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-1"><div class="hint solution-like"><p id="p-59">A value in kg is a mass.  Weight is a force.</p></div></div>
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-1" id="answer-1"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-1"><div class="answer solution-like"><p id="p-60">\(W = \N{49.05}\)</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-1" id="solution-1"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-1"><div class="solution solution-like"><div class="displaymath" id="p-61">
+<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-1" id="hint-1"><span class="type">Hint.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-hint-1"><div class="hint solution-like"><p id="p-59">A value in kg is a mass.  Weight is a force.</p></div></div>
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-1" id="answer-1"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-1"><div class="answer solution-like"><p id="p-60">\(W = \N{49.05}\)</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-1" id="solution-1"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-1"><div class="solution solution-like"><div class="displaymath" id="p-61">
 \begin{align*}
 W \amp = m g\\
 \amp = \kg{5} (\aSI{9.81}) \\
@@ -366,12 +380,12 @@ W \amp = m g\\
 </h6>
 <p id="p-62">How much does a \(\lb{5}\) bag of sugar weigh?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-2" id="hint-2"><span class="type">Hint</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-2"><div class="hint solution-like">
+<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-2" id="hint-2"><span class="type">Hint.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-hint-2"><div class="hint solution-like">
 <p id="p-63">When someone says “pounds” they probably mean “pounds-force.”.</p>
 <p id="p-64">Even if they mean pounds-mass, \(\lbm{1} = \lbf{1}\) on earth.</p>
 </div></div>
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-2" id="answer-2"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-2"><div class="answer solution-like"><p id="p-65">\(W = \lb{5}\)</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-2" id="solution-2"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-2"><div class="solution solution-like"><div class="displaymath" id="p-66">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-2" id="answer-2"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-2"><div class="answer solution-like"><p id="p-65">\(W = \lb{5}\)</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-2" id="solution-2"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-2"><div class="solution solution-like"><div class="displaymath" id="p-66">
 \begin{align*}
 \lb{5} \amp = \lbf{5}
 \end{align*}

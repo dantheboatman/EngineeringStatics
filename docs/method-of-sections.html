@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,9 +292,9 @@
 </h2>
 <article class="objectives goal-like" id="objectives-24"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-287">How do we determine an appropriate section to cut through a truss?</li>
-<li id="li-288">How are equilibrium equations applied to a section?</li>
-</ul></article><section class="introduction" id="introduction-19"><p id="p-1018">The <dfn class="terminology">method of sections</dfn> is used to solve for the unknown forces within specific members of a truss without solving for them all. The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p></section><section class="subsection" id="sections-procedure"><h3 class="heading hide-type">
+<li id="li-287"><p id="p-derived-li-287">How do we determine an appropriate section to cut through a truss?</p></li>
+<li id="li-288"><p id="p-derived-li-288">How are equilibrium equations applied to a section?</p></li>
+</ul></article><section class="introduction" id="introduction-21"><p id="p-1018">The <dfn class="terminology">method of sections</dfn> is used to solve for the unknown forces within specific members of a truss without solving for them all. The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p></section><section class="subsection" id="sections-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.1</span> <span class="title">Procedure</span>
 </h3>
 <p id="p-1019">The procedure to solve for unknown forces using the method of sections is</p>
@@ -303,7 +317,7 @@
 <li id="li-297"><p id="p-1029">If you have not found all the required forces with one section cut, repeat the process using another imaginary cut or proceed with the method of joints if it is more convenient.</p></li>
 </ol>
 <p id="p-1030">The interactive below demonstrates the method of sections.  The internal forces in the truss members are exposed by cutting through the truss at three locations.   The known loads are shown in red, and the unknown reactions \(F_x\text{,}\) \(A_x\) and \(A_y\text{,}\) and unknown member forces are shown in blue. All members are assumed to be in tension. In this situation, it is not necessary to find the reactions if the section to the right of the cut is selected.</p>
-<aside class="aside aside-like" id="aside-42"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>Move the slider to see the free body diagrams of the entire truss and after taking a section cut.</aside><figure class="figure figure-like" id="ggb_wxh9nsbc"><iframe id="ggb_method-of-sections_interactive" width="600" height="300" src="ggb_method-of-sections_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>Method of sections demonstration.</figcaption></figure></section></section></div></main>
+<aside class="aside aside-like" id="aside-42"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_wxh9nsbc"><iframe id="ggb_method-of-sections_interactive" width="600" height="300" src="ggb_method-of-sections_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>Method of sections demonstration.</figcaption></figure></section></section></div></main>
 </div>
 </body>
 </html>

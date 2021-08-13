@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,9 +292,9 @@
 </h2>
 <article class="objectives goal-like" id="objectives-1"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-11">What are the two types of motion?</li>
-<li id="li-12">What three relationships do Newton’s laws of motion define?</li>
-<li id="li-13">What are physical examples for each of Newton’s three laws of motion?</li>
+<li id="li-11"><p id="p-derived-li-11">What are the two types of motion?</p></li>
+<li id="li-12"><p id="p-derived-li-12">What three relationships do Newton’s laws of motion define?</p></li>
+<li id="li-13"><p id="p-derived-li-13">What are physical examples for each of Newton’s three laws of motion?</p></li>
 </ul></article><section class="introduction" id="introduction-2"><p id="p-19">The English scientist Sir Issac Newton established the foundation of mechanics in 1687 with his three laws of motion, which describe the relation between forces, objects and motion.   Motion can be separated into two types:</p>
 <ul class="no-marker">
 <li id="li-14"><p id="p-20"><dfn class="terminology">Translation</dfn>— where a body changes position without changing its orientation in space, and</p></li>

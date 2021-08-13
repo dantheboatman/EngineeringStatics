@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,12 +292,11 @@
 </h2>
 <article class="objectives goal-like" id="objectives-5"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-48">What differentiates a vector from a scalar?</li>
-<li id="li-49">How do you identify the tip, tail, line of action, direction, and magnitude of any drawn vector?</li>
-<li id="li-50">What are the standard notations for vectors and scalars in this textbook?</li>
-<li id="li-51">What is the difference between the sense and orientation of a vector?</li>
-</ul></article><aside class="aside aside-like" id="aside-1"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-92">You can use this interactive diagram to adjust the magnitude and direction of the vector using point at the tip, the point of application of the vector by sliding the tail along the line of action, and the direction of the vector by moving the direction of the line of action.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<li id="li-48"><p id="p-derived-li-48">What differentiates a vector from a scalar?</p></li>
+<li id="li-49"><p id="p-derived-li-49">How do you identify the tip, tail, line of action, direction, and magnitude of any drawn vector?</p></li>
+<li id="li-50"><p id="p-derived-li-50">What are the standard notations for vectors and scalars in this textbook?</p></li>
+<li id="li-51"><p id="p-derived-li-51">What is the difference between the sense and orientation of a vector?</p></li>
+</ul></article><aside class="aside aside-like" id="aside-1"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;"><p id="p-93">You can visualize a vector as an <dfn class="terminology">arrow</dfn> pointing in a particular direction. The <dfn class="terminology">tip</dfn> is the pointed end and the <dfn class="terminology">tail</dfn> the trailing end. The tip and tail of a vector define a <dfn class="terminology">line of action</dfn>. A line of action can be thought of as an invisible string along which a vector can slide. Sliding a vector along its line of action does not change its magnitude or its direction.  Sliding a vector can be a handy way to simplify vector problems.</p></div>
 <div class="sbspanel top" style="width:48%;"><figure class="figure figure-like" id="fig-ggb-1d-definitions"><iframe id="ggb-1d-definitions_interactive" width="288" height="216" src="ggb-1d-definitions_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.1<span class="period">.</span></span><span class="space"> </span>Vector Definitions</figcaption></figure></div>
 </div></div>

@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,7 +290,7 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="integration_method"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.8</span> <span class="title">Integration Method</span>
 </h2>
-<section class="introduction" id="introduction-30"><p id="p-1606">In <a href="VM_relations.html" class="internal" title="Section 8.6: Relation Between Loading, Shear and Moment">Section 8.6</a> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.  Beams consisting of point and uniformly distributed loads only do not require the use of the calculus method.</p>
+<section class="introduction" id="introduction-32"><p id="p-1606">In <a href="VM_relations.html" class="internal" title="Section 8.6: Relation Between Loading, Shear and Moment">Section 8.6</a> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.  Beams consisting of point and uniformly distributed loads only do not require the use of the calculus method.</p>
 <p id="p-1607">However, there are times that the graphical technique falls short when the areas are more complicated than rectangles or triangles. For example, a uniformly varying load, which is a firs degree linear function of \(x\text{,}\) integrates to a second degree parabolic shear function, and a third degree cubic moment function.  To use the graphical method you would need to find the area under the parabolic shear curve to compute the cubic moment.   When the loading becomes more complex it is better to use perform the integration directly.</p>
 <p id="p-1608">We will use fundamental equations <a class="xref" data-knowl="./knowl/VMV2.html" title="Equation 8.6.2">(8.6.2)</a> and <a class="xref" data-knowl="./knowl/VMM2.html" title="Equation 8.6.4">(8.6.4)</a> to find the shear and bending moment functions</p>
 <div class="displaymath">
@@ -334,21 +348,20 @@ w(x) = f(x)\text{.}
 </li>
 </ul>
 <p id="p-1618">This interactive compares the local and global equations for a beam segment with a uniformly varying load.</p>
-<aside class="aside aside-like" id="aside-54"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-1619">Notice as you change the slope, global intercept, and location of point \(A\) that the only values that shift between local and global equations are the \(y\) intercept values (\(b'\) vs. \(b'\)) and the \(x\) coordinate of \(A\text{.}\)</p></aside><figure class="figure figure-like" id="ggb_global_local"><iframe id="ggb_translate-coord-sys_interactive" width="600" height="300" src="ggb_translate-coord-sys_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.8.1<span class="period">.</span></span><span class="space"> </span>Global vs. Local coordinate systems.</figcaption></figure><p id="p-1621"></p></section><section class="subsection" id="Chapter_08-application-of-the-calculus-method"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-54"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_global_local"><iframe id="ggb_translate-coord-sys_interactive" width="600" height="300" src="ggb_translate-coord-sys_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.8.1<span class="period">.</span></span><span class="space"> </span>Global vs. Local coordinate systems.</figcaption></figure><p id="p-1621"></p></section><section class="subsection" id="Chapter_08-application-of-the-calculus-method"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span>
 </h3>
-<ol id="p-1622" class="decimal">
-<li id="li-471"><p id="p-1623">You can either start with this method from the start of your problem or, to be more time-efficient, use the graphical method until the point you need to find areas of more complicated shapes than rectangles and triangles.</p></li>
-<li id="li-472"><p id="p-1624">You will need to have solved the loading segment to the left of your desired segment.</p></li>
-<li id="li-473"><p id="p-1625">Write an equation for the loading \(w\) in the segment using either local or global coordinates.</p></li>
-<li id="li-474"><p id="p-1626">Integrate the loading equation \(w(x)\) to find the change in the shear \(\Delta V\) and include the shear value at the beginning of your loading segment including the influence of any point loads at that location, which is equivalent to the integration constant.</p></li>
-<li id="li-475"><p id="p-1627">Integrate the shear equation \(w(x)\) to find the change in the bending moment \(\Delta M\) and include the moment value at the beginning of your loading segment including the influence of any point couple-moments at that location, equivalent to the integration constant.</p></li>
-<li id="li-476">
+<p id="p-1622">You can either us this method from the start or use the graphical method until you need areas of shapes more complicated than rectangles and triangles.</p>
+<ol id="p-1623" class="decimal">
+<li id="li-471"><p id="p-1624">You will need to have solved the loading segment to the left of your desired segment.</p></li>
+<li id="li-472"><p id="p-1625">Write an equation for the loading \(w\) in the segment using either local or global coordinates.</p></li>
+<li id="li-473"><p id="p-1626">Integrate the loading equation \(w(x)\) to find the change in the shear \(\Delta V\) and include the shear value at the beginning of your loading segment including the influence of any point loads at that location, which is equivalent to the integration constant.</p></li>
+<li id="li-474"><p id="p-1627">Integrate the shear equation \(w(x)\) to find the change in the bending moment \(\Delta M\) and include the moment value at the beginning of your loading segment including the influence of any point couple-moments at that location, equivalent to the integration constant.</p></li>
+<li id="li-475">
 <p id="p-1628">To find maximum values</p>
 <ol class="lower-alpha">
-<li id="li-477"><p id="p-1629">For shear, use \(V(x)\) equation.</p></li>
-<li id="li-478"><p id="p-1630">For moment, use \(M(x)\text{.}\) If the value of the maximum moment is in the middle of a loading segment (often where the shear value is zero), set the \(V(x)=0\text{,}\) solve for \(x\) and then put that distance value into the moment \(M(x)\) equation.</p></li>
+<li id="li-476"><p id="p-1629">For shear, use \(V(x)\) equation.</p></li>
+<li id="li-477"><p id="p-1630">For moment, use \(M(x)\text{.}\) If the value of the maximum moment is in the middle of a loading segment (often where the shear value is zero), set the \(V(x)=0\text{,}\) solve for \(x\) and then put that distance value into the moment \(M(x)\) equation.</p></li>
 </ol>
 </li>
 </ol>
@@ -360,12 +373,12 @@ w(x) = f(x)\text{.}
 <div class="sbspanel middle" style="width:40%;"><img src="images/VM-integration-1.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-65" id="answer-65"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-65"><div class="answer solution-like"><div class="displaymath" id="p-1632">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-65" id="answer-65"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-65"><div class="answer solution-like"><div class="displaymath" id="p-1632">
 \begin{align*}
 V(x) \amp =  w\left( \frac{L}{2} -x\right ) \amp M(x) \amp =  \frac{w}{2} (Lx - x^2)
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-79" id="solution-79"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-79"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-79" id="solution-79"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-79"><div class="solution solution-like">
 <p id="p-1633"></p>
 <p id="p-1634">This beam has only one load section, and on that section the load is constant so,</p>
 <div class="displaymath">

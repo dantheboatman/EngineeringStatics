@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -120,10 +133,10 @@
 </div></div>
 <nav xmlns:svg="http://www.w3.org/2000/svg" id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_04-moments-in-two-dimensions.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_04-couples.html" title="Next">Next</a></span></div>
+<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="varignons-theorem.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_04-couples.html" title="Next">Next</a></span></div>
 </div>
 <div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_04-moments-in-two-dimensions.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_04-couples.html" title="Next">Next</a>
+<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="varignons-theorem.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_04-couples.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
 <div xmlns:svg="http://www.w3.org/2000/svg" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions" class="active">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -274,92 +288,87 @@
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="Chapter_04-moments-in-three-dimensions"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">4.3</span> <span class="title">Moments in Three Dimensions</span>
+<span class="type">Section</span> <span class="codenumber">4.4</span> <span class="title">Moments in Three Dimensions</span>
 </h2>
 <article class="objectives goal-like" id="objectives-14"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-193">Where does the moment arm vector \(\vec{r}\) start and end?</li>
-<li id="li-194">Why does Varignon’s Theorem give you the same answer as a determinant?</li>
-<li id="li-195">How can you combine a dot product and a cross product to find the moment about a line?</li>
-<li id="li-196">Why does a mixed-triple determinant give you a scalar while a cross-product determinant gives you a vector?</li>
-</ul></article><section class="introduction" id="introduction-15"><p id="p-683">Moments are vectors and they will typically have components in the \(x\text{,}\) \(y\) and \(z\) directions in three-dimensional situations.  The circular arrows we used to represent vectors in two dimensions are unclear in three dimensions, so moments are drawn as vectors just like force and position vectors, although you will sometimes see moments drawn with double arrowheads to differentiate them from force vectors. In three-dimensions, it is usually not convenient to find the moment arm and use equation <a class="xref" data-knowl="./knowl/moment-definition.html" title="Equation 4.2.1">(4.2.1)</a>, so instead we will use the vector cross product, which is easier to apply but less intuitive.</p></section><section class="subsection" id="cross-products"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.3.1</span> <span class="title">Moment Cross Products</span>
+<li id="li-193"><p id="p-derived-li-193">Where does the moment arm vector \(\vec{r}\) start and end?</p></li>
+<li id="li-194"><p id="p-derived-li-194">Why does Varignon’s Theorem give you the same answer as a determinant?</p></li>
+<li id="li-195"><p id="p-derived-li-195">How can you combine a dot product and a cross product to find the moment about a line?</p></li>
+<li id="li-196"><p id="p-derived-li-196">Why does a mixed-triple determinant give you a scalar while a cross-product determinant gives you a vector?</p></li>
+</ul></article><section class="introduction" id="introduction-17"><p id="p-683">Moments are vectors and they will typically have components in the \(x\text{,}\) \(y\) and \(z\) directions in three-dimensional situations.  The circular arrows we used to represent vectors in two dimensions are unclear in three dimensions, so moments are drawn as vectors just like force and position vectors, although you will sometimes see moments drawn with double arrowheads to differentiate them from force vectors. In three-dimensions, it is usually not convenient to find the moment arm and use equation <a class="xref" data-knowl="./knowl/moment-definition.html" title="Equation 4.2.1">(4.2.1)</a>, so instead we will use the vector cross product, which is easier to apply but less intuitive.</p></section><section class="subsection" id="cross-products"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.1</span> <span class="title">Moment Cross Products</span>
 </h3>
-<aside class="aside aside-like" id="aside-29"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-684">This interactive shows the force and position vectors for use in the moment cross product. The position vector is a vector from the moment center to any point on the line of action of the force.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<aside class="aside aside-like" id="aside-29"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;">
 <p id="p-685">The most robust and general method to find the moment of a force is to use the vector cross product</p>
 <div class="displaymath">
 \begin{equation}
-\vec{M} = \vec{r} \times \vec{F}\text{,}\label{rxf}\tag{4.3.1}
+\vec{M} = \vec{r} \times \vec{F}\text{,}\label{rxf}\tag{4.4.1}
 \end{equation}
 </div>
 <p class="continuation">where \(\vec{F}\) is the force creating the moment, and \(\vec{r}\) is a position vector from the moment center to the line of action of the force. The cross product is a vector multiplication operation and the product is a vector perpendicular to the vectors you multiplied.</p>
 </div>
-<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="cross-product-def-fig"><iframe id="ggb_dan-wrench-4_interactive" width="300" height="300" src="ggb_dan-wrench-4_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.3.1<span class="period">.</span></span><span class="space"> </span>Moment cross product. \(\vec{M} = \vec{r} \times \vec{F}\)</figcaption></figure></div>
+<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="cross-product-def-fig"><iframe id="ggb_dan-wrench-4_interactive" width="300" height="300" src="ggb_dan-wrench-4_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.1<span class="period">.</span></span><span class="space"> </span>Moment cross product. \(\vec{M} = \vec{r} \times \vec{F}\)</figcaption></figure></div>
 </div></div>
 <p id="p-687">The mathematics of cross products was discussed in <a href="cross-product-math.html" class="internal" title="Section 2.8: Cross Products">Section 2.8</a>, and equation <a class="xref" data-knowl="./knowl/cross-product-def.html" title="Equation 2.8.1">(2.8.1)</a> provides one  method to calculate a moment cross products</p>
 <div class="displaymath">
 \begin{align}
-\vec{M} \amp = |\vec{r}| |\vec{F}| \sin \theta \, \hat{\vec{u}} \text{.}\tag{4.3.2}
+\vec{M} \amp = |\vec{r}| |\vec{F}| \sin \theta \, \hat{\vec{u}} \text{.}\tag{4.4.2}
 \end{align}
 </div>
-<p class="continuation">Here, \(\theta\) is the angle between the two vectors as shown in <a class="xref" data-knowl="./knowl/cross-product-def-fig.html" title="Figure 4.3.1">Figure 4.3.1</a> above, and \(\hat{\vec{u}}\) is the unit vector perpendicular to both \(\vec{r}\) and \(\vec{F}\)  with the direction coming from the right-hand rule. This equation is useful if you know or can find the magnitudes of \(\vec{r}\) and \(\vec{F}\) and the angle \(\theta\) between them.  This equation is the  vector equivalent of <a class="xref" data-knowl="./knowl/moment-general.html" title="Equation 4.2.3">(4.2.3)</a>.</p>
+<p class="continuation">Here, \(\theta\) is the angle between the two vectors as shown in <a class="xref" data-knowl="./knowl/cross-product-def-fig.html" title="Figure 4.4.1">Figure 4.4.1</a> above, and \(\hat{\vec{u}}\) is the unit vector perpendicular to both \(\vec{r}\) and \(\vec{F}\)  with the direction coming from the right-hand rule. This equation is useful if you know or can find the magnitudes of \(\vec{r}\) and \(\vec{F}\) and the angle \(\theta\) between them.  This equation is the  vector equivalent of <a class="xref" data-knowl="./knowl/moment-general.html" title="Equation 4.3.2">(4.3.2)</a>.</p>
 <p id="p-688">Alternately, if you know or can find the components of the position \(\vec{r}\) and force \(\vec{F}\) vectors, it's typically easiest to evaluate the moment cross product using the determinant form discussed in <a href="cross-product-math.html#vector-cross-products" class="internal" title="Subsection 2.8.1: Cross Product of Arbitrary Vectors">Subsection 2.8.1</a>.</p>
 <div class="displaymath">
 \begin{align}
 \vec{M}  \amp =  \vec{r} \times \vec{F} \notag\\
 \amp=  \begin{vmatrix} \ihat  \amp \jhat  \amp  \khat \\ r_x  \amp  r_y \amp   r_z \\ F_x \amp   F_y  \amp  F_z \end{vmatrix}\notag\\
-\amp =  (r_y F_z - r_z F_y)\ \ihat - (r_x F_z - r_z F_x)\ \jhat + (r_x F_y - r_y F_x)\ \khat \label{moment-cross-det}\tag{4.3.3}
+\amp =  (r_y F_z - r_z F_y)\ \ihat - (r_x F_z - r_z F_x)\ \jhat + (r_x F_y - r_y F_x)\ \khat \label{moment-cross-det}\tag{4.4.3}
 \end{align}
 </div>
 <p id="p-689">Here, \(r_x\text{,}\) \(r_y\text{,}\) and \(r_z\) are components of the vector describing the distance from the point of interest to the force. \(F_x\text{,}\) \(F_y\text{,}\) and  \(F_z\) are components of the force. The resulting moment has three components. These components represent the moments around each of the \(x\text{,}\) \(y\text{,}\) and \(z\) axes. The magnitude of the resultant moment can be calculated using the three-dimensional Pythagorean Theorem.</p>
 <div class="displaymath" id="p-690">
 \begin{equation}
-M = |\vec{M}| = \sqrt{ {M_x}^2 +{M_y}^2+{M_z}^2 }\tag{4.3.4}
+M = |\vec{M}| = \sqrt{ {M_x}^2 +{M_y}^2+{M_z}^2 }\tag{4.4.4}
 \end{equation}
 </div>
 <p id="p-691">It is important to avoid three common mistakes when setting up the cross product.</p>
 <ul class="disc">
-<li id="li-197">The order must always be \(\vec{r}\times\vec{F}\text{,}\) never \(\vec{F}\times\vec{r}\text{.}\) The moment arm \(\vec{r}\) appears in the middle line of the determinant and the force \(\vec{F}\) on the bottom line.</li>
-<li id="li-198">The moment arm \(\vec{r}\) must always be measured from moment center to the line of action of the force. Never from the force to the point.</li>
-<li id="li-199">The signs of the components of \(\vec{r}\text{ and }\vec{F}\) must follow those of a right-hand coordinate system.</li>
+<li id="li-197"><p id="p-derived-li-197">The order must always be \(\vec{r}\times\vec{F}\text{,}\) never \(\vec{F}\times\vec{r}\text{.}\) The moment arm \(\vec{r}\) appears in the middle line of the determinant and the force \(\vec{F}\) on the bottom line.</p></li>
+<li id="li-198"><p id="p-derived-li-198">The moment arm \(\vec{r}\) must always be measured from moment center to the line of action of the force. Never from the force to the point.</p></li>
+<li id="li-199"><p id="p-derived-li-199">The signs of the components of \(\vec{r}\text{ and }\vec{F}\) must follow those of a right-hand coordinate system.</p></li>
 </ul>
-<p id="p-692">In two dimensions,  \(r_z\) and \(F_z\) are zero, so <a class="xref" data-knowl="./knowl/moment-cross-det.html" title="Equation 4.3.3">(4.3.3)</a> reduces to</p>
+<p id="p-692">In two dimensions,  \(r_z\) and \(F_z\) are zero, so <a class="xref" data-knowl="./knowl/moment-cross-det.html" title="Equation 4.4.3">(4.4.3)</a> reduces to</p>
 <div class="displaymath">
 \begin{align}
 \vec{M}  \amp = \vec{r} \times \vec{F} \notag\\
 \amp=  \begin{vmatrix} \ihat  \amp \jhat  \amp  \khat \\ r_x  \amp  r_y \amp   0 \\ F_x \amp   F_y  \amp  0 \end{vmatrix}\notag\\
-\amp = ( {r_x}{F_y} - {r_y}{F_x})\ \khat\text{.}\tag{4.3.5}
+\amp = ( {r_x}{F_y} - {r_y}{F_x})\ \khat\text{.}\tag{4.4.5}
 \end{align}
 </div>
-<p class="continuation">This is just the vector equivalent of <a class="xref" data-knowl="./knowl/verignon.html" title="Equation 4.2.4">Varignon’s Theorem</a> in two dimensions, with the correct signs automatically determined from the signs on the scalar components of \(\vec{F}\) and \(\vec{r}\text{.}\)</p></section><section class="subsection" id="Chapter_04-moment-about-a-point-"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.3.2</span> <span class="title">Moment about a Point</span>
+<p class="continuation">This is just the vector equivalent of <a class="xref" data-knowl="./knowl/verignon.html" title="Equation 4.3.3">Varignon’s Theorem</a> in two dimensions, with the correct signs automatically determined from the signs on the scalar components of \(\vec{F}\) and \(\vec{r}\text{.}\)</p></section><section class="subsection" id="Chapter_04-moment-about-a-point-"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.2</span> <span class="title">Moment about a Point</span>
 </h3>
 <p id="p-693">The next two interactives should help you visualize moments in three dimensions.</p>
 <p id="p-694">The first shows the force vector, position vector and the resulting moment all placed at the origin for simplicity.  The moment is perpendicular to the plane containg \(\vec{F}\) and \(\vec{r}\) and has a magnitude equal to the ‘area’ of the parallelogram with \(\vec{F}\) and \(\vec{r}\) for sides.</p>
-<aside class="aside aside-like" id="aside-30"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-695">Interactive shows \(\vec{M} = \vec{r} \times \vec{F}\text{.}\) Vectors \vec{F} and \vec{r} can be adjusted interactively by dragging or changing the values in the table.  Moment \vec{M} is calculated with the cross product automatically.</p></aside><figure class="figure figure-like" id="ggb_f9kpnaqf"><iframe id="ggb_3d-moment-about-origin_interactive" width="600" height="400" src="ggb_3d-moment-about-origin_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.3.2<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-697"></p>
+<aside class="aside aside-like" id="aside-30"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_f9kpnaqf"><iframe id="ggb_3d-moment-about-origin_interactive" width="600" height="400" src="ggb_3d-moment-about-origin_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.2<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-697"></p>
 <p id="p-698">The second interactive shows a more realistic situation.  The moment center is at arbitrary point \(A\text{,}\) and the line of action of force \(\vec{F}\) passes through arbitrary points \(P_1\) and \(P_2\text{.}\)  The position vector \(\vec{r}\) is the vector from \(A\) to a point on the line of action, and the force \(\vec{F}\) can be slid anywhere along that line.</p>
-<aside class="aside aside-like" id="aside-31"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-699">Interactive shows the moment \(\vec{M} \) about an arbitrary point \(A\) due to a force force is defined by a scalar \(F\) and two points on its line of action, \(P_1\) and \(P_2\text{.}\)</p> <p id="p-700">The locations of \(A\text{,}\) \(P_1\text{,}\) \(P_2\) and the magnitude of \(\vec{F}\) can be set interactively.  The interactive determines the components of \(\vec{r}\text{,}\) the unit vector \(\lambda\) of the line of action, the components of \(\vec{F}\) and the moment \(\vec{M}\) and its magnitude \(M\text{.}\)</p></aside><figure class="figure figure-like" id="ggb_qevhtn56"><iframe id="ggb_3d-moment-about-arbitrary-point_interactive" width="600" height="480" src="ggb_3d-moment-about-arbitrary-point_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.3.3<span class="period">.</span></span><span class="space"> </span></figcaption></figure></section><section class="subsection" id="Chapter_04-moment-about-a-line"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.3.3</span> <span class="title">Moment about a Line</span>
+<aside class="aside aside-like" id="aside-31"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_qevhtn56"><iframe id="ggb_3d-moment-about-arbitrary-point_interactive" width="600" height="480" src="ggb_3d-moment-about-arbitrary-point_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.3<span class="period">.</span></span><span class="space"> </span></figcaption></figure></section><section class="subsection" id="Chapter_04-moment-about-a-line"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">4.4.3</span> <span class="title">Moment about a Line</span>
 </h3>
 <p id="p-703">In three dimensions, the moment of a force about a point can be resolved into components about the \(x\text{,}\) \(y\) and \(z\) axes.  The moment produces a rotational tendency about all three axes simultaneously, but only a portion of the total moment acts about any particular axis.</p>
 <p id="p-704">We are often interested in finding the effect of a moment about a specific line or axis. For example, consider the moment created by a push on a door handle. Unless you push with a force exactly perpendicular to the hinge, only a portion of the total moment you produce will act around the hinge axis and be effective to open the door.  The moment we are looking for is the vector projection of the moment onto the axis of interest.  Vector projections were first discussed in <a href="dot_products_2D.html#vector-projections" class="internal" title="Subsection 2.7.3: Vector Projection">Subsection 2.7.3</a>.</p>
-<aside class="aside aside-like" id="aside-32"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-705">This interactive shows the moment produced by pushing on a door handle with a force \(\vec{F}\text{,}\) and the component of that moment along the axis of the door hinge axis, \(\vec{M}_z\text{.}\)</p></aside><figure class="figure figure-like" id="figure-49"><iframe id="ggb_3d-moment-door_interactive" width="420" height="280" src="ggb_3d-moment-door_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.3.4<span class="period">.</span></span><span class="space"> </span>Moment on a hinge.</figcaption></figure><p id="p-707">The axis of interest does not need to be a coordinate axis.  This interactive shows the projection of moment \(\vec{M}\) on a line passing through points \(A\) and \(B\text{.}\)</p>
-<aside class="aside aside-like" id="aside-33"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-708">This interactive shows the projection of moment \(\vec{M}\) on line through \(A\) and \(B\) with unit direction vector \(\hat{u}\text{.}\)  The projection of \(M\) on line \(AB\) is (\(M \cdot \hat{u}) \hat{u}\text{.}\)</p></aside><figure class="figure figure-like" id="figure-50"><iframe id="ggb_3d-moment-about-line_interactive" width="420" height="210" src="ggb_3d-moment-about-line_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.3.5<span class="period">.</span></span><span class="space"> </span>Moment of a force about a line</figcaption></figure><p id="p-710">To compute the moment of a force about a particular axis you combine skills you already have learned</p>
+<aside class="aside aside-like" id="aside-32"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="figure-49"><iframe id="ggb_3d-moment-door_interactive" width="420" height="280" src="ggb_3d-moment-door_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.4<span class="period">.</span></span><span class="space"> </span>Moment on a hinge.</figcaption></figure><p id="p-707">The axis of interest does not need to be a coordinate axis.  This interactive shows the projection of moment \(\vec{M}\) on a line passing through points \(A\) and \(B\text{.}\)</p>
+<aside class="aside aside-like" id="aside-33"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="figure-50"><iframe id="ggb_3d-moment-about-line_interactive" width="420" height="210" src="ggb_3d-moment-about-line_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.5<span class="period">.</span></span><span class="space"> </span>Moment of a force about a line</figcaption></figure><p id="p-710">To compute the moment of a force about a particular axis you combine skills you already have learned</p>
 <ul class="disc">
-<li id="li-200">finding the moment of a force about a point using the cross product, <a class="xref" data-knowl="./knowl/rxf.html" title="Equation 4.3.1">(4.3.1)</a>.</li>
-<li id="li-201">finding the scalar projection of one vector onto another vector using the dot product, <a class="xref" data-knowl="./knowl/projection2.html" title="Equation 2.7.8">(2.7.8)</a> and,</li>
-<li id="li-202">multiplying a scalar projection by a unit vector to find the vector projection, <a class="xref" data-knowl="./knowl/projection3.html" title="Equation 2.7.9">(2.7.9)</a>.</li>
+<li id="li-200"><p id="p-derived-li-200">finding the moment of a force about a point using the cross product, <a class="xref" data-knowl="./knowl/rxf.html" title="Equation 4.4.1">(4.4.1)</a>.</p></li>
+<li id="li-201"><p id="p-derived-li-201">finding the scalar projection of one vector onto another vector using the dot product, <a class="xref" data-knowl="./knowl/projection2.html" title="Equation 2.7.8">(2.7.8)</a> and,</p></li>
+<li id="li-202"><p id="p-derived-li-202">multiplying a scalar projection by a unit vector to find the vector projection, <a class="xref" data-knowl="./knowl/projection3.html" title="Equation 2.7.9">(2.7.9)</a>.</p></li>
 </ul>
 <p id="p-711">Carrying these operations out gives a vector which is the component of moment \(\vec{r} \times \vec{F}\) along the \(u\) axis.</p>
 <div class="displaymath">
 \begin{equation}
-\vec{M}_{\hat{\vec{u}}} = \hat{\vec{u}} \cdot ( \vec{r} \times \vec{F} ) \ \hat{\vec{u}}\label{moment-projection}\tag{4.3.6}
+\vec{M}_{\hat{\vec{u}}} = \hat{\vec{u}} \cdot ( \vec{r} \times \vec{F} ) \ \hat{\vec{u}}\label{moment-projection}\tag{4.4.6}
 \end{equation}
 </div>
 <p id="p-712">The combined dot and cross product is the scalar projection of the moment on the line of interest and is called the <dfn class="terminology">mixed triple product</dfn>.</p>
@@ -371,10 +380,9 @@ M = |\vec{M}| = \sqrt{ {M_x}^2 +{M_y}^2+{M_z}^2 }\tag{4.3.4}
 </div>
 <p id="p-713">The mixed triple product can can be calculated one operation at at time, or in a single step. Either way, the result is a scalar value which may be positive or negative. Both techniques require the components of three vectors</p>
 <ul class="disc">
-<li id="li-203">\(\hat{\vec{u}}\text{,}\) the unit direction vector of the line or axis of interest. This vector represents the direction of the axis.<a data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-4" id="fn-4"><sup> 1 </sup></a>
-</li>
-<li id="li-204">\(\vec{r}\text{,}\) the position vector from any point on the line of interest to any point on the line of action of the force.</li>
-<li id="li-205">\(\vec{F}\text{,}\) the force vector.  If you have multiple concurrent forces, you can treat them individually or add them together first and find the moment of the resultant — using Verignon's principle.</li>
+<li id="li-203"><p id="p-derived-li-203">\(\hat{\vec{u}}\text{,}\) the unit direction vector of the line or axis of interest. This vector represents the direction of the axis.<a data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-4" id="fn-4"><sup> 1 </sup></a></p></li>
+<li id="li-204"><p id="p-derived-li-204">\(\vec{r}\text{,}\) the position vector from any point on the line of interest to any point on the line of action of the force.</p></li>
+<li id="li-205"><p id="p-derived-li-205">\(\vec{F}\text{,}\) the force vector.  If you have multiple concurrent forces, you can treat them individually or add them together first and find the moment of the resultant — using Verignon's principle.</p></li>
 </ul>
 <div class="hidden-content tex2jax_ignore" id="hk-fn-4"><div class="fn">In many texts, the Greek letter lambda, \(\lambda\) is often used to indicate unit direction vectors.</div></div>
 <p id="p-714">To calculate the triple product in a single step, evaluate the 3 \(\times\) 3 determinant consisting of the components of the unit vector \(\hat{\vec{u}}\)  in the top row, the components of a position vector \(\vec{r}\) from line of interest to the line of action of force \(\vec{F}\) in the middle row, and the components of the force in the bottom row using the augmented determinant method <a class="xref" data-knowl="./knowl/augmented-determinant.html" title="Figure 2.8.1">Figure 2.8.1</a>.</p>
@@ -389,7 +397,7 @@ F_x \amp F_y \amp F_z
 \amp = (r_y F_z  - r_z F_y)\ u_x + (r_z F_x - r_x F_z)\ u_y + (r_x F_y  - r_y F_x)\ u_z
 \end{align*}
 </div>
-<p id="p-715">To find the vector projection along the selected axis, multiply this value by unit vector for the axis, equation <a class="xref" data-knowl="./knowl/moment-projection.html" title="Equation 4.3.6">(4.3.6)</a>.</p></section></section></div></main>
+<p id="p-715">To find the vector projection along the selected axis, multiply this value by unit vector for the axis, equation <a class="xref" data-knowl="./knowl/moment-projection.html" title="Equation 4.4.6">(4.4.6)</a>.</p></section></section></div></main>
 </div>
 </body>
 </html>

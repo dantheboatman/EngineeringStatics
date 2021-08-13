@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,10 +292,10 @@
 </h2>
 <article class="objectives goal-like" id="objectives-18"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-232">What are the five steps to create a free-body diagram?</li>
-<li id="li-233">What are degrees of freedom, and how do they relate to stability?</li>
-<li id="li-234">Which reaction forces and couple-moments come from each support type?</li>
-<li id="li-235">What are the typical support force components and couple-moment components which can be modeled from the various types of supports?</li>
+<li id="li-232"><p id="p-derived-li-232">What are the five steps to create a free-body diagram?</p></li>
+<li id="li-233"><p id="p-derived-li-233">What are degrees of freedom, and how do they relate to stability?</p></li>
+<li id="li-234"><p id="p-derived-li-234">Which reaction forces and couple-moments come from each support type?</p></li>
+<li id="li-235"><p id="p-derived-li-235">What are the typical support force components and couple-moment components which can be modeled from the various types of supports?</p></li>
 </ul></article><p id="p-821">Free body diagrams are the tool that engineers use to identify the forces and moments that influence an object.  They will be used extensively in statics, and you will use them again in other engineering courses so your effort to master them now is worthwhile. Although the concept is simple, students often have great difficulty with them.</p>
 <p id="p-822">Drawing a correct free-body diagram is the first and most important step in the process of solving an equilibrium problem.  It is the basis for all the equilibrium equations you will write; if your free-body diagram is incorrect then your equations, analysis, and solutions will be wrong as well.</p>
 <p id="p-823">A good free-body diagram is neat and clearly drawn and contains all the information necessary to solve the equilibrium.  You should take your time and think carefully about the free body diagram before you begin to write and solve equations.  A straightedge, protractor and colored pencils all can help.  You will inevitably make mistakes that will lead to confusion or incorrect answers; you are encouraged to think about these errors and identify any misunderstandings to avoid them in the future.</p>
@@ -337,7 +351,7 @@
 <div class="sbspanel top" style="width:48%;"><img src="images/Example-Cantilever.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-42" id="solution-42"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-42"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-42" id="solution-42"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-42"><div class="solution solution-like">
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;"><p id="p-846">Begin by drawing a neat rectangle to represent the beam disconnected from its supports, then add all the known forces and couple-moments.  Label the magnitudes of the loads and the known dimensions symbolically.</p></div>
 <div class="sbspanel top" style="width:48%;"><img src="images/Example-Cantilever-FBD.svg" role="img" class="contained" alt=""></div>
@@ -355,7 +369,7 @@
 <div class="sbspanel top" style="width:48%;"><img src="images/Example-rocker.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-43" id="solution-43"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-43"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-43" id="solution-43"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-43"><div class="solution solution-like">
 <p id="p-852">In this problem, the knowns are the magnitude and direction of force \(\vec{B}\) and moment \(\vec{C}\) and the dimensions of the beam.</p>
 <p id="p-853">The constraints are the frictionless pin at \(A\) and the rocker at \(D\text{.}\)  The pin prevents translation but not rotation, which means two it has two unknowns, represented by either magnitude and direction, or by two orthogonal components.  The rocker provides a force perpendicular to the surface it rests on, which is \(\ang{30}\) from the horizontal.  This means that the line of action of force  \(\vec{D}\) is \(\ang{30}\) from the vertical, giving us its direction but not its sense or magnitude</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">

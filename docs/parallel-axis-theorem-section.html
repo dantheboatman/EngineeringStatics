@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,16 +290,16 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="parallel-axis-theorem-section"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span>
 </h2>
-<section class="introduction" id="introduction-41"><p id="p-2018">The parallel axis theorem relates the moment of inertia of a shape about an arbitrary axis to its moment of inertia about a parallel centroidal axis.</p>
-<p id="p-2019">This theorem is particularly useful because if we know the centroidal moment of inertia of a shape, we can calculate its moment of inertia about any parallel axis by adding an appropriate correction factor.  Alternately, if we know the moment of inertia about an axis, we can find the associated centroidal moment of inertia by subtracting the same factor.</p>
-<p id="p-2020">The centroidal moment of inertia of common shapes are well known, and readily available in tables of properties of shapes such as <a href="parallel-axis-theorem-section.html#MOI-table" class="internal" title="Subsection 10.3.2: Moments of Inertia Table">Subsection 10.3.2</a>.</p></section><section class="subsection" id="Chapter_10-derivation"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-43"><p id="p-2017">The parallel axis theorem relates the moment of inertia of a shape about an arbitrary axis to its moment of inertia about a parallel centroidal axis.</p>
+<p id="p-2018">This theorem is particularly useful because if we know the centroidal moment of inertia of a shape, we can calculate its moment of inertia about any parallel axis by adding an appropriate correction factor.  Alternately, if we know the moment of inertia about an axis, we can find the associated centroidal moment of inertia by subtracting the same factor.</p>
+<p id="p-2019">The centroidal moment of inertia of common shapes are well known, and readily available in tables of properties of shapes such as <a href="parallel-axis-theorem-section.html#MOI-table" class="internal" title="Subsection 10.3.2: Moments of Inertia Table">Subsection 10.3.2</a>.</p></section><section class="subsection" id="Chapter_10-derivation"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.3.1</span> <span class="title">Derivation</span>
 </h3>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:55%;">
-<p id="p-2021">We will use the defining equation for the moment of inertia <a class="xref" data-knowl="./knowl/MOI.html" title="Equation 10.1.3">(10.1.3)</a> to derive the parallel axis theorem.</p>
-<p id="p-2022">The diagram shows an arbitrary shape, and two parallel axes: the \(x'\) axis, drawn in red, passes through the centroid of the shape at \(C\text{,}\) and the  \(x\) axis, which is parallel and separated by a distance, \(d\text{.}\)  The shape has area \(A\text{,}\) which is divided into square differential elements \(dA\text{.}\)  The distance from the \(x\) axis to the element \(dA\) is \(y\text{,}\) and the distance from the \(x'\) axis is \(y'\text{.}\)</p>
-<p id="p-2023">By <a class="xref" data-knowl="./knowl/MOI.html" title="Equation 10.1.3">(10.1.3)</a>, the moment of inertia of the shape about the \(x\) and \(x'\) axes are</p>
+<p id="p-2020">We will use the defining equation for the moment of inertia <a class="xref" data-knowl="./knowl/MOI.html" title="Equation 10.1.3">(10.1.3)</a> to derive the parallel axis theorem.</p>
+<p id="p-2021">The diagram shows an arbitrary shape, and two parallel axes: the \(x'\) axis, drawn in red, passes through the centroid of the shape at \(C\text{,}\) and the  \(x\) axis, which is parallel and separated by a distance, \(d\text{.}\)  The shape has area \(A\text{,}\) which is divided into square differential elements \(dA\text{.}\)  The distance from the \(x\) axis to the element \(dA\) is \(y\text{,}\) and the distance from the \(x'\) axis is \(y'\text{.}\)</p>
+<p id="p-2022">By <a class="xref" data-knowl="./knowl/MOI.html" title="Equation 10.1.3">(10.1.3)</a>, the moment of inertia of the shape about the \(x\) and \(x'\) axes are</p>
 <div class="displaymath">
 \begin{align*}
 I_x \amp = \int_A y^2\ dA \amp \bar{I}_{x'} \amp = \int_A (y')^2\ dA
@@ -294,7 +308,7 @@ I_x \amp = \int_A y^2\ dA \amp \bar{I}_{x'} \amp = \int_A (y')^2\ dA
 </div>
 <div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="MOI-parallel-axis-theorem"><img src="images/MOI-parallel-axis-theorem.svg" role="img" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.3.1<span class="period">.</span></span><span class="space"> </span>Definitions for the parallel axis theorem.</figcaption></figure></div>
 </div></div>
-<p id="p-2024">The first is the value we are looking for, and the second is the centroidal moment of inertia of the shape. These two are related through the distance \(d\text{,}\) because \(y= d + y'\text{.}\) Substituting that relation into the first equation and expanding the binomial gives</p>
+<p id="p-2023">The first is the value we are looking for, and the second is the centroidal moment of inertia of the shape. These two are related through the distance \(d\text{,}\) because \(y= d + y'\text{.}\) Substituting that relation into the first equation and expanding the binomial gives</p>
 <div class="displaymath">
 \begin{align*}
 I_x \amp =   \int_A (d + y')^2 dA\\
@@ -302,45 +316,45 @@ I_x \amp =   \int_A (d + y')^2 dA\\
 \amp = \int_A (y')^2 dA + 2 d \int_A y' dA + d^2 \int_A dA\text{.}
 \end{align*}
 </div>
-<p id="p-2025">You should recognize these three integrals.  The first is the centroidal moment of inertia of the shape \(\bar{I}_{x'}\text{,}\) and the third is the total area of the shape, \(A\text{.}\)  The middle integral is \(Q_{x'}\text{,}\) the  <a class="xref" data-knowl="./knowl/first-moment.html" title="Equation 10.1.2">first moment of area (10.1.2)</a> with respect to the centroidal axis \(x'\text{.}\) So we have,</p>
+<p id="p-2024">You should recognize these three integrals.  The first is the centroidal moment of inertia of the shape \(\bar{I}_{x'}\text{,}\) and the third is the total area of the shape, \(A\text{.}\)  The middle integral is \(Q_{x'}\text{,}\) the  <a class="xref" data-knowl="./knowl/first-moment.html" title="Equation 10.1.2">first moment of area (10.1.2)</a> with respect to the centroidal axis \(x'\text{.}\) So we have,</p>
 <div class="displaymath">
 \begin{equation*}
 I_x = \bar{I}_{x'} + 2 d Q_{x'} + d^2 A\text{.}
 \end{equation*}
 </div>
-<p id="p-2026">Furthermore, \(Q_{x'}\) is exactly zero because the \(x'\) axis passes through the centroid, meaning that elements of area above and below the centroidal axis exactly balance and cancel each other out.  After dropping the middle term we get the version of the parallel axis theorem which you should remember,</p>
+<p id="p-2025">Furthermore, \(Q_{x'}\) is exactly zero because the \(x'\) axis passes through the centroid, meaning that elements of area above and below the centroidal axis exactly balance and cancel each other out.  After dropping the middle term we get the version of the parallel axis theorem which you should remember,</p>
 <div class="displaymath">
 \begin{equation}
 I = \bar{I} + A d^2\text{.}\label{parallel-axis-theorem}\tag{10.3.1}
 \end{equation}
 </div>
-<p id="p-2027">The subscripts designating the \(x\) and \(x'\) axes have been dropped because this equation is applicable to any direction of parallel axes, not specifically horizontal axes.</p>
-<p id="p-2028">This equation says that you find the moment of inertia of a shape about <em class="emphasis">any</em> axis by adding \(Ad^2\) to the <em class="emphasis">parallel</em> centroidal moment of inertia. You can consider the \(Ad^2\) term as ‘correction factor’ to account for the distance of the axis from the centroid.  This term is always positive, so the centroidal moment of inertia is always the minimum moment of inertia for a particular axis direction.</p>
-<p id="p-2029">The next example show how the parallel axis theorem is typically used to find the moment of inertia of a shape about an axis, by using then centroidal moment of inertia formulas found in <a href="parallel-axis-theorem-section.html#MOI-table" class="internal" title="Subsection 10.3.2: Moments of Inertia Table">Subsection 10.3.2</a>.</p>
+<p id="p-2026">The subscripts designating the \(x\) and \(x'\) axes have been dropped because this equation is applicable to any direction of parallel axes, not specifically horizontal axes.</p>
+<p id="p-2027">This equation says that you find the moment of inertia of a shape about <em class="emphasis">any</em> axis by adding \(Ad^2\) to the <em class="emphasis">parallel</em> centroidal moment of inertia. You can consider the \(Ad^2\) term as ‘correction factor’ to account for the distance of the axis from the centroid.  This term is always positive, so the centroidal moment of inertia is always the minimum moment of inertia for a particular axis direction.</p>
+<p id="p-2028">The next example show how the parallel axis theorem is typically used to find the moment of inertia of a shape about an axis, by using then centroidal moment of inertia formulas found in <a href="parallel-axis-theorem-section.html#MOI-table" class="internal" title="Subsection 10.3.2: Moments of Inertia Table">Subsection 10.3.2</a>.</p>
 <article class="example example-like" id="Chapter_10-example-circular-ring"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">10.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Circular Ring.</span>
 </h6>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel top" style="width:56.4102564102564%;">
-<p id="p-2030">Use the parallel axis theorem to find the moment of inertia of the circular ring about the \(y\) axis.</p>
-<p id="p-2031">The dimensions of the ring are \(R_i = \mm{30}\text{,}\) \(R_o = \mm{45}\text{,}\) and \(a = \mm{80}.\)</p>
+<p id="p-2029">Use the parallel axis theorem to find the moment of inertia of the circular ring about the \(y\) axis.</p>
+<p id="p-2030">The dimensions of the ring are \(R_i = \mm{30}\text{,}\) \(R_o = \mm{45}\text{,}\) and \(a = \mm{80}.\)</p>
 </div>
 <div class="sbspanel top" style="width:41.025641025641%;"><img src="images/MOI-torus.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-71" id="answer-71"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-71"><div class="answer solution-like"><div class="displaymath" id="p-2032">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-71" id="answer-71"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-71"><div class="answer solution-like"><div class="displaymath" id="p-2031">
 \begin{equation*}
 I_y = \mm{57.8 \times 10^6}^4
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-86" id="solution-86"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-86"><div class="solution solution-like">
-<p id="p-2033">To apply the parallel axis theorem, we need three pieces of information</p>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-86" id="solution-86"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-86"><div class="solution solution-like">
+<p id="p-2032">To apply the parallel axis theorem, we need three pieces of information</p>
 <ol class="decimal">
-<li id="li-540"><p id="p-2034">The centroidal moment of inertia of the ring,  \(I_y\text{,}\)</p></li>
-<li id="li-541"><p id="p-2035">the area of the ring, \(A\text{,}\)</p></li>
-<li id="li-542"><p id="p-2036">the distance between the parallel axes, \(d\text{.}\)</p></li>
+<li id="li-539"><p id="p-2033">The centroidal moment of inertia of the ring,  \(I_y\text{,}\)</p></li>
+<li id="li-540"><p id="p-2034">the area of the ring, \(A\text{,}\)</p></li>
+<li id="li-541"><p id="p-2035">the distance between the parallel axes, \(d\text{.}\)</p></li>
 </ol>
-<p id="p-2037">The area of the ring is found by subtracting the area of the inner circle from the area of the outer circle. The centroidal moment of inertia is calculated similarly using <a class="xref" data-knowl="./knowl/Ix-circle.html" title="Equation 10.2.10">(10.2.10)</a>.  The distance between the \(y\) and \(y'\) axis is available from the diagram.  Inserting these values into the parallel axis theorem gives,</p>
+<p id="p-2036">The area of the ring is found by subtracting the area of the inner circle from the area of the outer circle. The centroidal moment of inertia is calculated similarly using <a class="xref" data-knowl="./knowl/Ix-circle.html" title="Equation 10.2.10">(10.2.10)</a>.  The distance between the \(y\) and \(y'\) axis is available from the diagram.  Inserting these values into the parallel axis theorem gives,</p>
 <div class="displaymath">
 \begin{align*}
 I_y \amp =   I_y + A d^2\\
@@ -350,11 +364,11 @@ I_y \amp =   I_y + A d^2\\
 I_y \amp = \mm{57.8 \times 10^6}^4
 \end{align*}
 </div>
-<p id="p-2038">It is interesting that the ‘correction factor’ is more than 20 times greater than the centroidal moment of inertia of the ring.  This indicates the importance of the distance squared term on the moment of inertia of a shape.</p>
-<aside class="aside aside-like" id="aside-62"><p id="p-2039">You may feel like the answer to this problem is “too big”.  Large answers are normal in problems like this because the moment of inertia involves raising lengths the fourth power.</p>
-<p id="p-2040">If it really bothers you, you can convert the results from \(\text{mm}^4\) to \(\text{m}^4\text{,}\) but then the number will probably feel “too small” to you.  It's best not to worry about it.</p></aside>
+<p id="p-2037">It is interesting that the ‘correction factor’ is more than 20 times greater than the centroidal moment of inertia of the ring.  This indicates the importance of the distance squared term on the moment of inertia of a shape.</p>
+<aside class="aside aside-like" id="aside-62"><p id="p-2038">You may feel like the answer to this problem is “too big”.  Large answers are normal in problems like this because the moment of inertia involves raising lengths the fourth power.</p>
+<p id="p-2039">If it really bothers you, you can convert the results from \(\text{mm}^4\) to \(\text{m}^4\text{,}\) but then the number will probably feel “too small” to you.  It's best not to worry about it.</p></aside>
 </div></div>
-</div></article><p id="p-2041">The parallel axis theorem can also be used to find a centroidal moment of inertia when you already know the moment of inertia of a shape about another axis, by using the theorem  ‘backwards’,</p>
+</div></article><p id="p-2040">The parallel axis theorem can also be used to find a centroidal moment of inertia when you already know the moment of inertia of a shape about another axis, by using the theorem  ‘backwards’,</p>
 <div class="displaymath">
 \begin{align*}
 I \amp =  \bar{I} + Ad^3  \amp \amp  \rightarrow  \amp \bar{I} \amp =  I - A d^2\text{.}
@@ -366,7 +380,7 @@ I \amp =  \bar{I} + Ad^3  \amp \amp  \rightarrow  \amp \bar{I} \amp =  I - A d^2
 <div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel top" style="width:30.7692307692308%;"><img src="images/MOI-triangle.svg" role="img" class="contained" alt=""></div>
 <div class="sbspanel top" style="width:66.6666666666667%;">
-<p id="p-2042">Find the centroidal moment of inertia of a triangle knowing that the moment of inertia about its base is</p>
+<p id="p-2041">Find the centroidal moment of inertia of a triangle knowing that the moment of inertia about its base is</p>
 <div class="displaymath">
 \begin{equation*}
 I_x = \frac{1}{12} b h^3\text{.}
@@ -375,21 +389,21 @@ I_x = \frac{1}{12} b h^3\text{.}
 </div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-72" id="answer-72"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-72"><div class="answer solution-like">
-<div class="displaymath" id="p-2043">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-72" id="answer-72"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-72"><div class="answer solution-like">
+<div class="displaymath" id="p-2042">
 \begin{equation*}
 \bar{I}_x = \frac{bh^3}{36}
 \end{equation*}
 </div>
-<div class="displaymath" id="p-2044">
+<div class="displaymath" id="p-2043">
 \begin{equation*}
 \bar{I}_y = \frac{b^3h}{36}
 \end{equation*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-87" id="solution-87"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-87"><div class="solution solution-like">
-<p id="p-2045">For the triangle the moment of we have the following information: \(I_x  =  bh^3/12\text{,}\) \(A =  bh/2\text{,}\) and \(d = \bar{y} =  h/3\text{.}\)</p>
-<p id="p-2046">Looking for \(\bar{I}_{x'}\text{:}\)</p>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-87" id="solution-87"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-87"><div class="solution solution-like">
+<p id="p-2044">For the triangle the moment of we have the following information: \(I_x  =  bh^3/12\text{,}\) \(A =  bh/2\text{,}\) and \(d = \bar{y} =  h/3\text{.}\)</p>
+<p id="p-2045">Looking for \(\bar{I}_{x'}\text{:}\)</p>
 <div class="displaymath">
 \begin{align*}
 I \amp =  \bar{I} + A d^2 \amp  \amp \text{Parallel Axis Theorem, general statement}\\
@@ -400,7 +414,7 @@ I \amp =  \bar{I} + A d^2 \amp  \amp \text{Parallel Axis Theorem, general statem
 \bar{I}_{x'} \amp =  \frac{b h^3}{36} \amp  \amp \text{Result}
 \end{align*}
 </div>
-<p id="p-2047">The procedure for \(\bar{I}_y\) is similar, or you can simply reverse the roles of \(b\) and \(h\text{.}\)</p>
+<p id="p-2046">The procedure for \(\bar{I}_y\) is similar, or you can simply reverse the roles of \(b\) and \(h\text{.}\)</p>
 </div></div>
 </div></article><article class="example example-like" id="Chapter_10-example-centroidal-moment-of-inertia-of-a-semi-circle"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">10.3.4</span><span class="period">.</span><span class="space"> </span><span class="title">Centroidal Moment of inertia of a Semi-Circle.</span>
@@ -408,7 +422,7 @@ I \amp =  \bar{I} + A d^2 \amp  \amp \text{Parallel Axis Theorem, general statem
 <div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel top" style="width:30.7692307692308%;"><img src="images/MOI-semi-circle-4r3pi.svg" role="img" class="contained" alt=""></div>
 <div class="sbspanel top" style="width:66.6666666666667%;">
-<p id="p-2048">Find the centroidal moment of inertia of a semi-circle knowing that the moment of inertia about its base is</p>
+<p id="p-2047">Find the centroidal moment of inertia of a semi-circle knowing that the moment of inertia about its base is</p>
 <div class="displaymath">
 \begin{equation*}
 I_x = \frac{\pi}{8} r^4\text{.}
@@ -417,13 +431,13 @@ I_x = \frac{\pi}{8} r^4\text{.}
 </div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-73" id="answer-73"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-73"><div class="answer solution-like"><div class="displaymath" id="p-2049">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-73" id="answer-73"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-73"><div class="answer solution-like"><div class="displaymath" id="p-2048">
 \begin{equation*}
 \bar{I}_{x'} =   \left(\frac{\pi}{8} + \frac{8}{9\pi}\right) r^4
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-88" id="solution-88"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-88"><div class="solution solution-like">
-<p id="p-2050">The area of a semicircle is \(A=\pi r^2/2\) and the distance between the parallel axes is \(d=(4 r)/(3\pi)\text{,}\) so</p>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-88" id="solution-88"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-88"><div class="solution solution-like">
+<p id="p-2049">The area of a semicircle is \(A=\pi r^2/2\) and the distance between the parallel axes is \(d=(4 r)/(3\pi)\text{,}\) so</p>
 <div class="displaymath">
 \begin{align*}
 \bar{I}_{x'} \amp =  I_x - A d^2\\
@@ -435,15 +449,15 @@ I_x = \frac{\pi}{8} r^4\text{.}
 </div></article><article class="example example-like" id="Chapter_10-example-interactive--rectangle"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">10.3.5</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Rectangle.</span>
 </h6>
-<p id="p-2051">This interactive allows you to change the location and size of the grey rectangle. Try to compute both the centroidal area moment of inertia \(\bar{I}_{x'}\) and \(\bar{I}_{y'}\) and the area moment of inertia about the system axes \(I_x\) and \(I_y\)</p>
+<p id="p-2050">This interactive allows you to change the location and size of the grey rectangle. Try to compute both the centroidal area moment of inertia \(\bar{I}_{x'}\) and \(\bar{I}_{y'}\) and the area moment of inertia about the system axes \(I_x\) and \(I_y\)</p>
 <figure class="figure figure-like" id="dan-rectangle-ggb"><iframe id="ggb_moi-basic-rect_interactive" width="540" height="360" src="ggb_moi-basic-rect_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.3.6<span class="period">.</span></span><span class="space"> </span>Moment of Inertia of a Rectangle</figcaption></figure></article><article class="example example-like" id="Chapter_10-example-interactive--semi-circle"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">10.3.7</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Semi-Circle.</span>
 </h6>
-<p id="p-2052">Use this interactive to practice computing the area moments of inertia of the semi-circle about the centroidal \(x'\) axis, the bottom edge \(x’’\text{,}\) and the system \(x\) axis.  You can change the location and size of the semicircle by moving the red points..</p>
+<p id="p-2051">Use this interactive to practice computing the area moments of inertia of the semi-circle about the centroidal \(x'\) axis, the bottom edge \(x’’\text{,}\) and the system \(x\) axis.  You can change the location and size of the semicircle by moving the red points..</p>
 <figure class="figure figure-like" id="weh-semicircle-ggb"><iframe id="moi-semicircle_interactive" width="540" height="360" src="moi-semicircle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.3.8<span class="period">.</span></span><span class="space"> </span>Moment of Inertia of a Semi-Circle</figcaption></figure></article></section><section class="subsection" id="MOI-table"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span>
 </h3>
-<p id="p-2053">This table summarizes the properties of the common shapes discussed previously.</p>
+<p id="p-2052">This table summarizes the properties of the common shapes discussed previously.</p>
 <figure class="table table-like" id="table-7"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">10.3.9<span class="period">.</span></span><span class="space"> </span>Moments of Inertia of Common Shapes</figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr class="header-horizontal">
 <th class="c m b3 r0 l0 t0 lines">Shape</th>
@@ -454,13 +468,13 @@ I_x = \frac{\pi}{8} r^4\text{.}
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="images/centroids-rectangle.svg" role="img" class="contained" alt=""></div></td>
 <td class="c m b1 r0 l0 t0 lines">\((b/2, h/2)\)</td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2054">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2053">
 \begin{align*}
 \bar{I}_{x'} \amp  = \frac{1}{12} b h^3\\
 \bar{I}_{y'} \amp  = \frac{1}{12} b^3 h
 \end{align*}
 </div></td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2055">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2054">
 \begin{align*}
 \bar{I}_{x} \amp  = \frac{1}{3} b h^3\\
 \bar{I}_{y} \amp  = \frac{1}{3} b^3 h
@@ -470,13 +484,13 @@ I_x = \frac{\pi}{8} r^4\text{.}
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="images/centroids-triangle.svg" role="img" class="contained" alt=""></div></td>
 <td class="c m b1 r0 l0 t0 lines">\((b/3, h/3)\)</td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2056">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2055">
 \begin{align*}
 \bar{I}_{x'} \amp  = \frac{1}{36} b h^3\\
 \bar{I}_{y'} \amp  = \frac{1}{36} b^3 h
 \end{align*}
 </div></td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2057">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2056">
 \begin{align*}
 I_x \amp  = \frac{1}{12} b h^3\\
 I_y \amp  = \frac{1}{12} b^3 h
@@ -486,12 +500,12 @@ I_y \amp  = \frac{1}{12} b^3 h
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="images/centroids-circle.svg" role="img" class="contained" alt=""></div></td>
 <td class="c m b1 r0 l0 t0 lines">\((r,r)\)</td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2058">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2057">
 \begin{gather*}
 \bar{I}_{x'}=\bar{I}_{y'}= \frac{\pi}{4} r^4
 \end{gather*}
 </div></td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2059">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2058">
 \begin{gather*}
 I_{x}=I_{y}= \frac{5 \pi}{4} r^4
 \end{gather*}
@@ -500,13 +514,13 @@ I_{x}=I_{y}= \frac{5 \pi}{4} r^4
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="images/centroids-semi-circle.svg" role="img" class="contained" alt=""></div></td>
 <td class="c m b1 r0 l0 t0 lines">\(\left (r, \dfrac{4r}{3\pi} \right)\)</td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2060">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2059">
 \begin{align*}
 \bar{I}_{x'} \amp  = \left(\frac{\pi}{8} - \frac{8}{9\pi}\right) r^4\\
 \bar{I}_{y'} \amp  = \frac{\pi}{8} r^4 
 \end{align*}
 </div></td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2061">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2060">
 \begin{gather*}
 I_x = I_y  =  \frac{\pi}{8} r^4
 \end{gather*}
@@ -515,13 +529,13 @@ I_x = I_y  =  \frac{\pi}{8} r^4
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="images/centroids-quarter-circle.svg" role="img" class="contained" alt=""></div></td>
 <td class="c m b1 r0 l0 t0 lines">\(\left (\dfrac{4r}{3\pi}, \dfrac{4r}{3\pi} \right)\)</td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2062">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2061">
 \begin{align*}
 \bar{I}_{x'} \amp  = \frac{1}{2}\left(\frac{\pi}{8} - \frac{8}{9\pi}\right) r^4\\
 \bar{I}_{y'} \amp  = \frac{\pi}{8} r^4 
 \end{align*}
 </div></td>
-<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2063">
+<td class="c m b1 r0 l0 t0" style="max-width:90px;"><div class="displaymath" id="p-2062">
 \begin{gather*}
 I_x = I_y = \frac{\pi }{16}r^4
 \end{gather*}

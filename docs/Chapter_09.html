@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,7 +290,7 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="chapter" id="Chapter_09"><h2 class="heading">
 <span class="type">Chapter</span> <span class="codenumber">9</span> <span class="title">Friction</span>
 </h2>
-<section class="introduction" id="introduction-32"><p id="p-1652">Up until this point in the course, the effects of friction forces have been considered negligible. The reality is that friction not only slows things down (like friction between your skis and the snow when you ski down a hill) but is also the force which causes motion (like the friction between the rear wheel of your bicycle and the road causing you to move forward when you pedal). This chapter introduces various types of friction that occur on blocks, wedges, screws, belts, bearings, and rotating discs.</p></section><nav class="summary-links"><ul>
+<section class="introduction" id="introduction-34">Friction is a force which resists any relative motion between surfaces in contact with each other.  To this point we have only discussed cases where the friction could be safely ignored or had no impact on the situation, however there are many interesting situations in statics including impending motion, wedges, screws, belts, bearings, and rotating discs where friction must be taken into account.  These are the subject of this chapter.</section><nav class="summary-links"><ul>
 <li><a href="Chapter_09-dry-friction.html"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></li>
 <li><a href="Chapter_09-block-and-wedge-friction.html"><span class="codenumber">9.2</span> <span class="title">Block and Wedge Friction</span></a></li>
 <li><a href="Chapter_09-slipping-vs--tipping.html"><span class="codenumber">9.3</span> <span class="title">Slipping vs. Tipping</span></a></li>

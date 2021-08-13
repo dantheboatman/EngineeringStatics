@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link active">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,18 +292,18 @@
 </h2>
 <section class="introduction" id="introduction-13"><p id="p-644">When a force is applied to a body, the body tends to translate in the direction of the force and also tends to rotate. We have already explored the translational tendency in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. We will focus on the rotational tendency in this chapter.</p>
 <p id="p-645">This rotational tendency is known as the moment of the force, or more simply the <dfn class="terminology">moment</dfn>. You may be familiar with the term <em class="alert">torque</em> from physics. Engineers use “torque” where physicists use “moment” to describe the same concept.   Moments are vectors, so they have magnitude and direction and obey all rules of vector addition and subtraction described in <a href="Chapter_02.html" class="internal" title="Chapter 2: Forces and Other Vectors">Chapter 2</a>.  Additionally, moments have a <em class="emphasis">center of rotation</em>, although it is more accurate to say that they have an axis of rotation. In two dimensions, the axis of rotation is perpendicular to the plane of the page and so will appear as a <dfn class="terminology">point of rotation</dfn>, also called the <dfn class="terminology">moment center</dfn>. In three dimensions, the axis of rotation can be any direction in 3D space.</p>
-<aside class="aside aside-like" id="aside-25"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-646">This interactive shows how a force \(\vec{F}\) causes a moment \(\vec{M}_A\) around point \(A\text{.}\) Rotate the the wrench and force \(\vec{F}\) to see how the magnitude of the moment changes.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<aside class="aside aside-like" id="aside-25"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;"><p id="p-647">A wrench provides a familiar example. A force \(\vec{F}\) applied to the handle of a wrench, as shown in <a class="xref" data-knowl="./knowl/ggb_dxxgfxru.html" title="Figure 4.0.1">Figure 4.0.1</a>, creates a  moment \(\vec{M}_A\) about an axis out of the page through the centerline of the nut at \(A\text{.}\)  The \(\vec{M}\) is bold because it represents a vector, and the subscript \(A\) indicates the axis or center of rotation.  The direction of the moment can be either clockwise or counter-clockwise depending on how the force is applied.</p></div>
 <div class="sbspanel top" style="width:48%;"><figure class="figure figure-like" id="ggb_dxxgfxru"><iframe id="ggb_dan-wrench-1_interactive" width="288" height="288" src="ggb_dan-wrench-1_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.0.1<span class="period">.</span></span><span class="space"> </span>A moment \(\vec{M}_A\) is created by force \(\vec{F}\text{.}\)</figcaption></figure></div>
 </div></div></section><nav class="summary-links"><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html"><span class="codenumber">4.2</span> <span class="title">Moments in Two Dimensions</span></a></li>
-<li><a href="Chapter_04-moments-in-three-dimensions.html"><span class="codenumber">4.3</span> <span class="title">Moments in Three Dimensions</span></a></li>
-<li><a href="Chapter_04-couples.html"><span class="codenumber">4.4</span> <span class="title">Couples</span></a></li>
-<li><a href="equivalent-tranformations.html"><span class="codenumber">4.5</span> <span class="title">Equivalent Transformations</span></a></li>
-<li><a href="statically-equivalent-systems.html"><span class="codenumber">4.6</span> <span class="title">Statically Equivalent Systems</span></a></li>
-<li><a href="exercises-3.html"><span class="codenumber">4.7</span> <span class="title">Exercises</span></a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></li>
+<li><a href="varignons-theorem.html"><span class="codenumber">4.3</span> <span class="title">Varignon’s Theorem</span></a></li>
+<li><a href="Chapter_04-moments-in-three-dimensions.html"><span class="codenumber">4.4</span> <span class="title">Moments in Three Dimensions</span></a></li>
+<li><a href="Chapter_04-couples.html"><span class="codenumber">4.5</span> <span class="title">Couples</span></a></li>
+<li><a href="equivalent-tranformations.html"><span class="codenumber">4.6</span> <span class="title">Equivalent Transformations</span></a></li>
+<li><a href="statically-equivalent-systems.html"><span class="codenumber">4.7</span> <span class="title">Statically Equivalent Systems</span></a></li>
+<li><a href="exercises-3.html"><span class="codenumber">4.8</span> <span class="title">Exercises</span></a></li>
 </ul></nav></section></div></main>
 </div>
 </body>

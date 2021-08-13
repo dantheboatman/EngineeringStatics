@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,7 +290,7 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="internal_load_at_point"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.3</span> <span class="title">Internal Loads at a Point</span>
 </h2>
-<section class="introduction" id="introduction-28"><p id="p-1488">This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body.</p>
+<section class="introduction" id="introduction-30"><p id="p-1488">This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:65%;"><p id="p-1489">Consider the frame shown in <a class="xref" data-knowl="./knowl/frame_space_diagram.html" title="Figure 8.3.1">Figure 8.3.1</a> consisting of two-force members \(GD\) and \(BE\text{,}\) and multiforce members \(AD\) and \(CF\text{.}\) Since no information is provided, we can assume that the components have negligible weight.  The internal loading within the two-force members is purely axial, but the multiforce members will be subject to the complete set of internal loadings.</p></div>
 <div class="sbspanel middle" style="width:30%;"><figure class="figure figure-like" id="frame_space_diagram"><img src="images/frame_0.svg" role="img" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.1<span class="period">.</span></span><span class="space"> </span>A frame supporting a load at \(F\text{.}\)</figcaption></figure></div>
@@ -304,7 +318,7 @@
 </div></div>
 <p id="p-1497">Find the internal loads at the midpoint of the beam.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-63" id="answer-63"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-63"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-63" id="answer-63"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-63"><div class="answer solution-like">
 <p id="p-1498">At the midpoint of the beam,</p>
 <div class="displaymath" id="p-1499">
 \begin{align*}
@@ -314,7 +328,7 @@ M \amp = wL^2/8
 \end{align*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-77" id="solution-77"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-77"><div class="solution solution-like"><ol id="p-1500" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-77" id="solution-77"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-77"><div class="solution solution-like"><ol id="p-1500" class="decimal">
 <li id="li-427">
 <h6 class="heading"><span class="title">Find the external reactions.</span></h6>
 <p id="p-1501"></p>
@@ -420,8 +434,8 @@ M \amp = WL^2/8
 <div class="sbspanel middle" style="width:35%;"><img src="images/cantilever_0.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-Chapter_08-" id="Chapter_08-"><span class="type">Hint</span></a><div class="hidden-content tex2jax_ignore" id="hk-Chapter_08-"><div class="hint solution-like"><p id="p-1520">If you think ahead, you may not need to find the reactions at \(A\text{.}\)</p></div></div>
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-64" id="answer-64"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-64"><div class="answer solution-like">
+<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-Chapter_08-" id="Chapter_08-"><span class="type">Hint.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-Chapter_08-"><div class="hint solution-like"><p id="p-1520">If you think ahead, you may not need to find the reactions at \(A\text{.}\)</p></div></div>
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-64" id="answer-64"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-64"><div class="answer solution-like">
 <p id="p-1521">At the midpoint,</p>
 <div class="displaymath" id="p-1522">
 \begin{gather*}
@@ -431,7 +445,7 @@ M = - Pb
 \end{gather*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-78" id="solution-78"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-78"><div class="solution solution-like"><ol id="p-1523" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-78" id="solution-78"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-78"><div class="solution solution-like"><ol id="p-1523" class="decimal">
 <li id="li-431">
 <h6 class="heading"><span class="title">Determine the reactions.</span></h6>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
@@ -473,18 +487,17 @@ M = - Pb
 </ol></div></div>
 </div></article><p id="p-1536">This workflow typically includes:</p>
 <ul class="disc">
-<li id="li-434">Establishing a horizontal \(x\) and vertical \(y\) coordinate system.</li>
-<li id="li-435">Taking a cut at the point of interest.</li>
-<li id="li-436">Assuming that the internal force act in the positive direction and drawing a free-body diagram accordingly</li>
-<li id="li-437">Using \(\Sigma F_x=0\text{,}\) \(\Sigma F_y=0\text{,}\) and \(\Sigma M_z=0\) to solve for the three unknown internal loads.</li>
+<li id="li-434"><p id="p-derived-li-434">Establishing a horizontal \(x\) and vertical \(y\) coordinate system.</p></li>
+<li id="li-435"><p id="p-derived-li-435">Taking a cut at the point of interest.</p></li>
+<li id="li-436"><p id="p-derived-li-436">Assuming that the internal force act in the positive direction and drawing a free-body diagram accordingly</p></li>
+<li id="li-437"><p id="p-derived-li-437">Using \(\Sigma F_x=0\text{,}\) \(\Sigma F_y=0\text{,}\) and \(\Sigma M_z=0\) to solve for the three unknown internal loads.</p></li>
 </ul>
 <p id="p-1537">The  shear force \(V\text{,}\) normal force \(N\text{,}\) and bending moment \(M\) are scalar components and they may be positive, zero, or negative depending on the applied loads.  The signs of the scalar components together with the sign convention for internal loads establish the actual directions of the shear force, normal force and bending moment vectors.</p></section><section class="subsection" id="Chapter_08-interactive-internal-loading"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Loading</span>
 </h3>
 <p id="p-1538">The internal loading inside a beam depends on the load that the beam is supporting and differs from point to point.  This simply supported beam supports a uniformly varying load.  The interactive traces out the value of the shear and bending moment as you move point \(C\text{.}\)  Can you deduce the relation between the triangular loading and the value of the shear and bending moment?</p>
 <p id="p-1539"></p>
-<aside class="aside aside-like" id="aside-52"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-1540">This interactive allows you to change the cut location on a beam with a downward distributed load varying from a maximum at point \(A\) to 0 at point \(B\text{.}\) The check box cuts the beam and exposes the internal loadings. Moving point \(C\) traces out the shear and moment as functions of \(x\text{.}\)</p></aside><figure class="figure figure-like" id="ggb_internal_loading"><iframe id="ggb_triangle-load-cut_interactive" width="450" height="300" src="ggb_triangle-load-cut_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.6<span class="period">.</span></span><span class="space"> </span>Internal loading in a beam with a uniformly varying load.</figcaption></figure></section></section></div></main>
+<aside class="aside aside-like" id="aside-52"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_internal_loading"><iframe id="ggb_triangle-load-cut_interactive" width="450" height="300" src="ggb_triangle-load-cut_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.6<span class="period">.</span></span><span class="space"> </span>Internal loading in a beam with a uniformly varying load.</figcaption></figure></section></section></div></main>
 </div>
 </body>
 </html>

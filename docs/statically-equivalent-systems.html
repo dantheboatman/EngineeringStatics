@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -274,17 +288,17 @@
 </ul></nav><div class="extras"><nav><a class="mathbook-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="statically-equivalent-systems"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">4.6</span> <span class="title">Statically Equivalent Systems</span>
+<span class="type">Section</span> <span class="codenumber">4.7</span> <span class="title">Statically Equivalent Systems</span>
 </h2>
 <article class="objectives goal-like" id="objectives-17"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-212">What is an equivalent system?</li>
-<li id="li-213">What is a resultant force?</li>
-<li id="li-214">What is a resultant moment?</li>
-<li id="li-215">Do you have to include both \(\vec{r}\times\vec{F}\) moments and couples to find the resultant moment?</li>
-<li id="li-216">How can you find the simplest equivalent system?</li>
-<li id="li-217">When will the simplest equivalent system be a wrench?</li>
-<li id="li-218">How can you determine if two loading systems are statically equivalent?</li>
+<li id="li-212"><p id="p-derived-li-212">What is an equivalent system?</p></li>
+<li id="li-213"><p id="p-derived-li-213">What is a resultant force?</p></li>
+<li id="li-214"><p id="p-derived-li-214">What is a resultant moment?</p></li>
+<li id="li-215"><p id="p-derived-li-215">Do you have to include both \(\vec{r}\times\vec{F}\) moments and couples to find the resultant moment?</p></li>
+<li id="li-216"><p id="p-derived-li-216">How can you find the simplest equivalent system?</p></li>
+<li id="li-217"><p id="p-derived-li-217">When will the simplest equivalent system be a wrench?</p></li>
+<li id="li-218"><p id="p-derived-li-218">How can you determine if two loading systems are statically equivalent?</p></li>
 </ul></article><p id="p-754">A loading system is a combination of load forces and moments which act on an object.  It can be as simple as a single force, or as complex as a three-dimensional combination of many force and moment vectors.</p>
 <p id="p-755">You will see that any loading systems may be replaced with a simpler <em class="emphasis">statically equivalent system</em> consisting of one <em class="emphasis">resultant force</em> at a specific point and one <em class="emphasis">resultant moment</em> by performing a series of equivalent transformations.  Force system resultants provide a convenient representation for complex force interactions at engineering connections that we will rely on later in a variety of contexts. For now we will focus on the details of reducing a system to a single force and couple.</p>
 <p id="p-756">Depending on the original loading system, the resultant force, the resultant moment, or both may be zero.  If they are both zero, it indicates that the object is in equilibrium under this load condition.  If they are non-zero, the supports will need to provide an equal and opposite reaction to put the object into equilibrium.</p>
@@ -310,8 +324,7 @@ R_y \amp =\Sigma F_y \amp {M_O}_y \amp = \Sigma M_y\\
 R_z \amp =\Sigma F_z \amp {M_O}_z \amp = \Sigma M_z
 \end{align*}
 </div>
-<aside class="aside aside-like" id="aside-35"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-764">The interactive shows an object loaded with two forces, \(\vec{A}\) and \(\vec{B}\text{,}\) and a couple-moment \(\vec{C}\)  along with the equivalent resultant force \(\vec{R}\) and moment \(\vec{M}_R\text{.}\)</p></aside><figure class="figure figure-like" id="ggb_pnrbttma"><iframe id="ggb_resultants_interactive" width="600" height="300" src="ggb_resultants_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.6.1<span class="period">.</span></span><span class="space"> </span>Statically equivalent systems</figcaption></figure><section class="paragraphs" id="paragraphs-16"><h5 class="heading"><span class="title">Force-Couple Systems.</span></h5>
+<aside class="aside aside-like" id="aside-35"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_pnrbttma"><iframe id="ggb_resultants_interactive" width="600" height="300" src="ggb_resultants_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.1<span class="period">.</span></span><span class="space"> </span>Statically equivalent systems</figcaption></figure><section class="paragraphs" id="paragraphs-16"><h5 class="heading"><span class="title">Force-Couple Systems.</span></h5>
 <p id="p-766">One transformation you might <em class="emphasis">want</em> to make is to move a force to another location.  While <em class="emphasis">sliding</em> a force along its line of action is fine, <em class="emphasis">moving</em> a force to another point changes its line of action and thus its rotational effect on the object, so moving is <em class="emphasis">not</em> an equivalent transformation.</p>
 <p id="p-767">Consider the cantilever beam below.  In diagram (a), the load \(P\) is at the end of the beam, and in (b) it has been moved to the center.  The external effects are shown in (c) and (d).  Although the vertical reaction force is the \(P\) in both cases, the reaction moment at point \(O\) is is \(2P\ell\) in the first case and \(P\ell\) in the second.</p>
 <figure class="figure figure-like" id="figure-56"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
@@ -322,26 +335,26 @@ R_z \amp =\Sigma F_z \amp {M_O}_z \amp = \Sigma M_z
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="equivalent_reactions"><img src="images/force_couple4a.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(c)</span><span class="space"> </span>FBD and reactions for (a).</figcaption></figure></div>
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-60"><img src="images/force_couple4b.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(d)</span><span class="space"> </span>FBD and reactions for (b).</figcaption></figure></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.6.2<span class="period">.</span></span><span class="space"> </span>Moving a force is not an equivalent transformation</figcaption></figure><p id="p-768">You <em class="emphasis">can</em> move a force to a new line of action in an equivalent fashion if you add a “compensatory couple” to undo the effect of changing the line of action.  This can be accomplished with of a series of individual equivalent transformations as shown in the diagram below.  To move P to another location, first add two equal and opposite forces where you want the force to be, as in (b).  Then recognize the couple you have formed (c), and replace it with an equivalent couple-moment. The result of this process is the <em class="emphasis">equivalent force-couple system</em> shown in diagram (d), which is statically equivalent to the original situation in (a).</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.2<span class="period">.</span></span><span class="space"> </span>Moving a force is not an equivalent transformation</figcaption></figure><p id="p-768">You <em class="emphasis">can</em> move a force to a new line of action in an equivalent fashion if you add a “compensatory couple” to undo the effect of changing the line of action.  This can be accomplished with of a series of individual equivalent transformations as shown in the diagram below.  To move P to another location, first add two equal and opposite forces where you want the force to be, as in (b).  Then recognize the couple you have formed (c), and replace it with an equivalent couple-moment. The result of this process is the <em class="emphasis">equivalent force-couple system</em> shown in diagram (d), which is statically equivalent to the original situation in (a).</p>
 <figure class="figure figure-like" id="figure-61"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-62"><img src="images/force_couple3a.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Original situation.</figcaption></figure></div>
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-63"><img src="images/force_couple3b.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Add two equal and opposite forces at midpoint.</figcaption></figure></div>
 </div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-64"><img src="images/force_couple3c.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(c)</span><span class="space"> </span>Recognize couple.</figcaption></figure></div>
-<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-65"><img src="images/force_couple5.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(d)</span><span class="space"> </span>Replace couple to produce equivalent force-couple system, with the same reactions as <a class="xref" data-knowl="./knowl/equivalent_reactions.html" title="Figure 4.6.(c)">Figure 4.6.(c)</a>.</figcaption></figure></div>
+<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-65"><img src="images/force_couple5.svg" role="img" class="contained" alt=""><figcaption><span class="codenumber">(d)</span><span class="space"> </span>Replace couple to produce equivalent force-couple system, with the same reactions as <a class="xref" data-knowl="./knowl/equivalent_reactions.html" title="Figure 4.7.(c)">Figure 4.7.(c)</a>.</figcaption></figure></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.6.3<span class="period">.</span></span><span class="space"> </span>Equivalent Force-couple system</figcaption></figure><p id="p-769">Evaluating the moment at point \(O\) at was an arbitrary choice.  Any other point would give the same result.  For example, in the original situation (a) force \(P\) makes a clockwise moment \(M=P\ell\) about the midpoint.  When the force is moved to the center \(P\) creates no moment there, so a clockwise compensatory couple with a magnitude of \(P\ell\) must be added to maintain equivalence. This is the same result as we found previously (d). The compensatory couple has been drawn centered around the midpoint, but this too is arbitrary because concentrated moments are free vectors and can be placed at any location.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.3<span class="period">.</span></span><span class="space"> </span>Equivalent Force-couple system</figcaption></figure><p id="p-769">Evaluating the moment at point \(O\) at was an arbitrary choice.  Any other point would give the same result.  For example, in the original situation (a) force \(P\) makes a clockwise moment \(M=P\ell\) about the midpoint.  When the force is moved to the center \(P\) creates no moment there, so a clockwise compensatory couple with a magnitude of \(P\ell\) must be added to maintain equivalence. This is the same result as we found previously (d). The compensatory couple has been drawn centered around the midpoint, but this too is arbitrary because concentrated moments are free vectors and can be placed at any location.</p>
 <p id="p-770"></p></section><section class="paragraphs" id="paragraphs-17"><h5 class="heading"><span class="title">Reduction of a complex system.</span></h5>
 <p id="p-771">Any loading system can be reduced to a statically equivalent system consisting of single force and a single moment at a specified point with the following procedure:</p>
 <ol class="decimal">
-<li id="li-219">Determine the resultant moment about the specified point by considering all forces and concentrated moments on the original system.</li>
-<li id="li-220">Determine the resultant force by adding all forces acting on the original system.</li>
-<li id="li-221">Determine the resultant moment about a point in the original system</li>
-<li id="li-222">Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment  at the selected point.</li>
+<li id="li-219"><p id="p-derived-li-219">Determine the resultant moment about the specified point by considering all forces and concentrated moments on the original system.</p></li>
+<li id="li-220"><p id="p-derived-li-220">Determine the resultant force by adding all forces acting on the original system.</p></li>
+<li id="li-221"><p id="p-derived-li-221">Determine the resultant moment about a point in the original system</p></li>
+<li id="li-222"><p id="p-derived-li-222">Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment  at the selected point.</p></li>
 </ol>
 <article class="example example-like" id="eccentric-loading"><h6 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.6.4</span><span class="period">.</span><span class="space"> </span><span class="title">Eccentric loading.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.7.4</span><span class="period">.</span><span class="space"> </span><span class="title">Eccentric loading.</span>
 </h6>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:70%;">
@@ -352,8 +365,8 @@ R_z \amp =\Sigma F_z \amp {M_O}_z \amp = \Sigma M_z
 <div class="sbspanel top" style="width:30%;"><img src="images/example_column.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-37" id="answer-37"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-37"><div class="answer solution-like"><p id="p-775">\(P = \lb{1200}\) and \(M=\ftlb{900}\) clockwise</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-39" id="solution-39"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-39"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-37" id="answer-37"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-37"><div class="answer solution-like"><p id="p-775">\(P = \lb{1200}\) and \(M=\ftlb{900}\) clockwise</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-39" id="solution-39"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-39"><div class="solution solution-like">
 <p id="p-776">In order to move the vertical force \(\inch{9}\) to the left, a clockwise couple \(M\) must be added to maintain equivalence, where</p>
 <div class="displaymath" id="p-777">
 \begin{align*}
@@ -365,7 +378,7 @@ M \amp = P d\\
 </div>
 </div></div>
 </div></article></section><article class="example example-like" id="Chapter_04-example-equivalent-force-couple-system"><h6 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.6.5</span><span class="period">.</span><span class="space"> </span><span class="title">Equivalent Force-couple System.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.7.5</span><span class="period">.</span><span class="space"> </span><span class="title">Equivalent Force-couple System.</span>
 </h6>
 <p id="p-778">Replace the system of forces in diagram (a) with an equivalent force-couple system at \(A\text{.}\)</p>
 <p id="p-779">Replace the force-couple system at \(A\) with a single equivalent force and specify its location.</p>
@@ -382,8 +395,8 @@ M \amp = P d\\
 </div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-38" id="answer-38"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-38"><div class="answer solution-like"><p id="p-784">\(R = F_1 + F_2\text{,}\) \(M_A = F_1 d_1 + F_2 (d_1 + d_2)\) and \(d = M/R\)</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-40" id="solution-40"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-40"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-38" id="answer-38"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-38"><div class="answer solution-like"><p id="p-784">\(R = F_1 + F_2\text{,}\) \(M_A = F_1 d_1 + F_2 (d_1 + d_2)\) and \(d = M/R\)</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-40" id="solution-40"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-40"><div class="solution solution-like">
 <p id="p-785">The original system is shown in (a).</p>
 <p id="p-786">Since the \(F_1\) and \(F_2\) are parallel, the magnitude of the resultant force is just the sum of the two magnitudes and it points down.</p>
 <div class="displaymath">
@@ -413,17 +426,17 @@ d = M_A/R
 <p id="p-794">Two complex loading systems are equivalent if they reduce to the same resultant force and the same resultant moment about any arbitrary point.</p>
 <p id="p-795">Two loading systems are statically equivalent if</p>
 <ul class="disc">
-<li id="li-223">The resultant forces are the equal</li>
-<li id="li-224">The resultant moments about some point are equal</li>
+<li id="li-223"><p id="p-derived-li-223">The resultant forces are the equal</p></li>
+<li id="li-224"><p id="p-derived-li-224">The resultant moments about some point are equal</p></li>
 </ul>
 <p id="p-796">This process is illustrated in the following example.</p></section><article class="example example-like" id="Chapter_04-example-finding-statically-equivalent-loads"><h6 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.6.6</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Statically Equivalent Loads.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.7.6</span><span class="period">.</span><span class="space"> </span><span class="title">Finding Statically Equivalent Loads.</span>
 </h6>
 <p id="p-797">Which of the three loading systems shown are statically equivalent?</p>
 <figure class="figure figure-like" id="equiv_load_example"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/equiv_load_example.png" class="contained" alt=""></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.6.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-39" id="answer-39"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-39"><div class="answer solution-like"><p id="p-798">(a) and (c) are statically equivalent</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-41" id="solution-41"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-41"><div class="solution solution-like">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-39" id="answer-39"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-39"><div class="answer solution-like"><p id="p-798">(a) and (c) are statically equivalent</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-41" id="solution-41"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-41"><div class="solution solution-like">
 <ol id="p-799" class="decimal">
 <li id="li-225">
 <h6 class="heading"><span class="title">Strategy.</span></h6>
@@ -470,15 +483,15 @@ d = M_A/R
 <p id="p-808">When all forces in a system are coplanar we need only find the resultant force in this plane and the resultant moment about the axis perpendicular to this plane. That is, if all forces exist in the \(x\)-\(y\) plane, we need only to sum components in the \(x\) and \(y\) directions to find resultant force \(\vec{R}\text{,}\) and use these to determine the resultant moment about the \(z\) axis. All two-dimensional problems fall into this category.</p></section><section class="paragraphs" id="paragraphs-22"><h5 class="heading"><span class="title">Wrench resultant.</span></h5>
 <p id="p-809">A wrench resultant is a special case where the resultant moment acts around the axis of the resultant force. The directions of the resultant force vector and the resultant moment vector are the same.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:30%;"><figure class="figure figure-like" id="figure-67"><img src="images/screw_resultant.svg" role="img" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.6.8<span class="period">.</span></span><span class="space"> </span>Wrench Resultant</figcaption></figure></div>
+<div class="sbspanel top" style="width:30%;"><figure class="figure figure-like" id="figure-67"><img src="images/screw_resultant.svg" role="img" class="contained" alt=""><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.8<span class="period">.</span></span><span class="space"> </span>Wrench Resultant</figcaption></figure></div>
 <div class="sbspanel top" style="width:70%;"><p id="p-810">For example, if the resultant force is only in the \(x\) direction and the resultant moment acts only around the \(x\) axis, this is an example of a wrench resultant. An everyday example is a screwdriver, where both the resultant force and axis of rotation are in-line with the screwdriver. A wrench resultant is considered positive if the couple vector and force vector point in the same direction, and negative if they point in opposite directions.</p></div>
 </div></div>
 <p id="p-811">Any three-dimensional force-couple system may be reduced to an equivalent wrench resultant even if the resultant force and resultant moment do not initially form a wrench resultant.</p>
 <p id="p-812">To find the equivalent wrench resultant:</p>
 <ol class="decimal">
-<li id="li-229">First, find the resultant force \(\vec{R}\) and resultant moment \(\vec{M}\) at an arbitrary at arbitrary point, \(O\text{.}\) These need not act along the same axis.</li>
-<li id="li-230">Resolve the resultant moment into scalar components \(M_\parallel\) and \(M_\perp\text{,}\) parallel and perpendicular to the axis of the resultant force.</li>
-<li id="li-231">Eliminate \(M_\perp\) by moving the the resultant force away from point \(O\) by distance \(d =  M_\perp/R\)</li>
+<li id="li-229"><p id="p-derived-li-229">First, find the resultant force \(\vec{R}\) and resultant moment \(\vec{M}\) at an arbitrary at arbitrary point, \(O\text{.}\) These need not act along the same axis.</p></li>
+<li id="li-230"><p id="p-derived-li-230">Resolve the resultant moment into scalar components \(M_\parallel\) and \(M_\perp\text{,}\) parallel and perpendicular to the axis of the resultant force.</p></li>
+<li id="li-231"><p id="p-derived-li-231">Eliminate \(M_\perp\) by moving the the resultant force away from point \(O\) by distance \(d =  M_\perp/R\)</p></li>
 </ol>
 <p id="p-813">The simplified system consists of  moment \(\vec{M}_\parallel\) and  force \(\vec{R}\) and acting distance \(d\) away from point \(O\text{.}\) Since \(\vec{R}\) and  \(\vec{M}_\parallel\) act along the same axis, the system has been reduced to a wrench resultant. Wrench resultants are the most general way to represent a complex force-couple system, but their utility is limited.</p></section></section></div></main>
 </div>

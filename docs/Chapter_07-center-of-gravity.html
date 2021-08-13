@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -287,7 +301,7 @@
 </div></div>
 <p id="p-1077">Lets explore the center of gravity of a familiar object.  Take a pencil and try to balance it on your finger.  How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.</p>
 <p id="p-1078">Let’s develop this balanced moment idea mathematically.</p>
-<p id="p-1079">Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force?   Recall from <a href="statically-equivalent-systems.html" class="internal" title="Section 4.6: Statically Equivalent Systems">Section 4.6</a> that statically equivalent systems produce the same external effect on the object  —the net force on the object, and the net moment about any point don't change.  An upward force at this point will support the pencil without tipping.</p>
+<p id="p-1079">Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force?   Recall from <a href="statically-equivalent-systems.html" class="internal" title="Section 4.7: Statically Equivalent Systems">Section 4.7</a> that statically equivalent systems produce the same external effect on the object  —the net force on the object, and the net moment about any point don't change.  An upward force at this point will support the pencil without tipping.</p>
 <p id="p-1080">To be equivalent, the total weight must equal the total weight of the parts. \(W = W_1 + W_2\text{.}\) Common sense also tells us that \(W\) will act somewhere between \(W_1\) and \(W_2\text{.}\)</p>
 <p id="p-1081"></p>
 <figure class="figure figure-like" id="pen1"><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><img src="images/pen1.svg" role="img" class="contained" alt=""></div></div></div>
@@ -349,7 +363,7 @@
 </h6>
 <p id="p-1100">Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-42" id="answer-42"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-42"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-42" id="answer-42"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-42"><div class="answer solution-like">
 <p id="p-1101">If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side.  The first moment for the entire shape about the axis will sum to zero, meaning that</p>
 <div class="displaymath">
 \begin{equation*}
@@ -370,7 +384,7 @@
 <li id="li-324"><p id="p-1105">How would the center of gravity  change if the right-most box  weighed \(\lb{20}\) instead of \(\lb{10}\text{?}\)</p></li>
 </ol>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-43" id="answer-43"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-43"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-43" id="answer-43"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-43"><div class="answer solution-like">
 <p id="p-1106">a) \(W = \lb{30} \qquad  \bar{x}=\ft{2.5}\)</p>
 <p id="p-1107">b) \(W = \lb{40} \qquad  \bar{x}=\ft{3.25}\)</p>
 <p id="p-1108">The total weight increases by \(\lb{10}\) and the center of gravity shifts to the right by \(\ft{0.75}\text{.}\) Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.</p>
@@ -380,7 +394,7 @@ M_3 =  W_3 x_3 = (\lb{20})(\ft{5.5}) = \ftlb{110} \text{.}
 \end{equation*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-49" id="solution-49"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-49"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="video-1" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/HdqM4wITZq8?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-49" id="solution-49"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-49"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="video-1" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/HdqM4wITZq8?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
 </div></article></section></div></main>
 </div>
 </body>

@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -277,9 +291,9 @@
 <span class="type">Section</span> <span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span>
 </h2>
 <article class="objectives goal-like" id="objectives-41"><h6 class="heading"><span class="type">Key Questions</span></h6>
-<ul class="disc"><li id="li-564">How are polar moments of inertia similar and different to area moments of inertia about either a horizontal or vertical axis?</li></ul></article><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<ul class="disc"><li id="li-563"><p id="p-derived-li-563">How are polar moments of inertia similar and different to area moments of inertia about either a horizontal or vertical axis?</p></li></ul></article><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:66.6666666666667%;">
-<p id="p-2128">The polar moment of inertia is defined by the integral quantity</p>
+<p id="p-2127">The polar moment of inertia is defined by the integral quantity</p>
 <div class="displaymath">
 \begin{equation}
 J_O = \int_A r^2 dA\text{,}\tag{10.5.1}
@@ -289,8 +303,8 @@ J_O = \int_A r^2 dA\text{,}\tag{10.5.1}
 </div>
 <div class="sbspanel middle" style="width:30.7692307692308%;"><img src="images/MOI-polar-definitions.svg" role="img" class="contained" alt=""></div>
 </div></div>
-<p id="p-2129">The polar moment of inertia describes the distribution of the area of a body with respect to a point in the plane of the body.  Alternately, the point can be considered to be where a perpendicular axis crosses the plane of the body.  The subscript on the symbol \(j\) indicates the point or axis.</p>
-<p id="p-2130">There is a particularly simple relationship between the polar moment of inertia and the rectangular moments of inertia. Referring to the figure, apply the Pythagorean theorem \(r^2 = x^2 +y^2\) to the definition of polar moment of inertia to get</p>
+<p id="p-2128">The polar moment of inertia describes the distribution of the area of a body with respect to a point in the plane of the body.  Alternately, the point can be considered to be where a perpendicular axis crosses the plane of the body.  The subscript on the symbol \(j\) indicates the point or axis.</p>
+<p id="p-2129">There is a particularly simple relationship between the polar moment of inertia and the rectangular moments of inertia. Referring to the figure, apply the Pythagorean theorem \(r^2 = x^2 +y^2\) to the definition of polar moment of inertia to get</p>
 <div class="displaymath">
 \begin{align}
 J_O \amp =  \int_A r^2\ dA\notag\\
@@ -301,15 +315,15 @@ J_O \amp =  I_x  + I_y\text{.}\label{Jo}\tag{10.5.2}
 </div>
 <article class="insight remark-like" id="insight-18"><a data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-18"><h6 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Torsional Stress.</span>
-</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-18"><article class="insight remark-like"><p id="p-2131">The polar moment of inertia is an important factor in the design of drive shafts.  When a shaft is subjected to torsion, it experiences internal distributed shearing forces throughout its cross-section which counteract the external torsional load.</p>
-<p id="p-2132">This distributed shearing force is called <dfn class="terminology">shear stress</dfn>, and is usually given the symbol tau, \(\tau\text{.}\) Shear stress is zero at the neutral axis and increases linearly with \(r\) to a maximum value, \(\tau_\text{max}\) at the outside surface where \(r=c\text{,}\) so</p>
+</h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-18"><article class="insight remark-like"><p id="p-2130">The polar moment of inertia is an important factor in the design of drive shafts.  When a shaft is subjected to torsion, it experiences internal distributed shearing forces throughout its cross-section which counteract the external torsional load.</p>
+<p id="p-2131">This distributed shearing force is called <dfn class="terminology">shear stress</dfn>, and is usually given the symbol tau, \(\tau\text{.}\) Shear stress is zero at the neutral axis and increases linearly with \(r\) to a maximum value, \(\tau_\text{max}\) at the outside surface where \(r=c\text{,}\) so</p>
 <div class="displaymath">
 \begin{equation*}
 \tau = \tau_\text{max}\frac{r}{c}
 \end{equation*}
 </div>
 <figure class="figure figure-like" id="figure-203"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/MOI-shaft.png" class="contained" alt=""></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.5.2<span class="period">.</span></span><span class="space"> </span>Section-cut view of a shaft, showing shearing forces developed to withstand external torsion \(T\text{.}\)</figcaption></figure><p id="p-2133">The force at any point is \(dF = \tau\ dA\text{,}\) and the moment \(dM\) exerted at any point is \(dF\) times the moment arm, which is \(r\text{.}\)  The total moment is the integral of this quantity over the area of the cross section, and is proportional to the polar moment of inertia.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.5.2<span class="period">.</span></span><span class="space"> </span>Section-cut view of a shaft, showing shearing forces developed to withstand external torsion \(T\text{.}\)</figcaption></figure><p id="p-2132">The force at any point is \(dF = \tau\ dA\text{,}\) and the moment \(dM\) exerted at any point is \(dF\) times the moment arm, which is \(r\text{.}\)  The total moment is the integral of this quantity over the area of the cross section, and is proportional to the polar moment of inertia.</p>
 <div class="displaymath">
 \begin{align*}
 T \amp= \int dM\\
@@ -320,7 +334,7 @@ T \amp =  \frac{\tau_\text{max}}{c} J\\
 \tau_\text{max} \amp = \frac{Tc}{J}
 \end{align*}
 </div>
-<p id="p-2134">This is the relationship between the maximum stress in a circular shaft and the applied torque \(T\)  and  the geometric properties of the shaft, \(J_O\) and \(c\text{.}\)</p></article></div></section></div></main>
+<p id="p-2133">This is the relationship between the maximum stress in a circular shaft and the applied torque \(T\)  and  the geometric properties of the shaft, \(J_O\) and \(c\text{.}\)</p></article></div></section></div></main>
 </div>
 </body>
 </html>

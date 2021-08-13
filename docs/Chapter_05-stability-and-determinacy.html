@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,11 +292,11 @@
 </h2>
 <article class="objectives goal-like" id="objectives-21"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-256">What does <em class="emphasis">stable</em> mean for a rigid body?</li>
-<li id="li-257">What does <em class="emphasis">determinate</em> mean for a rigid body?</li>
-<li id="li-258">Does stability a depend on the external loads or only the reactions?</li>
-<li id="li-259">How can I tell if a system is determinate?</li>
-<li id="li-260">How can I decide if a problem is both stable and determinate, which makes it solvable statics?</li>
+<li id="li-256"><p id="p-derived-li-256">What does <em class="emphasis">stable</em> mean for a rigid body?</p></li>
+<li id="li-257"><p id="p-derived-li-257">What does <em class="emphasis">determinate</em> mean for a rigid body?</p></li>
+<li id="li-258"><p id="p-derived-li-258">Does stability a depend on the external loads or only the reactions?</p></li>
+<li id="li-259"><p id="p-derived-li-259">How can I tell if a system is determinate?</p></li>
+<li id="li-260"><p id="p-derived-li-260">How can I decide if a problem is both stable and determinate, which makes it solvable statics?</p></li>
 </ul></article><section class="paragraphs" id="paragraphs-30"><h5 class="heading"><span class="title">Determinate vs. Indeterminate.</span></h5>
 <p id="p-918">A static system is <dfn class="terminology">determinate</dfn> if it is possible to find the unknown reactions using the methods of statics, that is, by using equilibrium equations, otherwise it is <dfn class="terminology">indeterminate</dfn>.</p>
 <p id="p-919">In order for a system to be determinate the number of unknown force and moment reaction components must be less than or equal to the number of independent equations of equilibrium available.  Each equilibrium equation derives from a degree of freedom of the system, so there may be no more unknowns than degrees of freedom.  This means that we can determine no more than three unknown reaction components in two-dimensional systems and no more than six in three-dimensional systems.</p>

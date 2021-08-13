@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -285,37 +299,27 @@
 </h3>
 <p id="p-481">The general procedure for solving equilibrium of a particle problems in two dimensions is to:</p>
 <ol class="decimal">
-<li id="li-128">
-<em class="emphasis">Identify the particle.</em>  The particle will be the object or point where the lines of action of all the forces intersect.</li>
-<li id="li-129">
-<em class="emphasis">Establish a coordinate system.</em>  Normally this will be a system with the origin at the particle and a horizontal \(x\) axis and a vertical \(y\) axis, though it may be advantageous to align one axis with an unknown.</li>
-<li id="li-130">
-<em class="emphasis">Draw a free-body diagram.</em> The <abbr class="acronym">FBD</abbr> shows the object and all the forces acting on it, and defines the symbols we will use.  Every force should be labeled with a <em class="emphasis">roman letter</em> to represent its magnitude and, unless it aligns with a coordinate axis, a <em class="emphasis">greek letter</em> or degree measure for its direction.</li>
-<li id="li-131">
-<em class="emphasis">State any given values</em> and identify the unknown values.</li>
-<li id="li-132">
-<em class="emphasis">Find trivial angles.</em> Some angles may be easily found from the geometry of the problem.  If that is the case, draw a simple, labeled triangle and use trigonometry to determine the measure of the angle.</li>
-<li id="li-133">
-<em class="emphasis">Count knowns and unknowns.</em> At this point you should have no more than two unknowns remaining.  If you don't, reread the problem and look for overlooked information.  When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution.</li>
-<li id="li-134">
-<em class="emphasis">Formulate equilibrium equations.</em> Based on the free-body diagram, and using the symbols you have selected, formulate an equilibrium equation using one of the methods described in this section.  The choice of method is up to you, and as you gain experience you will be able to identify the ‘best’ approach.</li>
-<li id="li-135">
-<em class="emphasis">Simplify.</em> Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign.  Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles.</li>
-<li id="li-136">
-<em class="emphasis">Substitute values for symbols.</em>  When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns.  Indicate the units of your results, and underline or box your answers.</li>
-<li id="li-137">
-<em class="emphasis">Check your work.</em>  Have you made any algebra or trig mistakes?  If you add the forces graphically do they appear to add to zero?   Do the results seem reasonable given the situation?   Have you included appropriate units?  If you have time, work the problem using another approach and compare answers.</li>
+<li id="li-128"><p id="p-derived-li-128"><em class="emphasis">Identify the particle.</em>  The particle will be the object or point where the lines of action of all the forces intersect.</p></li>
+<li id="li-129"><p id="p-derived-li-129"><em class="emphasis">Establish a coordinate system.</em>  Normally this will be a system with the origin at the particle and a horizontal \(x\) axis and a vertical \(y\) axis, though it may be advantageous to align one axis with an unknown.</p></li>
+<li id="li-130"><p id="p-derived-li-130"><em class="emphasis">Draw a free-body diagram.</em> The <abbr class="acronym">FBD</abbr> shows the object and all the forces acting on it, and defines the symbols we will use.  Every force should be labeled with a <em class="emphasis">roman letter</em> to represent its magnitude and, unless it aligns with a coordinate axis, a <em class="emphasis">greek letter</em> or degree measure for its direction.</p></li>
+<li id="li-131"><p id="p-derived-li-131"><em class="emphasis">State any given values</em> and identify the unknown values.</p></li>
+<li id="li-132"><p id="p-derived-li-132"><em class="emphasis">Find trivial angles.</em> Some angles may be easily found from the geometry of the problem.  If that is the case, draw a simple, labeled triangle and use trigonometry to determine the measure of the angle.</p></li>
+<li id="li-133"><p id="p-derived-li-133"><em class="emphasis">Count knowns and unknowns.</em> At this point you should have no more than two unknowns remaining.  If you don't, reread the problem and look for overlooked information.  When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution.</p></li>
+<li id="li-134"><p id="p-derived-li-134"><em class="emphasis">Formulate equilibrium equations.</em> Based on the free-body diagram, and using the symbols you have selected, formulate an equilibrium equation using one of the methods described in this section.  The choice of method is up to you, and as you gain experience you will be able to identify the ‘best’ approach.</p></li>
+<li id="li-135"><p id="p-derived-li-135"><em class="emphasis">Simplify.</em> Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign.  Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles.</p></li>
+<li id="li-136"><p id="p-derived-li-136"><em class="emphasis">Substitute values for symbols.</em>  When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns.  Indicate the units of your results, and underline or box your answers.</p></li>
+<li id="li-137"><p id="p-derived-li-137"><em class="emphasis">Check your work.</em>  Have you made any algebra or trig mistakes?  If you add the forces graphically do they appear to add to zero?   Do the results seem reasonable given the situation?   Have you included appropriate units?  If you have time, work the problem using another approach and compare answers.</p></li>
 </ol></section><section class="subsection" id="ForceTriangleMethod"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span>
 </h3>
 <p id="p-482">The force triangle method is applicable to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.</p>
 <p id="p-483">If such a particle is in equilibrium then the three forces must add to zero.  Graphically, if you arrange the force vectors tip-to-tail, they will form a closed, three-sided polygon, i.e. a triangle. This is illustrated in <a class="xref" data-knowl="./knowl/fig-force-triangle.html" title="Figure 3.4.1">Figure 3.4.1</a>.</p>
-<aside class="aside aside-like" id="aside-18"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>Move the slider to rearrange the forces acting on the particle into the corresponding force triangle.</aside><figure class="figure figure-like" id="fig-force-triangle"><iframe id="force-triangle_interactive" width="600" height="300" src="force-triangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.1<span class="period">.</span></span><span class="space"> </span>Free Body Diagram and Force Triangle</figcaption></figure><article class="question example-like" id="question-3"><h6 class="heading">
+<aside class="aside aside-like" id="aside-18"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="fig-force-triangle"><iframe id="force-triangle_interactive" width="600" height="300" src="force-triangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.1<span class="period">.</span></span><span class="space"> </span>Free Body Diagram and Force Triangle</figcaption></figure><article class="question example-like" id="question-3"><h6 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">3.4.2</span><span class="period">.</span>
 </h6>
 <p id="p-484">Why do the forces always form a closed polygon?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-26" id="answer-26"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-26"><div class="answer solution-like"><p id="p-485">Because their resultant is zero.</p></div></div>
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-26" id="answer-26"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-26"><div class="answer solution-like"><p id="p-485">Because their resultant is zero.</p></div></div>
 </div></article><p id="p-486">The force triangle is a graphical representation of the vector <a class="xref" data-knowl="./knowl/SigmaF.html" title="Equation 3.1.1">equilibrium equation (3.1.1)</a>.  It can be used to solve for the unknown values in a number of different ways, which will be illustrated in the next two examples. In <a class="xref" data-knowl="./knowl/Frictionless-Incline.html" title="Example 3.4.3: Frictionless Incline">Example 3.4.3</a> We will use a graphical approach to find the forces causing equilibrium, and in <a class="xref" data-knowl="./knowl/cargo_boom.html" title="Example 3.4.4: Cargo Boom">Example 3.4.4</a> we will use trigonometry to to solve for the unknown forces mathematically.</p>
 <p id="p-487">In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation.  We are using <a class="external" href="https://geogebra.org" target="_blank">Geogebra</a> to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the the magnitudes and directions of the forces which hold the particle in equilibrium.</p>
 <article class="example example-like" id="Frictionless-Incline"><h6 class="heading">
@@ -326,13 +330,13 @@
 <div class="sbspanel middle" style="width:40%;"><img src="images/incline.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-27" id="answer-27"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-27"><div class="answer solution-like"><div class="displaymath" id="p-489">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-27" id="answer-27"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-27"><div class="answer solution-like"><div class="displaymath" id="p-489">
 \begin{align*}
 P \amp = \lb{43.8 }\text{ at }10° \measuredangle\\
 N \amp = \lb{102}\text{ at }115° \measuredangle
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-28" id="solution-28"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-28"><div class="solution solution-like"><ol id="p-490" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-28" id="solution-28"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-28"><div class="solution solution-like"><ol id="p-490" class="decimal">
 <li id="li-138">
 <h6 class="heading"><span class="title">Assumptions.</span></h6>
 <p id="p-491">We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations.  We will represent the block’s weight and the force between the incline and the block as concentrated forces.  The force of the inclined surface on the block must act in a direction which is normal to the surface since it is frictionless and can't prevent motion along the surface.</p>
@@ -354,16 +358,15 @@ N \amp = \lb{102}\text{ at }115° \measuredangle
 </li>
 <li id="li-141">
 <h6 class="heading"><span class="title">Force Triangle.</span></h6>
-<aside class="aside aside-like" id="aside-19"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-498">You follow along with the instructions on the diagram below by clicking the <span class="fas fa-fast-backward"></span> arrow to go to the start, then click the <span class="fas fa-forward"></span> arrow to step through the process.</p></aside><iframe id="inclined-triangle_interactive" width="540" height="270" src="inclined-triangle_interactive-if.html"></iframe><p id="p-500">Use the known information to carefully and accurately construct the force triangle.</p>
+<aside class="aside aside-like" id="aside-19"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><iframe id="inclined-triangle_interactive" width="540" height="270" src="inclined-triangle_interactive-if.html"></iframe><p id="p-500">Use the known information to carefully and accurately construct the force triangle.</p>
 <ol class="lower-alpha">
-<li id="li-142">Start by placing point \(A\) at the origin.</li>
-<li id="li-143">Draw force \(\vec{W}\) straight down from \(A\) with a length of 1, and place point \(B\) at its tip.  The length of this vector represents the weight.</li>
-<li id="li-144">We know the direction of force \(\vec{P}\) but not its magnitude.  For now, just draw line \(BC\) passing through point \(B\) with an angle of 10° from the horizontal.</li>
-<li id="li-145">Similarly we know force \(\vec{N}\) acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line \(CA\) passing through point \(A\) and at a 25° angle from the \(y\) axis.</li>
-<li id="li-146">Call the point where lines \(BC\) and \(CA\) intersect point \(C\text{.}\)  Points \(A\text{,}\) \(B\text{,}\) and \(C\) define the force triangle.</li>
-<li id="li-147">Now  draw force \(\vec{P}\) from point \(B\) to point \(C\text{,}\) and</li>
-<li id="li-148">Draw force \(\vec{N}\) from point \(C\) back to point \(A\text{.}\)</li>
+<li id="li-142"><p id="p-derived-li-142">Start by placing point \(A\) at the origin.</p></li>
+<li id="li-143"><p id="p-derived-li-143">Draw force \(\vec{W}\) straight down from \(A\) with a length of 1, and place point \(B\) at its tip.  The length of this vector represents the weight.</p></li>
+<li id="li-144"><p id="p-derived-li-144">We know the direction of force \(\vec{P}\) but not its magnitude.  For now, just draw line \(BC\) passing through point \(B\) with an angle of 10° from the horizontal.</p></li>
+<li id="li-145"><p id="p-derived-li-145">Similarly we know force \(\vec{N}\) acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line \(CA\) passing through point \(A\) and at a 25° angle from the \(y\) axis.</p></li>
+<li id="li-146"><p id="p-derived-li-146">Call the point where lines \(BC\) and \(CA\) intersect point \(C\text{.}\)  Points \(A\text{,}\) \(B\text{,}\) and \(C\) define the force triangle.</p></li>
+<li id="li-147"><p id="p-derived-li-147">Now  draw force \(\vec{P}\) from point \(B\) to point \(C\text{,}\) and</p></li>
+<li id="li-148"><p id="p-derived-li-148">Draw force \(\vec{N}\) from point \(C\) back to point \(A\text{.}\)</p></li>
 </ol>
 <aside class="aside aside-like" id="aside-20"><p id="p-501">Can you prove from the geometry of the triangle that angle \(BCA\) is 75°?</p></aside>
 </li>
@@ -394,10 +397,10 @@ N  \amp = ( \unit{1.02}) ({\lb{100}}/\unit{})\\
 </h3>
 <p id="p-506">The general approach for solving particle equilibrium problems using the trigonometric method is to:</p>
 <ol class="decimal">
-<li id="li-150">Draw and label a free-body diagram.</li>
-<li id="li-151">Rearrange the forces into a force triangle and label it.</li>
-<li id="li-152">Identify the knowns and unknowns.</li>
-<li id="li-153">Use trigonometry to find the unknown sides or angles of the triangle.</li>
+<li id="li-150"><p id="p-derived-li-150">Draw and label a free-body diagram.</p></li>
+<li id="li-151"><p id="p-derived-li-151">Rearrange the forces into a force triangle and label it.</p></li>
+<li id="li-152"><p id="p-derived-li-152">Identify the knowns and unknowns.</p></li>
+<li id="li-153"><p id="p-derived-li-153">Use trigonometry to find the unknown sides or angles of the triangle.</p></li>
 </ol>
 <p id="p-507">There must be no more than two unknowns to use this method, which may be either magnitudes or directions. During the problem setup you will probably need to use the geometry of the situation to find one or more angles.</p>
 <p id="p-508">If the force triangle has a right angle you can use <a href="soh-coh-toa.html" class="internal" title="Section B.2: Right Triangle Trigonometry">Section B.2</a> to find the unknown values, but in most cases the triangle will be oblique and you will need to use either or both of the <a href="los-loc.html#los" class="internal" title="Subsection B.3.1: Law of Sines">Law of Sines</a> or the <a href="los-loc.html#loc" class="internal" title="Subsection B.3.2: Law of Cosines">Law of Cosines</a> to find the sides or angles.</p>
@@ -412,12 +415,12 @@ N  \amp = ( \unit{1.02}) ({\lb{100}}/\unit{})\\
 <div class="sbspanel middle" style="width:40%;"><img src="images/boom.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-28" id="answer-28"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-28"><div class="answer solution-like"><div class="displaymath" id="p-511">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-28" id="answer-28"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-28"><div class="answer solution-like"><div class="displaymath" id="p-511">
 \begin{align*}
 T\amp= \kN{17.16 } \amp C \amp= \kN{25.9}
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-29" id="solution-29"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-29"><div class="solution solution-like"><ol id="p-512" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-29" id="solution-29"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-29"><div class="solution solution-like"><ol id="p-512" class="decimal">
 <li id="li-154">
 <h6 class="heading"><span class="title">Draw diagrams.</span></h6>
 <p id="p-513">Start by identifying the particle and drawing a free-body diagram.  The particle in this case is point \(B\) at the end of the boom because it is the point where all three forces intersect.  Let \(T\) be the tension of the topping lift, \(C\) be the force in the boom, and \(W\) be the weight of the load.  Let \(\alpha\) and \(\beta\) be the angles that forces \(T\) and \(C\) make with the horizontal.</p>
@@ -501,17 +504,17 @@ T\amp= \kN{17.16}\amp C \amp= \kN{25.9}
 <div class="sbspanel top" style="width:45%;"><img src="images/utilitypole.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-29" id="answer-29"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-29"><div class="answer solution-like"><div class="displaymath" id="p-531">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-29" id="answer-29"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-29"><div class="answer solution-like"><div class="displaymath" id="p-531">
 \begin{gather*}
 G = \kN{14.5}
 \end{gather*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-30" id="solution-30"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-30"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-30" id="solution-30"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-30"><div class="solution solution-like">
 <ol id="p-532" class="decimal">
 <li id="li-157">
 <h6 class="heading"><span class="title">Assumptions.</span></h6>
 <p id="p-533">A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.</p>
-<p id="p-534">It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point.  However,  we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger.  This is an example of an <em class="emphasis">equivalent transformation</em>, a trick engineers use frequently to turn complex situations into  simpler ones.  It works here because all the tensions are equal, and the outside wires are equidistant from the center wire.  You must be careful to to justify all equivalent transformations, because they will lead to errors if they are not applied correctly.  Equivalent transformations will be discussed in greater detail in  <a href="equivalent-tranformations.html" class="internal" title="Section 4.5: Equivalent Transformations">Section 4.5</a> later.</p>
+<p id="p-534">It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point.  However,  we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger.  This is an example of an <em class="emphasis">equivalent transformation</em>, a trick engineers use frequently to turn complex situations into  simpler ones.  It works here because all the tensions are equal, and the outside wires are equidistant from the center wire.  You must be careful to to justify all equivalent transformations, because they will lead to errors if they are not applied correctly.  Equivalent transformations will be discussed in greater detail in  <a href="equivalent-tranformations.html" class="internal" title="Section 4.6: Equivalent Transformations">Section 4.6</a> later.</p>
 </li>
 <li id="li-158">
 <h6 class="heading"><span class="title">Givens.</span></h6>
@@ -546,7 +549,7 @@ G \amp= 6\,(T \cos 76°)\\
 <div class="sbspanel top" style="width:25%;"><img src="images/Ch03-slider-space.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-30" id="answer-30"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-30"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-30" id="answer-30"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-30"><div class="answer solution-like">
 <p id="p-543">The question asks for the <em class="emphasis">reaction</em> force.  The reaction force \(\vec{R'}\) is equal and opposite to force \(\vec{R}\text{.}\)</p>
 <div class="displaymath" id="p-544">
 \begin{align*}
@@ -555,15 +558,14 @@ G \amp= 6\,(T \cos 76°)\\
 \end{align*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-31" id="solution-31"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-31"><div class="solution solution-like"><ol id="p-545" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-31" id="solution-31"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-31"><div class="solution solution-like"><ol id="p-545" class="decimal">
 <li id="li-160">
 <h6 class="heading"><span class="title">Givens.</span></h6>
 <p id="p-546">We are given magnitudes of forces \(A= \N{20}\text{,}\) \(B = \N{20}\text{,}\) and \(C = \N{30}\text{.}\) The unknowns are angle \(\alpha\) and resultant force \(R\text{.}\)</p>
 </li>
 <li id="li-161">
 <h6 class="heading"><span class="title">Procedure.</span></h6>
-<aside class="aside aside-like" id="aside-21"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-547">This interactive diagram for <a class="xref" data-knowl="./knowl/Slider.html" title="Example 3.4.6: Slider">Example 3.4.6</a> will help you visualize the relationship between angle \(\alpha\) and the resultant load force \(R\text{.}\)  When in equilibrium, the rod will supply a reaction force equal and opposite to the resultant load.</p></aside><iframe id="ggb_slider_interactive" width="600" height="300" src="ggb_slider_interactive-if.html"></iframe><p id="p-549">Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently the slider will only be in equilibrium is if the resultant of the three load forces is horizontal.  Since a horizontal force has no \(y\) component, we can establish this equilibrium condition:</p>
+<aside class="aside aside-like" id="aside-21"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><iframe id="ggb_slider_interactive" width="600" height="300" src="ggb_slider_interactive-if.html"></iframe><p id="p-549">Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently the slider will only be in equilibrium is if the resultant of the three load forces is horizontal.  Since a horizontal force has no \(y\) component, we can establish this equilibrium condition:</p>
 <div class="displaymath" id="p-550">
 \begin{equation*}
 R_y = \Sigma F_y = A_y + B_y + C_y = 0
@@ -610,18 +612,18 @@ R_x \amp = A_x + B_x + C_x\\
 <div class="sbspanel top" style="width:35%;"><img src="images/Roller.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-31" id="answer-31"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-31"><div class="answer solution-like"><div class="displaymath" id="p-561">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-31" id="answer-31"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-31"><div class="answer solution-like"><div class="displaymath" id="p-561">
 \begin{equation*}
 P = \lb{32.1}
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-32" id="solution-32"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-32"><div class="solution solution-like"><ol id="p-562" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-32" id="solution-32"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-32"><div class="solution solution-like"><ol id="p-562" class="decimal">
 <li id="li-162">
 <h6 class="heading"><span class="title">Strategy.</span></h6> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:70%;"><ol id="p-563" class="lower-alpha">
-<li id="li-163">Select a coordinate system, in this case horizontal and vertical.</li>
-<li id="li-164">Draw a free-body digram</li>
-<li id="li-165">Solve the equations of equilibrium using the scalar approach.</li>
+<li id="li-163"><p id="p-derived-li-163">Select a coordinate system, in this case horizontal and vertical.</p></li>
+<li id="li-164"><p id="p-derived-li-164">Draw a free-body digram</p></li>
+<li id="li-165"><p id="p-derived-li-165">Solve the equations of equilibrium using the scalar approach.</p></li>
 </ol></div>
 <div class="sbspanel top" style="width:30%;"><img src="images/Roller_FBD1.svg" role="img" class="contained" alt=""></div>
 </div></div>
@@ -646,13 +648,13 @@ P \amp = \lb{32.1}
 </div>
 </li>
 </ol></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-33" id="solution-33"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-33"><div class="solution solution-like"><ol id="p-567" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-33" id="solution-33"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-33"><div class="solution solution-like"><ol id="p-567" class="decimal">
 <li id="li-167">
 <h6 class="heading"><span class="title">Strategy.</span></h6> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:70%;"><ol id="p-568" class="lower-alpha">
-<li id="li-168">Rotate the standard coordinate system \(\ang{10}\) clockwise to align the new \(y'\) axis with with force \(N\text{.}\)</li>
-<li id="li-169">Draw a free-body digram and calculate the angles between the forces and the rotated coordinate system.</li>
-<li id="li-170">Solve for force \(P\) directly.</li>
+<li id="li-168"><p id="p-derived-li-168">Rotate the standard coordinate system \(\ang{10}\) clockwise to align the new \(y'\) axis with with force \(N\text{.}\)</p></li>
+<li id="li-169"><p id="p-derived-li-169">Draw a free-body digram and calculate the angles between the forces and the rotated coordinate system.</p></li>
+<li id="li-170"><p id="p-derived-li-170">Solve for force \(P\) directly.</p></li>
 </ol></div>
 <div class="sbspanel top" style="width:30%;"><img src="images/Roller_FBD2.svg" role="img" class="contained" alt=""></div>
 </div></div>
@@ -690,14 +692,14 @@ P \amp = \lb{32.1}
 <div class="sbspanel top" style="width:50%;"><img src="images/twoparticles-space.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint1" id="hint1"><span class="type">Hint</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint1"><div class="hint solution-like"><p id="p-575">The particles are points \(B\) and \(C\text{.}\)  The common force is the tension in rope segment \(BC\text{.}\)</p></div></div>
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-32" id="answer-32"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-32"><div class="answer solution-like"><div class="displaymath" id="p-576">
+<a data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint1" id="hint1"><span class="type">Hint.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-hint1"><div class="hint solution-like"><p id="p-575">The particles are points \(B\) and \(C\text{.}\)  The common force is the tension in rope segment \(BC\text{.}\)</p></div></div>
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-32" id="answer-32"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-32"><div class="answer solution-like"><div class="displaymath" id="p-576">
 \begin{align*}
 P\amp = \N{84.3} \amp \theta \amp = \ang{54.7} \text{ CCW from } -x \text{ axis.}\\
 \vec{P} \amp=  \langle \N{-48.7}, \N{-68.8} \rangle 
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-34" id="solution-34"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-34"><div class="solution solution-like"><ol id="p-577" class="decimal">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-34" id="solution-34"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-34"><div class="solution solution-like"><ol id="p-577" class="decimal">
 <li id="li-172">
 <h6 class="heading"><span class="title">Strategy.</span></h6>
 <p id="p-578">Following the <a href="CH03-2d-particles.html#general-procedure" class="internal" title="Subsection 3.4.2: General Procedure">General Procedure</a> we identify the particles as points A and B, and draw free-body digrams of each.  We label the rope tensions \(A\text{,}\) \(C\text{,}\) and \(D\) for  the endpoints of the rope segments, and label the angles of the forces \(\alpha\text{,}\) \(\beta\text{,}\) and \(\phi\text{.}\)  We will use the standard cartesian coordinate system and use the <a href="CH03-2d-particles.html#scalar-components-method" class="internal" title="Subsection 3.4.5: Scalar Components Method">scalar components method</a>.</p>

@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -276,7 +290,7 @@
 <main class="main"><div id="content" class="pretext-content"><section xmlns:svg="http://www.w3.org/2000/svg" class="section" id="VM_diagrams"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span>
 </h2>
-<section class="introduction" id="introduction-29"><p id="p-1542">Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these weak points, we need to check the internal loading at every point along the beam’s full length.</p>
+<section class="introduction" id="introduction-31"><p id="p-1542">Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these weak points, we need to check the internal loading at every point along the beam’s full length.</p>
 <p id="p-1543">The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at <em class="emphasis">every</em> point in the object you will need a more powerful approach.    This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.</p></section><section class="subsection" id="Chapter_08-shear-and-bending-moment-diagrams"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span>
 </h3>
@@ -284,12 +298,9 @@
 <p id="p-1545">Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.</p>
 <p id="p-1546">Beams can be supported in a variety of ways as shown in <a class="xref" data-knowl="./knowl/beam_supports.html" title="Figure 8.4.1">Figure 8.4.1</a>. The common support methods are</p>
 <ul class="disc">
-<li id="li-438">
-<dfn class="terminology">Simply Supported</dfn> Supported by a pin on one end and a roller at the other.</li>
-<li id="li-439">
-<dfn class="terminology">Cantilevered</dfn> Fixed at one end, and unsupported at the other.</li>
-<li id="li-440">
-<dfn class="terminology">Overhanging</dfn> One or both ends overhang the supports.</li>
+<li id="li-438"><p id="p-derived-li-438"><dfn class="terminology">Simply Supported</dfn> Supported by a pin on one end and a roller at the other.</p></li>
+<li id="li-439"><p id="p-derived-li-439"><dfn class="terminology">Cantilevered</dfn> Fixed at one end, and unsupported at the other.</p></li>
+<li id="li-440"><p id="p-derived-li-440"><dfn class="terminology">Overhanging</dfn> One or both ends overhang the supports.</p></li>
 </ul>
 <p id="p-1547"></p>
 <figure class="figure figure-like" id="beam_supports"><div class="sidebyside"><div class="sbsrow" style="margin-left:0.166666666666667%;margin-right:0.166666666666667%;">

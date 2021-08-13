@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,10 +292,10 @@
 </h2>
 <article class="objectives goal-like" id="objectives-31"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-405">What is the basic relationship between depth and pressure?</li>
-<li id="li-406">How are absolute and relative pressure different?</li>
-<li id="li-407">How can use use our knowledge of centroids to compute the equivalent point forces of fluids?</li>
-</ul></article><section class="introduction" id="introduction-26"><p id="p-1411">Pressure is the term used for a force distributed over an area</p>
+<li id="li-405"><p id="p-derived-li-405">What is the basic relationship between depth and pressure?</p></li>
+<li id="li-406"><p id="p-derived-li-406">How are absolute and relative pressure different?</p></li>
+<li id="li-407"><p id="p-derived-li-407">How can use use our knowledge of centroids to compute the equivalent point forces of fluids?</p></li>
+</ul></article><section class="introduction" id="introduction-28"><p id="p-1411">Pressure is the term used for a force distributed over an area</p>
 <div class="displaymath">
 \begin{equation}
 P =\frac{F}{A}\text{.}\tag{7.9.1}
@@ -290,19 +304,17 @@ P =\frac{F}{A}\text{.}\tag{7.9.1}
 <p class="continuation">We will consider the effect of fluid pressure on underwater surfaces, including slanted or curved objects. In all cases we will simply ask the question: what is the pressure at each point and how does it change along the surface?</p>
 <p id="p-1412">Pressure can be measured in two different ways</p>
 <ul class="disc">
-<li id="li-408">
-<dfn class="terminology">Absolute pressure</dfn> is the pressure measured above an absolute or perfect vacuum.  The absolute pressure of the surrounding atmosphere is approximately \(\kPa{101.3}\) or \(\psinch{14.7}\text{,}\) and a perfect vacuum is 0 psi or 0 kPa.</li>
-<li id="li-409">
-<dfn class="terminology">Gage pressure</dfn> is the pressure indicated by a standard pressure gage.  The gage reads zero when exposed directly to the atmosphere, positive when the pressure is higher than atmospheric pressure, and negative pressure indicates a vacuum. In effect, pressure gages ignores the pressure of the atmosphere which surrounds us.</li>
+<li id="li-408"><p id="p-derived-li-408"><dfn class="terminology">Absolute pressure</dfn> is the pressure measured above an absolute or perfect vacuum.  The absolute pressure of the surrounding atmosphere is approximately \(\kPa{101.3}\) or \(\psinch{14.7}\text{,}\) and a perfect vacuum is 0 psi or 0 kPa.</p></li>
+<li id="li-409"><p id="p-derived-li-409"><dfn class="terminology">Gage pressure</dfn> is the pressure indicated by a standard pressure gage.  The gage reads zero when exposed directly to the atmosphere, positive when the pressure is higher than atmospheric pressure, and negative pressure indicates a vacuum. In effect, pressure gages ignores the pressure of the atmosphere which surrounds us.</p></li>
 </ul>
 <p id="p-1413">We will use gage pressure for the remainder of the chapter.</p>
 <p id="p-1414">Commonly used pressure units include:</p>
 <ul class="disc">
-<li id="li-410">1 pascals (Pa) = 1 \(\text{N}/\text{m}^2\)</li>
-<li id="li-411">1 kilopascal (kPa) = 1000 \(\text{N}/\text{m}^2\)</li>
-<li id="li-412">1 pound per square inch (psi) = \(\text{lb}/\text{in}^2\)</li>
-<li id="li-413">1 kip per square inch (ksi) = 1000 \(\text{lb}/\text{in}^2\)</li>
-<li id="li-414">1 pound per square foot (psf) =  1 \(\text{lb}/\text{ft}^2\)</li>
+<li id="li-410"><p id="p-derived-li-410">1 pascals (Pa) = 1 \(\text{N}/\text{m}^2\)</p></li>
+<li id="li-411"><p id="p-derived-li-411">1 kilopascal (kPa) = 1000 \(\text{N}/\text{m}^2\)</p></li>
+<li id="li-412"><p id="p-derived-li-412">1 pound per square inch (psi) = \(\text{lb}/\text{in}^2\)</p></li>
+<li id="li-413"><p id="p-derived-li-413">1 kip per square inch (ksi) = 1000 \(\text{lb}/\text{in}^2\)</p></li>
+<li id="li-414"><p id="p-derived-li-414">1 pound per square foot (psf) =  1 \(\text{lb}/\text{ft}^2\)</p></li>
 </ul></section><section class="subsection" id="Chapter_07-principles-of-fluid-statics"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span>
 </h3>
@@ -315,9 +327,9 @@ P = \rho g h\text{,}\tag{7.9.2}
 </div>
 <p class="continuation">where:</p>
 <ul class="disc">
-<li id="li-415">\(\rho\) is the density of a fluid,</li>
-<li id="li-416">\(g\) is gravitational acceleration, and</li>
-<li id="li-417">\(h\) is the height of fluid above the point of interest.</li>
+<li id="li-415"><p id="p-derived-li-415">\(\rho\) is the density of a fluid,</p></li>
+<li id="li-416"><p id="p-derived-li-416">\(g\) is gravitational acceleration, and</p></li>
+<li id="li-417"><p id="p-derived-li-417">\(h\) is the height of fluid above the point of interest.</p></li>
 </ul>
 <p id="p-1417">Since fluid pressure increases linearly with depth, it behaves as a distributed load which increases linearly from 0 at the surface to \(\rho g h\) at depth \(h\text{,}\) acting normal to the surface.  The pressure can be replaced with an equivalent force acting through the centroid of the triangular loading, with a magnitude equal to the triangular area.  The pressure on horizontal surfaces is constant, and it is normal to all surfaces.</p>
 <figure class="figure figure-like" id="figure-121"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
@@ -327,19 +339,19 @@ P = \rho g h\text{,}\tag{7.9.2}
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.9.1<span class="period">.</span></span><span class="space"> </span>Pressure on submerged surfaces.</figcaption></figure><p id="p-1418">Some points to remember when solving fluid pressure problems.</p>
 <ol class="decimal">
-<li id="li-418">The pressure due to the fluid always acts perpendicular the surface.</li>
-<li id="li-419">A particle underwater will feel the same pressure from all directions.</li>
-<li id="li-420">Pressure increases linearly with depth. \(P = \rho g h\)</li>
-<li id="li-421">\(P = \rho g h\) assumes a constant density and thus is valid only for incompressible fluids like water or oil, but not for compressible fluids like air.</li>
-<li id="li-422">In English units, specific weight \(\gamma\) is often used instead of density \(\rho\) to describe fluids.  Specific weight is the <em class="emphasis">weight</em> per unit volume of a substance, while density is its <em class="emphasis">mass</em> per unit volume.  The two properties are related by  \(\gamma = \rho g\text{.}\)  The specific weight of freshwater at room temperature is about \(\pqf{62.4}\text{.}\)</li>
-<li id="li-423">Gage pressure is the pressure above the surrounding atmospheric pressure. Atmospheric pressure is approximately \(\psinch{14.7}\) or \(101.3~\text{kPa}\text{,}\) but since this pressure acts on everything equally and from all directions, the pressure scale can be offset to make the pressure of the surroundings \(\psinch{0}\text{,}\) gage.</li>
+<li id="li-418"><p id="p-derived-li-418">The pressure due to the fluid always acts perpendicular the surface.</p></li>
+<li id="li-419"><p id="p-derived-li-419">A particle underwater will feel the same pressure from all directions.</p></li>
+<li id="li-420"><p id="p-derived-li-420">Pressure increases linearly with depth. \(P = \rho g h\)</p></li>
+<li id="li-421"><p id="p-derived-li-421">\(P = \rho g h\) assumes a constant density and thus is valid only for incompressible fluids like water or oil, but not for compressible fluids like air.</p></li>
+<li id="li-422"><p id="p-derived-li-422">In English units, specific weight \(\gamma\) is often used instead of density \(\rho\) to describe fluids.  Specific weight is the <em class="emphasis">weight</em> per unit volume of a substance, while density is its <em class="emphasis">mass</em> per unit volume.  The two properties are related by  \(\gamma = \rho g\text{.}\)  The specific weight of freshwater at room temperature is about \(\pqf{62.4}\text{.}\)</p></li>
+<li id="li-423"><p id="p-derived-li-423">Gage pressure is the pressure above the surrounding atmospheric pressure. Atmospheric pressure is approximately \(\psinch{14.7}\) or \(101.3~\text{kPa}\text{,}\) but since this pressure acts on everything equally and from all directions, the pressure scale can be offset to make the pressure of the surroundings \(\psinch{0}\text{,}\) gage.</p></li>
 </ol>
 <article class="question example-like" id="question-8"><h6 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.9.2</span><span class="period">.</span>
 </h6>
 <p id="p-1419">Does fluid pressure depend on the surface area of the container?  For instance, is the pressure below the Atlantic Ocean less than the pressure below the Pacific Ocean since the Pacific is larger?</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-57" id="answer-57"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-57"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-57" id="answer-57"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-57"><div class="answer solution-like">
 <p id="p-1420">No.  Fluid pressure is a function of density and depth only, so the surface area of an ocean or tank is insignificant.</p>
 <div class="displaymath">
 \begin{equation*}
@@ -353,7 +365,7 @@ P = \rho g h\text{.}
 </h6>
 <p id="p-1421">Compare the pressure at three feet and thirty feet below the surface of freshwater to the atmospheric pressure.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-58" id="answer-58"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-58"><div class="answer solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-58" id="answer-58"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-58"><div class="answer solution-like">
 <p id="p-1422">The gage pressure at \(\ft{3}\) is</p>
 <div class="displaymath">
 \begin{equation*}
@@ -384,8 +396,8 @@ p = \gamma d =  \pqf{62.4} \times \ft{3} = \psf{187} = \psinch{1.30} \text{.}
 </div></div>
 <p id="p-1427"></p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-59" id="answer-59"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-59"><div class="answer solution-like"><p id="p-1428">\(F = \kN{155}\) acting \(\m{1.29}\) above point \(B\) or  \(\m{3.71}\) below the surface of the water.</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-71" id="solution-71"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-71"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-59" id="answer-59"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-59"><div class="answer solution-like"><p id="p-1428">\(F = \kN{155}\) acting \(\m{1.29}\) above point \(B\) or  \(\m{3.71}\) below the surface of the water.</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-71" id="solution-71"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-71"><div class="solution solution-like">
 <p id="p-1429">Begin by drawing a diagram of the window showing the load intensity and the equivalent concentrated force.</p>
 <div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/aquarium-fbd.svg" role="img" class="contained" alt=""></div>
 <p id="p-1430">The pressure at the top and the bottom of the window are</p>
@@ -423,7 +435,7 @@ d \amp =  \m{3.71}
 </div>
 <p class="continuation">If you prefer, you may use the formula from the <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Centroid table</a> to locate the centroid of the trapezoid instead.</p>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-72" id="solution-72"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-72"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-aquarium-1" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/3qRaa9vFZa8?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-72" id="solution-72"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-72"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-aquarium-1" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/3qRaa9vFZa8?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
 </div></article><article class="example example-like" id="Chapter_07-example-mud-on-concrete-wall"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.9.5</span><span class="period">.</span><span class="space"> </span><span class="title">Mud on Concrete Wall.</span>
 </h6>
@@ -436,12 +448,12 @@ d \amp =  \m{3.71}
 </div></div>
 <p id="p-1439"></p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-60" id="answer-60"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-60"><div class="answer solution-like"><div class="displaymath" id="p-1440">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-60" id="answer-60"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-60"><div class="answer solution-like"><div class="displaymath" id="p-1440">
 \begin{equation*}
 h = \m{1.99}
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-73" id="solution-73"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-73"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-mud" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/xfO0CKPpnMQ?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-73" id="solution-73"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-73"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-mud" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/xfO0CKPpnMQ?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
 </div></article><article class="example example-like" id="Chapter_07-example-sea-gate"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.9.6</span><span class="period">.</span><span class="space"> </span><span class="title">Sea Gate.</span>
 </h6>
@@ -455,12 +467,12 @@ h = \m{1.99}
 </div></div>
 <p id="p-1444"></p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-61" id="answer-61"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-61"><div class="answer solution-like"><div class="displaymath" id="p-1445">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-61" id="answer-61"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-61"><div class="answer solution-like"><div class="displaymath" id="p-1445">
 \begin{equation*}
 d \ge \m{1.50}
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-74" id="solution-74"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-74"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-74" id="solution-74"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-74"><div class="solution solution-like">
 <p id="p-1446">For the gate to tip, the force of the water must act at or above A. That happens when the centroid of the load intensity diagram from the water has its equivalent point force at or above A, so</p>
 <div class="displaymath">
 \begin{align*}
@@ -469,7 +481,7 @@ d \amp \ge \mm{1500}\text{.}
 \end{align*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-75" id="solution-75"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-75"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-seagate" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/i1jWLFpfh-s?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-75" id="solution-75"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-75"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-seagate" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/i1jWLFpfh-s?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
 </div></article><article class="example example-like" id="Chapter_07-example-gate-with-horizontal-surface"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.9.7</span><span class="period">.</span><span class="space"> </span><span class="title">Gate with Horizontal Surface.</span>
 </h6>
@@ -482,14 +494,14 @@ d \amp \ge \mm{1500}\text{.}
 </div></div>
 <p id="p-1449"></p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-62" id="answer-62"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-62"><div class="answer solution-like"><div class="displaymath" id="p-1450">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-62" id="answer-62"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-62"><div class="answer solution-like"><div class="displaymath" id="p-1450">
 \begin{align*}
 D_x \amp=    \N{124} \text{ right}\\
 A_x \amp =    \N{2636} \text{ left} \\
 A_y \amp =   \N{2795} \text{ up}
 \end{align*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-76" id="solution-76"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-76"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-76" id="solution-76"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-76"><div class="solution solution-like">
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:60%;">
 <p id="p-1451">A free body diagram of a cross section of the gate is shown.  For simplicity the thickness of the steel plates has been ignored.  You must sufficient distances are provided to locate the loads.</p>

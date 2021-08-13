@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,20 +292,20 @@
 </h2>
 <article class="objectives goal-like" id="objectives-22"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-261">What are simple trusses and how do they differ from other structural systems?</li>
-<li id="li-262">What are the benefits and dangers of simple trusses?</li>
-<li id="li-263">How can we determine the forces acting within simple truss systems?</li>
-<li id="li-264">For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?</li>
-<li id="li-265">How do we identify zero-force members in a truss and use their presence to simplify the analysis?</li>
+<li id="li-261"><p id="p-derived-li-261">What are simple trusses and how do they differ from other structural systems?</p></li>
+<li id="li-262"><p id="p-derived-li-262">What are the benefits and dangers of simple trusses?</p></li>
+<li id="li-263"><p id="p-derived-li-263">How can we determine the forces acting within simple truss systems?</p></li>
+<li id="li-264"><p id="p-derived-li-264">For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?</p></li>
+<li id="li-265"><p id="p-derived-li-265">How do we identify zero-force members in a truss and use their presence to simplify the analysis?</p></li>
 </ul></article><section class="subsection" id="intro-trusses"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">6.3.1</span> <span class="title">introduction</span>
+<span class="type">Subsection</span> <span class="codenumber">6.3.1</span> <span class="title">Introduction</span>
 </h3>
 <p id="p-959">A <dfn class="terminology">truss</dfn> is a rigid engineering structure made up of long, slender members connected at their ends.   Trusses are commonly used to span large distances with a strong, lightweight structure.  Some familiar applications of trusses are bridges, roof structures, and pilons. <dfn class="terminology">Planar trusses</dfn> are two-dimension trusses built out of triangular subunits, while   <dfn class="terminology">space trusses</dfn> are three-dimensional, and the basic unit is a tetrahedron.</p>
 <p id="p-960">In this section we will analyze a simplified approximation of a planar truss, called a <dfn class="terminology">simple truss</dfn> and determine the forces the members individually support when the truss supports a load.   Two different approaches will be presented: the <dfn class="terminology">method of sections</dfn>, and the <dfn class="terminology">method of joints</dfn>.</p></section><section class="subsection" id="simple-trusses"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span>
 </h3>
 <p id="p-961">Truss members are connected to each other rigidly, by welding or joining the ends with a gusset plate.  This makes the connecting joints rigid, but also make the truss difficult to analyze.  To reduce the mathematical complexity in this text we will only consider <dfn class="terminology">simple trusses</dfn>, which are a simplification appropriate for preliminary analysis.</p>
-<figure class="figure figure-like" id="figure-89"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/gusset-plates.svg" role="img" class="contained" alt=""></div>
+<figure class="figure figure-like" id="figure-89"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="images/gusset-plates.png" class="contained" alt=""></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.1<span class="period">.</span></span><span class="space"> </span>Truss with riveted gusset plates.</figcaption></figure><p id="p-962">Simple trusses are made of all two-force members and all joints are modeled as frictionless pins. All applied and reaction forces are applied only to these joints. Simple trusses, by their nature, are statically determinate, having a sufficient number of equations to solve for all unknowns values. While the members of real-life trusses stretch and compress under load, we will continue to assume that all bodies we encounter are rigid.</p>
 <p id="p-963">Simple trusses are made of triangles, which makes them rigid when removed from supports. Simple trusses are determinate, having a balance of equations and unknowns, following the equation:</p>
 <div class="displaymath">
@@ -328,8 +342,8 @@
 </h3>
 <p id="p-975">Sometimes a truss will contain one or more zero-force members.  As the name implies, zero-force members carry no force and thus support no load.  Zero-force members will be found when you apply equilibrium equations to the joints, but you can save some work if you can spot and eliminate them before you begin.  Fortunately, zero-force members can easily be identified by inspection with two rules.</p>
 <ul class="disc">
-<li id="li-266">Rule 1: If <em class="emphasis">two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.</li>
-<li id="li-267">Rule 2: If <em class="emphasis">three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.</li>
+<li id="li-266"><p id="p-derived-li-266">Rule 1: If <em class="emphasis">two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.</p></li>
+<li id="li-267"><p id="p-derived-li-267">Rule 2: If <em class="emphasis">three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.</p></li>
 </ul>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:4.25%;margin-right:4.25%;">
 <div class="sbspanel top" style="width:36.0655737704918%;"><img src="images/ZFM-truss.svg" role="img" class="contained" alt=""></div>
@@ -384,9 +398,9 @@ DA \sin \theta   \amp =  0
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.3.6</span><span class="period">.</span><span class="space"> </span><span class="title">Why include Zero-Force Members?</span>
 </h6></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-6"><article class="insight remark-like"><p id="p-991">You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:</p>
 <ul class="disc">
-<li id="li-268">We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em class="emphasis">actual</em> weight of <em class="emphasis">real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at least support the member’s weight.</li>
-<li id="li-269">Truss members are not actually rigid, and long slender members under compression will <em class="emphasis">buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin \(D\) if they were not replaced with a single member \(CE\) with sufficient rigidity.</li>
-<li id="li-270">Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition — think about how the load on a bridge shifts as a heavy truck drives across.</li>
+<li id="li-268"><p id="p-derived-li-268">We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em class="emphasis">actual</em> weight of <em class="emphasis">real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at least support the member’s weight.</p></li>
+<li id="li-269"><p id="p-derived-li-269">Truss members are not actually rigid, and long slender members under compression will <em class="emphasis">buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin \(D\) if they were not replaced with a single member \(CE\) with sufficient rigidity.</p></li>
+<li id="li-270"><p id="p-derived-li-270">Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition — think about how the load on a bridge shifts as a heavy truck drives across.</p></li>
 </ul>
 <p id="p-992">So finding a zero-force member in a determinate truss does not mean you can discard the member. Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing. After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles. If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or ‘floating’ forces that have no load path to the foundation.</p></article></div>
 <article class="example example-like" id="Chapter_06-example-zero-force-member-example-"><h6 class="heading">
@@ -398,17 +412,17 @@ DA \sin \theta   \amp =  0
 </div></div>
 <p id="p-994"></p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-40" id="answer-40"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-40"><div class="answer solution-like"><p id="p-995">There are six zero-force members: \(GH\text{,}\) \(FG\text{,}\) \(BF\text{,}\) \(EI\text{,}\) \(DE\) and \(CD\text{.}\)</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-47" id="solution-47"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-47"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-40" id="answer-40"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-40"><div class="answer solution-like"><p id="p-995">There are six zero-force members: \(GH\text{,}\) \(FG\text{,}\) \(BF\text{,}\) \(EI\text{,}\) \(DE\) and \(CD\text{.}\)</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-47" id="solution-47"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-47"><div class="solution solution-like">
 <p id="p-996">Rule 1:</p>
 <ul class="disc">
-<li id="li-271">Due to two members meeting at unloaded joint \(G\text{,}\) both members \(GH\) and \(FG\) are zero-force members</li>
-<li id="li-272">Due to two members meeting at unloaded joint \(D\text{,}\) both members \(DE\) and \(CD\) are zero-force members</li>
+<li id="li-271"><p id="p-derived-li-271">Due to two members meeting at unloaded joint \(G\text{,}\) both members \(GH\) and \(FG\) are zero-force members</p></li>
+<li id="li-272"><p id="p-derived-li-272">Due to two members meeting at unloaded joint \(D\text{,}\) both members \(DE\) and \(CD\) are zero-force members</p></li>
 </ul>
 <p id="p-997">Rule 2:</p>
 <ul class="disc">
-<li id="li-273">Due to three forces meeting at joining \(B\text{,}\) with two being collinear (internal forces in \(AB\) and \(BC\)) then \(BF\) is a zero-force member.</li>
-<li id="li-274">Due to three forces meeting at joint \(I\text{,}\) with two being collinear (internal forces \(IF\) and \(CI\)), then \(EI\) is a zero-force member. Note that member \(EI\) does not need to be perpendicular to the collinear members to be a zero force.</li>
+<li id="li-273"><p id="p-derived-li-273">Due to three forces meeting at joining \(B\text{,}\) with two being collinear (internal forces in \(AB\) and \(BC\)) then \(BF\) is a zero-force member.</p></li>
+<li id="li-274"><p id="p-derived-li-274">Due to three forces meeting at joint \(I\text{,}\) with two being collinear (internal forces \(IF\) and \(CI\)), then \(EI\) is a zero-force member. Note that member \(EI\) does not need to be perpendicular to the collinear members to be a zero force.</p></li>
 </ul>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:40%;"><p id="p-998">The remaining truss is shown. Note that once \(EI\) and \(BF\) are eliminated, you can effectively eliminate the joints \(B\) and \(I\) as the member forces in the collinear members will be equal. Also notice that the truss is still formed of triangles which fully support all of the applied forces.</p></div>
@@ -417,7 +431,7 @@ DA \sin \theta   \amp =  0
 <p id="p-999"></p>
 </div></div>
 </div></article><p id="p-1000">Try to find all the zero-force members in the truss in the interactive diagram below, once you believe you have found all of them, check out the step-by-step solution in the interactive.</p>
-<aside class="aside aside-like" id="aside-40"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>Move the slider to step through the process of eliminating zero-force members from the truss.</aside><figure class="figure figure-like" id="ggb_bf6c5jmx"><iframe id="ggb_zero-force-members_interactive" width="450" height="300" src="ggb_zero-force-members_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.8<span class="period">.</span></span><span class="space"> </span>Identify zero-force members.</figcaption></figure></section></section></div></main>
+<aside class="aside aside-like" id="aside-40"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="ggb_bf6c5jmx"><iframe id="ggb_zero-force-members_interactive" width="450" height="300" src="ggb_zero-force-members_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.8<span class="period">.</span></span><span class="space"> </span>Identify zero-force members.</figcaption></figure></section></section></div></main>
 </div>
 </body>
 </html>

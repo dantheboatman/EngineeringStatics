@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,11 +292,11 @@
 </h2>
 <article class="objectives goal-like" id="objectives-10"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-86">How do you set up vectors for graphical addition using the Triangle Rule?</li>
-<li id="li-87">Does it matter which vector you start with when using the Triangle Rule?</li>
-<li id="li-88">Why can you separate a two-dimensional vector equation into two independent equations to solve for up to two unknowns?</li>
-<li id="li-89">If you and another student define vectors using different direction coordinate systems, will you end up with the same resultant vector?</li>
-<li id="li-90">What is the preferred technique to add vectors in three-dimensional systems?</li>
+<li id="li-86"><p id="p-derived-li-86">How do you set up vectors for graphical addition using the Triangle Rule?</p></li>
+<li id="li-87"><p id="p-derived-li-87">Does it matter which vector you start with when using the Triangle Rule?</p></li>
+<li id="li-88"><p id="p-derived-li-88">Why can you separate a two-dimensional vector equation into two independent equations to solve for up to two unknowns?</p></li>
+<li id="li-89"><p id="p-derived-li-89">If you and another student define vectors using different direction coordinate systems, will you end up with the same resultant vector?</p></li>
+<li id="li-90"><p id="p-derived-li-90">What is the preferred technique to add vectors in three-dimensional systems?</p></li>
 </ul></article><section class="introduction" id="introduction-9"><p id="p-250">In this section we will look at several different methods of vector addition.    Vectors being added together are called the <dfn class="terminology">components</dfn>, and the sum of the components is called the <dfn class="terminology">resultant vector</dfn>.</p>
 <p id="p-251">These different methods are tools for your statics toolbox.  They give you multiple different ways to think about vector addition and to approach a problem.  Your goal should be to learn to use them all and to identify which approach will be the easiest to use in a given situation.</p></section><section class="subsection" id="Chapter_02-triangle-rule-of-vector-addition"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span>
@@ -300,8 +314,7 @@
 </ul>
 <p id="p-255">The interactive below shows two forces \(\vec{A}\)  and  \(\vec{B}\) pulling on a particle at the origin, and the appropriate diagram for the triangle or parallelogram rule. Both approaches produce the same resultant force \(\vec{R}\) as expected.</p>
 <p id="p-256"></p>
-<aside class="aside aside-like" id="aside-10"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-257">This diagram shows two forces added together using the triangle and parallelogram  rules. Change the slider to see the different interpretations.  Note that polar coordinates are a better fit for graphing magnitude and direction, while Cartesian coordinates work better for rectangular components.</p></aside><figure class="figure figure-like" id="addition-2d-views"><iframe id="ggb_2d-addition-views_interactive" width="600" height="300" src="ggb_2d-addition-views_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.1<span class="period">.</span></span><span class="space"> </span>Vector Addition Methods</figcaption></figure></section><section class="subsection" id="Chapter_02-orthogonal-components"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-10"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="addition-2d-views"><iframe id="ggb_2d-addition-views_interactive" width="600" height="300" src="ggb_2d-addition-views_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.1<span class="period">.</span></span><span class="space"> </span>Vector Addition Methods</figcaption></figure></section><section class="subsection" id="Chapter_02-orthogonal-components"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span>
 </h3>
 <p id="p-259">Any arbitrary vector \(\vec{F}\) can broken into two component vectors which are the sides of a parallelogram having \(\vec{F}\) as its diagonal.  The process of finding components of a vector in particular directions is called <dfn class="terminology">vector resolution</dfn>.</p>
@@ -321,8 +334,7 @@
 \end{equation}
 </div>
 <p id="p-264">The interactive below can help you visualize the relationship between a vector and its components in  both the  \(x\)-\(y\) and \(x'\)-\(y'\) directions.</p>
-<aside class="aside aside-like" id="aside-11"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-265">In this interactive you can rotate the vector \(\vec{F}\) and also rotate the coordinate system and see the components of \(\vec{F}\) in the \(x\)-\(y\) and \(x'\)-\(y'\) directions.</p></aside><figure class="figure figure-like" id="figure-24"><iframe id="ggb_orthogonal-components_interactive" width="300" height="300" src="ggb_orthogonal-components_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.2<span class="period">.</span></span><span class="space"> </span>Orthogonal Components</figcaption></figure><p id="p-267"></p></section><section class="subsection" id="Chapter_02-graphical-vector-addition"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-11"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="figure-24"><iframe id="ggb_orthogonal-components_interactive" width="300" height="300" src="ggb_orthogonal-components_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.2<span class="period">.</span></span><span class="space"> </span>Orthogonal Components</figcaption></figure><p id="p-267"></p></section><section class="subsection" id="Chapter_02-graphical-vector-addition"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span>
 </h3>
 <p id="p-268">Graphical vector addition involves drawing a scaled digram using either the parallelogram or triangle rule, and then measuring the magnitudes and directions from the diagram. Graphical solutions works well enough for two-dimensional problems where all the vectors live in the same plane and can be drawn on a sheet of paper, but are not very useful for three-dimensional problems unless you use technology.</p>
@@ -332,16 +344,16 @@
 </h3>
 <p id="p-271">You <em class="emphasis">can</em> get a precise answer from the triangle or parallelogram rule by</p>
 <ol class="decimal">
-<li id="li-93">drawing a quick diagram using either rule,</li>
-<li id="li-94">identifying three known sides or angles,</li>
-<li id="li-95">using trigonometry to solve for the unknown sides and angles.</li>
+<li id="li-93"><p id="p-derived-li-93">drawing a quick diagram using either rule,</p></li>
+<li id="li-94"><p id="p-derived-li-94">identifying three known sides or angles,</p></li>
+<li id="li-95"><p id="p-derived-li-95">using trigonometry to solve for the unknown sides and angles.</p></li>
 </ol>
 <p id="p-272">The trigonometric tools you will need is in <a href="useful-mathematics.html" class="internal" title="Appendix B: Useful Mathematics">Appendix B</a>.</p>
 <p id="p-273">Using triangle-based geometry to solve vector problems is a quick and powerful tool, but includes the following limitations:</p>
 <ul class="disc">
-<li id="li-96">There are only three sides in a triangle; thus vectors can only be added two at a time. If you need to add three or more vectors using this method, you must add the first two, then add the third to that sum and so on.</li>
-<li id="li-97">If you fail to draw the correct vector triangle, or identify the known sides and angles you will not find the correct answer.</li>
-<li id="li-98">The trigonometric functions are scalar functions. They are quick ways of solving for the magnitudes of vectors and the angle between vectors, but you may still need to find the vector components from a given datum.</li>
+<li id="li-96"><p id="p-derived-li-96">There are only three sides in a triangle; thus vectors can only be added two at a time. If you need to add three or more vectors using this method, you must add the first two, then add the third to that sum and so on.</p></li>
+<li id="li-97"><p id="p-derived-li-97">If you fail to draw the correct vector triangle, or identify the known sides and angles you will not find the correct answer.</p></li>
+<li id="li-98"><p id="p-derived-li-98">The trigonometric functions are scalar functions. They are quick ways of solving for the magnitudes of vectors and the angle between vectors, but you may still need to find the vector components from a given datum.</p></li>
 </ul>
 <p id="p-274">When you need to find the resultant of more than two vectors, it is generally best to use the algebraic methods described below.</p></section><section class="subsection" id="Chapter_02-algebraic-addition-of-components"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span>
@@ -352,9 +364,9 @@
 <p id="p-278">This section introduces an alternate method to add multiple vectors which is straightforward, efficient and robust.  This is called <em class="emphasis">algebraic method</em>, because the vector addition is replaced with a process of <em class="emphasis">scalar</em> addition of <em class="emphasis">scalar</em> components. The algebraic technique works equally well for two and three dimensional vectors, and for summing any number of vectors.</p>
 <p id="p-279">To find the sum of multiple vectors using the algebraic:</p>
 <ol class="decimal">
-<li id="li-99">Find the scalar components of each component vector in the \(x\) and \(y\) directions using the P to R procedure described in <a href="cartesian-coords-2d.html#coord-transformation" class="internal" title="Subsection 2.3.3: Coordinate Transformation">Subsection 2.3.3</a>.</li>
-<li id="li-100">Algebraically sum the scalar components in each coordinate direction.  The scalar components will be positive if they point right or up, negative if they point left or down.  These sums are the scalar components of the resultant.</li>
-<li id="li-101">Resolve the resultant’s components to find the magnitude and direction of the resultant vector using the R to P procedure described in <a href="cartesian-coords-2d.html#coord-transformation" class="internal" title="Subsection 2.3.3: Coordinate Transformation">Subsection 2.3.3</a>.</li>
+<li id="li-99"><p id="p-derived-li-99">Find the scalar components of each component vector in the \(x\) and \(y\) directions using the P to R procedure described in <a href="cartesian-coords-2d.html#coord-transformation" class="internal" title="Subsection 2.3.3: Coordinate Transformation">Subsection 2.3.3</a>.</p></li>
+<li id="li-100"><p id="p-derived-li-100">Algebraically sum the scalar components in each coordinate direction.  The scalar components will be positive if they point right or up, negative if they point left or down.  These sums are the scalar components of the resultant.</p></li>
+<li id="li-101"><p id="p-derived-li-101">Resolve the resultant’s components to find the magnitude and direction of the resultant vector using the R to P procedure described in <a href="cartesian-coords-2d.html#coord-transformation" class="internal" title="Subsection 2.3.3: Coordinate Transformation">Subsection 2.3.3</a>.</p></li>
 </ol>
 <p id="p-280">We can write the equation for the resultant \(\vec{F}_R\) as</p>
 <div class="displaymath">
@@ -369,19 +381,18 @@
 \end{equation}
 </div>
 <p id="p-281">This process is illustrated in the following interactive diagram and in the next example.</p>
-<aside class="aside aside-like" id="aside-12"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-282">This interactive represents vector addition \(\vec{R} = \vec{A} + \vec{B} + \vec{C}\text{.}\)</p> <p id="p-283">You can change the magnitude and direction of the three components, and view the resultant.  You can also see the rectangular components of the three component vectors.</p></aside><figure class="figure figure-like" id="figure-25"><iframe id="ggb_rect_components_add_interactive" width="600" height="300" src="ggb_rect_components_add_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.3<span class="period">.</span></span><span class="space"> </span>Vector addition by summing rectangular components.</figcaption></figure><article class="example example-like" id="Chapter_02-example-vector-addition-"><h6 class="heading">
+<aside class="aside aside-like" id="aside-12"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="figure-25"><iframe id="ggb_rect_components_add_interactive" width="600" height="300" src="ggb_rect_components_add_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.3<span class="period">.</span></span><span class="space"> </span>Vector addition by summing rectangular components.</figcaption></figure><article class="example example-like" id="Chapter_02-example-vector-addition-"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.6.4</span><span class="period">.</span><span class="space"> </span><span class="title">Vector Addition.</span>
 </h6>
 <p id="p-286">Vector \(\vec{A} = \N{200} \angle \ang{45}\) counterclockwise from the \(x\) axis,  and vector \(\vec{B} = \N{300}\) \(\angle \ang{70}\) counterclockwise from the \(y\) axis.</p>
 <p id="p-287">Find the resultant \(\vec{R} = \vec{A} + \vec{B}\) by addition of scalar components.</p>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-12" id="answer-12"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-12"><div class="answer solution-like"><div class="displaymath" id="p-288">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-12" id="answer-12"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-12"><div class="answer solution-like"><div class="displaymath" id="p-288">
 \begin{equation*}
 \vec{R} = \N{281.6} \angle \ang{119.9} \text{ counterclockwise from the } x \text{ axis}.
 \end{equation*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-13" id="solution-13"><span class="type">Solution</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-13"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-13" id="solution-13"><span class="type">Solution.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-solution-13"><div class="solution solution-like">
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;"><p id="p-289">Use the given information to draw a sketch of the situation.  By imagining or sketching the parallelogram rule, it should be apparent that the resultant vector points up and to the left.</p></div>
 <div class="sbspanel top" style="width:48%;"><img src="images/example-vector-addition.svg" role="img" class="contained" alt=""></div>
@@ -416,8 +427,7 @@ R \amp = \sqrt{R_x^2 + R_y^2} \\
 <p class="continuation">measured counterclockwise from the x axis.</p>
 </div></div>
 </div></article><p id="p-294">The process for adding vectors in space is exactly the same as in two dimensions, except that an additional \(z\) component is included.  This interactive allows you to input the three-dimensional vector components of forces \(\vec{A}\) and \(\vec{B}\) and view the resultant force \(\vec{R}\) which is the sum of \(\vec{A}\) and \(\vec{B}\text{.}\)</p>
-<aside class="aside aside-like" id="aside-13"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6>
-<p id="p-295">This interactive shows the vector sum of \(\vec{A}\) and \(\vec{B}\text{.}\)</p> <p id="p-296">You may change \(\vec{A}\) and \(\vec{B}\) by moving the red dots.  Click dot to switch between \(x\)-\(y\) mode and \(z\) mode.  Coordinates of \(\vec{A}\) and \(\vec{B}\) can also be entered into the table.</p></aside><figure class="figure figure-like" id="vectors_resultant_3d"><iframe id="ggb_3d-addition_interactive" width="600" height="400" src="ggb_3d-addition_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.5<span class="period">.</span></span><span class="space"> </span>Vector Addition in Three Dimensions</figcaption></figure><p id="p-299"></p></section><section class="subsection" id="Chapter_02-vector-subtraction"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-13"><h6 class="heading"><span class="title">Interactive Diagram.</span></h6></aside><figure class="figure figure-like" id="vectors_resultant_3d"><iframe id="ggb_3d-addition_interactive" width="600" height="400" src="ggb_3d-addition_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.6.5<span class="period">.</span></span><span class="space"> </span>Vector Addition in Three Dimensions</figcaption></figure><p id="p-299"></p></section><section class="subsection" id="Chapter_02-vector-subtraction"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span>
 </h3>
 <p id="p-300">Like one-dimensional vector subtraction, the easiest way to handle two dimensional vector subtraction is by taking the negative of a vector followed by vector addition. Multiplying a vector by -1 preserves its magnitude but flips its direction, which has the effect of changing the sign of the scalar components.</p>

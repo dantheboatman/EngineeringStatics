@@ -23,6 +23,19 @@
   options: {
     ignoreHtmlClass: "tex2jax_ignore",
     processHtmlClass: "has_am",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
   },
   chtml: {
     scale: 0.88,
@@ -168,7 +181,8 @@
 <li class="link">
 <a href="Chapter_04.html" data-scroll="Chapter_04"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
 <li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment">Direction of a Moment</a></li>
-<li><a href="Chapter_04-moments-in-two-dimensions.html" data-scroll="Chapter_04-moments-in-two-dimensions">Moments in Two Dimensions</a></li>
+<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment">Magnitude of a Moment</a></li>
+<li><a href="varignons-theorem.html" data-scroll="varignons-theorem">Varignon’s Theorem</a></li>
 <li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions">Moments in Three Dimensions</a></li>
 <li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples">Couples</a></li>
 <li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations">Equivalent Transformations</a></li>
@@ -278,8 +292,8 @@
 </h2>
 <article class="objectives goal-like" id="objectives-7"><h6 class="heading"><span class="type">Key Questions</span></h6>
 <ul class="disc">
-<li id="li-56">Why are orthogonal coordinate systems useful?</li>
-<li id="li-57">How do you transform between polar and Cartesian coordinates?</li>
+<li id="li-56"><p id="p-derived-li-56">Why are orthogonal coordinate systems useful?</p></li>
+<li id="li-57"><p id="p-derived-li-57">How do you transform between polar and Cartesian coordinates?</p></li>
 </ul></article><section class="introduction" id="introduction-5"><p id="p-120">A coordinate system gives us a frame of reference to describe a system which we would like to analyze.  In statics we normally use <dfn class="terminology">orthogonal</dfn> coordinate systems, where orthogonal means “perpendicular.” In an orthogonal coordinate system the coordinate direction are perpendicular to each other and thereby independent. The intersection of the coordinate axes is called the <dfn class="terminology">origin</dfn>, and measurements are made from there. Both points and vectors are described with a set of numbers called the <dfn class="terminology">coordinates</dfn>.  For points in space, the coordinates specify the distance you must travel in each of the coordinate directions to get from the origin to the point in question. Together, the coordinates can be thought of as specifying a <dfn class="terminology">position vector</dfn>, a vector from the origin directly to the point.  The position vector gives the magnitude and direction needed to travel directly from the origin to the point.</p>
 <p id="p-121">In the case of force vectors, the coordinates are the <dfn class="terminology">scalar components</dfn> of the force in each of the coordinate directions.  These components locate the tip of the vector and they can be interpreted as the fraction of the total force which acts in each of the coordinate directions.</p>
 <p id="p-122">Three coordinate directions are needed to map our real three-dimensional world, but in this section we will start with two, simpler, two-dimensional orthogonal systems: <dfn class="terminology">rectangular</dfn> and <dfn class="terminology">polar</dfn> coordinates<dfn class="terminology">,</dfn> and the tools to convert from one to the other.</p></section><section class="subsection" id="rectangular-coords"><h3 class="heading hide-type">
@@ -360,8 +374,8 @@ A_y \amp = A \sin \theta\tag{2.3.11}\\
 <div class="sbspanel middle" style="width:42.1052631578947%;"><img src="images/example-r-to-p.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-4" id="answer-4"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-4"><div class="answer solution-like"><p id="p-137">\(P = (10\; ; 150°)\)</p></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-4" id="solution-4"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-4"><div class="solution solution-like">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-4" id="answer-4"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-4"><div class="answer solution-like"><p id="p-137">\(P = (10\; ; 150°)\)</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-4" id="solution-4"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-4"><div class="solution solution-like">
 <p id="p-138">Given:  \(x = -8.66\text{,}\) \(y = 5\)</p>
 <div class="displaymath" id="p-139">
 \begin{align*}
@@ -380,7 +394,7 @@ P = (10; \ang{150})
 \end{gather*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-5" id="solution-5"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-5"><div class="solution solution-like"><p id="p-144">Most scientific calculators include handy polar-to-rectangular and rectangular-to-polar functions which can save you time and help you avoid errors.  Perhaps you should <a class="external" href="https://lmgtfy.com/?q=ti-83+rectangular+to+polar" target="_blank">google your calculator model</a> to find out if yours does and learn how to use it?</p></div></div>
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-5" id="solution-5"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-5"><div class="solution solution-like"><p id="p-144">Most scientific calculators include handy polar-to-rectangular and rectangular-to-polar functions which can save you time and help you avoid errors.  Perhaps you should <a class="external" href="https://lmgtfy.com/?q=ti-83+rectangular+to+polar" target="_blank">google your calculator model</a> to find out if yours does and learn how to use it?</p></div></div>
 </div></article><article class="example example-like" id="ex-coord-transform-2"><h6 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.3.6</span><span class="period">.</span><span class="space"> </span><span class="title">Polar to Rectangluar Representation.</span>
 </h6>
@@ -389,12 +403,12 @@ P = (10; \ang{150})
 <div class="sbspanel middle" style="width:42.1052631578947%;"><img src="images/example-p-to-r.svg" role="img" class="contained" alt=""></div>
 </div></div>
 <div class="solutions">
-<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-5" id="answer-5"><span class="type">Answer</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-5"><div class="answer solution-like"><div class="displaymath" id="p-146">
+<a data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-5" id="answer-5"><span class="type">Answer.</span> </a><div class="hidden-content tex2jax_ignore" id="hk-answer-5"><div class="answer solution-like"><div class="displaymath" id="p-146">
 \begin{gather*}
 \vec{F} = \langle \N{-173.2}, \N{-100} \rangle 
 \end{gather*}
 </div></div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-6" id="solution-6"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-6"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-6" id="solution-6"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">1</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-6"><div class="solution solution-like">
 <p id="p-147">Given: The magnitude of force \(\vec{F} = \N{200}\text{,}\) and from the diagram we see that the direction of \(\vec{F}\) is \(\ang{30}\) counterclockwise from the negative \(x\) axis.</p>
 <p id="p-148">Letting \(\theta = \ang{30}\) we can find the components of \(\vec{F}\) with right triangle trigonometry.</p>
 <div class="displaymath" id="p-149">
@@ -412,7 +426,7 @@ F_x \amp = F \cos \theta    \amp F_y \amp = F \sin \theta\\
 \end{equation*}
 </div>
 </div></div>
-<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-7" id="solution-7"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-7"><div class="solution solution-like">
+<a data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-7" id="solution-7"><span class="type">Solution.</span> <span class="space"> </span><span class="codenumber">2</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-7"><div class="solution solution-like">
 <p id="p-152">If you would prefer not to apply the negative signs by hand, you can convert the \(\ang{30}\) to an angle measured from the positive \(x\) axis and let your calculator take care of the signs.  You may use either \(\theta = \ang{30} \pm \ang{180}\text{.}\)</p>
 <p id="p-153">For \(\theta = \ang{-150}\)</p>
 <div class="displaymath" id="p-154">
