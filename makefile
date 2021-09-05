@@ -33,7 +33,7 @@ HTML: info folders css xslt numbas $(images) tidy
 publish:
 	-rm -r $(WEBDIR)/* 
 	cp -R $(HTMLOUT)/ $(WEBDIR)
-	rm $(WEBDIR)/images/images
+# 	rm $(WEBDIR)/images/images
 	echo engineeringstatics.org > $(WEBDIR)/CNAME
 	mkdir $(WEBDIR)/pdf
 	cp $(PDFOUT)/statics.pdf $(WEBDIR)/pdf
@@ -129,7 +129,7 @@ folders:
 #
 #Formats all pretext files consistently
 tidy:
-	@echo  tidying up ptx files:
+	@echo  Format the ptx files:
 	for file in  $(SOURCE)/*.ptx ; do \
 		xmllint --format -o $${file}  $${file};\
 	done 
