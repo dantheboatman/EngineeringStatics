@@ -107,9 +107,11 @@ asy:
 #  Utilities
 ###############################################
 info:
-	@echo   PreText Source-------- $(MAINFILE)
+	@echo   PreTeXt Source-------- $(MAINFILE)
+	@echo   PreTeXt User Folder--- $(MBUSR)
 	@echo   HTML XSLT file-------- $(HTMLXSLT)
 	@echo   LaTeX XSLT file------- $(LATEXXSLT)
+	@echo   Custom XSLT ---------- $(CUSTOM)
 	@echo   Publisher file-------- $(PUBLISHER)
 	@echo   Resource Folder------- $(RESOURCES)
 	@echo   BUILD----------------- $(realpath $(BUILD))
@@ -127,6 +129,7 @@ folders:
 	@[ -d $(HTMLOUT) ] || mkdir $(HTMLOUT)
 	@[ -d $(PDFOUT) ] || mkdir $(PDFOUT)
 	@[ -d $(IMAGESOUT) ] || mkdir $(IMAGESOUT)
+	@[ -d $(MBUSR) ] || mkdir $(MBUSR)
 #
 #Formats all pretext files consistently
 tidy:
