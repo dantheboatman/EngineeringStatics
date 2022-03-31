@@ -1,3 +1,16 @@
+div#questionDisplay {
+   font-family: times, serif;
+}
+.container-fluid {
+   padding: 0;
+}
+.statement {
+   margin: 0;
+   padding: 1em;
+}
+.question .parts {
+   margin-left: 2em;
+}
 :root {
     --background-colour: white;
     --text-colour: black;
@@ -7479,8 +7492,10 @@ input, select {
 
 .invisible {
     position: absolute !important;
-    left: -20000px;
-    top: -20000px;
+    left: -2000000px;
+    top: -2000000px;
+    max-height: 100vh;
+    overflow-y: scroll;
 }
 
 #everything th, #everything td {
@@ -7604,7 +7619,7 @@ img, object[type*="image"] {
 		display: inherit;
 	}
 
-	.show-nav.navigate-sequence #questionContainer, .show-nav.navigate-sequence > footer {
+	.show-nav.show-sidebar #questionContainer, .show-nav.show-sidebar > footer {
 		margin-left: 300px;
     }
 	.show-nav #questionContainer, .show-nav > footer {
@@ -7620,10 +7635,10 @@ img, object[type*="image"] {
 	#everything {
 		padding-left: 0;
 	}
-	#questionContainer {
+	.navigate-sequence #questionContainer, .navigate-menu #questionContainer {
 		margin-top: 51px;
 	}
-	.show-nav.navigate-sequence #questionContainer, .show-nav.navigate-sequence > footer {
+	.show-nav.show-sidebar #questionContainer, .show-nav.show-sidebar > footer {
 		margin-left: auto;
 	}
 }
@@ -7678,6 +7693,10 @@ input.jme {
 	vertical-align: middle;
 	max-width: 100%;
 	overflow-x: auto;
+}
+#everything .matrix-input thead th {
+    background: none;
+    font-weight: normal;
 }
 .matrix-input table.matrix {
     width: auto;
@@ -7883,6 +7902,23 @@ input.jme {
 	padding-top: 1em;
 }
 
+#skills-table .active {
+    font-weight: bold;
+}
+
+#learning-objective-list > li .name {
+    flex-grow: 1;
+    margin-right: 1em;
+}
+
+#learning-objective-list > li {
+    display: flex;
+    padding: 0.2em 0.5em;
+}
+#learning-objective-list > li:last-child {
+    font-weight: bold;
+}
+
 .examScore {
 	font-weight: bold;
 	font-size: 1.2em;
@@ -8035,6 +8071,22 @@ input.jme {
 
 #question-breakdown .btn.review {
     padding: 0;
+}
+
+.diagnostic-feedback {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--main-colour);
+    border-radius: 3px;
+    border: 1px solid var(--main-darker);
+}
+
+#diagnostic-breakdown .total td {
+    font-weight: bold;
+}
+
+#diagnostic-breakdown .score {
+  text-align: right;
 }
 
 /* question bits */
@@ -8255,7 +8307,8 @@ select.multiplechoice {
     font-size: 0.9em;
     font-style: italic;
 }
-.part.dirty > .submit-and-feedback > .feedbackMessages .feedbackMessage {
+.part.dirty > .submit-and-feedback > .feedbackMessages .feedbackMessage,
+.part.dirty .student-answer .feedback-icon {
     opacity: 0.3;
 }
 
@@ -8401,6 +8454,14 @@ input[type=text], input[type=number] {
   background: #a2d1f0;
 }
 
+#next-actions-modal .feedback {
+  margin-bottom: 1em;
+}
+
+#next-actions-modal .actions > li ~ li {
+  margin-top: 1em;
+}
+
 #lightbox {
     position: fixed;
     left: 0;
@@ -8446,8 +8507,23 @@ input[type=text], input[type=number] {
 	padding: 0em 0.2em;
 }
 
-body.navigate-sequence .question-header {
+body.navigate-sequence .question-header,
+body.navigate-diagnostic .question-header
+{
     display: none;
+}
+
+.sr-only#skip-link:focus {
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.5em;
+  background: var(--main-colour);
+  z-index: 2000;
+  color: black;
+  clip: initial;
 }
 
 @media print {
@@ -8595,17 +8671,4 @@ ul.nav li.pull-right button, div#menu .navbar-btn{
 div.statement{    
   position: relative;
     top: 1em;
-}
-div#questionDisplay {
-   font-family: times, serif;
-}
-.container-fluid {
-   padding: 0;
-}
-.statement {
-   margin: 0;
-   padding: 1em;
-}
-.question .parts {
-   margin-left: 2em;
 }
