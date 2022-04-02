@@ -207,7 +207,7 @@ One hand holding an object versus two hands holding the same object.
     <p>Under these conditions <xref ref="second-law" text="custom"> Newton's Second Law for translation</xref> reduces to <men xml:id="SigmaF2">\sum \vec{F} = 0 </men>,  </p>
     <p>and, <xref ref="second-law-rotation" text="custom"> Newton's second law for rotation</xref> gives the similar equation <men xml:id="SigmaM2">\sum \vec{M} = 0 </men>.   </p>
     <p>The first of these equations requires that all forces acting on an object balance and cancel each other out, and the second requires that all moments balance as well. Together, these two equations are the mathematical basis of this course and are sufficient to evaluate equilibrium for systems with up to six degrees of freedom.  </p>
-    <p>These are vector equations; hidden within each are three independent scalar equations, one for each coordinate direction 
+    <p>These are vector equations; hidden within each are three independent scalar equations, one for each coordinate direction.
 <mdn><mrow xml:id="scalar-eqns"> \sum\vec{F}  \amp= 0 \implies  \begin{cases}\Sigma F_x \amp= 0\\ \Sigma F_y \amp= 0 \\ \Sigma F_z \amp= 0\end{cases} \amp 
 \sum\vec{M}  \amp= 0 \implies  \begin{cases}\Sigma M_x \amp= 0\\ \Sigma M_y \amp= 0 \\ \Sigma M_z \amp= 0\end{cases}</mrow></mdn>.
 Working with these scalar equations is often easier than using their vector equivalents, particularly in two-dimensional problems.</p>
@@ -382,10 +382,93 @@ x
     </paragraphs>
     <paragraphs>
       <title>Three-dimensional Equilibrium Examples</title>
-      <p>
-        <!--todo need 3d examples -->
-      </p>
-      <p>[TBD]</p>
+      <example xml:id="Chapter_05-example-3d-bent-bar">
+        <title>3D Bent Bar</title>
+        <statement>
+          <p>The bent bar shown is held in a horizontal plane by a fixed connection at <m>C</m> while cable <m>AB</m> exerts a <m>\lb{500}</m> force on point <m>A</m>.  </p>
+          <p>Given <m>A = (4,4,5)</m>
+                  <m>B = (6,0,4)</m> and <m>C = (0,4,0)</m>.</p>
+          <image width="50%" source="images/3d-bent-bar-space"/>
+          <p>Find the reaction force <m>\vec{C}</m> and concentrated moment <m>\vec{M}</m> with components <m>M_x</m>, <m>M_y</m> and <m>M_z</m>  required to hold the bar in this position under this condition, </p>
+        </statement>
+        <answer>
+          <me> \vec{C} = \lb{(-218 \ihat + 436 \jhat + 109 \khat)}</me>
+          <me> \vec{M} = \ftlb{(-2180 \ihat -1530 \jhat + 1750 \khat)}</me>
+        </answer>
+        <solution>
+          <p>
+            <ol>
+              <li>
+                <title>Draw a free-body diagram</title>
+                <p/>
+                <p>As always, begin by drawing a free-body diagram.</p>
+                <image source="images/3d-bent-bar-fbd" width="50%"/>
+              </li>
+              <li>
+                <title>Determine the force acting at point <m>A</m> in Cartesian form</title>
+                <p/>
+                <!-- newline after li/title <-->
+                <p>The force of the cable acts from <m>A</m> to <m>B</m>.  This direction is described by the displacement vector from <m>A</m> to <m>B</m>
+                           <me>\vec{r}_{AB} = \ft{(2 \ihat- 4 \jhat - 1 \khat )} </me> or the corresponding unit vector <md><mrow> \lambda_{AB} \amp = \frac{\vec{r}_{AB}}{\left|\vec{r}_{AB}\right|} </mrow><mrow> \amp = \frac{2 \ihat- 4 \jhat - 1 \khat}{\sqrt{(2)^2 + (-4)^2 + (-1)^2 }}</mrow><mrow> \amp = \frac{2 \ihat- 4 \jhat - 1 \khat}{\sqrt{21}} </mrow></md>. </p>
+                <p>Multiplying the unit vector by the cable tension gives the force acting on <m>A</m> as a three-dimensional Cartesian force vector
+<md><mrow> \vec{F} \amp = \lambda_{AB} T </mrow><mrow> \amp = \left( \frac{2 \ihat - 4\jhat- 1 \khat}{\sqrt{21}} \right) \lb{500}</mrow><mrow> \amp = \left( 2 \ihat - 4\jhat- 1 \khat \right) \lb{\left(\frac{500}{\sqrt{21}}\right)}</mrow></md>
+                           <me>\vec{F} =  \lb{(218 \ihat - 436 \jhat - 109 \khat)}</me>.
+</p>
+              </li>
+              <li>
+                <title>Determine the moment about <m>C</m>
+                        </title>
+                <p/>
+                <!-- newline after li/title <-->
+                <p>The moment about point <m>C</m> is found with the <xref ref="rxf"> cross product </xref> where the moment arm is the displacement vector from <m>C</m> to <m>A</m>. <me> \vec{r}_{CA} = \ft{(4 \ihat- 0 \jhat - 5 \khat )} </me>
+                        </p>
+                <p>
+                  <md>
+                    <mrow>\vec{M}_C  \amp =  \vec{r}_{CA} \times \vec{F} </mrow>
+                    <mrow>\amp =  \begin{vmatrix} \ihat  \amp \jhat  \amp  \khat \\
+ 4  \amp  0 \amp   5 \\ 
+ 2 \amp   -4  \amp  -1 \\
+\end{vmatrix} \left(\frac{500}{\sqrt{21}}\right)
+</mrow>
+                  </md>
+                  <me> \vec{M}_C  = \ftlb{(2182 \ihat + 1528 \jhat - 1746 \khat)}</me>
+                </p>
+              </li>
+              <li>
+                <title>Apply the equations of equilibrium</title>
+                <p>
+                  <md>
+                    <mrow>\Sigma \vec{F} \amp = 0 \qquad
+\begin{cases}
+\Sigma F_x = 0 : \amp C_x + F_x = 0 \\
+\amp C_x = - \lb{218} \\
+\Sigma T_y = 0 :\amp C_y - F_y  = 0 \\
+\amp  C_y  = + \lb{436} \\
+\Sigma T_z = 0 :  \amp C_z - F_z  = 0 \\
+\amp C_z = + \lb{109} \\
+\end{cases}
+ </mrow>
+                    <mrow/>
+                    <mrow>\Sigma \vec{M} \amp = 0  \qquad 
+\begin{cases}
+\Sigma M_x  = 0 :\amp M_x + {M_C}_x = 0 \\
+\amp M_x = \ftlb{-2180} \\
+\Sigma M_y  = 0 : \amp M_y +  {M_C}_y = 0 \\
+\amp M_y = \ftlb{-1530} \\
+\Sigma M_z  = 0 : \amp M_z +{M_C}_z = 0 \\
+\amp M_z = \ftlb{+1750} \\
+\end{cases} 
+</mrow>
+                  </md>
+                </p>
+                <p>The resulting vector equations for the reaction force <m>\vec{C}</m> and reaction moment <m>\vec{M}</m> are 
+<md><mrow> \vec{C} \amp= \lb{(-218 \ihat + 436 \jhat + 109 \khat)}</mrow><mrow> \vec{M} \amp = \ftlb{(-2180 \ihat -1530 \jhat + 1750 \khat)}</mrow></md>.
+</p>
+              </li>
+            </ol>
+          </p>
+        </solution>
+      </example>
     </paragraphs>
   </section>
   <section xml:id="Chapter_05-stability-and-determinacy">
