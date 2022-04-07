@@ -441,24 +441,470 @@ Machines contain multi-force members that can move relative to one another.
     </subsection>
     <subsection xml:id="Chapter_06-procedure">
       <title>Procedure</title>
-      <p>The process used to analyze frames and machines is outlined below
+      <introduction>
+        <p>The process used to analyze frames and machines is outlined below
 <ol><li><p>Determine if the entire structure as independently rigid.  An independently rigid structure will hold it shape even when separated from its supports. Look for triangles formed among the members, as triangles are inherently rigid.  If it is not independently rigid, the structure will collapse when the supports are removed.</p><p>If the structure is not independently rigid, skip to the next step.  Otherwise, model it as a single rigid body and determine the external reaction forces.</p></li><li><p>Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:
 <ul><li>Applied forces and couples and the weights of the components if non-negligible.</li><li>Interaction forces due to two-force members.  There will be force of unknown magnitude but the known direction at  points connected to two-force members.  The forces will act along the line between the two connection points. </li><li>All reaction forces and couples at the connection points between members. Forces with an unknown magnitude and direction are usually represented by  unknown <m>x</m> and <m>y</m> components, but can also be represented as a force with unknown magnitude acting in an unknown direction.</li></ul>
-                  </p><p>All interaction forces and couples between connected bodies <em>must</em> be shown as equal-and-opposite action-reaction pairs.</p><sidebyside widths="40% 53%" margins="0%"><figure xml:id="frame-example-fbd"><caption>Free-body digram of a rigid frame with pin at <m>A</m>, roller at <m>E</m>, and load at <m>F</m>.</caption><image source="images/Example-frame"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure><figure xml:id="frame-example-exploded"><caption>
+                     </p><p>All interaction forces and couples between connected bodies <em>must</em> be shown as equal-and-opposite action-reaction pairs.</p><sidebyside widths="40% 53%" margins="0%"><figure xml:id="frame-example-fbd"><caption>Free-body digram of a rigid frame with pin at <m>A</m>, roller at <m>E</m>, and load at <m>F</m>.</caption><image source="images/Example-frame"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure><figure xml:id="frame-example-exploded"><caption>
 Free body diagrams of the individual components. External forces are red, exposed action-reaction pairs in blue.
    </caption><image source="images/Example-frame-exploded"><remix><creator href="https://weh.maritime.edu">William Haynes</creator><license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license></remix></image></figure></sidebyside></li><li><p>Write out the equilibrium equations for each free-body diagram. </p></li><li><p>Solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.</p></li></ol>
-         </p>
-      <p>In the following example, we’ll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free body diagrams, and identify a good solution strategy.</p>
-      <insight>
-        <title>Why does the Method of Joints work on trusses but fail on Frames and Machines?</title>
-        <p>	We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em>one</em> unknown.</p>
-        <p>Frames and machines are made of multi-force members and cutting these, in general, exposes:
-<ul><li>A force with an unknown magnitude acting in an unknown direction, and </li><li>A bending moment at the plane of the cut. </li></ul>
             </p>
-        <p>Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve. </p>
-        <p>Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</p>
-      </insight>
+        <p>In the following example, we’ll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free body diagrams, and identify a good solution strategy.</p>
+      </introduction>
+      <subsubsection xml:id="Chapter_06-free-body-diagram-of-structures">
+        <title>Free-body diagram of structures</title>
+        <p>Drawing free-body diagrams of complex frames and machines can be tricky.  In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.  </p>
+        <p>The toggle clamp shown in  <xref ref="toggle-clamp-01"/>  is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints. The component parts are shown and named in <xref ref="toggle-clamp-02"/>.</p>
+        <sidebyside widths="40% 50%" margins="0%">
+          <figure xml:id="toggle-clamp-01">
+            <caption>Original diagram</caption>
+            <image source="images/toggle-clamp-01">
+              <remix>
+                <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              </remix>
+            </image>
+          </figure>
+          <figure xml:id="toggle-clamp-02">
+            <caption>
+Component parts.
+   </caption>
+            <image source="images/toggle-clamp-02">
+              <remix>
+                <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              </remix>
+            </image>
+          </figure>
+        </sidebyside>
+        <p>This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated. The only force shown is <m>F,</m> which is supplied by some external agent, presumably the machine operator. We must assume that the wall and floor are still attached to the world and held fixed.  </p>
+        <p>To perform an equilibrium analysis, we need to develop one or more free body diagrams and apply the equations of equilibrium to them.  Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts.  Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need.  In any event, a clear decision must always be made about what is part of the free-body and what is not. </p>
+        <p>When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation.  These forces and moments must be represented on the free body diagrams consistently as halves of an equal-and-opposite action-reaction pairs.</p>
+        <p>For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains.  In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams.  In an actual situation you should not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.</p>
+        <p>It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams.  In the diagrams to follow, unknown forces will be drawn in blue.  </p>
+        <paragraphs>
+          <title>Exclude the floor</title>
+          <p>To begin, we can remove the floor from the system. Everything except the floor is now included as our body; only the floor is excluded. The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall. </p>
+          <p>Since we don’t know how the wall and the floor are connected we will assume they were fixed together.  We also have to model how the wall is attached to the rest of the world. The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <m>V_x</m> and <m>V_y</m>, and a concentrated moment <m>M_v</m>. </p>
+          <p/>
+          <figure xml:id="toggle-clamp-03">
+            <caption> Free-body Diagram 1
+   </caption>
+            <sidebyside valign="middle" widths="40% 55%">
+              <image source="images/toggle-clamp-03">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Wall, Bearing <m>A</m>
+                              </p>
+                  </cell>
+                  <cell>
+                    <p>Floor</p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+          <p>The effect of the floor on the block is is represented by a single vertical force <m>G</m> which holds the block the same way the floor used to be holding it; the loads you add must constrain your object the same way they were constrained in the real world.  This representation is really a simplification of the actual situation since the force of the floor is actually distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we replace the weight of an object by a single force acting at its center of gravity.</p>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>Include friction if it’s given or obvious.</li>
+                <li>Internal forces in rigid bodies should be modeled as a fixed support.</li>
+                <li>If you need info which you don’t have, select a variable to act as its name.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Exclude the wall</title>
+          <p>If you next remove the wall, forces <m>G</m> and <m>F</m> remain from before, but we now expose three loads from where the wall was connected to what is now our body; a normal force <m>N</m> at the roller and three loads from the fixed support between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>. </p>
+          <figure>
+            <caption> Free-body diagram 2</caption>
+            <sidebyside valign="middle" widths="30% 65%">
+              <image source="images/toggle-clamp-04">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Bearing <m>A</m>
+                              </p>
+                  </cell>
+                  <cell>
+                    <p>Floor, Wall</p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+          <p>Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table. Only loads that cross from included to excluded produce a load on the free-body diagram. </p>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>Every force needs a point of application and a clear arrowhead.</li>
+                <li>Indicate any distances and angles needed and not available on the original digram.</li>
+                <li>Define the direction of forces which are not vertical or horizontal with an angle from a reference direction. </li>
+                <li>Define a coordinate system unless you are using the standard <m>x</m>-<m>y</m> axes.</li>
+                <li>Do not add forces that don’t act on your body.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Exclude the bearing at <m>A</m>
+               </title>
+          <p>We are not interested in the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m> and further, the free-body diagram still includes too many unknowns to solve. </p>
+          <p>By removing the bearing we now have two loads instead of three  at <m>A</m> because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support. The loads <m>W_x</m>, <m>W_y</m>, and <m>M</m> and<m> V_x</m>, <m>V_y</m>, and <m>M_v</m> are not included on this free-body diagram because they don’t act on this object. </p>
+          <figure>
+            <caption> Free-body diagram 3</caption>
+            <sidebyside valign="middle" widths="30% 65%">
+              <image source="images/toggle-clamp-05">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>,
+                        </p>
+                  </cell>
+                  <cell>
+                    <p>Floor, Wall, Bearing <m>A</m>
+                              </p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+          <p>The load from the short link at <m>B</m> is does not appear on this free-body diagram because it is internal. Loads that connect two parts of the body together should not included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.  Only forces that cross the boundary from between the object and the rest of world should appear on the free-body diagram. </p>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>Look for free body diagrams which include only three unknowns in two dimensions or six unknowns in three. </li>
+                <li>Don’t include internal loads on your free-body diagrams.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Examine the wooden block</title>
+          <figure>
+            <caption> Free-body diagram 4 (block)</caption>
+            <sidebyside valign="middle" widths="15% 80%">
+              <image source="images/toggle-clamp-07">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <stack>
+                <p>A free-body diagram of the block shows that <m>D_y \ne G</m>. These forces are given different names since they may have different magnitudes.  </p>
+                <p>If the weight of the block is small<fn>(less than about 0.1%)</fn> in comparison to the other forces acting on the object it may be neglected, in which case <m>D_y = G</m> and they could be given the same name.  </p>
+              </stack>
+            </sidebyside>
+          </figure>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>If the two forces are not the same don't identify them by the same name.</li>
+                <li>Make as few assumptions as you possibly can. Make a note of any assumptions you make.</li>
+                <li>In textbook problems, if the weight of an object is not mentioned it may be neglected.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Exclude the wooden block</title>
+          <p>We can further simplify the diagram by removing the wooden block, leaving only the roller, shortlink and lever.</p>
+          <figure xml:id="toggle-clamp-06">
+            <caption> Free-body diagram 5</caption>
+            <sidebyside valign="middle" widths="30% 65%">
+              <image source="images/toggle-clamp-06">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>, Short Link <m>BD</m>, Roller <m>D</m>
+                              </p>
+                  </cell>
+                  <cell>
+                    <p>Floor, Wall, Bearing <m>A</m>, Wooden Block</p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+        </paragraphs>
+        <paragraphs>
+          <title>Examine the short link <m>BD</m>
+               </title>
+          <p>The short link <m>BD</m> is a two-force body, and as discussed in <xref ref="two-force-bodies"/> it can only be in equilibrium if the forces at <m>B</m> and <m>D</m> are equal-and-opposite and act along a line passing through these two points.  This means that the 24:7 slope of the link determines the direction of force <m>BD</m>.</p>
+          <figure>
+            <caption>Free-body diagram 6 (short link)</caption>
+            <sidebyside valign="middle" widths="15% 80%">
+              <image source="images/toggle-clamp-11">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <p>When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <m>x</m> and <m>y</m> components are not independent but are related by the direction of the force. </p>
+            </sidebyside>
+          </figure>
+          <p>Here we have assumed that the forces acting on the link are tensile.  If the equilibrium equations produce a positive value for <m>BD</m> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in compression.  </p>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>A short-link is a two-force body.</li>
+                <li>Recognize two-force bodies because they give you information about direction.</li>
+                <li>Represent the force of a two-force bodies as a force with unknown magnitude acting acting along a known line of action, not as <m>x</m> and <m>y</m> components.</li>
+                <li>If you don't know the sense of a force along its line of action, assume one.  If you guess wrong, the analysis will give you a negative value.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Examine the roller at <m>D</m>
+               </title>
+          <figure>
+            <caption> Free-body diagram 7 (roller)</caption>
+            <sidebyside valign="middle" widths="15% 80%">
+              <image source="images/toggle-clamp-09">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <p>Note that the force <m>BD</m> acting on the is shown pointing up and to the right.  This is the opposite to the force acting on the link at <m>D</m>, which acts down and to the left.  These two must act in opposite directions because they are an action-reaction pair.</p>
+            </sidebyside>
+          </figure>
+          <p>The roller is a three-force body, so the lines of action of <m>N</m>, <m>D_y</m>, and <m>BD</m> are coincident and it may be treated as a particle. </p>
+          <p>Equilibrium analysis shows that <m>N</m> and <m>D_y</m> must oppose the horizontal and vertical components of force <m>BD</m>.  We have assumed that member <m>BD</m> is in tension, but it is actually in compression so vector <m>BD</m> points in the opposite direction of the force shown on the free-body diagram.  This will be revealed by the analysis.</p>
+          <p>The clamping force produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.</p>
+          <assemblage>
+            <title>Tips</title>
+            <p>
+              <ul>
+                <li>Recognize three-force bodies and use their special properties to your advantage.</li>
+                <li>Use the same name for the exposed forces on interacting bodies since they are equal-and-opposite halves of an action-reaction pair.</li>
+              </ul>
+            </p>
+          </assemblage>
+        </paragraphs>
+        <paragraphs>
+          <title>Exclude the roller</title>
+          <p>We can further simplify the free-body diagram by removing the roller. The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action <mdash/> the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint. </p>
+          <figure>
+            <caption> Free-body diagram 8</caption>
+            <sidebyside valign="middle" widths="30% 65%">
+              <image source="images/toggle-clamp-08">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>, Short Link <m>BD</m>
+                              </p>
+                  </cell>
+                  <cell>
+                    <p>Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>
+                              </p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+        </paragraphs>
+        <paragraphs>
+          <title>Exclude the short link</title>
+          <p>The previous free-body diagram has three unknowns and can be solved but equally good is the free-body diagram of the lever by itself, and this is the free-body diagram that most people start with.</p>
+          <figure>
+            <caption> Free-body diagram 9 (lever) </caption>
+            <sidebyside valign="middle" widths="30% 65%">
+              <image source="images/toggle-clamp-10">
+                <remix>
+                  <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                  <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                </remix>
+              </image>
+              <tabular bottom="minor" valign="top">
+                <col width="33%" halign="left"/>
+                <col width="66%" halign="left"/>
+                <row header="yes" bottom="medium">
+                  <cell>
+                Included
+            </cell>
+                  <cell>
+                Excluded
+            </cell>
+                </row>
+                <row>
+                  <cell>
+                    <p>Lever <m>ABC</m>
+                              </p>
+                  </cell>
+                  <cell>
+                    <p>Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>, Short Link <m>BD</m>
+                              </p>
+                  </cell>
+                </row>
+              </tabular>
+            </sidebyside>
+          </figure>
+          <p>The load <m>BD</m> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <m>D</m>, so this this can be thought of as sliding a force along its line of action <mdash/> an equivalent transformation.</p>
+          <p>The following loads are not shown on this free-body diagram because they act between two objects which are not part of the body: 
+<ul><li>the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>, </li><li>the loads between the floor and the wall <m>V_x</m>, <m>V_y</m>, and <m>M_v</m>, </li><li>the load between the block and the floor <m>G</m>, and </li><li>the load between the roller and the wall <m>N</m>.</li></ul>
+               </p>
+        </paragraphs>
+        <p>All of the free-body diagrams we have drawn are correct, though not all are necessary and some are more useful than others.  We do not generally draw any but the free-body diagrams needed for the solution.  These diagrams form a chain of objects which connect the known input forces to the desired output forces.  When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which of your FBD choices you will need.  Taking a few moments to consider what unknowns you’d have at each step can help you optimize your problem-solving effort. </p>
+        <p>You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results.  Consider the diagram below.</p>
+        <figure>
+          <caption>Free-body diagram 10 (Subtly incorrect)</caption>
+          <sidebyside valign="middle" widths="30% 65%">
+            <image source="images/toggle-clamp-12" width="30%">
+              <remix>
+                <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+              </remix>
+            </image>
+            <p>This diagram doesn't accurately represent what is happening at pin <m>D</m>.</p>
+          </sidebyside>
+        </figure>
+        <p>Forces <m>N</m> and <m>D_y</m> do not actually act on the short link at <m>D</m>. Force <m>N</m> acts between the roller and the wall and clearly this diagram doesn’t include the roller. Similarly <m>D_y</m> acts between the block and the roller.  These forces don't belong on the free-body diagram even though they are equal to the <m>x</m> and <m>y</m> components of force <m>BD</m>.   Forces which cross the boundary between included and excluded items are external loads and belong on the FBD. Forces which hold parts of the free body together are internal and do not.  Internal loads should not be shown because they always occur in action-reaction pairs which cancel each other out.  Other loads are irelevant because they don't act on the body at all <mdash/> like the connection between the wall and the floor. </p>
+        <p>Students are inclined argue that this free-body diagram is statically equivalent to <xref ref="toggle-clamp-06 "/> and it produces the correct answer so it must be ok.  It isn't because it reflects a misunderstanding about what you are modeling and what you aren’t. Other engineers using your FBDs need to know what you are modeling. The FBD is the key to your analysis of the real world. </p>
+        <example xml:id="Chapter_06-example-toggle-clamp">
+          <title>Toggle Clamp</title>
+          <statement>
+            <p>Knowing that angle <m>\theta= 60°</m>, find the vertical clamping force acting on the piece at <m>D</m> and the magnitude of the force exerted on member <m>ABC</m> at pin <m>B</m> in terms of force <m>F</m> applied to the clamp arm at <m>C</m>.</p>
+            <image source="images/toggle-clamp3" width="40%"/>
+          </statement>
+          <answer>
+            <p>
+              <md>
+                <mrow> BD    =  2.52 F </mrow>
+                <mrow> D_y = 0.735 F</mrow>
+              </md>
+            </p>
+          </answer>
+          <solution>
+            <p>For this problem, we need two free-body diagrams.  The first links the input force <m>F</m> to the link force <m>BD,</m> and the second links <m>BD</m> to the clamping force <m>D_y</m>.</p>
+            <figure>
+              <caption/>
+              <sidebyside widths="35% 35%">
+                <figure>
+                  <caption>FBD I</caption>
+                  <image source="images/toggle-clamp-10">
+                    <remix>
+                      <creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+                      <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                    </remix>
+                  </image>
+                </figure>
+                <figure>
+                  <caption>FBD II</caption>
+                  <image source="images/toggle-clamp-13">
+                    <remix>
+                      <creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+                      <license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+                    </remix>
+                  </image>
+                </figure>
+              </sidebyside>
+            </figure>
+            <p>Applying <m>\sum M= 0</m> at <m>A</m> to the free-body diagram of the lever gives <m>BD</m> in terms of <m>F</m>.
+<md><mrow> \text{FBD I:}\quad  \Sigma M_A \amp = 0 </mrow><mrow> - BD_x(24) - BD_y(7)  - F_x (40) - F_y ( 16) \amp= 0 </mrow><mrow>\left(\frac{7}{25} BD\right) (24) + \left(\frac{24}{25} BD \right) (7)  \amp= - (F \cos \ang{60}) ( 40) - (F \sin \ang{60}) (16) </mrow><mrow>13.44 BD   \amp = - 33.86 F</mrow><mrow>BD   \amp = - 2.52 F</mrow></md>
+                  </p>
+            <p>The negative sign on the answer reveals that although we assumed that <m>BD</m> acted down and to the left on point <m>B</m>, it actually acts up and to the right at an angle of <me>\alpha = \tan^{-1} (24/7) = \ang{73.7}</me> from the horizontal.  Removing the negative sign give the magnitude of force \vec{BE}, <me> BE = 2.52 F</me>. </p>
+            <p>Then <m>\sum F_y=0</m> on applied to the FBD of the roller will let you solve for <m>D_y</m> in terms of <m>F</m>. 
+<md><mrow> \text{FBD II:}\quad  \Sigma F_y \amp = 0 </mrow><mrow> D_y + BD_y \amp= 0 </mrow><mrow> D_y \amp= - \frac{7}{24} BD</mrow><mrow> \amp = - \frac{7}{24} (-2.52 F)</mrow><mrow> \amp =   0.735 F</mrow></md>
+                  </p>
+            <p>While you could certainly find <m>A_x</m>, <m>A_y</m> and <m>N</m> using other equilibrium equations they aren't needed and we don't bother to find them.</p>
+          </solution>
+        </example>
+      </subsubsection>
     </subsection>
+    <insight>
+      <title>Why does the Method of Joints work on trusses but fail on Frames and Machines?</title>
+      <p>	We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em>one</em> unknown.</p>
+      <p>Frames and machines are made of multi-force members and cutting these, in general, exposes:
+<ul><li>A force with an unknown magnitude acting in an unknown direction, and </li><li>A bending moment at the plane of the cut. </li></ul>
+         </p>
+      <p>Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve. </p>
+      <p>Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</p>
+    </insight>
   </section>
   <section xml:id="Chapter_06-summary">
     <title>Summary</title>
