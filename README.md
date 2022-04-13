@@ -2,7 +2,7 @@
 
 This is the source repository for [*Engineering Statics*](https://engineeringstatics.org), a free, open-source, university-level OER textbook.  The book is produced using [PreText](https://pretextbook.org).
 
-The online  version  is available at [](https://engineeringstatics.org), and a pdf version at [](https://engineeringstatics.org/pdf) for print or tablet use.
+The online  version  is available at [https://engineeringstatics.org](https://engineeringstatics.org), and a pdf version at [https://engineeringstatics.org/pdf](https://engineeringstatics.org/pdf) for print or tablet use.
 
 Please direct any suggestions or errors to [William Haynes](mailto:whaynes@maritime.edu).  
 
