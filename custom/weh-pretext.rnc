@@ -1,13 +1,6 @@
 # Temporary adjustments to schema to make geogebra interactives validate 6/19/2020 weh
 include "../../mathbook/schema/pretext.rnc" 
 
-# permit DocInfo to specify a cover.  Covers are documented, but not in schema  2/27/22
-Configuration |=
-    element covers {
-       attribute front {text},
-       attribute rear {text}?
-       }
-
 # permit images to have Remix_info
 ImageRaster |=
   element image {
@@ -86,21 +79,13 @@ Exercises |=  element exercises {
 
 
 
-# permit Images and Stacks in tables,  This is not supported by the xslt or in Latex. 
+# permit Images in tables,  This is not supported by the xslt or in Latex. 4/23/22
 
-TableCell |=
-                element cell {
-                    AlignmentHorizontal?,
-                    BorderBottom?,
-                    BorderRight?,
-                    attribute colspan {text}?,
-                    (
-                        TextLong |
-                        LongLine+ |
-                        Paragraph+|
-                        Image |
-                        Stack
-                    )
+Paragraph |=
+                element p {
+                    UniqueID?,
+                    PermanentID?,
+                    Image
                 }
                 
 # Permit @header in table rows,  headers are mentioned in pretext docs, but not in schema 3/24/2021
