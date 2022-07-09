@@ -3,7 +3,7 @@ import fnmatch
 import os
 import shutil
 
-match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
+match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb', '.ico']
 
 
 def flatten(source, dest):
@@ -12,7 +12,7 @@ def flatten(source, dest):
     def pattern_filter(path):
         for pattern in match_patterns:
             if fnmatch.fnmatch(path.lower(), pattern):
-                return path
+               return path
 
     # setup
     if os.path.exists(dest):
@@ -35,7 +35,9 @@ def copy_and_overwrite(source, dest):
         shutil.rmtree(dest)
     shutil.copytree(source, dest)
 
+
 print("working dir:", os.getcwd())
 
 flatten('resources', '../build/external/images')
 copy_and_overwrite('numbas', '../build/external/numbas')
+copy_and_overwrite('resources/common/favicon', '../build/external/favicon')
