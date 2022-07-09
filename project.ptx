@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This file provides the overall configuration for your PreTeXt
+    project. To edit the content of your document, open `source/main.ptx`
+    (default location).
+-->
+<project>
+  <targets>
+    <target name="web">
+      <format>html</format>
+      <source>src/ptx/begin_here.ptx</source>
+      <publication>src/publication.ptx</publication>
+      <output-dir>build/web</output-dir>
+      <xsl>src/xsl/weh-custom-html.xsl</xsl>
+    </target>
+    <target name="print" pdf-method="xelatex">
+      <format>pdf</format>
+      <source>src/ptx/begin_here.ptx</source>
+      <publication>src/publication.ptx</publication>
+      <output-dir>build/print</output-dir>
+      <xsl>src/xsl/weh-custom-latex.xsl</xsl>
+    </target>
+    <target name="print-latex">
+      <format>latex</format>
+      <source>src/ptx/begin_here.ptx</source>
+      <publication>src/publication.ptx</publication>
+      <output-dir>build/print-latex</output-dir>
+      <xsl>src/xsl/weh-custom-latex.xsl</xsl>
+    </target>
+    <target name="subset">
+      <format>html</format>
+      <source>src/ptx/begin_here.ptx</source>
+      <publication>src/publication.ptx</publication>
+      <output-dir>output/subset</output-dir>
+      <xsl>build/xsl/weh-custom-html.xsl</xsl>
+      <stringparam key="debug.skip-knowls" value="yes"/>
+      <!-- edit this to change the section/chapter/etc. to include
+           in your subset build -->
+      <xmlid-root>ch_first</xmlid-root>
+    </target>
+  </targets>
+  <executables>
+      <latex>latex</latex>
+      <pdflatex>pdflatex</pdflatex>
+      <xelatex>xelatex</xelatex>
+      <pdfsvg>pdf2svg</pdfsvg>
+      <asy>asy</asy>
+      <sage>sage</sage>
+      <pdfpng>convert</pdfpng>
+      <pdfeps>pdftops</pdfeps>
+      <node>node</node>
+      <liblouis>file2brl</liblouis>
+    </executables>
+</project>

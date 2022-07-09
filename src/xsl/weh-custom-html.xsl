@@ -1,8 +1,11 @@
-<?xml version='1.0'?> <!-- As XML file -->
+<!DOCTYPE xsl:stylesheet [
+    <!ENTITY % entities SYSTEM "entities.ent">
+    %entities;
+]>
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <!-- Thin layer on PreTeXt XML -->
-  <xsl:import href="../../mathbook/xsl/pretext-html.xsl"/>
-  <xsl:import href="./weh-common.xsl"/>
+  <xsl:import href="core/pretext-html.xsl"/>
   <!-- Customize html behavior -->
   <!--  <xsl:param name="html.annotation" select="'hypothesis'"/>
 -->
