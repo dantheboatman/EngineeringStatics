@@ -4,13 +4,11 @@
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+  
   <!-- Thin layer on PreTeXt XML -->
   <xsl:import href="core/pretext-html.xsl"/>
-  <!-- Customize html behavior -->
-  <!--  <xsl:param name="html.annotation" select="'hypothesis'"/>
--->
-  <xsl:param name="html.css.extra" select="'statics.css'"/>
-  
+
+
   <!-- IdentityTransform -->
   <xsl:template match="node() | @*" mode="identity">
     <xsl:copy>
@@ -19,6 +17,7 @@
   </xsl:template>
   
 <!-- ==========================================
+    
 Modifications to put geogebra interactive instructions in the sidebar as an <aside>
 These changes use the assembly mode and tranform ptx to ptx.
 First, prevent standard pretext from emitting  the interactive instructions in a <p> before the interactive. 

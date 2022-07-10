@@ -3,7 +3,7 @@ import fnmatch
 import os
 import shutil
 
-match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb', '.ico']
+match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb', '*.ico', '*.css']
 
 
 def flatten(source, dest):
@@ -19,14 +19,15 @@ def flatten(source, dest):
         shutil.rmtree(dest)
     os.makedirs(dest)
 
-    # flatten source directories
+    # flatten source to dest
     for root, dirs, files in os.walk(source):
         for file in filter(pattern_filter, files):
-            a_file = os.path.join(root, file)
+            this_file = os.path.join(root, file)
             target = os.path.join(dest, file)
-            if os.path.exists(target):
+            if '/_' in root: continue  # Skip any files in directories starting with underscore.
+            if os.path.exists(target):  # Warn if this filename has been seen before.
                 print(f"\tWarning: Duplicate filename. \"{file}\" shadows a file with same name in source folder.")
-            shutil.copy(a_file, target)
+            shutil.copy(this_file, target)
 
 
 def copy_and_overwrite(source, dest):
@@ -39,5 +40,6 @@ def copy_and_overwrite(source, dest):
 print("working dir:", os.getcwd())
 
 flatten('resources', '../build/external/images')
-copy_and_overwrite('numbas', '../build/external/numbas')
-copy_and_overwrite('resources/common/favicon', '../build/external/favicon')
+copy_and_overwrite('resources/_Numbas', '../build/external/numbas')
+copy_and_overwrite('resources/common/_favicon', '../build/external/favicon')
+copy_and_overwrite('resources/_css', '../build/external/css')
