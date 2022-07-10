@@ -376,7 +376,7 @@ Copyright 2011-16 Newcastle University
     <button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button>
     <div class="password" data-bind="visible: needsPassword, css: {'has-error': enteredPassword().length && !canBegin(), 'has-success': canBegin()}">
         <label for="begin-exam-password" data-localise="exam.enter password"></label>
-        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" class="form-control" data-bind="textInput: enteredPassword"/>
+        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" class="form-control" data-bind="textInput: enteredPassword, autosize: enteredPassword"/>
         <span class="password-feedback feedback-icon" data-bind="css: passwordFeedback().iconClass, attr: {title: passwordFeedback().title}"></span>
     </div>
     <button class="btn" id="startBtn" type="submit" data-bind="disable: !canBegin(), css: passwordFeedback().buttonClass" data-localise="frontpage.start"></button>
@@ -434,8 +434,11 @@ Copyright 2011-16 Newcastle University
 </nav>
 <button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button>
     </div>
-    <div id="suspend" data-bind="visible: infoPage()=='suspend', if: infoPage()=='suspend'">
-        <h1 data-localise="suspend.paused header"></h1>
+    <div id="suspend" data-bind="visible: infoPage()=='paused' || infoPage()=='resumed', if: infoPage()=='paused' || infoPage()=='resumed'">
+        <h1 >
+    <span data-bind="visible: infoPage()=='paused'" data-localise="suspend.paused header" ></span>
+    <span data-bind="visible: infoPage()=='resumed'" data-localise="suspend.resumed header" ></span>
+</h1>
 <p data-localise="suspend.exam suspended"></p>
 <p data-localise="suspend.you can resume"></p>
 <button class="btn btn-primary" id="resumeBtn" data-bind="click: Numbas.controls.resumeExam" data-localise="suspend.resume"></button>
@@ -472,7 +475,7 @@ Copyright 2011-16 Newcastle University
 
 <!-- /ko -->
 
-<!-- ko if: exam.settings.navigateMode=='sequence' -->
+<!-- ko if: exam.settings.navigateMode=='sequence' || exam.settings.navigateMode=='menu' -->
 <p class="col-sm-6 col-sm-offset-3" data-localise="result.click a question to review"></p>
 <div class="row">
     <table id="question-breakdown" class="col-sm-6 col-sm-offset-3">
@@ -482,11 +485,18 @@ Copyright 2011-16 Newcastle University
             <col>
         </colgroup>
         <thead>
-            <th data-localise="result.question number"></th>
+            <tr>
+            <!-- ko if: exam.settings.navigateMode=='sequence' -->
+                <th data-localise="result.question number"></th>
+            <!-- /ko -->
+            <!-- ko if: exam.settings.navigateMode=='menu' -->
+                <th data-localise="question"></th>
+            <!-- /ko -->
             <!-- ko if: showActualMark -->
             <th colspan="3" data-localise="result.question score"></th>
             <!-- /ko -->
             <th></th>
+            </tr>
         </thead>
         <tbody>
             <!-- ko foreach: question_groups -->
@@ -525,9 +535,11 @@ Copyright 2011-16 Newcastle University
 
 <!-- /ko -->
 
+<!-- ko if: showActualMark -->
 <div class="row">
     <div id="feedback" class="alert results-feedback col-sm-6 col-sm-offset-3" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
 </div>
+<!-- /ko -->
 
 <div class="row" id="performance-summary">
     <div class="col-sm-6 col-sm-offset-3">
@@ -570,7 +582,7 @@ Copyright 2011-16 Newcastle University
     </div>
 </div>
 
-                <div id="questionContainer" class="container-fluid" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
+                <div id="questionContainer" class="container-fluid print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
     <div class="contentArea ">
         <div class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
 
@@ -629,7 +641,7 @@ Copyright 2011-16 Newcastle University
             </table>
         </div>
 
-        <button type="button" class="btn btn-primary navbar-btn" id="nextQuestionBtn" data-bind="visible: $root.exam().mode()=='normal' && $root.exam().exam.settings.navigateMode=='diagnostic', click: Numbas.controls.nextQuestion, attr: {disabled: !$parent.canAdvance()}">Move to the next question</btn>
+        <button type="button" class="btn btn-primary navbar-btn" id="nextQuestionBtn" data-bind="visible: $root.exam().mode()=='normal' && $root.exam().exam.settings.navigateMode=='diagnostic', click: Numbas.controls.nextQuestion, attr: {disabled: !$parent.canAdvance()}" data-localise="control.move to next question"></button>
         <button class="btn btn-primary navbar-btn" id="regenBtn" data-localise="control.regen" data-bind="visible: $root.exam().mode()=='normal' && $root.exam().exam.settings.allowRegen, click: Numbas.controls.regenQuestion"></button>
         <button class="btn btn-primary navbar-btn" id="revealBtn" data-localise="control.reveal" data-bind="visible: question.parts.length && canReveal, click: Numbas.controls.revealAnswer"></button>
     </div>

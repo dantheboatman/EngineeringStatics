@@ -69,11 +69,27 @@ Returns the variance of the `array` vector.
 By default, the population variance is calculated.
 Passing `true` to `flag` indicates to compute the sample variance instead.
 
+#### [`population_variance(array)`](http://jstat.github.io/all.html#variance)
+
+Returns the population variance of the `array` vector.
+
+#### [`sample_variance(array)`](http://jstat.github.io/all.html#variance)
+
+Returns the sample variance of the `array` vector.
+
 #### [`stdev(array)`](http://jstat.github.io/all.html#stdev)
 
 Returns the standard deviation of the `array` vector.
 By default, the population standard deviation is returned.
 Passing `true` to `flag` returns the sample standard deviation.
+
+#### [`population_stdev(array)`](http://jstat.github.io/all.html#stdev)
+
+Returns the population standard deviation of the `array` vector.
+
+#### [`sample_stdev(array)`](http://jstat.github.io/all.html#stdev)
+
+Returns the sample standard deviation of the `array` vector.
 
 #### [`meandev(array)`](http://jstat.github.io/all.html#meandev)
 

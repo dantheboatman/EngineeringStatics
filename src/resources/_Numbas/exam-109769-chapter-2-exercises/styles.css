@@ -1,3 +1,16 @@
+div#questionDisplay {
+   font-family: times, serif;
+}
+.container-fluid {
+   padding: 0;
+}
+.statement {
+   margin: 0;
+   padding: 1em;
+}
+.question .parts {
+   margin-left: 2em;
+}
 :root {
     --background-colour: white;
     --text-colour: black;
@@ -7477,10 +7490,26 @@ input, select {
     height: 0;
 }
 
-.invisible {
-    position: absolute !important;
-    left: -20000px;
-    top: -20000px;
+@media screen {
+    .invisible {
+        position: absolute !important;
+        left: -2000000px;
+        top: -2000000px;
+        max-height: 100vh;
+        overflow-y: scroll;
+    }
+}
+@media print {
+    .invisible:not(.print-visible) {
+        position: absolute !important;
+        left: -2000000px;
+        top: -2000000px;
+        max-height: 100vh;
+        overflow-y: scroll;
+    }
+    .invisible.print-visible {
+        visibility: visible;
+    }
 }
 
 #everything th, #everything td {
@@ -7678,6 +7707,10 @@ input.jme {
 	vertical-align: middle;
 	max-width: 100%;
 	overflow-x: auto;
+}
+#everything .matrix-input thead th {
+    background: none;
+    font-weight: normal;
 }
 .matrix-input table.matrix {
     width: auto;
@@ -8001,7 +8034,6 @@ input.jme {
 #frontpage .password input {
     flex-grow: 1;
     margin: 0 0.5em;
-    text-transform: uppercase;
 }
 #frontpage .password-feedback {
   text-align: center;
@@ -8017,6 +8049,8 @@ input.jme {
 	text-align: center;
     display: grid;
     grid-gap: 1rem;
+    grid-auto-columns: 1fr;
+    justify-items: center;
     justify-content: center;
 }
 
@@ -8541,20 +8575,8 @@ body.navigate-diagnostic .question-header
 		page-break-inside: avoid;
 	}
 
-	#questionContainer.invisible {
-		position: inherit !important;
-		visibility: inherit !important;
-	}
-
 	#questionContainer {
 		float: none !important;
-	}
-
-	.question.invisible {
-		position: inherit !important;
-		visibility: inherit !important;
-		left: inherit;
-		top: inherit;
 	}
 
     .part .submit-and-feedback {
@@ -8652,17 +8674,4 @@ ul.nav li.pull-right button, div#menu .navbar-btn{
 div.statement{    
   position: relative;
     top: 1em;
-}
-div#questionDisplay {
-   font-family: times, serif;
-}
-.container-fluid {
-   padding: 0;
-}
-.statement {
-   margin: 0;
-   padding: 1em;
-}
-.question .parts {
-   margin-left: 2em;
 }
