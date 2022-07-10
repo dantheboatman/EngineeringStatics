@@ -3,7 +3,7 @@ import fnmatch
 import os
 import shutil
 
-match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb', '*.ico', '*.css']
+match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
 
 
 def flatten(source, dest):
@@ -29,17 +29,15 @@ def flatten(source, dest):
                 print(f"\tWarning: Duplicate filename. \"{file}\" shadows a file with same name in source folder.")
             shutil.copy(this_file, target)
 
-
 def copy_and_overwrite(source, dest):
     print(f"Copying {source} to {dest}.")
     if os.path.exists(dest):
         shutil.rmtree(dest)
     shutil.copytree(source, dest)
 
-
 print("working dir:", os.getcwd())
 
-flatten('resources', '../build/external/images')
-copy_and_overwrite('resources/_Numbas', '../build/external/numbas')
-copy_and_overwrite('resources/common/_favicon', '../build/external/favicon')
-copy_and_overwrite('resources/_css', '../build/external/css')
+flatten('src/resources', 'build/external/images')
+copy_and_overwrite('src/resources/_Numbas', 'build/external/numbas')
+copy_and_overwrite('src/resources/common/_favicon', 'build/external/favicon')
+copy_and_overwrite('src/resources/_css', 'build/external/css')
