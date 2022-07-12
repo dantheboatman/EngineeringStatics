@@ -7,7 +7,7 @@ match_patterns = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
 
 
 def flatten(source, dest):
-    print(f"Flattening {source} to {dest}.")
+    print(f"\tFlattening {source} to {dest}.")
 
     def pattern_filter(path):
         for pattern in match_patterns:
@@ -30,14 +30,15 @@ def flatten(source, dest):
             shutil.copy(this_file, target)
 
 def copy_and_overwrite(source, dest):
-    print(f"Copying {source} to {dest}.")
+    print(f"\tCopying {source} to {dest}.")
     if os.path.exists(dest):
         shutil.rmtree(dest)
     shutil.copytree(source, dest)
 
-print("working dir:", os.getcwd())
+print(f"\nmove_externals.py\n\tWorking dir: {os.getcwd()}")
 
 flatten('resources', '../build/external/images')
 copy_and_overwrite('resources/_Numbas', '../build/external/numbas')
 copy_and_overwrite('resources/common/_favicon', '../build/external/favicon')
 copy_and_overwrite('resources/_css', '../build/external/css')
+print()
