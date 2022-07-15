@@ -16,33 +16,32 @@
     </xsl:copy>
   </xsl:template>
   
-<!-- ==========================================
+  <!-- ==========================================
     
 Modifications to put geogebra interactive instructions in the sidebar as an <aside>
 These changes use the assembly mode and tranform ptx to ptx.
 First, prevent standard pretext from emitting  the interactive instructions in a <p> before the interactive. 
 -->
   <xsl:template match="interactive" mode="interactive-core">
-      <xsl:apply-templates select="." mode="iframe-interactive"/>
-   </xsl:template>
-  
+    <xsl:apply-templates select="." mode="iframe-interactive"/>
+  </xsl:template>
   <!-- write instructions, if any, as an aside -->
-  <xsl:template match="interactive/instructions">
-    <xsl:if test=". !=''">
+  <xsl:template match="interactive//instructions">
+    <xsl:if test=". != ''">
       <aside>
         <title>Interactive Diagram</title>
-        <xsl:apply-templates select="." mode='identity'/>
+        <xsl:apply-templates select="*" mode="identity"/>
       </aside>
     </xsl:if>
   </xsl:template>
   
-<!-- This writes the interactive's instructions before the container containing an interactive, during assembly.-->
-<!-- It leaves a copy of the instructions in the interactive, but it is not rendered due to template above -->
+  <!-- This writes the interactive's instructions before the container containing an interactive, during assembly.-->
+  <!-- It leaves a copy of the instructions in the interactive, but it is not rendered due to template above -->
   <xsl:template match="sidebyside | figure[not(ancestor::sidebyside)] | interactive[not(ancestor::figure) and not(ancestor::sidebyside)]" mode="assembly">
     <xsl:apply-templates select=".//instructions"/>
-    <xsl:apply-templates mode="identity" select="." />
+    <xsl:apply-templates mode="identity" select="."/>
   </xsl:template>
   
-<!-- ===================================-->
+  <!-- ===================================-->
   
 </xsl:stylesheet>
