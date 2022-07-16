@@ -1,11 +1,7 @@
-
-MB  =  /Users/whaynes/ptx/mathbook
-PRJ =  /Users/whaynes/ptx/statics
-BROWSER       = Google\ Chrome
-
 ##################################################
 # SOURCE directory 
 ##################################################
+PRJ       = /Users/whaynes/ptx/statics
 SOURCE    = $(PRJ)/src/ptx
 RESOURCES = $(PRJ)/src/resources
 
@@ -21,6 +17,7 @@ EXTERNAL   = $(BUILD)/external
 #################################################
 # Local and remote webserver document locations
 #################################################
+BROWSER    = Google\ Chrome
 MAMPDIR    = ~/Sites/localhost/statics
 MAMPURL    = http://localhost:8888/statics
 GITHUB     = $(PRJ)/docs
