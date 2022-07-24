@@ -1,5 +1,13 @@
-# Temporary adjustments to schema 7/15/22 weh
+namespace html="http://www.w3.org/1999/xhtml"
 include "../../../mathbook/schema/pretext.rnc" 
+
+
+
+wellformed-html =
+  (text  | element html:p  | html:div | html:span | html:input | html:button { attribute * {text}*,
+   wellformed-html }
+   )*
+ 
 
 #  Covers and favicons are documented, but not in schema  7/15/22
 Configuration |=
@@ -48,14 +56,15 @@ Remix_info =
 
 Interactive =
  element interactive {
-  attribute aspect { text },
-  attribute width { text },
+  (attribute aspect { text }?,
+  attribute width { text }?,
   attribute platform { text }?, 
   attribute xml:id {text},
   attribute xml:base {text}?,   #not sure why I need this, something to do with xinclude?
   attribute preview { text }?,
   attribute iframe {text}?,
-  Slate?,
+  attribute source {text}?),
+  Slate*,
   Remix_info?,
   element instructions { BlockText* | text }?
  }
@@ -64,12 +73,9 @@ Slate =
  element slate {
   UniqueID?,
   attribute surface { text },
-  (attribute source { text }
-   | attribute material { text }),
-  attribute width { text }?,
-  attribute height { text }?,
-  attribute aspect { text }?,
-  text
+  (attribute source { text }  | attribute material { text })?,
+  attribute aspect { text },
+  (wellformed-html | Paragraph | Tabular | SideBySideNoCaption)* # things that can go in a slate
  }
  
  
