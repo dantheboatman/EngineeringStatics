@@ -32,7 +32,7 @@ var listeners = function(ggb) {
         ];
 
         for (let i = 0; i < 2; i++) {
-            nodes[i].innerHTML = `\\( \\small{ ${latex[i]} } \\)`;
+            nodes[i].innerHTML = `\\( { ${latex[i]} } \\)`;
         };
         if (window.MathJax) {
             MathJax.typesetPromise([nodes]).then(() => {});
