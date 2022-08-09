@@ -36,8 +36,8 @@ var updateSlate = function (){
  // GGB booleans decide what to show, only one allowed at a time.;
     node = document.getElementById('info');
     node.innerHTML='';
-    if (ggb.getValue('AonB')==true) {info.innerHTML = "$${\\textrm{proj}_AB = " + xyz('ProjAB') + "}$$"};
-    if (ggb.getValue('BonA')==true) {info.innerHTML = "$${\\textrm{proj}_BA = " + xyz('ProjBA') + "}$$"};
+    if (ggb.getValue('AonB')==true) {info.innerHTML = "$${\\textrm{proj}_BA = " + xyz('ProjAB') + "}$$"};
+    if (ggb.getValue('BonA')==true) {info.innerHTML = "$${\\textrm{proj}_AB = " + xyz('ProjBA') + "}$$"};
     if (ggb.getValue('showθ')==true){info.innerHTML = "$${\\theta = " + ggb.getValue('θ/°').toFixed(1) + "°}$$"};
     if (window.MathJax) {
        MathJax.typesetPromise([node]).then(() => {});
