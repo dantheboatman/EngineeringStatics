@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:240px; height:240px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var two__weight__ggb_api;
-var two__weight__ggb_commands = function(ggb) {
+var two__weight__ggb_onload = function(ggb) {
 ggb.enableRightClick(false)
 ggb.setValue("view",1)
 };
@@ -75,18 +75,17 @@ filename:"external/images/two-weight.ggb",
 width:330,
 height:330,
 appletOnLoad: function(ggb) {
-two__weight__ggb_commands(ggb);
+two__weight__ggb_onload(ggb);
 listeners(ggb);
 two__weight__ggb_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var two__weight__ggb = new GGBApplet(two__weight__ggb_params, true);
+var two__weight__ggb = new GGBApplet(two__weight__ggb_params, true);
 resolve(two__weight__ggb);
 }).then(
 function(two__weight__ggb) {;
-window.onload = function() {
-two__weight__ggb.inject('two-weight-ggb-container');
+window.onload = function() { two__weight__ggb.inject('two-weight-ggb-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

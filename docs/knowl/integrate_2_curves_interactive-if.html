@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:450px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var integrate_2_curves_slate_api;
-var integrate_2_curves_slate_commands = function(ggb) {
+var integrate_2_curves_slate_onload = function(ggb) {
 ggb.setValue("show",0)
 ggb.enableRightClick(false)
 };
@@ -75,18 +75,17 @@ filename:"external/images/integrate_2_curves.ggb",
 width:450,
 height:300,
 appletOnLoad: function(ggb) {
-integrate_2_curves_slate_commands(ggb);
+integrate_2_curves_slate_onload(ggb);
 listeners(ggb);
 integrate_2_curves_slate_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var integrate_2_curves_slate = new GGBApplet(integrate_2_curves_slate_params, true);
+var integrate_2_curves_slate = new GGBApplet(integrate_2_curves_slate_params, true);
 resolve(integrate_2_curves_slate);
 }).then(
 function(integrate_2_curves_slate) {;
-window.onload = function() {
-integrate_2_curves_slate.inject('integrate_2_curves_slate-container');
+window.onload = function() { integrate_2_curves_slate.inject('integrate_2_curves_slate-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

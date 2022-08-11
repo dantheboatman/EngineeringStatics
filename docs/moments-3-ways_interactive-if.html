@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:600px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var slate__43_api;
-var slate__43_commands = function(ggb) {
+var slate__43_onload = function(ggb) {
 ggb.setValue("method",0)
 };
 var slate__43_params = {
@@ -74,18 +74,17 @@ filename:"external/images/moments-3-ways.ggb",
 width:600,
 height:300,
 appletOnLoad: function(ggb) {
-slate__43_commands(ggb);
+slate__43_onload(ggb);
 listeners(ggb);
 slate__43_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var slate__43 = new GGBApplet(slate__43_params, true);
+var slate__43 = new GGBApplet(slate__43_params, true);
 resolve(slate__43);
 }).then(
 function(slate__43) {;
-window.onload = function() {
-slate__43.inject('slate-43-container');
+window.onload = function() { slate__43.inject('slate-43-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:540px; height:486px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var composite__centroid_slate_api;
-var composite__centroid_slate_commands = function(ggb) {
+var composite__centroid_slate_onload = function(ggb) {
 ggb.enableRightClick(false)
 };
 var composite__centroid_slate_params = {
@@ -74,18 +74,17 @@ filename:"external/images/composite-centroid.ggb",
 width:540,
 height:486,
 appletOnLoad: function(ggb) {
-composite__centroid_slate_commands(ggb);
+composite__centroid_slate_onload(ggb);
 listeners(ggb);
 composite__centroid_slate_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var composite__centroid_slate = new GGBApplet(composite__centroid_slate_params, true);
+var composite__centroid_slate = new GGBApplet(composite__centroid_slate_params, true);
 resolve(composite__centroid_slate);
 }).then(
 function(composite__centroid_slate) {;
-window.onload = function() {
-composite__centroid_slate.inject('composite-centroid_slate-container');
+window.onload = function() { composite__centroid_slate.inject('composite-centroid_slate-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:252px; height:252px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var slate__32_api;
-var slate__32_commands = function(ggb) {
+var slate__32_onload = function(ggb) {
 ggb.evalCommand("Z=1.1")
 ggb.evalCommand("ZoomIn(-Z,-Z,-Z,Z,Z,Z)")
 ggb.setAnimationSpeed("θ", 1)
@@ -76,18 +76,17 @@ filename:"external/images/cross-product.ggb",
 width:330,
 height:330,
 appletOnLoad: function(ggb) {
-slate__32_commands(ggb);
+slate__32_onload(ggb);
 listeners(ggb);
 slate__32_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var slate__32 = new GGBApplet(slate__32_params, true);
+var slate__32 = new GGBApplet(slate__32_params, true);
 resolve(slate__32);
 }).then(
 function(slate__32) {;
-window.onload = function() {
-slate__32.inject('slate-32-container');
+window.onload = function() { slate__32.inject('slate-32-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:600px; height:400px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var general__spandrel_slate_api;
-var general__spandrel_slate_commands = function(ggb) {
+var general__spandrel_slate_onload = function(ggb) {
 ggb.setValue("n",2)
 ggb.setValue("showStrips",false)
 ggb.enableRightClick(false)
@@ -76,18 +76,17 @@ filename:"external/images/general-spandrel.ggb",
 width:600,
 height:400,
 appletOnLoad: function(ggb) {
-general__spandrel_slate_commands(ggb);
+general__spandrel_slate_onload(ggb);
 listeners(ggb);
 general__spandrel_slate_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var general__spandrel_slate = new GGBApplet(general__spandrel_slate_params, true);
+var general__spandrel_slate = new GGBApplet(general__spandrel_slate_params, true);
 resolve(general__spandrel_slate);
 }).then(
 function(general__spandrel_slate) {;
-window.onload = function() {
-general__spandrel_slate.inject('general-spandrel_slate-container');
+window.onload = function() { general__spandrel_slate.inject('general-spandrel_slate-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);

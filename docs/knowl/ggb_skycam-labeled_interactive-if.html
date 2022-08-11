@@ -60,12 +60,12 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="pretext-content ignore-math"><div style="width:300px; height:200px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
 var skycam__ggb_api;
-var skycam__ggb_commands = function(ggb) {
+var skycam__ggb_onload = function(ggb) {
 ggb.evalCommand("ZoomIn(.5)")
 };
 var skycam__ggb_params = {
@@ -74,18 +74,17 @@ filename:"external/images/skycam-labeled.ggb",
 width:300,
 height:200,
 appletOnLoad: function(ggb) {
-skycam__ggb_commands(ggb);
+skycam__ggb_onload(ggb);
 listeners(ggb);
 skycam__ggb_api = ggb;}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
- var skycam__ggb = new GGBApplet(skycam__ggb_params, true);
+var skycam__ggb = new GGBApplet(skycam__ggb_params, true);
 resolve(skycam__ggb);
 }).then(
 function(skycam__ggb) {;
-window.onload = function() {
-skycam__ggb.inject('skycam-ggb-container');
+window.onload = function() { skycam__ggb.inject('skycam-ggb-container');
 };},
 function(error) {
 console.log('GGB load applet error.', error);
