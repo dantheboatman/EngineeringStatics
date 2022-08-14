@@ -30,11 +30,15 @@ PTX = $(shell find $(SOURCE) -type f -name '*.ptx')
 ################################################################################
 # 
 ## make html version for local viewing
-html: tidy
+html: tidy external
 	pretext build web
 	-rm -r $(MAMPDIR)/* 
 	cp -R  $(HTMLOUT)/ $(MAMPDIR)
 	open -a $(BROWSER)  $(MAMPURL)
+	
+subset: tidy external
+	pretext build subset
+	open -a /Applications/Safari.app  http://localhost:8888/a
 #
 ## move images to external directory
 images: generated external
