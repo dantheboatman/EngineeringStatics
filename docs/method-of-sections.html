@@ -11,14 +11,15 @@
 <title>Statics: Method of Sections</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="method-of-joints.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="frames-and-machines.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="method-of-joints.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a class="next-button button toolbar-item" href="frames-and-machines.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,37 +295,38 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="method-of-sections"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="method-of-sections"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.5</span> <span class="title">Method of Sections</span>
 </h2>
 <article class="objectives goal-like" id="objectives-24"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
 <li id="li-291"><p id="p-derived-li-291">How do we determine an appropriate section to cut through a truss?</p></li>
 <li id="li-292"><p id="p-derived-li-292">How are equilibrium equations applied to a section?</p></li>
-</ul></article><section class="introduction" id="introduction-21"><p id="p-1055">The <dfn class="terminology">method of sections</dfn> is used to solve for the unknown forces within specific members of a truss without solving for them all. The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p></section><section class="subsection" id="sections-procedure"><h3 class="heading hide-type">
+</ul></article><section class="introduction" id="introduction-21"><p id="p-1070">The <dfn class="terminology">method of sections</dfn> is used to solve for the unknown forces within specific members of a truss without solving for them all. The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.</p></section><section class="subsection" id="sections-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.1</span> <span class="title">Procedure</span>
 </h3>
-<p id="p-1056">The procedure to solve for unknown forces using the method of sections is</p>
+<p id="p-1071">The procedure to solve for unknown forces using the method of sections is</p>
 <ol class="decimal">
-<li id="li-293"><p id="p-1057">Determine if a truss can be modeled as a <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">simple truss</a>.</p></li>
-<li id="li-294"><p id="p-1058">Identify and eliminate all <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">zero-force members</a>. Removing zero-force members is not required but may eliminate unnecessary computations.</p></li>
-<li id="li-295"><p id="p-1059">Solve for the external reactions, if necessary. Reactions will be necessary if the reaction forces act on the section of the truss you choose to solve below.</p></li>
+<li id="li-293"><p id="p-1072">Determine if a truss can be modeled as a <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">simple truss</a>.</p></li>
+<li id="li-294"><p id="p-1073">Identify and eliminate all <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">zero-force members</a>. Removing zero-force members is not required but may eliminate unnecessary computations.</p></li>
+<li id="li-295"><p id="p-1074">Solve for the external reactions, if necessary. Reactions will be necessary if the reaction forces act on the section of the truss you choose to solve below.</p></li>
 <li id="li-296">
-<p id="p-1060">Use your imaginary chain saw to cut the truss into two pieces by cutting through some or all of the members you are interested in.  The cut does not need to be a straight line.</p>
-<p id="p-1061">Every cut member exposes an unknown internal force, so if you cut three members you’ll expose three unknowns.  Exposing more than three members is not advised because you create more unknowns than available equilibrium equations.</p>
+<p id="p-1075">Use your imaginary chain saw to cut the truss into two pieces by cutting through some or all of the members you are interested in.  The cut does not need to be a straight line.</p>
+<p id="p-1076">Every cut member exposes an unknown internal force, so if you cut three members you’ll expose three unknowns.  Exposing more than three members is not advised because you create more unknowns than available equilibrium equations.</p>
 </li>
 <li id="li-297">
-<p id="p-1062">Select the easier of the two halves of the truss and draw its free-body diagram.</p>
+<p id="p-1077">Select the easier of the two halves of the truss and draw its free-body diagram.</p>
 <ul class="disc">
-<li id="li-298"><p id="p-1063">Include all applied and reaction forces acting on the section, and show known forces acting in their known directions.</p></li>
-<li id="li-299"><p id="p-1064">Draw unknown forces in assumed directions and label them. A common practice is to assume that all unknown forces are in tension and label them based on the endpoints of the member they represent.</p></li>
+<li id="li-298"><p id="p-1078">Include all applied and reaction forces acting on the section, and show known forces acting in their known directions.</p></li>
+<li id="li-299"><p id="p-1079">Draw unknown forces in assumed directions and label them. A common practice is to assume that all unknown forces are in tension and label them based on the endpoints of the member they represent.</p></li>
 </ul>
 </li>
-<li id="li-300"><p id="p-1065">Write out and solve the equilibrium equations for your chosen section.  If you assumed that unknown forces were tensile, negative answers indicate compression.</p></li>
-<li id="li-301"><p id="p-1066">If you have not found all the required forces with one section cut, repeat the process using another imaginary cut or proceed with the method of joints if it is more convenient.</p></li>
+<li id="li-300"><p id="p-1080">Write out and solve the equilibrium equations for your chosen section.  If you assumed that unknown forces were tensile, negative answers indicate compression.</p></li>
+<li id="li-301"><p id="p-1081">If you have not found all the required forces with one section cut, repeat the process using another imaginary cut or proceed with the method of joints if it is more convenient.</p></li>
 </ol>
-<p id="p-1067">The interactive below demonstrates the method of sections.  The internal forces in the truss members are exposed by cutting through the truss at three locations.   The known loads are shown in red, and the unknown reactions <span class="process-math">\(F_x\text{,}\)</span> <span class="process-math">\(A_x\)</span> and <span class="process-math">\(A_y\text{,}\)</span> and unknown member forces are shown in blue. All members are assumed to be in tension. In this situation, it is not necessary to find the reactions if the section to the right of the cut is selected.</p>
-<aside class="aside aside-like" id="aside-45"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4></aside><figure class="figure figure-like" id="ggb_wxh9nsbc"><iframe id="ggb_method-of-sections_interactive" width="600" height="300" src="ggb_method-of-sections_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>Method of sections demonstration.</figcaption></figure></section></section></div></main>
+<p id="p-1082">The interactive below demonstrates the method of sections.  The internal forces in the truss members are exposed by cutting through the truss at three locations.   The known loads are shown in red, and the unknown reactions <span class="process-math">\(F_x\text{,}\)</span> <span class="process-math">\(A_x\)</span> and <span class="process-math">\(A_y\text{,}\)</span> and unknown member forces are shown in blue. All members are assumed to be in tension. In this situation, it is not necessary to find the reactions if the section to the right of the cut is selected.</p>
+<aside class="aside aside-like" id="aside-45"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1083">Move the slider to see the free body diagrams of the entire truss and after taking a section cut.</p></aside><figure class="figure figure-like" id="ggb_wxh9nsbc"><iframe id="ggb_method-of-sections_interactive" width="600" height="300" src="ggb_method-of-sections_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>Method of sections demonstration.</figcaption></figure></section></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

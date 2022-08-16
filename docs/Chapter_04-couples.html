@@ -11,14 +11,15 @@
 <title>Statics: Couples</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_04-moments-in-three-dimensions.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="equivalent-tranformations.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_04-moments-in-three-dimensions.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_04.html" title="Up">Up</a><a class="next-button button toolbar-item" href="equivalent-tranformations.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,7 +295,7 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_04-couples"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_04-couples"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">4.5</span> <span class="title">Couples</span>
 </h2>
 <article class="objectives goal-like" id="objectives-15"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -310,13 +303,13 @@ startup: {
 <li id="li-206"><p id="p-derived-li-206">What makes a couple different than a typical <span class="process-math">\(\vec{r}\times\vec{F}\)</span> moment?</p></li>
 <li id="li-207"><p id="p-derived-li-207">Why is a couple considered a pure moment?</p></li>
 <li id="li-208"><p id="p-derived-li-208">If a couple is applied about the point we are summing moments, does it still need to be included in the sum of moments equation?</p></li>
-</ul></article><p id="p-738">The moments we have considered so far were all caused single forces producing rotation about a moment center. In this section we will consider another type of moment, called a <dfn class="terminology">couple</dfn>.</p>
-<p id="p-739">A couple consists of two parallel forces, equal in magnitude, opposite in direction, and non-coincident. Couples are special because the pair of forces always cancel each other, which means that a couple produces a rotational effect but never translation.  For this reason, couples are sometimes referred to as “pure moments.” The strength of the rotational effect is called the <dfn class="terminology">moment of the couple</dfn> or the <dfn class="terminology">couple-moment</dfn>.</p>
-<p id="p-740">When a single force causes a moment about a point, the magnitude depends on the magnitude of the force and the location of the point. In contrast, the moment of a couple is the same at every point and only depends on magnitude of the opposite forces and the distance between them.</p>
+</ul></article><p id="p-739">The moments we have considered so far were all caused single forces producing rotation about a moment center. In this section we will consider another type of moment, called a <dfn class="terminology">couple</dfn>.</p>
+<p id="p-740">A couple consists of two parallel forces, equal in magnitude, opposite in direction, and non-coincident. Couples are special because the pair of forces always cancel each other, which means that a couple produces a rotational effect but never translation.  For this reason, couples are sometimes referred to as “pure moments.” The strength of the rotational effect is called the <dfn class="terminology">moment of the couple</dfn> or the <dfn class="terminology">couple-moment</dfn>.</p>
+<p id="p-741">When a single force causes a moment about a point, the magnitude depends on the magnitude of the force and the location of the point. In contrast, the moment of a couple is the same at every point and only depends on magnitude of the opposite forces and the distance between them.</p>
 <aside class="aside aside-like" id="aside-37"><h3 class="heading"><span class="title">Interactive Diagram.</span></h3>
-<p id="p-741">In this interactive you can adjust the moment center <span class="process-math">\(A\text{,}\)</span> the direction of the equal and opposite forces, and the distance between the lines of action.  The net moment of the couple only depends on <span class="process-math">\(F\)</span> and the distance between the parallel lines.  <span class="process-math">\(M = F d_\perp\text{.}\)</span></p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<p id="p-742">In this interactive you can adjust the moment center <span class="process-math">\(A\text{,}\)</span> the direction of the equal and opposite forces, and the distance between the lines of action.  The net moment of the couple only depends on <span class="process-math">\(F\)</span> and the distance between the parallel lines.  <span class="process-math">\(M = F d_\perp\text{.}\)</span></p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;">
-<p id="p-742">For example, consider the interactive where two equal and opposite forces with different lines of action form a couple.   The moment of this couple is found by summing the moments of the two forces about arbitrary moment center <span class="process-math">\(A,\)</span> applying positive or negative signs for each term according to the right hand rule.  The moment of the couple is always</p>
+<p id="p-743">For example, consider the interactive where two equal and opposite forces with different lines of action form a couple.   The moment of this couple is found by summing the moments of the two forces about arbitrary moment center <span class="process-math">\(A,\)</span> applying positive or negative signs for each term according to the right hand rule.  The moment of the couple is always</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="mdn-11">
 \begin{align}
 M \amp= Fd_\perp \tag{4.5.1}
@@ -326,9 +319,9 @@ M \amp= Fd_\perp \tag{4.5.1}
 </div>
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="ggb_mq7qn23y"><iframe id="couple_interactive" width="300" height="195" src="couple_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.1<span class="period">.</span></span><span class="space"> </span>Moment of a couple.</figcaption></figure></div>
 </div></div>
-<p id="p-744"></p>
-<p id="p-745">In two dimensions, couples are represented by a curved arrow indicating the direction of the rotational effect.  Following the right-hand rule the value will be positive if the moment is counter-clockwise and negative if it is clockwise.  In three dimensions, a couple is represented by a normal vector arrow.</p>
-<p id="p-746">When adding moments to find the total or resultant moment,  you must include couple-moments as well the <span class="process-math">\(\vec{r}\times\vec{F}\)</span> moments. In equation form, we could express this as:</p>
+<p id="p-745"></p>
+<p id="p-746">In two dimensions, couples are represented by a curved arrow indicating the direction of the rotational effect.  Following the right-hand rule the value will be positive if the moment is counter-clockwise and negative if it is clockwise.  In three dimensions, a couple is represented by a normal vector arrow.</p>
+<p id="p-747">When adding moments to find the total or resultant moment,  you must include couple-moments as well the <span class="process-math">\(\vec{r}\times\vec{F}\)</span> moments. In equation form, we could express this as:</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \Sigma M_P = \Sigma (\vec{r}\times\vec{F} ) + \Sigma (\vec{M}_\text{couple}) 
@@ -336,8 +329,8 @@ M \amp= Fd_\perp \tag{4.5.1}
 </div>
 <article class="insight remark-like" id="insight-2"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-2"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">4.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">Location Independence.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-2"><article class="insight remark-like"><p id="p-747">In this section we have shown that couples produce the same moment at every point on the body.   This means that the external effect of couples is <em class="emphasis">location independent</em>.    Because the moment of a couple is location independent, the moment vector is not bound to any particular point and for this reason is a <em class="emphasis">free vector</em>.</p>
-<p id="p-748">We will learn in <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Loadings">Chapter 8</a>  that moving a couple around on a rigid body does affect the <em class="emphasis">internal</em> loads or stresses inside a body, but changing the location of a couple does not change the <em class="emphasis">external</em> loading or reactions.</p></article></div></section></div></main>
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-2"><article class="insight remark-like"><p id="p-748">In this section we have shown that couples produce the same moment at every point on the body.   This means that the external effect of couples is <em class="emphasis">location independent</em>.    Because the moment of a couple is location independent, the moment vector is not bound to any particular point and for this reason is a <em class="emphasis">free vector</em>.</p>
+<p id="p-749">We will learn in <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Loadings">Chapter 8</a>  that moving a couple around on a rigid body does affect the <em class="emphasis">internal</em> loads or stresses inside a body, but changing the location of a couple does not change the <em class="emphasis">external</em> loading or reactions.</p></article></div></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

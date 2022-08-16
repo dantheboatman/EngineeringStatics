@@ -11,14 +11,15 @@
 <title>Statics: Centroids</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_07-center-of-mass.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="composite-parts.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_07-center-of-mass.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a class="next-button button toolbar-item" href="composite-parts.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -303,7 +296,7 @@ startup: {
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content">
-<section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_07-centroids"><h2 class="heading hide-type">
+<section class="section" id="Chapter_07-centroids"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.4</span> <span class="title">Centroids</span>
 </h2>
 <article class="objectives goal-like" id="objectives-26"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -311,8 +304,8 @@ startup: {
 <li id="li-352"><p id="p-derived-li-352">What is the difference between a centroid, center of gravity and a center of mass?</p></li>
 <li id="li-353"><p id="p-derived-li-353">When will the centroid, center of gravity and center of mass refer to the same point</p></li>
 <li id="li-354"><p id="p-derived-li-354">Why do the equations for the center of gravity, mass, volume, and area all have the same structure?</p></li>
-</ul></article><section class="introduction" id="introduction-25"><p id="p-1218">A centroid is a weighted average like the center of gravity, but weighted with a geometric property like area or volume, and not a physical property like weight or mass.  This means that centroids are properties of pure shapes, not physical objects.  They represent the coordinates of the “middle” of the shape.</p>
-<p id="p-1219">The defining equations for centroids are similar to the equations for<a href="" class="xref" data-knowl="./knowl/center_of_gravity.html" title="Equation 7.2.2">Centers of Gravity (7.2.2)</a> but with <em class="emphasis">volume</em>  used as the weighting factor for three-dimensional shapes</p>
+</ul></article><section class="introduction" id="introduction-25"><p id="p-1235">A centroid is a weighted average like the center of gravity, but weighted with a geometric property like area or volume, and not a physical property like weight or mass.  This means that centroids are properties of pure shapes, not physical objects.  They represent the coordinates of the “middle” of the shape.</p>
+<p id="p-1236">The defining equations for centroids are similar to the equations for<a href="" class="xref" data-knowl="./knowl/center_of_gravity.html" title="Equation 7.2.2">Centers of Gravity (7.2.2)</a> but with <em class="emphasis">volume</em>  used as the weighting factor for three-dimensional shapes</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/center_of_gravity.html" id="three-d-centroid">
 \begin{equation}
 \bar{x}=\frac{\sum  \bar{x}_{i} V_i}{\sum  V_i} \quad \bar{y}=\frac{\sum  \bar{y}_{i} V_i}{\sum  V_i} \quad \bar{z}=\frac{\sum   \bar{z}_{i} V_i}{\sum  V_i}\text{,}\tag{7.4.1}
@@ -324,25 +317,25 @@ startup: {
 \bar{x}=\frac{\sum  \bar{x}_{i} A_i}{\sum  A_i} \quad \bar{y}=\frac{\sum  \bar{y}_{i} A_i}{\sum  A_i}\text{.}\tag{7.4.2}
 \end{equation}
 </div>
-<p id="p-1220">We will see how to use these equations on complex shapes later in this chapter, but centroids of some simple shapes can be easily found using symmetry.</p>
-<p id="p-1221">If the shape has an axis of symmetry, every point on one side of the axis is mirrored by another point equidistant on the other side.   One has a positive distance from the axis, and the other is the same distance away in the negative direction.  These two points will add to zero the numerator, as will every other point making up the shape, and the first moment will be zero. This means that the centroid must lie along the line of symmetry if there is one. If a shape has multiple symmetry lines, then the centroid must exist at their intersection.</p>
+<p id="p-1237">We will see how to use these equations on complex shapes later in this chapter, but centroids of some simple shapes can be easily found using symmetry.</p>
+<p id="p-1238">If the shape has an axis of symmetry, every point on one side of the axis is mirrored by another point equidistant on the other side.   One has a positive distance from the axis, and the other is the same distance away in the negative direction.  These two points will add to zero the numerator, as will every other point making up the shape, and the first moment will be zero. This means that the centroid must lie along the line of symmetry if there is one. If a shape has multiple symmetry lines, then the centroid must exist at their intersection.</p>
 <figure class="figure figure-like" id="figure-116"><div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/images/Symmetry.svg" role="img" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.1<span class="period">.</span></span><span class="space"> </span>Centroids lie upon axes of symmetry.</figcaption></figure><p id="p-1222">Since rectangles, circles, cubes, spheres, etc. have multiple lines of symmetry, their centroids must be exactly in the center as we would expect.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.1<span class="period">.</span></span><span class="space"> </span>Centroids lie upon axes of symmetry.</figcaption></figure><p id="p-1239">Since rectangles, circles, cubes, spheres, etc. have multiple lines of symmetry, their centroids must be exactly in the center as we would expect.</p>
 <article class="question example-like" id="question-5"><h3 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.4.2</span><span class="period">.</span>
 </h3>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel middle" style="width:50%;"><p id="p-1223">What are the coordinates of the centroid of the I beam section shown?</p></div>
+<div class="sbspanel middle" style="width:50%;"><p id="p-1240">What are the coordinates of the centroid of the I beam section shown?</p></div>
 <div class="sbspanel middle" style="width:40%;"><img src="external/images/ibeam-centroid.svg" role="img" class="contained"></div>
 </div></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-46" id="answer-46"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-46"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-1224">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-46" id="answer-46"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-46"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-1241">
 \begin{equation*}
 \bar{x} = \bar{y} = \cm{3.5}
 \end{equation*}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-52" id="solution-52"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-52"><div class="solution solution-like">
-<p id="p-1225">The cross section is symmetrical about both a vertical and horizontal centerline.  The centroid is at the intersection, in the middle.  The coordinates are measured from the origin, in the bottom left of the diagram.</p>
+<p id="p-1242">The cross section is symmetrical about both a vertical and horizontal centerline.  The centroid is at the intersection, in the middle.  The coordinates are measured from the origin, in the bottom left of the diagram.</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \bar{x} = \bar{y} = \cm{3.5}
@@ -352,66 +345,66 @@ startup: {
 </div></article></section><section class="subsection" id="centroid-table"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span>
 </h3>
-<p id="p-1226">We will learn how to find centroids of other shapes in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a> using integration, but in the mean time several common shapes are recorded in the table below.  This information in this table will be needed in the next section.</p>
+<p id="p-1243">We will learn how to find centroids of other shapes in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a> using integration, but in the mean time several common shapes are recorded in the table below.  This information in this table will be needed in the next section.</p>
 <figure class="table table-like" id="table-2"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">7.4.3<span class="period">.</span></span><span class="space"> </span>Centroids of Common Shapes</figcaption><div class="tabular-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><table class="tabular">
 <tr class="header-horizontal">
-<th scope="col" class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1227">Shape</p></th>
-<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1228">Area</p></th>
-<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1229"><span class="process-math">\(\bar{x}\)</span></p></th>
-<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1230"><span class="process-math">\(\bar{y}\)</span></p></th>
+<th scope="col" class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1244">Shape</p></th>
+<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1245">Area</p></th>
+<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1246"><span class="process-math">\(\bar{x}\)</span></p></th>
+<th scope="col" class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1247"><span class="process-math">\(\bar{y}\)</span></p></th>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1231"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-rectangle.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1248"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-rectangle.svg" role="img" class="contained"></div></p></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(A = b h\)</span></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1232"><span class="process-math">\(b/2\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1233"><span class="process-math">\(h/2\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1249"><span class="process-math">\(b/2\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1250"><span class="process-math">\(h/2\)</span></p></td>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1234"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-triangle.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1251"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-triangle.svg" role="img" class="contained"></div></p></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\dfrac{bh}{2}\)</span></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1235"><span class="process-math">\(b/3\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1236"><span class="process-math">\(h/3\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1252"><span class="process-math">\(b/3\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1253"><span class="process-math">\(h/3\)</span></p></td>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1237"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-trapezoid.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1254"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-trapezoid.svg" role="img" class="contained"></div></p></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\dfrac{(a+b) h}{2}\)</span></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1238"><span class="process-math">\(\dfrac{a^2 +ab + b^2}{3 (a+b)}\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1239"><span class="process-math">\(\dfrac{h(2a+b)}{3(a+b)}\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1255"><span class="process-math">\(\dfrac{a^2 +ab + b^2}{3 (a+b)}\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1256"><span class="process-math">\(\dfrac{h(2a+b)}{3(a+b)}\)</span></p></td>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1240"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-circle.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1257"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-circle.svg" role="img" class="contained"></div></p></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\pi r^2\)</span></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1241"><span class="process-math">\(r\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1242"><span class="process-math">\(r \)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1258"><span class="process-math">\(r\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1259"><span class="process-math">\(r \)</span></p></td>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1243"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-semi-circle.svg" role="img" class="contained"></div></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1244"><span class="process-math">\(\dfrac{\pi r^2}{2}\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1245"><span class="process-math">\(r\)</span></p></td>
-<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1246"><span class="process-math">\(\dfrac{4 r}{3 \pi}\)</span> <a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-12" id="fn-12"><sup> 1 </sup></a></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1260"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-semi-circle.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1261"><span class="process-math">\(\dfrac{\pi r^2}{2}\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1262"><span class="process-math">\(r\)</span></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:120px;"><p id="p-1263"><span class="process-math">\(\dfrac{4 r}{3 \pi}\)</span> <a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-12" id="fn-12"><sup> 1 </sup></a></p></td>
 </tr>
 <tr>
-<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1247"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-quarter-circle.svg" role="img" class="contained"></div></p></td>
+<td class="c m b1 r0 l0 t0" style="max-width:180px;"><p id="p-1264"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/centroids-quarter-circle.svg" role="img" class="contained"></div></p></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\dfrac{\pi r^2}{4}\)</span></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\dfrac{4 r}{3 \pi}\)</span></td>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(\dfrac{4 r}{3 \pi}\)</span></td>
 </tr>
 </table></div></figure><article class="note remark-like" id="note-3"><a href="" data-knowl="" class="id-ref note-knowl original" data-refid="hk-note-3"><h4 class="heading">
 <span class="type">Note</span><span class="space"> </span><span class="codenumber">7.4.4</span><span class="period">.</span>
-</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-note-3"><article class="note remark-like"><p id="p-1248">In this table, all centroids are measured from the indicated origin.  You must make the appropriate adjustments when the origin of your coordinate system is located elsewhere.</p></article></div></section><section class="subsection" id="Chapter_07-relations-between-centroids-and-center-of-gravity"><h3 class="heading hide-type">
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-note-3"><article class="note remark-like"><p id="p-1265">In this table, all centroids are measured from the indicated origin.  You must make the appropriate adjustments when the origin of your coordinate system is located elsewhere.</p></article></div></section><section class="subsection" id="Chapter_07-relations-between-centroids-and-center-of-gravity"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span>
 </h3>
-<p id="p-1249">The equations we have been discussing <a href="" class="xref" data-knowl="./knowl/center_of_gravity.html" title="Equation 7.2.2">(7.2.2)</a>, <a href="" class="xref" data-knowl="./knowl/center_of_mass.html" title="Equation 7.3.1">(7.3.1)</a>,<a href="" class="xref" data-knowl="./knowl/three-d-centroid.html" title="Equation 7.4.1">(7.4.1)</a> and <a href="" class="xref" data-knowl="./knowl/two-d-centroid.html" title="Equation 7.4.2">(7.4.2)</a> are all variations on the general weighted average formula <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a>.</p>
+<p id="p-1266">The equations we have been discussing <a href="" class="xref" data-knowl="./knowl/center_of_gravity.html" title="Equation 7.2.2">(7.2.2)</a>, <a href="" class="xref" data-knowl="./knowl/center_of_mass.html" title="Equation 7.3.1">(7.3.1)</a>,<a href="" class="xref" data-knowl="./knowl/three-d-centroid.html" title="Equation 7.4.1">(7.4.1)</a> and <a href="" class="xref" data-knowl="./knowl/two-d-centroid.html" title="Equation 7.4.2">(7.4.2)</a> are all variations on the general weighted average formula <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a>.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/center_of_gravity.html ./knowl/center_of_mass.html ./knowl/three-d-centroid.html ./knowl/two-d-centroid.html ./knowl/weighted-average.html">
 \begin{equation*}
 \bar{a} = \frac{\sum a_i w_i}{\sum {w_i}}
 \end{equation*}
 </div>
-<p id="p-1250">Here <span class="process-math">\(a_i\)</span> represents the distance in one of the coordinate directions such as <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(\bar{a}\)</span> is the mean distance in the <span class="process-math">\(a\)</span> direction to the ‘middle’ of the whole object, and <span class="process-math">\(w\)</span> is the weighting factor.  The only difference between them is the choice of weighting factor.  For center of gravity, the weighting factor is the weight, for center of mass, it is the mass, for three dimensional centroids it is the volume, and for two dimensional centroids it is area.</p>
+<p id="p-1267">Here <span class="process-math">\(a_i\)</span> represents the distance in one of the coordinate directions such as <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(\bar{a}\)</span> is the mean distance in the <span class="process-math">\(a\)</span> direction to the ‘middle’ of the whole object, and <span class="process-math">\(w\)</span> is the weighting factor.  The only difference between them is the choice of weighting factor.  For center of gravity, the weighting factor is the weight, for center of mass, it is the mass, for three dimensional centroids it is the volume, and for two dimensional centroids it is area.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:55%;">
-<p id="p-1251">To understand how these equations relate to one another consider a plate with a cross-sectional area <span class="process-math">\(A\text{,}\)</span> divided into <span class="process-math">\(n\)</span> pieces with volume <span class="process-math">\(V_i\text{.}\)</span></p>
-<p id="p-1252">The weight of part <span class="process-math">\(i\)</span> is the product of its specific weight and volume.</p>
+<p id="p-1268">To understand how these equations relate to one another consider a plate with a cross-sectional area <span class="process-math">\(A\text{,}\)</span> divided into <span class="process-math">\(n\)</span> pieces with volume <span class="process-math">\(V_i\text{.}\)</span></p>
+<p id="p-1269">The weight of part <span class="process-math">\(i\)</span> is the product of its specific weight and volume.</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 W_i = \gamma V_i = \rho_i g_i A_i t_i
@@ -420,8 +413,8 @@ W_i = \gamma V_i = \rho_i g_i A_i t_i
 </div>
 <div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="flat-plate"><img src="external/images/flat-plate.svg" role="img" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Plate with variable thickness <span class="process-math">\(t\text{,}\)</span> divided into many volume elements <span class="process-math">\(V_i\text{.}\)</span></figcaption></figure></div>
 </div></div>
-<p id="p-1253">In the most general case, all of these terms might depend on the position of the part, but if any are constant they can be factored out and simplify the formulas.</p>
-<p id="p-1254">For a homogeneous flat plate with uniform thickness, like a piece of plywood, the density, thickness and <span class="process-math">\(g\)</span> are all constant so</p>
+<p id="p-1270">In the most general case, all of these terms might depend on the position of the part, but if any are constant they can be factored out and simplify the formulas.</p>
+<p id="p-1271">For a homogeneous flat plate with uniform thickness, like a piece of plywood, the density, thickness and <span class="process-math">\(g\)</span> are all constant so</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-130">
 \begin{align*}
 \amp \amp W_i \amp = \rho g t A_i\\
@@ -430,7 +423,7 @@ W_i = \gamma V_i = \rho_i g_i A_i t_i
 \bar{x}\amp = \frac{ \cancel{\rho g t} \sum  \bar{x}_{i} A_i}{\cancel{\rho g t}\sum  A_i} \amp \bar{y}\amp = \frac{\cancel{\rho g t}\sum  \bar{y}_{i} A_i}{\cancel{\rho g t}\sum A_i} \amp \bar{z}\amp = \frac{\cancel{\rho g t}\sum   \bar{z}_{i} A_i}{\cancel{\rho g t}\sum  A_i}\text{.}
 \end{align*}
 </div>
-<p id="p-1255">The two dimensional centroid equations are sufficient to find the center of gravity of a three dimensional object.</p></section></section><div xmlns:html="http://www.w3.org/1999/xhtml" class="hidden-content tex2jax_ignore" id="hk-fn-12"><div class="fn">See <a href="" class="xref" data-knowl="./knowl/four-r-three-pi.html" title="Example 7.7.14: Centroid of a semi-circle">Example 7.7.14</a> for proof. <span class="process-math">\(\dfrac{4 r}{3 \pi} \approx 0.424\ r\)</span>
+<p id="p-1272">The two dimensional centroid equations are sufficient to find the center of gravity of a three dimensional object.</p></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-12"><div class="fn">See <a href="" class="xref" data-knowl="./knowl/four-r-three-pi.html" title="Example 7.7.14: Centroid of a semi-circle">Example 7.7.14</a> for proof. <span class="process-math">\(\dfrac{4 r}{3 \pi} \approx 0.424\ r\)</span>
 </div></div>
 </div></main>
 </div>

@@ -11,14 +11,15 @@
 <title>Statics: Geogebra Interactives</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="integration_method.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_08.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_08-summary.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="integration_method.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_08.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_08-summary.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,31 +295,31 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_08-geogebra-interactives"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_08-geogebra-interactives"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span>
 </h2>
-<section class="introduction" id="introduction-34"><p id="p-1751">You can use the interactives below to practice drawing shear and moment diagrams.  You can change the position of the loads and change their magnitudes and observe how the diagrams change, or you can click <code class="code-inline tex2jax_ignore">New Problem</code> to generate a new problem.</p>
-<p id="p-1752">After exploring the diagrams and seeing how they relate to each other, turn off the solutions and try for yourself.  You will very likely see problems like these on an exam.</p></section><section class="subsection" id="Chapter_08-concentrated-forces"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-34"><p id="p-1802">You can use the interactives below to practice drawing shear and moment diagrams.  You can change the position of the loads and change their magnitudes and observe how the diagrams change, or you can click <code class="code-inline tex2jax_ignore">New Problem</code> to generate a new problem.</p>
+<p id="p-1803">After exploring the diagrams and seeing how they relate to each other, turn off the solutions and try for yourself.  You will very likely see problems like these on an exam.</p></section><section class="subsection" id="Chapter_08-concentrated-forces"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span>
 </h3>
-<aside class="aside aside-like" id="aside-58"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-1753"><span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are the supports. <span class="process-math">\(C\text{,}\)</span> <span class="process-math">\(D\text{,}\)</span> and <span class="process-math">\(E\)</span> are the loads.</p></aside><iframe id="ggb_VM_1_interactive" width="600" height="600" src="ggb_VM_1_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-concentrated-force-and-moment"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-61"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1804"><span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are the supports. <span class="process-math">\(C\text{,}\)</span> <span class="process-math">\(D\text{,}\)</span> and <span class="process-math">\(E\)</span> are the loads.</p></aside><iframe id="ggb_VM_1_interactive" width="600" height="600" src="ggb_VM_1_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-concentrated-force-and-moment"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span>
 </h3>
 <iframe id="ggb_VM_2_interactive" width="600" height="600" src="ggb_VM_2_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-distributed-load"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span>
 </h3>
-<aside class="aside aside-like" id="aside-59"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-1755"><span class="process-math">\(A\)</span> and <span class="process-math">\(F\)</span> are the reaction forces.</p></aside><iframe id="ggb_VM_3_interactive" width="600" height="600" src="ggb_VM_3_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-combination-load"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-62"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1806"><span class="process-math">\(A\)</span> and <span class="process-math">\(F\)</span> are the reaction forces.</p></aside><iframe id="ggb_VM_3_interactive" width="600" height="600" src="ggb_VM_3_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-combination-load"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.9.4</span> <span class="title">Combination Load</span>
 </h3>
-<aside class="aside aside-like" id="aside-60"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-1757"><span class="process-math">\(A\)</span> and <span class="process-math">\(F\)</span> are the reaction forces.</p></aside><iframe id="ggb_VM_4_interactive" width="600" height="600" src="ggb_VM_4_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-arbitrary-load"><h3 class="heading hide-type">
+<aside class="aside aside-like" id="aside-63"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1808"><span class="process-math">\(A\)</span> and <span class="process-math">\(F\)</span> are the reaction forces.</p></aside><iframe id="ggb_VM_4_interactive" width="600" height="600" src="ggb_VM_4_interactive-if.html"></iframe></section><section class="subsection" id="Chapter_08-arbitrary-load"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span>
 </h3>
-<aside class="aside aside-like" id="aside-61"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-1759">The load <span class="process-math">\(w\)</span> is a function of <span class="process-math">\(x\text{.}\)</span></p>
-<p id="p-1760">This applet uses the sign convention that positive loads act down, so</p>
+<aside class="aside aside-like" id="aside-64"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1810">The load <span class="process-math">\(w\)</span> is a function of <span class="process-math">\(x\text{.}\)</span></p>
+<p id="p-1811">This applet uses the sign convention that positive loads act down, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \dfrac{dV}{dx} = - w(x)\text{.}

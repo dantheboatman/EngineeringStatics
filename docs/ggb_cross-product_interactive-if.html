@@ -8,7 +8,8 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script>window.MathJax = {
+<script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -41,11 +42,11 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
@@ -60,25 +61,26 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
-<body class="pretext-content ignore-math"><div style="width:252px; height:252px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
+<body class="pretext-content ignore-math"><div style="width:252px; height:139px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
-var slate__32_api;
 var slate__32_onload = function(ggb) {
-ggb.evalCommand("Z=1.1")
-ggb.evalCommand("ZoomIn(-Z,-Z,-Z,Z,Z,Z)")
-ggb.setAnimationSpeed("θ", 1)
+ggb.evalCommand("Z=1.1");
+ggb.evalCommand("ZoomIn(-Z,-Z,-Z,Z,Z,Z)");
+ggb.setAnimationSpeed("θ", 1);
+ggb.enableRightClick(false);
 };
 var slate__32_params = {
 id:"slate__32",
 filename:"external/images/cross-product.ggb",
 width:330,
-height:330,
+height:165,
 appletOnLoad: function(ggb) {
 slate__32_onload(ggb);
+console.log("Loading slate__32" , ggb);
 listeners(ggb);
-slate__32_api = ggb;}
+}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
@@ -93,6 +95,6 @@ console.log('GGB load applet error.', error);
 });
 </script>
 
-<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="slate-32-container" style="width:330px; height:330px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
+<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="slate-32-container" style="width:330px; height:165px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
 </div></body>
 </html>

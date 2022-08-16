@@ -11,14 +11,15 @@
 <title>Statics: Frames and Machines</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="method-of-sections.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_06-summary.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="method-of-sections.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_06-summary.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -303,7 +296,7 @@ startup: {
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
 <main class="main"><div id="content" class="pretext-content">
-<section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="frames-and-machines"><h2 class="heading hide-type">
+<section class="section" id="frames-and-machines"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.6</span> <span class="title">Frames and Machines</span>
 </h2>
 <article class="objectives goal-like" id="objectives-25"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -312,75 +305,75 @@ startup: {
 <li id="li-303"><p id="p-derived-li-303">Why can the method of joints and method of sections not be used for frames and machines?</p></li>
 <li id="li-304"><p id="p-derived-li-304">How do we identify if a structure is independently rigid?</p></li>
 <li id="li-305"><p id="p-derived-li-305">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</p></li>
-</ul></article><section class="introduction" id="introduction-22"><p id="p-1068">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> were all multi-force bodies.</p>
-<p id="p-1069"><dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads and must include at least one multi-force member.</p>
-<p id="p-1070"><dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by their interacting and applied forces.</p>
-<p id="p-1071">Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p>
+</ul></article><section class="introduction" id="introduction-22"><p id="p-1085">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> were all multi-force bodies.</p>
+<p id="p-1086"><dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads and must include at least one multi-force member.</p>
+<p id="p-1087"><dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by their interacting and applied forces.</p>
+<p id="p-1088">Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="stool"><img src="external/images/TabouretAFDB.png" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.1<span class="period">.</span></span><span class="space"> </span>Frames are rigid objects containing multi-force members.</figcaption></figure></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="vice-grips-photo"><img src="external/images/Locking_pliers.png" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.2<span class="period">.</span></span><span class="space"> </span>Machines contain multi-force members that can move relative to one another.</figcaption></figure></div>
 </div></div></section><section class="subsection" id="frames-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span>
 </h3>
-<section class="introduction" id="introduction-23"><p id="p-1072">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.</p>
-<p id="p-1073">Multi-part structures are analyzed by mentally taking them apart and analyzing the entire structure and each part separately.  Each component is analyzed as an separate rigid body using the techniques we have already seen.</p>
-<p id="p-1074">Although we can separate the structure into parts, the parts are not independent since, by Newton’s Third Law, every interaction is half of a complementary pair. For every force or moment of body <span class="process-math">\(A\)</span> on <span class="process-math">\(B\)</span> there is an equal-and-opposite force or moment of body <span class="process-math">\(B\)</span> on body <span class="process-math">\(A\)</span> and the free-body diagrams must reflect this.  Incorrect representation of these interacting pairs on free-body diagrams is a common source of student errors.</p>
-<p id="p-1075">Once the frame or machine is disassembled and free-body diagrams have been drawn, the structure is analyzed by applying equations of equilibrium to free-body diagrams, exactly as you have done before —there's nothing new here.</p>
-<p id="p-1076">The difficulty arises first in selecting objects and drawing correct free body diagrams and second, in identifying an efficient solution strategy since you usually won't be able to completely solve a diagram without first finding the value of an unknown force from another diagram.</p>
-<p id="p-1077">In  <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations.  By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</p>
+<section class="introduction" id="introduction-23"><p id="p-1089">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.</p>
+<p id="p-1090">Multi-part structures are analyzed by mentally taking them apart and analyzing the entire structure and each part separately.  Each component is analyzed as an separate rigid body using the techniques we have already seen.</p>
+<p id="p-1091">Although we can separate the structure into parts, the parts are not independent since, by Newton’s Third Law, every interaction is half of a complementary pair. For every force or moment of body <span class="process-math">\(A\)</span> on <span class="process-math">\(B\)</span> there is an equal-and-opposite force or moment of body <span class="process-math">\(B\)</span> on body <span class="process-math">\(A\)</span> and the free-body diagrams must reflect this.  Incorrect representation of these interacting pairs on free-body diagrams is a common source of student errors.</p>
+<p id="p-1092">Once the frame or machine is disassembled and free-body diagrams have been drawn, the structure is analyzed by applying equations of equilibrium to free-body diagrams, exactly as you have done before —there's nothing new here.</p>
+<p id="p-1093">The difficulty arises first in selecting objects and drawing correct free body diagrams and second, in identifying an efficient solution strategy since you usually won't be able to completely solve a diagram without first finding the value of an unknown force from another diagram.</p>
+<p id="p-1094">In  <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations.  By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</p>
 <ul class="disc">
 <li id="li-306">
-<span class="heading"><span class="title">Two-force members.</span></span><p id="p-1078">One equation. Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins.  The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</p>
+<span class="heading"><span class="title">Two-force members.</span></span><p id="p-1095">One equation. Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins.  The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</p>
 </li>
 <li id="li-307">
-<span class="heading"><span class="title">Objects with concurrent forces and no couple-moments.</span></span><p id="p-1079">Two equations.  These are the problems you solved in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>.  There are two equations available <span class="process-math">\(\Sigma F_x = 0\)</span>  and  <span class="process-math">\(\Sigma F_y = 0\text{.}\)</span></p>
+<span class="heading"><span class="title">Objects with concurrent forces and no couple-moments.</span></span><p id="p-1096">Two equations.  These are the problems you solved in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>.  There are two equations available <span class="process-math">\(\Sigma F_x = 0\)</span>  and  <span class="process-math">\(\Sigma F_y = 0\text{.}\)</span></p>
 </li>
 <li id="li-308">
-<span class="heading"><span class="title">Multi-force rigid body with non-concurrent forces and/or couples.</span></span><p id="p-1080">Three equations.  These are the most general body types. Use  <span class="process-math">\(\Sigma F_x = 0\text{,}\)</span>  <span class="process-math">\(\Sigma F_y = 0\text{,}\)</span>  and<span class="process-math">\(\Sigma M = 0\)</span> to solve for three unknowns.</p>
+<span class="heading"><span class="title">Multi-force rigid body with non-concurrent forces and/or couples.</span></span><p id="p-1097">Three equations.  These are the most general body types. Use  <span class="process-math">\(\Sigma F_x = 0\text{,}\)</span>  <span class="process-math">\(\Sigma F_y = 0\text{,}\)</span>  and<span class="process-math">\(\Sigma M = 0\)</span> to solve for three unknowns.</p>
 </li>
 </ul></section><section class="subsubsection" id="Chapter_06-procedure"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span> <span class="codenumber"></span> <span class="title">Procedure</span>
 </h4>
-<p id="p-1081">The process used to analyze frames and machines is outlined below</p>
+<p id="p-1098">The process used to analyze frames and machines is outlined below</p>
 <ol class="decimal">
 <li id="li-309">
-<p id="p-1082">Determine if the entire structure as independently rigid.  An independently rigid structure will hold it shape even when separated from its supports. Look for triangles formed among the members, as triangles are inherently rigid.  If it is not independently rigid, the structure will collapse when the supports are removed.</p>
-<p id="p-1083">If the structure is not independently rigid, skip to the next step.  Otherwise, model it as a single rigid body and determine the external reaction forces.</p>
+<p id="p-1099">Determine if the entire structure as independently rigid.  An independently rigid structure will hold it shape even when separated from its supports. Look for triangles formed among the members, as triangles are inherently rigid.  If it is not independently rigid, the structure will collapse when the supports are removed.</p>
+<p id="p-1100">If the structure is not independently rigid, skip to the next step.  Otherwise, model it as a single rigid body and determine the external reaction forces.</p>
 </li>
 <li id="li-310">
-<p id="p-1084">Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:</p>
+<p id="p-1101">Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:</p>
 <ul class="disc">
 <li id="li-311"><p id="p-derived-li-311">Applied forces and couples and the weights of the components if non-negligible.</p></li>
 <li id="li-312"><p id="p-derived-li-312">Interaction forces due to two-force members.  There will be force of unknown magnitude but the known direction at  points connected to two-force members.  The forces will act along the line between the two connection points.</p></li>
 <li id="li-313"><p id="p-derived-li-313">All reaction forces and couples at the connection points between members. Forces with an unknown magnitude and direction are usually represented by  unknown <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components, but can also be represented as a force with unknown magnitude acting in an unknown direction.</p></li>
 </ul>
-<p id="p-1085">All interaction forces and couples between connected bodies <em class="emphasis">must</em> be shown as equal-and-opposite action-reaction pairs.</p>
+<p id="p-1102">All interaction forces and couples between connected bodies <em class="emphasis">must</em> be shown as equal-and-opposite action-reaction pairs.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="frame-example-fbd"><img src="external/images/Example-frame.svg" role="img" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.3<span class="period">.</span></span><span class="space"> </span>Free-body digram of a rigid frame with pin at <span class="process-math">\(A\text{,}\)</span> roller at <span class="process-math">\(E\text{,}\)</span> and load at <span class="process-math">\(F\text{.}\)</span></figcaption></figure></div>
 <div class="sbspanel top" style="width:53%;"><figure class="figure figure-like" id="frame-example-exploded"><img src="external/images/Example-frame-exploded.svg" role="img" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.4<span class="period">.</span></span><span class="space"> </span>Free body diagrams of the individual components. External forces are red, exposed action-reaction pairs in blue.</figcaption></figure></div>
 </div></div>
 </li>
-<li id="li-314"><p id="p-1086">Write out the equilibrium equations for each free-body diagram.</p></li>
-<li id="li-315"><p id="p-1087">Solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.</p></li>
+<li id="li-314"><p id="p-1103">Write out the equilibrium equations for each free-body diagram.</p></li>
+<li id="li-315"><p id="p-1104">Solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.</p></li>
 </ol>
-<p id="p-1088">In the following example, we’ll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free body diagrams, and identify a good solution strategy.</p></section><section class="subsubsection" id="Chapter_06-free-body-diagram-of-structures"><h4 class="heading hide-type">
+<p id="p-1105">In the following example, we’ll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free body diagrams, and identify a good solution strategy.</p></section><section class="subsubsection" id="Chapter_06-free-body-diagram-of-structures"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span> <span class="codenumber"></span> <span class="title">Free-body diagram of structures</span>
 </h4>
-<p id="p-1089">Drawing free-body diagrams of complex frames and machines can be tricky.  In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.</p>
-<p id="p-1090">The toggle clamp shown in  <a href="" class="xref" data-knowl="./knowl/toggle-clamp-01.html" title="Figure 6.6.5">Figure 6.6.5</a>  is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints. The component parts are shown and named in <a href="" class="xref" data-knowl="./knowl/toggle-clamp-02.html" title="Figure 6.6.6">Figure 6.6.6</a>.</p>
+<p id="p-1106">Drawing free-body diagrams of complex frames and machines can be tricky.  In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.</p>
+<p id="p-1107">The toggle clamp shown in  <a href="" class="xref" data-knowl="./knowl/toggle-clamp-01.html" title="Figure 6.6.5">Figure 6.6.5</a>  is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints. The component parts are shown and named in <a href="" class="xref" data-knowl="./knowl/toggle-clamp-02.html" title="Figure 6.6.6">Figure 6.6.6</a>.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:30%;"><figure class="figure figure-like" id="toggle-clamp-01"><img src="external/images/toggle-clamp-01.svg" role="img" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.5<span class="period">.</span></span><span class="space"> </span>Original diagram</figcaption></figure></div>
 <div class="sbspanel top" style="width:37.5%;"><figure class="figure figure-like" id="toggle-clamp-02"><img src="external/images/toggle-clamp-02.svg" role="img" class="contained"><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.6<span class="period">.</span></span><span class="space"> </span>Component parts.</figcaption></figure></div>
 </div></div>
-<p id="p-1091">This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated. The only force shown is <span class="process-math">\(F,\)</span> which is supplied by some external agent, presumably the machine operator. We must assume that the wall and floor are still attached to the world and held fixed.</p>
-<p id="p-1092">To perform an equilibrium analysis, we need to develop one or more free body diagrams and apply the equations of equilibrium to them.  Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts.  Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need.  In any event, a clear decision must always be made about what is part of the free-body and what is not.</p>
-<p id="p-1093">When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation.  These forces and moments must be represented on the free body diagrams consistently as halves of equal-and-opposite action-reaction pairs.</p>
-<p id="p-1094">For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains.  In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams.  In an actual situation you will not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.</p>
-<p id="p-1095">It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams.   In planar problems a free-body diagram with three or fewer unknowns may be solved immediately.  When there are more than three unknowns, you must incorporate information from other diagrams to complete the solution.</p>
+<p id="p-1108">This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated. The only force shown is <span class="process-math">\(F,\)</span> which is supplied by some external agent, presumably the machine operator. We must assume that the wall and floor are still attached to the world and held fixed.</p>
+<p id="p-1109">To perform an equilibrium analysis, we need to develop one or more free body diagrams and apply the equations of equilibrium to them.  Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts.  Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need.  In any event, a clear decision must always be made about what is part of the free-body and what is not.</p>
+<p id="p-1110">When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation.  These forces and moments must be represented on the free body diagrams consistently as halves of equal-and-opposite action-reaction pairs.</p>
+<p id="p-1111">For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains.  In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams.  In an actual situation you will not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.</p>
+<p id="p-1112">It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams.   In planar problems a free-body diagram with three or fewer unknowns may be solved immediately.  When there are more than three unknowns, you must incorporate information from other diagrams to complete the solution.</p>
 <section class="paragraphs" id="paragraphs-34"><h5 class="heading"><span class="title">Exclude the floor.</span></h5>
-<p id="p-1096">To begin, we can remove the floor from the system. Everything except the floor is now included as our body; only the floor is excluded. The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall.</p>
-<p id="p-1097">Since we don’t know how the wall and the floor are connected we will assume they were fixed together.  We also have to model how the wall is attached to the rest of the world. The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <span class="process-math">\(V_x\)</span> and <span class="process-math">\(V_y\text{,}\)</span> and a concentrated moment <span class="process-math">\(M_v\text{.}\)</span></p>
-<p id="p-1098"></p>
+<p id="p-1113">To begin, we can remove the floor from the system. Everything except the floor is now included as our body; only the floor is excluded. The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall.</p>
+<p id="p-1114">Since we don’t know how the wall and the floor are connected we will assume they were fixed together.  We also have to model how the wall is attached to the rest of the world. The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <span class="process-math">\(V_x\)</span> and <span class="process-math">\(V_y\text{,}\)</span> and a concentrated moment <span class="process-math">\(M_v\text{.}\)</span></p>
+<p id="p-1115"></p>
 <figure class="figure figure-like" id="toggle-clamp-03"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:30.7692307692308%;"><img src="external/images/toggle-clamp-03.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:66.6666666666667%;"><table class="tabular">
@@ -389,19 +382,19 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:128.7px;"><p id="p-1099">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Wall, Bearing <span class="process-math">\(A\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:257.4px;"><p id="p-1100">Floor</p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:128.7px;"><p id="p-1116">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Wall, Bearing <span class="process-math">\(A\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:257.4px;"><p id="p-1117">Floor</p></td>
 </tr>
 </table></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.7<span class="period">.</span></span><span class="space"> </span>Free-body Diagram 1</figcaption></figure><p id="p-1101">The effect of the floor on the block is is represented by a single vertical force <span class="process-math">\(G\)</span> which holds the block the same way the floor was previously supporting it; the loads you add must constrain your object the same way they were constrained in the real world.  This representation is really a simplification of the actual situation since the force of the floor is really distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we represent the weight of an object as a single force acting at its center of gravity.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.7<span class="period">.</span></span><span class="space"> </span>Free-body Diagram 1</figcaption></figure><p id="p-1118">The effect of the floor on the block is is represented by a single vertical force <span class="process-math">\(G\)</span> which holds the block the same way the floor was previously supporting it; the loads you add must constrain your object the same way they were constrained in the real world.  This representation is really a simplification of the actual situation since the force of the floor is really distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we represent the weight of an object as a single force acting at its center of gravity.</p>
 <article class="assemblage assemblage-like" id="assemblage-1"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1102" class="disc">
+<ul id="p-1119" class="disc">
 <li id="li-316"><p id="p-derived-li-316">Include friction if it’s given or obvious.</p></li>
 <li id="li-317"><p id="p-derived-li-317">Internal forces in rigid bodies should be modeled as a fixed support.</p></li>
 <li id="li-318"><p id="p-derived-li-318">If you need info which you don’t have, select a variable to act as its name.</p></li>
 </ul></article></section><section class="paragraphs" id="paragraphs-35"><h5 class="heading"><span class="title">Exclude the wall.</span></h5>
-<p id="p-1103">If you next remove the wall, forces <span class="process-math">\(G\)</span> and <span class="process-math">\(F\)</span> remain from before, but we now expose four loads from where the wall was connected to what is now our body; a normal force <span class="process-math">\(N\)</span> at the roller and three loads from the fixed support between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\text{.}\)</span></p>
+<p id="p-1120">If you next remove the wall, forces <span class="process-math">\(G\)</span> and <span class="process-math">\(F\)</span> remain from before, but we now expose four loads from where the wall was connected to what is now our body; a normal force <span class="process-math">\(N\)</span> at the roller and three loads from the fixed support between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\text{.}\)</span></p>
 <figure class="figure figure-like" id="figure-102"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-04.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
@@ -410,22 +403,22 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1104">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Bearing <span class="process-math">\(A\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1105">Floor, Wall</p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1121">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Bearing <span class="process-math">\(A\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1122">Floor, Wall</p></td>
 </tr>
 </table></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.8<span class="period">.</span></span><span class="space"> </span>Free-body diagram 2</figcaption></figure><p id="p-1106">Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table. Only loads that cross from included to excluded produce a load on the free-body diagram.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.8<span class="period">.</span></span><span class="space"> </span>Free-body diagram 2</figcaption></figure><p id="p-1123">Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table. Only loads that cross from included to excluded produce a load on the free-body diagram.</p>
 <article class="assemblage assemblage-like" id="assemblage-2"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1107" class="disc">
+<ul id="p-1124" class="disc">
 <li id="li-319"><p id="p-derived-li-319">Every force needs a point of application and a clear arrowhead.</p></li>
 <li id="li-320"><p id="p-derived-li-320">Indicate any distances and angles needed and not available on the original digram.</p></li>
 <li id="li-321"><p id="p-derived-li-321">Define the direction of forces which are not vertical or horizontal with an angle from a reference direction.</p></li>
 <li id="li-322"><p id="p-derived-li-322">Define a coordinate system unless you are using the standard <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> axes.</p></li>
 <li id="li-323"><p id="p-derived-li-323">Do not add forces that don’t act on your body.</p></li>
 </ul></article></section><section class="paragraphs" id="paragraphs-36"><h5 class="heading"><span class="title">Exclude the bearing at <span class="process-math">\(A\)</span>.</span></h5>
-<p id="p-1108">We are not interested in the loads between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and further, the free-body diagram still includes too many unknowns to solve.</p>
-<p id="p-1109">After removing the bearing we reduce the unknowns at <span class="process-math">\(A\)</span> to two because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support. The loads <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and <span class="process-math">\(V_x\text{,}\)</span> <span class="process-math">\(V_y\text{,}\)</span> and <span class="process-math">\(M_v\)</span> are not included on this free-body diagram because they don’t act on this object.</p>
+<p id="p-1125">We are not interested in the loads between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and further, the free-body diagram still includes too many unknowns to solve.</p>
+<p id="p-1126">After removing the bearing we reduce the unknowns at <span class="process-math">\(A\)</span> to two because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support. The loads <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and <span class="process-math">\(V_x\text{,}\)</span> <span class="process-math">\(V_y\text{,}\)</span> and <span class="process-math">\(M_v\)</span> are not included on this free-body diagram because they don’t act on this object.</p>
 <figure class="figure figure-like" id="figure-103"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-05.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
@@ -434,31 +427,31 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1110">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1111">Floor, Wall, Bearing <span class="process-math">\(A\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1127">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1128">Floor, Wall, Bearing <span class="process-math">\(A\)</span></p></td>
 </tr>
 </table></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.9<span class="period">.</span></span><span class="space"> </span>Free-body diagram 3</figcaption></figure><p id="p-1112">The load from the short link at <span class="process-math">\(B\)</span> is does not appear on this free-body diagram because it is internal. Internal loads connect two parts of the body together.  They should not be included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.9<span class="period">.</span></span><span class="space"> </span>Free-body diagram 3</figcaption></figure><p id="p-1129">The load from the short link at <span class="process-math">\(B\)</span> is does not appear on this free-body diagram because it is internal. Internal loads connect two parts of the body together.  They should not be included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.</p>
 <article class="assemblage assemblage-like" id="assemblage-3"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1113" class="disc">
+<ul id="p-1130" class="disc">
 <li id="li-324"><p id="p-derived-li-324">Look for free body diagrams which include only three unknowns in two dimensions or six unknowns in three.</p></li>
 <li id="li-325"><p id="p-derived-li-325">Don’t include internal loads on your free-body diagrams.</p></li>
 </ul></article></section><section class="paragraphs" id="paragraphs-37"><h5 class="heading"><span class="title">Examine the wooden block.</span></h5>
 <figure class="figure figure-like" id="figure-104"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-07.svg" role="img" class="contained"></div>
 <div class="sbspanel middle" style="width:82.0512820512821%;">
-<p id="p-1114">A free-body diagram of the block shows the clamping force Q, which we are seeking.</p>
-<p id="p-1115">Note that <span class="process-math">\(Q \ne G\text{.}\)</span> These forces are given different names since they may have different magnitudes.  If the weight of the block is small<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-11" id="fn-11"><sup> 1 </sup></a> in comparison to the other forces acting on the object it may be neglected, in which case <span class="process-math">\(Q = G\)</span> and they could be given the same name.</p>
+<p id="p-1131">A free-body diagram of the block shows the clamping force Q, which we are seeking.</p>
+<p id="p-1132">Note that <span class="process-math">\(Q \ne G\text{.}\)</span> These forces are given different names since they may have different magnitudes.  If the weight of the block is small<a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-11" id="fn-11"><sup> 1 </sup></a> in comparison to the other forces acting on the object it may be neglected, in which case <span class="process-math">\(Q = G\)</span> and they could be given the same name.</p>
 </div>
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.10<span class="period">.</span></span><span class="space"> </span>Free-body diagram 4 (block)</figcaption></figure><article class="assemblage assemblage-like" id="assemblage-4"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1116" class="disc">
+<ul id="p-1133" class="disc">
 <li id="li-326"><p id="p-derived-li-326">If the two forces are not the same don't identify them by the same name.</p></li>
 <li id="li-327"><p id="p-derived-li-327">Make as few assumptions as you possibly can. Make a note of any assumptions you make.</p></li>
 <li id="li-328"><p id="p-derived-li-328">In textbook problems, if the weight of an object is not mentioned it may be neglected.</p></li>
 </ul></article></section><section class="paragraphs" id="paragraphs-38"><h5 class="heading"><span class="title">Exclude the wooden block.</span></h5>
-<p id="p-1117">We can further simplify the diagram by removing the wooden block, leaving only the roller, shortlink and lever.</p>
+<p id="p-1134">We can further simplify the diagram by removing the wooden block, leaving only the roller, shortlink and lever.</p>
 <figure class="figure figure-like" id="toggle-clamp-06"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-06.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
@@ -467,20 +460,20 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1118">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Roller <span class="process-math">\(D\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1119">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block</p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1135">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Roller <span class="process-math">\(D\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1136">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block</p></td>
 </tr>
 </table></div>
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.11<span class="period">.</span></span><span class="space"> </span>Free-body diagram 5 (lever and link)</figcaption></figure></section><section class="paragraphs" id="paragraphs-39"><h5 class="heading"><span class="title">Examine the short link <span class="process-math">\(BD\)</span>.</span></h5>
-<p id="p-1120">The short link <span class="process-math">\(BD\)</span> is a two-force body and as discussed in <a href="CH03-1d-particles.html#two-force-bodies" class="internal" title="Subsection 3.3.3: Two-force Bodies">Subsection 3.3.3</a> can only be in equilibrium if the forces at <span class="process-math">\(B\)</span> and <span class="process-math">\(D\)</span> are equal-and-opposite and act along a line passing through these two points.  This means that the 24:7 slope of the link determines the direction of force <span class="process-math">\(BD\text{.}\)</span></p>
+<p id="p-1137">The short link <span class="process-math">\(BD\)</span> is a two-force body and as discussed in <a href="CH03-1d-particles.html#two-force-bodies" class="internal" title="Subsection 3.3.3: Two-force Bodies">Subsection 3.3.3</a> can only be in equilibrium if the forces at <span class="process-math">\(B\)</span> and <span class="process-math">\(D\)</span> are equal-and-opposite and act along a line passing through these two points.  This means that the 24:7 slope of the link determines the direction of force <span class="process-math">\(BD\text{.}\)</span></p>
 <figure class="figure figure-like" id="figure-106"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-11.svg" role="img" class="contained"></div>
-<div class="sbspanel middle" style="width:82.0512820512821%;"><p id="p-1121">When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components are not independent but are actually related by the direction of the force.</p></div>
+<div class="sbspanel middle" style="width:82.0512820512821%;"><p id="p-1138">When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components are not independent but are actually related by the direction of the force.</p></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.12<span class="period">.</span></span><span class="space"> </span>Free-body diagram 6 (short link)</figcaption></figure><p id="p-1122">Here we have assumed that the forces acting on the link are compressive.  If the equilibrium equations produce a positive value for <span class="process-math">\(BD\)</span> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in tension.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.12<span class="period">.</span></span><span class="space"> </span>Free-body diagram 6 (short link)</figcaption></figure><p id="p-1139">Here we have assumed that the forces acting on the link are compressive.  If the equilibrium equations produce a positive value for <span class="process-math">\(BD\)</span> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in tension.</p>
 <article class="assemblage assemblage-like" id="assemblage-5"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1123" class="disc">
+<ul id="p-1140" class="disc">
 <li id="li-329"><p id="p-derived-li-329">A short-link is a two-force body.</p></li>
 <li id="li-330"><p id="p-derived-li-330">Recognize two-force bodies because they give you information about direction.</p></li>
 <li id="li-331"><p id="p-derived-li-331">Represent the force of a two-force bodies as a force with unknown magnitude acting acting along a known line of action, not as <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</p></li>
@@ -488,16 +481,16 @@ startup: {
 </ul></article></section><section class="paragraphs" id="paragraphs-40"><h5 class="heading"><span class="title">Examine the roller at <span class="process-math">\(D\)</span>.</span></h5>
 <figure class="figure figure-like" id="figure-107"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-09.svg" role="img" class="contained"></div>
-<div class="sbspanel middle" style="width:82.0512820512821%;"><p id="p-1124">Note that the force <span class="process-math">\(BD\)</span> acting on the roller is shown pointing down and to the left.  This is the opposite to the force acting on the link at <span class="process-math">\(D\text{,}\)</span> which acts up and to the right.  These two must act in opposite directions because they are an action-reaction pair.</p></div>
+<div class="sbspanel middle" style="width:82.0512820512821%;"><p id="p-1141">Note that the force <span class="process-math">\(BD\)</span> acting on the roller is shown pointing down and to the left.  This is the opposite to the force acting on the link at <span class="process-math">\(D\text{,}\)</span> which acts up and to the right.  These two must act in opposite directions because they are an action-reaction pair.</p></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.13<span class="period">.</span></span><span class="space"> </span>Free-body diagram 7 (roller)</figcaption></figure><p id="p-1125">The roller is a three-force body, so the lines of action of <span class="process-math">\(N\text{,}\)</span> <span class="process-math">\(Q\text{,}\)</span> and <span class="process-math">\(BD\)</span> are coincident and it may be treated as a particle.  Equilibrium analysis shows that <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> must oppose the horizontal and vertical components of force <span class="process-math">\(BD\text{.}\)</span></p>
-<p id="p-1126">The clamping force <span class="process-math">\(Q\)</span> produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.13<span class="period">.</span></span><span class="space"> </span>Free-body diagram 7 (roller)</figcaption></figure><p id="p-1142">The roller is a three-force body, so the lines of action of <span class="process-math">\(N\text{,}\)</span> <span class="process-math">\(Q\text{,}\)</span> and <span class="process-math">\(BD\)</span> are coincident and it may be treated as a particle.  Equilibrium analysis shows that <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> must oppose the horizontal and vertical components of force <span class="process-math">\(BD\text{.}\)</span></p>
+<p id="p-1143">The clamping force <span class="process-math">\(Q\)</span> produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.</p>
 <article class="assemblage assemblage-like" id="assemblage-6"><h6 class="heading"><span class="title">Tips.</span></h6>
-<ul id="p-1127" class="disc">
+<ul id="p-1144" class="disc">
 <li id="li-333"><p id="p-derived-li-333">Recognize three-force bodies and use their special properties to your advantage.</p></li>
 <li id="li-334"><p id="p-derived-li-334">Use the same name for the exposed forces on interacting bodies since they are equal-and-opposite halves of an action-reaction pair.</p></li>
 </ul></article></section><section class="paragraphs" id="paragraphs-41"><h5 class="heading"><span class="title">Exclude the roller.</span></h5>
-<p id="p-1128">We can further simplify the free-body diagram by removing the roller. The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action — the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint.</p>
+<p id="p-1145">We can further simplify the free-body diagram by removing the roller. The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action — the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint.</p>
 <figure class="figure figure-like" id="figure-108"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-08.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
@@ -506,13 +499,13 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1129">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1130">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1146">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1147">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\)</span></p></td>
 </tr>
 </table></div>
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.14<span class="period">.</span></span><span class="space"> </span>Free-body diagram 8</figcaption></figure></section><section class="paragraphs" id="paragraphs-42"><h5 class="heading"><span class="title">Exclude the short link.</span></h5>
-<p id="p-1131">The previous free-body diagram has three unknowns and can be solved but the free-body diagram of the lever by itself is also correct, and this is the free-body diagram that most people begin with.</p>
+<p id="p-1148">The previous free-body diagram has three unknowns and can be solved but the free-body diagram of the lever by itself is also correct, and this is the free-body diagram that most people begin with.</p>
 <figure class="figure figure-like" id="figure-109"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-10.svg" role="img" class="contained"></div>
 <div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
@@ -521,30 +514,30 @@ startup: {
 <th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1132">Lever <span class="process-math">\(ABC\)</span></p></td>
-<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1133">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><p id="p-1149">Lever <span class="process-math">\(ABC\)</span></p></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><p id="p-1150">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span></p></td>
 </tr>
 </table></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.15<span class="period">.</span></span><span class="space"> </span>Free-body diagram 9 (lever)</figcaption></figure><p id="p-1134">The load <span class="process-math">\(BD\)</span> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <span class="process-math">\(D\text{,}\)</span> so this this can be thought of as sliding a force along its line of action — an equivalent transformation.</p>
-<p id="p-1135">The following loads are not shown here because they act between two objects which are not part of the body:</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.15<span class="period">.</span></span><span class="space"> </span>Free-body diagram 9 (lever)</figcaption></figure><p id="p-1151">The load <span class="process-math">\(BD\)</span> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <span class="process-math">\(D\text{,}\)</span> so this this can be thought of as sliding a force along its line of action — an equivalent transformation.</p>
+<p id="p-1152">The following loads are not shown here because they act between two objects which are not part of the body:</p>
 <ul class="disc">
 <li id="li-335"><p id="p-derived-li-335">the loads between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\text{,}\)</span></p></li>
 <li id="li-336"><p id="p-derived-li-336">the loads between the floor and the wall <span class="process-math">\(V_x\text{,}\)</span> <span class="process-math">\(V_y\text{,}\)</span> and <span class="process-math">\(M_v\text{,}\)</span></p></li>
 <li id="li-337"><p id="p-derived-li-337">the load between the block and the floor <span class="process-math">\(G\text{,}\)</span> and</p></li>
 <li id="li-338"><p id="p-derived-li-338">the load between the roller and the wall <span class="process-math">\(N\text{.}\)</span></p></li>
-</ul></section><p id="p-1136">All of the free-body diagrams we have drawn are correct, though not all are necessary.  Generally we only draw the free-body diagrams needed for the solution.  These diagrams form a chain which connect the known input forces to the desired output forces.  When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which free-body diagrams you will need.  Taking a few moments to consider what unknowns you’d have at each step can help you optimize your problem-solving effort.</p>
-<p id="p-1137">You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results.  Consider the diagram below.</p>
+</ul></section><p id="p-1153">All of the free-body diagrams we have drawn are correct, though not all are necessary.  Generally we only draw the free-body diagrams needed for the solution.  These diagrams form a chain which connect the known input forces to the desired output forces.  When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which free-body diagrams you will need.  Taking a few moments to consider what unknowns you’d have at each step can help you optimize your problem-solving effort.</p>
+<p id="p-1154">You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results.  Consider the diagram below.</p>
 <figure class="figure figure-like" id="figure-110"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-12.svg" role="img" class="contained"></div>
-<div class="sbspanel middle" style="width:73.8461538461538%;"><p id="p-1138">This diagram doesn't accurately represent what is happening at pin <span class="process-math">\(D\text{.}\)</span></p></div>
+<div class="sbspanel middle" style="width:73.8461538461538%;"><p id="p-1155">This diagram doesn't accurately represent what is happening at pin <span class="process-math">\(D\text{.}\)</span></p></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.16<span class="period">.</span></span><span class="space"> </span>Free-body diagram 10 (Subtly incorrect)</figcaption></figure><p id="p-1139">Forces <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> do not actually act on the short link at <span class="process-math">\(D\text{.}\)</span> Force <span class="process-math">\(N\)</span> acts between the roller and the wall and clearly this diagram doesn’t include the roller. Similarly <span class="process-math">\(Q\)</span> acts between the block and the roller.  These forces don't belong on the free-body diagram even though they are equal to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of force <span class="process-math">\(BD\text{.}\)</span>   Only forces which cross the imaginary boundary between the object and the rest of the world belong on the free-body diagram.</p>
-<p id="p-1140">Students are inclined argue that this free-body diagram is statically equivalent to <a href="" class="xref" data-knowl="./knowl/toggle-clamp-06.html" title="Figure 6.6.11">Figure 6.6.11</a> and it produces the correct answer so it must be ok.  It isn't correct because it reflects a misunderstanding about what you are modeling and what you aren’t. Other engineers using your FBDs need to know what you are modeling. The FBD is the key to your analysis of the real world.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.16<span class="period">.</span></span><span class="space"> </span>Free-body diagram 10 (Subtly incorrect)</figcaption></figure><p id="p-1156">Forces <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> do not actually act on the short link at <span class="process-math">\(D\text{.}\)</span> Force <span class="process-math">\(N\)</span> acts between the roller and the wall and clearly this diagram doesn’t include the roller. Similarly <span class="process-math">\(Q\)</span> acts between the block and the roller.  These forces don't belong on the free-body diagram even though they are equal to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of force <span class="process-math">\(BD\text{.}\)</span>   Only forces which cross the imaginary boundary between the object and the rest of the world belong on the free-body diagram.</p>
+<p id="p-1157">Students are inclined argue that this free-body diagram is statically equivalent to <a href="" class="xref" data-knowl="./knowl/toggle-clamp-06.html" title="Figure 6.6.11">Figure 6.6.11</a> and it produces the correct answer so it must be ok.  It isn't correct because it reflects a misunderstanding about what you are modeling and what you aren’t. Other engineers using your FBDs need to know what you are modeling. The FBD is the key to your analysis of the real world.</p>
 <article class="example example-like" id="Chapter_06-example-toggle-clamp"><h5 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">6.6.17</span><span class="period">.</span><span class="space"> </span><span class="title">Toggle Clamp.</span>
 </h5>
-<p id="p-1141">Knowing that angle <span class="process-math">\(\theta= 60°\text{,}\)</span> find the vertical clamping force acting on the piece at <span class="process-math">\(D\)</span> and the magnitude of the force exerted on member <span class="process-math">\(ABC\)</span> at pin <span class="process-math">\(B\)</span> in terms of force <span class="process-math">\(F\)</span> applied to the clamp arm at <span class="process-math">\(C\text{.}\)</span></p>
+<p id="p-1158">Knowing that angle <span class="process-math">\(\theta= 60°\text{,}\)</span> find the vertical clamping force acting on the piece at <span class="process-math">\(D\)</span> and the magnitude of the force exerted on member <span class="process-math">\(ABC\)</span> at pin <span class="process-math">\(B\)</span> in terms of force <span class="process-math">\(F\)</span> applied to the clamp arm at <span class="process-math">\(C\text{.}\)</span></p>
 <div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/toggle-clamp-01.svg" role="img" class="contained"></div>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-42" id="answer-42"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-42"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-122">
@@ -554,19 +547,19 @@ Q = 2.42 F
 \end{gather*}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-49" id="solution-49"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-49"><div class="solution solution-like">
-<p id="p-1143">For this problem, we need two free-body diagrams.  The first links the input force <span class="process-math">\(F\)</span> to the link force <span class="process-math">\(BD,\)</span> and the second links <span class="process-math">\(BD\)</span> to the clamping force <span class="process-math">\(Q\text{.}\)</span></p>
+<p id="p-1160">For this problem, we need two free-body diagrams.  The first links the input force <span class="process-math">\(F\)</span> to the link force <span class="process-math">\(BD,\)</span> and the second links <span class="process-math">\(BD\)</span> to the clamping force <span class="process-math">\(Q\text{.}\)</span></p>
 <figure class="figure figure-like" id="figure-111"><div class="sidebyside"><div class="sbsrow" style="margin-left:13.5%;margin-right:13.5%;">
 <div class="sbspanel top" style="width:31.5068493150685%;"><figure class="figure figure-like" id="figure-112"><img src="external/images/toggle-clamp-10.svg" role="img" class="contained"><figcaption><span class="codenumber">(a)</span><span class="space"> </span>FBD I</figcaption></figure></div>
 <div class="sbspanel top" style="width:31.5068493150685%;"><figure class="figure figure-like" id="figure-113"><img src="external/images/toggle-clamp-13.svg" role="img" class="contained"><figcaption><span class="codenumber">(b)</span><span class="space"> </span>FBD II</figcaption></figure></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.18<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1144">We will assume the two-force member <span class="process-math">\(BD\)</span> is in compression based on the physical situation. The forces acting on the link, lever and roller are all directed along a line-of-action defined by a 7-24-25 triangle.  Similar triangles gives</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.18<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1161">We will assume the two-force member <span class="process-math">\(BD\)</span> is in compression based on the physical situation. The forces acting on the link, lever and roller are all directed along a line-of-action defined by a 7-24-25 triangle.  Similar triangles gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-123">
 \begin{gather*}
 BD_x = \left(\frac{7}{25} \right) BD\\
 BD_y = \left(\frac{24}{25} \right) BD\text{.}
 \end{gather*}
 </div>
-<p id="p-1145">Applying <span class="process-math">\(\sum M= 0\)</span> at <span class="process-math">\(A\)</span> to the free-body diagram of the lever gives <span class="process-math">\(BD\)</span> in terms of <span class="process-math">\(F\text{.}\)</span></p>
+<p id="p-1162">Applying <span class="process-math">\(\sum M= 0\)</span> at <span class="process-math">\(A\)</span> to the free-body diagram of the lever gives <span class="process-math">\(BD\)</span> in terms of <span class="process-math">\(F\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-124">
 \begin{align*}
 \text{FBD I:}\quad  \Sigma M_A \amp = 0 \\
@@ -576,8 +569,8 @@ BD_x(24) + BD_y(7)  - F_x (40) - F_y ( 16) \amp= 0 \\
 BD   \amp =  2.52 F
 \end{align*}
 </div>
-<p id="p-1146">The positive sign on the answer reveals that our assumption that member <span class="process-math">\(BD\)</span> was in compression was correct.</p>
-<p id="p-1147">Applying  <span class="process-math">\(\sum F_y=0\)</span>  to the free-body diagram of the roller will give <span class="process-math">\(Q\)</span> in terms of <span class="process-math">\(F\text{.}\)</span></p>
+<p id="p-1163">The positive sign on the answer reveals that our assumption that member <span class="process-math">\(BD\)</span> was in compression was correct.</p>
+<p id="p-1164">Applying  <span class="process-math">\(\sum F_y=0\)</span>  to the free-body diagram of the roller will give <span class="process-math">\(Q\)</span> in terms of <span class="process-math">\(F\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-125">
 \begin{align*}
 \text{FBD II:}\quad  \Sigma F_y \amp = 0 \\
@@ -587,18 +580,18 @@ Q \amp=  \frac{24}{25} BD\\
 \amp =   2.42 F
 \end{align*}
 </div>
-<p id="p-1148">While you could certainly find <span class="process-math">\(A_x\text{,}\)</span> <span class="process-math">\(A_y\)</span> and <span class="process-math">\(N\)</span> using other equilibrium equations they weren't asked for and we don't bother to find them.</p>
+<p id="p-1165">While you could certainly find <span class="process-math">\(A_x\text{,}\)</span> <span class="process-math">\(A_y\)</span> and <span class="process-math">\(N\)</span> using other equilibrium equations they weren't asked for and we don't bother to find them.</p>
 </div></div>
 </div></article><article class="insight remark-like" id="insight-7"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-7"><h5 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.6.19</span><span class="period">.</span><span class="space"> </span><span class="title">Why does the Method of Joints work on trusses but fail on Frames and Machines?</span>
-</h5></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-7"><article class="insight remark-like"><p id="p-1149">We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</p>
-<p id="p-1150">Frames and machines are made of multi-force members and cutting these, in general, exposes:</p>
+</h5></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-7"><article class="insight remark-like"><p id="p-1166">We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</p>
+<p id="p-1167">Frames and machines are made of multi-force members and cutting these, in general, exposes:</p>
 <ul class="disc">
 <li id="li-339"><p id="p-derived-li-339">A force with an unknown magnitude acting in an unknown direction, and</p></li>
 <li id="li-340"><p id="p-derived-li-340">A bending moment at the plane of the cut.</p></li>
 </ul>
-<p id="p-1151">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</p>
-<p id="p-1152">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</p></article></div></section></section></section><div xmlns:html="http://www.w3.org/1999/xhtml" class="hidden-content tex2jax_ignore" id="hk-fn-11"><div class="fn">(less than about 0.1%)</div></div>
+<p id="p-1168">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</p>
+<p id="p-1169">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</p></article></div></section></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-11"><div class="fn">(less than about 0.1%)</div></div>
 </div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->

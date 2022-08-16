@@ -11,14 +11,15 @@
 <title>Statics: Interactions between members</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_06-structures.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_06-trusses.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_06-structures.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_06-trusses.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,20 +295,20 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_06-interactions-between-members"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_06-interactions-between-members"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.2</span> <span class="title">Interactions between members</span>
 </h2>
-<section class="introduction" id="introduction-19"><p id="p-989">When analyzing structures we are dealing with multi-body systems, and need to recall <a href="newtons-laws.html#newtons-third-law" class="internal" title="Subsection 1.1.3: Newton’s 3rd Law">Newton’s 3rd Law</a>, “For every action, there is an equal and opposite reaction.”</p>
-<p id="p-990">This law applies to multi-body systems wherever one body connects to another.  At any interaction point, forces are transferred from one body to the interacting body as equal and opposite action-reaction pairs.  These forces cancel out and are invisible when the structure is intact.  Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose the interaction forces. When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently.  You may assume either direction for one, but the other <em class="emphasis">must</em> be equal and opposite.</p>
-<p id="p-991">For example, look at the members and joints in the  truss below.  Diagram (a) shows the truss members held together by pins at <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\text{,}\)</span> and <span class="process-math">\(C\text{.}\)</span>  The forces holding the parts together cancel and are not shown.  In the ‘exploded’ view (b), the parts have been separated and the action-reaction pairs are exposed.  Member <span class="process-math">\(AB\)</span> is in tension, and the forces acting on it, also called <span class="process-math">\(AB\text{,}\)</span> oppose each other and tend to stretch the member. These stretching forces are accompanied by equal and opposite forces, also called <span class="process-math">\(AB\)</span> acting on pins <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{.}\)</span> Tensile forces <span class="process-math">\(BC\)</span> and compressive forces <span class="process-math">\(CA\)</span> behave similarly.</p>
+<section class="introduction" id="introduction-19"><p id="p-1002">When analyzing structures we are dealing with multi-body systems, and need to recall <a href="newtons-laws.html#newtons-third-law" class="internal" title="Subsection 1.1.3: Newton’s 3rd Law">Newton’s 3rd Law</a>, “For every action, there is an equal and opposite reaction.”</p>
+<p id="p-1003">This law applies to multi-body systems wherever one body connects to another.  At any interaction point, forces are transferred from one body to the interacting body as equal and opposite action-reaction pairs.  These forces cancel out and are invisible when the structure is intact.  Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose the interaction forces. When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently.  You may assume either direction for one, but the other <em class="emphasis">must</em> be equal and opposite.</p>
+<p id="p-1004">For example, look at the members and joints in the  truss below.  Diagram (a) shows the truss members held together by pins at <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\text{,}\)</span> and <span class="process-math">\(C\text{.}\)</span>  The forces holding the parts together cancel and are not shown.  In the ‘exploded’ view (b), the parts have been separated and the action-reaction pairs are exposed.  Member <span class="process-math">\(AB\)</span> is in tension, and the forces acting on it, also called <span class="process-math">\(AB\text{,}\)</span> oppose each other and tend to stretch the member. These stretching forces are accompanied by equal and opposite forces, also called <span class="process-math">\(AB\)</span> acting on pins <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{.}\)</span> Tensile forces <span class="process-math">\(BC\)</span> and compressive forces <span class="process-math">\(CA\)</span> behave similarly.</p>
 <figure class="figure figure-like" id="joints-members"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;">
 <div class="sbspanel top" style="width:33.3333333333333%;"><figure class="figure figure-like" id="figure-81"><img src="external/images/joints-members-whole.svg" role="img" class="contained"><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Whole Truss</figcaption></figure></div>
 <div class="sbspanel top" style="width:55.5555555555556%;"><figure class="figure figure-like" id="figure-82"><img src="external/images/joints-members-exploded.svg" role="img" class="contained"><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Exploded</figcaption></figure></div>
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.2.1<span class="period">.</span></span><span class="space"> </span>External load and global reactions in red. Internal action-reaction pairs in blue.</figcaption></figure><article class="insight remark-like" id="insight-4"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-4"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Multi-body systems.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-4"><article class="insight remark-like"><p id="p-992">When a multipart structure is in equilibrium, each part of the structure is also in equilibrium.  For example in the truss below, each member of the truss, each joint, and each portion of the truss is also in equilibrium. This continues all the way down to the atoms of the structure. This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts.</p>
-<p id="p-993"></p>
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-4"><article class="insight remark-like"><p id="p-1005">When a multipart structure is in equilibrium, each part of the structure is also in equilibrium.  For example in the truss below, each member of the truss, each joint, and each portion of the truss is also in equilibrium. This continues all the way down to the atoms of the structure. This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts.</p>
+<p id="p-1006"></p>
 <figure class="figure figure-like" id="figure-83"><div class="sidebyside"><div class="sbsrow" style="margin-left:5.5%;margin-right:5.5%;">
 <div class="sbspanel top" style="width:47.1910112359551%;"><figure class="figure figure-like" id="figure-84"><img src="external/images/truss-fbds-whole.svg" role="img" class="contained"><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Complete Truss</figcaption></figure></div>
 <div class="sbspanel top" style="width:40.4494382022472%;"><figure class="figure figure-like" id="figure-85"><img src="external/images/truss-fbds-member.svg" role="img" class="contained"><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Member <span class="process-math">\(AD\)</span></figcaption></figure></div>
@@ -324,10 +317,10 @@ startup: {
 <div class="sbspanel top" style="width:47.1910112359551%;"><figure class="figure figure-like" id="figure-86"><img src="external/images/truss-fbds-pins.svg" role="img" class="contained"><figcaption><span class="codenumber">(c)</span><span class="space"> </span>Truss joints</figcaption></figure></div>
 <div class="sbspanel top" style="width:40.4494382022472%;"><figure class="figure figure-like" id="figure-87"><img src="external/images/truss-fbds-section.svg" role="img" class="contained"><figcaption><span class="codenumber">(d)</span><span class="space"> </span>Section</figcaption></figure></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.2.3<span class="period">.</span></span><span class="space"> </span>Possible free-body diagrams</figcaption></figure><p id="p-994">You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns.</p></article></div></section><section class="subsection" id="Chapter_06-load-paths"><h3 class="heading hide-type">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.2.3<span class="period">.</span></span><span class="space"> </span>Possible free-body diagrams</figcaption></figure><p id="p-1007">You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns.</p></article></div></section><section class="subsection" id="Chapter_06-load-paths"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.2.1</span> <span class="title">Load Paths</span>
 </h3>
-<p id="p-995">Load paths can help you think about structural systems. Load paths show how applied forces like the floor load in the image below pass through the interconnected members of the structure until they end up at the fixed support reactions. All structural systems, whether non-moving frames or moving machines have some sort of load path. When analyzing all structures, you computationally move from known values through the interconnected bodies of the system, following the load path, solving for unknowns as you go.</p>
+<p id="p-1008">Load paths can help you think about structural systems. Load paths show how applied forces like the floor load in the image below pass through the interconnected members of the structure until they end up at the fixed support reactions. All structural systems, whether non-moving frames or moving machines have some sort of load path. When analyzing all structures, you computationally move from known values through the interconnected bodies of the system, following the load path, solving for unknowns as you go.</p>
 <figure class="figure figure-like" id="load_paths"><div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/load_paths.svg" role="img" class="contained"></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.2.4<span class="period">.</span></span><span class="space"> </span>Load paths</figcaption></figure></section></section></div></main>
 </div>

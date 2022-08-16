@@ -11,14 +11,15 @@
 <title>Statics: Method of Joints</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_06-trusses.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="method-of-sections.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_06-trusses.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_06.html" title="Up">Up</a><a class="next-button button toolbar-item" href="method-of-sections.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,7 +295,7 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="method-of-joints"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="method-of-joints"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.4</span> <span class="title">Method of Joints</span>
 </h2>
 <article class="objectives goal-like" id="objectives-23"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -310,36 +303,36 @@ startup: {
 <li id="li-279"><p id="p-derived-li-279">What are the important components to include on a free-body diagram of a joint in a truss?</p></li>
 <li id="li-280"><p id="p-derived-li-280">How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</p></li>
 <li id="li-281"><p id="p-derived-li-281">How do we ensure that tension or compression in a member is properly represented?</p></li>
-</ul></article><section class="introduction" id="introduction-20"><p id="p-1038">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.</p>
-<p id="p-1039">The joints are treated of particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.</p>
-<p id="p-1040">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found.  Therefore,   a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.</p>
-<p id="p-1041">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.</p></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
+</ul></article><section class="introduction" id="introduction-20"><p id="p-1053">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.</p>
+<p id="p-1054">The joints are treated of particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.</p>
+<p id="p-1055">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found.  Therefore,   a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.</p>
+<p id="p-1056">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.</p></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.4.1</span> <span class="title">Procedure</span>
 </h3>
-<p id="p-1042">The procedure is straightforward application of rigid body and particle equilibrium</p>
+<p id="p-1057">The procedure is straightforward application of rigid body and particle equilibrium</p>
 <ol class="decimal">
-<li id="li-282"><p id="p-1043">Determine if the structure is a truss and if it is determinate. See <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">Subsection 6.3.2</a></p></li>
-<li id="li-283"><p id="p-1044">Identify and remove all zero-force members. This is not required, but will eliminate unnecessary computations. See <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">Subsection 6.3.4</a>.</p></li>
+<li id="li-282"><p id="p-1058">Determine if the structure is a truss and if it is determinate. See <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">Subsection 6.3.2</a></p></li>
+<li id="li-283"><p id="p-1059">Identify and remove all zero-force members. This is not required, but will eliminate unnecessary computations. See <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">Subsection 6.3.4</a>.</p></li>
 <li id="li-284">
-<p id="p-1045">Determine if you need to find the external reactions.  If you can identify a solvable joint immediately, then you do not need to find the external reactions.</p>
-<p id="p-1046">A solvable joint includes one or more known forces and no more than two unknown forces.  If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.</p>
+<p id="p-1060">Determine if you need to find the external reactions.  If you can identify a solvable joint immediately, then you do not need to find the external reactions.</p>
+<p id="p-1061">A solvable joint includes one or more known forces and no more than two unknown forces.  If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.</p>
 </li>
 <li id="li-285">
-<p id="p-1047">Identify a solvable joint and solve it using the methods of <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. When drawing free-body diagrams of joints you should</p>
+<p id="p-1062">Identify a solvable joint and solve it using the methods of <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. When drawing free-body diagrams of joints you should</p>
 <ul class="disc">
 <li id="li-286"><p id="p-derived-li-286">Represent the joint as a dot.</p></li>
 <li id="li-287"><p id="p-derived-li-287">Draw all known forces in their known directions with arrowheads indicating their sense.  Known forces are the given loads, and forces determined from previously solved joints.</p></li>
 <li id="li-288"><p id="p-derived-li-288">Assume the sense of unknown forces. A common practice is to assume that all unknown forces are in tension, i.e. pulling away from the free-body diagram of the pin,  and label them based on the member they represent .</p></li>
 </ul>
-<p id="p-1048">Finally, write out and solve the force equilibrium equations for  the joint. If you assumed that all forces were tensile earlier, negative answers indicate compression.</p>
+<p id="p-1063">Finally, write out and solve the force equilibrium equations for  the joint. If you assumed that all forces were tensile earlier, negative answers indicate compression.</p>
 </li>
-<li id="li-289"><p id="p-1049">Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved.  Take care when transferring forces to adjoining joints to maintain their sense — either tension or compression.</p></li>
-<li id="li-290"><p id="p-1050">If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint.  The extra equations can be used to check your work.</p></li>
+<li id="li-289"><p id="p-1064">Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved.  Take care when transferring forces to adjoining joints to maintain their sense — either tension or compression.</p></li>
+<li id="li-290"><p id="p-1065">If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint.  The extra equations can be used to check your work.</p></li>
 </ol>
-<p id="p-1051">Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</p>
-<p id="p-1052">The interactive below shows a triangular truss, loaded at the top and supported by a pin a <span class="process-math">\(A\)</span> and a roller at <span class="process-math">\(B\text{.}\)</span>  You can see how the reactions and internal forces adjust as you vary the load at <span class="process-math">\(C\text{.}\)</span> You can solve it by starting at joint <span class="process-math">\(C\)</span> and solving for <span class="process-math">\(BC\)</span> and <span class="process-math">\(CD\text{,}\)</span> then moving to joint <span class="process-math">\(B\)</span> and solving for <span class="process-math">\(AB\)</span>  Joint <span class="process-math">\(A\)</span> can be used to check your work.</p>
+<p id="p-1066">Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</p>
+<p id="p-1067">The interactive below shows a triangular truss, loaded at the top and supported by a pin a <span class="process-math">\(A\)</span> and a roller at <span class="process-math">\(B\text{.}\)</span>  You can see how the reactions and internal forces adjust as you vary the load at <span class="process-math">\(C\text{.}\)</span> You can solve it by starting at joint <span class="process-math">\(C\)</span> and solving for <span class="process-math">\(BC\)</span> and <span class="process-math">\(CD\text{,}\)</span> then moving to joint <span class="process-math">\(B\)</span> and solving for <span class="process-math">\(AB\)</span>  Joint <span class="process-math">\(A\)</span> can be used to check your work.</p>
 <aside class="aside aside-like" id="aside-44"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-1053">Interactive shows the effect of a load at <span class="process-math">\(C\)</span> on the reactions and the truss members. Internal tension forces are indicated with <span class="process-math">\((T)\)</span> and internal compression forces with <span class="process-math">\((C)\text{.}\)</span></p></aside><figure class="figure figure-like" id="ggb_fvuugvb4"><iframe id="ggb_method-of-joints_interactive" width="600" height="300" src="ggb_method-of-joints_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.1<span class="period">.</span></span><span class="space"> </span>Internal and external forces of a simple truss.</figcaption></figure></section></section></div></main>
+<p id="p-1068">Interactive shows the effect of a load at <span class="process-math">\(C\)</span> on the reactions and the truss members. Internal tension forces are indicated with <span class="process-math">\((T)\)</span> and internal compression forces with <span class="process-math">\((C)\text{.}\)</span></p></aside><figure class="figure figure-like" id="ggb_fvuugvb4"><iframe id="ggb_method-of-joints_interactive" width="600" height="360" src="ggb_method-of-joints_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.1<span class="period">.</span></span><span class="space"> </span>Internal and external forces of a simple truss.</figcaption></figure></section></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

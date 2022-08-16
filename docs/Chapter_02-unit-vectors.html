@@ -11,14 +11,15 @@
 <title>Statics: Unit Vectors</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="coordinates-3d.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_02.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="vector_algebra_2D.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="coordinates-3d.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_02.html" title="Up">Up</a><a class="next-button button toolbar-item" href="vector_algebra_2D.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,7 +295,7 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_02-unit-vectors"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_02-unit-vectors"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">2.5</span> <span class="title">Unit Vectors</span>
 </h2>
 <article class="objectives goal-like" id="objectives-9"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -311,20 +304,20 @@ startup: {
 <li id="li-74"><p id="p-derived-li-74">What are the unit vectors along the Cartesian x, y, and z axes?</p></li>
 <li id="li-75"><p id="p-derived-li-75">How do you find the force vector components of known force magnitude along a geometric line?</p></li>
 <li id="li-76"><p id="p-derived-li-76">How can you find unit vector components from direction cosine angles?</p></li>
-</ul></article><section class="introduction" id="introduction-7"><p id="p-206">A unit vector is a vector with a magnitude of one and no units.  As such, a unit vector represents a pure direction. By convention a unit vector is indicated by a <em class="emphasis">hat</em> over a vector symbol. This may sound like a new concept, but it’s a simple one, directly related to the unit circle, the Pythagorean Theorem, and the definitions of sine and cosine.</p></section><section class="subsection" id="unit-vectors"><h3 class="heading hide-type">
+</ul></article><section class="introduction" id="introduction-7"><p id="p-205">A unit vector is a vector with a magnitude of one and no units.  As such, a unit vector represents a pure direction. By convention a unit vector is indicated by a <em class="emphasis">hat</em> over a vector symbol. This may sound like a new concept, but it’s a simple one, directly related to the unit circle, the Pythagorean Theorem, and the definitions of sine and cosine.</p></section><section class="subsection" id="unit-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span>
 </h3>
-<p id="p-207">A unit vector can point in any direction, but because they occur so frequently the unit vectors in each of the three Cartesian coordinate directions are given their own symbols, which are:</p>
+<p id="p-206">A unit vector can point in any direction, but because they occur so frequently the unit vectors in each of the three Cartesian coordinate directions are given their own symbols, which are:</p>
 <ul class="disc">
 <li id="li-77"><p id="p-derived-li-77"><span class="process-math">\(\ihat\text{,}\)</span> for the unit vector pointing in the <span class="process-math">\(x\)</span> direction,</p></li>
 <li id="li-78"><p id="p-derived-li-78"><span class="process-math">\(\jhat\text{,}\)</span> for the unit vector pointing in the <span class="process-math">\(y\)</span> direction, and</p></li>
 <li id="li-79"><p id="p-derived-li-79"><span class="process-math">\(\khat\text{,}\)</span> for the unit vector pointing in the <span class="process-math">\(z\)</span> direction..</p></li>
 </ul>
 <aside class="aside aside-like" id="aside-10"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-208">This interactive shows the graphical relations between the unit vector <span class="process-math">\(\hat{\vec{F}}\)</span> and the unit circle.  <span class="process-math">\(\ihat\)</span> and <span class="process-math">\(\jhat\)</span> are the standard unit vectors in the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> directions.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<p id="p-207">This interactive shows the graphical relations between the unit vector <span class="process-math">\(\hat{\vec{F}}\)</span> and the unit circle.  <span class="process-math">\(\ihat\)</span> and <span class="process-math">\(\jhat\)</span> are the standard unit vectors in the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> directions.</p></aside><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:48%;">
-<p id="p-209">This interactive shows a unit vector <span class="process-math">\(\hat{\vec{F}}\)</span> as well as the standard unit vectors <span class="process-math">\(\ihat\)</span> and <span class="process-math">\(\jhat\text{.}\)</span></p>
-<p id="p-210">The <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of a point on the unit circle are also the scalar components of <span class="process-math">\(\hat{\vec{F}}\text{,}\)</span> so</p>
+<p id="p-208">This interactive shows a unit vector <span class="process-math">\(\hat{\vec{F}}\)</span> as well as the standard unit vectors <span class="process-math">\(\ihat\)</span> and <span class="process-math">\(\jhat\text{.}\)</span></p>
+<p id="p-209">The <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of a point on the unit circle are also the scalar components of <span class="process-math">\(\hat{\vec{F}}\text{,}\)</span> so</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-11">
 \begin{align*}
 F_x \amp =  \cos \theta\\
@@ -336,66 +329,66 @@ F_y \amp =  \sin \theta\\
 </div>
 <div class="sbspanel top" style="width:48%;"><iframe id="ggb_unit_circle_interactive" width="288" height="302" src="ggb_unit_circle_interactive-if.html"></iframe></div>
 </div></div>
-<p id="p-212">Applying the Pythagorean Theorem to the triangle gives the equation for a unit circle</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="p-213">
+<p id="p-211">Applying the Pythagorean Theorem to the triangle gives the equation for a unit circle</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-212">
 \begin{equation*}
 \cos^2 \theta + \sin^2 \theta = 1^2
 \end{equation*}
 </div>
-<p id="p-214">No matter what angle a unit vector makes with the <span class="process-math">\(x\)</span> axis, <span class="process-math">\(\cos \theta\)</span> and <span class="process-math">\(\sin \theta\)</span> are its scalar components. This relations assumes that the angle <span class="process-math">\(\theta\)</span> is measured from the <span class="process-math">\(x\)</span> axis, if it is measured from the <span class="process-math">\(y\)</span> axis the sine and cosine functions reverse, with <span class="process-math">\(\sin \theta\)</span> defining the horizontal component and the <span class="process-math">\(\cos\ \theta\)</span> defining the vertical component.</p></section><section class="subsection" id="Chapter_02-relation-between-vectors-and-unit-vectors"><h3 class="heading hide-type">
+<p id="p-213">No matter what angle a unit vector makes with the <span class="process-math">\(x\)</span> axis, <span class="process-math">\(\cos \theta\)</span> and <span class="process-math">\(\sin \theta\)</span> are its scalar components. This relations assumes that the angle <span class="process-math">\(\theta\)</span> is measured from the <span class="process-math">\(x\)</span> axis, if it is measured from the <span class="process-math">\(y\)</span> axis the sine and cosine functions reverse, with <span class="process-math">\(\sin \theta\)</span> defining the horizontal component and the <span class="process-math">\(\cos\ \theta\)</span> defining the vertical component.</p></section><section class="subsection" id="Chapter_02-relation-between-vectors-and-unit-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span>
 </h3>
-<p id="p-215">When a unit vector is multiplied by a scalar value it is <em class="emphasis">scaled</em> by that amount, so for instance when a unit vector pointing to the right is multiplied by  <span class="process-math">\(\N{ 100}\)</span> the result is a <span class="process-math">\(\N{100}\)</span> vector pointing to the right; when a unit vector pointing up is multiplied by  <span class="process-math">\(\N{ -50}\)</span> the result is a <span class="process-math">\(\N{50}\)</span> vector pointing down.</p>
-<p id="p-216">In general,</p>
+<p id="p-214">When a unit vector is multiplied by a scalar value it is <em class="emphasis">scaled</em> by that amount, so for instance when a unit vector pointing to the right is multiplied by  <span class="process-math">\(\N{ 100}\)</span> the result is a <span class="process-math">\(\N{100}\)</span> vector pointing to the right; when a unit vector pointing up is multiplied by  <span class="process-math">\(\N{ -50}\)</span> the result is a <span class="process-math">\(\N{50}\)</span> vector pointing down.</p>
+<p id="p-215">In general,</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="F-Fhat">
 \begin{equation}
 \vec{F} = F\ \hat{\vec{F}} \text{,}\tag{2.5.1}
 \end{equation}
 </div>
 <p class="continuation">where <span class="process-math">\(F\)</span> is the magnitude of <span class="process-math">\(\vec{F}\text{,}\)</span> and <span class="process-math">\(\hat{\vec{F}}\)</span> is the unit vector pointing in the direction of <span class="process-math">\(\vec{F}\text{.}\)</span></p>
-<p id="p-217">Solving equation <a href="" class="xref" data-knowl="./knowl/F-Fhat.html" title="Equation 2.5.1">(2.5.1)</a> for <span class="process-math">\(\hat{\vec{F}}\)</span> gives the approach to find the unit vector of known vector <span class="process-math">\(\vec{F}\text{.}\)</span></p>
-<p id="p-218">The process is straightforward— divide the vector by its magnitude.  For arbitrary vector <span class="process-math">\(\vec{F}\)</span></p>
+<p id="p-216">Solving equation <a href="" class="xref" data-knowl="./knowl/F-Fhat.html" title="Equation 2.5.1">(2.5.1)</a> for <span class="process-math">\(\hat{\vec{F}}\)</span> gives the approach to find the unit vector of known vector <span class="process-math">\(\vec{F}\text{.}\)</span></p>
+<p id="p-217">The process is straightforward— divide the vector by its magnitude.  For arbitrary vector <span class="process-math">\(\vec{F}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="fhat">
 \begin{equation}
 \hat{\vec{F}}=\frac{\vec{F}}{| \vec{F} | }\text{.}\tag{2.5.2}
 \end{equation}
 </div>
-<p id="p-219">To emphasize that unit vectors are pure direction, track what happens when a vector is divided by its magnitude</p>
+<p id="p-218">To emphasize that unit vectors are pure direction, track what happens when a vector is divided by its magnitude</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \text{unit vector} = \frac{\vec{F}}{| \vec{F} | } = \frac{\text{[vector]}}{\text{[magnitude]}}=\frac{\cancel{\text{[magnitude]}} \cdot\text{[direction]}}{\cancel{\text{[magnitude]}}} = \text{[direction]} \text{.}
 \end{equation*}
 </div>
-<p id="p-220"></p>
-<p id="p-221">This interactive shows vector <span class="process-math">\(\vec{F}\text{,}\)</span> its associated unit vector <span class="process-math">\(\hat{\vec{F}}\text{,}\)</span> and expressions for <span class="process-math">\(\vec{F}\)</span> in terms of its unit vector <span class="process-math">\(\hat{\vec{F}}\text{.}\)</span></p>
-<p id="p-222"></p>
+<p id="p-219"></p>
+<p id="p-220">This interactive shows vector <span class="process-math">\(\vec{F}\text{,}\)</span> its associated unit vector <span class="process-math">\(\hat{\vec{F}}\text{,}\)</span> and expressions for <span class="process-math">\(\vec{F}\)</span> in terms of its unit vector <span class="process-math">\(\hat{\vec{F}}\text{.}\)</span></p>
+<p id="p-221"></p>
 <aside class="aside aside-like" id="aside-11"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-223">This interactive shows the graphical expression and component values of force <span class="process-math">\(\vec{F}\)</span> and its unit vector <span class="process-math">\(\hat{\mathbf{F}}\text{.}\)</span></p></aside><figure class="figure figure-like" id="ggb_unit_vector"><iframe id="ggb_unit_vector_interactive" width="600" height="480" src="ggb_unit_vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.1<span class="period">.</span></span><span class="space"> </span>Unit Vectors</figcaption></figure><article class="example example-like" id="Chapter_02-example-find-unit-vector-of-a-force"><h4 class="heading">
+<p id="p-222">This interactive shows the graphical expression and component values of force <span class="process-math">\(\vec{F}\)</span> and its unit vector <span class="process-math">\(\hat{\mathbf{F}}\text{.}\)</span></p></aside><figure class="figure figure-like" id="ggb_unit_vector"><iframe id="ggb_unit_vector_interactive" width="600" height="480" src="ggb_unit_vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.1<span class="period">.</span></span><span class="space"> </span>Unit Vectors</figcaption></figure><article class="example example-like" id="Chapter_02-example-find-unit-vector-of-a-force"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">Find unit vector of a force.</span>
 </h4>
-<p id="p-225">Find the unit vector corresponding to a <span class="process-math">\(\N{100}\)</span> force at 60° from the <span class="process-math">\(x\)</span>-axis.</p>
+<p id="p-224">Find the unit vector corresponding to a <span class="process-math">\(\N{100}\)</span> force at 60° from the <span class="process-math">\(x\)</span>-axis.</p>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-7" id="answer-7"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-7"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-226">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-7" id="answer-7"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-7"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-225">
 \begin{equation*}
 \hat{\vec{F}} =  (1\; ; 60°) = \langle \cos 60°, \sin 60° \rangle
 \end{equation*}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-8" id="solution-8"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-8"><div class="solution solution-like">
-<p id="p-227">In polar coordinates, the unit vector is a vector of magnitude 1, pointing in the same direction as the force, so, by inspection</p>
+<p id="p-226">In polar coordinates, the unit vector is a vector of magnitude 1, pointing in the same direction as the force, so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-12">
 \begin{align*}
 \vec{F} \amp =  (\N{100}\, ; 60°)\\
 \hat{\vec{F}} \amp =  (1\, ; 60°)
 \end{align*}
 </div>
-<p id="p-228">In rectangular coordinates, first express <span class="process-math">\(\vec{F}\)</span> in terms of its <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</p>
+<p id="p-227">In rectangular coordinates, first express <span class="process-math">\(\vec{F}\)</span> in terms of its <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-13">
 \begin{align*}
 F_x \amp =  F \cos 60°, F_y \amp =  F \sin 60°\\
 \vec{F} \amp =  \langle F \cos 60°, F \sin 60° \rangle
 \end{align*}
 </div>
-<p id="p-229">Solve equation <a href="" class="xref" data-knowl="./knowl/fhat.html" title="Equation 2.5.2">(2.5.2)</a> for <span class="process-math">\(\hat{\vec{F}}\)</span></p>
+<p id="p-228">Solve equation <a href="" class="xref" data-knowl="./knowl/fhat.html" title="Equation 2.5.2">(2.5.2)</a> for <span class="process-math">\(\hat{\vec{F}}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fhat.html" id="md-14">
 \begin{align*}
 \hat{\vec{F}} \amp =  \frac{\vec{F}}{F}\\
@@ -407,11 +400,11 @@ F_x \amp =  F \cos 60°, F_y \amp =  F \sin 60°\\
 </div></article></section><section class="subsection" id="Chapter_02-force-vectors-from-position-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span>
 </h3>
-<p id="p-230">Unit vectors are generally the best approach when working with forces and distances in three dimensions.</p>
-<p id="p-231">For example, when the location of two points on the line of action of a force are known, the unit vector of the line of action can be found and used to determine the components of a force acting along that line.  This can be accomplished as follows, where <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are points on the line of action.</p>
+<p id="p-229">Unit vectors are generally the best approach when working with forces and distances in three dimensions.</p>
+<p id="p-230">For example, when the location of two points on the line of action of a force are known, the unit vector of the line of action can be found and used to determine the components of a force acting along that line.  This can be accomplished as follows, where <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are points on the line of action.</p>
 <ol class="decimal">
 <li id="li-80">
-<p id="p-232">Use the problem geometry to find <span class="process-math">\(\vec{AB}\text{,}\)</span> the displacement vector from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\text{,}\)</span>  then either subtract the coordinates of the starting point <span class="process-math">\(A\)</span> from the coordinates of the destination point <span class="process-math">\(B\)</span> to find the vector <span class="process-math">\(\vec{AB}\)</span></p>
+<p id="p-231">Use the problem geometry to find <span class="process-math">\(\vec{AB}\text{,}\)</span> the displacement vector from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\text{,}\)</span>  then either subtract the coordinates of the starting point <span class="process-math">\(A\)</span> from the coordinates of the destination point <span class="process-math">\(B\)</span> to find the vector <span class="process-math">\(\vec{AB}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-15">
 \begin{align*}
 A  \amp = \left(A_x,A_y,A_z \right)\\
@@ -430,23 +423,23 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div>
 </li>
 <li id="li-81">
-<p id="p-233">Find the direct distance between point <span class="process-math">\(A\)</span> and point <span class="process-math">\(B\)</span> using the Pythagorean Theorem. This distance is also the magnitude of <span class="process-math">\(\vec{AB}\)</span> or <span class="process-math">\(|\vec{AB}|\)</span></p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="p-234">
+<p id="p-232">Find the direct distance between point <span class="process-math">\(A\)</span> and point <span class="process-math">\(B\)</span> using the Pythagorean Theorem. This distance is also the magnitude of <span class="process-math">\(\vec{AB}\)</span> or <span class="process-math">\(|\vec{AB}|\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-233">
 \begin{equation*}
 \left|\vec{AB}\right |=\sqrt{(AB_x)^2+(AB_y)^2+(AB_z)^2}\text{.}
 \end{equation*}
 </div>
 </li>
 <li id="li-82">
-<p id="p-235">Find <span class="process-math">\(\widehat{\vec{AB}}\text{,}\)</span> the unit vector from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{,}\)</span>  by dividing vector <span class="process-math">\(\vec{AB}\)</span> by its magnitude.  This is a unitless vector with a magnitude of 1 which points from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="p-236">
+<p id="p-234">Find <span class="process-math">\(\widehat{\vec{AB}}\text{,}\)</span> the unit vector from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{,}\)</span>  by dividing vector <span class="process-math">\(\vec{AB}\)</span> by its magnitude.  This is a unitless vector with a magnitude of 1 which points from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="p-235">
 \begin{equation*}
 \widehat{\vec{AB}}= \left \langle \frac{A_x}{|A|},\frac{A_y}{|A|},\frac{A_z}{|A|} \right \rangle 
 \end{equation*}
 </div>
 </li>
 <li id="li-83">
-<p id="p-237">Multiply the magnitude of the force by the unit vector <span class="process-math">\(\widehat{AB}\)</span> to get force <span class="process-math">\(\vec{F}_{AB}.\)</span></p>
+<p id="p-236">Multiply the magnitude of the force by the unit vector <span class="process-math">\(\widehat{AB}\)</span> to get force <span class="process-math">\(\vec{F}_{AB}.\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-17">
 \begin{align*}
 \vec{F}_{AB} \amp = F_{AB} \; \widehat{\vec{AB}}\\
@@ -455,22 +448,22 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 </div>
 </li>
 </ol>
-<p id="p-239">The interactive below can be used to visualize the displacement vector and its unit vector, and practice this procedure.</p>
+<p id="p-238">The interactive below can be used to visualize the displacement vector and its unit vector, and practice this procedure.</p>
 <aside class="aside aside-like" id="aside-12"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
-<p id="p-240">This interactive shows <span class="process-math">\(\vec{r}_{AB}\text{,}\)</span> the displacement vector from <span class="process-math">\(\vec{A}\)</span> to <span class="process-math">\(\vec{B}\)</span> and the corresponding unit displacement vector <span class="process-math">\(\lambda_{AB}\text{.}\)</span></p>
-<p id="p-241">You may change <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> by moving the red and blue dots.  Click the dot to switch between <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> mode and <span class="process-math">\(z\)</span> mode.  Coordinates of <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> can also be entered into the table directly.</p></aside><figure class="figure figure-like" id="unit_vectors_3d"><iframe id="ggb_3d-direction-vector_interactive" width="600" height="480" src="ggb_3d-direction-vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.3<span class="period">.</span></span><span class="space"> </span>Unit Vectors in Space</figcaption></figure><article class="example example-like" id="Chapter_02-example-component-in-a-specified-direction"><h4 class="heading">
+<p id="p-239">This interactive shows <span class="process-math">\(\vec{r}_{AB}\text{,}\)</span> the displacement vector from <span class="process-math">\(\vec{A}\)</span> to <span class="process-math">\(\vec{B}\)</span> and the corresponding unit displacement vector <span class="process-math">\(\lambda_{AB}\text{.}\)</span></p>
+<p id="p-240">You may change <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> by moving the red and blue dots.  Click the dot to switch between <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> mode and <span class="process-math">\(z\)</span> mode.  Coordinates of <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> can also be entered into the table directly.</p></aside><figure class="figure figure-like" id="unit_vectors_3d"><iframe id="ggb_3d-direction-vector_interactive" width="600" height="480" src="ggb_3d-direction-vector_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.5.3<span class="period">.</span></span><span class="space"> </span>Unit Vectors in Space</figcaption></figure><article class="example example-like" id="Chapter_02-example-component-in-a-specified-direction"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.5.4</span><span class="period">.</span><span class="space"> </span><span class="title">Component in a Specified Direction.</span>
 </h4>
 <div class="introduction" id="introduction-8">
-<p id="p-244">Determine the components of a <span class="process-math">\(\kN{5}\)</span> force <span class="process-math">\(\vec{F}\)</span> acting at point <span class="process-math">\(A\text{,}\)</span> in the direction of a line from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span> Given: <span class="process-math">\(A =\m{ \left ( 2,3,-2.1 \right )}\)</span> and <span class="process-math">\(B = \m{\left ( -2.5, 1.5, 2.2 \right )}\)</span></p>
-<p id="p-245">We will take the solution one step at a time.</p>
+<p id="p-243">Determine the components of a <span class="process-math">\(\kN{5}\)</span> force <span class="process-math">\(\vec{F}\)</span> acting at point <span class="process-math">\(A\text{,}\)</span> in the direction of a line from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span> Given: <span class="process-math">\(A =\m{ \left ( 2,3,-2.1 \right )}\)</span> and <span class="process-math">\(B = \m{\left ( -2.5, 1.5, 2.2 \right )}\)</span></p>
+<p id="p-244">We will take the solution one step at a time.</p>
 </div>
 <article class="task exercise-like" id="task-1"><h5 class="heading"><span class="codenumber">(a)</span></h5>
-<p id="p-246">Draw a good diagram.</p>
+<p id="p-245">Draw a good diagram.</p>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-3" id="hint-3"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-3"><div class="hint solution-like"><p id="p-247">The interactive in <a href="" class="xref" data-knowl="./knowl/unit_vectors_3d.html" title="Figure 2.5.3">Figure 2.5.3</a> may be useful for this problem.</p></div></div>
+<a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-hint-3" id="hint-3"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-hint-3"><div class="hint solution-like"><p id="p-246">The interactive in <a href="" class="xref" data-knowl="./knowl/unit_vectors_3d.html" title="Figure 2.5.3">Figure 2.5.3</a> may be useful for this problem.</p></div></div>
 </div></article><article class="task exercise-like" id="task-2"><h5 class="heading"><span class="codenumber">(b)</span></h5>
-<p id="p-248">Find the displacement vector from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
+<p id="p-247">Find the displacement vector from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-8" id="answer-8"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-8"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-18">
 \begin{align*}
@@ -486,7 +479,7 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 \end{align*}
 </div></div></div>
 </div></article><article class="task exercise-like" id="task-3"><h5 class="heading"><span class="codenumber">(c)</span></h5>
-<p id="p-251">Find the magnitude of the displacement vector.</p>
+<p id="p-250">Find the magnitude of the displacement vector.</p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-9" id="answer-9"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-9"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-20">
 \begin{align*}
@@ -502,7 +495,7 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 \end{align*}
 </div></div></div>
 </div></article><article class="task exercise-like" id="task-4"><h5 class="heading"><span class="codenumber">(d)</span></h5>
-<p id="p-254">Find the unit vector pointing from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
+<p id="p-253">Find the unit vector pointing from <span class="process-math">\(A\)</span> to <span class="process-math">\(B\text{.}\)</span></p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-10" id="answer-10"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-10"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-22">
 \begin{align*}
@@ -517,7 +510,7 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 \end{align*}
 </div></div></div>
 </div></article><article class="task exercise-like" id="task-5"><h5 class="heading"><span class="codenumber">(e)</span></h5>
-<p id="p-257">Find the force vector.</p>
+<p id="p-256">Find the force vector.</p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-11" id="answer-11"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-11"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-24">
 \begin{gather*}
@@ -531,20 +524,20 @@ B  \amp = \left(B_x,B_y,B_z \right)\\
 \amp = \kN{ \left \langle -3.51,-1.17,3.36 \right \rangle }
 \end{align*}
 </div></div></div>
-</div></article></article><p id="p-260">Given the properties of unit vectors, there are some conceptual checks you can make after computing unit vector components which can prevent subsequent errors.</p>
+</div></article></article><p id="p-259">Given the properties of unit vectors, there are some conceptual checks you can make after computing unit vector components which can prevent subsequent errors.</p>
 <ul class="disc">
 <li id="li-84"><p id="p-derived-li-84">The signs of unit vector components need to match the signs of the original position vector. A unit vector has the same line of action and sense as the position vector but is scaled down to one unit in magnitude.</p></li>
 <li id="li-85"><p id="p-derived-li-85">Components of a unit vector must be between -1 and 1. If the magnitude of a unit vector is one, then it is impossible for it to have rectangular components larger than one.</p></li>
 </ul></section><section class="subsection" id="Chapter_02-unit-vectors-and-direction-cosines"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span>
 </h3>
-<p id="p-261">If you look closely at the right side of equation <a href="" class="xref" data-knowl="./knowl/direction-cosines.html" title="Equation 2.4.1">(2.4.1)</a>, you will see that each equation consists of a component divided by the total vector magnitude. These are the same equations just used to find unit vectors. Thus, the cosine of each direction cosine angle collectively also computes the components of the unit vector; hence we can write an equation for <span class="process-math">\(\hat{\vec{A}}\text{,}\)</span> i.e., the unit vector along <span class="process-math">\(\vec{A}\text{.}\)</span></p>
+<p id="p-260">If you look closely at the right side of equation <a href="" class="xref" data-knowl="./knowl/direction-cosines.html" title="Equation 2.4.1">(2.4.1)</a>, you will see that each equation consists of a component divided by the total vector magnitude. These are the same equations just used to find unit vectors. Thus, the cosine of each direction cosine angle collectively also computes the components of the unit vector; hence we can write an equation for <span class="process-math">\(\hat{\vec{A}}\text{,}\)</span> i.e., the unit vector along <span class="process-math">\(\vec{A}\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/direction-cosines.html">
 \begin{equation*}
 \hat{\vec{A}}=\cos \theta_x  \ihat +\cos \theta_y  \jhat + \cos \theta_z \khat 
 \end{equation*}
 </div>
-<p id="p-262">Combining the Pythagorean Theorem with our knowledge of unit vectors and direction cosine angles gives this result: if you know two of the three direction cosine angles you can manipulate the following equation to find the third.</p>
+<p id="p-261">Combining the Pythagorean Theorem with our knowledge of unit vectors and direction cosine angles gives this result: if you know two of the three direction cosine angles you can manipulate the following equation to find the third.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="men-9">
 \begin{equation}
 \cos^2 \theta_x + \cos^2 \theta_y +\cos^2 \theta_z = 1\tag{2.5.3}

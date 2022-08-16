@@ -8,7 +8,8 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script>window.MathJax = {
+<script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -41,11 +42,11 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
@@ -60,23 +61,24 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
-<body class="pretext-content ignore-math"><div style="width:300px; height:200px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
+<body class="pretext-content ignore-math"><div style="width:300px; height:165px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
-var skycam__ggb_api;
 var skycam__ggb_onload = function(ggb) {
-ggb.evalCommand("ZoomIn(.5)")
+ggb.evalCommand("ZoomIn(.5)");
+ggb.enableRightClick(false);
 };
 var skycam__ggb_params = {
 id:"skycam__ggb",
 filename:"external/images/skycam-labeled.ggb",
 width:300,
-height:200,
+height:150,
 appletOnLoad: function(ggb) {
 skycam__ggb_onload(ggb);
+console.log("Loading skycam__ggb" , ggb);
 listeners(ggb);
-skycam__ggb_api = ggb;}
+}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
@@ -91,6 +93,6 @@ console.log('GGB load applet error.', error);
 });
 </script>
 
-<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="skycam-ggb-container" style="width:300px; height:200px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
+<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="skycam-ggb-container" style="width:300px; height:150px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
 </div></body>
 </html>

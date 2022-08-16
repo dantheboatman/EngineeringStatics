@@ -11,14 +11,15 @@
 <title>Statics: Centroids using Integration</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_07-average-value-of-a-function.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="distributed-loads.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_07-average-value-of-a-function.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a class="next-button button toolbar-item" href="distributed-loads.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,7 +295,7 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="centroids-by-integration"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="centroids-by-integration"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span>
 </h2>
 <article class="objectives goal-like" id="objectives-29"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -310,16 +303,16 @@ startup: {
 <li id="li-375"><p id="p-derived-li-375">How do you find the the centroid of an area using integration?</p></li>
 <li id="li-376"><p id="p-derived-li-376">What is a differential quantity?</p></li>
 <li id="li-377"><p id="p-derived-li-377">Why are double integrals required for square <span class="process-math">\(dA\)</span> elements and single integrals required for rectangular <span class="process-math">\(dA\)</span> elements?</p></li>
-</ul></article><section class="introduction" id="introduction-27"><p id="p-1325">In this section we will use the integral form of <a href="" class="xref" data-knowl="./knowl/two-d-centroid.html" title="Equation 7.4.2">(7.4.2)</a> to find the centroids of non-homogenous objects or shapes with curved boundaries.</p>
+</ul></article><section class="introduction" id="introduction-27"><p id="p-1352">In this section we will use the integral form of <a href="" class="xref" data-knowl="./knowl/two-d-centroid.html" title="Equation 7.4.2">(7.4.2)</a> to find the centroids of non-homogenous objects or shapes with curved boundaries.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/two-d-centroid.html" id="mdn-13">
 \begin{align}
 \bar x \amp = \frac{ \int \bar{x}_{\text{el}}\ dA}{\int dA} \amp\bar y \amp= \frac{ \int \bar{y}_{\text{el}}\ dA}{\int dA} \amp\bar z \amp= \frac{ \int \bar{z}_{\text{el}}\ dA}{\int dA}\tag{7.7.1}
 \end{align}
 </div>
-<p id="p-1326">With the integral equations we are mathematically breaking up a shape into an infinite number of infinitesimally small pieces and adding them together by integrating.  This powerful method is conceptually identical to the discrete sums we introduced first.</p></section><section class="subsection" id="Chapter_07-integration-process"><h3 class="heading hide-type">
+<p id="p-1353">With the integral equations we are mathematically breaking up a shape into an infinite number of infinitesimally small pieces and adding them together by integrating.  This powerful method is conceptually identical to the discrete sums we introduced first.</p></section><section class="subsection" id="Chapter_07-integration-process"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.7.1</span> <span class="title">Integration Process</span>
 </h3>
-<p id="p-1327">Determining the centroid of a area using integration involves finding weighted average values <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\text{,}\)</span> by evaluating these three integrals,</p>
+<p id="p-1354">Determining the centroid of a area using integration involves finding weighted average values <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\text{,}\)</span> by evaluating these three integrals,</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="mdn-14">
 \begin{align}
 A \amp = \int dA, \amp Q_x\amp =\int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA\text{,}\tag{7.7.2}
@@ -327,61 +320,62 @@ A \amp = \int dA, \amp Q_x\amp =\int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \i
 </div>
 <p class="continuation">where</p>
 <ul class="disc">
-<li id="li-378"><p id="p-1328"><span class="process-math">\(dA\)</span> is a differential bit of area called the <em class="emphasis">element</em>.</p></li>
-<li id="li-379"><p id="p-1329"><span class="process-math">\(A\)</span> is the <em class="emphasis">total area</em> enclosed by the shape, and is found by evaluating the first integral.</p></li>
-<li id="li-380"><p id="p-1330"><span class="process-math">\(\bar{x}_{\text{el}}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are the coordinates of the <em class="emphasis">centroid of the element</em>.  These are frequently functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{,}\)</span> not constant values.</p></li>
-<li id="li-381"><p id="p-1331"><span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> are the <dfn class="terminology"></dfn> <em class="emphasis">First moments of Area</em> with respect to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axis.</p></li>
+<li id="li-378"><p id="p-1355"><span class="process-math">\(dA\)</span> is a differential bit of area called the <em class="emphasis">element</em>.</p></li>
+<li id="li-379"><p id="p-1356"><span class="process-math">\(A\)</span> is the <em class="emphasis">total area</em> enclosed by the shape, and is found by evaluating the first integral.</p></li>
+<li id="li-380"><p id="p-1357"><span class="process-math">\(\bar{x}_{\text{el}}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are the coordinates of the <em class="emphasis">centroid of the element</em>.  These are frequently functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{,}\)</span> not constant values.</p></li>
+<li id="li-381"><p id="p-1358"><span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> are the <dfn class="terminology"></dfn> <em class="emphasis">First moments of Area</em> with respect to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axis.</p></li>
 </ul>
-<p id="p-1332">The procedure for finding centroids with integration can be broken into three steps:</p>
+<p id="p-1359">The procedure for finding centroids with integration can be broken into three steps:</p>
 <ol class="decimal">
 <li id="li-382">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1333">Usually this is the hardest step.</p>
-<p id="p-1334">You should always begin by drawing a sketch of the problem and reviewing the given information.</p>
-<p id="p-1335">You will need to understand the boundaries of the shape, which may be lines or functions.  You may need to know some math facts, like the definition of slope, or the equation of a line or parabola.  A bounding function  may be given as a function of <span class="process-math">\(x\text{,}\)</span> but you want it as a function of <span class="process-math">\(y,\)</span> or vice-versa or it may have a constant which you will need to determine.</p>
-<p id="p-1336">You will need to choose an element of area <span class="process-math">\(dA\text{.}\)</span>  There are several choices available, including vertical strips, horizontal strips, or square elements; or in polar coordinates, rings, wedges or squares. There really is no right or wrong choice; they will all work, but one may make the integration easier than another. The best choice depends on the nature of the problem, and it takes some experience to predict which it will be.</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1360">Usually this is the hardest step.</p>
+<p id="p-1361">You should always begin by drawing a sketch of the problem and reviewing the given information.</p>
+<p id="p-1362">You will need to understand the boundaries of the shape, which may be lines or functions.  You may need to know some math facts, like the definition of slope, or the equation of a line or parabola.  A bounding function  may be given as a function of <span class="process-math">\(x\text{,}\)</span> but you want it as a function of <span class="process-math">\(y,\)</span> or vice-versa or it may have a constant which you will need to determine.</p>
+<p id="p-1363">You will need to choose an element of area <span class="process-math">\(dA\text{.}\)</span>  There are several choices available, including vertical strips, horizontal strips, or square elements; or in polar coordinates, rings, wedges or squares. There really is no right or wrong choice; they will all work, but one may make the integration easier than another. The best choice depends on the nature of the problem, and it takes some experience to predict which it will be.</p>
 <figure class="figure figure-like" id="figure-121"><div class="sidebyside"><div class="sbsrow" style="margin-left:4.166666666666667%;margin-right:4.166666666666667%;">
 <div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-122"><img src="external/images/triangle-dx-dy.svg" role="img" class="contained"><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Square element</figcaption></figure></div>
 <div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-123"><img src="external/images/triangle-dx.svg" role="img" class="contained"><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Vertical strip</figcaption></figure></div>
 <div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-124"><img src="external/images/triangle-dy.svg" role="img" class="contained"><figcaption><span class="codenumber">(c)</span><span class="space"> </span>Horizontal strip</figcaption></figure></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.1<span class="period">.</span></span><span class="space"> </span>Differential Elements of Area</figcaption></figure><p id="p-1337">The two most common choices for differential elements are:</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.1<span class="period">.</span></span><span class="space"> </span>Differential Elements of Area</figcaption></figure><p id="p-1364">The two most common choices for differential elements are:</p>
 <ul class="disc">
 <li id="li-383">
-<span class="heading"><span class="title">Square elements and double integrals.</span></span><p id="p-1338">If you choose an infinitesimal square element <span class="process-math">\(dA = dx\;dy\text{,}\)</span> you must integrate twice, over <span class="process-math">\(x\)</span> and over <span class="process-math">\(y\)</span> between the appropriate integration limits.  The position of the element typically designated <span class="process-math">\((x,y)\text{.}\)</span></p>
+<span class="heading"><span class="title">Square elements and double integrals.</span></span><p id="p-1365">If you choose an infinitesimal square element <span class="process-math">\(dA = dx\;dy\text{,}\)</span> you must integrate twice, over <span class="process-math">\(x\)</span> and over <span class="process-math">\(y\)</span> between the appropriate integration limits.  The position of the element typically designated <span class="process-math">\((x,y)\text{.}\)</span></p>
 </li>
 <li id="li-384">
-<span class="heading"><span class="title">Rectangular elements and single integrals.</span></span><p id="p-1339">If you choose rectangular strips you eliminate the need to integrate twice.  You may select a vertical element with a different width <span class="process-math">\(dx\text{,}\)</span> and a height extending from the lower to the upper bound, or a horizontal strip with a differential height <span class="process-math">\(dy\)</span> and a width extending from the left to the right boundaries.  Either way, you only integrate once to cover the enclosed area.</p>
-<p id="p-1340">When finding the area enclosed by a single function <span class="process-math">\(y=f(x)\text{,}\)</span> and the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes <span class="process-math">\((x,y)\)</span> represents a point on the function and  <span class="process-math">\(dA = y\ dx\)</span> for vertical strips, or <span class="process-math">\(dA = x\ dy\)</span> for horizontal strips.</p>
+<span class="heading"><span class="title">Rectangular elements and single integrals.</span></span><p id="p-1366">If you choose rectangular strips you eliminate the need to integrate twice.  You may select a vertical element with a different width <span class="process-math">\(dx\text{,}\)</span> and a height extending from the lower to the upper bound, or a horizontal strip with a differential height <span class="process-math">\(dy\)</span> and a width extending from the left to the right boundaries.  Either way, you only integrate once to cover the enclosed area.</p>
+<p id="p-1367">When finding the area enclosed by a single function <span class="process-math">\(y=f(x)\text{,}\)</span> and the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes <span class="process-math">\((x,y)\)</span> represents a point on the function and  <span class="process-math">\(dA = y\ dx\)</span> for vertical strips, or <span class="process-math">\(dA = x\ dy\)</span> for horizontal strips.</p>
 </li>
 </ul>
-<p id="p-1341">You must find expressions for the area <span class="process-math">\(dA\)</span> and centroid of the element <span class="process-math">\((\bar{x}_{\text{el}}, \bar{y}_{\text{el}})\)</span> in terms of the bounding functions. This is how we turn an integral over an area into a definite integral which can be integrated.</p>
-<p id="p-1342">When you have established  all these items, you can substitute them into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and proceed to the integration step.</p>
+<p id="p-1368">You must find expressions for the area <span class="process-math">\(dA\)</span> and centroid of the element <span class="process-math">\((\bar{x}_{\text{el}}, \bar{y}_{\text{el}})\)</span> in terms of the bounding functions. This is how we turn an integral over an area into a definite integral which can be integrated.</p>
+<p id="p-1369">When you have established  all these items, you can substitute them into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and proceed to the integration step.</p>
 </li>
 <li id="li-385">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1343">This step is pure mathematics.</p>
-<p id="p-1344">Here are some tips if you are doing integration “by hand”. Be neat,  work carefully, and check your work as you go along. Use proper mathematics notation: don't lose the differential <span class="process-math">\(dx\)</span> or <span class="process-math">\(dy\)</span> before the integration step, and don't include it afterwords.  Don't forget to use equals signs between steps.  Simplify as you go and don't substitute numbers or other constants too soon.  Pay attention to units: Area <span class="process-math">\(A\)</span> should have units of <span class="process-math">\([\text{length}]^3\)</span> and the first moments of area <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> should have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span> If your units aren't consistent, then you have made a mistake.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1370">This step is pure mathematics.</p>
+<p id="p-1371">Here are some tips if you are doing integration “by hand”. Be neat,  work carefully, and check your work as you go along. Use proper mathematics notation: don't lose the differential <span class="process-math">\(dx\)</span> or <span class="process-math">\(dy\)</span> before the integration step, and don't include it afterwords.  Don't forget to use equals signs between steps.  Simplify as you go and don't substitute numbers or other constants too soon.  Pay attention to units: Area <span class="process-math">\(A\)</span> should have units of <span class="process-math">\([\text{length}]^3\)</span> and the first moments of area <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> should have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span> If your units aren't consistent, then you have made a mistake.</p>
 </li>
 <li id="li-386">
-<span class="heading"><span class="title">Evaluate the centroid.</span></span><p id="p-1345">After you have evaluated the integrals you will have expressions or values for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(Q_x\text{,}\)</span> and <span class="process-math">\(Q_y\text{.}\)</span>  All that remains is to substitute these into the defining equations for <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\)</span> and simplify.  Notice the <span class="process-math">\(Q_x\)</span> goes into the <span class="process-math">\(\bar{y}\)</span> equation, and vice-versa.</p>
+<span class="heading"><span class="title">Evaluate the centroid.</span></span><p id="p-1372">After you have evaluated the integrals you will have expressions or values for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(Q_x\text{,}\)</span> and <span class="process-math">\(Q_y\text{.}\)</span>  All that remains is to substitute these into the defining equations for <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\)</span> and simplify.  Notice the <span class="process-math">\(Q_x\)</span> goes into the <span class="process-math">\(\bar{y}\)</span> equation, and vice-versa.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-141">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y}\amp =  \frac{Q_x}{A}
 \end{align*}
 </div>
-<p id="p-1346">Finally, plot the centroid at <span class="process-math">\((\bar{x}, \bar{y})\)</span> on your sketch and decide if your answer makes sense for area.</p>
+<p id="p-1373">Finally, plot the centroid at <span class="process-math">\((\bar{x}, \bar{y})\)</span> on your sketch and decide if your answer makes sense for area.</p>
 </li>
 </ol>
 <article class="insight remark-like" id="insight-8"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-8"><h4 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">7.7.2</span><span class="period">.</span><span class="space"> </span><span class="title">What is <span class="process-math">\(dA\text{?}\)</span></span>
-</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-8"><article class="insight remark-like"><p id="p-1347"><span class="process-math">\(dA\)</span> is just an area, but an extremely tiny one!</p>
-<p id="p-1348">It’s an example of an <dfn class="terminology">differential quantity</dfn> — <dfn class="terminology"></dfn>also called an <dfn class="terminology">infinitesimal</dfn>.  A differential quantity is value which is as close to zero as it can possibly be without actually being zero.  You can think of its value as <span class="process-math">\(\frac{1}{\infty}\text{.}\)</span> Integration is the process of adding up an infinite number of infinitesimal quantities.</p>
-<p id="p-1349">Some other differential quantities we will see in statics are <span class="process-math">\(dx\text{,}\)</span> <span class="process-math">\(dy\)</span> and <span class="process-math">\(dz\text{,}\)</span> which are infinitesimal increments of distance; <span class="process-math">\(dV\text{,}\)</span> which is a differential volume; <span class="process-math">\(dW\text{,}\)</span> a differential weight; <span class="process-math">\(dm\text{,}\)</span> a differential mass, and so on.</p>
-<p id="p-1350">Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by <span class="process-math">\(dA =y\ dx\)</span> then, even though height <span class="process-math">\(y\)</span> is a real number, the area is a differential because <span class="process-math">\(dx\)</span> is differential.</p>
-<p id="p-1351">If you like, you can pronounce the <span class="process-math">\(d\)</span> as “the little bit of” so <span class="process-math">\(dA = y\ dx\)</span> reads “The little bit of area is the height <span class="process-math">\(y\)</span> times a little bit x.” and <span class="process-math">\(A = \int dA\)</span> reads “The total area is the sum of the little bits of area.”</p></article></div></section><section class="subsection" id="area-of-a-general-spandrel"><h3 class="heading hide-type">
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-8"><article class="insight remark-like"><p id="p-1374"><span class="process-math">\(dA\)</span> is just an area, but an extremely tiny one!</p>
+<p id="p-1375">It’s an example of an <dfn class="terminology">differential quantity</dfn> — <dfn class="terminology"></dfn>also called an <dfn class="terminology">infinitesimal</dfn>.  A differential quantity is value which is as close to zero as it can possibly be without actually being zero.  You can think of its value as <span class="process-math">\(\frac{1}{\infty}\text{.}\)</span> Integration is the process of adding up an infinite number of infinitesimal quantities.</p>
+<p id="p-1376">Some other differential quantities we will see in statics are <span class="process-math">\(dx\text{,}\)</span> <span class="process-math">\(dy\)</span> and <span class="process-math">\(dz\text{,}\)</span> which are infinitesimal increments of distance; <span class="process-math">\(dV\text{,}\)</span> which is a differential volume; <span class="process-math">\(dW\text{,}\)</span> a differential weight; <span class="process-math">\(dm\text{,}\)</span> a differential mass, and so on.</p>
+<p id="p-1377">Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by <span class="process-math">\(dA =y\ dx\)</span> then, even though height <span class="process-math">\(y\)</span> is a real number, the area is a differential because <span class="process-math">\(dx\)</span> is differential.</p>
+<p id="p-1378">If you like, you can pronounce the <span class="process-math">\(d\)</span> as “the little bit of” so <span class="process-math">\(dA = y\ dx\)</span> reads “The little bit of area is the height <span class="process-math">\(y\)</span> times a little bit x.” and <span class="process-math">\(A = \int dA\)</span> reads “The total area is the sum of the little bits of area.”</p></article></div></section><section class="subsection" id="area-of-a-general-spandrel"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span>
 </h3>
-<p id="p-1352">In this section we will use the integration process describe above to calculate the area of the general spandrel shown in <a href="" class="xref" data-knowl="./knowl/general-spandrel-ggb.html" title="Figure 7.7.3">Figure 7.7.3</a>. A <dfn class="terminology">spandrel</dfn> is the area between a curve and a rectangular frame.  This is a general spandrel because the curve is defined by the function <span class="process-math">\(y = k x^n\text{,}\)</span> where <span class="process-math">\(n\)</span> is not specified.  If <span class="process-math">\(n = 0\)</span> the function is constant, if <span class="process-math">\(n=1\)</span> then it is a straight line, <span class="process-math">\(n=2\)</span> it’s a parabola, etc.. You can change the slider to see the effect of different values of <span class="process-math">\(n\text{.}\)</span></p>
-<figure class="figure figure-like" id="general-spandrel-ggb"><iframe id="general-spandrel_interactive" width="600" height="400" src="general-spandrel_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.3<span class="period">.</span></span><span class="space"> </span>A general spandrel of the form <span class="process-math">\(y = k x^n\)</span></figcaption></figure><p id="p-1353">Begin by identifying the bounding functions.  From the diagram, we see that the boundaries  are the function, the <span class="process-math">\(x\)</span> axis and,  the vertical line <span class="process-math">\(x = b\text{.}\)</span>  The function <span class="process-math">\(y=kx^n\)</span> has a constant <span class="process-math">\(k\)</span>  which has not been specified, but which is not arbitrary. The diagram indicates that the function passes through the origin and point <span class="process-math">\((a,b)\text{,}\)</span> and there is only one value of <span class="process-math">\(k\)</span> which will cause this. We can find <span class="process-math">\(k\)</span> by substituting <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> into the function for <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> then solving for it.</p>
+<p id="p-1379">In this section we will use the integration process describe above to calculate the area of the general spandrel shown in <a href="" class="xref" data-knowl="./knowl/general-spandrel-ggb.html" title="Figure 7.7.3">Figure 7.7.3</a>. A <dfn class="terminology">spandrel</dfn> is the area between a curve and a rectangular frame.  This is a general spandrel because the curve is defined by the function <span class="process-math">\(y = k x^n\text{,}\)</span> where <span class="process-math">\(n\)</span> is not specified.  If <span class="process-math">\(n = 0\)</span> the function is constant, if <span class="process-math">\(n=1\)</span> then it is a straight line, <span class="process-math">\(n=2\)</span> it’s a parabola, etc.. You can change the slider to see the effect of different values of <span class="process-math">\(n\text{.}\)</span></p>
+<aside class="aside aside-like" id="aside-49"><h4 class="heading"><span class="title">Interactive Diagram.</span></h4>
+<p id="p-1380">Use the sliders to vary the exponent <span class="process-math">\(n\)</span> and the widths of the differential strips.</p></aside><figure class="figure figure-like" id="general-spandrel-ggb"><iframe id="general-spandrel_interactive" width="600" height="450" src="general-spandrel_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.3<span class="period">.</span></span><span class="space"> </span>A general spandrel of the form <span class="process-math">\(y = k x^n\)</span></figcaption></figure><p id="p-1382">Begin by identifying the bounding functions.  From the diagram, we see that the boundaries  are the function, the <span class="process-math">\(x\)</span> axis and,  the vertical line <span class="process-math">\(x = b\text{.}\)</span>  The function <span class="process-math">\(y=kx^n\)</span> has a constant <span class="process-math">\(k\)</span>  which has not been specified, but which is not arbitrary. The diagram indicates that the function passes through the origin and point <span class="process-math">\((a,b)\text{,}\)</span> and there is only one value of <span class="process-math">\(k\)</span> which will cause this. We can find <span class="process-math">\(k\)</span> by substituting <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> into the function for <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> then solving for it.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-142">
 \begin{align*}
 y \amp =  k x^n\\
@@ -389,14 +383,14 @@ b \amp =  k a^n\\
 k \amp =  \frac{b}{a^n}
 \end{align*}
 </div>
-<p id="p-1354">Next, choose a differential area.  For this problem a vertical strip works well.  A vertical strip has a width <span class="process-math">\(dx\text{,}\)</span> and extends from the bottom boundary to the top boundary.  Any point on the curve is <span class="process-math">\((x,y)\)</span> and a point directly below it on the <span class="process-math">\(x\)</span> axis is <span class="process-math">\((x,0)\text{.}\)</span>  This means that the height of the strip is <span class="process-math">\((y-0) = y\)</span> and the area of the strip is (base <span class="process-math">\(\times\)</span> height), so</p>
+<p id="p-1383">Next, choose a differential area.  For this problem a vertical strip works well.  A vertical strip has a width <span class="process-math">\(dx\text{,}\)</span> and extends from the bottom boundary to the top boundary.  Any point on the curve is <span class="process-math">\((x,y)\)</span> and a point directly below it on the <span class="process-math">\(x\)</span> axis is <span class="process-math">\((x,0)\text{.}\)</span>  This means that the height of the strip is <span class="process-math">\((y-0) = y\)</span> and the area of the strip is (base <span class="process-math">\(\times\)</span> height), so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA =y\ dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1355">The limits on the integral are from <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x=a\)</span> on the right since we are integrating with respect to <span class="process-math">\(x\text{.}\)</span></p>
-<p id="p-1356">With these details established, the next step is to set up and evaluate the integral <span class="process-math">\(A = \int dA = \int_0^a y\ dx\text{.}\)</span> This is the familiar formula from calculus for the area under a curve.  Proceeding with the integration</p>
+<p id="p-1384">The limits on the integral are from <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x=a\)</span> on the right since we are integrating with respect to <span class="process-math">\(x\text{.}\)</span></p>
+<p id="p-1385">With these details established, the next step is to set up and evaluate the integral <span class="process-math">\(A = \int dA = \int_0^a y\ dx\text{.}\)</span> This is the familiar formula from calculus for the area under a curve.  Proceeding with the integration</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-143">
 \begin{align*}
 A \amp =  \int_0^a y\ dx  \amp \left(y = kx^n\right)\\
@@ -407,14 +401,14 @@ A \amp =  \int_0^a y\ dx  \amp \left(y = kx^n\right)\\
 A \amp =  \frac{ab}{n+1} \amp \text{(result)}
 \end{align*}
 </div>
-<p id="p-1357">This result is not a number, but a general formula for the area under a curve in terms of <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(n\text{.}\)</span>  Explore with the interactive, and notice for instance that when <span class="process-math">\(n=0\text{,}\)</span> the shape is a rectangle and <span class="process-math">\(A = ab\text{;}\)</span> when <span class="process-math">\(n=1\)</span> the shape is a triangle and the <span class="process-math">\(A =  ab/2\text{;}\)</span> when <span class="process-math">\(n=2\)</span> the shape is a parabola and <span class="process-math">\(A = ab/3\)</span> etc.  This single formula gives the equation for the area under a whole family of curves.</p>
+<p id="p-1386">This result is not a number, but a general formula for the area under a curve in terms of <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(n\text{.}\)</span>  Explore with the interactive, and notice for instance that when <span class="process-math">\(n=0\text{,}\)</span> the shape is a rectangle and <span class="process-math">\(A = ab\text{;}\)</span> when <span class="process-math">\(n=1\)</span> the shape is a triangle and the <span class="process-math">\(A =  ab/2\text{;}\)</span> when <span class="process-math">\(n=2\)</span> the shape is a parabola and <span class="process-math">\(A = ab/3\)</span> etc.  This single formula gives the equation for the area under a whole family of curves.</p>
 <article class="insight remark-like" id="insight-9"><a href="" data-knowl="" class="id-ref insight-knowl original has-image has-interactive" data-refid="hk-insight-9"><h4 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">7.7.4</span><span class="period">.</span><span class="space"> </span><span class="title">Which is better, horizontal or vertical elements?</span>
-</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-9"><article class="insight remark-like"><p id="p-1358">Recall that the first moment of area  <span class="process-math">\(Q_x = \int \bar{x}_{\text{el}}\ dA\)</span> is the distance weighted area as measured from a desired axis. The distance term  <span class="process-math">\(\bar{x}_{\text{el}}\)</span> is the the distance from the desired axis to the centroid of each differential element of area, <span class="process-math">\(dA\text{.}\)</span></p>
-<p id="p-1359"></p>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-9"><article class="insight remark-like"><p id="p-1387">Recall that the first moment of area  <span class="process-math">\(Q_x = \int \bar{x}_{\text{el}}\ dA\)</span> is the distance weighted area as measured from a desired axis. The distance term  <span class="process-math">\(\bar{x}_{\text{el}}\)</span> is the the distance from the desired axis to the centroid of each differential element of area, <span class="process-math">\(dA\text{.}\)</span></p>
+<p id="p-1388"></p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:66%;">
-<p id="p-1360">If you’re using a single integral with a <em class="emphasis">vertical</em> element <span class="process-math">\(dA\)</span></p>
+<p id="p-1389">If you’re using a single integral with a <em class="emphasis">vertical</em> element <span class="process-math">\(dA\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = \underbrace{y(x)}_{\text{height}} \underbrace{(dx)}_{\text{base}}
@@ -431,7 +425,7 @@ dA = \underbrace{y(x)}_{\text{height}} \underbrace{(dx)}_{\text{base}}
 </div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:66%;">
-<p id="p-1361">It is also possible to find <span class="process-math">\(\bar{x}\)</span>  using a horizontal element but the computations are a bit more challenging. First the equation for <span class="process-math">\(dA\)</span> changes to</p>
+<p id="p-1390">It is also possible to find <span class="process-math">\(\bar{x}\)</span>  using a horizontal element but the computations are a bit more challenging. First the equation for <span class="process-math">\(dA\)</span> changes to</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA= \underbrace{x(y)}_{\text{height}} \underbrace{(dy)}_{\text{base}}\text{.}
@@ -440,58 +434,63 @@ dA= \underbrace{x(y)}_{\text{height}} \underbrace{(dy)}_{\text{base}}\text{.}
 </div>
 <div class="sbspanel middle" style="width:30%;"><img src="external/images/dan-strips-2.svg" role="img" class="contained"></div>
 </div></div>
-<p id="p-1362"></p>
-<p id="p-1363">Additionally, the distance to the centroid of each element, <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> must measure to the middle of the horizontal element. For this triangle,</p>
+<p id="p-1391"></p>
+<p id="p-1392">Additionally, the distance to the centroid of each element, <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> must measure to the middle of the horizontal element. For this triangle,</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \bar{x}_{\text{el}}=\frac{x(y)}{2}\text{.}
 \end{equation*}
 </div>
-<p id="p-1364">We find a similar contrast to finding the vertical centroidal distance <span class="process-math">\(\bar{y}\)</span> where it is easier to use a <span class="process-math">\(dy\)</span> element to find <span class="process-math">\(\bar{y}\)</span> than it is to use a <span class="process-math">\(dx\)</span> element.</p>
+<p id="p-1393">We find a similar contrast to finding the vertical centroidal distance <span class="process-math">\(\bar{y}\)</span> where it is easier to use a <span class="process-math">\(dy\)</span> element to find <span class="process-math">\(\bar{y}\)</span> than it is to use a <span class="process-math">\(dx\)</span> element.</p>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
 <div class="sbspanel top" style="width:37.5%;"><img src="external/images/dan-strips-3.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:37.5%;"><img src="external/images/dan-strips-4.svg" role="img" class="contained"></div>
 </div></div>
-<p id="p-1365">The interactive below compares horizontal and vertical strips for a shape bounded by the parabola <span class="process-math">\(y^2 = x\)</span>  and the diagonal line <span class="process-math">\(y = x-2\)</span> .  Horizontal strips are a better choice in this case, because the left and right boundaries  are easy to express as functions of <span class="process-math">\(y\text{.}\)</span>  If vertical strips are chosen, the parabola must be expressed as two different functions of <span class="process-math">\(x\text{,}\)</span> and two integrals are needed to cover the area, the first from <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=1\text{,}\)</span> and the second from <span class="process-math">\(x=1\)</span> to <span class="process-math">\(x=4\text{.}\)</span></p>
-<aside class="aside aside-like" id="aside-48"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5></aside><figure class="figure figure-like" id="integrate_2_curves-ggb"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><iframe id="integrate_2_curves_interactive" width="450" height="300" src="integrate_2_curves_interactive-if.html"></iframe></div></div></div>
+<p id="p-1394">The interactive below compares horizontal and vertical strips for a shape bounded by the parabola <span class="process-math">\(y^2 = x\)</span>  and the diagonal line <span class="process-math">\(y = x-2\)</span> .  Horizontal strips are a better choice in this case, because the left and right boundaries  are easy to express as functions of <span class="process-math">\(y\text{.}\)</span>  If vertical strips are chosen, the parabola must be expressed as two different functions of <span class="process-math">\(x\text{,}\)</span> and two integrals are needed to cover the area, the first from <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=1\text{,}\)</span> and the second from <span class="process-math">\(x=1\)</span> to <span class="process-math">\(x=4\text{.}\)</span></p>
+<aside class="aside aside-like" id="aside-50"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1395">This interactive shows the difference between horizontal and vertical differential elements <span class="process-math">\(dA\text{.}\)</span></p>
+<p id="p-1396">Note that for vertical elements, the lower bounding function changes at <span class="process-math">\(x = 1\text{,}\)</span> whereas for horizontal strips the bounding functions don't change over the range of <span class="process-math">\(y\text{.}\)</span></p>
+<p id="p-1397">Use the  slider to switch to the differential element.</p></aside><figure class="figure figure-like" id="integrate_2_curves-ggb"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><iframe id="integrate_2_curves_interactive" width="450" height="292" src="integrate_2_curves_interactive-if.html"></iframe></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.5<span class="period">.</span></span><span class="space"> </span>Function demonstrating good and bad choices of differential elements.</figcaption></figure></article></div></section><section class="subsection" id="Chapter_07-examples"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.7.3</span> <span class="title">Examples</span>
 </h3>
-<p id="p-1366">This section contains several examples of finding centroids by integration, starting with very simple shapes and getting progressively more difficult.  All the examples include interactive diagrams to help you visualize the integration process, and to see how <span class="process-math">\(dA\)</span> is related to <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span></p>
-<p id="p-1367">The first two examples are a rectangle and a triangle evaluated three different ways: with vertical strips, horizontal strips, and using double integration.  The different approaches produce identical results, as you would expect.  You should try to decide which method is easiest for a particular situation.</p>
+<p id="p-1401">This section contains several examples of finding centroids by integration, starting with very simple shapes and getting progressively more difficult.  All the examples include interactive diagrams to help you visualize the integration process, and to see how <span class="process-math">\(dA\)</span> is related to <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span></p>
+<p id="p-1402">The first two examples are a rectangle and a triangle evaluated three different ways: with vertical strips, horizontal strips, and using double integration.  The different approaches produce identical results, as you would expect.  You should try to decide which method is easiest for a particular situation.</p>
 <article class="example example-like" id="Chapter_07-example-centroid-of-a-rectangle"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.6</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a rectangle.</span>
 </h4>
-<p id="p-1368">Use integration to show that the centroid of a rectangle with a base <span class="process-math">\(b\)</span> and a height of <span class="process-math">\(h\)</span> is at its center.</p>
-<aside class="aside aside-like" id="aside-49"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5></aside><figure class="figure figure-like" id="figure-127"><iframe id="ggb_integrate_rectangle_interactive" width="540" height="360" src="ggb_integrate_rectangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<p id="p-1403">Use integration to show that the centroid of a rectangle with a base <span class="process-math">\(b\)</span> and a height of <span class="process-math">\(h\)</span> is at its center.</p>
+<aside class="aside aside-like" id="aside-51"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1404">This interactive shows three possible differential elements to use for integration.</p>
+<p id="p-1405">Use the red slider to change the element.</p></aside><figure class="figure figure-like" id="figure-127"><iframe id="ggb_integrate_rectangle_interactive" width="600" height="360" src="ggb_integrate_rectangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-50" id="answer-50"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-50"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="men-57">
 \begin{equation}
 \bar{x} = b/2 \qquad \bar{y}=h/2\tag{7.7.3}
 \end{equation}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-55" id="solution-55"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-55"><div class="solution solution-like">
-<p id="p-1370">This solution demonstrates solving integrals using vertical rectangular strips.   Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
-<ol id="p-1371" class="decimal">
+<p id="p-1409">This solution demonstrates solving integrals using vertical rectangular strips.   Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
+<ol id="p-1410" class="decimal">
 <li id="li-387">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1372">The bounding functions in this example are vertical lines <span class="process-math">\(x=0\)</span> and <span class="process-math">\(x=a\text{,}\)</span> and horizontal lines <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
-<p id="p-1373">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,h)\)</span> on the top of the rectangle, and has a differential width <span class="process-math">\(dx\text{.}\)</span></p>
-<p id="p-1374">The area of the strip is the base times the height, so</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1411">The bounding functions in this example are vertical lines <span class="process-math">\(x=0\)</span> and <span class="process-math">\(x=a\text{,}\)</span> and horizontal lines <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
+<p id="p-1412">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,h)\)</span> on the top of the rectangle, and has a differential width <span class="process-math">\(dx\text{.}\)</span></p>
+<p id="p-1413">The area of the strip is the base times the height, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = h\ dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1375">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1414">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-144">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = x \\
 \bar{y}_{\text{el}} \amp = h/2
 \end{align*}
 </div>
-<p id="p-1376">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits on <span class="process-math">\(x\)</span>  run from <span class="process-math">\(x=0\)</span> at the left to <span class="process-math">\(x=b\)</span> on the right.  For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{y}_{\text{el}}\)</span> and the left or right limits may be functions of <span class="process-math">\(x\text{.}\)</span></p>
+<p id="p-1415">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits on <span class="process-math">\(x\)</span>  run from <span class="process-math">\(x=0\)</span> at the left to <span class="process-math">\(x=b\)</span> on the right.  For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{y}_{\text{el}}\)</span> and the left or right limits may be functions of <span class="process-math">\(x\text{.}\)</span></p>
 </li>
 <li id="li-388">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1377">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1416">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-145">
 \begin{align*}
 A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -501,10 +500,10 @@ A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = 
 A \amp = bh \amp Q_x \amp =  \frac{h^2 b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 \end{align*}
 </div>
-<p id="p-1378">Unsurprisingly, we learn that the area of a rectangle is base times height.  Since the area formula is well known, it was not really necessary to solve the first integral. Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\text{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
+<p id="p-1417">Unsurprisingly, we learn that the area of a rectangle is base times height.  Since the area formula is well known, it was not really necessary to solve the first integral. Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\text{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
 </li>
 <li id="li-389">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1379">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1418">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-146">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -516,29 +515,29 @@ A \amp = bh \amp Q_x \amp =  \frac{h^2 b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-56" id="solution-56"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-56"><div class="solution solution-like">
-<p id="p-1380">This solution demonstrates solving integrals using horizontal rectangular strips.  Set the slider on the diagram to <span class="process-math">\(b\;dy\)</span> to see a representative element.</p>
-<ol id="p-1381" class="decimal">
+<p id="p-1419">This solution demonstrates solving integrals using horizontal rectangular strips.  Set the slider on the diagram to <span class="process-math">\(b\;dy\)</span> to see a representative element.</p>
+<ol id="p-1420" class="decimal">
 <li id="li-390">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1382">The bounding functions  <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
-<p id="p-1383">The strip extends from <span class="process-math">\((0,y)\)</span> on the <span class="process-math">\(y\)</span> axis to <span class="process-math">\((b,y)\)</span> on the right, and has a differential height <span class="process-math">\(dy\text{.}\)</span></p>
-<p id="p-1384">The area of the strip is the base times the height, so</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1421">The bounding functions  <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
+<p id="p-1422">The strip extends from <span class="process-math">\((0,y)\)</span> on the <span class="process-math">\(y\)</span> axis to <span class="process-math">\((b,y)\)</span> on the right, and has a differential height <span class="process-math">\(dy\text{.}\)</span></p>
+<p id="p-1423">The area of the strip is the base times the height, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = b\ dy\text{.}
 \end{equation*}
 </div>
-<p id="p-1385">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1424">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-147">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = b/2 \\
 \bar{y}_{\text{el}} \amp = y
 \end{align*}
 </div>
-<p id="p-1386">With horizontal strips the variable of integration is <span class="process-math">\(y\text{,}\)</span> and the limits on <span class="process-math">\(y\)</span> run from <span class="process-math">\(y=0\)</span> at the bottom to <span class="process-math">\(y = h\)</span> at the top.</p>
-<p id="p-1387">For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{x}_{\text{el}}\)</span> and the upper or lower limits may be functions of <span class="process-math">\(y\text{.}\)</span></p>
+<p id="p-1425">With horizontal strips the variable of integration is <span class="process-math">\(y\text{,}\)</span> and the limits on <span class="process-math">\(y\)</span> run from <span class="process-math">\(y=0\)</span> at the bottom to <span class="process-math">\(y = h\)</span> at the top.</p>
+<p id="p-1426">For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{x}_{\text{el}}\)</span> and the upper or lower limits may be functions of <span class="process-math">\(y\text{.}\)</span></p>
 </li>
 <li id="li-391">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1388">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  The results are the same as we found using vertical strips.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1427">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  The results are the same as we found using vertical strips.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-148">
 \begin{align*}
 A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -550,7 +549,7 @@ A\amp = bh \amp Q_x \amp =  \frac{h^2 b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 </div>
 </li>
 <li id="li-392">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1389">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1428">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-149">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -562,29 +561,29 @@ A\amp = bh \amp Q_x \amp =  \frac{h^2 b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-57" id="solution-57"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">3</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-57"><div class="solution solution-like">
-<p id="p-1390">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram  to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</p>
-<ol id="p-1391" class="decimal">
+<p id="p-1429">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram  to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</p>
+<ol id="p-1430" class="decimal">
 <li id="li-393">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1392">Set the slider on the diagram  to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</p>
-<p id="p-1393">The bounding functions  <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
-<p id="p-1394">Instead of strips, the integrals will be evaluated using square elements with width <span class="process-math">\(dx\)</span> and height <span class="process-math">\(dy\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span></p>
-<p id="p-1395">The area of the square element is the base times the height, so</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1431">Set the slider on the diagram  to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</p>
+<p id="p-1432">The bounding functions  <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span></p>
+<p id="p-1433">Instead of strips, the integrals will be evaluated using square elements with width <span class="process-math">\(dx\)</span> and height <span class="process-math">\(dy\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span></p>
+<p id="p-1434">The area of the square element is the base times the height, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = dx\ dy = dy\ dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1396">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1435">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-150">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = x \\
 \bar{y}_{\text{el}} \amp = y
 \end{align*}
 </div>
-<p id="p-1397">We will integrate twice, first with respect to <span class="process-math">\(y\)</span> and then with respect to <span class="process-math">\(x\text{.}\)</span>  The limits on the first integral are <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(h\)</span> and <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(b\)</span> on the second.  For a rectangle, both <span class="process-math">\(b\)</span> and <span class="process-math">\(h\)</span> are constants.  In other situations, the upper or lower limits may be functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span></p>
+<p id="p-1436">We will integrate twice, first with respect to <span class="process-math">\(y\)</span> and then with respect to <span class="process-math">\(x\text{.}\)</span>  The limits on the first integral are <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(h\)</span> and <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(b\)</span> on the second.  For a rectangle, both <span class="process-math">\(b\)</span> and <span class="process-math">\(h\)</span> are constants.  In other situations, the upper or lower limits may be functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span></p>
 </li>
 <li id="li-394">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1398">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral.  The results are the same as before.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1437">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral.  The results are the same as before.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-151">
 \begin{align*}
 A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -598,7 +597,7 @@ A\amp = hb  \amp Q_x\amp =  \frac{h^2b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 </div>
 </li>
 <li id="li-395">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1399">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1438">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-152">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -613,41 +612,42 @@ A\amp = hb  \amp Q_x\amp =  \frac{h^2b}{2} \amp Q_y \amp =  \frac{b^2 h}{2}
 </div></article><article class="example example-like" id="Chapter_07-example-centroid-of-a-triangle"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.8</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a triangle.</span>
 </h4>
-<p id="p-1400">Use integration to locate the centroid of a triangle with base <span class="process-math">\(b\)</span> and height of <span class="process-math">\(h\)</span> oriented as shown in the interactive.</p>
-<aside class="aside aside-like" id="aside-50"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5></aside><figure class="figure figure-like" id="figure-128"><iframe id="ggb_integrate_triangle_interactive" width="540" height="360" src="ggb_integrate_triangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.9<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<p id="p-1439">Use integration to locate the centroid of a triangle with base <span class="process-math">\(b\)</span> and height of <span class="process-math">\(h\)</span> oriented as shown in the interactive.</p>
+<aside class="aside aside-like" id="aside-52"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1440">Use the red slider to see the options for the differential element.</p></aside><figure class="figure figure-like" id="figure-128"><iframe id="ggb_integrate_triangle_interactive" width="540" height="360" src="ggb_integrate_triangle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.9<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-51" id="answer-51"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-51"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="men-58">
 \begin{equation}
 \bar{x} = \frac{2}{3}b \qquad \bar{y}=\frac{1}{3}h\tag{7.7.4}
 \end{equation}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-59" id="solution-59"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-59"><div class="solution solution-like">
-<p id="p-1402">This solution demonstrates finding the centroid of the triangle using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(y\;dx\)</span> to see a representative element.</p>
-<ol id="p-1403" class="decimal">
+<p id="p-1443">This solution demonstrates finding the centroid of the triangle using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(y\;dx\)</span> to see a representative element.</p>
+<ol id="p-1444" class="decimal">
 <li id="li-396">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1404">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1445">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = f(x) = \frac{h}{b} x
 \end{equation*}
 </div>
 <p class="continuation">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span></p>
-<p id="p-1405">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
+<p id="p-1446">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = y dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1406">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1447">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-153">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = x \\
 \bar{y}_{\text{el}} \amp = y/2
 \end{align*}
 </div>
-<p id="p-1407">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
+<p id="p-1448">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
 </li>
 <li id="li-397">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1408">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1449">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-154">
 \begin{align*}
 A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -658,10 +658,10 @@ A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = 
 A \amp =\frac{bh}{2} \amp Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2 h}{3}
 \end{align*}
 </div>
-<p id="p-1409">We learn that the area of a triangle is one half base times height.  Since the area formula is well known, it would have been more efficient to skip the first integral.  Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\text{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
+<p id="p-1450">We learn that the area of a triangle is one half base times height.  Since the area formula is well known, it would have been more efficient to skip the first integral.  Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\text{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
 </li>
 <li id="li-398">
-<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1410">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1451">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-155">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -673,40 +673,40 @@ A \amp =\frac{bh}{2} \amp Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-60" id="solution-60"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-60"><div class="solution solution-like">
-<p id="p-1411">This solution demonstrates solving integrals using horizontal rectangular strips. Set the slider on the diagram to <span class="process-math">\((b-x)\;dy\)</span> to see a representative element.</p>
-<ol id="p-1412" class="decimal">
+<p id="p-1452">This solution demonstrates solving integrals using horizontal rectangular strips. Set the slider on the diagram to <span class="process-math">\((b-x)\;dy\)</span> to see a representative element.</p>
+<ol id="p-1453" class="decimal">
 <li id="li-399">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1413">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1454">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = f(x) = \frac{h}{b} x\text{.}
 \end{equation*}
 </div>
-<p id="p-1414">To integrate using horizontal strips, the function <span class="process-math">\(f(x)\)</span> must be inverted to express <span class="process-math">\(x\)</span> in terms of <span class="process-math">\(y\text{.}\)</span> Solving for <span class="process-math">\(f(x)\)</span> for <span class="process-math">\(x\)</span> gives</p>
+<p id="p-1455">To integrate using horizontal strips, the function <span class="process-math">\(f(x)\)</span> must be inverted to express <span class="process-math">\(x\)</span> in terms of <span class="process-math">\(y\text{.}\)</span> Solving for <span class="process-math">\(f(x)\)</span> for <span class="process-math">\(x\)</span> gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 x  = g(y) = \frac{b}{h} y\text{.}
 \end{equation*}
 </div>
 <p class="continuation">The limits on the integral are from <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(y = h\text{.}\)</span></p>
-<p id="p-1415">The strip extends from <span class="process-math">\((x,y)\)</span> to <span class="process-math">\((b,y)\text{,}\)</span> has a height of <span class="process-math">\(dy\text{,}\)</span> and a length of <span class="process-math">\((b-x)\text{,}\)</span> therefore the area of this strip is</p>
+<p id="p-1456">The strip extends from <span class="process-math">\((x,y)\)</span> to <span class="process-math">\((b,y)\text{,}\)</span> has a height of <span class="process-math">\(dy\text{,}\)</span> and a length of <span class="process-math">\((b-x)\text{,}\)</span> therefore the area of this strip is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = (b-x) dy\text{.}
 \end{equation*}
 </div>
-<p id="p-1416">The coordinates of the midpoint of the element are</p>
+<p id="p-1457">The coordinates of the midpoint of the element are</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-156">
 \begin{align*}
 \bar{y}_{\text{el}} \amp =  y\\
 \bar{x}_{\text{el}} \amp =  x + \frac{(b-x)}{2} =  \frac{b+x}{2}\text{.}
 \end{align*}
 </div>
-<p id="p-1417">These expressions are recognized as the <em class="emphasis">average</em> of the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of strip’s endpoints.</p>
-<p id="p-1418">A common student mistake is to use <span class="process-math">\(dA = x\ dy\text{,}\)</span> and <span class="process-math">\(\bar{x}_{\text{el}} = x/2\text{.}\)</span>  These would be correct if you were looking for the properties of the area to the left of the curve.</p>
+<p id="p-1458">These expressions are recognized as the <em class="emphasis">average</em> of the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of strip’s endpoints.</p>
+<p id="p-1459">A common student mistake is to use <span class="process-math">\(dA = x\ dy\text{,}\)</span> and <span class="process-math">\(\bar{x}_{\text{el}} = x/2\text{.}\)</span>  These would be correct if you were looking for the properties of the area to the left of the curve.</p>
 </li>
 <li id="li-400">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1419">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into the definitions of <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> and integrate.  The results are the same as we found using vertical strips.  There in no need to evaluate <span class="process-math">\(A = \int dA\)</span>  since we know that <span class="process-math">\(A = \frac{bh}{2}\)</span> for a triangle.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1460">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into the definitions of <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> and integrate.  The results are the same as we found using vertical strips.  There in no need to evaluate <span class="process-math">\(A = \int dA\)</span>  since we know that <span class="process-math">\(A = \frac{bh}{2}\)</span> for a triangle.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-157">
 \begin{align*}
 Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -718,10 +718,10 @@ Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el
 Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2 h}{3}
 \end{align*}
 </div>
-<p id="p-1420">It makes solving these integrals easier if you avoid prematurely substituting in the function for <span class="process-math">\(x\)</span> and if you factor out constants whenever possible.  Here it <span class="process-math">\(x = g(y)\)</span> was not substituted until the fourth line.</p>
+<p id="p-1461">It makes solving these integrals easier if you avoid prematurely substituting in the function for <span class="process-math">\(x\)</span> and if you factor out constants whenever possible.  Here it <span class="process-math">\(x = g(y)\)</span> was not substituted until the fourth line.</p>
 </li>
 <li id="li-401">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1421">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1462">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-158">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -733,20 +733,20 @@ Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2 h}{3}
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-61" id="solution-61"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">3</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-61"><div class="solution solution-like">
-<p id="p-1422">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram to <span class="process-math">\(dx\;dy\)</span> or <span class="process-math">\(dy\;dx\)</span> to see a representative element.</p>
-<ol id="p-1423" class="decimal">
+<p id="p-1463">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram to <span class="process-math">\(dx\;dy\)</span> or <span class="process-math">\(dy\;dx\)</span> to see a representative element.</p>
+<ol id="p-1464" class="decimal">
 <li id="li-402">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1424">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1465">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = f(x) = \frac{h}{b} x \quad \text{or in terms of } y, \quad x = g(y) = \frac{b}{h} y\text{.}
 \end{equation*}
 </div>
-<p id="p-1425">In this solution the integrals will be evaluated using square differential elements <span class="process-math">\(dA=dy\; dx\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span></p>
-<p id="p-1426">With double integration, you must take care to evaluate the limits correctly, since the limits on the inside integral are functions of the variable of integration of the outside integral.  The inside integral essentially stacks the elements into strips and the outside integral adds all the strips to cover the area.</p>
-<p id="p-1427">Choosing to express <span class="process-math">\(dA\)</span> as <span class="process-math">\(dy\;dx\)</span> means that the integral over <span class="process-math">\(y\)</span> will be conducted first.  The limits on the inside integral are from <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(y = f(x)\text{.}\)</span>  Then, the limits on the outside integral are from <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(x=b.\)</span></p>
-<p id="p-1428">Using <span class="process-math">\(dA= dx\;dy\)</span> would reverse the order of integration, so the inside integral’s limits would be from <span class="process-math">\(x = g(y)\)</span> to <span class="process-math">\(x = b\text{,}\)</span> and the limits on the outside integral would be <span class="process-math">\(y=0\)</span> to <span class="process-math">\(y = h\text{.}\)</span>  Either choice will give the same results — <em class="emphasis">if you don't make any errors!</em></p>
-<p id="p-1429">The area of the square element is the base times the height, so</p>
+<p id="p-1466">In this solution the integrals will be evaluated using square differential elements <span class="process-math">\(dA=dy\; dx\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span></p>
+<p id="p-1467">With double integration, you must take care to evaluate the limits correctly, since the limits on the inside integral are functions of the variable of integration of the outside integral.  The inside integral essentially stacks the elements into strips and the outside integral adds all the strips to cover the area.</p>
+<p id="p-1468">Choosing to express <span class="process-math">\(dA\)</span> as <span class="process-math">\(dy\;dx\)</span> means that the integral over <span class="process-math">\(y\)</span> will be conducted first.  The limits on the inside integral are from <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(y = f(x)\text{.}\)</span>  Then, the limits on the outside integral are from <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(x=b.\)</span></p>
+<p id="p-1469">Using <span class="process-math">\(dA= dx\;dy\)</span> would reverse the order of integration, so the inside integral’s limits would be from <span class="process-math">\(x = g(y)\)</span> to <span class="process-math">\(x = b\text{,}\)</span> and the limits on the outside integral would be <span class="process-math">\(y=0\)</span> to <span class="process-math">\(y = h\text{.}\)</span>  Either choice will give the same results — <em class="emphasis">if you don't make any errors!</em></p>
+<p id="p-1470">The area of the square element is the base times the height, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = dy\ dx\text{.}
@@ -761,7 +761,7 @@ dA = dy\ dx\text{.}
 </div>
 </li>
 <li id="li-403">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1430">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral.  The results are the same as before.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1471">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral.  The results are the same as before.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-160">
 \begin{align*}
 Q_x \amp =  \int \bar{y}_{\text{el}}\ dA \amp  Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
@@ -776,7 +776,7 @@ Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2 h}{3}
 </div>
 </li>
 <li id="li-404">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1431">Substituting Q_x and <span class="process-math">\(Q_y\)</span> along with <span class="process-math">\(A = bh/2\)</span> into the centroid definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1472">Substituting Q_x and <span class="process-math">\(Q_y\)</span> along with <span class="process-math">\(A = bh/2\)</span> into the centroid definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-161">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -788,30 +788,31 @@ Q_x \amp =  \frac{h^2 b}{6} \amp Q_y \amp =  \frac{b^2 h}{3}
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original has-video" data-refid="hk-solution-62" id="solution-62"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">4</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-62"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-triangle" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/AksWTa-kiv4?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
-</div></article><p id="p-1432">The next two examples involve areas with functions for both boundaries,</p>
+</div></article><p id="p-1473">The next two examples involve areas with functions for both boundaries,</p>
 <article class="example example-like" id="Chapter_07-example-centroid-of-a-semi-parabola"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.10</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a semi-parabola.</span>
 </h4>
-<p id="p-1433">Find the coordinates of the centroid of a parabolic spandrel bounded by the <span class="process-math">\(y\)</span> axis, a horizontal line passing through the point <span class="process-math">\((a,b),\)</span> and a parabola with a vertex at the origin and passing through the same point.  <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are positive integers.</p>
-<aside class="aside aside-like" id="aside-51"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5></aside><figure class="figure figure-like" id="figure-129"><iframe id="ggb_integrate_above_parabola_interactive" width="540" height="360" src="ggb_integrate_above_parabola_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.11<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-52" id="answer-52"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-52"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-1434">
+<p id="p-1474">Find the coordinates of the centroid of a parabolic spandrel bounded by the <span class="process-math">\(y\)</span> axis, a horizontal line passing through the point <span class="process-math">\((a,b),\)</span> and a parabola with a vertex at the origin and passing through the same point.  <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are positive integers.</p>
+<aside class="aside aside-like" id="aside-53"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1475">In this diagram you may change the positions of the red points.</p></aside><figure class="figure figure-like" id="figure-129"><iframe id="ggb_integrate_above_parabola_interactive" width="540" height="360" src="ggb_integrate_above_parabola_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.11<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-52" id="answer-52"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-52"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="p-1477">
 \begin{equation*}
 \bar{x} = \frac{3}{8} a \qquad  \bar{y} \frac{2}{5} b
 \end{equation*}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-63" id="solution-63"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-63"><div class="solution solution-like">
-<p id="p-1435">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with vertical strips to find the centroid of a spandrel.</p>
-<ol id="p-1436" class="decimal">
+<p id="p-1478">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with vertical strips to find the centroid of a spandrel.</p>
+<ol id="p-1479" class="decimal">
 <li id="li-405">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1437">Determining the bounding functions and setting up the integrals is usually the most difficult part of problems like this. Begin by drawing and labeling a sketch of the situation.</p>
-<ol id="p-1438" class="lower-alpha">
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1480">Determining the bounding functions and setting up the integrals is usually the most difficult part of problems like this. Begin by drawing and labeling a sketch of the situation.</p>
+<ol id="p-1481" class="lower-alpha">
 <li id="li-406"><p id="p-derived-li-406">Place a point in the first quadrant and label it <span class="process-math">\(P=(a,b)\text{.}\)</span> This point is in the first quadrant and fixed since we are told that <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are positive integers</p></li>
 <li id="li-407"><p id="p-derived-li-407">Place a horizontal line through <span class="process-math">\(P\)</span> to make the upper bound.</p></li>
 <li id="li-408"><p id="p-derived-li-408">Sketch in a parabola with a vertex at the origin and passing through <span class="process-math">\(P\)</span> and shade in the enclosed area.</p></li>
 <li id="li-409"><p id="p-derived-li-409">Decide which differential element you intend to use. For this example we choose to use vertical strips, which you can see if you tick  <code class="code-inline tex2jax_ignore">show strips</code> in the interactive above.  Horizontal strips <span class="process-math">\(dA = x\ dy\)</span> would give the same result, but you would need to define the equation for the parabola in terms of <span class="process-math">\(y\text{.}\)</span></p></li>
 </ol>
-<p id="p-1439">Determining the equation of the parabola and expressing it in terms of of <span class="process-math">\(x\)</span> and any known constants is a critical step.  You should remember from algebra that the general equation of parabola with a vertex at the origin is <span class="process-math">\(y = k x^2\text{,}\)</span> where <span class="process-math">\(k\)</span> is a constant which determines the shape of the parabola.  If <span class="process-math">\(k \gt 0\text{,}\)</span> the parabola opens upward and if <span class="process-math">\(k \lt 0\text{,}\)</span> the parabola opens downward.</p>
-<p id="p-1440">To find the value of <span class="process-math">\(k\text{,}\)</span> substitute the coordinates of <span class="process-math">\(P\)</span> into the general equation, then solve for <span class="process-math">\(k\text{.}\)</span></p>
+<p id="p-1482">Determining the equation of the parabola and expressing it in terms of of <span class="process-math">\(x\)</span> and any known constants is a critical step.  You should remember from algebra that the general equation of parabola with a vertex at the origin is <span class="process-math">\(y = k x^2\text{,}\)</span> where <span class="process-math">\(k\)</span> is a constant which determines the shape of the parabola.  If <span class="process-math">\(k \gt 0\text{,}\)</span> the parabola opens upward and if <span class="process-math">\(k \lt 0\text{,}\)</span> the parabola opens downward.</p>
+<p id="p-1483">To find the value of <span class="process-math">\(k\text{,}\)</span> substitute the coordinates of <span class="process-math">\(P\)</span> into the general equation, then solve for <span class="process-math">\(k\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-162">
 \begin{align*}
 y \amp = k x^2, \text{ so at } P \\
@@ -819,30 +820,30 @@ y \amp = k x^2, \text{ so at } P \\
 k \amp= \frac{b}{a^2}
 \end{align*}
 </div>
-<p id="p-1441">The resulting function of the parabola is</p>
+<p id="p-1484">The resulting function of the parabola is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = y(x) = \frac{b}{a^2} x^2\text{.}
 \end{equation*}
 </div>
-<p id="p-1442">To perform the integrations, express the area and centroidal coordinates of the element in terms of the points at the top and bottom of the strip.  The area of the strip is its height times its base, so</p>
+<p id="p-1485">To perform the integrations, express the area and centroidal coordinates of the element in terms of the points at the top and bottom of the strip.  The area of the strip is its height times its base, so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = (b-y)\ dx\text{.}
 \end{equation*}
 </div>
 <p class="continuation">If you incorrectly used <span class="process-math">\(dA =  y\ dx\text{,}\)</span> you would find the centroid of the spandrel below the curve.</p>
-<p id="p-1443">For vertical strips, the bottom is at <span class="process-math">\((x,y)\)</span> on the parabola, and the top is directly above at <span class="process-math">\((x,b)\text{.}\)</span>  The strip has a differential width <span class="process-math">\(dx\text{.}\)</span> The centroid of the strip is located at its midpoint and the coordinates are are found by averaging the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of the points at the top and bottom.</p>
+<p id="p-1486">For vertical strips, the bottom is at <span class="process-math">\((x,y)\)</span> on the parabola, and the top is directly above at <span class="process-math">\((x,b)\text{.}\)</span>  The strip has a differential width <span class="process-math">\(dx\text{.}\)</span> The centroid of the strip is located at its midpoint and the coordinates are are found by averaging the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of the points at the top and bottom.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-163">
 \begin{align*}
 \bar{x}_{\text{el}} \amp =  (x + x)/2 = x\\
 \bar{y}_{\text{el}} \amp =  (y+b)/2
 \end{align*}
 </div>
-<p id="p-1444">For vertical strips, the integrations are with respect to <span class="process-math">\(x\text{,}\)</span> and the limits on the integrals are <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x = a\)</span> on the right.</p>
+<p id="p-1487">For vertical strips, the integrations are with respect to <span class="process-math">\(x\text{,}\)</span> and the limits on the integrals are <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x = a\)</span> on the right.</p>
 </li>
 <li id="li-410">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1445">We have already established that <span class="process-math">\(y(x) = k x^2\)</span> where <span class="process-math">\(k = b/a^2\text{.}\)</span>  To simplify the algebra, it is best not to prematurely substitute y(x) and <span class="process-math">\(k\text{,}\)</span> but you must substitute in any functions of <span class="process-math">\(x\)</span> before you do the integration step.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1488">We have already established that <span class="process-math">\(y(x) = k x^2\)</span> where <span class="process-math">\(k = b/a^2\text{.}\)</span>  To simplify the algebra, it is best not to prematurely substitute y(x) and <span class="process-math">\(k\text{,}\)</span> but you must substitute in any functions of <span class="process-math">\(x\)</span> before you do the integration step.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-164">
 \begin{align*}
 A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}} dA \amp  Q_y \amp = \int \bar{x}_{\text{el}} dA \\
@@ -856,10 +857,10 @@ A \amp = \int dA \amp Q_x \amp =  \int \bar{y}_{\text{el}} dA \amp  Q_y \amp = \
 A \amp = \frac{2}{3} ba \amp Q_x \amp =  \frac{2}{5} b^2a \amp Q_y \amp =  \frac{1}{4} ba^2
 \end{align*}
 </div>
-<p id="p-1447">The area of the spandrel is <span class="process-math">\(2/3\)</span> of the area of the enclosing rectangle and the moments of area have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
+<p id="p-1490">The area of the spandrel is <span class="process-math">\(2/3\)</span> of the area of the enclosing rectangle and the moments of area have units of <span class="process-math">\([\text{length}]^3\text{.}\)</span></p>
 </li>
 <li id="li-411">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1448">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1491">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-165">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  {Q_x}{A}\\
@@ -867,20 +868,21 @@ A \amp = \frac{2}{3} ba \amp Q_x \amp =  \frac{2}{5} b^2a \amp Q_y \amp =  \frac
 \amp =  \frac{3}{8} a \amp \amp =  \frac{2}{5} b\text{.}
 \end{align*}
 </div>
-<p id="p-1449"><span class="process-math">\(\bar{x}\)</span> is <span class="process-math">\(3/8\)</span> of the width and <span class="process-math">\(\bar{y}\)</span> is <span class="process-math">\(2/5\)</span> of the height of the enclosing rectangle.</p>
+<p id="p-1492"><span class="process-math">\(\bar{x}\)</span> is <span class="process-math">\(3/8\)</span> of the width and <span class="process-math">\(\bar{y}\)</span> is <span class="process-math">\(2/5\)</span> of the height of the enclosing rectangle.</p>
 </li>
 </ol>
 </div></div>
 </div></article><article class="example example-like" id="Chapter_07-example-centroid-of-an-area-between-two-curves"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.12</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of an area between two curves.</span>
 </h4>
-<p id="p-1450">Use integration to locate the centroid of the area bounded by</p>
+<p id="p-1493">Use integration to locate the centroid of the area bounded by</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y_1 = \dfrac{x}{4} \text{ and }y_2 = \dfrac{x^2}{2}\text{.}
 \end{equation*}
 </div>
-<aside class="aside aside-like" id="aside-52"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5></aside><figure class="figure figure-like" id="figure-130"><iframe id="ggb_integrate_2_curves_anna_interactive" width="540" height="360" src="ggb_integrate_2_curves_anna_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.13<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1451">Find the centroid location <span class="process-math">\((\bar{x}\text{, }\bar{y})\)</span>  of the shaded area between the two curves below.</p>
+<aside class="aside aside-like" id="aside-54"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1494"><abbr class="abbreviation">Use the red slider to see the options for the differential element.</abbr></p></aside><figure class="figure figure-like" id="figure-130"><iframe id="ggb_integrate_2_curves_anna_interactive" width="540" height="360" src="ggb_integrate_2_curves_anna_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.13<span class="period">.</span></span><span class="space"> </span></figcaption></figure><p id="p-1496">Find the centroid location <span class="process-math">\((\bar{x}\text{, }\bar{y})\)</span>  of the shaded area between the two curves below.</p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-53" id="answer-53"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-53"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="men-59">
 \begin{equation}
@@ -888,33 +890,33 @@ y_1 = \dfrac{x}{4} \text{ and }y_2 = \dfrac{x^2}{2}\text{.}
 \end{equation}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-64" id="solution-64"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-64"><div class="solution solution-like">
-<p id="p-1453">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
-<ol id="p-1454" class="decimal">
+<p id="p-1498">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
+<ol id="p-1499" class="decimal">
 <li id="li-412">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1455">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1500">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = f(x) = \frac{h}{b} x
 \end{equation*}
 </div>
 <p class="continuation">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span></p>
-<p id="p-1456">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
+<p id="p-1501">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = y dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1457">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1502">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-166">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = x \\
 \bar{y}_{\text{el}} \amp = y/2
 \end{align*}
 </div>
-<p id="p-1458">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
+<p id="p-1503">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
 </li>
 <li id="li-413">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1459">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1504">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-167">
 \begin{align*}
 A \amp = \int dA  \\
@@ -938,7 +940,7 @@ Q_x  \amp =   \frac{1}{1920} \amp Q_y \amp =  \frac{1}{384}
 </div>
 </li>
 <li id="li-414">
-<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1460">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1505">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-169">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -950,33 +952,33 @@ Q_x  \amp =   \frac{1}{1920} \amp Q_y \amp =  \frac{1}{384}
 </ol>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-65" id="solution-65"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-65"><div class="solution solution-like">
-<p id="p-1461">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
-<ol id="p-1462" class="decimal">
+<p id="p-1506">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span>  Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</p>
+<ol id="p-1507" class="decimal">
 <li id="li-415">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1463">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1508">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 y = f(x) = \frac{h}{b} x
 \end{equation*}
 </div>
 <p class="continuation">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span></p>
-<p id="p-1464">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
+<p id="p-1509">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span>  The area of this strip is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dA = y dx\text{.}
 \end{equation*}
 </div>
-<p id="p-1465">The centroid of the strip is located at its midpoint so, by inspection</p>
+<p id="p-1510">The centroid of the strip is located at its midpoint so, by inspection</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-170">
 \begin{align*}
 \bar{x}_{\text{el}} \amp = x \\
 \bar{y}_{\text{el}} \amp = y/2
 \end{align*}
 </div>
-<p id="p-1466">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
+<p id="p-1511">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span></p>
 </li>
 <li id="li-416">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1467">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1512">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.  In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-171">
 \begin{align*}
 A \amp = \int dA  \\
@@ -1000,7 +1002,7 @@ Q_x  \amp =   \frac{1}{1920} \amp Q_y \amp =  \frac{1}{384}
 </div>
 </li>
 <li id="li-417">
-<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1468">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the Centroid.</span></span><p id="p-1513">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-173">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp \bar{y} \amp =  \frac{Q_x}{A}\\
@@ -1011,14 +1013,15 @@ Q_x  \amp =   \frac{1}{1920} \amp Q_y \amp =  \frac{1}{384}
 </li>
 </ol>
 </div></div>
-</div></article><p id="p-1469">The last example demonstrates using double integration with polar coordinates.</p>
+</div></article><p id="p-1514">The last example demonstrates using double integration with polar coordinates.</p>
 <article class="example example-like" id="four-r-three-pi"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.14</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a semi-circle.</span>
 </h4>
-<p id="p-1470">Find the coordinates of the top half of a circle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin.</p>
-<figure class="figure figure-like" id="figure-131"><iframe id="ggb_integrate_semicircle_interactive" width="540" height="360" src="ggb_integrate_semicircle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.15<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<p id="p-1515">Find the coordinates of the top half of a circle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin.</p>
+<aside class="aside aside-like" id="aside-55"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<p id="p-1516">This shows the differential element <span class="process-math">\(dA = \rho\, d\rho\, d\theta\)</span> used with polar coordinates.</p></aside><figure class="figure figure-like" id="figure-131"><iframe id="ggb_integrate_semicircle_interactive" width="600" height="306" src="ggb_integrate_semicircle_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.15<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-54" id="answer-54"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-54"><div class="answer solution-like">
-<p id="p-1471">The centroid of a semicircle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin is</p>
+<p id="p-1518">The centroid of a semicircle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin is</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="men-60">
 \begin{equation}
 \bar{x} = 0  \qquad \bar{y} = \frac{4r}{3\pi}\tag{7.7.6}
@@ -1026,23 +1029,23 @@ Q_x  \amp =   \frac{1}{1920} \amp Q_y \amp =  \frac{1}{384}
 </div>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-66" id="solution-66"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-66"><div class="solution solution-like">
-<p id="p-1472">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with polar coordinates <span class="process-math">\((\rho, \theta)\)</span> to solve this problem because they are a natural fit for the geometry. In polar coordinates, the equation for the bounding semicircle is simply</p>
+<p id="p-1519">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with polar coordinates <span class="process-math">\((\rho, \theta)\)</span> to solve this problem because they are a natural fit for the geometry. In polar coordinates, the equation for the bounding semicircle is simply</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html">
 \begin{equation*}
 \rho = r \text{.}
 \end{equation*}
 </div>
-<p id="p-1473">Normally this involves evaluating three integrals but as you will see, we can take some shortcuts in this problem. Otherwise we will follow the same procedure as before.</p>
-<ol id="p-1474" class="decimal">
+<p id="p-1520">Normally this involves evaluating three integrals but as you will see, we can take some shortcuts in this problem. Otherwise we will follow the same procedure as before.</p>
+<ol id="p-1521" class="decimal">
 <li id="li-418">
-<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1475">Divide the semi-circle into "rectangular" differential elements of area <span class="process-math">\(dA\text{,}\)</span> as shown in the interactive when you select  <code class="code-inline tex2jax_ignore">Show element</code>. This shape is not really a rectangle, but in the limit as <span class="process-math">\(d\rho\)</span> and <span class="process-math">\(d\theta\)</span> approach zero, it doesn't make any difference.</p>
-<p id="p-1476">The radial height of the rectangle is <span class="process-math">\(d\rho\)</span> and the tangential width is the arc length <span class="process-math">\(\rho d\theta\text{.}\)</span>  The product is the differential area <span class="process-math">\(dA\text{.}\)</span></p>
+<span class="heading"><span class="title">Set up the integrals.</span></span><p id="p-1522">Divide the semi-circle into "rectangular" differential elements of area <span class="process-math">\(dA\text{,}\)</span> as shown in the interactive when you select  <code class="code-inline tex2jax_ignore">Show element</code>. This shape is not really a rectangle, but in the limit as <span class="process-math">\(d\rho\)</span> and <span class="process-math">\(d\theta\)</span> approach zero, it doesn't make any difference.</p>
+<p id="p-1523">The radial height of the rectangle is <span class="process-math">\(d\rho\)</span> and the tangential width is the arc length <span class="process-math">\(\rho d\theta\text{.}\)</span>  The product is the differential area <span class="process-math">\(dA\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="men-61">
 \begin{equation}
 dA = (d\rho)(\rho\ d\theta) = \rho\ d\rho\ d\theta\text{.}\tag{7.7.7}
 \end{equation}
 </div>
-<p id="p-1477">The differential element is located at <span class="process-math">\((\rho, \theta)\)</span> in polar coordinates.  Expressing this point in rectangular coordinates gives</p>
+<p id="p-1524">The differential element is located at <span class="process-math">\((\rho, \theta)\)</span> in polar coordinates.  Expressing this point in rectangular coordinates gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-174">
 \begin{align*}
 \bar{x}_{\text{el}} \amp =  \rho \cos \theta\\
@@ -1051,26 +1054,26 @@ dA = (d\rho)(\rho\ d\theta) = \rho\ d\rho\ d\theta\text{.}\tag{7.7.7}
 </div>
 </li>
 <li id="li-419">
-<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1478">The area of a semicircle is well known, so there is no need to actually evaluate <span class="process-math">\(A = \int dA\text{,}\)</span></p>
+<span class="heading"><span class="title">Solve the integrals.</span></span><p id="p-1525">The area of a semicircle is well known, so there is no need to actually evaluate <span class="process-math">\(A = \int dA\text{,}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 A = \int dA = \frac{\pi r^2}{2}\text{.}
 \end{equation*}
 </div>
-<p id="p-1479">Since the semi-circle is symmetrical about the <span class="process-math">\(y\)</span> axis,</p>
+<p id="p-1526">Since the semi-circle is symmetrical about the <span class="process-math">\(y\)</span> axis,</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 Q_y = \int \bar{x}_{\text{el}}\; dA= 0\text{.}
 \end{equation*}
 </div>
 <p class="continuation">This is because each element of area to the right of the <span class="process-math">\(y\)</span> axis is balanced by a corresponding element the same distance the left which cancel each other out in the sum.</p>
-<p id="p-1480">All that remains is to evaluate the integral <span class="process-math">\(Q_x\)</span> in the numerator of</p>
+<p id="p-1527">All that remains is to evaluate the integral <span class="process-math">\(Q_x\)</span> in the numerator of</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \bar{y} = \frac{Q_x}{A} = \frac{\bar{y}_{\text{el}}\; dA}{A}
 \end{equation*}
 </div>
-<p id="p-1481">The differential area <span class="process-math">\(dA\)</span> is the product of two differential quantities, we will need to perform a double integration.</p>
+<p id="p-1528">The differential area <span class="process-math">\(dA\)</span> is the product of two differential quantities, we will need to perform a double integration.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-175">
 \begin{align*}
 Q_x \amp =  \int \bar{y}_{\text{el}} dA  \\
@@ -1086,7 +1089,7 @@ Q_x \amp =  \frac{2}{3} r^3
 </div>
 </li>
 <li id="li-420">
-<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1482">Substituting the results into the definitions gives</p>
+<span class="heading"><span class="title">Find the centroid.</span></span><p id="p-1529">Substituting the results into the definitions gives</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-176">
 \begin{align*}
 \bar{y} \amp =  \frac{Q_x}{A} \\
@@ -1094,8 +1097,8 @@ Q_x \amp =  \frac{2}{3} r^3
 \amp =  \frac{4r}{3\pi}\text{.}
 \end{align*}
 </div>
-<p id="p-1483">So <span class="process-math">\(\bar{x}=0\)</span> and lies on the axis of symmetry, and  <span class="process-math">\(\bar{y} =\dfrac{4r}{3\pi}\)</span> above the diameter.</p>
-<p id="p-1484">This result can be extended by noting that a semi-circle is mirrored quarter-circles on either side of the <span class="process-math">\(y\)</span> axis.  These must have the same <span class="process-math">\(\bar{y}\)</span> value as the semi-circle.  Further, quarter-circles are symmetric about a <span class="process-math">\(\ang{45}\)</span> line, so for the quarter-circle in the first quadrant,</p>
+<p id="p-1530">So <span class="process-math">\(\bar{x}=0\)</span> and lies on the axis of symmetry, and  <span class="process-math">\(\bar{y} =\dfrac{4r}{3\pi}\)</span> above the diameter.</p>
+<p id="p-1531">This result can be extended by noting that a semi-circle is mirrored quarter-circles on either side of the <span class="process-math">\(y\)</span> axis.  These must have the same <span class="process-math">\(\bar{y}\)</span> value as the semi-circle.  Further, quarter-circles are symmetric about a <span class="process-math">\(\ang{45}\)</span> line, so for the quarter-circle in the first quadrant,</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \bar{x} =  \bar{y} = \frac{4r}{3\pi}\text{.}

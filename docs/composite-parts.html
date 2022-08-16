@@ -11,14 +11,15 @@
 <title>Statics: Centroids using Composite Parts</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_07-centroids.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_07-average-value-of-a-function.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_07-centroids.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_07-average-value-of-a-function.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,7 +295,7 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="composite-parts"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="composite-parts"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span>
 </h2>
 <article class="objectives goal-like" id="objectives-27"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -311,11 +304,11 @@ startup: {
 <li id="li-356"><p id="p-derived-li-356">Where do the equations for the shapes in areas and centroids table come from?</p></li>
 <li id="li-357"><p id="p-derived-li-357">When finding the centroid, what do you do with a cut-out area of a composite part?</p></li>
 <li id="li-358"><p id="p-derived-li-358">Does it matter whether a distance to the centroid of a part is positive or negative from the axis system?</p></li>
-</ul></article><section class="introduction" id="introduction-26"><p id="p-1256">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid.  Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.</p>
-<p id="p-1257">For convenience, the properties of several common shapes can be found  <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">here</a>.</p></section><section class="subsection" id="Chapter_07-composite-parts-method"><h3 class="heading hide-type">
+</ul></article><section class="introduction" id="introduction-26"><p id="p-1273">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid.  Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.</p>
+<p id="p-1274">For convenience, the properties of several common shapes can be found  <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">here</a>.</p></section><section class="subsection" id="Chapter_07-composite-parts-method"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span>
 </h3>
-<p id="p-1258">The equations we will use for this approach are</p>
+<p id="p-1275">The equations we will use for this approach are</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="composite-centroid">
 \begin{equation}
 \bar{x}  =  \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \qquad \bar{y}  =  \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i}\tag{7.5.1}
@@ -323,13 +316,13 @@ startup: {
 </div>
 <p class="continuation">where,</p>
 <ul class="no-marker">
-<li id="li-359"><p id="p-1259"><span class="process-math">\(\bar{x}\text{,}\)</span> and <span class="process-math">\(\bar{y}\)</span> are the coordinates of the centroid of the entire shape.</p></li>
-<li id="li-360"><p id="p-1260"><span class="process-math">\(A_i\)</span>  is the area of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
-<li id="li-361"><p id="p-1261"><span class="process-math">\(\bar{x}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  are the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-359"><p id="p-1276"><span class="process-math">\(\bar{x}\text{,}\)</span> and <span class="process-math">\(\bar{y}\)</span> are the coordinates of the centroid of the entire shape.</p></li>
+<li id="li-360"><p id="p-1277"><span class="process-math">\(A_i\)</span>  is the area of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-361"><p id="p-1278"><span class="process-math">\(\bar{x}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  are the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
 </ul>
-<p id="p-1262"></p>
-<p id="p-1263"></p>
-<p id="p-1264">The steps to finding a centroid using the composite parts method are:</p>
+<p id="p-1279"></p>
+<p id="p-1280"></p>
+<p id="p-1281">The steps to finding a centroid using the composite parts method are:</p>
 <ol class="decimal">
 <li id="li-362"><p id="p-derived-li-362">Break the overall shape into simpler parts.</p></li>
 <li id="li-363"><p id="p-derived-li-363">Collect the areas and centroid coordinates, and</p></li>
@@ -337,7 +330,7 @@ startup: {
 </ol>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
 <div class="sbspanel top" style="width:61.5384615384615%;">
-<p id="p-1265">As a simple example, consider the L-shaped area shown, which has been divided into two rectangles.  The areas of the rectangles are</p>
+<p id="p-1282">As a simple example, consider the L-shaped area shown, which has been divided into two rectangles.  The areas of the rectangles are</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 A_1 = \inch{18}^2, A_2 = \inch{14}^2
@@ -352,7 +345,7 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 </div>
 <div class="sbspanel top" style="width:35.8974358974359%;"><img src="external/images/L-shape.svg" role="img" class="contained"></div>
 </div></div>
-<p id="p-1266">The centroid of the whole shape is found by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a></p>
+<p id="p-1283">The centroid of the whole shape is found by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a></p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-131">
 \begin{align*}
 \bar{x}  \amp =   \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \amp \bar{y}  \amp =   \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i}\\
@@ -360,23 +353,23 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 \bar{x}  \amp =  \inch{2.375}  \amp\bar{y}  \amp =  \inch{3.25}
 \end{align*}
 </div>
-<p id="p-1267">For more complex shapes, the usual practice is to set up a table to organize the information needed to calculate the centroid, as we will now show.  The process can be broken into three steps.</p>
-<ol id="p-1268" class="decimal">
+<p id="p-1284">For more complex shapes, the usual practice is to set up a table to organize the information needed to calculate the centroid, as we will now show.  The process can be broken into three steps.</p>
+<ol id="p-1285" class="decimal">
 <li id="li-365">
-<span class="heading"><span class="title">Break the overall shape into simpler parts.</span></span><p id="p-1269">We begin with a sketch of the shape and establish a coordinate system.  It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well.  A careful choice of origin can simplify the problem, so give it some thought.</p>
-<p id="p-1270">Then divide the shape into several simpler shapes.  The sub-shapes may include holes, which are treated as negative areas.  You must know how to calculate the area and locate the centroid of any sub-shape you use.</p>
-<p id="p-1271">Consider the complex shape below.</p>
+<span class="heading"><span class="title">Break the overall shape into simpler parts.</span></span><p id="p-1286">We begin with a sketch of the shape and establish a coordinate system.  It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well.  A careful choice of origin can simplify the problem, so give it some thought.</p>
+<p id="p-1287">Then divide the shape into several simpler shapes.  The sub-shapes may include holes, which are treated as negative areas.  You must know how to calculate the area and locate the centroid of any sub-shape you use.</p>
+<p id="p-1288">Consider the complex shape below.</p>
 <div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/composite-ex-0.svg" role="img" class="contained"></div>
-<p id="p-1272">There are often several ways to divide a shape, but it’s best to use as few parts as possible to minimize your computations and opportunities for error.  For example, you could choose to break this shape into either a <span class="process-math">\(\cm{5} \times \cm{4}\)</span> rectangle, a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle, and an <span class="process-math">\(r = \cm{1.5}\)</span> circular hole,</p>
+<p id="p-1289">There are often several ways to divide a shape, but it’s best to use as few parts as possible to minimize your computations and opportunities for error.  For example, you could choose to break this shape into either a <span class="process-math">\(\cm{5} \times \cm{4}\)</span> rectangle, a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle, and an <span class="process-math">\(r = \cm{1.5}\)</span> circular hole,</p>
 <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/images/composite-ex-1.svg" role="img" class="contained"></div>
-<p id="p-1273">or a large <span class="process-math">\(\cm{10} \times \cm{4}\)</span> rectangle,  an <span class="process-math">\(r = \cm{1.5}\)</span>  circular hole, and a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle subtracted from the large rectangle.</p>
+<p id="p-1290">or a large <span class="process-math">\(\cm{10} \times \cm{4}\)</span> rectangle,  an <span class="process-math">\(r = \cm{1.5}\)</span>  circular hole, and a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle subtracted from the large rectangle.</p>
 <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/images/composite-ex-2.svg" role="img" class="contained"></div>
-<p id="p-1274">Both options will give the same results, and in this case there is no particular advantage to one choice over the other.  However, it would be silly and unnecessary to break this into more than three parts, and it would not be a good idea to divide this into a trapezoid minus a hole, unless you know geometric properties of a trapezoid, which are not available in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a>.  Be sure your sub-shapes don’t overlap and don’t get counted more than once.</p>
-<p id="p-1275"></p>
+<p id="p-1291">Both options will give the same results, and in this case there is no particular advantage to one choice over the other.  However, it would be silly and unnecessary to break this into more than three parts, and it would not be a good idea to divide this into a trapezoid minus a hole, unless you know geometric properties of a trapezoid, which are not available in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a>.  Be sure your sub-shapes don’t overlap and don’t get counted more than once.</p>
+<p id="p-1292"></p>
 </li>
 <li id="li-366">
-<span class="heading"><span class="title">Collect the areas and centroid coordinates.</span></span><p id="p-1276">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part.  You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.</p>
-<p id="p-1277">Record the information you gather in a table like the one below.  The table should include a row containing column headings and units, one row for each part, and a summary row.  The first column identifies the part — by number or sketch, the second contains the areas, and the third and fourth contains the centroidal coordinates of the parts.</p>
+<span class="heading"><span class="title">Collect the areas and centroid coordinates.</span></span><p id="p-1293">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part.  You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.</p>
+<p id="p-1294">Record the information you gather in a table like the one below.  The table should include a row containing column headings and units, one row for each part, and a summary row.  The first column identifies the part — by number or sketch, the second contains the areas, and the third and fourth contains the centroidal coordinates of the parts.</p>
 <div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="c m b1 r0 l0 t0 lines">Part</td>
@@ -433,8 +426,8 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 <td class="c m b0 r0 l0 t0 lines">41.86</td>
 </tr>
 </table></div>
-<p id="p-1278">The last two columns of the table contain the first moments of area  <span class="process-math">\(Q_x = A_i \bar{y}_i\)</span> and <span class="process-math">\(Q_y =  A_i \bar{x}_i\text{,}\)</span> and are easily filled in by multiplying the values in columns two to four.  Be sure to attend to positive and negative signs when multiplying. Note that the moment of area with respect to the <span class="process-math">\(x\)</span> axis uses the distance from the <span class="process-math">\(x\)</span> axis, which is <span class="process-math">\(\bar{y}_i\text{,}\)</span> and vice-versa.</p>
-<p id="p-1279">The final row of the table are total values, calculated by summing the entries for <span class="process-math">\(A_i\text{,}\)</span> <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\text{,}\)</span> so for example the total area of the shape is</p>
+<p id="p-1295">The last two columns of the table contain the first moments of area  <span class="process-math">\(Q_x = A_i \bar{y}_i\)</span> and <span class="process-math">\(Q_y =  A_i \bar{x}_i\text{,}\)</span> and are easily filled in by multiplying the values in columns two to four.  Be sure to attend to positive and negative signs when multiplying. Note that the moment of area with respect to the <span class="process-math">\(x\)</span> axis uses the distance from the <span class="process-math">\(x\)</span> axis, which is <span class="process-math">\(\bar{y}_i\text{,}\)</span> and vice-versa.</p>
+<p id="p-1296">The final row of the table are total values, calculated by summing the entries for <span class="process-math">\(A_i\text{,}\)</span> <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\text{,}\)</span> so for example the total area of the shape is</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 A = \sum A_i = A_1 + A_2 + A_3 \dots
@@ -443,34 +436,35 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <p class="continuation">Don’t sum columns three or four, since <span class="process-math">\(\sum \bar{x}_i\)</span> and <span class="process-math">\(\sum \bar{y}_i\)</span> are meaningless.</p>
 </li>
 <li id="li-367">
-<span class="heading"><span class="title">Combine the pieces to find the overall centroid.</span></span><p id="p-1280">After you have filled in the whole table, you can find the coordinates of the centroid by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> with the summary values from the last row.</p>
+<span class="heading"><span class="title">Combine the pieces to find the overall centroid.</span></span><p id="p-1297">After you have filled in the whole table, you can find the coordinates of the centroid by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> with the summary values from the last row.</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-132">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp =  \frac{112.8}{24.93} \amp =  \cm{4.52}\\
 \bar{y} \amp =  \frac{Q_x}{A} \amp =  \frac{41.86}{24.93} \amp =  \cm{1.692}
 \end{align*}
 </div>
-<p id="p-1281">Finally, plot the centroid <span class="process-math">\((\bar{x}, \bar{y})\)</span> on the diagram.   If you have made a calculation error it will usually be obvious, because the centroid location won't “feel right.”</p>
+<p id="p-1298">Finally, plot the centroid <span class="process-math">\((\bar{x}, \bar{y})\)</span> on the diagram.   If you have made a calculation error it will usually be obvious, because the centroid location won't “feel right.”</p>
 </li>
 </ol>
 <article class="example example-like" id="Chapter_07-example-interactive--centroid-of-trapezoid-and-hole"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Centroid of Trapezoid and Hole.</span>
 </h4>
-<p id="p-1282"></p>
+<p id="p-1299"></p>
 <aside class="aside aside-like" id="aside-46"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
-<p id="p-1283">Click ‘Show Parts’ to see the individual parts  and their centroids, as well as the centroid of the whole shape.</p></aside><figure class="figure figure-like" id="triangle-with-hole"><iframe id="ggb_triangle-with-hole_interactive" width="540" height="540" src="ggb_triangle-with-hole_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Interactive of the composite body consisting of a rectangle, triangle and a circular hole.</figcaption></figure></article><article class="example example-like" id="Chapter_07-example-interactive--centroid-of-composite-rectangles"><h4 class="heading">
+<p id="p-1300">Click ‘Show Parts’ to see the individual parts and their centroids, as well as the centroid of the whole shape.</p>
+<p id="p-1301">Move the read dots to create a different shape.</p></aside><figure class="figure figure-like" id="triangle-with-hole"><iframe id="ggb_triangle-with-hole_interactive" width="600" height="480" src="ggb_triangle-with-hole_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Interactive of the composite body consisting of a rectangle, triangle and a circular hole.</figcaption></figure></article><article class="example example-like" id="Chapter_07-example-interactive--centroid-of-composite-rectangles"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Centroid of Composite Rectangles.</span>
 </h4>
-<p id="p-1285">This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points.</p>
-<p id="p-1286">Use this to visualize how the centroids of the whole is related to to the centroid of the parts.  Note that for objects divided into two pieces, the centroid of the whole always falls on the line connecting the centroids of the parts.</p>
+<p id="p-1305">This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points.</p>
+<p id="p-1306">Use this to visualize how the centroids of the whole is related to to the centroid of the parts.  Note that for objects divided into two pieces, the centroid of the whole always falls on the line connecting the centroids of the parts.</p>
 <aside class="aside aside-like" id="aside-47"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
-<p id="p-1287">Use the red and blue dots to adjust the size of the outer and inner rectangles. The centroid of the outer rectangle is red, the inner rectangle is blue and the whole shape is black.</p>
-<p id="p-1288">Can you find an example where the black centroid is between the red and blue ones?</p></aside><figure class="figure figure-like" id="two-rectangles-centroid"><iframe id="ggb_composite-centroid_interactive" width="540" height="486" src="ggb_composite-centroid_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.4<span class="period">.</span></span><span class="space"> </span>Interactive Centroids</figcaption></figure></article><article class="question example-like" id="question-6"><h4 class="heading">
+<p id="p-1307">Use the red and blue dots to adjust the size of the outer and inner rectangles. The centroid of the outer rectangle is red, the inner rectangle is blue and the whole shape is black.</p>
+<p id="p-1308">Can you find an example where the black centroid is between the red and blue ones?</p></aside><figure class="figure figure-like" id="two-rectangles-centroid"><iframe id="ggb_composite-centroid_interactive" width="600" height="420" src="ggb_composite-centroid_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.4<span class="period">.</span></span><span class="space"> </span>Interactive Centroids</figcaption></figure></article><article class="question example-like" id="question-6"><h4 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.5.5</span><span class="period">.</span>
 </h4>
-<p id="p-1291">When finding a centroid, what will happen if you don't measure the centroids of the parts consistently from the same origin?</p>
+<p id="p-1312">When finding a centroid, what will happen if you don't measure the centroids of the parts consistently from the same origin?</p>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><p id="p-1292">Your answer will be wrong!</p></div></div>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><p id="p-1313">Your answer will be wrong!</p></div></div>
 </div></article></section><section class="subsection" id="Chapter_07-centroids-of-3d-objects"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span>
 </h3>
@@ -478,34 +472,34 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <ul class="disc">
 <li id="li-368"><p id="p-derived-li-368">How do you divide a composite solid into parts and compute the volume/mass and centroidal distances of each part?</p></li>
 <li id="li-369"><p id="p-derived-li-369">What is the technique to compute the overall center of volume/mass for a composite solid?</p></li>
-</ul></article><p id="p-1293">The centroid of a three-dimensional volume is found similarly to two-dimensional centroids, but with volume used instead of area for the weighting factor.  The centroid of a volume and the center of mass or gravity for a homogenous solid are identical.</p>
+</ul></article><p id="p-1314">The centroid of a three-dimensional volume is found similarly to two-dimensional centroids, but with volume used instead of area for the weighting factor.  The centroid of a volume and the center of mass or gravity for a homogenous solid are identical.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-133">
 \begin{align*}
 \bar{x}\amp = \frac{\sum \bar{x}_i\ V_i }{\sum V_i}\amp \bar{y}\amp = \frac{\sum \bar{y}_i\ V_i }{\sum V_i}\amp \bar{z}\amp = \frac{\sum \bar{z}_i\ V_i }{\sum V_i}
 \end{align*}
 </div>
-<p id="p-1294">Where,</p>
+<p id="p-1315">Where,</p>
 <ul class="no-marker">
-<li id="li-370"><p id="p-1295"><span class="process-math">\(\bar{x}\text{,}\)</span> <span class="process-math">\(\bar{y}\text{,}\)</span> and <span class="process-math">\(\bar{z}\)</span>  are the coordinates of the centroid of the overall volume. <span class="process-math">\(V_i\)</span> is the volume of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
-<li id="li-371"><p id="p-1296"><span class="process-math">\(\bar{x}_i\text{,}\)</span> <span class="process-math">\(\bar{y}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  is the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-370"><p id="p-1316"><span class="process-math">\(\bar{x}\text{,}\)</span> <span class="process-math">\(\bar{y}\text{,}\)</span> and <span class="process-math">\(\bar{z}\)</span>  are the coordinates of the centroid of the overall volume. <span class="process-math">\(V_i\)</span> is the volume of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-371"><p id="p-1317"><span class="process-math">\(\bar{x}_i\text{,}\)</span> <span class="process-math">\(\bar{y}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  is the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
 </ul>
-<p id="p-1297">Many three-dimensional  shapes are just prismatic extrusions of the shapes.  The volume of a prism is the product of the cross-sectional area and the length of the prism and is easily calculated.  For example, the volume of a circular cylinder with radius <span class="process-math">\(r\)</span>  and length <span class="process-math">\(l\)</span> is  <span class="process-math">\(V=\pi\ r^2\ l\text{.}\)</span></p>
-<p id="p-1298">If the density varies for each part of a composite solid, we can find the center of mass by dividing the first moment of mass by the total mass. You can also compute the center of gravity by replacing the mass terms in the equations below with weight terms.</p>
+<p id="p-1318">Many three-dimensional  shapes are just prismatic extrusions of the shapes.  The volume of a prism is the product of the cross-sectional area and the length of the prism and is easily calculated.  For example, the volume of a circular cylinder with radius <span class="process-math">\(r\)</span>  and length <span class="process-math">\(l\)</span> is  <span class="process-math">\(V=\pi\ r^2\ l\text{.}\)</span></p>
+<p id="p-1319">If the density varies for each part of a composite solid, we can find the center of mass by dividing the first moment of mass by the total mass. You can also compute the center of gravity by replacing the mass terms in the equations below with weight terms.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-134">
 \begin{align*}
 \bar{x}\amp =  \frac{\sum \bar{x}_i\ m_i }{\sum m_i} \amp \bar{y}\amp =  \frac{\sum \bar{y}_i\ m_i }{\sum m_i}\amp \bar{z}\amp =  \frac{\sum \bar{z}_i\ m_i }{\sum m_i}
 \end{align*}
 </div>
 <p class="continuation">Here <span class="process-math">\(m_i\)</span> is the mass of composite part <span class="process-math">\(i\text{.}\)</span></p>
-<p id="p-1299">You must always use the same weighting factor (area, volume, mass, weight, etc) in both the numerator and denominator of the center of area/volume/mass/weight equations.</p>
+<p id="p-1320">You must always use the same weighting factor (area, volume, mass, weight, etc) in both the numerator and denominator of the center of area/volume/mass/weight equations.</p>
 <article class="example example-like" id="Chapter_07-example-3d-center-of-mass"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.6</span><span class="period">.</span><span class="space"> </span><span class="title">3D Center of Mass.</span>
 </h4>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:55%;">
-<p id="p-1300">A composite solid consists of a rectangular block of lightweight concrete and a triangular wedge of steel with dimensions as shown. The rectangular block has a <span class="process-math">\(\ft{2}\)</span> radius circular hole, centered and drilled through its full depth, perpendicular to the front and back faces.</p>
-<p id="p-1301">Assume <span class="process-math">\(\gamma_C = \pqf{125}\text{,}\)</span> and <span class="process-math">\(\gamma_S = \pqf{493}\text{.}\)</span></p>
-<p id="p-1302">Find the center of mass of this composite solid.</p>
+<p id="p-1321">A composite solid consists of a rectangular block of lightweight concrete and a triangular wedge of steel with dimensions as shown. The rectangular block has a <span class="process-math">\(\ft{2}\)</span> radius circular hole, centered and drilled through its full depth, perpendicular to the front and back faces.</p>
+<p id="p-1322">Assume <span class="process-math">\(\gamma_C = \pqf{125}\text{,}\)</span> and <span class="process-math">\(\gamma_S = \pqf{493}\text{.}\)</span></p>
+<p id="p-1323">Find the center of mass of this composite solid.</p>
 </div>
 <div class="sbspanel middle" style="width:40%;"><img src="external/images/3d-composite1.svg" role="img" class="contained"></div>
 </div></div>
@@ -604,7 +598,7 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 \bar{z} \amp =  \frac{\sum W_i\ \bar{z}_i}{\sum V_i} \amp =  \frac{\ft{89717}^3}{\ft{26633}^2} \amp =  \ft{3.37}
 \end{align*}
 </div>
-<p id="p-1305">We have actually found the coordinates of the center of gravity, but since <span class="process-math">\(g\)</span> is constant they are also coordinates of the center of mass.</p>
+<p id="p-1326">We have actually found the coordinates of the center of gravity, but since <span class="process-math">\(g\)</span> is constant they are also coordinates of the center of mass.</p>
 </div></div>
 </div></article></section></section></div></main>
 </div>

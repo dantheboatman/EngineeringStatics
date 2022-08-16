@@ -8,7 +8,8 @@
 <html lang="en-US">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script>window.MathJax = {
+<script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -41,11 +42,11 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
@@ -60,23 +61,24 @@ startup: {
 <link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script xmlns:html="http://www.w3.org/1999/xhtml" type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
-<body class="pretext-content ignore-math"><div style="width:600px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
+<body class="pretext-content ignore-math"><div style="width:600px; height:270px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
 <script xmlns:html="http://www.w3.org/1999/xhtml">
-var force__triangle__ggb_api;
 var force__triangle__ggb_onload = function(ggb) {
-ggb.setValue("t",0)
+ggb.setValue("t",0);
+ggb.enableRightClick(false);
 };
 var force__triangle__ggb_params = {
 id:"force__triangle__ggb",
 filename:"external/images/forceTriangle.ggb",
 width:600,
-height:300,
+height:240,
 appletOnLoad: function(ggb) {
 force__triangle__ggb_onload(ggb);
+console.log("Loading force__triangle__ggb" , ggb);
 listeners(ggb);
-force__triangle__ggb_api = ggb;}
+}
 }
 
 var load_ggb = new Promise(function(resolve, reject) {
@@ -91,6 +93,6 @@ console.log('GGB load applet error.', error);
 });
 </script>
 
-<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="force-triangle-ggb-container" style="width:600px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
+<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="force-triangle-ggb-container" style="width:600px; height:240px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
 </div></body>
 </html>

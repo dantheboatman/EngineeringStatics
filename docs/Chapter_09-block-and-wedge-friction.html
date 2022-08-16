@@ -11,14 +11,15 @@
 <title>Statics: Block and Wedge Friction</title>
 <meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:type" content="book">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:title" content="Engineering Statics">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="Daniel W. Baker">
-<meta xmlns:html="http://www.w3.org/1999/xhtml" property="book:author" content="William Haynes">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>window.MathJax = {
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
   tex: {
     inlineMath: [['\\(','\\)']],
     tags: "none",
@@ -51,18 +52,18 @@
     load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
-startup: {
+  startup: {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
-      $(document).trigger("runestone:mathjax-ready");
+      rsMathReady();
       }
     )}
 },
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link xmlns:html="http://www.w3.org/1999/xhtml" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
@@ -75,65 +76,57 @@ startup: {
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div xmlns:html="http://www.w3.org/1999/xhtml" id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel} \let\vecarrow\vec
- \renewcommand{\vec}{\mathbf}
- \newcommand{\ihat}{\vec{i}}
- \newcommand{\jhat}{\vec{j}}
- \newcommand{\khat}{\vec{k}}
- \DeclareMathOperator{\proj}{proj}
+<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
 
 
 
- 
- \newcommand{\kg}[1]{#1~\mathrm{kg} }
- \newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
- \newcommand{\slug}[1]{#1~\mathrm{slug}}
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lb_m} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
 
- 
- \newcommand{\m}[1]{#1~\mathrm{m}}
- \newcommand{\km}[1]{#1~\mathrm{km}}
- \newcommand{\cm}[1]{#1~\mathrm{cm}}
- \newcommand{\mm}[1]{#1~\mathrm{mm}}
- \newcommand{\ft}[1]{#1~\mathrm{ft}}
- \newcommand{\inch}[1]{#1~\mathrm{in}}
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
 
- 
- \newcommand{\N}[1]{#1~\mathrm{N} }
- \newcommand{\kN}[1]{#1~\mathrm{kN} }
- \newcommand{\MN}[1]{#1~\mathrm{MN} }
- \newcommand{\lb}[1]{#1~\mathrm{lb} }
- \newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lb_f} }
 
- 
-  \newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
-  \newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
-  \newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
-  \newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }
-  
-  
-  \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
-  \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
-  \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
-  \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
-  \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
-  \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
-   \newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
-  \newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
-  \newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
-  \newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
-  \newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
-  \newcommand{\Pa}[1]{#1~\mathrm{Pa} }
-  \newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
 
-  
-  
- \newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
-  \newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 } 
-  
-  
-  \newcommand{\unit}[1]{#1~\mathrm{unit} }
-  \newcommand{\ang}[1]{#1^\circ }
-  \newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -146,7 +139,7 @@ startup: {
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
 </div></div>
-<nav xmlns:html="http://www.w3.org/1999/xhtml" id="primary-navbar" class="navbar"><div class="container">
+<nav id="primary-navbar" class="navbar"><div class="container">
 <div class="navbar-top-buttons">
 <button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_09-dry-friction.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_09.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_09-slipping-vs--tipping.html" title="Next">Next</a></span></div>
 </div>
@@ -154,7 +147,7 @@ startup: {
 <button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_09-dry-friction.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_09.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_09-slipping-vs--tipping.html" title="Next">Next</a>
 </div>
 </div></nav></header><div class="page">
-<div xmlns:html="http://www.w3.org/1999/xhtml" id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
+<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
 <nav id="toc"><ul>
 <li class="link frontmatter">
 <a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
@@ -302,32 +295,32 @@ startup: {
 </li>
 </ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
 </div></div>
-<main class="main"><div id="content" class="pretext-content"><section xmlns:html="http://www.w3.org/1999/xhtml" class="section" id="Chapter_09-block-and-wedge-friction"><h2 class="heading hide-type">
+<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_09-block-and-wedge-friction"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">9.2</span> <span class="title">Block and Wedge Friction</span>
 </h2>
 <article class="objectives goal-like" id="objectives-33"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
 <li id="li-521"><p id="p-derived-li-521">Show on a free-body diagram how a normal force always remains perpendicular to the contact surface, while the friction force lies parallel to the contact surface</p></li>
 <li id="li-522"><p id="p-derived-li-522">Demonstrate graphically that components of friction and normal forces are related to the right-triangle trigonometry terms sine and cosine.</p></li>
-</ul></article><p id="p-1806">In this section, a block is defined as any rectangular rigid body. A wedge is a tapered object that forces objects apart or holds something in place. Wedges are used in two primary ways:</p>
-<p id="p-1807"><em class="emphasis">Low friction wedges</em> are a simple machine which allows users to create large normal forces to move objects with comparatively small input forces.</p>
-<p id="p-1808"><em class="emphasis">High-friction (self-locking) wedges</em> control the location of or hold things in place (as in doorstop wedges or carpentry wedges).</p>
+</ul></article><p id="p-1857">In this section, a block is defined as any rectangular rigid body. A wedge is a tapered object that forces objects apart or holds something in place. Wedges are used in two primary ways:</p>
+<p id="p-1858"><em class="emphasis">Low friction wedges</em> are a simple machine which allows users to create large normal forces to move objects with comparatively small input forces.</p>
+<p id="p-1859"><em class="emphasis">High-friction (self-locking) wedges</em> control the location of or hold things in place (as in doorstop wedges or carpentry wedges).</p>
 <figure class="figure figure-like" id="splitter_DD"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/fric_splitter.png" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.2.1<span class="period">.</span></span><span class="space"> </span>A hydraulic ram is used to push a stationary wedge into the through a piece of firewood. All forces are drawn with respect to forces on the log and there would be mirrored friction and normal forces on the other side of the splitter. The normal force <span class="process-math">\(N\)</span> is pushing the two halves of the log apart while the friction force <span class="process-math">\(F\)</span> is opposing the pushing force <span class="process-math">\(P\text{.}\)</span></figcaption></figure><p id="p-1809"></p>
-<p id="p-1810">Luckily the free-body diagrams and computations associated with both low- and high-friction wedges are identical. Block and wedge friction problems are quite similar to the multi-force body equilibrium problems from <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> Rigid Body Equilibrium and <a href="Chapter_06.html" class="internal" title="Chapter 6: Equilibrium of Structures">Chapter 6</a> in the Frames and Machines section. The main difference is the inclusion of friction from all non-smooth contact surfaces. The directions of both the normal and friction forces on the free-body diagrams are defined below.</p>
-<p id="p-1811"><em class="emphasis">Normal forces</em> act between bodies are reactions forces perpendicular to the contacting surfaces. All normal forces on a <abbr class="acronym">FBD</abbr> should be pointing at (and not away from) the body.</p>
-<p id="p-1812"><em class="emphasis">Friction forces</em> are reaction forces between bodies parallel (or tangential) to the contacting surfaces and created by the roughness of both surfaces. All friction forces on an <abbr class="acronym">FBD</abbr> should resist the motion at the point of contact.</p>
-<p id="p-1813">The key added challenge of solving wedge problems is that the angled faces of wedges create additional force components in your equations. One of the critical steps to solve a block or wedge problem is to look at the problem statement and drawing to determine which force is engaging the friction of the system. Start by drawing the friction forces on the body where this force acts (see <a href="" class="xref" data-knowl="./knowl/wedge_EE.html" title="Figure 9.2.2">Figure 9.2.2</a>). As you are passing the friction and normal forces to adjacent <abbr class="acronym">FBDs</abbr>, do not forget to draw both friction and normal forces in the opposite direction.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.2.1<span class="period">.</span></span><span class="space"> </span>A hydraulic ram is used to push a stationary wedge into the through a piece of firewood. All forces are drawn with respect to forces on the log and there would be mirrored friction and normal forces on the other side of the splitter. The normal force <span class="process-math">\(N\)</span> is pushing the two halves of the log apart while the friction force <span class="process-math">\(F\)</span> is opposing the pushing force <span class="process-math">\(P\text{.}\)</span></figcaption></figure><p id="p-1860"></p>
+<p id="p-1861">Luckily the free-body diagrams and computations associated with both low- and high-friction wedges are identical. Block and wedge friction problems are quite similar to the multi-force body equilibrium problems from <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> Rigid Body Equilibrium and <a href="Chapter_06.html" class="internal" title="Chapter 6: Equilibrium of Structures">Chapter 6</a> in the Frames and Machines section. The main difference is the inclusion of friction from all non-smooth contact surfaces. The directions of both the normal and friction forces on the free-body diagrams are defined below.</p>
+<p id="p-1862"><em class="emphasis">Normal forces</em> act between bodies are reactions forces perpendicular to the contacting surfaces. All normal forces on a <abbr class="acronym">FBD</abbr> should be pointing at (and not away from) the body.</p>
+<p id="p-1863"><em class="emphasis">Friction forces</em> are reaction forces between bodies parallel (or tangential) to the contacting surfaces and created by the roughness of both surfaces. All friction forces on an <abbr class="acronym">FBD</abbr> should resist the motion at the point of contact.</p>
+<p id="p-1864">The key added challenge of solving wedge problems is that the angled faces of wedges create additional force components in your equations. One of the critical steps to solve a block or wedge problem is to look at the problem statement and drawing to determine which force is engaging the friction of the system. Start by drawing the friction forces on the body where this force acts (see <a href="" class="xref" data-knowl="./knowl/wedge_EE.html" title="Figure 9.2.2">Figure 9.2.2</a>). As you are passing the friction and normal forces to adjacent <abbr class="acronym">FBDs</abbr>, do not forget to draw both friction and normal forces in the opposite direction.</p>
 <figure class="figure figure-like" id="wedge_EE"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/images/fric_wedge.png" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.2.2<span class="period">.</span></span><span class="space"> </span>This figure demonstrates the free-body diagrams to find the minimum <span class="process-math">\(P_1\)</span> to raise the block. We would assume that all the friction forces are pushed to impending motion, thus can use <span class="process-math">\(F=\mu_\text{s} \)</span> to relate the friction and normal forces at all contact surfaces. A detail of <span class="process-math">\(N_2\)</span> and <span class="process-math">\(F_2\)</span> has also been provided so that you can see how the angle <span class="process-math">\(\theta\)</span> is incorporated into the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</figcaption></figure><p id="p-1814"></p>
-<p id="p-1815"></p>
-<p id="p-1816"></p>
-<p id="p-1817">If the problem in <a href="" class="xref" data-knowl="./knowl/wedge_EE.html" title="Figure 9.2.2">Figure 9.2.2</a> was changed to “Given a coefficient of static friction of <span class="process-math">\(\mu_\text{s}=0.6\)</span> find the minimum force <span class="process-math">\(P_2\)</span> to keep the wedge from slipping out under the <span class="process-math">\(\lb{10}\)</span> block”, the <abbr class="acronym">FBDs</abbr> would need to change in the following ways:</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.2.2<span class="period">.</span></span><span class="space"> </span>This figure demonstrates the free-body diagrams to find the minimum <span class="process-math">\(P_1\)</span> to raise the block. We would assume that all the friction forces are pushed to impending motion, thus can use <span class="process-math">\(F=\mu_\text{s} \)</span> to relate the friction and normal forces at all contact surfaces. A detail of <span class="process-math">\(N_2\)</span> and <span class="process-math">\(F_2\)</span> has also been provided so that you can see how the angle <span class="process-math">\(\theta\)</span> is incorporated into the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</figcaption></figure><p id="p-1865"></p>
+<p id="p-1866"></p>
+<p id="p-1867"></p>
+<p id="p-1868">If the problem in <a href="" class="xref" data-knowl="./knowl/wedge_EE.html" title="Figure 9.2.2">Figure 9.2.2</a> was changed to “Given a coefficient of static friction of <span class="process-math">\(\mu_\text{s}=0.6\)</span> find the minimum force <span class="process-math">\(P_2\)</span> to keep the wedge from slipping out under the <span class="process-math">\(\lb{10}\)</span> block”, the <abbr class="acronym">FBDs</abbr> would need to change in the following ways:</p>
 <ul class="disc">
 <li id="li-523"><p id="p-derived-li-523">all friction force directions would change as the impending motion of both the wedge and <span class="process-math">\(\lb{10}\)</span> block would change direction and</p></li>
 <li id="li-524"><p id="p-derived-li-524">the direction of <span class="process-math">\(P\)</span> may have to change if the wedge has sufficient friction to stay static when <span class="process-math">\(P=0\text{.}\)</span></p></li>
 </ul>
-<p id="p-1818">Note that for all values of <span class="process-math">\(P\)</span> between <span class="process-math">\(P_1\)</span> and <span class="process-math">\(P_2\)</span> the system would be static, and the friction forces would be static-but-not-impending.</p></section></div></main>
+<p id="p-1869">Note that for all values of <span class="process-math">\(P\)</span> between <span class="process-math">\(P_1\)</span> and <span class="process-math">\(P_2\)</span> the system would be static, and the friction forces would be static-but-not-impending.</p></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
