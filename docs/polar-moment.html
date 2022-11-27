@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -323,13 +332,15 @@ J_O \amp =  I_x  + I_y\text{.}\tag{10.5.2}
 </div>
 <article class="insight remark-like" id="insight-18"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-18"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Torsional Stress.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-18"><article class="insight remark-like"> <p id="p-2326">The polar moment of inertia is an important factor in the design of drive shafts.  When a shaft is subjected to torsion, it experiences internal distributed shearing forces throughout its cross-section which counteract the external torsional load.</p> <p id="p-2327">This distributed shearing force is called <dfn class="terminology">shear stress</dfn>, and is usually given the symbol tau, <span class="process-math">\(\tau\text{.}\)</span> Shear stress is zero at the neutral axis and increases linearly with <span class="process-math">\(r\)</span> to a maximum value, <span class="process-math">\(\tau_\text{max}\)</span> at the outside surface where <span class="process-math">\(r=c\text{,}\)</span> so</p>
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-18"><article class="insight remark-like"><p id="p-2326">The polar moment of inertia is an important factor in the design of drive shafts.  When a shaft is subjected to torsion, it experiences internal distributed shearing forces throughout its cross-section which counteract the external torsional load.</p>
+<p id="p-2327">This distributed shearing force is called <dfn class="terminology">shear stress</dfn>, and is usually given the symbol tau, <span class="process-math">\(\tau\text{.}\)</span> Shear stress is zero at the neutral axis and increases linearly with <span class="process-math">\(r\)</span> to a maximum value, <span class="process-math">\(\tau_\text{max}\)</span> at the outside surface where <span class="process-math">\(r=c\text{,}\)</span> so</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \tau = \tau_\text{max}\frac{r}{c}
 \end{equation*}
-</div> <figure class="figure figure-like" id="figure-218"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/MOI-shaft.png" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.5.2<span class="period">.</span></span><span class="space"> </span>Section-cut view of a shaft, showing shearing forces developed to withstand external torsion <span class="process-math">\(T\text{.}\)</span></figcaption></figure> <p id="p-2328">The force at any point is <span class="process-math">\(dF = \tau\ dA\text{,}\)</span> and the moment <span class="process-math">\(dM\)</span> exerted at any point is <span class="process-math">\(dF\)</span> times the moment arm, which is <span class="process-math">\(r\text{.}\)</span>  The total moment is the integral of this quantity over the area of the cross section, and is proportional to the polar moment of inertia.</p>
+</div>
+<figure class="figure figure-like" id="figure-218"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/MOI-shaft.png" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.5.2<span class="period">.</span></span><span class="space"> </span>Section-cut view of a shaft, showing shearing forces developed to withstand external torsion <span class="process-math">\(T\text{.}\)</span></figcaption></figure><p id="p-2328">The force at any point is <span class="process-math">\(dF = \tau\ dA\text{,}\)</span> and the moment <span class="process-math">\(dM\)</span> exerted at any point is <span class="process-math">\(dF\)</span> times the moment arm, which is <span class="process-math">\(r\text{.}\)</span>  The total moment is the integral of this quantity over the area of the cross section, and is proportional to the polar moment of inertia.</p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-261">
 \begin{align*}
 T \amp= \int dM\\
@@ -339,7 +350,8 @@ T \amp= \int dM\\
 T \amp =  \frac{\tau_\text{max}}{c} J\\
 \tau_\text{max} \amp = \frac{Tc}{J}
 \end{align*}
-</div> <p id="p-2329">This is the relationship between the maximum stress in a circular shaft and the applied torque <span class="process-math">\(T\)</span>  and  the geometric properties of the shaft, <span class="process-math">\(J_O\)</span> and <span class="process-math">\(c\text{.}\)</span></p></article></div></section></div></main>
+</div>
+<p id="p-2329">This is the relationship between the maximum stress in a circular shaft and the applied torque <span class="process-math">\(T\)</span>  and  the geometric properties of the shaft, <span class="process-math">\(J_O\)</span> and <span class="process-math">\(c\text{.}\)</span></p></article></div></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

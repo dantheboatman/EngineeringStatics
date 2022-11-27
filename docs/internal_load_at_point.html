@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -298,28 +307,37 @@ window.MathJax = {
 <main class="main"><div id="content" class="pretext-content"><section class="section" id="internal_load_at_point"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.3</span> <span class="title">Internal Loads at a Point</span>
 </h2>
-<section class="introduction" id="introduction-31"><p id="p-1650">This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body.</p> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<section class="introduction" id="introduction-31"><p id="p-1650">This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multiforce rigid body.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:65%;"><p id="p-1651">Consider the frame shown in <a href="" class="xref" data-knowl="./knowl/frame_space_diagram.html" title="Figure 8.3.1">Figure 8.3.1</a> consisting of two-force members <span class="process-math">\(GD\)</span> and <span class="process-math">\(BE\text{,}\)</span> and multiforce members <span class="process-math">\(AD\)</span> and <span class="process-math">\(CF\text{.}\)</span> Since no information is provided, we can assume that the components have negligible weight.  The internal loading within the two-force members is purely axial, but the multiforce members will be subject to the complete set of internal loadings.</p></div>
 <div class="sbspanel middle" style="width:30%;"><figure class="figure figure-like" id="frame_space_diagram"><img src="external/images/frame_0.svg" role="img" class="contained" alt="Vertical column pinned at its base and anchored by a cable to the ground. The column has a horizontal beam supported by an angled beam. A force F is applied at the end of the horizontal beam."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.1<span class="period">.</span></span><span class="space"> </span>A frame supporting a load at <span class="process-math">\(F\text{.}\)</span></figcaption></figure></div>
-</div></div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:65%;">
 <p id="p-1652">To find the internal loadings at a specified point within one of the members, we make an imaginary cut there.</p>
 <p id="p-1653"><a href="" class="xref" data-knowl="./knowl/frame_1.html" title="Figure 8.3.2">Figure 8.3.2</a> shows the free-body diagram of member <span class="process-math">\(AD\text{,}\)</span> with a proposed cut between points <span class="process-math">\(D\)</span> and <span class="process-math">\(C\text{.}\)</span> The free-body diagram is shown with reactions for pinned connections at <span class="process-math">\(A\)</span> and <span class="process-math">\(C\)</span> and forces from the two-force members at locations <span class="process-math">\(B\)</span> and <span class="process-math">\(D\text{.}\)</span></p>
 </div>
 <div class="sbspanel middle" style="width:30%;"><figure class="figure figure-like" id="frame_1"><img src="external/images/frame_1.svg" role="img" class="contained" alt='FBD of the vertical column from previous image. The internal load will be determined at an imaginary "cut".'><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.2<span class="period">.</span></span><span class="space"> </span>Wavy line indicates the location of the imaginary cut.</figcaption></figure></div>
-</div></div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+</div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:65%;"><p id="p-1654">We then separate the free-body diagram of the member into two independent free-body diagrams, one above the cut and one below. This is analogous to the Method of Sections technique of <a href="Chapter_06.html" class="internal" title="Chapter 6: Equilibrium of Structures">Chapter 6</a>. The free-body diagrams for the two sections of the member are shown in <a href="" class="xref" data-knowl="./knowl/frame_2.html" title="Figure 8.3.3">Figure 8.3.3</a>.  The three internal forces are are exposed and labeled <span class="process-math">\(V\text{,}\)</span> <span class="process-math">\(N\text{,}\)</span> and <span class="process-math">\(M\text{.}\)</span> Either free-body diagram can be used to solve for the internal forces, so it is wise to choose the easier one.   Recognizing which one is easier takes practice, but look for the piece with more known and fewer unknown values.</p></div>
 <div class="sbspanel middle" style="width:30%;"><figure class="figure figure-like" id="frame_2"><img src="external/images/frame_2.svg" role="img" class="contained" alt="The two sections of the column from the previous figure are shown separated. Each is a FBD with the internal loads shown as reactions at each of the cut surfaces."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.3.3<span class="period">.</span></span><span class="space"> </span>Internal forces are exposed by the cut.</figcaption></figure></div>
-</div></div> <p id="p-1655">Note that the internal loadings at the cut are drawn in the positive direction according to the <a href="VM_sign_convention.html" class="internal" title="Section 8.2: Sign Conventions">sign conventions</a> for internal loads, that they act in opposite direction either side of the cut, and they cancel out if the object is put back together.</p> <p id="p-1656">This technique can be used to find the internal loads at any point within any object. In the examples below we will  finding the internal loadings at a specific point in load carrying beams.</p> <article class="example example-like" id="Chapter_08-example-internal-loads-in-a-simply-supported-beam"><h3 class="heading">
+</div></div>
+<p id="p-1655">Note that the internal loadings at the cut are drawn in the positive direction according to the <a href="VM_sign_convention.html" class="internal" title="Section 8.2: Sign Conventions">sign conventions</a> for internal loads, that they act in opposite direction either side of the cut, and they cancel out if the object is put back together.</p>
+<p id="p-1656">This technique can be used to find the internal loads at any point within any object. In the examples below we will  finding the internal loadings at a specific point in load carrying beams.</p>
+<article class="example example-like" id="Chapter_08-example-internal-loads-in-a-simply-supported-beam"><h3 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">8.3.4</span><span class="period">.</span><span class="space"> </span><span class="title">Internal loads in a simply supported beam.</span>
 </h3>
-<p id="p-1657"></p> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<p id="p-1657"></p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:60%;"><p id="p-1658">A beam of length <span class="process-math">\(L\)</span> is supported by a pin at <span class="process-math">\(A\)</span> and a roller at <span class="process-math">\(B\)</span> and is subjected to a horizontal force <span class="process-math">\(F\)</span> applied to point <span class="process-math">\(B\)</span> and a uniformly distributed load over its entire length.  The intensity of the distributed load is <span class="process-math">\(w\)</span> with units of [force/length].</p></div>
 <div class="sbspanel middle" style="width:35%;"><img src="external/images/uniform_0.svg" role="img" class="contained" alt="A beam of length L is supported by a pin at A on the left side and a roller at B on the right. It is subjected to a horizontal force F applied to point B and a uniformly distributed load over its entire length is w with units [force/length]."></div>
-</div></div> <p id="p-1659">Find the internal loads at the midpoint of the beam.</p>
+</div></div>
+<p id="p-1659">Find the internal loads at the midpoint of the beam.</p>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-65" id="answer-65"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-65"><div class="answer solution-like">
-<p id="p-1660">At the midpoint of the beam,</p> <div class="displaymath process-math" data-contains-math-knowls="" id="md-193">
+<p id="p-1660">At the midpoint of the beam,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-193">
 \begin{align*}
 A \amp = F\\
 V \amp = 0 \\
@@ -419,7 +437,9 @@ M \amp = WL^2/8
 </div>
 </li>
 </ol></div></div>
-</div></article> <p id="p-1679">Regardless of which side is chosen, we get the same results for the internal loads at the chosen point.</p> <p id="p-1680">When you solve for the internal loadings, the results can be either positive, negative, or sometimes zero. Negative values indicate that the actual direction of the load is opposite to the assumed direction.  Since we assumed all three internal loads were positive as defined by the <a href="VM_sign_convention.html" class="internal" title="Section 8.2: Sign Conventions">standard sign convention</a>, a negative answer means that the load actually acts in the opposite direction to the vector shown on the free-body diagram.</p> <article class="example example-like" id="Chapter_08-example-internal-loads-in-a-cantilever-beam"><h3 class="heading">
+</div></article><p id="p-1679">Regardless of which side is chosen, we get the same results for the internal loads at the chosen point.</p>
+<p id="p-1680">When you solve for the internal loadings, the results can be either positive, negative, or sometimes zero. Negative values indicate that the actual direction of the load is opposite to the assumed direction.  Since we assumed all three internal loads were positive as defined by the <a href="VM_sign_convention.html" class="internal" title="Section 8.2: Sign Conventions">standard sign convention</a>, a negative answer means that the load actually acts in the opposite direction to the vector shown on the free-body diagram.</p>
+<article class="example example-like" id="Chapter_08-example-internal-loads-in-a-cantilever-beam"><h3 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">8.3.5</span><span class="period">.</span><span class="space"> </span><span class="title">Internal loads in a cantilever beam.</span>
 </h3>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
@@ -429,7 +449,8 @@ M \amp = WL^2/8
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref hint-knowl original" data-refid="hk-Chapter_08-" id="Chapter_08-"><span class="type">Hint</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-Chapter_08-"><div class="hint solution-like"><p id="p-1682">If you think ahead, you may not need to find the reactions at <span class="process-math">\(A\text{.}\)</span></p></div></div>
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-66" id="answer-66"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-66"><div class="answer solution-like">
-<p id="p-1683">At the midpoint,</p> <div class="displaymath process-math" data-contains-math-knowls="" id="md-197">
+<p id="p-1683">At the midpoint,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-197">
 \begin{gather*}
 N = F\\
 V = A_y\\
@@ -474,13 +495,14 @@ M = - Pb
 <p id="p-1697">Once you have found the reactions and drawn a free-body diagram of the simpler portion with the normal force, shear force, and bending moment assumed positive, you then solve for the unknown values and signs just like any other equilibrium problem.</p>
 </li>
 </ol></div></div>
-</div></article> <p id="p-1698">This workflow typically includes:</p>
+</div></article><p id="p-1698">This workflow typically includes:</p>
 <ul class="disc">
 <li id="li-461"><p id="p-derived-li-461">Establishing a horizontal <span class="process-math">\(x\)</span> and vertical <span class="process-math">\(y\)</span> coordinate system.</p></li>
 <li id="li-462"><p id="p-derived-li-462">Taking a cut at the point of interest.</p></li>
 <li id="li-463"><p id="p-derived-li-463">Assuming that the internal force act in the positive direction and drawing a free-body diagram accordingly</p></li>
 <li id="li-464"><p id="p-derived-li-464">Using <span class="process-math">\(\Sigma F_x=0\text{,}\)</span> <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and <span class="process-math">\(\Sigma M_z=0\)</span> to solve for the three unknown internal loads.</p></li>
-</ul> <p id="p-1699">The  shear force <span class="process-math">\(V\text{,}\)</span> normal force <span class="process-math">\(N\text{,}\)</span> and bending moment <span class="process-math">\(M\)</span> are scalar components and they may be positive, zero, or negative depending on the applied loads.  The signs of the scalar components together with the sign convention for internal loads establish the actual directions of the shear force, normal force and bending moment vectors.</p></section><section class="subsection" id="Chapter_08-interactive-internal-loading"><h3 class="heading hide-type">
+</ul>
+<p id="p-1699">The  shear force <span class="process-math">\(V\text{,}\)</span> normal force <span class="process-math">\(N\text{,}\)</span> and bending moment <span class="process-math">\(M\)</span> are scalar components and they may be positive, zero, or negative depending on the applied loads.  The signs of the scalar components together with the sign convention for internal loads establish the actual directions of the shear force, normal force and bending moment vectors.</p></section><section class="subsection" id="Chapter_08-interactive-internal-loading"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Loading</span>
 </h3>
 <p id="p-1700">The internal loading inside a beam depends on the load that the beam is supporting and differs from point to point.  This simply supported beam supports a uniformly varying load.  The interactive traces out the value of the shear and bending moment as you move point <span class="process-math">\(C\text{.}\)</span>  Can you deduce the relation between the triangular loading and the value of the shear and bending moment?</p>

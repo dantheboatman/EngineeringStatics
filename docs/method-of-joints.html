@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -303,7 +312,10 @@ window.MathJax = {
 <li id="li-279"><p id="p-derived-li-279">What are the important components to include on a free-body diagram of a joint in a truss?</p></li>
 <li id="li-280"><p id="p-derived-li-280">How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</p></li>
 <li id="li-281"><p id="p-derived-li-281">How do we ensure that tension or compression in a member is properly represented?</p></li>
-</ul></article><section class="introduction" id="introduction-20"><p id="p-1053">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.</p> <p id="p-1054">The joints are treated of particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.</p> <p id="p-1055">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found.  Therefore,   a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.</p> <p id="p-1056">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.</p></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
+</ul></article><section class="introduction" id="introduction-20"><p id="p-1053">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.</p>
+<p id="p-1054">The joints are treated of particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.</p>
+<p id="p-1055">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found.  Therefore,   a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.</p>
+<p id="p-1056">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.</p></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.4.1</span> <span class="title">Procedure</span>
 </h3>
 <p id="p-1057">The procedure is straightforward application of rigid body and particle equilibrium</p>

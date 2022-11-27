@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -317,7 +326,8 @@ window.MathJax = {
 \theta \amp = \sin^{-1} \left(\frac{\textrm{opposite}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \cos^{-1} \left(\frac{\textrm{adjacent}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \tan^{-1} \left(\frac{\textrm{opposite}}{\textrm{adjacent}}\right)
 \end{align*}
 </div>
-<section class="paragraphs" id="paragraphs-51"><h3 class="heading"><span class="title">Facts.</span></h3> <p id="p-2383">The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.</p>
+<section class="paragraphs" id="paragraphs-51"><h3 class="heading"><span class="title">Facts.</span></h3>
+<p id="p-2383">The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.</p>
 <ul class="disc">
 <li id="li-593"><p id="p-derived-li-593"><span class="process-math">\(\sin\text{,}\)</span> <span class="process-math">\(\cos\)</span> and <span class="process-math">\(\tan\)</span> are functions of an angle and their values are unitless ratios of lengths.</p></li>
 <li id="li-594"><p id="p-derived-li-594">The inverse trig functions are functions of unitless ratios and their results are angles.</p></li>
@@ -327,7 +337,8 @@ window.MathJax = {
 <li id="li-598"><p id="p-derived-li-598">The inverse trig functions of positive numbers will always yield angles between 0 and 90°</p></li>
 <li id="li-599"><p id="p-derived-li-599">The legs of a right triangle are always shorter than the hypotenuse.</p></li>
 <li id="li-600"><p id="p-derived-li-600">Only right triangles have a hypotenuse.</p></li>
-</ul></section><section class="paragraphs" id="paragraphs-52"><h3 class="heading"><span class="title">Hints.</span></h3> <p id="p-2384">Here are some useful tips for angle calculations</p>
+</ul></section><section class="paragraphs" id="paragraphs-52"><h3 class="heading"><span class="title">Hints.</span></h3>
+<p id="p-2384">Here are some useful tips for angle calculations</p>
 <ul class="disc">
 <li id="li-601"><p id="p-derived-li-601">Take care that your calculator is set in <em class="emphasis">degrees mode</em> for this course.</p></li>
 <li id="li-602"><p id="p-derived-li-602">Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.</p></li>

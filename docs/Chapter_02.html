@@ -67,7 +67,8 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
-</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -143,6 +144,14 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -304,7 +313,9 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 <main class="main"><div id="content" class="pretext-content"><section class="chapter" id="Chapter_02"><h2 class="heading">
 <span class="type">Chapter</span> <span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span>
 </h2>
-<section class="introduction" id="introduction-3"><p id="p-93">Before you can solve statics problems, you will need to understand the basic physical quantities used in Statics: scalars and vectors.</p> <p id="p-94"><dfn class="terminology">Scalars</dfn> are physical quantities which have no associated direction and can be described by a positive or negative number, or even zero.  Scalar quantities follow the usual laws of algebra, and most scalar quantities have units. Mass, time, temperature, and length are all scalars.</p> <p id="p-95"><dfn class="terminology">Vectors</dfn> represent physical quantities which have magnitude and a direction.   Vectors are identified by a symbolic name which will be typeset in bold like <span class="process-math">\(\vec{r}\)</span> or <span class="process-math">\(\vec{F}\)</span> to indicate its vector nature.  The primary vector quantity you will encounter in statics will be <dfn class="terminology">force</dfn>, but <dfn class="terminology">moment</dfn> and <dfn class="terminology">position</dfn> are also important vectors. Computations involving vectors must always consider the directionality of each term and follow the rules of vector algebra as described in this chapter.</p></section><nav class="summary-links"><ul>
+<section class="introduction" id="introduction-3"><p id="p-93">Before you can solve statics problems, you will need to understand the basic physical quantities used in Statics: scalars and vectors.</p>
+<p id="p-94"><dfn class="terminology">Scalars</dfn> are physical quantities which have no associated direction and can be described by a positive or negative number, or even zero.  Scalar quantities follow the usual laws of algebra, and most scalar quantities have units. Mass, time, temperature, and length are all scalars.</p>
+<p id="p-95"><dfn class="terminology">Vectors</dfn> represent physical quantities which have magnitude and a direction.   Vectors are identified by a symbolic name which will be typeset in bold like <span class="process-math">\(\vec{r}\)</span> or <span class="process-math">\(\vec{F}\)</span> to indicate its vector nature.  The primary vector quantity you will encounter in statics will be <dfn class="terminology">force</dfn>, but <dfn class="terminology">moment</dfn> and <dfn class="terminology">position</dfn> are also important vectors. Computations involving vectors must always consider the directionality of each term and follow the rules of vector algebra as described in this chapter.</p></section><nav class="summary-links"><ul>
 <li><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></li>
 <li><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></li>
 <li><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Two Dimensional Coordinate Systems</span></a></li>

@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -320,12 +329,14 @@ window.MathJax = {
 <aside class="aside aside-like" id="aside-57"><h3 class="heading"><span class="title">Interactive Diagram.</span></h3>
 <p id="p-1637">This interactive demonstrates how the internal loads at a cut may be represented.</p></aside><figure class="figure figure-like" id="ggb_bell_crank"><iframe id="ggb_bell_crank_interactive" width="600" height="330" src="ggb_bell_crank_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.1.5<span class="period">.</span></span><span class="space"> </span>Internal Loading in a L shaped member.</figcaption></figure><article class="insight remark-like" id="insight-10"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-10"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">8.1.6</span><span class="period">.</span><span class="space"> </span><span class="title">Deformation.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-10"><article class="insight remark-like"> <p id="p-1639">The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a <span class="process-math">\(\ft{20}\)</span> span, the deflection would need to be less than</p>
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-10"><article class="insight remark-like"><p id="p-1639">The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a <span class="process-math">\(\ft{20}\)</span> span, the deflection would need to be less than</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \delta = \dfrac{\ft{20} \cdot \dfrac{\inch{12}}{\ft{1}}}{360}=\inch{0.667}\text{.}
 \end{equation*}
-</div> <p id="p-1640"></p> <p id="p-1641">To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal loadings that arise from the externally applied loads, using the methods of this chapter.</p></article></div></section></div></main>
+</div>
+<p id="p-1640"></p>
+<p id="p-1641">To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal loadings that arise from the externally applied loads, using the methods of this chapter.</p></article></div></section></div></main>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

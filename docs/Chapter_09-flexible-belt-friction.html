@@ -61,7 +61,8 @@ window.MathJax = {
     )}
 },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
+<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
@@ -137,6 +138,14 @@ window.MathJax = {
 <a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<ol id="searchresults"></ol>
 </div>
 </div></div>
 <nav id="primary-navbar" class="navbar"><div class="container">
@@ -304,11 +313,18 @@ window.MathJax = {
 <li id="li-539"><p id="p-derived-li-539">Compute the contact angle \beta between the belt and pulley or cylinder</p></li>
 <li id="li-540"><p id="p-derived-li-540">Compute the tension differential on either side of the belt or cylinder for both flat and v-belts</p></li>
 <li id="li-541"><p id="p-derived-li-541">Compute the maximum torque transfer available from a pulley system</p></li>
-</ul></article><section class="introduction" id="introduction-38"><p id="p-1944">When a belt, rope, or cable is wrapped around an object, there is potential for flexible belt friction. In cases such as a rope over a tree branch being used to lift an object (example in <a href="" class="xref" data-knowl="./knowl/rope_branch.html" title="Figure 9.5.1">Figure 9.5.1</a> below), the friction forces resist motion. In other cases, such as a belt-driven system (example in <a href="" class="xref" data-knowl="./knowl/drive_belt.html" title="Figure 9.5.2">Figure 9.5.2</a> below), the friction forces help transfer power from one pulley to another pulley.</p> <div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+</ul></article><section class="introduction" id="introduction-38"><p id="p-1944">When a belt, rope, or cable is wrapped around an object, there is potential for flexible belt friction. In cases such as a rope over a tree branch being used to lift an object (example in <a href="" class="xref" data-knowl="./knowl/rope_branch.html" title="Figure 9.5.1">Figure 9.5.1</a> below), the friction forces resist motion. In other cases, such as a belt-driven system (example in <a href="" class="xref" data-knowl="./knowl/drive_belt.html" title="Figure 9.5.2">Figure 9.5.2</a> below), the friction forces help transfer power from one pulley to another pulley.</p>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="rope_branch"><img src="external/images/rope_branch.jpg" class="contained" alt="Photo of rope over a tree branch to lift a heavy object."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.1<span class="period">.</span></span><span class="space"> </span>If we were to pass a rope over a tree branch to help lift a heavy object, there would be a tension differential between sides of the rope due to friction resisting the rope’s motion relative to the tree branch.</figcaption></figure></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="drive_belt"><img src="external/images/drive_belt.jpg" class="contained" alt="Photo of large belt and pulley."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.2<span class="period">.</span></span><span class="space"> </span>In many belt-driven systems, friction keeps the belt from slipping on the pulley, which allows the belt to transfer forces from one pulley to another.</figcaption></figure></div>
-</div></div> <p id="p-1945"></p> <p id="p-1946">To evaluate flexible belt friction, we start a flat, massless belt passing over a cylindrical surface. If we have an equal tension at each end of the belt, the belt experiences a distributed normal force, which varies as a function of the angle between the contact surface of the belt and the direction the belt tension forces are pulling (<a href="" class="xref" data-knowl="./knowl/belt_MM.html" title="Figure 9.5.3">Figure 9.5.3</a>).</p> <p id="p-1947"></p> <figure class="figure figure-like" id="belt_MM"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/belt_MM.png" class="contained" alt="Image of frictionless pulley with equal tension on each side of the belt. There is a non-uniform distributed load between the belt and the pulley."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.3<span class="period">.</span></span><span class="space"> </span>With equal tensions on each side of the belt, the only interaction force between the belt and pulley is a non-uniform distributed force.</figcaption></figure> <p id="p-1948">If there were no friction between the belt and cylinder, if we were to increase the tension on one side of the rope, it would begin to slide across the cylinder. However, if friction is available between the rope and the surface, the friction force will oppose the sliding motion (<a href="" class="xref" data-knowl="./knowl/belt_NN.html" title="Figure 9.5.4">Figure 9.5.4</a>)</p> <p id="p-1949"></p> <figure class="figure figure-like" id="belt_NN"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/belt_NN.png" class="contained" alt="Belt and pulley with unequal tensions. A distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces that are equal and opposite are grayed-out. The pulley has couple-moment resisting the effects of pulley."></div>
+</div></div>
+<p id="p-1945"></p>
+<p id="p-1946">To evaluate flexible belt friction, we start a flat, massless belt passing over a cylindrical surface. If we have an equal tension at each end of the belt, the belt experiences a distributed normal force, which varies as a function of the angle between the contact surface of the belt and the direction the belt tension forces are pulling (<a href="" class="xref" data-knowl="./knowl/belt_MM.html" title="Figure 9.5.3">Figure 9.5.3</a>).</p>
+<p id="p-1947"></p>
+<figure class="figure figure-like" id="belt_MM"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/belt_MM.png" class="contained" alt="Image of frictionless pulley with equal tension on each side of the belt. There is a non-uniform distributed load between the belt and the pulley."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.3<span class="period">.</span></span><span class="space"> </span>With equal tensions on each side of the belt, the only interaction force between the belt and pulley is a non-uniform distributed force.</figcaption></figure><p id="p-1948">If there were no friction between the belt and cylinder, if we were to increase the tension on one side of the rope, it would begin to slide across the cylinder. However, if friction is available between the rope and the surface, the friction force will oppose the sliding motion (<a href="" class="xref" data-knowl="./knowl/belt_NN.html" title="Figure 9.5.4">Figure 9.5.4</a>)</p>
+<p id="p-1949"></p>
+<figure class="figure figure-like" id="belt_NN"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/belt_NN.png" class="contained" alt="Belt and pulley with unequal tensions. A distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces that are equal and opposite are grayed-out. The pulley has couple-moment resisting the effects of pulley."></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.4<span class="period">.</span></span><span class="space"> </span>With unequal tensions, a distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces still exist but have been grayed-out to highlight the equal and opposite friction forces <span class="process-math">\(\vec{F}_\text{belt}\)</span> and <span class="process-math">\(\vec{F}_\text{pulley}\text{.}\)</span> Additionally, the pulley needs a couple-moment <span class="process-math">\(\vec{M}\)</span> to remain static, resisting the effects of <span class="process-math">\(\vec{F}_\text{pulley}\text{.}\)</span></figcaption></figure></section><section class="subsection" id="Chapter_09-friction-in-flat-belts"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">9.5.1</span> <span class="title">Friction in Flat Belts</span>
 </h3>
@@ -324,72 +340,91 @@ window.MathJax = {
 <span class="type">Subsection</span> <span class="codenumber">9.5.3</span> <span class="title">Determining which belt has the largest tension.</span>
 </h3>
 <p id="p-1956">Another challenging step in solving flexible belt friction problems is determining which belt has a larger tension <span class="process-math">\(\vec{T}_\text{L}\)</span> and which has the smaller tension <span class="process-math">\(\vec{T}_\text{S}\text{.}\)</span> Unlike guessing the direction of unknown support forces, this is not a decision that you can make incorrectly and later learn of your error with a negative value; hence we will guide you through two ways to make this decision up-front.</p>
-<section class="paragraphs" id="paragraphs-49"><h4 class="heading"><span class="title">Method 1: Draw FBDs and sum tension along the cable.</span></h4> <p id="p-1957">Draw   <abbr class="acronym">FBDs</abbr> and sum tension along the cable. Recall that friction always opposes the motion of the body you are evaluating, thus if you can create an <abbr class="acronym">FBD</abbr> of the cable, you can sum forces along the cable. This equation will verify which tension is larger/smaller.</p> <p id="p-1958"></p> <figure class="figure figure-like" id="belt_PP"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/belt_PP.png" class="contained" alt="Fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.7<span class="period">.</span></span><span class="space"> </span>The mechanical system of a fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static. Note that the wheel and belt are considered massless (thus do not have a weight) in this example.</figcaption></figure> <p id="p-1959">The first <abbr class="acronym">FBD</abbr>shows the following forces acting of the wheel:</p>
+<section class="paragraphs" id="paragraphs-49"><h4 class="heading"><span class="title">Method 1: Draw FBDs and sum tension along the cable.</span></h4>
+<p id="p-1957">Draw   <abbr class="acronym">FBDs</abbr> and sum tension along the cable. Recall that friction always opposes the motion of the body you are evaluating, thus if you can create an <abbr class="acronym">FBD</abbr> of the cable, you can sum forces along the cable. This equation will verify which tension is larger/smaller.</p>
+<p id="p-1958"></p>
+<figure class="figure figure-like" id="belt_PP"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/belt_PP.png" class="contained" alt="Fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.7<span class="period">.</span></span><span class="space"> </span>The mechanical system of a fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static. Note that the wheel and belt are considered massless (thus do not have a weight) in this example.</figcaption></figure><p id="p-1959">The first <abbr class="acronym">FBD</abbr>shows the following forces acting of the wheel:</p>
 <ul class="disc">
 <li id="li-542"><p id="p-derived-li-542">Pin forces (<span class="process-math">\(O_x\)</span> and <span class="process-math">\(O_y\)</span>) from the support at the center</p></li>
 <li id="li-543"><p id="p-derived-li-543">A distributed normal force <span class="process-math">\(\sigma\vec{N}\)</span> acting radially along the contact surface between the wheel and belt</p></li>
 <li id="li-544"><p id="p-derived-li-544">A distributed friction force <span class="process-math">\(\sigma\vec{F}\)</span> acting along the surface of the wheel which is opposing the moment <span class="process-math">\(M\)</span> and thus the impending motion (I.M.) of the wheel</p></li>
-</ul> <p id="p-1960">The second <abbr class="acronym">FBDs</abbr> hows how the contact forces on the wheel are transferred equal and opposite to the belt:</p>
+</ul>
+<p id="p-1960">The second <abbr class="acronym">FBDs</abbr> hows how the contact forces on the wheel are transferred equal and opposite to the belt:</p>
 <ul class="disc">
 <li id="li-545"><p id="p-derived-li-545">A distributed normal force <span class="process-math">\(\sigma\vec{N}\)</span> acting radially along the contact surface between the wheel and belt</p></li>
 <li id="li-546"><p id="p-derived-li-546">A distributed friction force <span class="process-math">\(\sigma\vec{F}\)</span> acting along the surface of the belt, which is now opposing the relative impending motion of the belt (which is opposite the absolute impending motion of the wheel).</p></li>
 <li id="li-547"><p id="p-derived-li-547">Cutting the belt exposes the tension forces within.</p></li>
-</ul> <div class="sidebyside"><div class="sbsrow" style="margin-left:1.666666666666667%;margin-right:1.666666666666667%;">
+</ul>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:1.666666666666667%;margin-right:1.666666666666667%;">
 <div class="sbspanel top" style="width:31.0344827586207%;"><figure class="figure figure-like" id="belt_QQ"><img src="external/images/belt_QQ.png" class="contained" alt="FBD of the pulley."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.8<span class="period">.</span></span><span class="space"> </span>First Free Body Diagram</figcaption></figure></div>
 <div class="sbspanel top" style="width:31.0344827586207%;"><p id="p-1961"></p></div>
 <div class="sbspanel top" style="width:31.0344827586207%;"><figure class="figure figure-like" id="belt_RR"><img src="external/images/belt_RR.png" class="contained" alt="FBD of the belt."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.9<span class="period">.</span></span><span class="space"> </span>Second Free Body Diagram</figcaption></figure></div>
-</div></div> <p id="p-1962">Finally, the forces along the belt are in must be in equilibrium to keep the acceleration equal to zero. We see in this equation that the tension <span class="process-math">\(T_1\)</span> plus the distributed friction force <span class="process-math">\(\Sigma\vec{F}\)</span> add together to equal <span class="process-math">\(T_2\text{.}\)</span> Therefore, <span class="process-math">\(T_2\)</span> must be larger <span class="process-math">\(T_L\)</span> and <span class="process-math">\(T_1\)</span> smaller <span class="process-math">\(T_S\text{.}\)</span></p>
+</div></div>
+<p id="p-1962">Finally, the forces along the belt are in must be in equilibrium to keep the acceleration equal to zero. We see in this equation that the tension <span class="process-math">\(T_1\)</span> plus the distributed friction force <span class="process-math">\(\Sigma\vec{F}\)</span> add together to equal <span class="process-math">\(T_2\text{.}\)</span> Therefore, <span class="process-math">\(T_2\)</span> must be larger <span class="process-math">\(T_L\)</span> and <span class="process-math">\(T_1\)</span> smaller <span class="process-math">\(T_S\text{.}\)</span></p>
 <div class="displaymath process-math" data-contains-math-knowls="" id="md-213">
 \begin{align*}
 \Sigma F_\text{axial}  \amp =  0\\
 T_2 -T_1-\Sigma F_\text{belt} \amp =  0\\
 T_2 \amp =  T_1+\Sigma F_\text{belt}
 \end{align*}
-</div></section><section class="paragraphs" id="paragraphs-50"><h4 class="heading"><span class="title">Method 2: Larger tension is always in the direction of the impending motion of the belt.</span></h4> <p id="p-1963">Following the logic of Method 1, it turns out that the larger tension <span class="process-math">\(T_L\)</span> is always in the direction of the impending motion of the belt. It does not matter if the belt motion is relative (like in the example for Method 1 above) or absolute, the larger tension is always in the impending motion of the belt. If you are still learning the differences between relative and absolute motion, see the section above.</p> <p id="p-1964">There are likely other robust ways to determine the smaller and larger sides of tension in a flexible belt system; make sure you learn a method that works for both potentially moving and also fixed-belt systems.</p></section></section><section class="subsection" id="Chapter_09-finding-the-change-in-belt-tension-due-to-friction"><h3 class="heading hide-type">
+</div></section><section class="paragraphs" id="paragraphs-50"><h4 class="heading"><span class="title">Method 2: Larger tension is always in the direction of the impending motion of the belt.</span></h4>
+<p id="p-1963">Following the logic of Method 1, it turns out that the larger tension <span class="process-math">\(T_L\)</span> is always in the direction of the impending motion of the belt. It does not matter if the belt motion is relative (like in the example for Method 1 above) or absolute, the larger tension is always in the impending motion of the belt. If you are still learning the differences between relative and absolute motion, see the section above.</p>
+<p id="p-1964">There are likely other robust ways to determine the smaller and larger sides of tension in a flexible belt system; make sure you learn a method that works for both potentially moving and also fixed-belt systems.</p></section></section><section class="subsection" id="Chapter_09-finding-the-change-in-belt-tension-due-to-friction"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">9.5.4</span> <span class="title">Finding the change in belt tension due to friction</span>
 </h3>
-<section class="introduction" id="introduction-39"><p id="p-1965">As shown graphically in <a href="" class="xref" data-knowl="./knowl/belt_RR.html" title="Figure 9.5.9">Figure 9.5.9</a> above, the friction force engages along the contact surface of the pulley and belt. Zooming in on a single differential element of the belt below in <a href="" class="xref" data-knowl="./knowl/belt_SS.html" title="Figure 9.5.10">Figure 9.5.10</a>, we will further see the effect of the friction force on the tension within the belt.</p> <figure class="figure figure-like" id="belt_SS"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/belt_SS.png" class="contained" alt="Differential element of a flexible belt."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.10<span class="period">.</span></span><span class="space"> </span>Differential element of a flexible belt with applied normal force <span class="process-math">\(dN\text{,}\)</span> friction force <span class="process-math">\(dF\text{,}\)</span> and internal tensions <span class="process-math">\(T\)</span> and <span class="process-math">\(T+dT\text{.}\)</span></figcaption></figure> <p id="p-1966">First, sum the forces in the <span class="process-math">\(x\)</span> the belt element in <a href="" class="xref" data-knowl="./knowl/belt_SS.html" title="Figure 9.5.10">Figure 9.5.10</a>.</p> <div class="displaymath process-math" data-contains-math-knowls="" id="md-214">
+<section class="introduction" id="introduction-39"><p id="p-1965">As shown graphically in <a href="" class="xref" data-knowl="./knowl/belt_RR.html" title="Figure 9.5.9">Figure 9.5.9</a> above, the friction force engages along the contact surface of the pulley and belt. Zooming in on a single differential element of the belt below in <a href="" class="xref" data-knowl="./knowl/belt_SS.html" title="Figure 9.5.10">Figure 9.5.10</a>, we will further see the effect of the friction force on the tension within the belt.</p>
+<figure class="figure figure-like" id="belt_SS"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/belt_SS.png" class="contained" alt="Differential element of a flexible belt."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.5.10<span class="period">.</span></span><span class="space"> </span>Differential element of a flexible belt with applied normal force <span class="process-math">\(dN\text{,}\)</span> friction force <span class="process-math">\(dF\text{,}\)</span> and internal tensions <span class="process-math">\(T\)</span> and <span class="process-math">\(T+dT\text{.}\)</span></figcaption></figure><p id="p-1966">First, sum the forces in the <span class="process-math">\(x\)</span> the belt element in <a href="" class="xref" data-knowl="./knowl/belt_SS.html" title="Figure 9.5.10">Figure 9.5.10</a>.</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-214">
 \begin{align*}
 \sum F_x \amp = 0 \\
 \mu\; dN  + T \cos (d\theta/2) \amp =(T+dT) \cos (d\theta/2)=0\\
 \mu\; dN \amp=dT \cos(d\theta/2)
 \end{align*}
-</div> <p id="p-1968">As <span class="process-math">\(d\theta\)</span> approaches zero, <span class="process-math">\(\cos (d\theta/2)\rightarrow 1\text{,}\)</span> so in the limit,</p>
+</div>
+<p id="p-1968">As <span class="process-math">\(d\theta\)</span> approaches zero, <span class="process-math">\(\cos (d\theta/2)\rightarrow 1\text{,}\)</span> so in the limit,</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dN = \frac{\mu}{dT} 
 \end{equation*}
-</div> <p id="p-1969">Now summing forces in the <span class="process-math">\(y\)</span> direction,</p> <div class="displaymath process-math" data-contains-math-knowls="" id="md-215">
+</div>
+<p id="p-1969">Now summing forces in the <span class="process-math">\(y\)</span> direction,</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-215">
 \begin{align*}
 \sum F_y \amp = 0 \\
 dN \amp= T \sin (d\theta/2) + (T+dT) \sin (d\theta/2)=0\\
 dN \amp= (2T + dT) \sin (d\theta/2) \\
 \amp \approx 2T (d\theta/2) + dT (d\theta/2)
 \end{align*}
-</div> <p id="p-1971">Where we have used the small angle approximation <span class="process-math">\(\sin(d\theta/2) \approx d\theta/2\text{.}\)</span>  Dropping the second order differential term <span class="process-math">\(dT\; d\theta\)</span> as negligible, yields</p>
+</div>
+<p id="p-1971">Where we have used the small angle approximation <span class="process-math">\(\sin(d\theta/2) \approx d\theta/2\text{.}\)</span>  Dropping the second order differential term <span class="process-math">\(dT\; d\theta\)</span> as negligible, yields</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 dN = T d\theta 
 \end{equation*}
-</div> <p id="p-1972">Solving simultaneously by eliminating <span class="process-math">\(dN\)</span> leaves us with</p>
+</div>
+<p id="p-1972">Solving simultaneously by eliminating <span class="process-math">\(dN\)</span> leaves us with</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 \frac{dT}{T}=\mu \ d\theta\text{,}
 \end{equation*}
 </div>
-<p class="continuation">which we can integrate between <span class="process-math">\(T_\text{S} \)</span> and <span class="process-math">\(T_\text{L}\)</span> to find</p> <div class="displaymath process-math" data-contains-math-knowls="" id="md-216">
+<p class="continuation">which we can integrate between <span class="process-math">\(T_\text{S} \)</span> and <span class="process-math">\(T_\text{L}\)</span> to find</p>
+<div class="displaymath process-math" data-contains-math-knowls="" id="md-216">
 \begin{gather*}
 \int_{T_\text{S}}^{T_\text{L}}\frac{dT}{T}=\mu \int_{0}^{\beta}d \theta\\
 \ln\frac{T_\text{L}}{T_\text{S}}=\mu \beta
 \end{gather*}
-</div> <p id="p-1974">1.	or by solving for <span class="process-math">\(T_\text{L}\)</span> we find</p>
+</div>
+<p id="p-1974">1.	or by solving for <span class="process-math">\(T_\text{L}\)</span> we find</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 T_\text{L}=T_\text{S}\; e^{\mu \beta}\text{,}
 \end{equation*}
-</div> <p id="p-1975">where  <span class="process-math">\(T_\text{L}\)</span>  is the larger tension pulling on the belt, <span class="process-math">\(T_S\)</span> is the smaller tension pulling on the belt, <span class="process-math">\(e\)</span> is the natural log base 2.718, <span class="process-math">\(\mu\)</span>  is  the friction coefficient between the belt and pulley, and <span class="process-math">\(\beta\)</span> is the contact angle between the belt and pulley in radians.</p> <p id="p-1976">Notice that the differential belt tension is independent of the surface size and shape, provided the belt makes continuous contact.</p></section><section class="subsubsection" id="Chapter_09-friction-in-v-belts"><h4 class="heading hide-type">
+</div>
+<p id="p-1975">where  <span class="process-math">\(T_\text{L}\)</span>  is the larger tension pulling on the belt, <span class="process-math">\(T_S\)</span> is the smaller tension pulling on the belt, <span class="process-math">\(e\)</span> is the natural log base 2.718, <span class="process-math">\(\mu\)</span>  is  the friction coefficient between the belt and pulley, and <span class="process-math">\(\beta\)</span> is the contact angle between the belt and pulley in radians.</p>
+<p id="p-1976">Notice that the differential belt tension is independent of the surface size and shape, provided the belt makes continuous contact.</p></section><section class="subsubsection" id="Chapter_09-friction-in-v-belts"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span> <span class="codenumber"></span> <span class="title">Friction in V-belts</span>
 </h4>
 <p id="p-1977">V-belts fit into a groove on a pulley and thereby increases the normal force of contact with the pulley sides (see <a href="" class="xref" data-knowl="./knowl/belt_TT.html" title="Figure 9.5.11">Figure 9.5.11</a> below). This increase in normal force sequentially increases the contact friction. The belt must only contact the sides and not the groove base to maintain this friction advantage.</p>
