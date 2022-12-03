@@ -145,6 +145,7 @@ window.MathJax = {
 <div id="searchresultsplaceholder" style="display: none">
 <button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
 </h2>
+<div id="searchempty"><span>No results.</span></div>
 <ol id="searchresults"></ol>
 </div>
 </div></div>
@@ -307,16 +308,13 @@ window.MathJax = {
 <main class="main"><div id="content" class="pretext-content"><section class="section" id="integration_method"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">8.8</span> <span class="title">Integration Method</span>
 </h2>
-<section class="introduction" id="introduction-33"><p id="p-1770">In <a href="VM_relations.html" class="internal" title="Section 8.6: Relation Between Loading, Shear and Moment">Section 8.6</a> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.  Beams consisting of point and uniformly distributed loads only do not require the use of the calculus method.</p>
-<p id="p-1771">However, there are times that the graphical technique falls short when the areas are more complicated than rectangles or triangles. For example, a uniformly varying load, which is a firs degree linear function of <span class="process-math">\(x\text{,}\)</span> integrates to a second degree parabolic shear function, and a third degree cubic moment function.  To use the graphical method you would need to find the area under the parabolic shear curve to compute the cubic moment.   When the loading becomes more complex it is better to use perform the integration directly.</p>
-<p id="p-1772">We will use fundamental equations <a href="" class="xref" data-knowl="./knowl/VMV2.html" title="Equation 8.6.2">(8.6.2)</a> and <a href="" class="xref" data-knowl="./knowl/VMM2.html" title="Equation 8.6.4">(8.6.4)</a> to find the shear and bending moment functions</p>
+<section class="introduction" id="introduction-33"><p id="p-1770">In <a href="VM_relations.html" class="internal" title="Section 8.6: Relation Between Loading, Shear and Moment">Section 8.6</a> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram suing a graphical approach.  This method is easy and fast in cases when you can easily calculate the areas under the loading and shear curves without integration.  Beams consisting of point and uniformly distributed loads only do not require the use of the calculus method.</p> <p id="p-1771">However, there are times that the graphical technique falls short when the areas are more complicated than rectangles or triangles. For example, a uniformly varying load, which is a firs degree linear function of <span class="process-math">\(x\text{,}\)</span> integrates to a second degree parabolic shear function, and a third degree cubic moment function.  To use the graphical method you would need to find the area under the parabolic shear curve to compute the cubic moment.   When the loading becomes more complex it is better to use perform the integration directly.</p> <p id="p-1772">We will use fundamental equations <a href="" class="xref" data-knowl="./knowl/VMV2.html" title="Equation 8.6.2">(8.6.2)</a> and <a href="" class="xref" data-knowl="./knowl/VMM2.html" title="Equation 8.6.4">(8.6.4)</a> to find the shear and bending moment functions</p>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/VMV2.html ./knowl/VMM2.html" id="md-205">
 \begin{align*}
 \Delta V\amp =\int_a^b w(x)\ dx \amp \Delta M\amp=\int_a^b V(x)\ dx
 \end{align*}
 </div>
-<p class="continuation">but instead of finding areas and slopes using geometry, we will integrate the load function <span class="process-math">\(w(x)\)</span> to find the <span class="process-math">\(\Delta V\text{,}\)</span> then integrate that result to find the  <span class="process-math">\(\Delta M\text{.}\)</span></p>
-<p id="p-1773">These results are the change in shear and moment over a segment; to find the actual shear and moment functions <span class="process-math">\(V(x)\)</span> and <span class="process-math">\(M(x)\)</span> for the entire beam we will need to find initial values for each segment.   This is equivalent to using boundary conditions to find  the constant of integration when solving a differential equation. The initial values come from either the final value of the previous segment or from point loads or point moments. Because of the requirement for these segment starting values, no segment can be computed in isolation from the other segments. Physically this means that the shear and moment along a beam are not just due to the loading in one segment, but are related to the loading on the rest of the beam as well.</p></section><section class="subsection" id="Chapter_08-determining-loading-functions"><h3 class="heading hide-type">
+<p class="continuation">but instead of finding areas and slopes using geometry, we will integrate the load function <span class="process-math">\(w(x)\)</span> to find the <span class="process-math">\(\Delta V\text{,}\)</span> then integrate that result to find the  <span class="process-math">\(\Delta M\text{.}\)</span></p> <p id="p-1773">These results are the change in shear and moment over a segment; to find the actual shear and moment functions <span class="process-math">\(V(x)\)</span> and <span class="process-math">\(M(x)\)</span> for the entire beam we will need to find initial values for each segment.   This is equivalent to using boundary conditions to find  the constant of integration when solving a differential equation. The initial values come from either the final value of the previous segment or from point loads or point moments. Because of the requirement for these segment starting values, no segment can be computed in isolation from the other segments. Physically this means that the shear and moment along a beam are not just due to the loading in one segment, but are related to the loading on the rest of the beam as well.</p></section><section class="subsection" id="Chapter_08-determining-loading-functions"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span>
 </h3>
 <p id="p-1774">Before you can find shear and bending moment functions with integration you must know the equation for the load on each segment of the beam.  These equations may be given in the problem statement if you're lucky, or you may have to determine them from a loading diagram.</p>
@@ -393,16 +391,13 @@ V(x) \amp =  w\left( \frac{L}{2} -x\right ) \amp M(x) \amp =  \frac{w}{2} (Lx - 
 \end{align*}
 </div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-81" id="solution-81"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-81"><div class="solution solution-like">
-<p id="p-1797"></p>
-<p id="p-1798">This beam has only one load section, and on that section the load is constant so,</p>
+<p id="p-1797"></p> <p id="p-1798">This beam has only one load section, and on that section the load is constant so,</p>
 <div class="displaymath process-math" data-contains-math-knowls="">
 \begin{equation*}
 w(x)= w\text{.}
 \end{equation*}
 </div>
-<p class="continuation">There is a pinned connection at <span class="process-math">\(x=0\)</span> which provides a vertical force and no concentrated moment, so the initial conditions there are <span class="process-math">\(V(0) = wL/2\text{,}\)</span> and <span class="process-math">\(M(0) = 0\text{.}\)</span></p>
-<p id="p-1799">Integrating equations <a href="" class="xref" data-knowl="./knowl/VMV2.html" title="Equation 8.6.2">(8.6.2)</a> and <a href="" class="xref" data-knowl="./knowl/VMM2.html" title="Equation 8.6.4">(8.6.4)</a> we have.</p>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<p class="continuation">There is a pinned connection at <span class="process-math">\(x=0\)</span> which provides a vertical force and no concentrated moment, so the initial conditions there are <span class="process-math">\(V(0) = wL/2\text{,}\)</span> and <span class="process-math">\(M(0) = 0\text{.}\)</span></p> <p id="p-1799">Integrating equations <a href="" class="xref" data-knowl="./knowl/VMV2.html" title="Equation 8.6.2">(8.6.2)</a> and <a href="" class="xref" data-knowl="./knowl/VMM2.html" title="Equation 8.6.4">(8.6.4)</a> we have.</p> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:60%;"><div class="displaymath process-math" data-contains-math-knowls="" id="md-207">
 \begin{align*}
 \Delta V \amp =  - \int_0^x w(x) \ dx\\
@@ -412,8 +407,7 @@ V(x)\amp =  \frac{wL}{2} - wx\\
 \end{align*}
 </div></div>
 <div class="sbspanel middle" style="width:40%;"><img src="external/images/VM-integration-2.svg" role="img" class="contained"></div>
-</div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+</div></div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:60%;"><div class="displaymath process-math" data-contains-math-knowls="" id="md-208">
 \begin{align*}
 \Delta M \amp =  \int_0^x V(x) \ dx\\
