@@ -31,14 +31,30 @@
       <publication>publication/publication.ptx</publication>
       <output-dir>build/pdf</output-dir>
     </target>
+    
     <target name="print-latex">
       <format>latex</format>
       <source>src/ptx/begin_here.ptx</source>
       <publication>publication/publication.ptx</publication>
       <output-dir>build/print-latex</output-dir>
-      <xsl>src/xsl/weh-custom-latex.xsl</xsl>
     </target>
+    
     <target name="subset">
+      <format>html</format>
+      <source>src/ptx/begin_here.ptx</source>
+      <publication>publication/publication.ptx</publication>
+      <output-dir>build/subset</output-dir>
+      <stringparam key="html.css.extra" value="external/css/statics.css"/>
+      <xsl>src/xsl/weh-custom-html.xsl</xsl>
+      <stringparam key="debug.skip-knowls" value="yes"/>
+      <!-- edit this to change the section/chapter/etc. to include
+           in your subset build -->
+      <xmlid-root>Chapter_01</xmlid-root>
+    </target>
+    
+    
+    
+    <target name="interactives">
       <format>html</format>
       <source>src/ptx/interactives.ptx</source>
       <publication>publication/publication-interactives.ptx</publication>
@@ -51,6 +67,7 @@
       <xmlid-root>interactives</xmlid-root>
     </target>
   </targets>
+  
   <executables>
       <latex>latex</latex>
       <pdflatex>pdflatex</pdflatex>
