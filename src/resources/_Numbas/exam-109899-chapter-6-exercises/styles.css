@@ -19,6 +19,8 @@ div#questionDisplay {
 
     --main-colour: #a2d1f0;
     --main-darker: #85c3eb;
+
+    --main-font: sans-serif;
 }
 body, .img-thumbnail, .table .table, .form-control, .btn-default {
   background-color: var(--background-colour);
@@ -1103,7 +1105,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-family: var(--main-font);
   font-size: 18px;
   font-size: calc(var(--text-size)*18px);
   line-height: 1.42857143;
@@ -6068,7 +6070,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-family: var(--main-font);
   font-size: 16px;
   font-size: calc(var(--text-size)*16px);
   font-weight: normal;
@@ -6176,7 +6178,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-family: var(--main-font);
   font-size: 18px;
   font-size: calc(var(--text-size)*18px);
   font-weight: normal;
@@ -7473,6 +7475,12 @@ Copyright 2011-16 Newcastle University
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+body > #no-stylesheet {
+    display: none;
+}
+body > #with-stylesheet {
+    display: initial;
+}
 
 svg text {
     fill: var(--text-colour);
@@ -7480,6 +7488,13 @@ svg text {
 input, select {
     background-color: var(--background-colour);
     color: var(--text-colour);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace;
 }
 
 .clearAfter:after {
@@ -7600,6 +7615,26 @@ img, object[type*="image"] {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+.navbar-fixed-top .nav {
+    display: grid;
+    grid-gap: 0.2em;
+    padding-right: 1em;
+    align-items: center;
+    grid-template: "prev next end titleBits . stopWatch" auto / auto auto auto 1fr auto auto;
+}
+.navigate-menu .navbar-fixed-top .nav {
+    grid-template: "back-to-menu titleBits . display-options" auto / auto auto 1fr auto;
+}
+
+.navbar-fixed-top .nav .prev { grid-area: prev; }
+.navbar-fixed-top .nav .next { grid-area: end; }
+.navbar-fixed-top .nav .end { grid-area: end; }
+.navbar-fixed-top .nav .titleBits { grid-area: titleBits; }
+.navbar-fixed-top .nav .stopWatch { grid-area: stopWatch; }
+.navbar-fixed-top .nav .back-to-menu { grid-area: back-to-menu; }
+.navbar-fixed-top .nav .display-options { grid-area: display-options; }
+
 
 @media screen and (min-width: 480px) {
 	.titleBits {
@@ -7745,6 +7780,7 @@ input.jme {
     padding: 0.2em;
     margin-bottom: 0.2em;
     border: 1px solid #999;
+    width: max-content;
 }
 
 #saving {
@@ -7800,7 +7836,9 @@ input.jme {
 .student-answer .feedback-icon {
     margin-left: 0.2em;
 }
-
+.part.type-matrix .student-answer{
+    vertical-align: 1.25em;
+}
 .student-answer input, .correct-answer input {
     border: 1px solid #ddd;
     border-bottom-color: #34444f;
@@ -7945,6 +7983,16 @@ input.jme {
 }
 .fake-nav-link > a:hover {
 	background: inherit !important;
+}
+
+#navMenu .stopWatch {
+    display: flex;
+    grid-gap: 0.5em;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+    padding: 0.5em;
+    background-color: var(--main-colour);
 }
 
 .menuButtons {
@@ -8267,6 +8315,7 @@ select.multiplechoice {
 .warnings {
 	position: absolute;
 	z-index: 1;
+    width: 100%;
 	max-width: 20em;
 	display: inline-block;
     opacity: 0;
@@ -8280,6 +8329,9 @@ select.multiplechoice {
     .warnings {
         transition: opacity 0s;
     }
+}
+.warnings.stick-right {
+    right: 0.5em;
 }
 .warnings.shown {
     opacity: 1;
@@ -8303,11 +8355,14 @@ select.multiplechoice {
     text-align: right;
 }
 
+.part.answered .partFeedback {
+    border-top: 2px solid var(--main-colour);
+    padding: 0.5em 0 0 2em;
+}
+
 .part .feedbackMessages {
-    max-width: 30em;
     margin-top: 1em;
 	clear: both;
-	max-height: 20em;
 	overflow-y: auto;
 	background: none;
 	border-color: #a2d1f0;
@@ -8332,13 +8387,22 @@ select.multiplechoice {
 }
 
 .part .feedbackMessage {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(2em,90vw) auto;
+    justify-items: end;
+}
+
+.part .feedbackMessage .message {
+    overflow-x: auto;
+    max-width: 100%;
+    max-height: 80vh;
+}
+.part .feedbackMessage .message {
+    overflow: initial;
 }
 
 .part .feedbackMessage .feedback-icon {
     width: 1em;
-    flex-shrink: 0;
-    margin-right: 0.5em;
 }
 
 .part .submitPart:not(:disabled) {
