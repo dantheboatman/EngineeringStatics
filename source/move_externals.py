@@ -37,9 +37,9 @@ def copy_and_overwrite(source, dest):
 
 print(f"\nmove_externals.py\n\tWorking dir: {os.getcwd()}")
 
-flatten(images, 'resources', '../build/external/images')
-copy_and_overwrite('resources/_Numbas', '../build/external/numbas')
-copy_and_overwrite('resources/common/_favicon', '../build/external/favicon')
-copy_and_overwrite('resources/_css', '../build/external/css')
-copy_and_overwrite('resources/_code', '../build/external/code')
+flatten(images, 'resources', '../output/external/images')
+copy_and_overwrite('resources/_Numbas', '../output/external/numbas')
+copy_and_overwrite('resources/common/_favicon', '../output/external/favicon')
+copy_and_overwrite('resources/_css', '../output/external/css')
+copy_and_overwrite('resources/_code', '../output/external/code')
 print()

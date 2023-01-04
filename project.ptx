@@ -6,61 +6,56 @@
 -->
 <project>
   <targets>
+    <!-- To build this target, run `pretext build web` -->
     <target name="web">
       <format>html</format>
-      <source>src/ptx/begin_here.ptx</source>
+      <source>source/ptx/main.ptx</source>
       <publication>publication/publication.ptx</publication>
-      <output-dir>build/web</output-dir>
+      <output-dir>output/web</output-dir>
       <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xsl>src/xsl/weh-custom-html.xsl</xsl>
+      <xsl>source/xsl/weh-custom-html.xsl</xsl>
     </target>
-
+    <target name="print" pdf-method="xelatex">
+      <format>pdf</format>
+      <source>source/ptx/main.ptx</source>
+      <publication>publication/publication.ptx</publication>
+      <output-dir>output/print</output-dir>
+    </target>
+    <target name="print-latex">
+      <format>latex</format>
+      <source>source/ptx/main.ptx</source>
+      <publication>publication/publication.ptx</publication>
+      <output-dir>output/print-latex</output-dir>
+    </target>
+    <target name="subset">
+      <!-- Usage: to build starting at XMLID, -->
+      <!-- pretext build subset -x XMLID      -->
+      <!-- or use <xml-root>XMLID</xml-root>  -->
+      <format>html</format>
+      <source>source/ptx/main.ptx</source>
+      <publication>publication/publication.ptx</publication>
+      <output-dir>output/subset</output-dir>
+      <stringparam key="debug.skip-knowls" value="yes"/>
+      <xsl>source/xsl/weh-custom-html.xsl</xsl>
+      <stringparam key="html.css.extra" value="external/css/statics.css"/>
+    </target>
+    
     <target name="mamp">
       <format>html</format>
       <source>src/ptx/begin_here.ptx</source>
       <publication>publication/publication.ptx</publication>
       <output-dir>../../Sites/localhost/statics</output-dir>
       <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xsl>src/xsl/weh-custom-html.xsl</xsl>
+      <xsl>source/xsl/weh-custom-html.xsl</xsl>
     </target>
-    
-        
-    <target name="print" pdf-method="xelatex">
-      <format>pdf</format>
-      <source>src/ptx/begin_here.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>build/pdf</output-dir>
-    </target>
-    
-    <target name="print-latex">
-      <format>latex</format>
-      <source>src/ptx/begin_here.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>build/print-latex</output-dir>
-    </target>
-    
-    <target name="subset">
-      <format>html</format>
-      <source>src/ptx/begin_here.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>build/subset</output-dir>
-      <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xsl>src/xsl/weh-custom-html.xsl</xsl>
-      <stringparam key="debug.skip-knowls" value="yes"/>
-      <!-- edit this to change the section/chapter/etc. to include
-           in your subset build -->
-      <xmlid-root>Chapter_01</xmlid-root>
-    </target>
-    
-    
     
     <target name="interactives">
       <format>html</format>
-      <source>src/ptx/interactives.ptx</source>
+      <source>source/ptx/interactives.ptx</source>
       <publication>publication/publication-interactives.ptx</publication>
       <output-dir>../../Sites/localhost/a</output-dir>
-      <xsl>src/xsl/weh-custom-html.xsl</xsl>
       <stringparam key="debug.skip-knowls" value="yes"/>
+      <xsl>source/xsl/weh-custom-html.xsl</xsl>
       <stringparam key="html.css.extra" value="external/css/statics.css"/>
       <!-- edit this to change the section/chapter/etc. to include
            in your subset build -->
@@ -69,15 +64,15 @@
   </targets>
   
   <executables>
-      <latex>latex</latex>
-      <pdflatex>pdflatex</pdflatex>
-      <xelatex>xelatex</xelatex>
-      <pdfsvg>pdf2svg</pdfsvg>
-      <asy>asy</asy>
-      <sage>sage</sage>
-      <pdfpng>convert</pdfpng>
-      <pdfeps>pdftops</pdfeps>
-      <node>node</node>
-      <liblouis>file2brl</liblouis>
-    </executables>
+    <latex>latex</latex>
+    <pdflatex>pdflatex</pdflatex>
+    <xelatex>xelatex</xelatex>
+    <pdfsvg>pdf2svg</pdfsvg>
+    <asy>asy</asy>
+    <sage>sage</sage>
+    <pdfpng>convert</pdfpng>
+    <pdfeps>pdftops</pdfeps>
+    <node>node</node>
+    <liblouis>file2brl</liblouis>
+  </executables>
 </project>

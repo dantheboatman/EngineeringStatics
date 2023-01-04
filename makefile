@@ -1,6 +1,6 @@
 include makefile.paths
 #
-
+# Gather source files
 PTX = $(shell find $(SOURCE) -type f -name '*.ptx')
 
 ################################################################################
@@ -24,7 +24,7 @@ images: generated external
 ##  make pdf version and rename it
 pdf: 
 	pretext build print
-	mv $(PDFOUT)/begin_here.pdf $(PDFOUT)/statics.pdf
+	mv $(PDFOUT)/main.pdf $(PDFOUT)/statics.pdf
 	open $(PDFOUT)/statics.pdf
 
 # Move files to docs directory for github pages
@@ -47,18 +47,17 @@ generated:
 external:
 	@echo
 	@echo "Moving EXTERNAL Images"
-	cd $(PRJ)/src; python move_externals.py
+	cd $(SOURCE); python move_externals.py
 	
 
-$(PTX): 
-	tidy
 #
 ###############################################
 #  Utilities
 ###############################################
 info:
 	@echo   Project folder---------$(PRJ)
-	@echo   PreTeXt Source-------- $(SOURCE)
+	@echo   All Source files-------$(SOURCE)
+	@echo   PreTeXt files ---------$(PTX)
 	@echo   Resource Folder------- $(RESOURCES)
 	@echo   BUILD----------------- $(BUILD)
 	@echo   HTMLOUT--------------- $(HTMLOUT)
@@ -68,6 +67,7 @@ info:
 #
 clean:
 	-rm -r $(BUILD)
+	-rm -r $(MAMPDIR)
 #
 # folders not used - here for reference
 folders:
@@ -76,7 +76,7 @@ folders:
 #Formats all pretext files consistently
 tidy: $(PTX)
 	@echo  Format the ptx files:
-	for file in  $(SOURCE)/*.ptx ; do \
+	for file in  $(PTX) ; do \
 		xmllint --format -o $${file}  $${file}; \
 	done 
 #
