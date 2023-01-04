@@ -25,7 +25,7 @@ window.MathJax = {
     tags: "none",
     tagSide: "right",
     tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
   },
   options: {
     ignoreHtmlClass: "tex2jax_ignore|ignore-math",
@@ -45,11 +45,11 @@ window.MathJax = {
     },
   },
   chtml: {
-    scale: 0.88,
+    scale: 0.98,
     mtextInheritFont: true
   },
   loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
   startup: {
@@ -59,25 +59,152 @@ window.MathJax = {
       rsMathReady();
       }
     )}
-},
+  },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
-<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
 </head>
-<body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="Chapter_07-centroids.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_07.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="Chapter_07-average-value-of-a-function.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
 \newcommand{\jhat}{\vec{j}}
@@ -134,227 +261,524 @@ window.MathJax = {
 \definecolor{fillinmathshade}{gray}{0.9}
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
-<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
-<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
-<p class="byline">Daniel W. Baker, William Haynes</p>
-</div>
-<div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
-</div></div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
-</h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
-</div>
-</div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
-<div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_07-centroids.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_07-average-value-of-a-function.html" title="Next">Next</a></span></div>
-</div>
-<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_07-centroids.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_07.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_07-average-value-of-a-function.html" title="Next">Next</a>
-</div>
-</div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
-<nav id="toc"><ul>
-<li class="link frontmatter">
-<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
-<li><a href="acknowledgement.html" data-scroll="acknowledgement" class="internal">Acknowledgements</a></li>
-<li><a href="preface.html" data-scroll="preface" class="internal">Preface</a></li>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_01.html" data-scroll="Chapter_01" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
-<li><a href="newtons-laws.html" data-scroll="newtons-laws" class="internal">Newton’s Laws of Motion</a></li>
-<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units" class="internal">Units</a></li>
-<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces" class="internal">Forces</a></li>
-<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving" class="internal">Problem Solving</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_02.html" data-scroll="Chapter_02" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
-<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors" class="internal">Vectors</a></li>
-<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors" class="internal">One-Dimensional Vectors</a></li>
-<li><a href="cartesian-coords-2d.html" data-scroll="cartesian-coords-2d" class="internal">Two Dimensional Coordinate Systems</a></li>
-<li><a href="coordinates-3d.html" data-scroll="coordinates-3d" class="internal">Three Dimensional Coordinate Systems</a></li>
-<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors" class="internal">Unit Vectors</a></li>
-<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D" class="internal">Vector Addition</a></li>
-<li><a href="dot_products_2D.html" data-scroll="dot_products_2D" class="internal">Dot Products</a></li>
-<li><a href="cross-product-math.html" data-scroll="cross-product-math" class="internal">Cross Products</a></li>
-<li><a href="exercises-1.html" data-scroll="exercises-1" class="internal">Exercises (Ch. 2)</a></li>
+<li><div class="toc-item"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_03.html" data-scroll="Chapter_03" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
-<li><a href="ch3-intro.html" data-scroll="ch3-intro" class="internal">Equilibrium</a></li>
-<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles" class="internal">Particles</a></li>
-<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles" class="internal">Particles in One Dimension</a></li>
-<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles" class="internal">Particles in Two Dimensions</a></li>
-<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles" class="internal">Particles in Three Dimensions</a></li>
-<li><a href="exercises-2.html" data-scroll="exercises-2" class="internal">Exercises (Ch. 3)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_04.html" data-scroll="Chapter_04" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
-<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment" class="internal">Direction of a Moment</a></li>
-<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment" class="internal">Magnitude of a Moment</a></li>
-<li><a href="varignons-theorem.html" data-scroll="varignons-theorem" class="internal">Varignon’s Theorem</a></li>
-<li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions" class="internal">Moments in Three Dimensions</a></li>
-<li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples" class="internal">Couples</a></li>
-<li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations" class="internal">Equivalent Transformations</a></li>
-<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems" class="internal">Statically Equivalent Systems</a></li>
-<li><a href="exercises-3.html" data-scroll="exercises-3" class="internal">Exercises (Ch. 4)</a></li>
+<li>
+<div class="toc-item"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Two Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_05.html" data-scroll="Chapter_05" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
-<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom" class="internal">Degree of Freedom</a></li>
-<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams" class="internal">Free Body Diagrams</a></li>
-<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium" class="internal">Equations of Equilibrium</a></li>
-<li><a href="Chapter_05-2d-rigid-body-equilibrium.html" data-scroll="Chapter_05-2d-rigid-body-equilibrium" class="internal">2D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-3d-rigid-body-equilibrium.html" data-scroll="Chapter_05-3d-rigid-body-equilibrium" class="internal">3D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy" class="internal">Stability and Determinacy</a></li>
-<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-" class="internal">Equilibrium Examples</a></li>
-<li><a href="exercises-4.html" data-scroll="exercises-4" class="internal">Exercises (Ch. 5)</a></li>
+<li>
+<div class="toc-item"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Three Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_06.html" data-scroll="Chapter_06" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
-<li><a href="Chapter_06-structures.html" data-scroll="Chapter_06-structures" class="internal">Structures</a></li>
-<li><a href="Chapter_06-interactions-between-members.html" data-scroll="Chapter_06-interactions-between-members" class="internal">Interactions between members</a></li>
-<li><a href="Chapter_06-trusses.html" data-scroll="Chapter_06-trusses" class="internal">Trusses</a></li>
-<li><a href="method-of-joints.html" data-scroll="method-of-joints" class="internal">Method of Joints</a></li>
-<li><a href="method-of-sections.html" data-scroll="method-of-sections" class="internal">Method of Sections</a></li>
-<li><a href="frames-and-machines.html" data-scroll="frames-and-machines" class="internal">Frames and Machines</a></li>
-<li><a href="Chapter_06-summary.html" data-scroll="Chapter_06-summary" class="internal">Summary</a></li>
-<li><a href="exercises-5.html" data-scroll="exercises-5" class="internal">Exercises (Ch. 6)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_07.html" data-scroll="Chapter_07" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
-<li><a href="weghted-average.html" data-scroll="weghted-average" class="internal">Weighted Averages</a></li>
-<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity" class="internal">Center of Gravity</a></li>
-<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass" class="internal">Center of Mass</a></li>
-<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids" class="internal">Centroids</a></li>
-<li><a href="composite-parts.html" data-scroll="composite-parts" class="active">Centroids using Composite Parts</a></li>
-<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function" class="internal">Average Value of a Function</a></li>
-<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration" class="internal">Centroids using Integration</a></li>
-<li><a href="distributed-loads.html" data-scroll="distributed-loads" class="internal">Distributed Loads</a></li>
-<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics" class="internal">Fluid Statics</a></li>
-<li><a href="exercises-6.html" data-scroll="exercises-6" class="internal">Exercises (Ch. 7)</a></li>
+<li>
+<div class="toc-item"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_08.html" data-scroll="Chapter_08" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
-<li><a href="Chapter_08-internal-loads.html" data-scroll="Chapter_08-internal-loads" class="internal">Internal Loads</a></li>
-<li><a href="VM_sign_convention.html" data-scroll="VM_sign_convention" class="internal">Sign Conventions</a></li>
-<li><a href="internal_load_at_point.html" data-scroll="internal_load_at_point" class="internal">Internal Loads at a Point</a></li>
-<li><a href="VM_diagrams.html" data-scroll="VM_diagrams" class="internal">Shear and Bending Moment Diagrams</a></li>
-<li><a href="section_cut_method.html" data-scroll="section_cut_method" class="internal">Section Cut Method</a></li>
-<li><a href="VM_relations.html" data-scroll="VM_relations" class="internal">Relation Between Loading, Shear and Moment</a></li>
-<li><a href="graphical_method.html" data-scroll="graphical_method" class="internal">Graphical Method</a></li>
-<li><a href="integration_method.html" data-scroll="integration_method" class="internal">Integration Method</a></li>
-<li><a href="Chapter_08-geogebra-interactives.html" data-scroll="Chapter_08-geogebra-interactives" class="internal">Geogebra Interactives</a></li>
-<li><a href="Chapter_08-summary.html" data-scroll="Chapter_08-summary" class="internal">Summary</a></li>
-<li><a href="exercises-7.html" data-scroll="exercises-7" class="internal">Exercises (Ch. 8)</a></li>
+<li>
+<div class="toc-item"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_09.html" data-scroll="Chapter_09" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
-<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction" class="internal">Dry Friction</a></li>
-<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction" class="internal">Block and Wedge Friction</a></li>
-<li><a href="Chapter_09-slipping-vs--tipping.html" data-scroll="Chapter_09-slipping-vs--tipping" class="internal">Slipping vs. Tipping</a></li>
-<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction" class="internal">Screw Friction</a></li>
-<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction" class="internal">Flexible Belt Friction</a></li>
-<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction" class="internal">Journal Bearing Friction</a></li>
-<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction" class="internal">Disc Friction</a></li>
-<li><a href="exercises-8.html" data-scroll="exercises-8" class="internal">Exercises (Ch. 9)</a></li>
+<li>
+<div class="toc-item"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_10.html" data-scroll="Chapter_10" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
-<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes" class="internal">Integral Properties of Shapes</a></li>
-<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes" class="internal">Moments of Inertia of Common Shapes</a></li>
-<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section" class="internal">Parallel Axis Theorem</a></li>
-<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes" class="internal">Moment of Inertia of Composite Shapes</a></li>
-<li><a href="polar-moment.html" data-scroll="polar-moment" class="internal">Polar Moment of Inertia</a></li>
-<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec" class="internal">Radius of Gyration</a></li>
-<li><a href="products-of-inertia.html" data-scroll="products-of-inertia" class="internal">Products of Inertia</a></li>
-<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia" class="internal">Mass Moment of Inertia</a></li>
-<li><a href="exercises-9.html" data-scroll="exercises-9" class="internal">Exercises (Ch. 10)</a></li>
+<li><div class="toc-item"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
 </ul>
 </li>
-<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Back Matter</span></a></li>
-<li class="link"><a href="notation.html" data-scroll="notation" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></li>
-<li class="link">
-<a href="useful-mathematics.html" data-scroll="useful-mathematics" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a><ul>
-<li><a href="distance-formula.html" data-scroll="distance-formula" class="internal">Distance Formula</a></li>
-<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa" class="internal">Right Triangle Trigonometry</a></li>
-<li><a href="los-loc.html" data-scroll="los-loc" class="internal">Oblique Triangle Trigonometry</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li>
+<div class="toc-item"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Particles in One Dimension</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Scalar-Components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="AISC-properties.html" data-scroll="AISC-properties" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a><ul>
-<li><a href="AISC-angles.html" data-scroll="AISC-angles" class="internal">Angles</a></li>
-<li><a href="AISC-channels.html" data-scroll="AISC-channels" class="internal">Channels</a></li>
-<li><a href="AISC-standard-sections.html" data-scroll="AISC-standard-sections" class="internal">Standard Sections</a></li>
-<li><a href="AISC-wide-flange.html" data-scroll="AISC-wide-flange" class="internal">Wide Flange Sections</a></li>
+<li>
+<div class="toc-item"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Particles in Two Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
 </ul>
 </li>
-</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
-</div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="composite-parts"><h2 class="heading hide-type">
+<li>
+<div class="toc-item"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Moments in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Couples</span></a></div></li>
+<li><div class="toc-item"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li><div class="toc-item"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-3.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural"><li>
+<div class="toc-item"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-internal-loads.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Loads</span></a></div></li>
+<li><div class="toc-item"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li>
+<div class="toc-item"><a href="internal_load_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Loads at a Point</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="internal_load_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Loading</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li><div class="toc-item"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li>
+<div class="toc-item"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">How can you tell from a problem statement which phase of friction to use?</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction angle and friction resultant</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Block and Wedge Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw motion and the Right-hand-rule</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw thread properties</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moments to reach impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="codenumber">9.4.4</span> <span class="title">Screws where the applied force opposes impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="codenumber">9.4.5</span> <span class="title">Screws where the applied force supports impending motion</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belt Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-flat-belts" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Friction in Flat Belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Finding the contact angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Determining which belt has the largest tension.</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="codenumber">9.5.4</span> <span class="title">Finding the change in belt tension due to friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="title">Friction in V-belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="title">Torque in belt systems</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearing Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Journal bearings with a rotating shaft and a fixed bearing</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Journal bearings with a fixed shaft and a rotating bearing</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Disc Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#disk-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-collar-bearing-with-a-hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar bearing with a hollow circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End bearing with a solid circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Disc brakes with a circular arc</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Moment of Inertia of Composite Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li><div class="toc-item"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li>
+<div class="toc-item"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li><div class="toc-item"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li>
+<div class="toc-item"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li><div class="toc-item"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="AISC-angles.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">C.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">C.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-channels.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">C.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">C.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">C.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">C.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">C.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">C.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">C.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">C.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="composite-parts"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span>
 </h2>
 <article class="objectives goal-like" id="objectives-27"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
-<li id="li-355"><p id="p-derived-li-355">How do you calculate the center of gravity of a system of separate objects?</p></li>
-<li id="li-356"><p id="p-derived-li-356">Where do the equations for the shapes in areas and centroids table come from?</p></li>
-<li id="li-357"><p id="p-derived-li-357">When finding the centroid, what do you do with a cut-out area of a composite part?</p></li>
-<li id="li-358"><p id="p-derived-li-358">Does it matter whether a distance to the centroid of a part is positive or negative from the axis system?</p></li>
-</ul></article><section class="introduction" id="introduction-26"><p id="p-1273">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid.  Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.</p> <p id="p-1274">For convenience, the properties of several common shapes can be found  <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">here</a>.</p></section><section class="subsection" id="Chapter_07-composite-parts-method"><h3 class="heading hide-type">
+<li id="li-355"><div class="para" id="p-derived-li-355">How do you calculate the center of gravity of a system of separate objects?</div></li>
+<li id="li-356"><div class="para" id="p-derived-li-356">Where do the equations for the shapes in areas and centroids table come from?</div></li>
+<li id="li-357"><div class="para" id="p-derived-li-357">When finding the centroid, what do you do with a cut-out area of a composite part?</div></li>
+<li id="li-358"><div class="para" id="p-derived-li-358">Does it matter whether a distance to the centroid of a part is positive or negative from the axis system?</div></li>
+</ul></article><section class="introduction" id="introduction-26"><div class="para" id="p-1274">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid.  Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.</div> <div class="para" id="p-1275">For convenience, the properties of several common shapes can be found  <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">here</a>.</div></section><section class="subsection" id="Chapter_07-composite-parts-method"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span>
 </h3>
-<p id="p-1275">The equations we will use for this approach are</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="composite-centroid">
+<div class="para logical" id="p-1276">
+<div class="para">The equations we will use for this approach are</div>
+<div class="displaymath process-math" id="composite-centroid">
 \begin{equation}
 \bar{x}  =  \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \qquad \bar{y}  =  \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i}\tag{7.5.1}
 \end{equation}
 </div>
-<p class="continuation">where,</p>
+<div class="para">where,</div>
 <ul class="no-marker">
-<li id="li-359"><p id="p-1276"><span class="process-math">\(\bar{x}\text{,}\)</span> and <span class="process-math">\(\bar{y}\)</span> are the coordinates of the centroid of the entire shape.</p></li>
-<li id="li-360"><p id="p-1277"><span class="process-math">\(A_i\)</span>  is the area of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
-<li id="li-361"><p id="p-1278"><span class="process-math">\(\bar{x}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  are the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-359"><div class="para" id="p-1277">
+<span class="process-math">\(\bar{x}\text{,}\)</span> and <span class="process-math">\(\bar{y}\)</span> are the coordinates of the centroid of the entire shape.</div></li>
+<li id="li-360"><div class="para" id="p-1278">
+<span class="process-math">\(A_i\)</span>  is the area of composite part <span class="process-math">\(i\text{.}\)</span>
+</div></li>
+<li id="li-361"><div class="para" id="p-1279">
+<span class="process-math">\(\bar{x}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  are the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span>
+</div></li>
 </ul>
-<p id="p-1279"></p>
-<p id="p-1280"></p>
-<p id="p-1281">The steps to finding a centroid using the composite parts method are:</p>
+</div>
+<div class="para" id="p-1280"></div>
+<div class="para" id="p-1281"></div>
+<div class="para logical" id="p-1282">
+<div class="para">The steps to finding a centroid using the composite parts method are:</div>
 <ol class="decimal">
-<li id="li-362"><p id="p-derived-li-362">Break the overall shape into simpler parts.</p></li>
-<li id="li-363"><p id="p-derived-li-363">Collect the areas and centroid coordinates, and</p></li>
-<li id="li-364"><p id="p-derived-li-364">Apply <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> to combine to find the coordinates of the centroid of the original shape.</p></li>
+<li id="li-362"><div class="para" id="p-derived-li-362">Break the overall shape into simpler parts.</div></li>
+<li id="li-363"><div class="para" id="p-derived-li-363">Collect the areas and centroid coordinates, and</div></li>
+<li id="li-364"><div class="para" id="p-derived-li-364">Apply <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> to combine to find the coordinates of the centroid of the original shape.</div></li>
 </ol>
+</div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
-<div class="sbspanel top" style="width:61.5384615384615%;">
-<p id="p-1282">As a simple example, consider the L-shaped area shown, which has been divided into two rectangles.  The areas of the rectangles are</p>
-<div class="displaymath process-math" data-contains-math-knowls="">
+<div class="sbspanel top" style="width:61.5384615384615%;"><div class="para logical" id="p-1283">
+<div class="para">As a simple example, consider the L-shaped area shown, which has been divided into two rectangles.  The areas of the rectangles are</div>
+<div class="displaymath process-math">
 \begin{equation*}
 A_1 = \inch{18}^2, A_2 = \inch{14}^2
 \end{equation*}
 </div>
-<p class="continuation">The origin is located at the lower left, so the coordinates of the centroids of the two rectangles are</p>
-<div class="displaymath process-math" data-contains-math-knowls="">
+<div class="para">The origin is located at the lower left, so the coordinates of the centroids of the two rectangles are</div>
+<div class="displaymath process-math">
 \begin{equation*}
 \bar{x}_1 = \inch{1.5}, \bar{y}_1 = \inch{5}, \qquad \bar{x}_2 = \inch{3.5}, \bar{y}_2 = \inch{1}
 \end{equation*}
 </div>
-</div>
+</div></div>
 <div class="sbspanel top" style="width:35.8974358974359%;"><img src="external/images/L-shape.svg" role="img" class="contained" alt="L-shaped object comprised of two rectangles. Bottom is 7 in wide, 2 in tall. The vertical part is 6 in tall annd 3 in wide."></div>
 </div></div>
-<p id="p-1283">The centroid of the whole shape is found by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a></p>
+<div class="para logical" id="p-1284">
+<div class="para">The centroid of the whole shape is found by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a>
+</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-130">
 \begin{align*}
 \bar{x}  \amp =   \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \amp \bar{y}  \amp =   \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i}\\
@@ -362,23 +786,24 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 \bar{x}  \amp =  \inch{2.375}  \amp\bar{y}  \amp =  \inch{3.25}
 \end{align*}
 </div>
-<p id="p-1284">For more complex shapes, the usual practice is to set up a table to organize the information needed to calculate the centroid, as we will now show.  The process can be broken into three steps.</p>
-<ol id="p-1285" class="decimal">
+</div>
+<div class="para" id="p-1285">For more complex shapes, the usual practice is to set up a table to organize the information needed to calculate the centroid, as we will now show.  The process can be broken into three steps.</div>
+<div class="para logical" id="p-1286"><ol class="decimal">
 <li id="li-365">
-<span class="heading"><span class="title">Break the overall shape into simpler parts.</span></span><p id="p-1286">We begin with a sketch of the shape and establish a coordinate system.  It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well.  A careful choice of origin can simplify the problem, so give it some thought.</p>
-<p id="p-1287">Then divide the shape into several simpler shapes.  The sub-shapes may include holes, which are treated as negative areas.  You must know how to calculate the area and locate the centroid of any sub-shape you use.</p>
-<p id="p-1288">Consider the complex shape below.</p>
+<span class="heading"><span class="title">Break the overall shape into simpler parts.</span></span><div class="para" id="p-1287">We begin with a sketch of the shape and establish a coordinate system.  It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well.  A careful choice of origin can simplify the problem, so give it some thought.</div>
+<div class="para" id="p-1288">Then divide the shape into several simpler shapes.  The sub-shapes may include holes, which are treated as negative areas.  You must know how to calculate the area and locate the centroid of any sub-shape you use.</div>
+<div class="para" id="p-1289">Consider the complex shape below.</div>
 <div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/composite-ex-0.svg" role="img" class="contained" alt="A rectangle has its bottom left corner at the origin, and top right at (5, 4). The left side of a right triangle of height 4 cm and width 6 cm is flush with the right side of the rectangle. A circle of  r = 1.5 cm is cut out of the rectangle, with it's center at (3, 2)."></div>
-<p id="p-1289">There are often several ways to divide a shape, but it’s best to use as few parts as possible to minimize your computations and opportunities for error.  For example, you could choose to break this shape into either a <span class="process-math">\(\cm{5} \times \cm{4}\)</span> rectangle, a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle, and an <span class="process-math">\(r = \cm{1.5}\)</span> circular hole,</p>
+<div class="para" id="p-1290">There are often several ways to divide a shape, but it’s best to use as few parts as possible to minimize your computations and opportunities for error.  For example, you could choose to break this shape into either a <span class="process-math">\(\cm{5} \times \cm{4}\)</span> rectangle, a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle, and an <span class="process-math">\(r = \cm{1.5}\)</span> circular hole,</div>
 <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/images/composite-ex-1.svg" role="img" class="contained" alt="Rectangle plus triangle minus circle"></div>
-<p id="p-1290">or a large <span class="process-math">\(\cm{10} \times \cm{4}\)</span> rectangle,  an <span class="process-math">\(r = \cm{1.5}\)</span>  circular hole, and a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle subtracted from the large rectangle.</p>
+<div class="para" id="p-1291">or a large <span class="process-math">\(\cm{10} \times \cm{4}\)</span> rectangle,  an <span class="process-math">\(r = \cm{1.5}\)</span>  circular hole, and a <span class="process-math">\(\cm{6} \times \cm{4}\)</span> right triangle subtracted from the large rectangle.</div>
 <div class="image-box" style="width: 70%; margin-left: 15%; margin-right: 15%;"><img src="external/images/composite-ex-2.svg" role="img" class="contained" alt="Rectangle of width 11 cm and height 4 cm minus right triangle with vertices at (5,4) and (11,0) minus circle."></div>
-<p id="p-1291">Both options will give the same results, and in this case there is no particular advantage to one choice over the other.  However, it would be silly and unnecessary to break this into more than three parts, and it would not be a good idea to divide this into a trapezoid minus a hole, unless you know geometric properties of a trapezoid, which are not available in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a>.  Be sure your sub-shapes don’t overlap and don’t get counted more than once.</p>
-<p id="p-1292"></p>
+<div class="para" id="p-1292">Both options will give the same results, and in this case there is no particular advantage to one choice over the other.  However, it would be silly and unnecessary to break this into more than three parts, and it would not be a good idea to divide this into a trapezoid minus a hole, unless you know geometric properties of a trapezoid, which are not available in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a>.  Be sure your sub-shapes don’t overlap and don’t get counted more than once.</div>
+<div class="para" id="p-1293"></div>
 </li>
 <li id="li-366">
-<span class="heading"><span class="title">Collect the areas and centroid coordinates.</span></span><p id="p-1293">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part.  You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.</p>
-<p id="p-1294">Record the information you gather in a table like the one below.  The table should include a row containing column headings and units, one row for each part, and a summary row.  The first column identifies the part — by number or sketch, the second contains the areas, and the third and fourth contains the centroidal coordinates of the parts.</p>
+<span class="heading"><span class="title">Collect the areas and centroid coordinates.</span></span><div class="para" id="p-1294">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part.  You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.</div>
+<div class="para" id="p-1295">Record the information you gather in a table like the one below.  The table should include a row containing column headings and units, one row for each part, and a summary row.  The first column identifies the part — by number or sketch, the second contains the areas, and the third and fourth contains the centroidal coordinates of the parts.</div>
 <div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="c m b1 r0 l0 t0 lines">Part</td>
@@ -435,86 +860,103 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 <td class="c m b0 r0 l0 t0 lines">41.86</td>
 </tr>
 </table></div>
-<p id="p-1295">The last two columns of the table contain the first moments of area  <span class="process-math">\(Q_x = A_i \bar{y}_i\)</span> and <span class="process-math">\(Q_y =  A_i \bar{x}_i\text{,}\)</span> and are easily filled in by multiplying the values in columns two to four.  Be sure to attend to positive and negative signs when multiplying. Note that the moment of area with respect to the <span class="process-math">\(x\)</span> axis uses the distance from the <span class="process-math">\(x\)</span> axis, which is <span class="process-math">\(\bar{y}_i\text{,}\)</span> and vice-versa.</p>
-<p id="p-1296">The final row of the table are total values, calculated by summing the entries for <span class="process-math">\(A_i\text{,}\)</span> <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\text{,}\)</span> so for example the total area of the shape is</p>
-<div class="displaymath process-math" data-contains-math-knowls="">
+<div class="para" id="p-1296">The last two columns of the table contain the first moments of area  <span class="process-math">\(Q_x = A_i \bar{y}_i\)</span> and <span class="process-math">\(Q_y =  A_i \bar{x}_i\text{,}\)</span> and are easily filled in by multiplying the values in columns two to four.  Be sure to attend to positive and negative signs when multiplying. Note that the moment of area with respect to the <span class="process-math">\(x\)</span> axis uses the distance from the <span class="process-math">\(x\)</span> axis, which is <span class="process-math">\(\bar{y}_i\text{,}\)</span> and vice-versa.</div>
+<div class="para logical" id="p-1297">
+<div class="para">The final row of the table are total values, calculated by summing the entries for <span class="process-math">\(A_i\text{,}\)</span> <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\text{,}\)</span> so for example the total area of the shape is</div>
+<div class="displaymath process-math">
 \begin{equation*}
 A = \sum A_i = A_1 + A_2 + A_3 \dots
 \end{equation*}
 </div>
-<p class="continuation">Don’t sum columns three or four, since <span class="process-math">\(\sum \bar{x}_i\)</span> and <span class="process-math">\(\sum \bar{y}_i\)</span> are meaningless.</p>
+<div class="para">Don’t sum columns three or four, since <span class="process-math">\(\sum \bar{x}_i\)</span> and <span class="process-math">\(\sum \bar{y}_i\)</span> are meaningless.</div>
+</div>
 </li>
 <li id="li-367">
-<span class="heading"><span class="title">Combine the pieces to find the overall centroid.</span></span><p id="p-1297">After you have filled in the whole table, you can find the coordinates of the centroid by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> with the summary values from the last row.</p>
+<span class="heading"><span class="title">Combine the pieces to find the overall centroid.</span></span><div class="para logical" id="p-1298">
+<div class="para">After you have filled in the whole table, you can find the coordinates of the centroid by applying <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> with the summary values from the last row.</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-131">
 \begin{align*}
 \bar{x} \amp =  \frac{Q_y}{A} \amp =  \frac{112.8}{24.93} \amp =  \cm{4.52}\\
 \bar{y} \amp =  \frac{Q_x}{A} \amp =  \frac{41.86}{24.93} \amp =  \cm{1.692}
 \end{align*}
 </div>
-<p id="p-1298">Finally, plot the centroid <span class="process-math">\((\bar{x}, \bar{y})\)</span> on the diagram.   If you have made a calculation error it will usually be obvious, because the centroid location won't “feel right.”</p>
+</div>
+<div class="para" id="p-1299">Finally, plot the centroid <span class="process-math">\((\bar{x}, \bar{y})\)</span> on the diagram.   If you have made a calculation error it will usually be obvious, because the centroid location won't “feel right.”</div>
 </li>
-</ol>
+</ol></div>
 <article class="example example-like" id="Chapter_07-example-interactive--centroid-of-trapezoid-and-hole"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.1</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Centroid of Trapezoid and Hole.</span>
-</h4> <p id="p-1299"></p> <aside class="aside aside-like" id="aside-46"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
-<p id="p-1300">Click ‘Show Parts’ to see the individual parts and their centroids, as well as the centroid of the whole shape.</p>
-<p id="p-1301">Move the read dots to create a different shape.</p></aside><figure class="figure figure-like" id="triangle-with-hole"><iframe id="ggb_triangle-with-hole_interactive" width="600" height="480" src="ggb_triangle-with-hole_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Interactive of the composite body consisting of a rectangle, triangle and a circular hole.</figcaption></figure></article><article class="example example-like" id="Chapter_07-example-interactive--centroid-of-composite-rectangles"><h4 class="heading">
+</h4> <div class="para" id="p-1300"></div> <aside class="aside aside-like" id="aside-46"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<div class="para" id="p-1301">Click ‘Show Parts’ to see the individual parts and their centroids, as well as the centroid of the whole shape.</div>
+<div class="para" id="p-1302">Move the read dots to create a different shape.</div></aside><figure class="figure figure-like" id="triangle-with-hole"><iframe id="ggb_triangle-with-hole_interactive" width="600" height="480" src="ggb_triangle-with-hole_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Interactive of the composite body consisting of a rectangle, triangle and a circular hole.</figcaption></figure></article><article class="example example-like" id="Chapter_07-example-interactive--centroid-of-composite-rectangles"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Interactive: Centroid of Composite Rectangles.</span>
-</h4> <p id="p-1305">This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points.</p> <p id="p-1306">Use this to visualize how the centroids of the whole is related to to the centroid of the parts.  Note that for objects divided into two pieces, the centroid of the whole always falls on the line connecting the centroids of the parts.</p> <aside class="aside aside-like" id="aside-47"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
-<p id="p-1307">Use the red and blue dots to adjust the size of the outer and inner rectangles. The centroid of the outer rectangle is red, the inner rectangle is blue and the whole shape is black.</p>
-<p id="p-1308">Can you find an example where the black centroid is between the red and blue ones?</p></aside><figure class="figure figure-like" id="two-rectangles-centroid"><iframe id="ggb_composite-centroid_interactive" width="600" height="420" src="ggb_composite-centroid_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.4<span class="period">.</span></span><span class="space"> </span>Interactive Centroids</figcaption></figure></article><article class="question example-like" id="question-6"><h4 class="heading">
+</h4> <div class="para" id="p-1306">This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points.</div> <div class="para" id="p-1307">Use this to visualize how the centroids of the whole is related to to the centroid of the parts.  Note that for objects divided into two pieces, the centroid of the whole always falls on the line connecting the centroids of the parts.</div> <aside class="aside aside-like" id="aside-47"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<div class="para" id="p-1308">Use the red and blue dots to adjust the size of the outer and inner rectangles. The centroid of the outer rectangle is red, the inner rectangle is blue and the whole shape is black.</div>
+<div class="para" id="p-1309">Can you find an example where the black centroid is between the red and blue ones?</div></aside><figure class="figure figure-like" id="two-rectangles-centroid"><iframe id="ggb_composite-centroid_interactive" width="600" height="420" src="ggb_composite-centroid_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.5.4<span class="period">.</span></span><span class="space"> </span>Interactive Centroids</figcaption></figure></article><article class="question example-like" id="question-6"><h4 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.5.5</span><span class="period">.</span>
 </h4>
-<p id="p-1312">When finding a centroid, what will happen if you don't measure the centroids of the parts consistently from the same origin?</p>
+<div class="para" id="p-1313">When finding a centroid, what will happen if you don't measure the centroids of the parts consistently from the same origin?</div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><p id="p-1313">Your answer will be wrong!</p></div></div>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-47" id="answer-47"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-47"><div class="answer solution-like"><div class="para" id="p-1314">Your answer will be wrong!</div></div></div>
 </div></article></section><section class="subsection" id="Chapter_07-centroids-of-3d-objects"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span>
 </h3>
 <article class="objectives goal-like" id="objectives-28"><h4 class="heading"><span class="type">Key Questions</span></h4>
 <ul class="disc">
-<li id="li-368"><p id="p-derived-li-368">How do you divide a composite solid into parts and compute the volume/mass and centroidal distances of each part?</p></li>
-<li id="li-369"><p id="p-derived-li-369">What is the technique to compute the overall center of volume/mass for a composite solid?</p></li>
-</ul></article><p id="p-1314">The centroid of a three-dimensional volume is found similarly to two-dimensional centroids, but with volume used instead of area for the weighting factor.  The centroid of a volume and the center of mass or gravity for a homogenous solid are identical.</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="md-132">
+<li id="li-368"><div class="para" id="p-derived-li-368">How do you divide a composite solid into parts and compute the volume/mass and centroidal distances of each part?</div></li>
+<li id="li-369"><div class="para" id="p-derived-li-369">What is the technique to compute the overall center of volume/mass for a composite solid?</div></li>
+</ul></article><div class="para logical" id="p-1315">
+<div class="para">The centroid of a three-dimensional volume is found similarly to two-dimensional centroids, but with volume used instead of area for the weighting factor.  The centroid of a volume and the center of mass or gravity for a homogenous solid are identical.</div>
+<div class="displaymath process-math" id="md-132">
 \begin{align*}
 \bar{x}\amp = \frac{\sum \bar{x}_i\ V_i }{\sum V_i}\amp \bar{y}\amp = \frac{\sum \bar{y}_i\ V_i }{\sum V_i}\amp \bar{z}\amp = \frac{\sum \bar{z}_i\ V_i }{\sum V_i}
 \end{align*}
 </div>
-<p id="p-1315">Where,</p>
+</div>
+<div class="para logical" id="p-1316">
+<div class="para">Where,</div>
 <ul class="no-marker">
-<li id="li-370"><p id="p-1316"><span class="process-math">\(\bar{x}\text{,}\)</span> <span class="process-math">\(\bar{y}\text{,}\)</span> and <span class="process-math">\(\bar{z}\)</span>  are the coordinates of the centroid of the overall volume. <span class="process-math">\(V_i\)</span> is the volume of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
-<li id="li-371"><p id="p-1317"><span class="process-math">\(\bar{x}_i\text{,}\)</span> <span class="process-math">\(\bar{y}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  is the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span></p></li>
+<li id="li-370"><div class="para" id="p-1317">
+<span class="process-math">\(\bar{x}\text{,}\)</span> <span class="process-math">\(\bar{y}\text{,}\)</span> and <span class="process-math">\(\bar{z}\)</span>  are the coordinates of the centroid of the overall volume. <span class="process-math">\(V_i\)</span> is the volume of composite part <span class="process-math">\(i\text{.}\)</span>
+</div></li>
+<li id="li-371"><div class="para" id="p-1318">
+<span class="process-math">\(\bar{x}_i\text{,}\)</span> <span class="process-math">\(\bar{y}_i\text{,}\)</span> and <span class="process-math">\(\bar{y}_i\)</span>  is the coordinates of the centroid of composite part <span class="process-math">\(i\text{.}\)</span>
+</div></li>
 </ul>
-<p id="p-1318">Many three-dimensional  shapes are just prismatic extrusions of the shapes.  The volume of a prism is the product of the cross-sectional area and the length of the prism and is easily calculated.  For example, the volume of a circular cylinder with radius <span class="process-math">\(r\)</span>  and length <span class="process-math">\(l\)</span> is  <span class="process-math">\(V=\pi\ r^2\ l\text{.}\)</span></p>
-<p id="p-1319">If the density varies for each part of a composite solid, we can find the center of mass by dividing the first moment of mass by the total mass. You can also compute the center of gravity by replacing the mass terms in the equations below with weight terms.</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="md-133">
+</div>
+<div class="para" id="p-1319">Many three-dimensional  shapes are just prismatic extrusions of the shapes.  The volume of a prism is the product of the cross-sectional area and the length of the prism and is easily calculated.  For example, the volume of a circular cylinder with radius <span class="process-math">\(r\)</span>  and length <span class="process-math">\(l\)</span> is  <span class="process-math">\(V=\pi\ r^2\ l\text{.}\)</span>
+</div>
+<div class="para logical" id="p-1320">
+<div class="para">If the density varies for each part of a composite solid, we can find the center of mass by dividing the first moment of mass by the total mass. You can also compute the center of gravity by replacing the mass terms in the equations below with weight terms.</div>
+<div class="displaymath process-math" id="md-133">
 \begin{align*}
 \bar{x}\amp =  \frac{\sum \bar{x}_i\ m_i }{\sum m_i} \amp \bar{y}\amp =  \frac{\sum \bar{y}_i\ m_i }{\sum m_i}\amp \bar{z}\amp =  \frac{\sum \bar{z}_i\ m_i }{\sum m_i}
 \end{align*}
 </div>
-<p class="continuation">Here <span class="process-math">\(m_i\)</span> is the mass of composite part <span class="process-math">\(i\text{.}\)</span></p>
-<p id="p-1320">You must always use the same weighting factor (area, volume, mass, weight, etc) in both the numerator and denominator of the center of area/volume/mass/weight equations.</p>
+<div class="para">Here <span class="process-math">\(m_i\)</span> is the mass of composite part <span class="process-math">\(i\text{.}\)</span>
+</div>
+</div>
+<div class="para" id="p-1321">You must always use the same weighting factor (area, volume, mass, weight, etc) in both the numerator and denominator of the center of area/volume/mass/weight equations.</div>
 <article class="example example-like" id="Chapter_07-example-3d-center-of-mass"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.5.6</span><span class="period">.</span><span class="space"> </span><span class="title">3D Center of Mass.</span>
 </h4>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:55%;">
-<p id="p-1321">A composite solid consists of a rectangular block of lightweight concrete and a triangular wedge of steel with dimensions as shown. The rectangular block has a <span class="process-math">\(\ft{2}\)</span> radius circular hole, centered and drilled through its full depth, perpendicular to the front and back faces.</p>
-<p id="p-1322">Assume <span class="process-math">\(\gamma_C = \pqf{125}\text{,}\)</span> and <span class="process-math">\(\gamma_S = \pqf{493}\text{.}\)</span></p>
-<p id="p-1323">Find the center of mass of this composite solid.</p>
+<div class="para" id="p-1322">A composite solid consists of a rectangular block of lightweight concrete and a triangular wedge of steel with dimensions as shown. The rectangular block has a <span class="process-math">\(\ft{2}\)</span> radius circular hole, centered and drilled through its full depth, perpendicular to the front and back faces.</div>
+<div class="para" id="p-1323">Assume <span class="process-math">\(\gamma_C = \pqf{125}\text{,}\)</span> and <span class="process-math">\(\gamma_S = \pqf{493}\text{.}\)</span>
+</div>
+<div class="para" id="p-1324">Find the center of mass of this composite solid.</div>
 </div>
 <div class="sbspanel middle" style="width:40%;"><img src="external/images/3d-composite1.svg" role="img" class="contained"></div>
 </div></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-48" id="answer-48"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-48"><div class="answer solution-like"><div class="displaymath process-math" data-contains-math-knowls="" id="md-134">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-48" id="answer-48"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-48"><div class="answer solution-like"><div class="para logical" id="p-1325"><div class="displaymath process-math" id="md-134">
 \begin{align*}
 \bar{x} \amp =  \ft{-3.22}\\
 \bar{y} \amp =  \ft{2.59}\\
 \bar{z} \amp =  \ft{3.37}
 \end{align*}
-</div></div></div>
+</div></div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original has-tabular" data-refid="hk-solution-53" id="solution-53"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-53"><div class="solution solution-like">
 <figure class="table table-like" id="table-3"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">7.5.7<span class="period">.</span></span><span class="space"> </span></figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
@@ -595,15 +1037,23 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <td class="c m b0 r0 l0 t0 lines">69042</td>
 <td class="c m b0 r0 l0 t0 lines">89717</td>
 </tr>
-</table></div></figure> <div class="displaymath process-math" data-contains-math-knowls="" id="md-135">
+</table></div></figure> <div class="para logical" id="p-1326"><div class="displaymath process-math" id="md-135">
 \begin{align*}
 \bar{x} \amp =  \frac{\sum W_i\ \bar{x}_i}{\sum V_i} \amp =  \frac{\ft{-85814}^3}{\ft{26633}^2} \amp =  \ft{-3.22}\\
 \bar{y} \amp =  \frac{\sum W_i\ \bar{y}_i}{\sum V_i} \amp =  \frac{\ft{69042}^3}{\ft{26633}^2} \amp =  \ft{2.59}\\
 \bar{z} \amp =  \frac{\sum W_i\ \bar{z}_i}{\sum V_i} \amp =  \frac{\ft{89717}^3}{\ft{26633}^2} \amp =  \ft{3.37}
 \end{align*}
-</div> <p id="p-1326">We have actually found the coordinates of the center of gravity, but since <span class="process-math">\(g\)</span> is constant they are also coordinates of the center of mass.</p>
+</div></div> <div class="para" id="p-1327">We have actually found the coordinates of the center of gravity, but since <span class="process-math">\(g\)</span> is constant they are also coordinates of the center of mass.</div>
 </div></div>
-</div></article></section></section></div></main>
+</div></article></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="Chapter_07-centroids.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_07-average-value-of-a-function.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org"><div class="name">Authored in PreTeXt</div>
+<div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259 "></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0  472  9732 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496 A 4241 4241  0  0  1  4724  3590 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259 A 4507 4507  0  0  1  4724  9448 "></path><polyline points="5385,4299 4062,8125 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8598,3496 8598,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="850,3496 850,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="4960,9685 4488,9685 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="3070,4582 1889,6141 3070,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="6418,4582 7600,6141 6418,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8976,3590 8976,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732 "></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy"><div class="name">Powered by Runestone</div>
+<img class="logo" title="Powered by Runestone" src="https://runestone.academy/runestone/static/rectangle_badge.png" alt="Powered by Runestone"></a><a class="mathjax-logo" href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

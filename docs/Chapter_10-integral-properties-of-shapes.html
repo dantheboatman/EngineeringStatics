@@ -25,7 +25,7 @@ window.MathJax = {
     tags: "none",
     tagSide: "right",
     tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
   },
   options: {
     ignoreHtmlClass: "tex2jax_ignore|ignore-math",
@@ -45,11 +45,11 @@ window.MathJax = {
     },
   },
   chtml: {
-    scale: 0.88,
+    scale: 0.98,
     mtextInheritFont: true
   },
   loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
   startup: {
@@ -59,25 +59,152 @@ window.MathJax = {
       rsMathReady();
       }
     )}
-},
+  },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
-<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
 </head>
-<body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="Chapter_10.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_10.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="MOI-common-shapes.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
 \newcommand{\jhat}{\vec{j}}
@@ -134,187 +261,474 @@ window.MathJax = {
 \definecolor{fillinmathshade}{gray}{0.9}
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
-<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
-<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
-<p class="byline">Daniel W. Baker, William Haynes</p>
-</div>
-<div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
-</div></div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
-</h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
-</div>
-</div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
-<div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_10.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_10.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="MOI-common-shapes.html" title="Next">Next</a></span></div>
-</div>
-<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_10.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_10.html" title="Up">Up</a><a class="next-button button toolbar-item" href="MOI-common-shapes.html" title="Next">Next</a>
-</div>
-</div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
-<nav id="toc"><ul>
-<li class="link frontmatter">
-<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
-<li><a href="acknowledgement.html" data-scroll="acknowledgement" class="internal">Acknowledgements</a></li>
-<li><a href="preface.html" data-scroll="preface" class="internal">Preface</a></li>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_01.html" data-scroll="Chapter_01" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
-<li><a href="newtons-laws.html" data-scroll="newtons-laws" class="internal">Newton’s Laws of Motion</a></li>
-<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units" class="internal">Units</a></li>
-<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces" class="internal">Forces</a></li>
-<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving" class="internal">Problem Solving</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_02.html" data-scroll="Chapter_02" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
-<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors" class="internal">Vectors</a></li>
-<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors" class="internal">One-Dimensional Vectors</a></li>
-<li><a href="cartesian-coords-2d.html" data-scroll="cartesian-coords-2d" class="internal">Two Dimensional Coordinate Systems</a></li>
-<li><a href="coordinates-3d.html" data-scroll="coordinates-3d" class="internal">Three Dimensional Coordinate Systems</a></li>
-<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors" class="internal">Unit Vectors</a></li>
-<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D" class="internal">Vector Addition</a></li>
-<li><a href="dot_products_2D.html" data-scroll="dot_products_2D" class="internal">Dot Products</a></li>
-<li><a href="cross-product-math.html" data-scroll="cross-product-math" class="internal">Cross Products</a></li>
-<li><a href="exercises-1.html" data-scroll="exercises-1" class="internal">Exercises (Ch. 2)</a></li>
+<li><div class="toc-item"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_03.html" data-scroll="Chapter_03" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
-<li><a href="ch3-intro.html" data-scroll="ch3-intro" class="internal">Equilibrium</a></li>
-<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles" class="internal">Particles</a></li>
-<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles" class="internal">Particles in One Dimension</a></li>
-<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles" class="internal">Particles in Two Dimensions</a></li>
-<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles" class="internal">Particles in Three Dimensions</a></li>
-<li><a href="exercises-2.html" data-scroll="exercises-2" class="internal">Exercises (Ch. 3)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_04.html" data-scroll="Chapter_04" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
-<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment" class="internal">Direction of a Moment</a></li>
-<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment" class="internal">Magnitude of a Moment</a></li>
-<li><a href="varignons-theorem.html" data-scroll="varignons-theorem" class="internal">Varignon’s Theorem</a></li>
-<li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions" class="internal">Moments in Three Dimensions</a></li>
-<li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples" class="internal">Couples</a></li>
-<li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations" class="internal">Equivalent Transformations</a></li>
-<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems" class="internal">Statically Equivalent Systems</a></li>
-<li><a href="exercises-3.html" data-scroll="exercises-3" class="internal">Exercises (Ch. 4)</a></li>
+<li>
+<div class="toc-item"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Two Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_05.html" data-scroll="Chapter_05" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
-<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom" class="internal">Degree of Freedom</a></li>
-<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams" class="internal">Free Body Diagrams</a></li>
-<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium" class="internal">Equations of Equilibrium</a></li>
-<li><a href="Chapter_05-2d-rigid-body-equilibrium.html" data-scroll="Chapter_05-2d-rigid-body-equilibrium" class="internal">2D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-3d-rigid-body-equilibrium.html" data-scroll="Chapter_05-3d-rigid-body-equilibrium" class="internal">3D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy" class="internal">Stability and Determinacy</a></li>
-<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-" class="internal">Equilibrium Examples</a></li>
-<li><a href="exercises-4.html" data-scroll="exercises-4" class="internal">Exercises (Ch. 5)</a></li>
+<li>
+<div class="toc-item"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Three Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_06.html" data-scroll="Chapter_06" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
-<li><a href="Chapter_06-structures.html" data-scroll="Chapter_06-structures" class="internal">Structures</a></li>
-<li><a href="Chapter_06-interactions-between-members.html" data-scroll="Chapter_06-interactions-between-members" class="internal">Interactions between members</a></li>
-<li><a href="Chapter_06-trusses.html" data-scroll="Chapter_06-trusses" class="internal">Trusses</a></li>
-<li><a href="method-of-joints.html" data-scroll="method-of-joints" class="internal">Method of Joints</a></li>
-<li><a href="method-of-sections.html" data-scroll="method-of-sections" class="internal">Method of Sections</a></li>
-<li><a href="frames-and-machines.html" data-scroll="frames-and-machines" class="internal">Frames and Machines</a></li>
-<li><a href="Chapter_06-summary.html" data-scroll="Chapter_06-summary" class="internal">Summary</a></li>
-<li><a href="exercises-5.html" data-scroll="exercises-5" class="internal">Exercises (Ch. 6)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_07.html" data-scroll="Chapter_07" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
-<li><a href="weghted-average.html" data-scroll="weghted-average" class="internal">Weighted Averages</a></li>
-<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity" class="internal">Center of Gravity</a></li>
-<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass" class="internal">Center of Mass</a></li>
-<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids" class="internal">Centroids</a></li>
-<li><a href="composite-parts.html" data-scroll="composite-parts" class="internal">Centroids using Composite Parts</a></li>
-<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function" class="internal">Average Value of a Function</a></li>
-<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration" class="internal">Centroids using Integration</a></li>
-<li><a href="distributed-loads.html" data-scroll="distributed-loads" class="internal">Distributed Loads</a></li>
-<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics" class="internal">Fluid Statics</a></li>
-<li><a href="exercises-6.html" data-scroll="exercises-6" class="internal">Exercises (Ch. 7)</a></li>
+<li>
+<div class="toc-item"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_08.html" data-scroll="Chapter_08" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
-<li><a href="Chapter_08-internal-loads.html" data-scroll="Chapter_08-internal-loads" class="internal">Internal Loads</a></li>
-<li><a href="VM_sign_convention.html" data-scroll="VM_sign_convention" class="internal">Sign Conventions</a></li>
-<li><a href="internal_load_at_point.html" data-scroll="internal_load_at_point" class="internal">Internal Loads at a Point</a></li>
-<li><a href="VM_diagrams.html" data-scroll="VM_diagrams" class="internal">Shear and Bending Moment Diagrams</a></li>
-<li><a href="section_cut_method.html" data-scroll="section_cut_method" class="internal">Section Cut Method</a></li>
-<li><a href="VM_relations.html" data-scroll="VM_relations" class="internal">Relation Between Loading, Shear and Moment</a></li>
-<li><a href="graphical_method.html" data-scroll="graphical_method" class="internal">Graphical Method</a></li>
-<li><a href="integration_method.html" data-scroll="integration_method" class="internal">Integration Method</a></li>
-<li><a href="Chapter_08-geogebra-interactives.html" data-scroll="Chapter_08-geogebra-interactives" class="internal">Geogebra Interactives</a></li>
-<li><a href="Chapter_08-summary.html" data-scroll="Chapter_08-summary" class="internal">Summary</a></li>
-<li><a href="exercises-7.html" data-scroll="exercises-7" class="internal">Exercises (Ch. 8)</a></li>
+<li>
+<div class="toc-item"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_09.html" data-scroll="Chapter_09" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
-<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction" class="internal">Dry Friction</a></li>
-<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction" class="internal">Block and Wedge Friction</a></li>
-<li><a href="Chapter_09-slipping-vs--tipping.html" data-scroll="Chapter_09-slipping-vs--tipping" class="internal">Slipping vs. Tipping</a></li>
-<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction" class="internal">Screw Friction</a></li>
-<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction" class="internal">Flexible Belt Friction</a></li>
-<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction" class="internal">Journal Bearing Friction</a></li>
-<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction" class="internal">Disc Friction</a></li>
-<li><a href="exercises-8.html" data-scroll="exercises-8" class="internal">Exercises (Ch. 9)</a></li>
+<li>
+<div class="toc-item"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_10.html" data-scroll="Chapter_10" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
-<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes" class="active">Integral Properties of Shapes</a></li>
-<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes" class="internal">Moments of Inertia of Common Shapes</a></li>
-<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section" class="internal">Parallel Axis Theorem</a></li>
-<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes" class="internal">Moment of Inertia of Composite Shapes</a></li>
-<li><a href="polar-moment.html" data-scroll="polar-moment" class="internal">Polar Moment of Inertia</a></li>
-<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec" class="internal">Radius of Gyration</a></li>
-<li><a href="products-of-inertia.html" data-scroll="products-of-inertia" class="internal">Products of Inertia</a></li>
-<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia" class="internal">Mass Moment of Inertia</a></li>
-<li><a href="exercises-9.html" data-scroll="exercises-9" class="internal">Exercises (Ch. 10)</a></li>
+<li><div class="toc-item"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
 </ul>
 </li>
-<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Back Matter</span></a></li>
-<li class="link"><a href="notation.html" data-scroll="notation" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></li>
-<li class="link">
-<a href="useful-mathematics.html" data-scroll="useful-mathematics" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a><ul>
-<li><a href="distance-formula.html" data-scroll="distance-formula" class="internal">Distance Formula</a></li>
-<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa" class="internal">Right Triangle Trigonometry</a></li>
-<li><a href="los-loc.html" data-scroll="los-loc" class="internal">Oblique Triangle Trigonometry</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li>
+<div class="toc-item"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Particles in One Dimension</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Scalar-Components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="AISC-properties.html" data-scroll="AISC-properties" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a><ul>
-<li><a href="AISC-angles.html" data-scroll="AISC-angles" class="internal">Angles</a></li>
-<li><a href="AISC-channels.html" data-scroll="AISC-channels" class="internal">Channels</a></li>
-<li><a href="AISC-standard-sections.html" data-scroll="AISC-standard-sections" class="internal">Standard Sections</a></li>
-<li><a href="AISC-wide-flange.html" data-scroll="AISC-wide-flange" class="internal">Wide Flange Sections</a></li>
+<li>
+<div class="toc-item"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Particles in Two Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
 </ul>
 </li>
-</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
-</div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_10-integral-properties-of-shapes"><h2 class="heading hide-type">
+<li>
+<div class="toc-item"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Moments in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Couples</span></a></div></li>
+<li><div class="toc-item"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li><div class="toc-item"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-3.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural"><li>
+<div class="toc-item"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-internal-loads.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Loads</span></a></div></li>
+<li><div class="toc-item"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li>
+<div class="toc-item"><a href="internal_load_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Loads at a Point</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="internal_load_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Loading</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li><div class="toc-item"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li>
+<div class="toc-item"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">How can you tell from a problem statement which phase of friction to use?</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction angle and friction resultant</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Block and Wedge Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw motion and the Right-hand-rule</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw thread properties</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moments to reach impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="codenumber">9.4.4</span> <span class="title">Screws where the applied force opposes impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="codenumber">9.4.5</span> <span class="title">Screws where the applied force supports impending motion</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belt Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-flat-belts" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Friction in Flat Belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Finding the contact angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Determining which belt has the largest tension.</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="codenumber">9.5.4</span> <span class="title">Finding the change in belt tension due to friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="title">Friction in V-belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="title">Torque in belt systems</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearing Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Journal bearings with a rotating shaft and a fixed bearing</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Journal bearings with a fixed shaft and a rotating bearing</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Disc Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#disk-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-collar-bearing-with-a-hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar bearing with a hollow circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End bearing with a solid circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Disc brakes with a circular arc</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural">
+<li class="active">
+<div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Moment of Inertia of Composite Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li><div class="toc-item"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li>
+<div class="toc-item"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li><div class="toc-item"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li>
+<div class="toc-item"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li><div class="toc-item"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="AISC-angles.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">C.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">C.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-channels.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">C.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">C.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">C.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">C.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">C.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">C.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">C.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">C.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_10-integral-properties-of-shapes"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span>
 </h2>
 <article class="objectives goal-like" id="objectives-39"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
-<li id="li-556"><p id="p-2035">Why does the area moment of inertia integral equation include a distance squared term?</p></li>
-<li id="li-557"><p id="p-2036">When performing a single integral, either <span class="process-math">\(dx\)</span> or <span class="process-math">\(dy\text{,}\)</span> what is your differential element <span class="process-math">\(dA\)</span> shape?</p></li>
-</ul></article><section class="introduction" id="introduction-41"><p id="p-2037">As you know, two dimensional shapes like rectangles and circles have properties such as area, perimeter, and centroid. These are purely <em class="emphasis">geometric</em> properties since they belong to the shape alone, in contrast to <em class="emphasis">physical</em> properties like weight and mass which belong to real physical objects.</p> <p id="p-2038">In this section we introduce several new geometric properties useful in engineering including the <dfn class="terminology">Area Moment of Inertia</dfn>.</p> <p id="p-2039">The integral properties of shapes, along with the names and symbols commonly used to represent them are given in the table below. You are already familiar with <em class="emphasis">area</em> from Geometry and the <em class="emphasis">first moment of area</em> from <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>. The remaining properties are the subject of this chapter. They all have a similar form, and can be evaluated using similar integration techniques.</p> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<li id="li-556"><div class="para" id="p-2036">Why does the area moment of inertia integral equation include a distance squared term?</div></li>
+<li id="li-557"><div class="para" id="p-2037">When performing a single integral, either <span class="process-math">\(dx\)</span> or <span class="process-math">\(dy\text{,}\)</span> what is your differential element <span class="process-math">\(dA\)</span> shape?</div></li>
+</ul></article><section class="introduction" id="introduction-41"><div class="para" id="p-2038">As you know, two dimensional shapes like rectangles and circles have properties such as area, perimeter, and centroid. These are purely <em class="emphasis">geometric</em> properties since they belong to the shape alone, in contrast to <em class="emphasis">physical</em> properties like weight and mass which belong to real physical objects.</div> <div class="para" id="p-2039">In this section we introduce several new geometric properties useful in engineering including the <dfn class="terminology">Area Moment of Inertia</dfn>.</div> <div class="para" id="p-2040">The integral properties of shapes, along with the names and symbols commonly used to represent them are given in the table below. You are already familiar with <em class="emphasis">area</em> from Geometry and the <em class="emphasis">first moment of area</em> from <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>. The remaining properties are the subject of this chapter. They all have a similar form, and can be evaluated using similar integration techniques.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="MOI-potato-ggb"><iframe id="moi-potato_interactive" width="300" height="150" src="moi-potato_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.1<span class="period">.</span></span><span class="space"> </span>Definitions for area properties</figcaption></figure></div>
-<div class="sbspanel top" style="width:45%;"><p id="p-2040">This interactive diagram defines the terms which apply to all of the property definitions below. It shows a generic plane area <span class="process-math">\(A\text{,}\)</span> divided into differential elements <span class="process-math">\(dA = dx\ dy\text{.}\)</span> The differential element <span class="process-math">\(dA\)</span> is an infinitesimally tiny rectangle centered about point <span class="process-math">\((x,y)\text{,}\)</span> which can range over the entire area. The distances to the element from the <span class="process-math">\(y\)</span> axis, the <span class="process-math">\(x\)</span> axis and the origin are designated  <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(r\)</span> respectively. The centroid of the entire area is located at <span class="process-math">\((\bar{x},\bar{y})\text{.}\)</span></p></div>
+<div class="sbspanel top" style="width:45%;"><div class="para" id="p-2041">This interactive diagram defines the terms which apply to all of the property definitions below. It shows a generic plane area <span class="process-math">\(A\text{,}\)</span> divided into differential elements <span class="process-math">\(dA = dx\ dy\text{.}\)</span> The differential element <span class="process-math">\(dA\)</span> is an infinitesimally tiny rectangle centered about point <span class="process-math">\((x,y)\text{,}\)</span> which can range over the entire area. The distances to the element from the <span class="process-math">\(y\)</span> axis, the <span class="process-math">\(x\)</span> axis and the origin are designated  <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(r\)</span> respectively. The centroid of the entire area is located at <span class="process-math">\((\bar{x},\bar{y})\text{.}\)</span>
+</div></div>
 </div></div> <div class="tabular-box natural-width"><table class="tabular">
 <tr class="header-horizontal">
 <th scope="col" class="l m b0 r0 l0 t0 lines">Definition</th>
@@ -322,165 +736,200 @@ window.MathJax = {
 <th scope="col" class="l m b0 r0 l0 t0 lines">More Information</th>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2041">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2042"><div class="displaymath process-math">
 \begin{equation*}
 A =\int_A dA
 \end{equation*}
-</div></td>
-<td class="l m b0 r0 l0 t0" style="max-width:240px;"><p id="p-2042">Area</p></td>
+</div></div></td>
+<td class="l m b0 r0 l0 t0" style="max-width:240px;"><div class="para" id="p-2043">Area</div></td>
 <td class="l m b0 r0 l0 t0 lines"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal" title="Subsection 7.7.2: Area of a General Spandrel">Subsection 7.7.2</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2043">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2044"><div class="displaymath process-math">
 \begin{equation*}
 Q_x =\int_A y\ dA
 \end{equation*}
-</div></td>
+</div></div></td>
 <td class="l m b0 r0 l0 t0 lines">First Moment of Area<br>(with respect to the <span class="process-math">\(x\)</span> axis)</td>
 <td class="l m b0 r0 l0 t0 lines"><a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2044">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2045"><div class="displaymath process-math">
 \begin{equation*}
 Q_y =\int_A x\ dA
 \end{equation*}
-</div></td>
+</div></div></td>
 <td class="l m b0 r0 l0 t0 lines">First Moment of Area<br>(with respect to the <span class="process-math">\(y\)</span> axis)</td>
 <td class="l m b0 r0 l0 t0 lines"><a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2045">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2046"><div class="displaymath process-math">
 \begin{equation*}
 I_x =\int_A y^2\ dA
 \end{equation*}
-</div></td>
+</div></div></td>
 <td class="l m b0 r0 l0 t0 lines">Second Moment of Area, or<br>Moment of Inertia<br>(with respect to the <span class="process-math">\(x\)</span> axis)</td>
 <td class="l m b0 r0 l0 t0 lines"><a href="MOI-common-shapes.html" class="internal" title="Section 10.2: Moments of Inertia of Common Shapes">Section 10.2</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2046">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2047"><div class="displaymath process-math">
 \begin{equation*}
 I_y =\int_A x^2\ dA
 \end{equation*}
-</div></td>
+</div></div></td>
 <td class="l m b0 r0 l0 t0 lines">Second Moment of Area, or<br>Moment of Inertia<br>(with respect to the <span class="process-math">\(y\)</span> axis)</td>
 <td class="l m b0 r0 l0 t0 lines"><a href="MOI-common-shapes.html" class="internal" title="Section 10.2: Moments of Inertia of Common Shapes">Section 10.2</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2047">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2048"><div class="displaymath process-math">
 \begin{equation*}
 J_O =\int_A r^2\ dA
 \end{equation*}
-</div></td>
-<td class="l m b0 r0 l0 t0" style="max-width:240px;"><p id="p-2048">Polar Moment of Inertia</p></td>
+</div></div></td>
+<td class="l m b0 r0 l0 t0" style="max-width:240px;"><div class="para" id="p-2049">Polar Moment of Inertia</div></td>
 <td class="l m b0 r0 l0 t0 lines"><a href="polar-moment.html" class="internal" title="Section 10.5: Polar Moment of Inertia">Section 10.5</a></td>
 </tr>
 <tr>
-<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="displaymath process-math" data-contains-math-knowls="" id="p-2049">
+<td class="l m b0 r0 l0 t0" style="max-width:150px;"><div class="para logical" id="p-2050"><div class="displaymath process-math">
 \begin{equation*}
 I_xy =\int_A x\ y\ dA
 \end{equation*}
-</div></td>
-<td class="l m b0 r0 l0 t0" style="max-width:240px;"><p id="p-2050">Product of Inertia</p></td>
+</div></div></td>
+<td class="l m b0 r0 l0 t0" style="max-width:240px;"><div class="para" id="p-2051">Product of Inertia</div></td>
 <td class="l m b0 r0 l0 t0 lines"><a href="products-of-inertia.html" class="internal" title="Section 10.7: Products of Inertia">Section 10.7</a></td>
 </tr>
-</table></div> <p id="p-2051">All of these properties are defined as integrals over an area <span class="process-math">\(A\text{.}\)</span>  These integrals may be evaluated by double-integrating over <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> in Cartesian coordinates or <span class="process-math">\(r\)</span> and <span class="process-math">\(\theta\)</span> in polar coordinates. They can also be evaluated using single integration using the methods demonstrated in <a href="MOI-common-shapes.html#MOI-triangle" class="internal" title="Subsection 10.2.2: Moment of Inertia of a Triangle">Subsection 10.2.2</a>.</p> <p id="p-2052">None of these integrals can be evaluated until a specific shape is chosen.  When shape has been specified, the bounding functions and integration limits can be determined and only then may the integral be solved using appropriate integration techniques.  If the shape is specified in general terms, say a rectangle with base <span class="process-math">\(b\)</span> and height <span class="process-math">\(h\text{,}\)</span> then the result of the integration will be a formula for the property applicable to all similar shapes.</p></section><section class="subsection" id="Chapter_10-area"><h3 class="heading hide-type">
+</table></div> <div class="para" id="p-2052">All of these properties are defined as integrals over an area <span class="process-math">\(A\text{.}\)</span>  These integrals may be evaluated by double-integrating over <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> in Cartesian coordinates or <span class="process-math">\(r\)</span> and <span class="process-math">\(\theta\)</span> in polar coordinates. They can also be evaluated using single integration using the methods demonstrated in <a href="MOI-common-shapes.html#MOI-triangle" class="internal" title="Subsection 10.2.2: Moment of Inertia of a Triangle">Subsection 10.2.2</a>.</div> <div class="para" id="p-2053">None of these integrals can be evaluated until a specific shape is chosen.  When shape has been specified, the bounding functions and integration limits can be determined and only then may the integral be solved using appropriate integration techniques.  If the shape is specified in general terms, say a rectangle with base <span class="process-math">\(b\)</span> and height <span class="process-math">\(h\text{,}\)</span> then the result of the integration will be a formula for the property applicable to all similar shapes.</div></section><section class="subsection" id="Chapter_10-area"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.1.1</span> <span class="title">Area</span>
 </h3>
-<p id="p-2053">The total <dfn class="terminology">area</dfn> of a shape is found by integrating the differential elements of area over the entire shape.</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="men-78">
+<div class="para logical" id="p-2054">
+<div class="para">The total <dfn class="terminology">area</dfn> of a shape is found by integrating the differential elements of area over the entire shape.</div>
+<div class="displaymath process-math" id="men-78">
 \begin{equation}
 A = \int_A dA\text{.}\tag{10.1.1}
 \end{equation}
 </div>
-<p class="continuation">The limit on this integral is indicated with an <span class="process-math">\(A\)</span> to indicate that the integration is carried out over the entire area.  The resulting value will have units of <span class="process-math">\([\textrm{length}]^2\)</span> and does not depend on the position of the shape on the coordinate plane.</p>
-<p id="p-2054">Since the area formulas for common shapes are well known, you only need to use integration in uncommon situations.</p></section><section class="subsection" id="Chapter_10-first-moment-of-area"><h3 class="heading hide-type">
+<div class="para">The limit on this integral is indicated with an <span class="process-math">\(A\)</span> to indicate that the integration is carried out over the entire area.  The resulting value will have units of <span class="process-math">\([\textrm{length}]^2\)</span> and does not depend on the position of the shape on the coordinate plane.</div>
+</div>
+<div class="para" id="p-2055">Since the area formulas for common shapes are well known, you only need to use integration in uncommon situations.</div></section><section class="subsection" id="Chapter_10-first-moment-of-area"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span>
 </h3>
-<p id="p-2055">The <dfn class="terminology">first moment of area</dfn>, which was introduced in <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>, is defined by these two equations.</p>
+<div class="para logical" id="p-2056">
+<div class="para">The <dfn class="terminology">first moment of area</dfn>, which was introduced in <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>, is defined by these two equations.</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/Chapter_07.html" id="mdn-15">
 \begin{align}
 Q_x \amp = \int_A y\ dA \amp Q_y \amp = \int_A x\ dA\tag{10.1.2}
 \end{align}
 </div>
-<p class="continuation">and has units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span></p>
-<p id="p-2056">The first moment of area with respect to an axis is a measure of the distribution of the shape about an axis. It depends on the shape and also its location on the coordinate plain. Portions of area on the negative side of the selected axis make the first moment smaller, while areas on the positive side make it larger. If the shape’s centroid is located exactly on the axis, the integral will sum to zero because the contributions of area above and below the axis cancel each other.</p>
-<p id="p-2057">The average value of the first moment of area is found by is found by dividing the first moment by the area of the shape, and the result indicates the distance from the axis to centroid of the shape.</p>
-<div class="displaymath process-math" data-contains-math-knowls="">
+<div class="para">and has units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span>
+</div>
+</div>
+<div class="para" id="p-2057">The first moment of area with respect to an axis is a measure of the distribution of the shape about an axis. It depends on the shape and also its location on the coordinate plain. Portions of area on the negative side of the selected axis make the first moment smaller, while areas on the positive side make it larger. If the shape’s centroid is located exactly on the axis, the integral will sum to zero because the contributions of area above and below the axis cancel each other.</div>
+<div class="para logical" id="p-2058">
+<div class="para">The average value of the first moment of area is found by is found by dividing the first moment by the area of the shape, and the result indicates the distance from the axis to centroid of the shape.</div>
+<div class="displaymath process-math">
 \begin{equation*}
 \bar{x}=\frac{\sum  \bar{x}_{i} A_i}{\sum  A_i} \quad \bar{y}=\frac{\sum  \bar{y}_{i} A_i}{\sum  A_i}\text{.}
 \end{equation*}
+</div>
 </div></section><section class="subsection" id="moment-of-inertia-intro"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span>
 </h3>
-<p id="p-2058">The <dfn class="terminology">area moment of inertia</dfn>, the subject of this chapter, is defined by these two equations.</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-16">
+<div class="para logical" id="p-2059">
+<div class="para">The <dfn class="terminology">area moment of inertia</dfn>, the subject of this chapter, is defined by these two equations.</div>
+<div class="displaymath process-math" id="mdn-16">
 \begin{align}
 I_x \amp = \int_A y^2\ dA \amp I_y \amp = \int_A x^2\ dA\tag{10.1.3}
 \end{align}
 </div>
-<p class="continuation">and has units of <span class="process-math">\([\textrm{length}]^4\text{.}\)</span></p>
-<p id="p-2059">As you can see, these equations are similar to the equations for the  <a href="" class="xref" data-knowl="./knowl/first-moment.html" title="Equation 10.1.2">first moment of area (10.1.2)</a>, except that the distance terms <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are now squared.  In recognition of the similarity, the area moments of inertia are also known as the <dfn class="terminology">second moments of area</dfn>.  We will use the terms moment of inertia and second moment interchangeably.  These two quantities are sometimes designated as <em class="emphasis">rectangular</em> moments of inertia to distinguish them from the polar moment of inertia described in the next section.</p>
-<p id="p-2060">Like the first moment, the second moment of area provides a measure of the distribution of area around an axis, but in this case the distance to each element is squared.  This gives increased importance to portions of the area which are far from the axis. Squaring the distance means that identical elements on opposite sides of the axis <em class="emphasis">both</em> contribute to the sum rather than cancel each other out as they do in the first moment.  As a result, the moment of inertia is always a positive quantity.</p>
-<p id="p-2061">Two identical shapes can have completely different moments of inertia, depending on how the shape is distributed around the axis. A shape with most of its area close to the axis has a smaller moment of inertia than the same shape would if its area was distributed farther from the axis. This is a non-linear effect, because when the distance term is doubled, the contribution of that element to the sum increases fourfold.</p>
+<div class="para">and has units of <span class="process-math">\([\textrm{length}]^4\text{.}\)</span>
+</div>
+</div>
+<div class="para" id="p-2060">As you can see, these equations are similar to the equations for the  <a href="" class="xref" data-knowl="./knowl/first-moment.html" title="Equation 10.1.2">first moment of area (10.1.2)</a>, except that the distance terms <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are now squared.  In recognition of the similarity, the area moments of inertia are also known as the <dfn class="terminology">second moments of area</dfn>.  We will use the terms moment of inertia and second moment interchangeably.  These two quantities are sometimes designated as <em class="emphasis">rectangular</em> moments of inertia to distinguish them from the polar moment of inertia described in the next section.</div>
+<div class="para" id="p-2061">Like the first moment, the second moment of area provides a measure of the distribution of area around an axis, but in this case the distance to each element is squared.  This gives increased importance to portions of the area which are far from the axis. Squaring the distance means that identical elements on opposite sides of the axis <em class="emphasis">both</em> contribute to the sum rather than cancel each other out as they do in the first moment.  As a result, the moment of inertia is always a positive quantity.</div>
+<div class="para" id="p-2062">Two identical shapes can have completely different moments of inertia, depending on how the shape is distributed around the axis. A shape with most of its area close to the axis has a smaller moment of inertia than the same shape would if its area was distributed farther from the axis. This is a non-linear effect, because when the distance term is doubled, the contribution of that element to the sum increases fourfold.</div>
 <article class="question example-like" id="question-11"><h4 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">10.1.2</span><span class="period">.</span>
 </h4>
-<p id="p-2062">These three triangles are all the same size.  Rank them from largest to largest smallest moment of inertia with respect to the <span class="process-math">\(y\)</span> axis.</p> <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/MOI-three-triangles.svg" role="img" class="contained" alt="Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left."></div>
+<div class="para" id="p-2063">These three triangles are all the same size.  Rank them from largest to largest smallest moment of inertia with respect to the <span class="process-math">\(y\)</span> axis.</div> <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/MOI-three-triangles.svg" role="img" class="contained" alt="Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left."></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-68" id="answer-68"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-68"><div class="answer solution-like"><p id="p-2063">From smallest to largest: <span class="process-math">\(I_C &gt;  I_A &gt; I_B\text{.}\)</span></p></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-82" id="solution-82"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-82"><div class="solution solution-like"><p id="p-2064">Although the areas of all three triangles are the same, triangle <span class="process-math">\(B\)</span> has the area on both sides of the <span class="process-math">\(y\)</span> axis and relatively close to it, and so has the smallest <span class="process-math">\(I\text{,}\)</span> while triangle <span class="process-math">\(C\)</span> has the most of its area far from the <span class="process-math">\(y\)</span> axis which makes its moment of inertia largest.  We will be able to show later that the <span class="process-math">\(I_C = 3 I_A = 9 I_B\text{.}\)</span></p></div></div>
-</div></article><p id="p-2065">Moving a shape away from the axis (or moving the axis away from the shape) increases its moment of inertia, and moving it closer to the axis decreases it, until it crosses to the other side of the axis, and then its moment of inertia will begin to increase again.</p>
-<p id="p-2066">The minimum moment of inertia occurs when the centroid of the shape falls on the axis.  When this occurs, the moment of inertia is called the <dfn class="terminology">centroidal moment of inertia.</dfn> A bar over the symbol <span class="process-math">\(I\)</span> is used to indicate that a moment of inertia is centroidal.  So for example, <span class="process-math">\(\bar{I}_x\)</span> and <span class="process-math">\(\bar{I}_y\)</span> represent the “centroidal moment of inertia with respect to the <span class="process-math">\(x\)</span> axis” and the “the centroidal moment of inertia with respect to the <span class="process-math">\(y\)</span> axis.”  The bar in this case does not mean that moment of inertia is a vector quantity. Note that a shape can have multiple centroidal moments of inertia, because more than one axis can pass through the centroid of a shape.  In this text, we will only the vertical and horizontal axes, but they are not the only possibilities.</p>
-<p id="p-2067">The centroidal moment of inertia is particularly important.  We will see in <a href="" class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a> that if we know a shape’s centroidal moment of inertia for some axis direction, it is a simple process to calculate the moment of inertia of the shape about any other parallel axis.  The moment of inertia is used in Mechanics of Materials to find stress and deflection in beams and to determine the load which will cause a column to buckle.</p>
-<p id="p-2068">We stated earlier that the centroidal moment of inertia is the minimum moment of inertia, but by this we mean, the minimum moment of inertia for a particular axis direction, for example horizontal.  Other centroidal axes may may have a different moment of inertia, either larger or smaller than the moment of inertia about a horizontal centroidal axis.   The centroidal axes which have the absolute minimum and maximum moment of inertia are called the principle axes.  The principle axes are not necessarily horizontal and vertical.</p>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-68" id="answer-68"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-68"><div class="answer solution-like"><div class="para" id="p-2064">From smallest to largest: <span class="process-math">\(I_C &gt;  I_A &gt; I_B\text{.}\)</span>
+</div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-82" id="solution-82"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-82"><div class="solution solution-like"><div class="para" id="p-2065">Although the areas of all three triangles are the same, triangle <span class="process-math">\(B\)</span> has the area on both sides of the <span class="process-math">\(y\)</span> axis and relatively close to it, and so has the smallest <span class="process-math">\(I\text{,}\)</span> while triangle <span class="process-math">\(C\)</span> has the most of its area far from the <span class="process-math">\(y\)</span> axis which makes its moment of inertia largest.  We will be able to show later that the <span class="process-math">\(I_C = 3 I_A = 9 I_B\text{.}\)</span>
+</div></div></div>
+</div></article><div class="para" id="p-2066">Moving a shape away from the axis (or moving the axis away from the shape) increases its moment of inertia, and moving it closer to the axis decreases it, until it crosses to the other side of the axis, and then its moment of inertia will begin to increase again.</div>
+<div class="para" id="p-2067">The minimum moment of inertia occurs when the centroid of the shape falls on the axis.  When this occurs, the moment of inertia is called the <dfn class="terminology">centroidal moment of inertia.</dfn> A bar over the symbol <span class="process-math">\(I\)</span> is used to indicate that a moment of inertia is centroidal.  So for example, <span class="process-math">\(\bar{I}_x\)</span> and <span class="process-math">\(\bar{I}_y\)</span> represent the “centroidal moment of inertia with respect to the <span class="process-math">\(x\)</span> axis” and the “the centroidal moment of inertia with respect to the <span class="process-math">\(y\)</span> axis.”  The bar in this case does not mean that moment of inertia is a vector quantity. Note that a shape can have multiple centroidal moments of inertia, because more than one axis can pass through the centroid of a shape.  In this text, we will only the vertical and horizontal axes, but they are not the only possibilities.</div>
+<div class="para" id="p-2068">The centroidal moment of inertia is particularly important.  We will see in <a href="" class="xref" data-knowl="./knowl/parallel-axis-theorem.html" title="Equation 10.3.1">(10.3.1)</a> that if we know a shape’s centroidal moment of inertia for some axis direction, it is a simple process to calculate the moment of inertia of the shape about any other parallel axis.  The moment of inertia is used in Mechanics of Materials to find stress and deflection in beams and to determine the load which will cause a column to buckle.</div>
+<div class="para" id="p-2069">We stated earlier that the centroidal moment of inertia is the minimum moment of inertia, but by this we mean, the minimum moment of inertia for a particular axis direction, for example horizontal.  Other centroidal axes may may have a different moment of inertia, either larger or smaller than the moment of inertia about a horizontal centroidal axis.   The centroidal axes which have the absolute minimum and maximum moment of inertia are called the principle axes.  The principle axes are not necessarily horizontal and vertical.</div>
 <article class="insight remark-like" id="insight-15"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-15"><h4 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.1.3</span><span class="period">.</span><span class="space"> </span><span class="title">Beam bending.</span>
-</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-15"><article class="insight remark-like"> <p id="p-2069">To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.</p> <p id="p-2070">Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the <span class="process-math">\(x\)</span> axis while it’s flat is easy compared to bending it the other way, around the <span class="process-math">\(z\)</span> axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way.</p> <p id="p-2071">The answer has to due with the moment of inertia, and how it relates to the bending axis.</p> <p id="p-2072"></p> <p id="p-2073"></p> <figure class="figure figure-like" id="MOI-ruler"><div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/MOI-ruler.png" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.4<span class="period">.</span></span><span class="space"> </span>Bending a ruler.</figcaption></figure> <p id="p-2074">As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know <em class="emphasis">how much harder</em>?</p> <p id="p-2075">For a <span class="process-math">\(\inch{1/8}\)</span>  thick ruler that is <span class="process-math">\(\inch{1}\)</span> tall, the bending resistance about the <span class="process-math">\(z\)</span> axis is over 20 times more than the bending resistance the other way, about the <span class="process-math">\(x\)</span> axis.</p> <p id="p-2076">To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius.  A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.</p> <figure class="figure figure-like" id="MOI-bent-beam"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/MOI-bent-beam.png" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.5<span class="period">.</span></span><span class="space"> </span>Beam of length <span class="process-math">\(L\)</span> which is being bent by opposing couple-moments to an arc with angle <span class="process-math">\(\theta\text{.}\)</span></figcaption></figure> <p id="p-2077"></p> <p id="p-2078">You will learn in Mechanics of Materials that the relationship is:</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="men-79">
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-15"><article class="insight remark-like"> <div class="para" id="p-2070">To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.</div> <div class="para" id="p-2071">Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the <span class="process-math">\(x\)</span> axis while it’s flat is easy compared to bending it the other way, around the <span class="process-math">\(z\)</span> axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way.</div> <div class="para" id="p-2072">The answer has to due with the moment of inertia, and how it relates to the bending axis.</div> <div class="para" id="p-2073"></div> <div class="para" id="p-2074"></div> <figure class="figure figure-like" id="MOI-ruler"><div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/MOI-ruler.png" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.4<span class="period">.</span></span><span class="space"> </span>Bending a ruler.</figcaption></figure> <div class="para" id="p-2075">As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know <em class="emphasis">how much harder</em>?</div> <div class="para" id="p-2076">For a <span class="process-math">\(\inch{1/8}\)</span>  thick ruler that is <span class="process-math">\(\inch{1}\)</span> tall, the bending resistance about the <span class="process-math">\(z\)</span> axis is over 20 times more than the bending resistance the other way, about the <span class="process-math">\(x\)</span> axis.</div> <div class="para" id="p-2077">To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius.  A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.</div> <figure class="figure figure-like" id="MOI-bent-beam"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/MOI-bent-beam.png" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.5<span class="period">.</span></span><span class="space"> </span>Beam of length <span class="process-math">\(L\)</span> which is being bent by opposing couple-moments to an arc with angle <span class="process-math">\(\theta\text{.}\)</span></figcaption></figure> <div class="para" id="p-2078"></div> <div class="para logical" id="p-2079">
+<div class="para">You will learn in Mechanics of Materials that the relationship is:</div>
+<div class="displaymath process-math" id="men-79">
 \begin{equation}
 M=\theta \left (\frac{EI}{L} \right )\tag{10.1.4}
 \end{equation}
 </div>
-<p class="continuation">where:</p>
+<div class="para">where:</div>
 <ul class="no-marker">
-<li id="li-558"><p id="p-2079"><span class="process-math">\(E\)</span> is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material.</p></li>
-<li id="li-559"><p id="p-2080"><span class="process-math">\(L\)</span> is the length of the beam, and</p></li>
-<li id="li-560"><p id="p-2081"><span class="process-math">\(I\)</span> is the moment of inertia of the cross-section of the beam about the bending axis.</p></li>
-<li id="li-561"><p id="p-derived-li-561"><span class="process-math">\(M\)</span> is the moment applied to the ends of the beam, and</p></li>
-<li id="li-562"><p id="p-derived-li-562"><span class="process-math">\(\theta\)</span> is the curvature of the beam.</p></li>
+<li id="li-558"><div class="para" id="p-2080">
+<span class="process-math">\(E\)</span> is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material.</div></li>
+<li id="li-559"><div class="para" id="p-2081">
+<span class="process-math">\(L\)</span> is the length of the beam, and</div></li>
+<li id="li-560"><div class="para" id="p-2082">
+<span class="process-math">\(I\)</span> is the moment of inertia of the cross-section of the beam about the bending axis.</div></li>
+<li id="li-561"><div class="para" id="p-derived-li-561">
+<span class="process-math">\(M\)</span> is the moment applied to the ends of the beam, and</div></li>
+<li id="li-562"><div class="para" id="p-derived-li-562">
+<span class="process-math">\(\theta\)</span> is the curvature of the beam.</div></li>
 </ul>
-<p class="continuation">Since <span class="process-math">\(E\)</span> and <span class="process-math">\(I\)</span> are in the numerator and <span class="process-math">\(L\)</span> is in the denominator, a longer beam is more flexible and larger values of <span class="process-math">\(E\)</span> or <span class="process-math">\(I\)</span> make the beam stiffer.  With those properties fixed, angle <span class="process-math">\(\theta\)</span> is directly proportional to the moment <span class="process-math">\(M\text{.}\)</span></p> <p id="p-2082">The sag, or <dfn class="terminology">deflection</dfn>, of a beam when supporting a load is also related to these factors, and the placement of the load as well.  For example, if a beam is loaded with a concentrated force <span class="process-math">\(P\)</span> at its center its maximum deflection <span class="process-math">\(\delta_{\text{max}}\)</span> will occur at the midpoint, with</p>
-<div class="displaymath process-math" data-contains-math-knowls="">
+<div class="para">Since <span class="process-math">\(E\)</span> and <span class="process-math">\(I\)</span> are in the numerator and <span class="process-math">\(L\)</span> is in the denominator, a longer beam is more flexible and larger values of <span class="process-math">\(E\)</span> or <span class="process-math">\(I\)</span> make the beam stiffer.  With those properties fixed, angle <span class="process-math">\(\theta\)</span> is directly proportional to the moment <span class="process-math">\(M\text{.}\)</span>
+</div>
+</div> <div class="para logical" id="p-2083">
+<div class="para">The sag, or <dfn class="terminology">deflection</dfn>, of a beam when supporting a load is also related to these factors, and the placement of the load as well.  For example, if a beam is loaded with a concentrated force <span class="process-math">\(P\)</span> at its center its maximum deflection <span class="process-math">\(\delta_{\text{max}}\)</span> will occur at the midpoint, with</div>
+<div class="displaymath process-math">
 \begin{equation*}
 \delta_{\text{max}}=\frac{PL^3}{48 EI}
 \end{equation*}
+</div>
 </div></article></div></section><section class="subsection" id="polar-moi"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span>
 </h3>
-<p id="p-2083">The <dfn class="terminology">polar moment of inertia</dfn> is defined as</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="mdn-17">
+<div class="para logical" id="p-2084">
+<div class="para">The <dfn class="terminology">polar moment of inertia</dfn> is defined as</div>
+<div class="displaymath process-math" id="mdn-17">
 \begin{align}
 J_O \amp = \int_A r^2\ dA \tag{10.1.5}
 \end{align}
 </div>
-<p class="continuation">and has units of <span class="process-math">\([\textrm{length}]^4\text{.}\)</span></p>
-<p id="p-2084">The polar moment of inertia is a another measure of the distribution of an area but, in this case, about a point at the origin rather than about an axis. One important application of this value is to quantify the resistance of a shaft to torsion or twisting due to the shape of its cross-section.</p>
+<div class="para">and has units of <span class="process-math">\([\textrm{length}]^4\text{.}\)</span>
+</div>
+</div>
+<div class="para" id="p-2085">The polar moment of inertia is a another measure of the distribution of an area but, in this case, about a point at the origin rather than about an axis. One important application of this value is to quantify the resistance of a shaft to torsion or twisting due to the shape of its cross-section.</div>
 <article class="insight remark-like" id="insight-16"><a href="" data-knowl="" class="id-ref insight-knowl original has-interactive" data-refid="hk-insight-16"><h4 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">10.1.6</span><span class="period">.</span><span class="space"> </span><span class="title">Why don't we call the polar moment of inertia <span class="process-math">\(I_z\text{?}\)</span></span>
-</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-16"><article class="insight remark-like"> <p id="p-2085">The squared distance in the polar moment of inertia formula is the distance from the <span class="process-math">\(z\)</span> axis, so it would seem reasonable to name the polar moment <span class="process-math">\(I_z\)</span> to be consistent with <span class="process-math">\(I_x\)</span> and <span class="process-math">\(I_y,\)</span> which use distances from the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes.</p> <p id="p-2086">Instead engineers use the letter <span class="process-math">\(J\)</span> to represent this quantity.  Why?</p> <aside class="aside aside-like" id="aside-67"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
-<p id="p-2087">Click on the labeled rectangle to change the view to show the appropriate differential element to calculate each moment of inertia. Rotate element <span class="process-math">\(dA\)</span> through space.</p></aside><figure class="figure figure-like" id="MOI-Ixyz-ggb"><iframe id="moi-Ixyz_interactive" width="600" height="300" src="moi-Ixyz_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.7<span class="period">.</span></span><span class="space"> </span>In-plane and out-of-plane rotation of element <span class="process-math">\(dA\)</span> about the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> axes.</figcaption></figure> <p id="p-2089">If areas only existed in the <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> plane, this would be fine, but the real world is three-dimensional, so <span class="process-math">\(I_z\)</span> must be reserved to use with areas in the <span class="process-math">\(x\)</span>-<span class="process-math">\(z\)</span> or <span class="process-math">\(y\)</span>-<span class="process-math">\(z\)</span> plane.</p> <p id="p-2090">As shown in the interactive, the rectangular moment of inertia <span class="process-math">\(I\)</span> involves rotating element <span class="process-math">\(dA\)</span> about out-of-plane around an in-plain axis, and the polar moment <span class="process-math">\(J\)</span> involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.</p></article></div></section><section class="subsection" id="Chapter_10-product-of-inertia"><h3 class="heading hide-type">
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-16"><article class="insight remark-like"> <div class="para" id="p-2086">The squared distance in the polar moment of inertia formula is the distance from the <span class="process-math">\(z\)</span> axis, so it would seem reasonable to name the polar moment <span class="process-math">\(I_z\)</span> to be consistent with <span class="process-math">\(I_x\)</span> and <span class="process-math">\(I_y,\)</span> which use distances from the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes.</div> <div class="para" id="p-2087">Instead engineers use the letter <span class="process-math">\(J\)</span> to represent this quantity.  Why?</div> <aside class="aside aside-like" id="aside-67"><h5 class="heading"><span class="title">Interactive Diagram.</span></h5>
+<div class="para" id="p-2088">Click on the labeled rectangle to change the view to show the appropriate differential element to calculate each moment of inertia. Rotate element <span class="process-math">\(dA\)</span> through space.</div></aside><figure class="figure figure-like" id="MOI-Ixyz-ggb"><iframe id="moi-Ixyz_interactive" width="600" height="300" src="moi-Ixyz_interactive-if.html"></iframe><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">10.1.7<span class="period">.</span></span><span class="space"> </span>In-plane and out-of-plane rotation of element <span class="process-math">\(dA\)</span> about the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> axes.</figcaption></figure> <div class="para" id="p-2090">If areas only existed in the <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> plane, this would be fine, but the real world is three-dimensional, so <span class="process-math">\(I_z\)</span> must be reserved to use with areas in the <span class="process-math">\(x\)</span>-<span class="process-math">\(z\)</span> or <span class="process-math">\(y\)</span>-<span class="process-math">\(z\)</span> plane.</div> <div class="para" id="p-2091">As shown in the interactive, the rectangular moment of inertia <span class="process-math">\(I\)</span> involves rotating element <span class="process-math">\(dA\)</span> about out-of-plane around an in-plain axis, and the polar moment <span class="process-math">\(J\)</span> involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.</div></article></div></section><section class="subsection" id="Chapter_10-product-of-inertia"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span>
 </h3>
-<p id="p-2091">The final property of interest is the <dfn class="terminology">product of inertia</dfn> and it is defined as</p>
+<div class="para logical" id="p-2092">
+<div class="para">The final property of interest is the <dfn class="terminology">product of inertia</dfn> and it is defined as</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/MOI-potato-ggb.html" id="mdn-18">
 \begin{align}
 I_{xy} \amp = \int_A x y\ dA \tag{10.1.6}
 \end{align}
 </div>
-<p class="continuation">where <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are defined as in <a href="" class="xref" data-knowl="./knowl/MOI-potato-ggb.html" title="Figure 10.1.1">Figure 10.1.1</a>. Like the others, the units associated with this quantity are <span class="process-math">\([\textrm{length}]^4\text{.}\)</span> The name was chosen because the distance squared term in the integral is the <em class="emphasis">product</em> of the element’s coordinates.    In contrast to the other area moments, which are always positive, the product of inertia can be a positive, negative or zero.</p></section></section></div></main>
+<div class="para">where <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> are defined as in <a href="" class="xref" data-knowl="./knowl/MOI-potato-ggb.html" title="Figure 10.1.1">Figure 10.1.1</a>. Like the others, the units associated with this quantity are <span class="process-math">\([\textrm{length}]^4\text{.}\)</span> The name was chosen because the distance squared term in the integral is the <em class="emphasis">product</em> of the element’s coordinates.    In contrast to the other area moments, which are always positive, the product of inertia can be a positive, negative or zero.</div>
+</div></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="Chapter_10.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="MOI-common-shapes.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org"><div class="name">Authored in PreTeXt</div>
+<div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259 "></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0  472  9732 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496 A 4241 4241  0  0  1  4724  3590 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259 A 4507 4507  0  0  1  4724  9448 "></path><polyline points="5385,4299 4062,8125 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8598,3496 8598,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="850,3496 850,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="4960,9685 4488,9685 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="3070,4582 1889,6141 3070,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="6418,4582 7600,6141 6418,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8976,3590 8976,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732 "></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy"><div class="name">Powered by Runestone</div>
+<img class="logo" title="Powered by Runestone" src="https://runestone.academy/runestone/static/rectangle_badge.png" alt="Powered by Runestone"></a><a class="mathjax-logo" href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];

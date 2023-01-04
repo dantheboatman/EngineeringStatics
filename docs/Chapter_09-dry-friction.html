@@ -25,7 +25,7 @@ window.MathJax = {
     tags: "none",
     tagSide: "right",
     tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'newcommand', 'knowl']}
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
   },
   options: {
     ignoreHtmlClass: "tex2jax_ignore|ignore-math",
@@ -45,11 +45,11 @@ window.MathJax = {
     },
   },
   chtml: {
-    scale: 0.88,
+    scale: 0.98,
     mtextInheritFont: true
   },
   loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
     paths: {pretext: "https://pretextbook.org/js/lib"},
   },
   startup: {
@@ -59,25 +59,152 @@ window.MathJax = {
       rsMathReady();
       }
     )}
-},
+  },
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.13/pretext_search.js"></script><link href="https://pretextbook.org/css/0.4/pretext_search.css" rel="stylesheet" type="text/css">
-<script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.13/pretext.js"></script><script>miniversion=0.674</script><script src="https://pretextbook.org/js/0.13/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
-</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.4/setcolors.css" rel="stylesheet" type="text/css">
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://unpkg.com/lunr/lunr.js"></script><script src="lunr-pretext-search-index.js"></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
 </head>
-<body class="pretext-book ignore-math has-toc has-sidebar-left">
-<a class="assistive" href="#content">Skip to main content</a><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="Chapter_09.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_09.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="Chapter_09-block-and-wedge-friction.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
 \newcommand{\jhat}{\vec{j}}
@@ -134,268 +261,576 @@ window.MathJax = {
 \definecolor{fillinmathshade}{gray}{0.9}
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
-<header id="masthead" class="smallbuttons"><div class="banner"><div class="container">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
-<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
-<p class="byline">Daniel W. Baker, William Haynes</p>
-</div>
-<div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
-</div></div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
-</h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
-</div>
-</div></div>
-<nav id="primary-navbar" class="navbar"><div class="container">
-<div class="navbar-top-buttons">
-<button class="sidebar-left-toggle-button button active" aria-label="Show or hide table of contents sidebar">Contents</button><div class="tree-nav toolbar toolbar-divisor-3"><span class="threebuttons"><a id="previousbutton" class="previous-button toolbar-item button" href="Chapter_09.html" title="Previous">Prev</a><a id="upbutton" class="up-button button toolbar-item" href="Chapter_09.html" title="Up">Up</a><a id="nextbutton" class="next-button button toolbar-item" href="Chapter_09-block-and-wedge-friction.html" title="Next">Next</a></span></div>
-</div>
-<div class="navbar-bottom-buttons toolbar toolbar-divisor-4">
-<button class="sidebar-left-toggle-button button toolbar-item active">Contents</button><a class="previous-button toolbar-item button" href="Chapter_09.html" title="Previous">Prev</a><a class="up-button button toolbar-item" href="Chapter_09.html" title="Up">Up</a><a class="next-button button toolbar-item" href="Chapter_09-block-and-wedge-friction.html" title="Next">Next</a>
-</div>
-</div></nav></header><div class="page">
-<div id="sidebar-left" class="sidebar" role="navigation"><div class="sidebar-content">
-<nav id="toc"><ul>
-<li class="link frontmatter">
-<a href="frontmatter.html" data-scroll="frontmatter" class="internal"><span class="title">Front Matter</span></a><ul>
-<li><a href="acknowledgement.html" data-scroll="acknowledgement" class="internal">Acknowledgements</a></li>
-<li><a href="preface.html" data-scroll="preface" class="internal">Preface</a></li>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_01.html" data-scroll="Chapter_01" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a><ul>
-<li><a href="newtons-laws.html" data-scroll="newtons-laws" class="internal">Newton’s Laws of Motion</a></li>
-<li><a href="Chapter_01-units.html" data-scroll="Chapter_01-units" class="internal">Units</a></li>
-<li><a href="Chapter_01-forces.html" data-scroll="Chapter_01-forces" class="internal">Forces</a></li>
-<li><a href="Chapter_01-problem-solving.html" data-scroll="Chapter_01-problem-solving" class="internal">Problem Solving</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li><div class="toc-item"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_02.html" data-scroll="Chapter_02" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a><ul>
-<li><a href="Chapter_02-vectors.html" data-scroll="Chapter_02-vectors" class="internal">Vectors</a></li>
-<li><a href="Chapter_02-one-dimensional-vectors.html" data-scroll="Chapter_02-one-dimensional-vectors" class="internal">One-Dimensional Vectors</a></li>
-<li><a href="cartesian-coords-2d.html" data-scroll="cartesian-coords-2d" class="internal">Two Dimensional Coordinate Systems</a></li>
-<li><a href="coordinates-3d.html" data-scroll="coordinates-3d" class="internal">Three Dimensional Coordinate Systems</a></li>
-<li><a href="Chapter_02-unit-vectors.html" data-scroll="Chapter_02-unit-vectors" class="internal">Unit Vectors</a></li>
-<li><a href="vector_algebra_2D.html" data-scroll="vector_algebra_2D" class="internal">Vector Addition</a></li>
-<li><a href="dot_products_2D.html" data-scroll="dot_products_2D" class="internal">Dot Products</a></li>
-<li><a href="cross-product-math.html" data-scroll="cross-product-math" class="internal">Cross Products</a></li>
-<li><a href="exercises-1.html" data-scroll="exercises-1" class="internal">Exercises (Ch. 2)</a></li>
+<li><div class="toc-item"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_03.html" data-scroll="Chapter_03" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a><ul>
-<li><a href="ch3-intro.html" data-scroll="ch3-intro" class="internal">Equilibrium</a></li>
-<li><a href="ch3-1d-particles.html" data-scroll="ch3-1d-particles" class="internal">Particles</a></li>
-<li><a href="CH03-1d-particles.html" data-scroll="CH03-1d-particles" class="internal">Particles in One Dimension</a></li>
-<li><a href="CH03-2d-particles.html" data-scroll="CH03-2d-particles" class="internal">Particles in Two Dimensions</a></li>
-<li><a href="ch3-3d-particles.html" data-scroll="ch3-3d-particles" class="internal">Particles in Three Dimensions</a></li>
-<li><a href="exercises-2.html" data-scroll="exercises-2" class="internal">Exercises (Ch. 3)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_04.html" data-scroll="Chapter_04" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a><ul>
-<li><a href="Chapter_04-direction-of-a-moment.html" data-scroll="Chapter_04-direction-of-a-moment" class="internal">Direction of a Moment</a></li>
-<li><a href="Chapter_04-magnitude-of-a-moment.html" data-scroll="Chapter_04-magnitude-of-a-moment" class="internal">Magnitude of a Moment</a></li>
-<li><a href="varignons-theorem.html" data-scroll="varignons-theorem" class="internal">Varignon’s Theorem</a></li>
-<li><a href="Chapter_04-moments-in-three-dimensions.html" data-scroll="Chapter_04-moments-in-three-dimensions" class="internal">Moments in Three Dimensions</a></li>
-<li><a href="Chapter_04-couples.html" data-scroll="Chapter_04-couples" class="internal">Couples</a></li>
-<li><a href="equivalent-tranformations.html" data-scroll="equivalent-tranformations" class="internal">Equivalent Transformations</a></li>
-<li><a href="statically-equivalent-systems.html" data-scroll="statically-equivalent-systems" class="internal">Statically Equivalent Systems</a></li>
-<li><a href="exercises-3.html" data-scroll="exercises-3" class="internal">Exercises (Ch. 4)</a></li>
+<li>
+<div class="toc-item"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Two Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_05.html" data-scroll="Chapter_05" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a><ul>
-<li><a href="Chapter_05-degree-of-freedom.html" data-scroll="Chapter_05-degree-of-freedom" class="internal">Degree of Freedom</a></li>
-<li><a href="Chapter_05-free-body-diagrams.html" data-scroll="Chapter_05-free-body-diagrams" class="internal">Free Body Diagrams</a></li>
-<li><a href="Chapter_05-equations-of-equilibrium.html" data-scroll="Chapter_05-equations-of-equilibrium" class="internal">Equations of Equilibrium</a></li>
-<li><a href="Chapter_05-2d-rigid-body-equilibrium.html" data-scroll="Chapter_05-2d-rigid-body-equilibrium" class="internal">2D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-3d-rigid-body-equilibrium.html" data-scroll="Chapter_05-3d-rigid-body-equilibrium" class="internal">3D Rigid Body Equilibrium</a></li>
-<li><a href="Chapter_05-stability-and-determinacy.html" data-scroll="Chapter_05-stability-and-determinacy" class="internal">Stability and Determinacy</a></li>
-<li><a href="Chapter_05-equilibrium-examples-.html" data-scroll="Chapter_05-equilibrium-examples-" class="internal">Equilibrium Examples</a></li>
-<li><a href="exercises-4.html" data-scroll="exercises-4" class="internal">Exercises (Ch. 5)</a></li>
+<li>
+<div class="toc-item"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Three Dimensional Coordinate Systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li><div class="toc-item"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_06.html" data-scroll="Chapter_06" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a><ul>
-<li><a href="Chapter_06-structures.html" data-scroll="Chapter_06-structures" class="internal">Structures</a></li>
-<li><a href="Chapter_06-interactions-between-members.html" data-scroll="Chapter_06-interactions-between-members" class="internal">Interactions between members</a></li>
-<li><a href="Chapter_06-trusses.html" data-scroll="Chapter_06-trusses" class="internal">Trusses</a></li>
-<li><a href="method-of-joints.html" data-scroll="method-of-joints" class="internal">Method of Joints</a></li>
-<li><a href="method-of-sections.html" data-scroll="method-of-sections" class="internal">Method of Sections</a></li>
-<li><a href="frames-and-machines.html" data-scroll="frames-and-machines" class="internal">Frames and Machines</a></li>
-<li><a href="Chapter_06-summary.html" data-scroll="Chapter_06-summary" class="internal">Summary</a></li>
-<li><a href="exercises-5.html" data-scroll="exercises-5" class="internal">Exercises (Ch. 6)</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_07.html" data-scroll="Chapter_07" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a><ul>
-<li><a href="weghted-average.html" data-scroll="weghted-average" class="internal">Weighted Averages</a></li>
-<li><a href="Chapter_07-center-of-gravity.html" data-scroll="Chapter_07-center-of-gravity" class="internal">Center of Gravity</a></li>
-<li><a href="Chapter_07-center-of-mass.html" data-scroll="Chapter_07-center-of-mass" class="internal">Center of Mass</a></li>
-<li><a href="Chapter_07-centroids.html" data-scroll="Chapter_07-centroids" class="internal">Centroids</a></li>
-<li><a href="composite-parts.html" data-scroll="composite-parts" class="internal">Centroids using Composite Parts</a></li>
-<li><a href="Chapter_07-average-value-of-a-function.html" data-scroll="Chapter_07-average-value-of-a-function" class="internal">Average Value of a Function</a></li>
-<li><a href="centroids-by-integration.html" data-scroll="centroids-by-integration" class="internal">Centroids using Integration</a></li>
-<li><a href="distributed-loads.html" data-scroll="distributed-loads" class="internal">Distributed Loads</a></li>
-<li><a href="Chapter_07-fluid-statics.html" data-scroll="Chapter_07-fluid-statics" class="internal">Fluid Statics</a></li>
-<li><a href="exercises-6.html" data-scroll="exercises-6" class="internal">Exercises (Ch. 7)</a></li>
+<li>
+<div class="toc-item"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li><div class="toc-item"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_08.html" data-scroll="Chapter_08" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a><ul>
-<li><a href="Chapter_08-internal-loads.html" data-scroll="Chapter_08-internal-loads" class="internal">Internal Loads</a></li>
-<li><a href="VM_sign_convention.html" data-scroll="VM_sign_convention" class="internal">Sign Conventions</a></li>
-<li><a href="internal_load_at_point.html" data-scroll="internal_load_at_point" class="internal">Internal Loads at a Point</a></li>
-<li><a href="VM_diagrams.html" data-scroll="VM_diagrams" class="internal">Shear and Bending Moment Diagrams</a></li>
-<li><a href="section_cut_method.html" data-scroll="section_cut_method" class="internal">Section Cut Method</a></li>
-<li><a href="VM_relations.html" data-scroll="VM_relations" class="internal">Relation Between Loading, Shear and Moment</a></li>
-<li><a href="graphical_method.html" data-scroll="graphical_method" class="internal">Graphical Method</a></li>
-<li><a href="integration_method.html" data-scroll="integration_method" class="internal">Integration Method</a></li>
-<li><a href="Chapter_08-geogebra-interactives.html" data-scroll="Chapter_08-geogebra-interactives" class="internal">Geogebra Interactives</a></li>
-<li><a href="Chapter_08-summary.html" data-scroll="Chapter_08-summary" class="internal">Summary</a></li>
-<li><a href="exercises-7.html" data-scroll="exercises-7" class="internal">Exercises (Ch. 8)</a></li>
+<li>
+<div class="toc-item"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li><div class="toc-item"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_09.html" data-scroll="Chapter_09" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a><ul>
-<li><a href="Chapter_09-dry-friction.html" data-scroll="Chapter_09-dry-friction" class="active">Dry Friction</a></li>
-<li><a href="Chapter_09-block-and-wedge-friction.html" data-scroll="Chapter_09-block-and-wedge-friction" class="internal">Block and Wedge Friction</a></li>
-<li><a href="Chapter_09-slipping-vs--tipping.html" data-scroll="Chapter_09-slipping-vs--tipping" class="internal">Slipping vs. Tipping</a></li>
-<li><a href="Chapter_09-screw-friction.html" data-scroll="Chapter_09-screw-friction" class="internal">Screw Friction</a></li>
-<li><a href="Chapter_09-flexible-belt-friction.html" data-scroll="Chapter_09-flexible-belt-friction" class="internal">Flexible Belt Friction</a></li>
-<li><a href="Chapter_09-journal-bearing-friction.html" data-scroll="Chapter_09-journal-bearing-friction" class="internal">Journal Bearing Friction</a></li>
-<li><a href="Chapter_09-disc-friction.html" data-scroll="Chapter_09-disc-friction" class="internal">Disc Friction</a></li>
-<li><a href="exercises-8.html" data-scroll="exercises-8" class="internal">Exercises (Ch. 9)</a></li>
+<li>
+<div class="toc-item"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+<li><div class="toc-item"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="Chapter_10.html" data-scroll="Chapter_10" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a><ul>
-<li><a href="Chapter_10-integral-properties-of-shapes.html" data-scroll="Chapter_10-integral-properties-of-shapes" class="internal">Integral Properties of Shapes</a></li>
-<li><a href="MOI-common-shapes.html" data-scroll="MOI-common-shapes" class="internal">Moments of Inertia of Common Shapes</a></li>
-<li><a href="parallel-axis-theorem-section.html" data-scroll="parallel-axis-theorem-section" class="internal">Parallel Axis Theorem</a></li>
-<li><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" data-scroll="Chapter_10-moment-of-inertia-of-composite-shapes" class="internal">Moment of Inertia of Composite Shapes</a></li>
-<li><a href="polar-moment.html" data-scroll="polar-moment" class="internal">Polar Moment of Inertia</a></li>
-<li><a href="radius-of-gyration-sec.html" data-scroll="radius-of-gyration-sec" class="internal">Radius of Gyration</a></li>
-<li><a href="products-of-inertia.html" data-scroll="products-of-inertia" class="internal">Products of Inertia</a></li>
-<li><a href="Chapter_10-mass-moment-of-inertia.html" data-scroll="Chapter_10-mass-moment-of-inertia" class="internal">Mass Moment of Inertia</a></li>
-<li><a href="exercises-9.html" data-scroll="exercises-9" class="internal">Exercises (Ch. 10)</a></li>
+<li><div class="toc-item"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
 </ul>
 </li>
-<li class="link backmatter"><a href="backmatter.html" data-scroll="backmatter" class="internal"><span class="title">Back Matter</span></a></li>
-<li class="link"><a href="notation.html" data-scroll="notation" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></li>
-<li class="link">
-<a href="useful-mathematics.html" data-scroll="useful-mathematics" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a><ul>
-<li><a href="distance-formula.html" data-scroll="distance-formula" class="internal">Distance Formula</a></li>
-<li><a href="soh-coh-toa.html" data-scroll="soh-coh-toa" class="internal">Right Triangle Trigonometry</a></li>
-<li><a href="los-loc.html" data-scroll="los-loc" class="internal">Oblique Triangle Trigonometry</a></li>
+<li>
+<div class="toc-item"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li>
+<div class="toc-item"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Particles in One Dimension</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#Scalar-Components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
 </ul>
 </li>
-<li class="link">
-<a href="AISC-properties.html" data-scroll="AISC-properties" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a><ul>
-<li><a href="AISC-angles.html" data-scroll="AISC-angles" class="internal">Angles</a></li>
-<li><a href="AISC-channels.html" data-scroll="AISC-channels" class="internal">Channels</a></li>
-<li><a href="AISC-standard-sections.html" data-scroll="AISC-standard-sections" class="internal">Standard Sections</a></li>
-<li><a href="AISC-wide-flange.html" data-scroll="AISC-wide-flange" class="internal">Wide Flange Sections</a></li>
+<li>
+<div class="toc-item"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">Particles in Two Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li><div class="toc-item"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
 </ul>
 </li>
-</ul></nav><div class="extras"><nav><a class="pretext-link" href="https://pretextbook.org">Authored in PreTeXt</a><a href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a></nav></div>
-</div></div>
-<main class="main"><div id="content" class="pretext-content"><section class="section" id="Chapter_09-dry-friction"><h2 class="heading hide-type">
+<li>
+<div class="toc-item"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">Particles in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li><div class="toc-item"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Moments in Three Dimensions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.4.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Couples</span></a></div></li>
+<li><div class="toc-item"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li><div class="toc-item"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-3.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free Body Diagrams</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural"><li>
+<div class="toc-item"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li><div class="toc-item"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li><div class="toc-item"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li><div class="toc-item"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li><div class="toc-item"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Loadings</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-internal-loads.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Loads</span></a></div></li>
+<li><div class="toc-item"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li>
+<div class="toc-item"><a href="internal_load_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Loads at a Point</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="internal_load_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Loading</span></a></div></li></ul>
+</li>
+<li>
+<div class="toc-item"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li><div class="toc-item"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li>
+<div class="toc-item"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li><div class="toc-item"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural">
+<li class="active">
+<div class="toc-item"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">How can you tell from a problem statement which phase of friction to use?</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction angle and friction resultant</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Block and Wedge Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw motion and the Right-hand-rule</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw thread properties</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moments to reach impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="codenumber">9.4.4</span> <span class="title">Screws where the applied force opposes impending motion</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="codenumber">9.4.5</span> <span class="title">Screws where the applied force supports impending motion</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belt Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-flat-belts" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Friction in Flat Belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Finding the contact angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Determining which belt has the largest tension.</span></a></div></li>
+<li>
+<div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="codenumber">9.5.4</span> <span class="title">Finding the change in belt tension due to friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="title">Friction in V-belts</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="title">Torque in belt systems</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearing Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Journal bearings with a rotating shaft and a fixed bearing</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Journal bearings with a fixed shaft and a rotating bearing</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Disc Friction</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#disk-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-collar-bearing-with-a-hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar bearing with a hollow circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End bearing with a solid circular contact area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Disc brakes with a circular arc</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li><div class="toc-item"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li><div class="toc-item"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Moment of Inertia of Composite Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li><div class="toc-item"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li><div class="toc-item"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li><div class="toc-item"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li>
+<div class="toc-item"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li><div class="toc-item"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li>
+<div class="toc-item"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li><div class="toc-item"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="AISC-angles.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">C.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">C.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-channels.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">C.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">C.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">C.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">C.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">C.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">C.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">C.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li><div class="toc-item"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">C.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_09-dry-friction"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">9.1</span> <span class="title">Dry Friction</span>
 </h2>
 <article class="objectives goal-like" id="objectives-32"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
-<li id="li-509"><p id="p-derived-li-509">Contrast the types of friction covered in statics in the context of the other types of friction in existence</p></li>
-<li id="li-510"><p id="p-derived-li-510">Know when you can use the equation <span class="process-math">\(F=\mu_\text{s} N\)</span> and when you cannot</p></li>
-<li id="li-511"><p id="p-derived-li-511">Graphically show how the friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion.</p></li>
-<li id="li-512"><p id="p-derived-li-512">Locate and compute the friction angle <span class="process-math">\(\phi_\text{s}\)</span> on a free-body diagram</p></li>
-<li id="li-513"><p id="p-derived-li-513">Explain how a  distributed normal force can be represented by a point force that moves as the distribution of a normal force shifts.</p></li>
-</ul></article><section class="introduction" id="introduction-36"><p id="p-1817">There are multiple types of friction, including:</p>
+<li id="li-509"><div class="para" id="p-derived-li-509">Contrast the types of friction covered in statics in the context of the other types of friction in existence</div></li>
+<li id="li-510"><div class="para" id="p-derived-li-510">Know when you can use the equation <span class="process-math">\(F=\mu_\text{s} N\)</span> and when you cannot</div></li>
+<li id="li-511"><div class="para" id="p-derived-li-511">Graphically show how the friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion.</div></li>
+<li id="li-512"><div class="para" id="p-derived-li-512">Locate and compute the friction angle <span class="process-math">\(\phi_\text{s}\)</span> on a free-body diagram</div></li>
+<li id="li-513"><div class="para" id="p-derived-li-513">Explain how a  distributed normal force can be represented by a point force that moves as the distribution of a normal force shifts.</div></li>
+</ul></article><section class="introduction" id="introduction-36"><div class="para logical" id="p-1818">
+<div class="para">There are multiple types of friction, including:</div>
 <ol class="decimal">
-<li id="li-514"><p id="p-derived-li-514">Dry friction: the force that opposes one solid surface sliding across another solid surface.</p></li>
-<li id="li-515"><p id="p-derived-li-515">Fluid friction: the friction between layers of a viscous fluid in motion.</p></li>
-<li id="li-516"><p id="p-derived-li-516">Internal friction: the force resisting internal deformation of a solid material.</p></li>
-</ol> <p id="p-1818">Statics focuses on dry friction. Dry friction occurs between two surfaces in contact and always acts in the direction which opposes the relative motion of the contact surfaces. We can represent this distributed force as a concentrated friction force. Depending on the details of the situation, dry friction can hold the object in equilibrium or cause it to accelerate or decelerate.  In <em class="emphasis">Statics</em> we are only concerned with objects in equilibrium; accelerating and decelerating objects will be covered in another course.</p> <p id="p-1819">Consider the football training sled shown in <a href="" class="xref" data-knowl="./knowl/sled_AA.html" title="Figure 9.1.1">Figure 9.1.1</a>.  Prior to use, the weight of the sled is supported by a normal force directly underneath the center of gravity, and the frictional between the ground and the sled is zero.  When players push to move the sled to the right, dry friction will develop along the bottom surface of the sled in order to prevent the sled from sliding to the right.  This frictional force is represented as a point normal force, offset from the center of gravity of the sled. This offset is required to maintain rotational equilibrium given the pushing force.  If the pushing force is large enough, equilibrium will break and the sled will begin to slide to the right.</p> <figure class="figure figure-like" id="sled_AA"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<li id="li-514"><div class="para" id="p-derived-li-514">Dry friction: the force that opposes one solid surface sliding across another solid surface.</div></li>
+<li id="li-515"><div class="para" id="p-derived-li-515">Fluid friction: the friction between layers of a viscous fluid in motion.</div></li>
+<li id="li-516"><div class="para" id="p-derived-li-516">Internal friction: the force resisting internal deformation of a solid material.</div></li>
+</ol>
+</div> <div class="para" id="p-1819">Statics focuses on dry friction. Dry friction occurs between two surfaces in contact and always acts in the direction which opposes the relative motion of the contact surfaces. We can represent this distributed force as a concentrated friction force. Depending on the details of the situation, dry friction can hold the object in equilibrium or cause it to accelerate or decelerate.  In <em class="emphasis">Statics</em> we are only concerned with objects in equilibrium; accelerating and decelerating objects will be covered in another course.</div> <div class="para" id="p-1820">Consider the football training sled shown in <a href="" class="xref" data-knowl="./knowl/sled_AA.html" title="Figure 9.1.1">Figure 9.1.1</a>.  Prior to use, the weight of the sled is supported by a normal force directly underneath the center of gravity, and the frictional between the ground and the sled is zero.  When players push to move the sled to the right, dry friction will develop along the bottom surface of the sled in order to prevent the sled from sliding to the right.  This frictional force is represented as a point normal force, offset from the center of gravity of the sled. This offset is required to maintain rotational equilibrium given the pushing force.  If the pushing force is large enough, equilibrium will break and the sled will begin to slide to the right.</div> <figure class="figure figure-like" id="sled_AA"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;"><img src="external/images/fric_sled.jpg" class="contained" alt="Photo of a football training sled."></div>
 <div class="sbspanel top" style="width:50%;"><img src="external/images/fric_sled_fbd.png" class="contained" alt="Schematic of a football training sled. If sled is pushed to the right, friction opposes impending motion and acts to the left. The weight acts down through the centroid, and the normal force acts up at some point on the bottom of the sled, depending on the relative force values."></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.1<span class="period">.</span></span><span class="space"> </span>Dry friction appears between the bottom of a training sled and the field when motion is impending or occurring.</figcaption></figure> <p id="p-1820"></p> <p id="p-1821"></p> <p id="p-1822">The friction forces acting on the motorcycle in <a href="" class="xref" data-knowl="./knowl/cycle_BB.html" title="Figure 9.1.2">Figure 9.1.2</a> are more complicated.  Both wheels rotate clockwise, but the rear wheel is driven by the engine and chain, while the front wheel is rotated by the road friction.  The friction force on the rear tire acts to the right and is what allows the bike to maintain speed or accelerate. The dry friction on the front tire acts to the left and retards the motion of the motorcycle.</p> <figure class="figure figure-like" id="cycle_BB"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.1<span class="period">.</span></span><span class="space"> </span>Dry friction appears between the bottom of a training sled and the field when motion is impending or occurring.</figcaption></figure> <div class="para" id="p-1821"></div> <div class="para" id="p-1822"></div> <div class="para" id="p-1823">The friction forces acting on the motorcycle in <a href="" class="xref" data-knowl="./knowl/cycle_BB.html" title="Figure 9.1.2">Figure 9.1.2</a> are more complicated.  Both wheels rotate clockwise, but the rear wheel is driven by the engine and chain, while the front wheel is rotated by the road friction.  The friction force on the rear tire acts to the right and is what allows the bike to maintain speed or accelerate. The dry friction on the front tire acts to the left and retards the motion of the motorcycle.</div> <figure class="figure figure-like" id="cycle_BB"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;"><img src="external/images/fric_motorcycle.png" class="contained" alt="Photo of a person driving a motorcycle."></div>
 <div class="sbspanel top" style="width:50%;"><img src="external/images/fric_motorcycle_fbd.png" class="contained" alt="Schematic of motorcycle and rider driving to the right. Drive friction on the rear tire opposes the impending motion of the rear wheel with respect to the ground, i.e. driving the motorcycle forward. Rolling resistance of the front tire acts to the left. The weight acts down through the centroid, and a normal force acts up on each tire."></div>
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.2<span class="period">.</span></span><span class="space"> </span>Dry friction on a motorcycle occurs where the tires contact the road.</figcaption></figure> <article class="insight remark-like" id="insight-11"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-11"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">9.1.3</span><span class="period">.</span><span class="space"> </span><span class="title">Statically Equivalent Loadings.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-11"><article class="insight remark-like"> <p id="p-1823">For computational simplicity we can decompose the force on an object being pushed across the ground into a vertical <em class="emphasis">normal</em> force and a horizontal <em class="emphasis">friction</em> force, as shown in the third <abbr class="acronym">FBD</abbr> below. In reality, the force acting on an object  approximates the non-vertical distributed force shown in the first <abbr class="acronym">FBD</abbr> below.  The second <abbr class="acronym">FBD</abbr> shows the intermediate step.</p> <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/fric_equivalent_load.png" class="contained"></div> <p id="p-1824"></p></article></div></section><section class="subsection" id="Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-"><h3 class="heading hide-type">
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-11"><article class="insight remark-like"> <div class="para" id="p-1824">For computational simplicity we can decompose the force on an object being pushed across the ground into a vertical <em class="emphasis">normal</em> force and a horizontal <em class="emphasis">friction</em> force, as shown in the third <abbr class="acronym">FBD</abbr> below. In reality, the force acting on an object  approximates the non-vertical distributed force shown in the first <abbr class="acronym">FBD</abbr> below.  The second <abbr class="acronym">FBD</abbr> shows the intermediate step.</div> <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/fric_equivalent_load.png" class="contained"></div> <div class="para" id="p-1825"></div></article></div></section><section class="subsection" id="Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">9.1.1</span> <span class="title">How can you tell from a problem statement which phase of friction to use?</span>
 </h3>
-<p id="p-1825">The most commonly used model for dry friction is Coulomb friction, which includes phases (as shown in <a href="" class="xref" data-knowl="./knowl/function_CC.html" title="Figure 9.1.4">Figure 9.1.4</a> below): (1) static but not impending friction, (2) impending motion, and (3) kinetic friction. Coulomb friction relies on a friction coefficient <span class="process-math">\(\mu\)</span> to serve as the proportionality constant between the normal and friction forces. The friction coefficient \mu is always greater than 0 and commonly less than 1. The friction coefficient can be greater than 1 for materials that exhibit positive adhesion to each other (like silicone rubber or glued surfaces).</p>
+<div class="para" id="p-1826">The most commonly used model for dry friction is Coulomb friction, which includes phases (as shown in <a href="" class="xref" data-knowl="./knowl/function_CC.html" title="Figure 9.1.4">Figure 9.1.4</a> below): (1) static but not impending friction, (2) impending motion, and (3) kinetic friction. Coulomb friction relies on a friction coefficient <span class="process-math">\(\mu\)</span> to serve as the proportionality constant between the normal and friction forces. The friction coefficient \mu is always greater than 0 and commonly less than 1. The friction coefficient can be greater than 1 for materials that exhibit positive adhesion to each other (like silicone rubber or glued surfaces).</div>
 <figure class="figure figure-like" id="function_CC"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/fric_function.png" class="contained" alt="Book resting on table with force being applied horizontally to the right on the book. The graph shows that the friction force equals the push force, increases as the push force on the book increases up until it reaches mu_static*N. Then, the push force reduces to mu_kinetic*N."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.4<span class="period">.</span></span><span class="space"> </span>A simple model of a book being pushed horizontally while sitting on a table. <abbr class="acronym">FBDs</abbr> are provided for the system, book, and table. Additionally, a Coulomb friction graph is shown and the various phases are numbered.</figcaption></figure><p id="p-1826"></p>
-<p id="p-1827">Here is a more detailed discussion of what happens in each friction phase.</p>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.4<span class="period">.</span></span><span class="space"> </span>A simple model of a book being pushed horizontally while sitting on a table. <abbr class="acronym">FBDs</abbr> are provided for the system, book, and table. Additionally, a Coulomb friction graph is shown and the various phases are numbered.</figcaption></figure><div class="para" id="p-1827"></div>
+<div class="para logical" id="p-1828">
+<div class="para">Here is a more detailed discussion of what happens in each friction phase.</div>
 <ol class="decimal">
-<li id="li-517"><p id="p-derived-li-517">At the origin of the graph in <a href="" class="xref" data-knowl="./knowl/function_CC.html" title="Figure 9.1.4">Figure 9.1.4</a>, there is material interaction between the book and table, thus a friction force is available, but not engaged <span class="process-math">\(F_f=F_\text{push}=0\text{.}\)</span></p></li>
-<li id="li-518"><p id="p-derived-li-518">Assuming the pushing force <span class="process-math">\(F_\text{push}\)</span> gradually increases from zero in this static-but-not-impending phase, the friction force increases proportionally to keep the forces balanced and the box static <span class="process-math">\(F_f=F_\text{push}\text{.}\)</span></p></li>
-<li id="li-519"><p id="p-derived-li-519">Next, the maximum friction possible is reached at impending motion and the pushing force matches the maximum friction force <span class="process-math">\(F_{f_\text{max}}=\mu_\text{s} N\text{.}\)</span></p></li>
-<li id="li-520"><p id="p-derived-li-520">Finally, if the pushing force is increased beyond impending motion, the book starts to move under the influence of kinetic friction <span class="process-math">\(F_{f_\text{max}}=\mu_k N\text{.}\)</span></p></li>
+<li id="li-517"><div class="para" id="p-derived-li-517">At the origin of the graph in <a href="" class="xref" data-knowl="./knowl/function_CC.html" title="Figure 9.1.4">Figure 9.1.4</a>, there is material interaction between the book and table, thus a friction force is available, but not engaged <span class="process-math">\(F_f=F_\text{push}=0\text{.}\)</span>
+</div></li>
+<li id="li-518"><div class="para" id="p-derived-li-518">Assuming the pushing force <span class="process-math">\(F_\text{push}\)</span> gradually increases from zero in this static-but-not-impending phase, the friction force increases proportionally to keep the forces balanced and the box static <span class="process-math">\(F_f=F_\text{push}\text{.}\)</span>
+</div></li>
+<li id="li-519"><div class="para" id="p-derived-li-519">Next, the maximum friction possible is reached at impending motion and the pushing force matches the maximum friction force <span class="process-math">\(F_{f_\text{max}}=\mu_\text{s} N\text{.}\)</span>
+</div></li>
+<li id="li-520"><div class="para" id="p-derived-li-520">Finally, if the pushing force is increased beyond impending motion, the book starts to move under the influence of kinetic friction <span class="process-math">\(F_{f_\text{max}}=\mu_k N\text{.}\)</span>
+</div></li>
 </ol>
-<p id="p-1828">Notice that impending motion friction is always greater than kinetic friction, this is because the coefficient <span class="process-math">\(\mu_\text{s} \gt \mu_k\)</span> for most materials. Practically, this tells us that once a material starts to move it is easier to keep moving than it was to get it started from rest.</p>
-<p id="p-1829">If you wonder why we include kinetic friction in a statics course, remember that a body in equilibrium might be moving with constant velocity.</p>
-<p id="p-1830">The key to deciding what type of friction is appropriate for a given problem will depend on the specifics of the problem statement.</p>
+</div>
+<div class="para" id="p-1829">Notice that impending motion friction is always greater than kinetic friction, this is because the coefficient <span class="process-math">\(\mu_\text{s} \gt \mu_k\)</span> for most materials. Practically, this tells us that once a material starts to move it is easier to keep moving than it was to get it started from rest.</div>
+<div class="para" id="p-1830">If you wonder why we include kinetic friction in a statics course, remember that a body in equilibrium might be moving with constant velocity.</div>
+<div class="para" id="p-1831">The key to deciding what type of friction is appropriate for a given problem will depend on the specifics of the problem statement.</div>
 <figure class="table table-like" id="friction_summary"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">9.1.5<span class="period">.</span></span><span class="space"> </span>Summary of the three phases of friction with the key to recognizing and examples of each.</figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
-<td class="l t b3 r0 l0 t3" style="max-width:120px;"><p id="p-1831">Type</p></td>
-<td class="l t b3 r0 l0 t3" style="max-width:150px;"><p id="p-1832">Governing equation</p></td>
-<td class="l t b3 r0 l0 t3" style="max-width:330px;"><p id="p-1833">Key to recognizing</p></td>
+<td class="l t b3 r0 l0 t3" style="max-width:120px;"><div class="para" id="p-1832">Type</div></td>
+<td class="l t b3 r0 l0 t3" style="max-width:150px;"><div class="para" id="p-1833">Governing equation</div></td>
+<td class="l t b3 r0 l0 t3" style="max-width:330px;"><div class="para" id="p-1834">Key to recognizing</div></td>
 </tr>
 <tr>
-<td class="l t b0 r0 l0 t0" style="max-width:120px;"><p id="p-1834">Static-but-not- impending motion</p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:150px;"><p id="p-1835">None, <span class="process-math">\(F_f\)</span> is independent of <span class="process-math">\(N\text{.}\)</span></p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:330px;"><p id="p-1836">Mention of sitting or static, but no extremal language</p></td>
+<td class="l t b0 r0 l0 t0" style="max-width:120px;"><div class="para" id="p-1835">Static-but-not- impending motion</div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:150px;"><div class="para" id="p-1836">None, <span class="process-math">\(F_f\)</span> is independent of <span class="process-math">\(N\text{.}\)</span>
+</div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:330px;"><div class="para" id="p-1837">Mention of sitting or static, but no extremal language</div></td>
 </tr>
 <tr><td class="l t b1 r0 l0 t0" colspan="3" style="max-width:120px;">
-<p id="p-1837"><em class="alert">Examples</em>:</p>
-<p id="p-1838">A moment of <span class="process-math">\(\Nm{20}\)</span> is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm? A box sits on a slope, find the resultant of the friction and normal forces on the box.</p>
+<div class="para" id="p-1838">
+<em class="alert">Examples</em>:</div>
+<div class="para" id="p-1839">A moment of <span class="process-math">\(\Nm{20}\)</span> is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm? A box sits on a slope, find the resultant of the friction and normal forces on the box.</div>
 </td></tr>
 <tr>
-<td class="l t b0 r0 l0 t0" style="max-width:120px;"><p id="p-1839">Impending motion</p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:150px;"><p id="p-1840"><span class="process-math">\(F_f = \mu_\text{s} N\)</span></p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:330px;"><p id="p-1841">The use of extremal language (related to maximum or minimum values) in the problem statements</p></td>
+<td class="l t b0 r0 l0 t0" style="max-width:120px;"><div class="para" id="p-1840">Impending motion</div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:150px;"><div class="para" id="p-1841"><span class="process-math">\(F_f = \mu_\text{s} N\)</span></div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:330px;"><div class="para" id="p-1842">The use of extremal language (related to maximum or minimum values) in the problem statements</div></td>
 </tr>
 <tr><td class="l t b1 r0 l0 t0" colspan="3" style="max-width:120px;">
-<p id="p-1842"><em class="alert">Examples:</em></p>
-<p id="p-1843">What is the maximum force applied to the box before it will start to move? What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope? What is the most massive moment that the brake arm will hold static?</p>
+<div class="para" id="p-1843"><em class="alert">Examples:</em></div>
+<div class="para" id="p-1844">What is the maximum force applied to the box before it will start to move? What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope? What is the most massive moment that the brake arm will hold static?</div>
 </td></tr>
 <tr>
-<td class="l t b0 r0 l0 t0" style="max-width:120px;"><p id="p-1844">Kinetic friction</p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:150px;"><p id="p-1845"><span class="process-math">\(F_f = \mu_k N\)</span></p></td>
-<td class="l t b0 r0 l0 t0" style="max-width:330px;"><p id="p-1846">Mention of the body moving at a constant velocity under the effect of friction. (You will learn to solve non-constant velocity friction problems in Dynamics).</p></td>
+<td class="l t b0 r0 l0 t0" style="max-width:120px;"><div class="para" id="p-1845">Kinetic friction</div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:150px;"><div class="para" id="p-1846"><span class="process-math">\(F_f = \mu_k N\)</span></div></td>
+<td class="l t b0 r0 l0 t0" style="max-width:330px;"><div class="para" id="p-1847">Mention of the body moving at a constant velocity under the effect of friction. (You will learn to solve non-constant velocity friction problems in Dynamics).</div></td>
 </tr>
 <tr><td class="l t b1 r0 l0 t0" colspan="3" style="max-width:120px;">
-<p id="p-1847"><em class="alert">Examples</em>:</p>
-<p id="p-1848">A <span class="process-math">\(\kg{40}\)</span> box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant? A rope slips around a tree with a known friction coefficient and a constant velocity, what is the contact angle of the rope?</p>
+<div class="para" id="p-1848">
+<em class="alert">Examples</em>:</div>
+<div class="para" id="p-1849">A <span class="process-math">\(\kg{40}\)</span> box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant? A rope slips around a tree with a known friction coefficient and a constant velocity, what is the contact angle of the rope?</div>
 </td></tr>
-</table></div></figure><p id="p-1849">Note that when you solve static-but-not-impending motion problems (as opposed to impending or kinetic) that you will need one additional piece of data given in the problem to solve for both  <span class="process-math">\(F_f \)</span> and <span class="process-math">\(N\)</span> as you will not be able to apply the equation <span class="process-math">\(F_f=\mu N\text{.}\)</span></p></section><section class="subsection" id="Chapter_09-friction-angle-and-friction-resultant"><h3 class="heading hide-type">
+</table></div></figure><div class="para" id="p-1850">Note that when you solve static-but-not-impending motion problems (as opposed to impending or kinetic) that you will need one additional piece of data given in the problem to solve for both  <span class="process-math">\(F_f \)</span> and <span class="process-math">\(N\)</span> as you will not be able to apply the equation <span class="process-math">\(F_f=\mu N\text{.}\)</span>
+</div></section><section class="subsection" id="Chapter_09-friction-angle-and-friction-resultant"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">9.1.2</span> <span class="title">Friction angle and friction resultant</span>
 </h3>
-<p id="p-1850">Friction and normal forces can be represented in two equivalent ways:</p>
-<section class="paragraphs" id="paragraphs-47"><h4 class="heading"><span class="title">Friction and normal forces.</span></h4> <p id="p-1851">Using these perpendicular vectors is most convenient on block and wedge type problems and apply equally-well in all three phases of friction (static but not impending, impending motion, and kinetic friction)</p></section><section class="paragraphs" id="paragraphs-48"><h4 class="heading"><span class="title">Resultant force and friction angle.</span></h4> <p id="p-1852">Recall that resultants are the sum of two or more vectors. In this case, the friction resultant is <span class="process-math">\(\vec{R}=\vec{F}+\vec{N}\text{.}\)</span> The friction angle <span class="process-math">\(\phi_s \)</span> is the angle between the friction resultant and normal forces but only is applicable at impending motion. The friction resultant and friction angle are used for screw, flexible belt, and journal bearing type problems.</p></section><figure class="figure figure-like" id="block_XX"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/fric_block.png" class="contained" alt="A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.6<span class="period">.</span></span><span class="space"> </span>A block of weight <span class="process-math">\(W\)</span> is pushed sideways by force <span class="process-math">\(P\text{.}\)</span> The combined effect of the friction and normal forces can either be modeled as separate friction (<span class="process-math">\(F\)</span>) and normal (<span class="process-math">\(N\)</span>) forces (left) or a friction resultant force (<span class="process-math">\(R\)</span>) and friction angle <span class="process-math">\((\phi_s)\text{.}\)</span></figcaption></figure><p id="p-1853"></p>
-<p id="p-1854">The friction angle <span class="process-math">\(\phi_s\)</span> relates directly to the coefficient of static friction <span class="process-math">\((\mu_\text{s})\)</span> as the friction angle <span class="process-math">\(\phi_s\)</span> is the internal angle of the right triangle formed by the normal force <span class="process-math">\(N\text{,}\)</span> the friction resultant <span class="process-math">\(R\text{,}\)</span> and the friction force <span class="process-math">\(F\text{.}\)</span> Hence:</p>
-<div class="displaymath process-math" data-contains-math-knowls="" id="men-68">
+<div class="para" id="p-1851">Friction and normal forces can be represented in two equivalent ways:</div>
+<section class="paragraphs" id="paragraphs-47"><h4 class="heading"><span class="title">Friction and normal forces.</span></h4> <div class="para" id="p-1852">Using these perpendicular vectors is most convenient on block and wedge type problems and apply equally-well in all three phases of friction (static but not impending, impending motion, and kinetic friction)</div></section><section class="paragraphs" id="paragraphs-48"><h4 class="heading"><span class="title">Resultant force and friction angle.</span></h4> <div class="para" id="p-1853">Recall that resultants are the sum of two or more vectors. In this case, the friction resultant is <span class="process-math">\(\vec{R}=\vec{F}+\vec{N}\text{.}\)</span> The friction angle <span class="process-math">\(\phi_s \)</span> is the angle between the friction resultant and normal forces but only is applicable at impending motion. The friction resultant and friction angle are used for screw, flexible belt, and journal bearing type problems.</div></section><figure class="figure figure-like" id="block_XX"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/fric_block.png" class="contained" alt="A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.6<span class="period">.</span></span><span class="space"> </span>A block of weight <span class="process-math">\(W\)</span> is pushed sideways by force <span class="process-math">\(P\text{.}\)</span> The combined effect of the friction and normal forces can either be modeled as separate friction (<span class="process-math">\(F\)</span>) and normal (<span class="process-math">\(N\)</span>) forces (left) or a friction resultant force (<span class="process-math">\(R\)</span>) and friction angle <span class="process-math">\((\phi_s)\text{.}\)</span></figcaption></figure><div class="para" id="p-1854"></div>
+<div class="para logical" id="p-1855">
+<div class="para">The friction angle <span class="process-math">\(\phi_s\)</span> relates directly to the coefficient of static friction <span class="process-math">\((\mu_\text{s})\)</span> as the friction angle <span class="process-math">\(\phi_s\)</span> is the internal angle of the right triangle formed by the normal force <span class="process-math">\(N\text{,}\)</span> the friction resultant <span class="process-math">\(R\text{,}\)</span> and the friction force <span class="process-math">\(F\text{.}\)</span> Hence:</div>
+<div class="displaymath process-math" id="men-68">
 \begin{equation}
 \tan \phi_s  = \frac{F}{N} \qquad \phi_s  = \tan^{-1}\left(\frac{F}{N} \right)\tag{9.1.1}
 \end{equation}
+</div>
 </div></section><section class="subsection" id="Chapter_09-normal-forces"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span>
 </h3>
-<p id="p-1855">Commonly on two dimensional problems, normal forces are represented at the point of contact or in the middle of the contacting surface. However, normal forces are rarely point loads but instead are loads distributed across a surface. The point force vector we typically represent as a normal force on an <abbr class="acronym">FBD</abbr> is the externally equivalent resultant of the distributed normal force (as demonstrated in <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>, distributed loads). To demonstrate this further, take a look at <a href="" class="xref" data-knowl="./knowl/resultant_CC.html" title="Figure 9.1.7">Figure 9.1.7</a>.</p>
+<div class="para" id="p-1856">Commonly on two dimensional problems, normal forces are represented at the point of contact or in the middle of the contacting surface. However, normal forces are rarely point loads but instead are loads distributed across a surface. The point force vector we typically represent as a normal force on an <abbr class="acronym">FBD</abbr> is the externally equivalent resultant of the distributed normal force (as demonstrated in <a href="Chapter_07.html" class="internal" title="Chapter 7: Centroids and Centers of Gravity">Chapter 7</a>, distributed loads). To demonstrate this further, take a look at <a href="" class="xref" data-knowl="./knowl/resultant_CC.html" title="Figure 9.1.7">Figure 9.1.7</a>.</div>
 <figure class="figure figure-like" id="resultant_CC"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/images/fric_resultant.png" class="contained" alt="Three part image with a) box at rest, b) box pushed by horizontal force causing friction force to engage, c) box being pushed by a larger force."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.7<span class="period">.</span></span><span class="space"> </span>(A) A box at rest has a uniformly distributed normal force along the bottom of the box. Hence, the resultant normal force is located directly below the weight force, and the friction force (while available) is not engaged.  (B) As a pushing force<span class="process-math">\(F_\text{push}\)</span> is applied, the distributed normal force changes shape, and the resultant normal force <span class="process-math">\(N\)</span> is shifted to the right to maintain equilibrium. (C) This trend continues as you push harder on the box as the normal force continues to shift right.</figcaption></figure><p id="p-1856"></p></section></section></div></main>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">9.1.7<span class="period">.</span></span><span class="space"> </span>(A) A box at rest has a uniformly distributed normal force along the bottom of the box. Hence, the resultant normal force is located directly below the weight force, and the friction force (while available) is not engaged.  (B) As a pushing force<span class="process-math">\(F_\text{push}\)</span> is applied, the distributed normal force changes shape, and the resultant normal force <span class="process-math">\(N\)</span> is shifted to the right to maintain equilibrium. (C) This trend continues as you push harder on the box as the normal force continues to shift right.</figcaption></figure><div class="para" id="p-1857"></div></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="Chapter_09.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_09-block-and-wedge-friction.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org"><div class="name">Authored in PreTeXt</div>
+<div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259 "></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0  472  9732 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496 A 4241 4241  0  0  1  4724  3590 "></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259 A 4507 4507  0  0  1  4724  9448 "></path><polyline points="5385,4299 4062,8125 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8598,3496 8598,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="850,3496 850,9259 " style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="4960,9685 4488,9685 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="3070,4582 1889,6141 3070,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="6418,4582 7600,6141 6418,7700 " style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; "></polyline><polyline points="8976,3590 8976,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732 "></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy"><div class="name">Powered by Runestone</div>
+<img class="logo" title="Powered by Runestone" src="https://runestone.academy/runestone/static/rectangle_badge.png" alt="Powered by Runestone"></a><a class="mathjax-logo" href="https://www.mathjax.org"><img title="Powered by MathJax" src="https://www.mathjax.org/badge/badge.gif" alt="Powered by MathJax"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
