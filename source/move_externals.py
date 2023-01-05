@@ -2,9 +2,12 @@
 import fnmatch
 import os
 import shutil
+import sys
 
 images = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
-
+# these command line arguments are set by the makefile
+resource_dir = sys.argv[1]  #(RESOURCES)
+external_dir = sys.argv[2]  #(EXTERNAL)
 
 def flatten(match_patterns, source, dest):
     print(f"\tFlattening {match_patterns} in {source} to {dest}.")
@@ -36,10 +39,12 @@ def copy_and_overwrite(source, dest):
     shutil.copytree(source, dest)
 
 print(f"\nmove_externals.py\n\tWorking dir: {os.getcwd()}")
+print(f"\tResource Directory {resource_dir}")
+print(f"\tExternal Directory: {external_dir}\n")
 
-flatten(images, 'resources', '../output/external/images')
-copy_and_overwrite('resources/_Numbas', '../output/external/numbas')
-copy_and_overwrite('resources/common/_favicon', '../output/external/favicon')
-copy_and_overwrite('resources/_css', '../output/external/css')
-copy_and_overwrite('resources/_code', '../output/external/code')
+flatten(images, resource_dir, external_dir + '/images')
+copy_and_overwrite(resource_dir + '/_Numbas', external_dir + '/numbas')
+copy_and_overwrite(resource_dir + '/common/_favicon', external_dir + '/favicon')
+copy_and_overwrite(resource_dir + '/_css', external_dir + '/css')
+copy_and_overwrite(resource_dir + '/_code', external_dir + '/code')
 print()

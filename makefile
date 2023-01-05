@@ -47,7 +47,7 @@ generated:
 external:
 	@echo
 	@echo "Moving EXTERNAL Images"
-	cd $(SOURCE); python move_externals.py
+	python $(SOURCE)/move_externals.py $(RESOURCES) $(EXTERNAL)
 	
 
 #
