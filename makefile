@@ -16,7 +16,9 @@ html: tidy external
 	
 subset: tidy external
 	pretext build subset
-	open -a /Applications/Safari.app  http://localhost:8888/a
+	-rm -r $(MAMPDIR)/* 
+	cp -R  $(HTMLOUT)/ $(MAMPDIR)
+	open -a $(BROWSER)  $(MAMPURL)/Chapter_04-magnitude-of-a-moment.html
 #
 ## move images to external directory
 images: generated external
