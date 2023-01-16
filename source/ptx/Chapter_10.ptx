@@ -25,13 +25,13 @@
       <p>As you know, two dimensional shapes like rectangles and circles have properties such as area, perimeter, and centroid. These are purely <em>geometric</em> properties since they belong to the shape alone, in contrast to <em>physical</em> properties like weight and mass which belong to real physical objects. </p>
       <p>In this section we introduce several new geometric properties useful in engineering including the <term>Area Moment of Inertia</term>. </p>
       <p>The integral properties of shapes, along with the names and symbols commonly used to represent them are given in the table below. You are already familiar with <em>area</em> from Geometry and the <em>first moment of area</em> from <xref ref="Chapter_07"/>. The remaining properties are the subject of this chapter. They all have a similar form, and can be evaluated using similar integration techniques. </p>
-      <sidebyside widths="50% 45%" margins="0%">
+      <sidebyside widths="45% 50%" margins="0%">
+        <p>This interactive diagram defines the terms which apply to all of the property definitions below. It shows a generic plane area <m>A</m>, divided into differential elements <m>dA = dx\ dy</m>. The differential element <m>dA</m> is an infinitesimally tiny rectangle centered about point <m>(x,y)</m>, which can range over the entire area. The distances to the element from the <m>y</m> axis, the <m>x</m> axis and the origin are designated  <m>x</m>, <m>y</m>, and <m>r</m> respectively. The centroid of the entire area is located at <m>(\bar{x},\bar{y})</m>. </p>
         <figure xml:id="MOI-potato-ggb">
           <caption>Definitions for area properties
 </caption>
           <xi:include href="interactives.ptx" xpointer="moi-potato_interactive"/>
         </figure>
-        <p>This interactive diagram defines the terms which apply to all of the property definitions below. It shows a generic plane area <m>A</m>, divided into differential elements <m>dA = dx\ dy</m>. The differential element <m>dA</m> is an infinitesimally tiny rectangle centered about point <m>(x,y)</m>, which can range over the entire area. The distances to the element from the <m>y</m> axis, the <m>x</m> axis and the origin are designated  <m>x</m>, <m>y</m>, and <m>r</m> respectively. The centroid of the entire area is located at <m>(\bar{x},\bar{y})</m>. </p>
       </sidebyside>
       <tabular>
         <col width="25%"/>
@@ -256,15 +256,16 @@ Beam of length <m>L</m> which is being bent by opposing couple-moments to an arc
     <subsection xml:id="MOI-rectangle">
       <title>Moment of Inertia of a Rectangle</title>
       <introduction>
-        <sidebyside widths="45% 50%" margins="0%">
-          <xi:include href="interactives.ptx" xpointer="ggb_moi-rectangle-diagram_interactive"/>
+        <p>Consider the <m>(b \times h)</m> rectangle shown. This rectangle is oriented with its bottom-left corner at the origin and its upper-right corner at the point <m>(b,h)</m>, where <m>b</m> and <m>h</m> are constants.  </p>
+        <p>What is the moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
+        <sidebyside widths="45% 50%" margins="0%" valign="middle">
           <stack>
-            <p>Consider the <m>(b \times h)</m> rectangle shown. This rectangle is oriented with its bottom-left corner at the origin and its upper-right corner at the point <m>(b,h)</m>, where <m>b</m> and <m>h</m> are constants.  </p>
-            <p>What is the moment of inertia of this rectangle with respect to the <m>x</m> axis?</p>
+            <p>To find the moment of inertia, divide the area into square differential elements <m>dA</m> at <m>(x,y)</m> where <m>x</m> and <m>y</m> can range over the entire rectangle and then evaluate the integral using double integration. </p>
+            <p>The differential element <m>dA</m> has width <m>dx</m> and height <m>dy</m>, so <men>dA = dx\ dy = dy\ dx</men>. </p>
           </stack>
+          <xi:include href="interactives.ptx" xpointer="ggb_moi-rectangle-diagram_interactive"/>
         </sidebyside>
-        <p>To find the moment of inertia, divide the area into square differential elements <m>dA</m> at <m>(x,y)</m> where <m>x</m> and <m>y</m> can range over the entire rectangle and then evaluate the integral using double integration. </p>
-        <p>The differential element <m>dA</m> has width <m>dx</m> and height <m>dy</m>, so <men>dA = dx\ dy = dy\ dx</men>. It would seem like this is an insignificant difference, but the order of <m>dx</m> and <m>dy</m> in this expression determines the order of integration of the double integral.  We will try both ways and see that the result is identical.</p>
+        <p>It would seem like this is an insignificant difference, but the order of <m>dx</m> and <m>dy</m> in this expression determines the order of integration of the double integral.  We will try both ways and see that the result is identical.</p>
       </introduction>
       <subsubsection xml:id="dx-first">
         <title>Using <m>dA = dx\ dy</m>
@@ -305,11 +306,12 @@ Beam of length <m>L</m> which is being bent by opposing couple-moments to an arc
         <example xml:id="Chapter_10-example-i_y-of-a-rectangle">
           <title><m>I_y</m> of a Rectangle</title>
           <statement>
-            <sidebyside widths="70% 30%">
-              <p>Find the moment of inertia of the rectangle about the <m>y</m> axis using square differential elements <m>dA</m>.</p>
+            <sidebyside widths="30% 65%" margins="0%" valign="middle">
+              <!--todo this image should be a interactive, like the triangle example below -->
               <image source="images/MOI-rect-square-da-x-y">
                 <description>A differential element with width dx and height dy at position (x,y) within a rectangle with one point at the origin and another at (b,h).</description>
               </image>
+              <p>Find the moment of inertia of the rectangle about the <m>y</m> axis using square differential elements <m>dA</m>.</p>
             </sidebyside>
           </statement>
           <answer>
@@ -337,8 +339,9 @@ Beam of length <m>L</m> which is being bent by opposing couple-moments to an arc
         <example xml:id="Chapter_10-example-rectangle">
           <title>Rectangle</title>
           <statement>
-            <sidebyside widths="30% 65%">
+            <sidebyside widths="30% 65%" margins="0%" valign="middle">
               <image source="images/MOI-rect-centroidal">
+                <!--todo this image should be a interactive, like the triangle example below -->
                 <description>A b x h rectangle with centroid at (b/2, h/2).</description>
               </image>
               <stack>
@@ -388,7 +391,7 @@ Internal forces in a beam caused by an external load.
         <p>The strip must be parallel in order for <xref ref="MOI"/> to work; when parallel, all parts of the strip are the same distance from the axis. </p>
       </aside>
       <p>This approach only works if the bounding function can be described as a function of <m>y</m> and as a function of <m>x</m>, to enable integration with respect to <m>x</m> for the vertical strip, and with respect to <m>y</m> for the horizontal strip.</p>
-      <example xml:id="Chapter_10-example-triangle"><title>Triangle</title><statement><sidebyside widths="45% 50%" margins="0%"><xi:include href="interactives.ptx" xpointer="triangle-diagram_interactive"/><stack><p>Consider the <m>(b \times h)</m> right triangle located in the first quadrant with is base on the <m>x</m> axis.</p><p>What is its moment of inertia of this triangle with respect to the <m>x</m> and <m>y</m> axes?</p></stack></sidebyside></statement><answer><p><men xml:id="MOI-triangle-base">I_x  =  \frac{bh^3}{12} \qquad I_y  =  \frac{b^3h}{4}</men></p></answer>the
+      <example xml:id="Chapter_10-example-triangle"><title>Triangle</title><statement><sidebyside width="60%" margins="auto"><xi:include href="interactives.ptx" xpointer="triangle-diagram_interactive"/></sidebyside><p>Find the moment of inertia of the <m>(b \times h)</m> right triangle with respect to the <m>x</m> and <m>y</m> axes?</p></statement><answer><p><men xml:id="MOI-triangle-base">I_x  =  \frac{bh^3}{12} \qquad I_y  =  \frac{b^3h}{4}</men></p></answer>the
         <solution><p>As we did when finding centroids in <xref ref="centroids-by-integration"/> we need to evaluate the bounding function of the triangle.  The bottom are constant values, <m>y=0</m> and <m>x=b</m>, but the top boundary is a straight line passing through the origin and the point at <m>(b,h)</m>, which has the equation <men xml:id="straight-line"> y(x) = \frac{h}{b} x</men>.  By inspection we see that the a vertical strip extends from the <m>x</m> axis to the function so <m>dA= y\ dx</m>.</p><p>Since vertical strips are parallel to the <m>y</m> axis we can find <m>I_y</m>  by evaluating this integral with <m>dA =  y\ dx</m>, and substituting <m>\frac{h}{b} x</m> for <m>y</m>
             <md><mrow>I_y \amp =  \int_A x^2\ dA</mrow><mrow>\amp =  \int_0^b x^2\ y\ dx</mrow><mrow>\amp =  \int_0^b x^2 \left (\frac{h}{b} x \right ) dx</mrow><mrow>\amp =  \frac{h}{b} \int_0^b x^3 dx</mrow><mrow>\amp = \frac{h}{b} \left . \frac{x^4}{4} \right\vert_0^b</mrow><mrow>I_y \amp =  \frac{hb^3}{4}</mrow></md>.</p><p>Similarly we will find <m>I_x</m> using horizontal strips, by evaluating this integral with <m>dA =  (b-x) dy</m>
             <md><mrow> I_x \amp =  \int_A y^2 dA </mrow></md>.</p><p>We are expressing <m>dA</m> in terms of <m>dy</m>, so everything inside the integral must be constant or expressed in terms of <m>y</m> in order to integrate.  In particular, we will need to solve <xref ref="straight-line"/> for <m>x</m> as a function of <m>y.</m>  This is not difficult. <me> x(y) = \frac{b}{h} y </me>.  Once this has been done, evaluating the integral is straightforward.
@@ -478,7 +481,7 @@ Internal forces in a beam caused by an external load.
       <title>Circles, Semicircles, and Quarter-circles</title>
       <p>In this section, we will use polar coordinates and symmetry to find the moments of inertia of circles, semi-circles and quarter-circles.  </p>
       <p>We will start by finding the polar moment of inertia of a circle with radius <m>r</m>, centered at the origin.   You will recall from <xref ref="polar-moi"/> that the polar moment of inertia is similar to the ordinary moment of inertia, except the distance squared term is the distance from the element to a point in the plane rather than the perpendicular distance to an axis, and it uses the symbol <m>J</m> with a subscript indicating the point.</p>
-      <sidebyside widths="50% 45%" margins="0%">
+      <sidebyside widths="45% 45%" margins="auto" valign="middle">
         <xi:include href="interactives.ptx" xpointer="moi-circle_interactive"/>
         <p>To take advantage of the geometry of a circle,  we'll divide the area into thin rings, as shown in the diagram, and define the distance from the origin to a point on the ring as <m>\rho</m>.  The reason for using thin rings for <m>dA</m> is the same reason we used strips parallel to the axis of interest to find <m>I_x</m> and <m>I_y</m>; all points on the differential ring are the same distance from the origin, so we can find the moment of inertia using single integration.</p>
       </sidebyside>
@@ -488,23 +491,23 @@ Internal forces in a beam caused by an external load.
       <p>Proceeding with the integration, 
 <md><mrow>J_O   \amp =  \int_0^r \rho^2\ 2\pi\rho \ d\rho</mrow><mrow>\amp =  2 \pi \int_0^r \rho^3 d\rho</mrow><mrow>\amp =  2 \pi \left [ \frac{\rho^4}{4}\right ]_0^r</mrow><mrow number="yes">J_O \amp =  \frac{\pi r^4}{2}</mrow></md>.</p>
       <p>This is the polar moment of inertia of a circle about a point at its center.  </p>
-      <p>With this result, we can find the rectangular moments of inertia of circles, semi-circles and quarter circle simply.  Noting that the polar moment of inertia of a shape is the sum of its rectangular moments of inertia and that <m>I_x</m> and <m>I_y</m> are equal for a circle due to its symmetry. Therefore, by <xref ref="Jo"/>, which is easily proven,</p>
-      <sidebyside widths="20% 75%">
+      <p>With this result, we can find the rectangular moments of inertia of circles, semi-circles and quarter circle simply.  Noting that the polar moment of inertia of a shape is the sum of its rectangular moments  of inertia <m>I_x</m> and <m>I_y</m>, these are equal to each other for a circle due to its symmetry. Therefore, by <xref ref="Jo"/>, which is easily proven,</p>
+      <sidebyside widths="35% 65%" marign="0%" valign="middle">
         <image source="images/MOI-circle">
           <description>Circle centered at (0,0)</description>
         </image>
         <p><mdn><mrow number="no">J_O \amp =   I_x  + I_y</mrow><mrow xml:id="Ix-circle"> \bar{I}_x \amp =  \bar{I}_y  =  \frac{J_O}{2} =  \frac{\pi r^4}{4}</mrow></mdn>.</p>
       </sidebyside>
       <p>This is the moment of inertia of a circle about a vertical or horizontal axis passing through its center.</p>
-      <p>A circle consists of two semi-circles above and below the <m>x</m> axis, so the moment of inertia of a semi-circle about a diameter on the <m>x</m> axis is just half of the moment of inertia of a circle.  The moment of inertia about the vertical centerline is the same.</p>
-      <sidebyside widths="20% 75%">
+      <p>A circle consists of two semi-circles above and below the <m>x</m> axis, so the moment of inertia of a semi-circle about a diameter on the <m>x</m> axis is just half of the moment of inertia of a whole circle.  The moment of inertia about the vertical centerline is the same.</p>
+      <sidebyside widths="35% 65%" marign="0%" valign="middle">
         <image source="images/MOI-semi-circle">
           <description>Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.</description>
         </image>
         <p><men> I_x = \bar{I}_y = \frac{\pi r^4}{8}</men>. </p>
       </sidebyside>
       <p>Similarly, the moment of inertia of a quarter circle is half the moment of inertia of a semi-circle, so </p>
-      <sidebyside widths="20% 75%">
+      <sidebyside widths="35% 65%" marign="0%" valign="middle">
         <image source="images/MOI-quarter-circle">
           <description>Quarter circle with flat sides on x-axis and y-axis. The x' and y' axes intersect the centroid.</description>
         </image>
@@ -643,15 +646,15 @@ Definitions for the parallel axis theorem.
       <example xml:id="Chapter_10-example-circular-ring">
         <title>Circular Ring</title>
         <statement>
-          <sidebyside widths="55% 40%">
+          <sidebyside widths="45% 50%" margins="0%" valign="middle">
+            <image width="30%" source="images/MOI-torus">
+              <description>Circular ring with inner radius ri and outer radius ro. The left edge is a distance of a mm from the y-axis. The y' axis intersects the centroid.</description>
+            </image>
             <stack>
               <p>Use the parallel axis theorem to find the moment of inertia of the circular ring about the <m>y</m> axis.</p>
               <p>The dimensions of the ring are <m>R_i = \mm{30}</m>, <m>R_o = \mm{45}</m>, and <m>a = \mm{80}.</m>
               </p>
             </stack>
-            <image width="30%" source="images/MOI-torus">
-              <description>Circular ring with inner radius ri and outer radius ro. The left edge is a distance of a mm from the y-axis. The y' axis intersects the centroid.</description>
-            </image>
           </sidebyside>
         </statement>
         <answer>
@@ -677,9 +680,9 @@ Definitions for the parallel axis theorem.
       <example xml:id="Chapter_10-example-centroidal-moment-of-inertia-of-a-triangle">
         <title>Centroidal Moment of Inertia of a Triangle</title>
         <statement>
-          <sidebyside widths="30% 65%">
+          <sidebyside widths="45% 50%" margins="0%" valign="middle">
             <image source="images/MOI-triangle">
-              <description>Rignt triangle with vertices at (0,0), (b,0), and (0,h). Axes x' and y' intersect the centroid.</description>
+              <description>Right triangle with vertices at (0,0), (b,0), and (0,h). Axes x' and y' intersect the centroid.</description>
             </image>
             <p>Find the centroidal moment of inertia of a triangle knowing that the moment of inertia about its base is<me>I_x = \frac{1}{12} b h^3</me>.</p>
           </sidebyside>
@@ -703,7 +706,7 @@ Definitions for the parallel axis theorem.
       <example xml:id="Chapter_10-example-centroidal-moment-of-inertia-of-a-semi-circle">
         <title>Centroidal Moment of inertia of a Semi-Circle</title>
         <statement>
-          <sidebyside widths="30% 65%">
+          <sidebyside widths="40% 55%" margins="0%" valign="middle">
             <image source="images/MOI-semi-circle-4r3pi">
               <description>Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.</description>
             </image>
@@ -1489,10 +1492,12 @@ Definitions for the parallel axis theorem.
         <p>This interactive shows a composite shape shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red and blue points.</p>
         <p>Use the interactive to see how changes to the rectangles affects the moments of inertia of this shape about the system <m>x</m> axis.  Notice that for two-part shapes like this, the centroid of the composite shape is on the line connecting the centroids of the two parts.</p>
         <p>For calculations, it is convenient to collect all the needed information in a table as is done here.</p>
-        <figure xml:id="composite-MOI-ggb">
-          <caption>Moment of Inertia of a Rectangle</caption>
-          <xi:include href="interactives.ptx" xpointer="composite-MOI_interactive"/>
-        </figure>
+        <sidebyside width="100%">
+          <figure xml:id="composite-MOI-ggb">
+            <caption>Moment of Inertia of a Rectangle about the <m>x</m> axis.</caption>
+            <xi:include href="interactives.ptx" xpointer="composite-MOI_interactive"/>
+          </figure>
+        </sidebyside>
       </example>
     </subsection>
     <subsection xml:id="Chapter_10-structural-steel-sections">
@@ -1657,9 +1662,9 @@ Section-cut view of a shaft, showing shearing forces developed to withstand exte
         <li>Why is the product of inertia of a symmetrical cross section zero?</li>
       </ul>
     </objectives>
-    <sidebyside widths="60% 40%">
+    <sidebyside widths="45% 50%" margins="0%" valign="middle">
       <p>The <term>product of inertia</term> is another integral property of area, and is defined as <men> I_{xy} = \int_A {x}{y}\ dA</men>. The parallel axis theorem for products of inertia is <men>I_{xy} = \bar{I}_{x'y'} + A \bar{x}\bar{y}</men>.</p>
-      <image source="images/MOI-polar">
+      <image source="images/MOI-product">
         <description>Area with centroid at (x-bar,y-bar). The x' and y' axes intersect at the centroid. A differential element is shown at (x,y) which is a distance of (x',y') from the y' and x' axes, respectively.</description>
       </image>
     </sidebyside>
