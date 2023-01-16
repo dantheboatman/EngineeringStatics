@@ -11,14 +11,15 @@
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="ignore-math">
-<article class="insight remark-like"><h5 class="heading">
-<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.6.19</span><span class="period">.</span><span class="space"> </span><span class="title">Why does the Method of Joints work on trusses but fail on Frames and Machines?</span>
-</h5> <div class="para">We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.  Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.  The force acts along the axis of the member, and causes no bending if the member is straight.  Cutting a truss member exposes <em class="emphasis">one</em> unknown.</div> <div class="para logical">
-<div class="para">Frames and machines are made of multi-force members and cutting these, in general, exposes:</div>
+<article class="insight remark-like"><h4 class="heading">
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.3.6</span><span class="period">.</span><span class="space"> </span><span class="title">Why include Zero-Force Members?</span>
+</h4> <div class="para logical">
+<div class="para">You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:</div>
 <ul class="disc">
-<li><div class="para">A force with an unknown magnitude acting in an unknown direction, and</div></li>
-<li><div class="para">A bending moment at the plane of the cut.</div></li>
+<li><div class="para">We have assumed that all members have negligible weight or if not, applied half the weight to each pin.  The <em class="emphasis">actual</em> weight of <em class="emphasis">real</em> members invalidates the two-force body assumption and leads to errors.  Consider a vertical member -- the internal forces must at least support the member’s weight.</div></li>
+<li><div class="para">Truss members are not actually rigid, and long slender members under compression will <em class="emphasis">buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin <span class="process-math">\(D\)</span> if they were not replaced with a single member <span class="process-math">\(CE\)</span> with sufficient rigidity.</div></li>
+<li><div class="para">Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition — think about how the load on a bridge shifts as a heavy truck drives across.</div></li>
 </ul>
-</div> <div class="para">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</div> <div class="para">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</div></article><span class="incontext"><a href="frames-and-machines.html#insight-7" class="internal">in-context</a></span>
+</div> <div class="para">So finding a zero-force member in a determinate truss does not mean you can discard the member. Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing. After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles. If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or ‘floating’ forces that have no load path to the foundation.</div></article><span class="incontext"><a href="Chapter_06-trusses.html#insight-7" class="internal">in-context</a></span>
 </body>
 </html>

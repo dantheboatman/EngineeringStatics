@@ -39,6 +39,7 @@ var updateSlate = function (){
 ggb.registerObjectUpdateListener('a', updateSlate);
 ggb.registerObjectUpdateListener('b', updateSlate);
 ggb.registerObjectUpdateListener('c', updateSlate);
+ggb.registerObjectUpdateListener('r', updateSlate);
 updateSlate();
 t1.getElementsByTagName('tr')[1].style.color='red';
 t1.getElementsByTagName('tr')[2].style.color='blue';
