@@ -391,12 +391,31 @@ Internal forces in a beam caused by an external load.
         <p>The strip must be parallel in order for <xref ref="MOI"/> to work; when parallel, all parts of the strip are the same distance from the axis. </p>
       </aside>
       <p>This approach only works if the bounding function can be described as a function of <m>y</m> and as a function of <m>x</m>, to enable integration with respect to <m>x</m> for the vertical strip, and with respect to <m>y</m> for the horizontal strip.</p>
-      <example xml:id="Chapter_10-example-triangle"><title>Triangle</title><statement><sidebyside width="60%" margins="auto"><xi:include href="interactives.ptx" xpointer="triangle-diagram_interactive"/></sidebyside><p>Find the moment of inertia of the <m>(b \times h)</m> right triangle with respect to the <m>x</m> and <m>y</m> axes?</p></statement><answer><p><men xml:id="MOI-triangle-base">I_x  =  \frac{bh^3}{12} \qquad I_y  =  \frac{b^3h}{4}</men></p></answer>the
-        <solution><p>As we did when finding centroids in <xref ref="centroids-by-integration"/> we need to evaluate the bounding function of the triangle.  The bottom are constant values, <m>y=0</m> and <m>x=b</m>, but the top boundary is a straight line passing through the origin and the point at <m>(b,h)</m>, which has the equation <men xml:id="straight-line"> y(x) = \frac{h}{b} x</men>.  By inspection we see that the a vertical strip extends from the <m>x</m> axis to the function so <m>dA= y\ dx</m>.</p><p>Since vertical strips are parallel to the <m>y</m> axis we can find <m>I_y</m>  by evaluating this integral with <m>dA =  y\ dx</m>, and substituting <m>\frac{h}{b} x</m> for <m>y</m>
-            <md><mrow>I_y \amp =  \int_A x^2\ dA</mrow><mrow>\amp =  \int_0^b x^2\ y\ dx</mrow><mrow>\amp =  \int_0^b x^2 \left (\frac{h}{b} x \right ) dx</mrow><mrow>\amp =  \frac{h}{b} \int_0^b x^3 dx</mrow><mrow>\amp = \frac{h}{b} \left . \frac{x^4}{4} \right\vert_0^b</mrow><mrow>I_y \amp =  \frac{hb^3}{4}</mrow></md>.</p><p>Similarly we will find <m>I_x</m> using horizontal strips, by evaluating this integral with <m>dA =  (b-x) dy</m>
-            <md><mrow> I_x \amp =  \int_A y^2 dA </mrow></md>.</p><p>We are expressing <m>dA</m> in terms of <m>dy</m>, so everything inside the integral must be constant or expressed in terms of <m>y</m> in order to integrate.  In particular, we will need to solve <xref ref="straight-line"/> for <m>x</m> as a function of <m>y.</m>  This is not difficult. <me> x(y) = \frac{b}{h} y </me>.  Once this has been done, evaluating the integral is straightforward.
+      <example xml:id="Chapter_10-example-triangle">
+        <title>Triangle</title>
+        <statement>
+          <sidebyside width="60%" margins="auto">
+            <xi:include href="interactives.ptx" xpointer="triangle-diagram_interactive"/>
+          </sidebyside>
+          <p>Find the moment of inertia of the <m>(b \times h)</m> right triangle with respect to the <m>x</m> and <m>y</m> axes?</p>
+        </statement>
+        <answer>
+          <p>
+            <men xml:id="MOI-triangle-base">I_x  =  \frac{bh^3}{12} \qquad I_y  =  \frac{b^3h}{4}</men>
+          </p>
+        </answer>
+        <solution>
+          <p>As we did when finding centroids in <xref ref="centroids-by-integration"/> we need to evaluate the bounding function of the triangle.  The bottom are constant values, <m>y=0</m> and <m>x=b</m>, but the top boundary is a straight line passing through the origin and the point at <m>(b,h)</m>, which has the equation <men xml:id="straight-line"> y(x) = \frac{h}{b} x</men>.  By inspection we see that the a vertical strip extends from the <m>x</m> axis to the function so <m>dA= y\ dx</m>.</p>
+          <p>Since vertical strips are parallel to the <m>y</m> axis we can find <m>I_y</m>  by evaluating this integral with <m>dA =  y\ dx</m>, and substituting <m>\frac{h}{b} x</m> for <m>y</m>
+            <md><mrow>I_y \amp =  \int_A x^2\ dA</mrow><mrow>\amp =  \int_0^b x^2\ y\ dx</mrow><mrow>\amp =  \int_0^b x^2 \left (\frac{h}{b} x \right ) dx</mrow><mrow>\amp =  \frac{h}{b} \int_0^b x^3 dx</mrow><mrow>\amp = \frac{h}{b} \left . \frac{x^4}{4} \right\vert_0^b</mrow><mrow>I_y \amp =  \frac{hb^3}{4}</mrow></md>.</p>
+          <p>Similarly we will find <m>I_x</m> using horizontal strips, by evaluating this integral with <m>dA =  (b-x) dy</m>
+            <md><mrow> I_x \amp =  \int_A y^2 dA </mrow></md>.</p>
+          <p>We are expressing <m>dA</m> in terms of <m>dy</m>, so everything inside the integral must be constant or expressed in terms of <m>y</m> in order to integrate.  In particular, we will need to solve <xref ref="straight-line"/> for <m>x</m> as a function of <m>y.</m>  This is not difficult. <me> x(y) = \frac{b}{h} y </me>.  Once this has been done, evaluating the integral is straightforward.
 <md><mrow>I_x \amp =  \int_A y^2\ dA</mrow><mrow>\amp =  \int_0^h y^2 (b-x)\ dy</mrow><mrow>\amp =  \int_0^h y^2 \left (b - \frac{b}{h} y \right ) dy</mrow><mrow>\amp =  b\int_0^h y^2 dy - \frac{b}{h} \int_0^h y^3 dy</mrow><mrow>\amp = \frac{bh^3}{3} - \frac{b}{h} \frac{h^4}{4} </mrow><mrow>I_x \amp =  \frac{bh^3}{12}</mrow></md>
-          </p><p>This is the moment of inertia of a right triangle about an axis passing through its base.  By reversing the roles of b and h, we also now have the moment of inertia of a right triangle about an axis passing through its vertical side. <me>I_y = \frac{hb^3}{12} </me>.</p></solution></example>
+          </p>
+          <p>This is the moment of inertia of a right triangle about an axis passing through its base.  By reversing the roles of b and h, we also now have the moment of inertia of a right triangle about an axis passing through its vertical side. <me>I_y = \frac{hb^3}{12} </me>.</p>
+        </solution>
+      </example>
     </subsection>
     <subsection xml:id="MOI-differential-strips">
       <title>Moment of Inertia of a Differential Strip</title>
@@ -492,7 +511,7 @@ Internal forces in a beam caused by an external load.
 <md><mrow>J_O   \amp =  \int_0^r \rho^2\ 2\pi\rho \ d\rho</mrow><mrow>\amp =  2 \pi \int_0^r \rho^3 d\rho</mrow><mrow>\amp =  2 \pi \left [ \frac{\rho^4}{4}\right ]_0^r</mrow><mrow number="yes">J_O \amp =  \frac{\pi r^4}{2}</mrow></md>.</p>
       <p>This is the polar moment of inertia of a circle about a point at its center.  </p>
       <p>With this result, we can find the rectangular moments of inertia of circles, semi-circles and quarter circle simply.  Noting that the polar moment of inertia of a shape is the sum of its rectangular moments  of inertia <m>I_x</m> and <m>I_y</m>, these are equal to each other for a circle due to its symmetry. Therefore, by <xref ref="Jo"/>, which is easily proven,</p>
-      <sidebyside widths="35% 65%" marign="0%" valign="middle">
+      <sidebyside widths="35% 65%" margins="0%" valign="middle">
         <image source="images/MOI-circle">
           <description>Circle centered at (0,0)</description>
         </image>
@@ -500,14 +519,14 @@ Internal forces in a beam caused by an external load.
       </sidebyside>
       <p>This is the moment of inertia of a circle about a vertical or horizontal axis passing through its center.</p>
       <p>A circle consists of two semi-circles above and below the <m>x</m> axis, so the moment of inertia of a semi-circle about a diameter on the <m>x</m> axis is just half of the moment of inertia of a whole circle.  The moment of inertia about the vertical centerline is the same.</p>
-      <sidebyside widths="35% 65%" marign="0%" valign="middle">
+      <sidebyside widths="35% 65%" margins="0%" valign="middle">
         <image source="images/MOI-semi-circle">
           <description>Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.</description>
         </image>
         <p><men> I_x = \bar{I}_y = \frac{\pi r^4}{8}</men>. </p>
       </sidebyside>
       <p>Similarly, the moment of inertia of a quarter circle is half the moment of inertia of a semi-circle, so </p>
-      <sidebyside widths="35% 65%" marign="0%" valign="middle">
+      <sidebyside widths="35% 65%" margins="0%" valign="middle">
         <image source="images/MOI-quarter-circle">
           <description>Quarter circle with flat sides on x-axis and y-axis. The x' and y' axes intersect the centroid.</description>
         </image>
@@ -681,6 +700,7 @@ Definitions for the parallel axis theorem.
         <title>Centroidal Moment of Inertia of a Triangle</title>
         <statement>
           <sidebyside widths="45% 50%" margins="0%" valign="middle">
+            <!--todo this image is too big, compared to its neighbors -->
             <image source="images/MOI-triangle">
               <description>Right triangle with vertices at (0,0), (b,0), and (0,h). Axes x' and y' intersect the centroid.</description>
             </image>
