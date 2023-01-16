@@ -18,7 +18,16 @@ subset: tidy external
 	pretext build subset
 	-rm -r $(MAMPDIR)/* 
 	cp -R  $(HTMLOUT)/ $(MAMPDIR)
-	open -a $(BROWSER)  $(MAMPURL)/Chapter_04-magnitude-of-a-moment.html
+	open -a $(BROWSER)  $(MAMPURL)
+	
+chapter: tidy external
+# usage: make chapter n=05
+	echo Chapter_$(n)
+	pretext build subset -x Chapter_$(n)
+	-rm -r $(MAMPDIR)/* 
+	cp -R  $(HTMLOUT)/ $(MAMPDIR)
+	open -a $(BROWSER)  $(MAMPURL)/Chapter_$(n).html
+
 #
 ## move images to external directory
 images: generated external
