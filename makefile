@@ -10,24 +10,33 @@ PTX = $(shell find $(SOURCE) -type f -name '*.ptx')
 ## make html version for local viewing
 html: tidy external
 	pretext build web
-	-rm -r $(MAMPDIR)/* 
-	cp -R  $(HTMLOUT)/ $(MAMPDIR)
-	open -a $(BROWSER)  $(MAMPURL)
+	-rm -r $(LOCALDIR)/* 
+	cp -R  $(HTMLOUT)/ $(LOCALDIR)
+	open -a $(BROWSER)  $(LOCALURL)
 	
 subset: tidy external
-	pretext build subset
-	-rm -r $(MAMPDIR)/* 
-	cp -R  $(HTMLOUT)/ $(MAMPDIR)
-	open -a $(BROWSER)  $(MAMPURL)
+#usage: make subset id=xml:id
+	pretext build subset -x $(id)
+	-rm -r $(LOCALDIR)/* 
+	cp -R  $(HTMLOUT)/ $(LOCALDIR)
+	open -a $(BROWSER)  $(LOCALURL)/$(id).html
 	
 chapter: tidy external
 # usage: make chapter n=05
 	echo Chapter_$(n)
 	pretext build subset -x Chapter_$(n)
-	-rm -r $(MAMPDIR)/* 
-	cp -R  $(HTMLOUT)/ $(MAMPDIR)
-	open -a $(BROWSER)  $(MAMPURL)/Chapter_$(n).html
-
+	-rm -r $(LOCALDIR)/* 
+	cp -R  $(HTMLOUT)/ $(LOCALDIR)
+	open -a $(BROWSER) $(LOCALURL)/Chapter_$(n).html
+	
+interactives:
+# Builds a directory and index of all Interactives
+# for testing purposes
+# make html wipes this directory 
+	pretext build interactives
+	mkdir -p $(LOCALDIR)/interactives
+	cp -R  $(BUILD)/interactives $(LOCALDIR)
+	open -a $(BROWSER) $(LOCALURL)/interactives/interactives.html
 #
 ## move images to external directory
 images: generated external
@@ -78,7 +87,7 @@ info:
 #
 clean:
 	-rm -r $(BUILD)
-	-rm -r $(MAMPDIR)
+	-rm -r $(LOCALDIR)
 #
 # folders not used - here for reference
 folders:
