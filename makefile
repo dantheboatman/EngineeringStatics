@@ -29,7 +29,7 @@ chapter: tidy external
 	cp -R  $(HTMLOUT)/ $(LOCALDIR)
 	open -a $(BROWSER) $(LOCALURL)/Chapter_$(n).html
 	
-interactives:
+interactives: tidy external
 # Builds a directory and index of all Interactives
 # for testing purposes
 # make html wipes this directory 
