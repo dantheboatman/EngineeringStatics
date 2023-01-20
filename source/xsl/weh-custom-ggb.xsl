@@ -3,8 +3,7 @@
     <!ENTITY % entities SYSTEM "entities.ent">
     %entities;
 ]>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
- xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:html="http://www.w3.org/1999/xhtml" version="1.0">
  <!-- ==========================================
     
 Customizations to allow geogebra to communicate back and forth with the html page.  Main changes:
@@ -174,16 +173,17 @@ This is a modified copy of the template in pretext-html.xsl -->
   </div>
  </xsl:template>
 
- <!-- Modifications to put geogebra interactive instructions in the sidebar as an <aside>
+<!--<!-\-  No longer necessary, as of 1/19/23 standard xslt puts instructions in knowls. -\->
+<!-\-Modifications to put geogebra interactive instructions in the sidebar as an <aside>
 These changes use the assembly mode and tranform ptx to ptx.
 First, prevent standard pretext from emitting  the interactive instructions in a <p> before the interactive. 
--->
+-\->
 
  <xsl:template match="interactive" mode="interactive-core">
   <xsl:apply-templates select="." mode="iframe-interactive" />
  </xsl:template>
 
- <!-- write instructions, if any, as an aside -->
+ <!-\- write instructions, if any, as an aside -\->
  <xsl:template match="interactive//instructions">
   <xsl:if test=". != ''">
    <aside>
@@ -193,12 +193,13 @@ First, prevent standard pretext from emitting  the interactive instructions in a
   </xsl:if>
  </xsl:template>
 
- <!-- This writes the interactive's instructions before the container containing an interactive, during assembly.-->
- <!-- It leaves a copy of the instructions in the interactive, but it is not rendered due to template above -->
+ <!-\- This writes the interactive's instructions before the container containing an interactive, during assembly.-\->
+ <!-\- It leaves a copy of the instructions in the interactive, but it is not rendered due to template above 
+ -\->
  <xsl:template
   match="sidebyside | figure[not(ancestor::sidebyside)] | interactive[not(ancestor::figure) and not(ancestor::sidebyside)]"
   mode="assembly">
   <xsl:apply-templates select=".//instructions" />
   <xsl:apply-templates mode="identity" select="." />
- </xsl:template>
+ </xsl:template>-->
 </xsl:stylesheet>
