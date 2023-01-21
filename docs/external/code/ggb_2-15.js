@@ -4,10 +4,7 @@ var listeners = function(ggb) {
     var nodes = []
     nodes.push(document.getElementById("ggb_2__15_u"));
     nodes.push(document.getElementById("ggb_2__15_v"));
-
-
-    var info = document.getElementById('ggb_2__15_info');
-
+   
 
     var updateSlate = function() {
         var val = {
@@ -22,15 +19,17 @@ var listeners = function(ggb) {
 
         var latex = [
 
-            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\hat{\\vec{A}} \\amp = \\frac{\\vec{A}}{|\\vec{A}|} \\amp \\vec{u} \\amp =\\proj_AB \\\\
-                   \\vec{B} \\amp=${val.B} \\amp \\amp= ${val.Ahat} \\amp \\amp= (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}}\\\\ 
-                   \\amp \\amp \\amp \\amp \\amp=${val.u} \\end{align*}`,
+            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
+             \\hat{\\vec{A}} \\amp = \\frac{\\vec{A}}{|\\vec{A}|} = ${val.Ahat} \\amp
+             \\vec{u}  \\amp = \\proj_AB = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
+             \\end{align*}`,
 
-            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\hat{\\vec{B}} \\amp = \\frac{\\vec{B}}{|\\vec{B}|} \\amp \\vec{v} \\amp =\\proj_BA \\\\
-                   \\vec{B} \\amp=${val.B} \\amp \\amp= ${val.Bhat} \\amp \\amp= (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}}\\\\ 
-                   \\amp \\amp \\amp \\amp \\amp=${val.v} \\end{align*}`
+            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
+             \\hat{\\vec{B}} \\amp = \\frac{\\vec{B}}{|\\vec{B}|} = ${val.Bhat} \\amp
+             \\vec{v}  \\amp = \\proj_BA = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
+             \\end{align*}`
         ];
-
+        
         for (let i = 0; i < 2; i++) {
             nodes[i].innerHTML = `\\( { ${latex[i]} } \\)`;
         };
@@ -47,14 +46,14 @@ var listeners = function(ggb) {
         } else {
             nodes[1].style.display = 'block';
             nodes[0].style.display = 'none';
-        }
+        
+        };
     }
 
 
     ggb.registerObjectUpdateListener("a", updateSlate);
     ggb.registerObjectUpdateListener("b", updateSlate);
     ggb.registerObjectUpdateListener("show", toggleVisibility);
-    info.style.textAlign = 'center';
     toggleVisibility();
     updateSlate();
 
