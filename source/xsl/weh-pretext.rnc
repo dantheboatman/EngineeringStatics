@@ -1,11 +1,11 @@
 namespace html="http://www.w3.org/1999/xhtml"
-include "../../../mathbook/schema/pretext.rnc" 
+include "../../../mathbook/schema/pretext.rnc"
 
 
 
 wellformed-html =
-  (text  | element html:p  | html:div | html:span | html:input | html:button { attribute * {text}*,
-   wellformed-html }
+  (
+  text | element  html:div | span | input | html:button { attribute * {text}*, wellformed-html  }
    )*
  
 
@@ -51,7 +51,7 @@ Remix_info =
  
 
 # define Interactive and Slate elements based on sample-doc.
-# Interactive is not in the schema as of 4/10/22
+# Interactive and slates are not in the schema as of 4/10/22
 # I'm not sure which elements are required so this is not definitive.
 
 Interactive =
@@ -69,6 +69,9 @@ Interactive =
   element instructions { BlockText* | text }?
  }
 
+# this schema only allows geogebra and ptx slates
+# the ptx slate to contain standard pretext, but allow the javascript to stuff elements with innerHTML.  
+# in addition to standard pts, minimal html is allowed: 
 Slate =
  element slate {
   UniqueID?,
@@ -114,4 +117,7 @@ TableRow |=
                     BorderLeft?,
                     TableCell+
                 }
-
+                
+# permit some html in these ptx elements for interactive 'ptx' slate
+TableCell |= element cell { wellformed-html }
+Paragraph |= element p { wellformed-html }
