@@ -149,23 +149,17 @@ This is a modified copy of the template in pretext-html.xsl -->
  <!-- created a new slate[@surface='ptx']  which can contain pretext, but also html elements. Obviously it doesn't validate, and
     sometimes when transformed, the standard templates eat the html elements. I need to figure out which are necessary and allow for them.   -->
 
- <xsl:template match="slate[@surface = 'ptx']">
-  <xsl:call-template name="latex-macros" />
-  <html:div>
-   <xsl:attribute name="id">
-    <xsl:value-of select="@xml:id" />
-   </xsl:attribute>
-   <xsl:apply-templates select="." mode="size-pixels-style-attribute" />
-   <xsl:attribute name="class">ptx-content</xsl:attribute>
-   <!-- This line fixes sidebysides, but causes scrollbars-->
+ <xsl:template match="slate[@surface = 'ptx']" >
+  <div class="ptx-content process-math blue">
+   <xsl:call-template name="latex-macros" />
    <xsl:apply-templates />
-  </html:div>
+  </div>
  </xsl:template>
 
  <xsl:template match="slate[@surface = 'ptx']//html:*">
   <xsl:copy-of select="." />
  </xsl:template>
-
+<!--
  <xsl:template match="slate[@surface = 'html']">
   <xsl:call-template name="latex-macros" />
   <div xmlns="http://www.w3.org/1999/xhtml" class="flex-container" width="100%">
@@ -173,7 +167,7 @@ This is a modified copy of the template in pretext-html.xsl -->
   </div>
  </xsl:template>
 
-<!--<!-\-  No longer necessary, as of 1/19/23 standard xslt puts instructions in knowls. -\->
+<!-\-  No longer necessary, as of 1/19/23 standard xslt puts instructions in knowls. -\->
 <!-\-Modifications to put geogebra interactive instructions in the sidebar as an <aside>
 These changes use the assembly mode and tranform ptx to ptx.
 First, prevent standard pretext from emitting  the interactive instructions in a <p> before the interactive. 
