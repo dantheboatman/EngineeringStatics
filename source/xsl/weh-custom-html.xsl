@@ -7,8 +7,7 @@
   xmlns:html="http://www.w3.org/1999/xhtml"  
   exclude-result-prefixes="html" version="1.0">
   <!-- Thin layer on PreTeXt XML -->
-  <xsl:import href="core/pretext-html.xsl"/>
- 
+  <xsl:import href="./core/pretext-html.xsl"/>
   <!-- Call my hacks for geogebra interactives  -->
   <xsl:import href="weh-custom-ggb.xsl"/>
   

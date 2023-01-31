@@ -29,7 +29,8 @@ def flatten(match_patterns, source, dest):
             target = os.path.join(dest, file)
             if '/_' in root: continue  # Skip any files in directories starting with underscore.
             if os.path.exists(target):  # Warn if this filename has been seen before.
-                print(f"\tWarning: Duplicate filename. \"{file}\" shadows a file with same name in source folder.")
+                print(f"\n***Quitting: Duplicate filename***  \n \"{file}\" shadows a file with same name somewhere else in the source folder.\n\n")
+                sys.exit()
             shutil.copy2(this_file, target)
 
 def copy_and_overwrite(source, dest):
