@@ -910,9 +910,9 @@ var ptx_lunr_docs = [
   "body": "  How is a cross product different than a dot product?  What is a determinant?  What defines a right-handed Cartesian coordinate system?  How do you use the cross-product circle to find the cross product of two unit vectors?   "
 },
 {
-  "id": "p-351",
+  "id": "p-354",
   "level": "2",
-  "url": "cross-product-math.html#p-351",
+  "url": "cross-product-math.html#p-354",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -982,36 +982,36 @@ var ptx_lunr_docs = [
   "body": " Equilibrium  Engineering statics is the study of rigid bodies in equilibrium so it’s appropriate to begin by defining what we mean by rigid bodies and what we mean by equilibrium .  A body is an object, possibly made up of many parts, which may be examined as a unit. In statics, we consider the forces acting on the object as a whole and also examine it in greater detail by studying each of its parts, which are bodies in their own right. The choice of the body is an engineering decision based on what we are interested in finding out. We might, for example, consider an entire high-rise building as a body for the purpose of designing the building’s foundation, and later consider each column and beam of the structure to ensure that they are strong enough to perform their individual roles.  A rigid body is a body which doesn't deform under load, that is to say, an object which doesn't bend, stretch, or twist when forces are applied to it. It is an idealization or approximation because no objects in the real world behave this way; however, this simplification still produces valuable information. You will drop the rigid body assumption and study deformation, stress, and strain in a later course called Strength of Materials or Mechanics of Materials. In that course you will perform analysis of non-rigid bodies, but each problem you do there will begin with the rigid body analysis you will learn to do here .  A body in equilibrium is not accelerating. As you learned in physics, acceleration is the rate of change of velocity, and is a vector quantity. For linear motion, .  For an object in equilibrium which implies that the body is either stationary or moving with a constant velocity .  The acceleration of an object is related to the net force acting on it by Newton’s Second Law  .  So for the special case of static equilibrium Newton’s Law becomes .  This simple equation is one of the two foundations of engineering statics.  There are several ways to think about this equation. Reading it from left to right it says that if all the forces acting on a body sum to zero, then the body will be in equilibrium . If you read it from right to left it says that if a body is in equilibrium, then all the forces acting on the body must sum to zero . Both interpretations are equally valid but we will be using the second one more often. In a typical problem equilibrium of a body implies that the forces sum to zero, and we use that fact to find the unknown forces which make it so. Remember that we are talking about vector addition here, so the sums of the forces must be calculated using the rules of vector addition; you won't get correct answers if you can't add vectors!  We'll be using all of the different vector addition techniques introduced in , which may lead to some confusion. It doesn't matter, mathematically, which technique you use but part of the challenge and reward of statics is learning to select the best tool for the job at hand; to select the simplest, easiest, fastest, or clearest way to get to the solution. You'll do best in this course if can use multiple approaches to solve the same problem.  In we will add another requirement for equilibrium, namely equilibrium equation which says the the forces which cause rotational motion and angular acceleration also must sum to zero, but for the problems of this chapter the only condition we'll need for equilibrium is .  "
 },
 {
-  "id": "p-393",
+  "id": "p-396",
   "level": "2",
-  "url": "ch3-intro.html#p-393",
+  "url": "ch3-intro.html#p-396",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "body "
 },
 {
-  "id": "p-394",
+  "id": "p-397",
   "level": "2",
-  "url": "ch3-intro.html#p-394",
+  "url": "ch3-intro.html#p-397",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "rigid body "
 },
 {
-  "id": "p-395",
+  "id": "p-398",
   "level": "2",
-  "url": "ch3-intro.html#p-395",
+  "url": "ch3-intro.html#p-398",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "equilibrium "
 },
 {
-  "id": "p-397",
+  "id": "p-400",
   "level": "2",
-  "url": "ch3-intro.html#p-397",
+  "url": "ch3-intro.html#p-400",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1027,18 +1027,18 @@ var ptx_lunr_docs = [
   "body": " Particles  We'll begin our study of Equilibrium with the simplest possible object in the simplest possible situation a particle in a one-dimensional coordinate system . Also, in this chapter and the next all forces will be represented as concentrated forces . In later sections the we will address more complicated situations, higher dimensions, and distributed forces, but beginning with very simple situations will help you to develop engineering sense and problem solving skills which will be useful later.  The defining characteristic of a particle is that all forces that act on it are coincident Two lines are coincident when one lies on top of the other. or concurrent Two or more lines are concurrent if they intersect at a single point. , not that it is small. Forces are coincident if they have the same line of action, and concurrent if they intersect at a point. The moon, earth and sun can all be treated as particles, but we probably won’t encounter them in statics since they’re not in equilibrium. Forces are coincident\/concurrent if their lines of action all intersect at a single, common point. Two or more forces are also considered concurrent if they share the same line of action. One practical consequence of this is that particles are never subjected to forces which cause rotation. So a see-saw, for example, is not a particle because the weights of the children tend We say tend to cause rotation because in a statics context all objects are static so no actual rotation occurs. to cause rotation.  Another consequence of concurrent forces is that Equation is the only equilibrium equation that applies. This vector equation can be used to solve for a maximum of one unknown per dimension. If you find yourself trying to solve a two-dimensional particle equilibrium problem and you are seeking more than two unknowns, it’s likely that you have missed something and need to re-read the question.  Another simplification we will be making is to treat all forces as concentrated . Concentrated forces act at a single point, have a well defined line of action, and can be represented with an arrow in other words, they are vectors. Real forces don’t actually act at a single mathematical point but concentrating them is intuitive and will be justified in a later chapter . You’re already familiar with the concept if you have ever placed all the weight of an object at its center of gravity.  "
 },
 {
-  "id": "p-403",
+  "id": "p-406",
   "level": "2",
-  "url": "ch3-1d-particles.html#p-403",
+  "url": "ch3-1d-particles.html#p-406",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "particle one-dimensional coordinate system concentrated forces "
 },
 {
-  "id": "p-406",
+  "id": "p-409",
   "level": "2",
-  "url": "ch3-1d-particles.html#p-406",
+  "url": "ch3-1d-particles.html#p-409",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1054,9 +1054,9 @@ var ptx_lunr_docs = [
   "body": " Particles in One Dimension   A simple case  Consider the weight suspended by a rope shown in . Diagrams of this type are called space diagrams ; they show the objects as they exists in space.  In mechanics we are interested in studying the forces acting on objects and in this course, the objects will be in equilibrium. The best way to do this is to draw a diagram which focuses on the forces acting on the object, not the mechanisms that hold it in place. We call this type of diagram a free-body diagram because it shows the object disconnected or freed from its supporting mechanisms. You can see the free-body diagram for this situation by moving the slider in the interactive to position two. This shows that there are two forces acting on the object; the force of the rope holding it up, and the weight of the object which is trying to pull it to earth, which we treat as acting at its center of gravity.   The actual shape of the weight is not important to us, so it can simply be represented with a dot, as shown when the view control is in position three. The forces have been slid along their common line of action until they both act on the dot, which is an example of an equivalent transformation called the Principle of Transmissibility. This diagram in view three is completely sufficient for this situation.   A suspended weight     Drawing free-body diagrams can be surprisingly tricky. The reason for this is that you must identify all the forces acting on the object and correctly represent them on the free-body diagam. If you fail to account for all the forces, include additional ones, or represent them incorrectly, your analysis will surely be wrong.  So what kind of analysis can we do here? Admittedly not much. We can find the tension in the rope caused by a particular weight and use it to select an appropriately strong rope, or we can determine the maximum weight a particular rope can safely support.  The actual analysis is so trivial that you've probably already done it in your head, nevertheless several ways to approach it will be shown next.  In the vector approach we will use the equation of equilibrium .   1-D Vector Addition   Find the relationship between the tension in the rope and the suspended weight for the system of .       We learn that the tension equals the weight.     The free-body diagram shows two forces acting on the particle, and since the particle is in equilibrium they must add to zero.     We conclude that force is equal and opposite to , that is, since the weight is acting down, the rope acts with the same magnitude but up.  Tension is the magnitude of the rope’s force. Recall that the magnitude of a vector is always a positive scalar. We use normal (non-bold) typefaces or absolute value bars surrounding a vector to indicate its magnitude. For any force , .  To find how the tension is related to , take the absolute value of both sides       We can also formulate this example in terms of unit vectors. Recall that is the unit vector which points up. It has a magnitude of one with no units associated. So in terms of unit vector , and .   1-D Vector Addition using unit vectors   Find the relation between the tension and weight for the system of using unit vectors.          Express the forces in terms of their magnitudes and the unit vector then proceed as before,       In the previous example, the unit vector completely dropped out of the equation leaving only the coefficients of . This will be the case whenever you add vectors which all act along the same line of action.  The coefficients of , , and are known as the scalar components . A scalar component times the associated unit vector is a force vector.  When you use scalar components, the forces are represented by scalar values and the equilibrium equations are solved using normal algebraic addition rather than vector addition. This leads to a slight simplification of the solution as shown in the next example.   1-D Vector Addition using scalar components   Find the relation between the tension and weight for the system of using scalar components.       Unsurprisingly, we get the same result.      The forces in this problem are and , so the corresponding scalar components are .  Adding scalar components gives,      Unsurprisingly, we get the same result.      Scalar Components  The scalar component of a vector is a signed number which indicates the vector’s magnitude and sense , and is usually identified by a symbol with a subscript which indicates the line of action of the vector.  So for example, is a scalar component. We can tell it’s not a vector because it is not bold. is the magnitude of the associated vector; the subscript indicates that the force acts \"in the direction,\" in other words it acts on a line of action which is parallel to the axis; and the (implied) positive sign means that the vector points towards the positive end of the axis towards positive infinity. So a scalar component, while not a vector, contains all the information necessary to completely describe and draw the corresponding vector. Be careful not to confuse scalar components with vector magnitudes. A force with a magnitude of can point in any direction, but can never have a negative magnitude.  Scalar components can be added together algebraically, but only if they act in the same direction. It makes no sense to add to . If that’s what you want to do, first you must convert the scalar components to vectors, then add them according to the rules of vector addition.   1-D Scalar Addition   If and = , find the magnitude and direction of their resultant .         Start by sketching the two forces. The subscripts indicate the line of action of the force, and the sign indicates the direction along the line of action. A negative points towards the negative end of the axis.          William Haynes  CC-BY-SA     is the scalar component of the resultant .  The negative sign on the result indicates that the resultant force acts to the left.     2-D Scalar Addition   If = and = , find the magnitude and direction of their resultant .         In this example the scalar components have different subscripts indicating that they act along different lines of action, and this must be accounted for when they are added together.    Make a sketch of the two vectors and add them using the parallelogram rule to get     These are the magnitude and direction of vector .     William Haynes  CC-BY-SA         Two-force Bodies  As you might expect from the name, a two-force body is a body with two forces acting on it, like the weight just discussed. As we just saw, in order for a two-force body to be in equilibrium the two forces must add to zero. There are only three possible ways that this can happen:  The two forces must either share the same line of action, have the same magnitude, and point away from each other, or share the same line of action, have the same magnitude, and point towards each other, or both forces have zero magnitude.   When two forces have the same magnitude but act in diametrically opposite directions, we say that they are equal-and-opposite . When equal and opposite forces act on an object and they point towards each other we say that the object is in compression , when they point away from each other the object is in tension . Tension and compression describe the internal state of the object.   Examples of two-force bodies   Two force bodies have two forces with the same magnitude but acting in diametrically opposite directions.    Two force bodies appear frequently in multipart structures and machines which will be covered in . Some examples of two force bodies are struts and linkages, ropes, cables and guy wires, and springs.   Tug of War   Marines and Airmen at Goodfellow Air Force Base are competing in a tug of war and have reached a stalemate. The Marines are pulling with a force of . How hard are the Airmen pulling? What is the tension in the rope?    US Air Force photo\/Staff Sgt. Laura R. McFarlane   CC-0   Marines and Airmen at Goodfellow Air Force Base competing in a tug of war.   This is a simple question, but students often get it wrong at first.    The tension in the rope is . Both teams are pulling with the same force.       Assumptions  A free-body diagram of the rope is shown.      We'll solve this with scalar components because there’s no need for the additional complexity of the vector approaches in this simple situation.  We'll align the axis with the rope with positive to the right as usual to establish a coordinate system.  Assume that the pull of each team can be represented by a single force. Let force be supplied by the Marines and force by the Airmen; call the tension in the rope .  Assume that the weight of the rope is negligible; then the rope can be considered a particle because both forces lie along same line of action.    Givens  .    Procedure  Since they’re stalemated we know that the rope is in equilibrium.  Applying the equation of equilibrium gives:     We find out that both teams pull with the same force. This was probably obvious without drawing the free-body diagram or solving the equilibrium equation.  It may seem equally obvious that if both teams are pulling with in opposite directions that the tension in the rope must be . This is wrong however.  The tension in the rope is an example of an internal force and in order to learn its magnitude we need a free-body diagram which includes force . To expose the internal force we take an imaginary cut through the rope and draw (or imagine) a free-body diagram of either half of the rope.      The correct answer is easily seen to be .        Hanging Weight     The wire spool being lifted into the truck consists of of three strand medium voltage (5 kV) 1\/0 AWG electrical power cable with a 195 amp capacity at 90°C, weighing 927 kg\/km, on a steel reel.  How much weight is supported by the hook and high tension polymer lifting sling?        A wire spool being lifted into a truck.           The entire weight of the wire and the spool is supported by the hook and sling.  Remember that weight is not mass and mass is not force. The total weight is found by multiplying the total mass by the gravitational constant .         How can we apply the principles of mechanics in the two previous examples if the rope and the sling are clearly not rigid bodies?     They are not rigid, but they are inextensible and in tension. Under these conditions they don't change shape, so we can treat them as rigid. If the force were to change direction and put either into compression, our assumptions and analysis would fail. That why tug of war involves pulling and not pushing.     "
 },
 {
-  "id": "p-407",
+  "id": "p-410",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-407",
+  "url": "CH03-1d-particles.html#p-410",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1090,9 +1090,9 @@ var ptx_lunr_docs = [
   "body": " 1-D Vector Addition using unit vectors   Find the relation between the tension and weight for the system of using unit vectors.          Express the forces in terms of their magnitudes and the unit vector then proceed as before,      "
 },
 {
-  "id": "p-428",
+  "id": "p-431",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-428",
+  "url": "CH03-1d-particles.html#p-431",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1108,9 +1108,9 @@ var ptx_lunr_docs = [
   "body": " 1-D Vector Addition using scalar components   Find the relation between the tension and weight for the system of using scalar components.       Unsurprisingly, we get the same result.      The forces in this problem are and , so the corresponding scalar components are .  Adding scalar components gives,      Unsurprisingly, we get the same result.   "
 },
 {
-  "id": "p-436",
+  "id": "p-439",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-436",
+  "url": "CH03-1d-particles.html#p-439",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1135,18 +1135,18 @@ var ptx_lunr_docs = [
   "body": " 2-D Scalar Addition   If = and = , find the magnitude and direction of their resultant .         In this example the scalar components have different subscripts indicating that they act along different lines of action, and this must be accounted for when they are added together.    Make a sketch of the two vectors and add them using the parallelogram rule to get     These are the magnitude and direction of vector .     William Haynes  CC-BY-SA      "
 },
 {
-  "id": "p-451",
+  "id": "p-454",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-451",
+  "url": "CH03-1d-particles.html#p-454",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "two-force body "
 },
 {
-  "id": "p-453",
+  "id": "p-456",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-453",
+  "url": "CH03-1d-particles.html#p-456",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1198,9 +1198,9 @@ var ptx_lunr_docs = [
   "body": " Particles in Two Dimensions   Introduction  In this section we will study situations where everything of importance occurs in a 2-dimensional plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile, because they illustrate all the important principles of engineering statics while being easier to visualize and less mathematically complex.  We will normally work in the plane of the page, that is, a two-dimensional Cartesian plane with a horizontal axis and a vertical axis discussed in previously. This coordinate system can represent either the front, side, or top view of a system as appropriate. In some problems it may be worthwhile to rotate the coordinate system, that is, to establish a coordinate system where the and axes are not horizontal and vertical. This is usually done to simplify the mathematics by avoiding simultaneous equations.    General Procedure  The general procedure for solving equilibrium of a particle problems in two dimensions is to: Identify the particle. The particle will be the object or point where the lines of action of all the forces intersect. Establish a coordinate system. Normally this will be a system with the origin at the particle and a horizontal axis and a vertical axis, though it may be advantageous to align one axis with an unknown. Draw a free-body diagram. The FBD shows the object and all the forces acting on it, and defines the symbols we will use. Every force should be labeled with a roman letter to represent its magnitude and, unless it aligns with a coordinate axis, a greek letter or degree measure for its direction. State any given values and identify the unknown values. Find trivial angles. Some angles may be easily found from the geometry of the problem. If that is the case, draw a simple, labeled triangle and use trigonometry to determine the measure of the angle. Count knowns and unknowns. At this point you should have no more than two unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution. Formulate equilibrium equations. Based on the free-body diagram, and using the symbols you have selected, formulate an equilibrium equation using one of the methods described in this section. The choice of method is up to you, and as you gain experience you will be able to identify the best approach. Simplify. Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles. Substitute values for symbols. When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers. Check your work. Have you made any algebra or trig mistakes? If you add the forces graphically do they appear to add to zero? Do the results seem reasonable given the situation? Have you included appropriate units? If you have time, work the problem using another approach and compare answers.     Force Triangle Method  The force triangle method is applicable to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.  If such a particle is in equilibrium then the three forces must add to zero. Graphically, if you arrange the force vectors tip-to-tail, they will form a closed, three-sided polygon, a triangle. This is illustrated in .   Free Body Diagram and Force Triangle      Why do the forces always form a closed polygon?    Because their resultant is zero.    The force triangle is a graphical representation of the vector equilibrium equation . It can be used to solve for the unknown values in a number of different ways, which will be illustrated in the next two examples. In We will use a graphical approach to find the forces causing equilibrium, and in we will use trigonometry to to solve for the unknown forces mathematically.  In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation. We are using Geogebra to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the the magnitudes and directions of the forces which hold the particle in equilibrium.   Frictionless Incline     A force is being applied to a block resting on a frictionless incline as shown. Determine the magnitude and direction of force and of the contact force on the bottom of the block.     William Haynes  CC-BY-SA   A flat, frictionless surface is inclined at 25 degrees from the horizontal. A force is being applied to a block resting on the incline, pushing it up the incline, at an angle of 10 degrees below the horizontal.              Assumptions  We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction which is normal to the surface since it is frictionless and can't prevent motion along the surface.    Givens  The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.  The unknown values are the magnitudes of forces and .    Free Body Diagram  You should always begin a statics problem by drawing a free-body diagram. It gives you an opportunity to think about the situation, identify knowns and unknowns, and define symbols.  We define three symbols, , , and , representing the weight, normal force, and the applied force respectively. The angles could be given symbols too, but since we know their values it isn't necessary.     William Haynes  CC-BY-SA     The free-body can be a quick sketch or an accurate drawing but it must show all the forces acting on the particle and define the symbols. In most cases you won't know the magnitudes of all the forces, so the lengths of the vectors are just approximate.    Notice that the force is represented as acting 25° from the axis, which is 90° away from the direction of the surface.    Force Triangle   Use the known information to carefully and accurately construct the force triangle. Start by placing point at the origin. Draw force straight down from with a length of 1, and place point at its tip. The length of this vector represents the weight. We know the direction of force but not its magnitude. For now, just draw line passing through point with an angle of 10° from the horizontal. Similarly we know force acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line passing through point and at a 25° angle from the axis. Call the point where lines and intersect point . Points , , and define the force triangle. Now draw force from point to point , and Draw force from point back to point .    Can you prove from the geometry of the triangle that angle is 75°?     Results  In steps 6 and 7, Geogebra tells us that p = (0.438;10.0°) which means force is 0.438 units long with a direction of 10°, similarly n = (1.02;115°) means is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive axis.  These are not the answers we are looking for, but we’re close. Remember that for this diagram, our scale is , so scaling the lengths of p and n by this factor gives .  If you use technology such as Geogebra, as we did here, or CAD software to draw the force triangle, it will accurately produce the solution.  If technology isn't available to you, such as during an exam, you can still use a ruler and protractor draw the force triangle, but your results will only be as accurate as your diagram. In the best case, using a sharp pencil and carefully measuring lengths and angles, you can only expect about two significant digits of accuracy from an hand drawn triangle. Nevertheless, even a roughly drawn triangle can give you an idea of the correct answers and be used to check your work after you use another method to solve the problem.         Trigonometric Method  The general approach for solving particle equilibrium problems using the trigonometric method is to: Draw and label a free-body diagram. Rearrange the forces into a force triangle and label it. Identify the knowns and unknowns. Use trigonometry to find the unknown sides or angles of the triangle.   There must be no more than two unknowns to use this method, which may be either magnitudes or directions. During the problem setup you will probably need to use the geometry of the situation to find one or more angles.  If the force triangle has a right angle you can use to find the unknown values, but in most cases the triangle will be oblique and you will need to use either or both of the or the to find the sides or angles.   Cargo Boom     A crate is being lowered into the cargo hold of a ship. Boom is long and acts at a 40° angle from kingpost . The boom is held in this position by topping lift which has a 1:4 slope.  Determine the forces in the boom and in the topping lift.     William Haynes  CC-BY-SA   The boom AB is 20 m long and acts at a 40° angle from the verticcal support (kingpost). The boom is connected to the bottom of the vertical support by a pin connection at point A. The boom is held in this position by topping lift BC (cable attached at point C on the kingpost and at point B on the boom) which has a -1\/4 slope.              Draw diagrams  Start by identifying the particle and drawing a free-body diagram. The particle in this case is point at the end of the boom because it is the point where all three forces intersect. Let be the tension of the topping lift, be the force in the boom, and be the weight of the load. Let and be the angles that forces and make with the horizontal.  Rearrange the forces acting on point to form a force triangle as was done in the previous example.     William Haynes  CC-BY-SA      William Haynes  CC-BY-SA       Find angles  Angle can be found from the slope of the topping lift.  .  Angle is the complement of the 40° angle the boom makes with the vertical kingpost.     Use these values to find the three angles in the force triangle.       Solve force triangle  With the angles and one side of the force triangle known, apply the to find the two unknown sides.               Scalar Components Method  The general statement of equilibrium of forces, , can be expressed as the sum of forces in the , and directions .  This statement will only be true if all three coefficients of the unit vectors are themselves equal to zero, leading to this scalar interpretation of the equilibrium equation .  In other words the single vector equilibrium equation is equivalent to three independent scalar equations, one for each coordinate direction.  In two-dimensional situations, no forces act in the direction leaving just these two equilibrium equations to be satisfied . We will use this equation as the basis for solving two-dimensional particle equilibrium problems in this section and equation for three-dimensional problems in .  You are undoubtedly familiar with utility poles which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again? Why is this?  If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road. This force is typically opposed by a guy wire pulling in the opposite direction which prevents the pole from tipping over due to unbalanced forces. The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.   Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right hand diagram. If each of the six cables pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, the parallel, horizontal beams at the top are shown. On each of the beams, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the beams, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to to justify all equivalent transformations, because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens       Procedure  Begin by drawing a neat, labeled, free-body diagram of the pole, establishing a coordinate system and indicating the directions of the forces. Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry. Let be the tension in one wire, and be the tension of the guy wire.   To solve apply the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.        This problem could have also been solved using the force triangle method. See .    In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.   Slider     Three forces act on a machine part which is free to slide along a vertical, frictionless rod. Forces and have a magnitude of and force has a magnitude of . Force acts degrees from the horizontal, and force acts at the same angle from the vertical.  Determine the angle required for equilibrium, and the magnitude and direction of the reaction force acting on the slider.    Three forces act on a machine part which is free to slide along a vertical, frictionless rod. The machine part has an attachment point where 3 forces are applied. Force A acts upwards vertically. Force B acts up and to the right at an angle alpha from the horizontal. Force C acts down and to the right at an angle of alpha from the negative y-axis.      The question asks for the reaction force. The reaction force is equal and opposite to force .          Givens  We are given magnitudes of forces , , and . The unknowns are angle and resultant force .    Procedure   Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently the slider will only be in equilibrium is if the resultant of the three load forces is horizontal. Since a horizontal force has no component, we can establish this equilibrium condition:     Inserting the known values into the equilibrium relation and simplifying gives an equation in terms of unknown angle .     This is a single equation with a single unknown, although it is not particularly easy to solve with algebra. One approach is described at socratic.org . An alternate approach is to use technology to graph the function . The roots of this equation correspond to values of which satisfy the equilibrium condition above. The root occurring closest to will be the answer corresponding to our problem, in this case which you can verify by plugging it back into the equilibrium equation. Note that -90° also satisfies this equation, but it is not the solution we are looking for.   Once is known, we can find the reaction force by adding the components of , , and .     The resultant force is the vector sum of and , but in this situation is zero, so the resultant acts purely to the right with a magnitude of . .  Note that this value is the resultant force, the net force applied to the slider by , , and . However the question asks for the reaction force, which is the force required for equilibrium. The reaction is equal and opposite to the resultant.       The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the and axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.   Roller     A lawn roller which weighs is being pulled up a slope at a constant velocity.  Determine the required pulling force .     William Haynes  CC-BY-SA   A lawn roller weighs 160 lb. is being pulled up a 10 degree slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal.              Strategy     Select a coordinate system, in this case horizontal and vertical.  Draw a free-body diagram  Solve the equations of equilibrium using the scalar approach.      William Haynes  CC-BY-SA       Procedure     Solving simultaneously for              Strategy     Rotate the standard coordinate system clockwise to align the new axis with with force .  Draw a free-body diagram and calculate the angles between the forces and the rotated coordinate system.  Solve for force directly.      William Haynes  CC-BY-SA       Procedure            Multi-Particle Equilibrium  When two or more particles interact with each other there will always be common forces between them as a result of Newton’s Third Law, the action-reaction principle.   Consider the two boxes with weights and connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces and .   Two suspended weights     From the free-body diagrams you can see that cable only supports the weight of the bottom box, while cable and the ceiling support the combined weight. The tension is common to both diagrams. Recognizing the common force is the key to solving multi-particle equilibrium problems.   Two hanging weights     A weight is supported by cable . There is a frictionless pulley at and the hook is firmly attached to the cable at point .  What is the magnitude and direction of force required to hold the system in the position shown?     William Haynes  CC-BY-SA   At the ceiling, Point D is 150 cm to the right of A. Point B is 20 cm to the right of A, and 40 cm below A. Point C is 100 cm to the right of A, and 50 cm below A. A weight is supported by a hook that is firmly attached to the cable at point C. There is a frictionless pulley at B and a Force P acts down at to the left, at an angle of theta from the -x axis.      The particles are points and . The common force is the tension in rope segment .            Strategy  Following the we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions , , and for the endpoints of the rope segments, and label the angles of the forces , , and . We will use the standard cartesian coordinate system and use the scalar components method .   Weight was given, and we can easily find angles , , and so the knowns are:     Counting unknowns we find that there are two on the free-body diagram of particle ( and , but four on particle , (  , and ).  Two unknowns on particle means it is solvable since there are two equilibrium equations available, so we begin there.    Solve Particle C     Solving these two equations simultaneously gives     With particle solved, we can use the results to solve particle . There are three unknowns remaining, tension , magnitude , and direction . Unfortunately, we still only have two available equilibrium equations. When you find yourself in this situation with more unknowns than equations, it generally means that you are missing something. In this case it is the pulley. When a cable wraps around a frictionless pulley the tension doesn't change. The missing information is that . Knowing this, the magnitude and direction of force can be determined.   Because , the free-body diagram of particle is symmetric, and the technique used in to rotate the coordinate system could be applied here.     Solve Particle B  Referring to the FBD for particle we can write these equations.     Since , substituting and solving simultaneously gives     These are the magnitude and direction of vector . If you wish, you can express in terms of its scalar components. The negative signs on the components have been applied by hand since points down and to the left.           "
 },
 {
-  "id": "p-481",
+  "id": "p-484",
   "level": "2",
-  "url": "CH03-2d-particles.html#p-481",
+  "url": "CH03-2d-particles.html#p-484",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1297,9 +1297,9 @@ var ptx_lunr_docs = [
   "body": " Particles in Three Dimensions   The world we live in has three dimensions. One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.  Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.    Three-Dimensional Coordinate Frame  We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis to our existing two-dimensional frame.  For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the axis is horizontal, and the axis is vertical just as in a two-dimensional situation. The orientation of the axis is determined by the right hand rule . Using your right hand , put your palm at the origin and point your fingers along the positive axis. Then curl your fingers towards the positive axis. Your thumb will point in the direction of the positive axis. For example, in the plane of the page with the positive axis horizontal and to the right and the positive axis vertical and upwards, the positive axis will point towards you out of the page. Remember that the three axes are mutually perpendicular, each axis is perpendicular to both of the others. The right hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.   Point-and-curl right-hand rule technique.    Dan Baker  CC-0   Using your right hand, put your palm at the origin and point your fingers along the positive x axis. Then curl your fingers towards the positive y axis. Your thumb will point in the direction of the positive z axis. In this case, if the positive x axis is horizontal and to the right and the positive y axis is vertical and upwards, the positive z axis will be coming towards you. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.      Free Body Diagrams  As we did before, we begin our analysis by drawing a free-body diagram which shows all forces and moment acting on the object of interest. Drawing a FBD in three-dimensions can be difficult. It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet. Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and\/or unnecessary information. When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need two or three angles.    Angles   As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the axis, the angle with respect to the axis and the angle with respect to the axis. The three angles mentioned above are not necessarily located in any of the coordinate planes. Think of it this way three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis. The plane made by those three points is not necessarily the , , or plane. It is most likely a tilted plane.   Direction Cosine Angles     The angle the vector makes with the positive axis is usually labeled , but any Greek letter will do. The angle the vector makes with the positive axis is usually labeled ; and the angle the vector makes with the positive is is usually labeled .  As with two dimensions, angles can be determined from geometry a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.  If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.  Let’s suppose that the line of action goes through two points and , and the direction of the force is from towards . The first step in determining the three angles is to write the distance vector from point towards point . Let’s call this vector . Starting at point , you need to determine how to get to point by moving in each of the three directions. Ask yourself: to get from point to point do I have to move in the direction? If so, how far do I have to travel? This becomes the component of the vector namely . Next, to get from point to point how far do I move in direction? This distance is . Finally, to get from point A to point B how far do I move in the z-direction? This distance is .  When writing these scalar components pay attention to which way you move along the axes. If you travel towards the positive end of an axis, the corresponding scalar component gets a positive sign. Travel towards the negative end results in a negative sign. The sign is important.  Once you have determined the components of the distance vector , you can determine the total distance from point to using the three-dimensional Pythagorean Theorem    Lastly, the angles are determined by the direction cosines, namely   Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles, . So,   Now, that is a bit of math there, but the important things to remember are: You can use three angles to determine the direction of a force in three dimensions. You can use the geometry to get them from a distance vector that lies along the line of action of the force.   The three direction cosine angles are not mutually independent. From you can easily show that , so if you know two direction cosine angles you can find the third from this relationship.    General Procedure  The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method. The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis. When working in three dimensions there are three important angles, but the general procedure is the same. The overall procedure is presented here and then each of the new steps is explained in more detail. Identify the particle. The particle will be the object or point where the lines of action of all the forces intersect. Establish a coordinate system. Normally this will be a system with the origin at the particle or directly below the particle, a horizontal axis, a vertical axis, and the axis coming out of the page and towards you. It is important to follow the right-hand rule when defining the coordinate system. Draw a free-body diagram. The FBD shows the object and all the forces acting on it, and defines the symbols we will use. Every force should be labeled with a roman letter to represent its magnitude. Appropriate angles should be represented by a greek letter with a subscript indicating which axis the angle of the vector is measured against. State any given values and identify the unknown values. Determine the direction of each of the force vectors. Angles are usually determined by the geometry. Count knowns and unknowns. At this point you should have no more than three unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution. Formulate equilibrium equations. Based on the free-body diagram and using the symbols you have selected, formulate the three equilibrium equations. Simplify. Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles. Substitute values for symbols. When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers. Check your work. Have you made any algebra or trig mistakes? If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?    Balloon     A hot air balloon above the ground is tethered by three cables as shown in the diagram.  If the balloon is pulling upwards with a force of , what is the tension in each of the three cables?  The grid lines on the ground plane are spaced apart.    A hot air balloon is 30 ft above the ground (coordinates (0, 30, 0)) tethered by three cables. Assume the origin is directly below the balloon on the ground. The three cables are attached from the basket of the balloon to the following points (ft): A (-20, 0, 0), B (30, 0, -20), C (0, 0, -20).              Strategy    The three tensions are the unknowns which we can find by applying the three equilibrium equations.  We'll establish a coordinate system with the origin directly below the balloon and the axis vertical, then draw and label a free-body diagram.  Next we'll use the given information to find two points on each line of action, and use them to find the components of each force in terms of the unknowns.     When the , and components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.    Geometry  From the diagram, the coordinates of the points are     Use the point coordinates to find the , and components of the forces.     Where , and are the lengths of the three cables found with the distance formula .       Equilibrium Equations  Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.     Solving these equations simultaneously yields the answers we are seeking. One way to do this is to substitute equations (1) and (2) into (3) to eliminate and and solve the resulting equation for .     With known, substitute it into equations (1) and (2) to find and .           Skycam   The skycam at Stanford University Stadium has a mass of and is supported by three cables as shown. Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.      Jrienstra   CC-BY-SA   Skycam has mass of 20 kg and is in equilibrium. Cable A is in the x-y plane, acting 35 degrees from positive x-axis. Cable B acts -30 degrees from the negative x-axis in the x-z plane, and 15 degrees above the x-z plane. Cable C acts 20 degrees in the y-z plane, -20 degrees from the positive z-axis.            In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces , , and .   We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the components unit vectors, and determining the angles each makes with the coordinate axis.   Particle equilibrium requires that , so, . This is a 3 3 system of three simultaneous equation, one for each coordinate direction, which needs to be solved for , , and .   These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives .  This is an equation in the form . Entering the coefficient matrixes into Sage.   After evaluating, we learn that .     "
 },
 {
-  "id": "p-597",
+  "id": "p-600",
   "level": "2",
-  "url": "ch3-3d-particles.html#p-597",
+  "url": "ch3-3d-particles.html#p-600",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1360,9 +1360,9 @@ var ptx_lunr_docs = [
   "body": " Direction of a Moment  In a two-dimensional problem the direction of a moment can be determined easily by inspection as either clockwise or counter-clockwise. A counter-clockwise rotation corresponds with a moment vector pointing out of page and is considered positive.  In three-dimensions a moment vector may point in any direction in space and is more difficult to visualize. The direction is established by the right hand rule .  To apply the right hand rule, first establish a a position vector  pointing from the rotation center to the point of application of the force, or another point on its line of action. If you align your thumb with the position vector and your index finger with the force vector, then your middle finger points the direction of the moment vector . Alternately, you can align your index finger with the position vector and your middle finger with the force vector, and your thumb will point in the direction of the moment vector.    Two ways to apply the right hand rule to determine the direction of a moment.       Using the right hand, point index finger straiht out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpindicular to the pointer finger and thumb. The thumb represents the position vector, and the index finger represnets the force vector. Taking the cross product r x F results in M which is representeed by the middle finger. Alternatively, r can be the index finger, F the middle finger, and M the thumb.    Another approach is the point-and-curl method. Start with your right hand flat and fingertips pointing along the position vector pointing from the center of rotation to a point on the force’s line of action. Rotate your hand until the force is perpendicular to your fingers and imagine that it pushes your fingers into a curl around your thumb. In this position, your thumb defines the axis of rotation, and points in the direction of the moment .   Point-and-curl right-hand rule technique for moments.       Image of a right hand held out flat, where is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of and the thumb in the direrction of .     Consider the page shown below on a horizontal surface. Using these techniques, we see that a counter-clockwise moment vector points up, or out of the page, while the clockwise moment points down or in to the page. In other words, the counter-clockwise moment acts in the positive direction and the clockwise moment acts in the direction.   Moments in the plane of the page.   A counter-clockwise moment symbol on a horizontal page, and the corresponding unit vector pointing up, also a similar clockwise moment pointing down.    Any of these techniques may be used to find the direction of a moment. They all produce the same result so you don’t need to learn them all, but make sure you have at least one method you can use accurately and consistently.  "
 },
 {
-  "id": "p-649",
+  "id": "p-652",
   "level": "2",
-  "url": "Chapter_04-direction-of-a-moment.html#p-649",
+  "url": "Chapter_04-direction-of-a-moment.html#p-652",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1414,9 +1414,9 @@ var ptx_lunr_docs = [
   "body": "  Why is there no moment about any point on the line of action of a force?  If you increase the distance between a force and a point of interest, does the moment of the force go up or down?  What practical applications can you think of that could use moments to describe?   "
 },
 {
-  "id": "p-657",
+  "id": "p-660",
   "level": "2",
-  "url": "Chapter_04-magnitude-of-a-moment.html#p-657",
+  "url": "Chapter_04-magnitude-of-a-moment.html#p-660",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1441,9 +1441,9 @@ var ptx_lunr_docs = [
   "body": " Scalar Components  We saw in that vectors can be expressed as the product of a scalar component and a unit vector.  For example, a force acting down can be represented by , where is the scalar component and . This describes a vector which has a magnitude of and acts in the direction,  . The unit vector along with the sign of determines the direction, while the absolute value of determines the vector’s magnitude.  Moments in two dimensions are either clockwise or counter-clockwise, or alternately they point into or out of the page. This means that a single scalar value is sufficient to completely specify such a moment if we have established which direction is positive. The choice is arbitrary, but the default sign convention is based on the right-handed Cartesian coordinate system, as illustrated in .  When using the standard convention, counter-clockwise moments are positive and clockwise moments are negative. Simply append a positive sign to the magnitude for counter-clockwise moments or a negative sign for clockwise moments to a to create a scalar component. You are free to use the opposite convention, but this should be explicitly stated.   Sign Conventions   For each scalar component, determine the direction of the corresponding moment vector.       CCW  CW  CW  CCW         CCW. Use the default sign convention, CCW is positive.    CW. Negative value means moment acts opposite to positive direction.    CW. The arrow overrides default sign convention, so now CW is positive direction.    CCW. Negative CW is CCW.       Scalar components are most useful when combining several clockwise and counter-clockwise moments. The resulting algebraic sum of the scalar components will be either positive, negative, or zero, and this sign indicates the direction of the resultant moment.   Scalar addition   Use scalar moments to determine the magnitude of the resultant of three moments:  , , and         Manually attaching the signs according to the standard sign convention (CCW +) gives the scalar moments: .  Adding these moments gives the resultant scalar moment. . The negative sign indicates that the resultant vector moment is clockwise.  Interpreting the resultant as a vector gives: .  The corresponding magnitude of is .    In three dimensions, moments, like forces, can be resolved into components in the , , and directions. . This means that the three scalar components are required to fully specify a moment in three dimensions.   Be careful not to mix up magnitudes with scalar components. Both are scalar values with units. Magnitudes are never negative. Scalar components have a sign. Scalar components always have an associated sign convention. It may be implied or specificially indicated. By default counter-clockwise moments are positive. There is no special symbol or notation to indicate whether a quantity represents a vector magnitude or a scalar moment, so pay attention to context.     "
 },
 {
-  "id": "p-660",
+  "id": "p-663",
   "level": "2",
-  "url": "scalar-components-moments.html#p-660",
+  "url": "scalar-components-moments.html#p-663",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1585,9 +1585,9 @@ var ptx_lunr_docs = [
   "body": " Moment of a force about a line   "
 },
 {
-  "id": "p-731",
+  "id": "p-734",
   "level": "2",
-  "url": "Chapter_04-moments-in-three-dimensions.html#p-731",
+  "url": "Chapter_04-moments-in-three-dimensions.html#p-734",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1612,18 +1612,18 @@ var ptx_lunr_docs = [
   "body": "  What makes a couple different than a typical moment?  Why is a couple considered a pure moment?  If a couple is applied about the point we are summing moments, does it still need to be included in the sum of moments equation?   "
 },
 {
-  "id": "p-735",
+  "id": "p-738",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-735",
+  "url": "Chapter_04-couples.html#p-738",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "couple "
 },
 {
-  "id": "p-736",
+  "id": "p-739",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-736",
+  "url": "Chapter_04-couples.html#p-739",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1864,9 +1864,9 @@ var ptx_lunr_docs = [
   "body": " Table of common three-dimensional supports and their associated reactions.    Dan Baker  CC-BY-SA   As in the previous table, support types are shown here. A support produces a reaction in the direction in which it prevents motion (1 reaction). Two-force support member constrains translation in one direction. Smooth surface constrains translation in one direction (1 reaction). Ball and socket constrains translation in 3 directions, but not rotation (3 reactions). Free axle bearing constrains translation in two directions (y and z) and rotation in two directions (couple moment about z and about y) (4 reactions). Confined axle bearings (e.g., thrust bearing, smooth pin, hinge) only allows rotation about one axis, and does not allow translation in any direction (5 reactions). A square axle bearing only allows translation in one direction, and no rotation (5 reactions). A fixed support prevents any translation or rotation (6 reactions).   "
 },
 {
-  "id": "p-859",
+  "id": "p-862",
   "level": "2",
-  "url": "Chapter_05-free-body-diagrams.html#p-859",
+  "url": "Chapter_05-free-body-diagrams.html#p-862",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1990,27 +1990,27 @@ var ptx_lunr_docs = [
   "body": "  What does stable mean for a rigid body?  What does determinate mean for a rigid body?  Does stability depend on the external loads or only on the reactions?  How can I tell if a system is determinate?  How can I decide if a problem is both stable and determinate, which makes it solvable statics?   "
 },
 {
-  "id": "p-951",
+  "id": "p-954",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-951",
+  "url": "Chapter_05-stability-and-determinacy.html#p-954",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "determinate indeterminate "
 },
 {
-  "id": "p-953",
+  "id": "p-956",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-953",
+  "url": "Chapter_05-stability-and-determinacy.html#p-956",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "under-constrained over-constrained indeterminate "
 },
 {
-  "id": "p-954",
+  "id": "p-957",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-954",
+  "url": "Chapter_05-stability-and-determinacy.html#p-957",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2080,27 +2080,27 @@ var ptx_lunr_docs = [
   "body": " Structures  Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.  A truss is a multi-body structure made up of long slender members connected at their ends in triangular subunits. Truss members carry axial forces only. Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example. They are also used for crane booms, radio towers and the like. Trusses are lightweight and relatively strong. Over the years many unique truss designs have been developed and are often named after the original designer.  A frame is a multi-part, rigid, stationary structure primarily designed to support some type of load. A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces. Many common items can be considered frames. Some examples: building structure, bike frames, ladders, scaffolding, and more.  A machine is very similar to a frame, except that it includes some moving parts. The purpose of a machine is usually to provide a mechanical advantage and multiply forces. Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.    Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge     Solving a structure means determining all forces acting on all of its parts. The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part. The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.   Two-force Members  Many structures contain at least one two-force member, and trusses consist of two-force members exclusively. Recall from that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.  Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces. In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied. Since these points are known, the direction of the line-of-action is readily found.  The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression. If the two forces tend to stretch the object we say it is in tension ; if they act the other way and squash the object, it is in compression . The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly. If the analysis shows that the forces are negative then they actually act with the opposite sense, compression.   Two-force members in tension and compression.    CC-BY-SA   A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).     "
 },
 {
-  "id": "p-985",
+  "id": "p-988",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-985",
+  "url": "Chapter_06-structures.html#p-988",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss "
 },
 {
-  "id": "p-986",
+  "id": "p-989",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-986",
+  "url": "Chapter_06-structures.html#p-989",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "frame "
 },
 {
-  "id": "p-987",
+  "id": "p-990",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-987",
+  "url": "Chapter_06-structures.html#p-990",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2116,9 +2116,9 @@ var ptx_lunr_docs = [
   "body": " Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge    "
 },
 {
-  "id": "p-989",
+  "id": "p-992",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-989",
+  "url": "Chapter_06-structures.html#p-992",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2188,27 +2188,27 @@ var ptx_lunr_docs = [
   "body": "  What are simple trusses and how do they differ from other structural systems?  What are the benefits and dangers of simple trusses?  How can we determine the forces acting within simple truss systems?  For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?  How do we identify zero-force members in a truss and use their presence to simplify the analysis?   "
 },
 {
-  "id": "p-1000",
+  "id": "p-1003",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1000",
+  "url": "Chapter_06-trusses.html#p-1003",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss Planar trusses space trusses "
 },
 {
-  "id": "p-1001",
+  "id": "p-1004",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1001",
+  "url": "Chapter_06-trusses.html#p-1004",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "simple truss method of sections method of joints "
 },
 {
-  "id": "p-1002",
+  "id": "p-1005",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1002",
+  "url": "Chapter_06-trusses.html#p-1005",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2296,9 +2296,9 @@ var ptx_lunr_docs = [
   "body": "  What are the important components to include on a free-body diagram of a joint in a truss?  How are the solutions found at one joint used to create an accurate free-body diagram of another joint?  How do we ensure that tension or compression in a member is properly represented?   "
 },
 {
-  "id": "p-1043",
+  "id": "p-1046",
   "level": "2",
-  "url": "method-of-joints.html#p-1043",
+  "url": "method-of-joints.html#p-1046",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2332,9 +2332,9 @@ var ptx_lunr_docs = [
   "body": "  How do we determine an appropriate section to cut through a truss?  How are equilibrium equations applied to a section?   "
 },
 {
-  "id": "p-1060",
+  "id": "p-1063",
   "level": "2",
-  "url": "method-of-sections.html#p-1060",
+  "url": "method-of-sections.html#p-1063",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2368,18 +2368,18 @@ var ptx_lunr_docs = [
   "body": "  How are frames and machines different from trusses?  Why can the method of joints and method of sections not be used for frames and machines?  How do we identify if a structure is independently rigid?  How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?   "
 },
 {
-  "id": "p-1075",
+  "id": "p-1078",
   "level": "2",
-  "url": "frames-and-machines.html#p-1075",
+  "url": "frames-and-machines.html#p-1078",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Frames "
 },
 {
-  "id": "p-1076",
+  "id": "p-1079",
   "level": "2",
-  "url": "frames-and-machines.html#p-1076",
+  "url": "frames-and-machines.html#p-1079",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2575,18 +2575,18 @@ var ptx_lunr_docs = [
   "body": " Weighted Averages  You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is   More formally, if is a set with elements then the average, or mean, value is . This average is also called the arithmetic mean . When calculating an arithmetic mean, each number is equally important when evaluating the average. The overbar symbol is often used to indicate that a quantity is a mean value.  In situations where some values are more important than others, we use a weighted average . A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken. The credit values are called the weighting factors .  In general terms a weighted average is Where are the values we are averaging and are the corresponding weighting factors. The weighting factors may be different for each item being averaged, so is the weighting factor for value . In this book we will not write the limits on the sums, and understand that the intent is always to sum over all the values. Notice that if the weighting factors are all identical, they can be factored out of the sums so the weighted average and the arithmetic mean will be the same.  Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter. All three are points located at the center the object, but the meaning of center depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.   Course Grades   The mechanics syllabus says that there are two exams worth 25% each, homework is 10%, and the final is worth 40%. You have a 40 on the first exam, a 80 on the second exam, and your homework grade is 90.  What do you have to earn on the final exam to get a 70 in the class?    You need a 77.5 on the final to get a 70 for the class.    Your known grades and the weighting factors are   Find final exam score so that your average grade is 70%. .    "
 },
 {
-  "id": "p-1175",
+  "id": "p-1178",
   "level": "2",
-  "url": "weghted-average.html#p-1175",
+  "url": "weghted-average.html#p-1178",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "arithmetic mean "
 },
 {
-  "id": "p-1176",
+  "id": "p-1179",
   "level": "2",
-  "url": "weghted-average.html#p-1176",
+  "url": "weghted-average.html#p-1179",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2611,9 +2611,9 @@ var ptx_lunr_docs = [
   "body": " Center of Gravity  So far in this book we have always taken the weight of an object to act at a point at its center. This is the center of gravity : the point where all of an object’s weight may be concentrated and still have the same external effect on the body. In this chapter we will learn to actually locate this point.    We will indicate the center of gravity with a circle with black and white quadrants, and we will use as the coordinates of this point. This represents the average location of all the particles which make up the body. The same symbols are also used for centroids, and is used as well for three-dimensional problems.    The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in the center of gravity of the block is at its geometric center meaning that and are positive, but if the block is moved to the left of the axis, or the coordinate system is translated to the right of the block, would then become negative.   Location of the centroid, measured from the origin.   Square shape shown on x-y plane in Quadrant I. x-bar is distance of centroid from y axis, and y-bar is distance of centroid from x-axis.     Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.  Let’s develop this balanced moment idea mathematically.  Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from that statically equivalent systems produce the same external effect on the object the net force on the object, and the net moment about any point don't change. An upward force at this point will support the pencil without tipping.  To be equivalent, the total weight must equal the total weight of the parts. . Common sense also tells us that will act somewhere between and .    (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.      Next, let’s do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point to be the origin, then calculate the total moment about due to the two weights.  The sum of moments around point can be written as:     Notice that the moment of both forces are clockwise around point , so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the the center of gravity .  represents the mean distance of the weight, mass, or area depending on the context of the problem. We are evaluating weights in this problem, so represents the distance from to the center of gravity.  The sum of moments around point for the equivalent system can be written as:   The moment of total weight is also clockwise around point , so the sign of moment will also be negative according to the right-hand rule. Since the two representation are equivalent we can equate them and solve for .    This result is exactly in the form of where the value being averaged is distance and the weighting factor is is the weight of part and the result is the mean distance .  The pencil was made up of two halves, but this equation can easily be extended discrete parts. The resulting general definition of the centroidal coordinate is: where: is the weight of part , is the coordinate of the center of gravity of element , and is understood to mean sum all parts so there is no need to write .   The numerator is the first moment of force which is literally a moment of force as we defined it in . The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in , we will introduce second moments , which are the integral of some quantity like area, multiplied by a distance squared .  We treated the pencil as a one-dimensional object, so this discussion focused on . There are similar formula for the other dimensions as well .   In words, these equations say   They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object’s center of gravity.    Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?    If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side. The first moment for the entire shape about the axis will sum to zero, meaning that . In other words, the distance from the axis of symmetry of the shape to the centroid is zero.     Simple Center of Gravity    Three boxes are distributed along the axis as shown.       Find the total weight and the distance from the origin to the center of gravity of the three boxes.    How would the center of gravity change if the right-most box weighed instead of ?       a)   b)   The total weight increases by and the center of gravity shifts to the right by . Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.  .        "
 },
 {
-  "id": "p-1184",
+  "id": "p-1187",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1184",
+  "url": "Chapter_07-center-of-gravity.html#p-1187",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2638,9 +2638,9 @@ var ptx_lunr_docs = [
   "body": " (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.     "
 },
 {
-  "id": "p-1205",
+  "id": "p-1208",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1205",
+  "url": "Chapter_07-center-of-gravity.html#p-1208",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2674,18 +2674,18 @@ var ptx_lunr_docs = [
   "body": " Center of Mass  The center of mass is the mean location of the mass of an object, and is related to the center of gravity by Newton’s Second Law because , where is the local strength of the gravitational field. In this course you may take in the SI system, or in the US customary system as reasonable approximations for objects on the surface of the earth.  Substituting in gives the equations for the center of mass. .  By our assumption that is constant on the surface of the earth, can be factored out of the sums and drops out of the equation completely. .  These equations give the coordinates of the center of mass. The numerator contains the first moment of mass , and the denominator contains the total mass of the object. As long as the assumption that is constant is valid, the center of mass and the center of gravity are identical points and the two terms may be used interchangeably.  "
 },
 {
-  "id": "p-1220",
+  "id": "p-1223",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1220",
+  "url": "Chapter_07-center-of-mass.html#p-1223",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "center of mass "
 },
 {
-  "id": "p-1223",
+  "id": "p-1226",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1223",
+  "url": "Chapter_07-center-of-mass.html#p-1226",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2854,9 +2854,9 @@ var ptx_lunr_docs = [
   "body": "  How do you find the the centroid of an area using integration?  What is a differential quantity?  Why are double integrals required for square elements and single integrals required for rectangular elements?   "
 },
 {
-  "id": "p-1332",
+  "id": "p-1335",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1332",
+  "url": "centroids-by-integration.html#p-1335",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2881,9 +2881,9 @@ var ptx_lunr_docs = [
   "body": " What is ?  is just an area, but an extremely tiny one!  It’s an example of an differential quantity   also called an infinitesimal . A differential quantity is a value which is as close to zero as it can possibly be without actually being zero. You can think of its value as . Integration is the process of adding up an infinite number of infinitesimal quantities.  Some other differential quantities we will see in statics are , and , which are infinitesimal increments of distance; , which is a differential volume; , a differential weight; , a differential mass, and so on.  Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by then, even though height is a real number, the area is a differential because is differential.  If you like, you can pronounce the as the little bit of so reads The little bit of area is the height times a little bit x. and reads The total area is the sum of the little bits of area.   "
 },
 {
-  "id": "p-1357",
+  "id": "p-1360",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1357",
+  "url": "centroids-by-integration.html#p-1360",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2971,18 +2971,18 @@ var ptx_lunr_docs = [
   "body": "  What is a distributed load?  Given a distributed load, how do we find the magnitude of the equivalent concentrated force?  Given a distributed load, how do we find the location of the equivalent concentrated force?   "
 },
 {
-  "id": "p-1504",
+  "id": "p-1507",
   "level": "2",
-  "url": "distributed-loads.html#p-1504",
+  "url": "distributed-loads.html#p-1507",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Distributed loads "
 },
 {
-  "id": "p-1505",
+  "id": "p-1508",
   "level": "2",
-  "url": "distributed-loads.html#p-1505",
+  "url": "distributed-loads.html#p-1508",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2998,9 +2998,9 @@ var ptx_lunr_docs = [
   "body": "     A shelf of books with various weights.   Shelf of books.       Each book represented as an individual weight   Shelf with books represented by different individual weights.       All the books represented as a distributed load.   All books represented as distributed load      "
 },
 {
-  "id": "p-1506",
+  "id": "p-1509",
   "level": "2",
-  "url": "distributed-loads.html#p-1506",
+  "url": "distributed-loads.html#p-1509",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3016,9 +3016,9 @@ var ptx_lunr_docs = [
   "body": " Bookshelf   A common paperback is about thick and weighs approximately .  What is the loading function for a shelf full of paperbacks and what is the total weight of paperback books on a shelf?         The weight of one paperback over its thickness is the load intensity , so .  The total weight is the the area under the load intensity diagram, which in this case is a rectangle. So, a bookshelf covered with paperbacks would have to support .  The line of action of this equivalent load passes through the centroid of the rectangular loading, so it acts at .     "
 },
 {
-  "id": "p-1520",
+  "id": "p-1523",
   "level": "2",
-  "url": "distributed-loads.html#p-1520",
+  "url": "distributed-loads.html#p-1523",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3070,9 +3070,9 @@ var ptx_lunr_docs = [
   "body": "  What is the basic relationship between depth and pressure?  How are absolute and relative pressure different?  How can use use our knowledge of centroids to compute the equivalent point forces of fluids?   "
 },
 {
-  "id": "p-1540",
+  "id": "p-1543",
   "level": "2",
-  "url": "Chapter_07-fluid-statics.html#p-1540",
+  "url": "Chapter_07-fluid-statics.html#p-1543",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3160,9 +3160,9 @@ var ptx_lunr_docs = [
   "body": " Internal Forces  In you were introduced to axial loadings, which were either tension or compression, or possibly zero. This section will explain two other internal forces found in two-dimensional systems, the internal  shear and internal  bending moment .  Internal forces are present at every point within a rigid body, but they always occur in equal-and-opposite pairs which cancel each other out, so they’re not obvious. They’re there however, and when an object is cut (in your imagination) into two parts the internal forces become visible and can be determined.  You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end. Now imagine that we cut the member at some point along its length. To maintain equilibrium, forces must exist at the cut, equal and opposite to the external forces. These forces are internal forces.    Internal forces in a straight two-force member.    Now let’s examine the two-force member shown in . This time, the member is L shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding an equal and opposite horizontal force at the cut won't produce static equilibrium because the two forces form a couple which causes the piece to rotate. This means that something is missing!   A horizontal force alone does not create equilibrium.    Dan Baker    L-shaped beam turned 45 degrees with force applied horizontally to each end. If the beam is split on one leg, a horizontal force alone does not result in equilibrium; a moment is necessary.     Two-dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy static equilibrium in order to prevent translation in the direction, the direction, and to prevent rotation about the axis.  Assuming the material is rigid, the connection between the two halves must resist both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction and a couple-moment reaction as shown in the free-body diagrams of . This internal loading is actually a simplification of a more complex loading distributed across the section plane. The couple represents the net rotational effect of the force system on the surface of the cut.   The internal forces are represented as an equal and opposite force and a bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force and moment achieve equilibrium.    The horizontal force can also be resolved into orthogonal components parallel and perpendicular to the cut. These components have special names in the context of internal forces.   The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.     The internal force component perpendicular to the cut is called the normal force . This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the normal force may also be properly called an axial force .  The internal force component parallel to the cut is called the shear force . The word shear refers to the shearing that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.  The internal couple-moment is called the bending moment because it tends to bend the material by rotating the cut surface.  The shear force is often simply referred to as shear, and the bending moment as moment ; together with the normal or axial force the three together are referred to as the internal forces . The symbol is commonly chosen for the shear force, and , or for the normal force and for the bending moment.    Internal Loading in a L shaped member.     Deformation  The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a span, the deflection would need to be less than .   To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal forces that arise from the externally applied loads, using the methods of this chapter.   "
 },
 {
-  "id": "p-1588",
+  "id": "p-1591",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1588",
+  "url": "Chapter_08-internal-forces.html#p-1591",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3205,36 +3205,36 @@ var ptx_lunr_docs = [
   "body": " The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.   "
 },
 {
-  "id": "p-1599",
+  "id": "p-1602",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1599",
+  "url": "Chapter_08-internal-forces.html#p-1602",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "normal force axial force "
 },
 {
-  "id": "p-1600",
+  "id": "p-1603",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1600",
+  "url": "Chapter_08-internal-forces.html#p-1603",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "shear force "
 },
 {
-  "id": "p-1601",
+  "id": "p-1604",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1601",
+  "url": "Chapter_08-internal-forces.html#p-1604",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "bending moment "
 },
 {
-  "id": "p-1602",
+  "id": "p-1605",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1602",
+  "url": "Chapter_08-internal-forces.html#p-1605",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3331,9 +3331,9 @@ var ptx_lunr_docs = [
   "body": " Shear and Bending Moment Diagrams   Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these critical points, we need to check the shear force and bending moment at every point along the beam’s full length.  The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at every point in the object you will need a more powerful approach. This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.    Shear and Bending Moment Diagrams  Shear and moment diagrams are graphs which show the internal shear and bending moment plotted along the length of the beam. They allow us to see where the maximum loads occur so that we can optimize the design to prevent failures and reduce the overall weight and cost of the structure.  Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.  Beams can be supported in a variety of ways as shown in . The common support methods are Simply Supported Supported by a pin on one end and a roller at the other. Cantilevered Fixed at one end, and unsupported at the other. Overhanging One or both ends overhang the supports.     Beam Supports    Simply Supported    Dan Baker    Simply supported beam.     Cantilevered    Dan Baker    Cantilevered beam.     Overhanging    Dan Baker    Overhanging beam.       "
 },
 {
-  "id": "p-1672",
+  "id": "p-1675",
   "level": "2",
-  "url": "VM_diagrams.html#p-1672",
+  "url": "VM_diagrams.html#p-1675",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3412,9 +3412,9 @@ var ptx_lunr_docs = [
   "body": " A free-body diagram of a small section of the beam with a width of     Dan Baker    FBD of the small segment delta x, with shear and bending moments indicated on the \"cut\" surfaces.   "
 },
 {
-  "id": "p-1711",
+  "id": "p-1714",
   "level": "2",
-  "url": "VM_relations.html#p-1711",
+  "url": "VM_relations.html#p-1714",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3517,7 +3517,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "9.1",
   "title": "Dry Friction",
-  "body": " Dry Friction    Contrast the types of friction covered in statics in the context of the other types of friction in existence  Know when you can use the equation and when you cannot  Graphically show how the friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion.  Locate and compute the friction angle on a free-body diagram  Explain how a distributed normal force can be represented by a point force that moves as the distribution of a normal force shifts.     There are multiple types of friction, including: Dry friction: the force that opposes one solid surface sliding across another solid surface. Fluid friction: the friction between layers of a viscous fluid in motion. Internal friction: the force resisting internal deformation of a solid material.  Statics focuses on dry friction. Dry friction occurs between two surfaces in contact and always acts in the direction which opposes the relative motion of the contact surfaces. We can represent this distributed force as a concentrated friction force. Depending on the details of the situation, dry friction can hold the object in equilibrium or cause it to accelerate or decelerate. In Statics we are only concerned with objects in equilibrium; accelerating and decelerating objects will be covered in another course.  Consider the football training sled shown in . Prior to use, the weight of the sled is supported by a normal force directly underneath the center of gravity, and the frictional between the ground and the sled is zero. When players push to move the sled to the right, dry friction will develop along the bottom surface of the sled in order to prevent the sled from sliding to the right. This frictional force is represented as a point normal force, offset from the center of gravity of the sled. This offset is required to maintain rotational equilibrium given the pushing force. If the pushing force is large enough, equilibrium will break and the sled will begin to slide to the right.   Dry friction appears between the bottom of a training sled and the field when motion is impending or occurring.     Avenue  CC-BY-SA   Photo of a football training sled.     Dan Baker    Schematic of a football training sled. If sled is pushed to the right, friction opposes impending motion and acts to the left. The weight acts down through the centroid, and the normal force acts up at some point on the bottom of the sled, depending on the relative force values.       The friction forces acting on the motorcycle in are more complicated. Both wheels rotate clockwise, but the rear wheel is driven by the engine and chain, while the front wheel is rotated by the road friction. The friction force on the rear tire acts to the right and is what allows the bike to maintain speed or accelerate. The dry friction on the front tire acts to the left and retards the motion of the motorcycle.   Dry friction on a motorcycle occurs where the tires contact the road.       Photo of a person driving a motorcycle.     Dan Baker    Schematic of motorcycle and rider driving to the right. Drive friction on the rear tire opposes the impending motion of the rear wheel with respect to the ground, i.e. driving the motorcycle forward. Rolling resistance of the front tire acts to the left. The weight acts down through the centroid, and a normal force acts up on each tire.      Statically Equivalent Loadings  For computational simplicity we can decompose the force on an object being pushed across the ground into a vertical normal force and a horizontal friction force, as shown in the third free-body diagram below. In reality, the force acting on an object approximates the non-vertical distributed force shown in the first free-body diagram below. The second free-body diagram shows the intermediate step.           Coulomb Friction  The most commonly used model for dry friction is Coulomb friction, which includes phases Static friction Impending motion Kinetic friction.   Coulomb friction relies on a friction coefficient to serve as the proportionality constant between the normal and friction forces. The friction coefficient is always greater than 0 and commonly less than 1. The friction coefficient can be greater than 1 for materials that exhibit positive adhesion to each other (like silicone rubber or glued surfaces).   A simple model of a book being pushed horizontally while sitting on a table. FBD s are provided for the system, book, and table. Additionally, a Coulomb friction graph is shown and the various phases are numbered.    based upon an original by Jacob Moore  Dan Baker    Book resting on table with force being applied horizontally to the right on the book. The graph shows that the friction force equals the push force, increases as the push force on the book increases up until it reaches mu_static*N. Then, the push force reduces to mu_kinetic*N.     Here is a more detailed discussion of what happens in each friction phase. At the origin of the graph in , there is material interaction between the book and table, thus a friction force is available, but not engaged . Assuming the pushing force gradually increases from zero in this static-but-not-impending phase, the friction force increases proportionally to keep the forces balanced and the box static . Next, the maximum friction possible is reached at impending motion and the pushing force matches the maximum friction force . Finally, if the pushing force is increased beyond impending motion, the book starts to move under the influence of kinetic friction .  Notice that impending motion friction is always greater than kinetic friction, this is because the coefficient for most materials. Practically, this tells us that once a material starts to move it is easier to keep moving than it was to get it started from rest.  If you wonder why we include kinetic friction in a statics course, remember that a body in equilibrium might be moving with constant velocity.  The key to deciding what type of friction is appropriate for a given problem will depend on the specifics of the problem statement.   Summary of the three phases of friction with the key to recognizing and examples of each.        Type    Governing equation    Key to recognizing      Static-but-not- impending motion    None, is independent of .    Mention of sitting or static, but no extremal language      Examples :  A moment of is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm? A box sits on a slope, find the resultant of the friction and normal forces on the box.      Impending motion         The use of extremal language (related to maximum or minimum values) in the problem statements       Examples:   What is the maximum force applied to the box before it will start to move? What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope? What is the most massive moment that the brake arm will hold static?      Kinetic friction         Mention of the body moving at a constant velocity under the effect of friction. (You will learn to solve non-constant velocity friction problems in Dynamics).      Examples :  A box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant? A rope slips around a tree with a known friction coefficient and a constant velocity, what is the contact angle of the rope?      Note that when you solve static-but-not-impending motion problems (as opposed to impending or kinetic) that you will need one additional piece of data given in the problem to solve for both and as you will not be able to apply the equation .    Friction angle and friction resultant  Friction and normal forces can be represented in two equivalent ways:   Friction and normal forces  Using these perpendicular vectors is most convenient on block and wedge type problems and apply equally-well in all three phases of friction (static but not impending, impending motion, and kinetic friction)    Resultant force and friction angle  Recall that resultants are the sum of two or more vectors. In this case, the friction resultant is . The friction angle is the angle between the friction resultant and normal forces but only is applicable at impending motion. The friction resultant and friction angle are used for screw, flexible belt, and journal bearing type problems.    A block of weight is pushed sideways by force . The combined effect of the friction and normal forces can either be modeled as separate friction ( ) and normal ( ) forces (left) or a friction resultant force ( ) and friction angle .    Dan Baker    A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left.     The friction angle relates directly to the coefficient of static friction as the friction angle is the internal angle of the right triangle formed by the normal force , the friction resultant , and the friction force . Hence:    Normal Forces  Commonly on two dimensional problems, normal forces are represented at the point of contact or in the middle of the contacting surface. However, normal forces are rarely point loads but instead are loads distributed across a surface. The point force vector we typically represent as a normal force on a free-body diagram is the externally equivalent resultant of the distributed normal force (as demonstrated in , distributed loads). To demonstrate this further, take a look at .   (A) A box at rest has a uniformly distributed normal force along the bottom of the box. Hence, the resultant normal force is located directly below the weight force, and the friction force (while available) is not engaged. (B) As a pushing force is applied, the distributed normal force changes shape, and the resultant normal force is shifted to the right to maintain equilibrium. (C) This trend continues as you push harder on the box as the normal force continues to shift right.    Dan Baker    Three part image with a) box at rest, b) box pushed by horizontal force causing friction force to engage, c) box being pushed by a larger force.      "
+  "body": " Dry Friction    Which types of friction do we study in statics, and which are studied elsewhere?  What is a normal force?  What is impending motion ?  How do you decide when you can use the equation and when you cannot?  Can you show graphically how friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion?  What is the friction angle ?  Why is a distributed normal force represented as a point force that moves as the normal force shifts?     Dry Friction  Dry friction, also called Coulomb friction , is a force which appears between two solid surfaces in contact. This force is distributed over the contact area and always acts in whichever direction opposes relative motion between the surfaces. We will usually simplify the distributed frictional force by representing it as a single concentrated force acting at a point, as we did in .  Depending on the details of the situation, dry friction will either hold the object in equilibrium, in which case it is called static friction , or it will retard but not prevent motion, in which case it is called kinetic friction . In Statics we are only concerned with objects in equilibrium so we will focus on static friction, and kinetic friction will be studied in another course.  Consider the football training sled shown in . Initially, the sled's weight is supported by a normal force acting on the bottom surface that can be considered as a point force directly beneath the center of gravity; there is no friction force.  When players begin to push the sled, a friction force will appear along the bottom surface which opposes sliding to the right. Both the friction and normal forces can be represented by concentrated horizontal and vertical forces located to the right of the center of gravity. This offset is required to maintain rotational equilibrium against the pushing force. If the players push hard enough, equilibrium will break and the sled will begin to slide in the direction of the push. At this point static friction has transitioned to kinetic friction.   Static or kinetic friction occurs when motion is impending or occurring.    Training sled    Avenue  CC-BY-SA   Photo of a football training sled.     Free-body diagram    William Haynes    Schematic of a football training sled. If sled is pushed to the right, friction opposes impending motion and acts to the left. The weight acts down through the centroid, and the normal force acts up at some point on the bottom of the sled, depending on the relative force values.      The rolling friction acting on the motorcycle in are more complicated. Both wheels rotate clockwise, but the rear wheel is driven by the engine and chain, while the front wheel is rotated by the road friction. The friction force on the rear tire acts to the right and is what propells the bike forward. The dry friction on the front tire acts to the left and retards the motion of the motorcycle.    Rolling friction occurs where the tires contact the road.    A motorcycle      Photo of a person riding a motorcycle.     Free-body diagram    Dan Baker    Free body diagram of motorcycle and rider driving to the right. Drive friction on the rear tire opposes the motion of the rear wheel with respect to the ground, i.e. driving the motorcycle forward. Rolling resistance of the front tire acts to the left. The weight acts down through the centroid, and a normal force acts up on each tire.       Statically Equivalent Loadings  The force distribution on the bottom of an object being pushed across a surface is complex, and looks approximately like (a).  To simplify things, we first decompose the actual force into a distributed normal force perpendicular to the surface, and a distributed friction force parallel to the surface, as shown in the (b). These two distributions are further simplified into two concentrated forces representing the normal and friction components of a single resultant force, as show in (c). The net resultant force acts at the point required for equilibrium.   Equivalent representation of friction and normal forces.        whaynes@maritime.edu          whaynes@maritime.edu          whaynes@maritime.edu           Coulomb Friction  The Coulomb friction model proposes that the force of friction is proportional to the normal force, where the normal force is the force acting perpendicular to the contacting surface. The constant of proportionality, , is called the friction coefficient. is always greater than zero and commonly less than one. The friction coefficient can be greater than one for materials that exhibit positive adhesion to each other like silicone rubber, glued surfaces, or gecko’s feet.      Block on rough surface.     FBD showing normal and friction forces.      Friction has two distinct regions as shown in , and the value of is different in each region. The region from point one to point two, where the force of friction increases linearly with load is called the static friction region. Here you must use the coefficient of static friction  . The region from point two to point three, where the friction remains roughly constant is called the kinetic friction region. In this region you must use the coefficient of kinetic friction  .  The coefficient of friction suddenly drops at point two, causing the friction force to drop as well. Point two is called the point of impending motion , because here the frictional force suddely drops aand the object begins to move.   Phases of Coulomb friction.    To better understand the behavior of Coulomb friction imagine an object resting on a rough surface as shown in . When force is gradually increased from zero, the normal force and the frictional force both change in response. Initially both and are zero and the object is in equilibrium. The interaction between the two surfaces in contact means that friction is available but it is not engaged .  As increases, the opposing friction force increases as well to match and hold the object in equilibrium. In this static-but-not-impending phase .  When reaches point two, motion is impending because friction has reached its maximum value. . If force increases slightly beyond , the friction force suddenly drops to the kinetic value . the applied force exceeds the frictional force breaking equilibrium and causing the object to accelerate, and accelerating bodies are are beyond the scope of Statics!  Notice that friction force at impending motion is always greater than kinetic friction, because the coefficient for most materials. Practically, this tells us that once a material starts to move it is easier to keep moving than it was to get it started from rest.  If you wonder why we include kinetic friction in a statics course, remember that a sliding body moving at constant velocity is in equilibrium.    Friction Angle and Friction Resultant  Recall that a resultants is the sum of two or more vectors. The friction resultant is the vector sum of the friction and normal forces. Since these two forces are perpendicular, the magnitude of the friction resultant can be found using the pythagorean theorem.  The friction angle  is defined as the angle between the friction resultant and th normal force. At impending motion, the friction angle reaches its maximum value. The friction resultant and friction angle are used for screw, flexible belt, and journal bearing type problems.  The fmaximum friction angle is directly related to the coefficient of static friction since the friction angle is the internal angle of the right triangle formed by the normal force , the friction resultant , and the friction force . Hence:  In a block of weight is pushed sideways by force . The reaction forces can be represented as separate friction and normal forces, or as combined friction force ( ) acting at friction angle , measured from the normal direction.      Force components.      A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left.     Resultant and Friction angle.      N and Ff resolved into force R at angle phi from normal direction.          Normal Forces  The normal force supporting the object is distributed over the entire contact surface,however, it is common on two dimensional problems to replace the distributed force with an equivilant concentrated force acting at a particular spot on the contacting surface, as we did in . This point is rarely at the exact center of the contact surface.  This is illustrated in where we see in that an object at rest has a uniformly distributed normal force along the bottom surface and the resultant normal force is located directly below the weight. The friction force is not engaged. When a pushing force is applied, the distributed normal force changes shape, and the resultant normal force shifts to the right to maintain equilibrium. The resultant normal force continues to shift to the right the harder you push.  This can be understood from the principle of a two-force body. The combined push and weight can be represented a single load acting down and to the right. The friction and normal forces can be combined into a single reaction force acting up and to the left at a point on the bottom surface. These two forces must share the same line of action to maintain equilibrium, so as the pushing force increases, the friction angle changes and the point shifts to the right .If the point shifts off the physical object then the required friction is greater than the friction available and motion begins.   Distributed Normal force changes with load and weight.       Coulomb Friction Examples.   Static, but not impending motion  For these problems is independent of so you will need one additional piece of data in order to solve for both and since you will not be able to apply the equation . The problem statement will use words like sitting , static or at rest , but no extremal language like maximum .    A moment of is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm?      A box sits on a slope, find the resultant of the friction and normal forces on the box.      Impending motion  In this case, the friction force will be given by . The problem statement will mention maximum or minimum values.    What is the maximum force applied to the box before it will start to move?      What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope?      What is the lightest box which will not slip or tip on this slope?      Kinetic friction  In these problems, . The problem statement will say that the body is moving at a constant velocity.    A box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant?      A rope slips over a surface at constant velocity, what is the contact angle of the rope?      "
 },
 {
   "id": "objectives-32",
@@ -3526,7 +3526,25 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "9.1",
   "title": "",
-  "body": "  Contrast the types of friction covered in statics in the context of the other types of friction in existence  Know when you can use the equation and when you cannot  Graphically show how the friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion.  Locate and compute the friction angle on a free-body diagram  Explain how a distributed normal force can be represented by a point force that moves as the distribution of a normal force shifts.   "
+  "body": "  Which types of friction do we study in statics, and which are studied elsewhere?  What is a normal force?  What is impending motion ?  How do you decide when you can use the equation and when you cannot?  Can you show graphically how friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion?  What is the friction angle ?  Why is a distributed normal force represented as a point force that moves as the normal force shifts?   "
+},
+{
+  "id": "p-1781",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#p-1781",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "Coulomb friction "
+},
+{
+  "id": "p-1782",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#p-1782",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "static friction kinetic friction "
 },
 {
   "id": "sled_AA",
@@ -3535,7 +3553,7 @@ var ptx_lunr_docs = [
   "type": "Figure",
   "number": "9.1.1",
   "title": "",
-  "body": " Dry friction appears between the bottom of a training sled and the field when motion is impending or occurring.     Avenue  CC-BY-SA   Photo of a football training sled.     Dan Baker    Schematic of a football training sled. If sled is pushed to the right, friction opposes impending motion and acts to the left. The weight acts down through the centroid, and the normal force acts up at some point on the bottom of the sled, depending on the relative force values.    "
+  "body": " Static or kinetic friction occurs when motion is impending or occurring.    Training sled    Avenue  CC-BY-SA   Photo of a football training sled.     Free-body diagram    William Haynes    Schematic of a football training sled. If sled is pushed to the right, friction opposes impending motion and acts to the left. The weight acts down through the centroid, and the normal force acts up at some point on the bottom of the sled, depending on the relative force values.     "
 },
 {
   "id": "cycle_BB",
@@ -3544,7 +3562,7 @@ var ptx_lunr_docs = [
   "type": "Figure",
   "number": "9.1.2",
   "title": "",
-  "body": " Dry friction on a motorcycle occurs where the tires contact the road.       Photo of a person driving a motorcycle.     Dan Baker    Schematic of motorcycle and rider driving to the right. Drive friction on the rear tire opposes the impending motion of the rear wheel with respect to the ground, i.e. driving the motorcycle forward. Rolling resistance of the front tire acts to the left. The weight acts down through the centroid, and a normal force acts up on each tire.    "
+  "body": "  Rolling friction occurs where the tires contact the road.    A motorcycle      Photo of a person riding a motorcycle.     Free-body diagram    Dan Baker    Free body diagram of motorcycle and rider driving to the right. Drive friction on the rear tire opposes the motion of the rear wheel with respect to the ground, i.e. driving the motorcycle forward. Rolling resistance of the front tire acts to the left. The weight acts down through the centroid, and a normal force acts up on each tire.     "
 },
 {
   "id": "insight-12",
@@ -3553,133 +3571,241 @@ var ptx_lunr_docs = [
   "type": "Thinking Deeper",
   "number": "9.1.3",
   "title": "Statically Equivalent Loadings.",
-  "body": " Statically Equivalent Loadings  For computational simplicity we can decompose the force on an object being pushed across the ground into a vertical normal force and a horizontal friction force, as shown in the third free-body diagram below. In reality, the force acting on an object approximates the non-vertical distributed force shown in the first free-body diagram below. The second free-body diagram shows the intermediate step.        "
+  "body": " Statically Equivalent Loadings  The force distribution on the bottom of an object being pushed across a surface is complex, and looks approximately like (a).  To simplify things, we first decompose the actual force into a distributed normal force perpendicular to the surface, and a distributed friction force parallel to the surface, as shown in the (b). These two distributions are further simplified into two concentrated forces representing the normal and friction components of a single resultant force, as show in (c). The net resultant force acts at the point required for equilibrium.   Equivalent representation of friction and normal forces.        whaynes@maritime.edu          whaynes@maritime.edu          whaynes@maritime.edu        "
 },
 {
-  "id": "function_CC",
+  "id": "friction-slide-fig",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#function_CC",
+  "url": "Chapter_09-dry-friction.html#friction-slide-fig",
   "type": "Figure",
-  "number": "9.1.4",
-  "title": "",
-  "body": " A simple model of a book being pushed horizontally while sitting on a table. FBD s are provided for the system, book, and table. Additionally, a Coulomb friction graph is shown and the various phases are numbered.    based upon an original by Jacob Moore  Dan Baker    Book resting on table with force being applied horizontally to the right on the book. The graph shows that the friction force equals the push force, increases as the push force on the book increases up until it reaches mu_static*N. Then, the push force reduces to mu_kinetic*N.   "
-},
-{
-  "id": "friction_summary",
-  "level": "2",
-  "url": "Chapter_09-dry-friction.html#friction_summary",
-  "type": "Table",
   "number": "9.1.5",
-  "title": "Summary of the three phases of friction with the key to recognizing and examples of each.",
-  "body": " Summary of the three phases of friction with the key to recognizing and examples of each.        Type    Governing equation    Key to recognizing      Static-but-not- impending motion    None, is independent of .    Mention of sitting or static, but no extremal language      Examples :  A moment of is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm? A box sits on a slope, find the resultant of the friction and normal forces on the box.      Impending motion         The use of extremal language (related to maximum or minimum values) in the problem statements       Examples:   What is the maximum force applied to the box before it will start to move? What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope? What is the most massive moment that the brake arm will hold static?      Kinetic friction         Mention of the body moving at a constant velocity under the effect of friction. (You will learn to solve non-constant velocity friction problems in Dynamics).      Examples :  A box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant? A rope slips around a tree with a known friction coefficient and a constant velocity, what is the contact angle of the rope?     "
+  "title": "",
+  "body": "    Block on rough surface.     FBD showing normal and friction forces.     "
 },
 {
-  "id": "block_XX",
+  "id": "p-1790",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#block_XX",
+  "url": "Chapter_09-dry-friction.html#p-1790",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "static friction coefficient of static friction kinetic friction coefficient of kinetic friction "
+},
+{
+  "id": "p-1791",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#p-1791",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "impending motion "
+},
+{
+  "id": "coulomb-friction",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#coulomb-friction",
   "type": "Figure",
   "number": "9.1.6",
   "title": "",
-  "body": " A block of weight is pushed sideways by force . The combined effect of the friction and normal forces can either be modeled as separate friction ( ) and normal ( ) forces (left) or a friction resultant force ( ) and friction angle .    Dan Baker    A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left.   "
+  "body": " Phases of Coulomb friction.   "
 },
 {
-  "id": "resultant_CC",
+  "id": "p-1797",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#resultant_CC",
+  "url": "Chapter_09-dry-friction.html#p-1797",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "friction resultant "
+},
+{
+  "id": "p-1798",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#p-1798",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "friction angle "
+},
+{
+  "id": "resultant-force",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#resultant-force",
   "type": "Figure",
   "number": "9.1.7",
   "title": "",
-  "body": " (A) A box at rest has a uniformly distributed normal force along the bottom of the box. Hence, the resultant normal force is located directly below the weight force, and the friction force (while available) is not engaged. (B) As a pushing force is applied, the distributed normal force changes shape, and the resultant normal force is shifted to the right to maintain equilibrium. (C) This trend continues as you push harder on the box as the normal force continues to shift right.    Dan Baker    Three part image with a) box at rest, b) box pushed by horizontal force causing friction force to engage, c) box being pushed by a larger force.   "
+  "body": "    Force components.      A block of weight W is pushed to the right by force P. Normal force N acts up and friction force Ff acts to the left.     Resultant and Friction angle.      N and Ff resolved into force R at angle phi from normal direction.     "
 },
 {
-  "id": "Chapter_09-block-and-wedge-friction",
-  "level": "1",
-  "url": "Chapter_09-block-and-wedge-friction.html",
-  "type": "Section",
-  "number": "9.2",
-  "title": "Block and Wedge Friction",
-  "body": " Block and Wedge Friction    Show on a free-body diagram how a normal force always remains perpendicular to the contact surface, while the friction force lies parallel to the contact surface  Demonstrate graphically that components of friction and normal forces are related to the right-triangle trigonometry terms sine and cosine.    In this section, a block is defined as any rectangular rigid body. A wedge is a tapered object that forces objects apart or holds something in place. Wedges are used in two primary ways:  Low friction wedges are a simple machine which allows users to create large normal forces to move objects with comparatively small input forces.  High-friction (self-locking) wedges control the location of or hold things in place (as in doorstop wedges or carpentry wedges).   A hydraulic ram is used to push a stationary wedge into the through a piece of firewood. All forces are drawn with respect to forces on the log and there would be mirrored friction and normal forces on the other side of the splitter. The normal force is pushing the two halves of the log apart while the friction force is opposing the pushing force .    Wikimedia Commons   Image of a hydraulic ram splitting a piece of wood.     Luckily the free-body diagrams and computations associated with both low- and high-friction wedges are identical. Block and wedge friction problems are quite similar to the multi-force body equilibrium problems from Rigid Body Equilibrium and in the Frames and Machines section. The main difference is the inclusion of friction from all non-smooth contact surfaces. The directions of both the normal and friction forces on the free-body diagrams are defined below.  Normal forces act between bodies are reactions forces perpendicular to the contacting surfaces. All normal forces on a free-body diagram should be pointing at (and not away from) the body.  Friction forces are reaction forces between bodies parallel (or tangential) to the contacting surfaces and created by the roughness of both surfaces. All friction forces on a free-body diagram should resist the motion at the point of contact.  The key added challenge of solving wedge problems is that the angled faces of wedges create additional force components in your equations. One of the critical steps to solve a block or wedge problem is to look at the problem statement and drawing to determine which force is engaging the friction of the system. Start by drawing the friction forces on the body where this force acts (see ). As you are passing the friction and normal forces to adjacent free-body diagrams, do not forget to draw both friction and normal forces in the opposite direction.   This figure demonstrates the free-body diagrams to find the minimum to raise the block. We would assume that all the friction forces are pushed to impending motion, thus you can use to relate the friction and normal forces at all contact surfaces. A detail of and has also been provided so that you can see how the angle is incorporated into the and components.    Dan Baker    Schematic of a force being applied to an angled wedge to lift a larger block against a frictionless roller. FBDs for the wedge and the block.       If the problem in was changed to Given a coefficient of static friction of find the minimum force to keep the wedge from slipping out under the block , the free-body diagrams would need to change in the following ways: all friction force directions would change as the impending motion of both the wedge and block would change direction and the direction of may have to change if the wedge has sufficient friction to stay static when .  Note that for all values of between and the system would be static, and the friction forces would be static-but-not-impending.  "
-},
-{
-  "id": "objectives-33",
+  "id": "ggb-distributed-normal-force",
   "level": "2",
-  "url": "Chapter_09-block-and-wedge-friction.html#objectives-33",
-  "type": "Key Questions",
-  "number": "9.2",
-  "title": "",
-  "body": "  Show on a free-body diagram how a normal force always remains perpendicular to the contact surface, while the friction force lies parallel to the contact surface  Demonstrate graphically that components of friction and normal forces are related to the right-triangle trigonometry terms sine and cosine.   "
-},
-{
-  "id": "splitter_DD",
-  "level": "2",
-  "url": "Chapter_09-block-and-wedge-friction.html#splitter_DD",
+  "url": "Chapter_09-dry-friction.html#ggb-distributed-normal-force",
   "type": "Figure",
-  "number": "9.2.1",
+  "number": "9.1.8",
   "title": "",
-  "body": " A hydraulic ram is used to push a stationary wedge into the through a piece of firewood. All forces are drawn with respect to forces on the log and there would be mirrored friction and normal forces on the other side of the splitter. The normal force is pushing the two halves of the log apart while the friction force is opposing the pushing force .    Wikimedia Commons   Image of a hydraulic ram splitting a piece of wood.   "
+  "body": " Distributed Normal force changes with load and weight.   "
 },
 {
-  "id": "wedge_EE",
+  "id": "example-61",
   "level": "2",
-  "url": "Chapter_09-block-and-wedge-friction.html#wedge_EE",
-  "type": "Figure",
-  "number": "9.2.2",
+  "url": "Chapter_09-dry-friction.html#example-61",
+  "type": "Example",
+  "number": "9.1.9",
   "title": "",
-  "body": " This figure demonstrates the free-body diagrams to find the minimum to raise the block. We would assume that all the friction forces are pushed to impending motion, thus you can use to relate the friction and normal forces at all contact surfaces. A detail of and has also been provided so that you can see how the angle is incorporated into the and components.    Dan Baker    Schematic of a force being applied to an angled wedge to lift a larger block against a frictionless roller. FBDs for the wedge and the block.   "
+  "body": "  A moment of is applied to a wheel held static by a brake arm. What is the friction force between the wheel and the brake arm?   "
+},
+{
+  "id": "example-62",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-62",
+  "type": "Example",
+  "number": "9.1.10",
+  "title": "",
+  "body": "  A box sits on a slope, find the resultant of the friction and normal forces on the box.   "
+},
+{
+  "id": "example-63",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-63",
+  "type": "Example",
+  "number": "9.1.11",
+  "title": "",
+  "body": "  What is the maximum force applied to the box before it will start to move?   "
+},
+{
+  "id": "example-64",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-64",
+  "type": "Example",
+  "number": "9.1.12",
+  "title": "",
+  "body": "  What is the minimum coefficient of static friction that will keep the box static? What is the lightest box which will not slip or tip on this slope?   "
+},
+{
+  "id": "example-65",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-65",
+  "type": "Example",
+  "number": "9.1.13",
+  "title": "",
+  "body": "  What is the lightest box which will not slip or tip on this slope?   "
+},
+{
+  "id": "example-66",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-66",
+  "type": "Example",
+  "number": "9.1.14",
+  "title": "",
+  "body": "  A box is sliding down a 20° slope, what is the coefficient of friction to keep the velocity constant?   "
+},
+{
+  "id": "example-67",
+  "level": "2",
+  "url": "Chapter_09-dry-friction.html#example-67",
+  "type": "Example",
+  "number": "9.1.15",
+  "title": "",
+  "body": "  A rope slips over a surface at constant velocity, what is the contact angle of the rope?   "
 },
 {
   "id": "Chapter_09-slipping-vs--tipping",
   "level": "1",
   "url": "Chapter_09-slipping-vs--tipping.html",
   "type": "Section",
-  "number": "9.3",
+  "number": "9.2",
   "title": "Slipping vs. Tipping",
-  "body": " Slipping vs. Tipping    Interpret all the ways that a system could reach impending motion and create free-body diagrams for each scenario  Select a criterion which you can compare across motion scenarios  Compare your results to conclude which scenario would reach impending motion first     Failure in Engineering  The goal of engineering design is to forecast and plan for all the ways that something can fail. The challenge is to know the questions to ask and the data to gather to model all possible failure modes. The controlling failure is the mode which occurs at the smallest load.   This section focuses on the various ways a rigid body in equilibrium might begin to move. The point at which an object starts to move is called the point of impending motion.  The interactive in shows a box sitting on a rough surface. Imagine that we start pushing on the side of the box with a gradually increasing force. Initially, friction between the block and the incline will increase to maintain equilibrium, and the box will sit still.  As we continue to increase the force there are two possibilities; the maximum static friction force will be reached and the box will begin to slide, or the pushing force and the friction force will create a sufficient couple to cause the box tip on its corner.   Slipping vs. Tipping     One of the most straightforward ways to determine how the box will move is to solve for the pushing force twice, once assuming slipping and a second time expecting tipping. Whichever calculation gives the smallest pushing force is the option that will cause the box to move. This process is summarized in the following three steps: Check slipping Create a free-body diagram with the normal force at some unknown location and solve for the pushing force necessary to make the body slip. A body will slip across a surface if the pushing force exceeds the maximum static friction force that can exist between the two surfaces in contact. As in all dry friction problems, this limit to the friction force is equal to the static coefficient of friction times the normal force between the body . The box will slip when the pushing force exceeds the maximum force of friction. Dan Baker FBD of block with horizontal force applied. Check tipping Create a free-body diagram with the normal force at the corner of the box and solve for the pushing force necessary to make the body tip. Given a box on a rough horizontal surface, as we push horizontally on the body the resultant normal force will shift to the right. Because the normal force is the direct result of physical contact, we cannot move the normal force beyond the corner of the box. At tipping, the friction force is static-but-not-impending as it has not reached impending motion for slipping. The box will tip if the resultant normal force moves to the corner before slipping. Dan Baker FBD of block with a larger horizontal force applied. Compare the results The smaller value of will initiate impending motion.  "
+  "body": " Slipping vs. Tipping    What are the possible motions which can occur when you apply a force to an object sitting on a rough surface?  How do you determine which motion will occur in a particular situation?  Which types of motion are beyond the scope of Statics?    This section focuses on the various ways a rigid body in equilibrium might begin to move. The point at which an object starts to move is called the point of impending motion.  The interactive in shows a box sitting on a rough surface. Imagine that we start pushing on the side of the box with a gradually increasing force. Initially, friction between the block and the incline will increase to maintain equilibrium, and the box will sit still.  As we continue to increase the force there are two possibilities; the maximum static friction force will be reached and the box will begin to slide, or the pushing force and the friction force will create a sufficient couple to cause the box tip on its corner.   Slipping vs. Tipping    The easiest way to determine whether the box will slip, tip, or stay put is to solve for the maximum load force twice, once assuming slipping and a second time expecting tipping, then compare the actual load to these maximums. This process is summarized in the following three steps: Check slipping As in all dry friction problems, the maximum friction force is equal to the static coefficient of friction times the normal force . Assume that the maximum normal force is acting at an unknown location and solve for the applied force which will maintain equilibrium. If the load exceeds this value than this the body will slip or maybe tip. FBD to check slipping. FBD of block with horizontal force applied. Check tipping The object will tip when the resultant normal shifts off the end of the object, because it no longer acts on the object so it can’t contribute to equiibrium. Create a free-body diagram assuming that the normal force acts at the far corner of the box and solve for the applied force which will maintain equilibrium. Any greater force will make the body tip, unless it is already slipping. At tipping, the friction force is static-but-not-impending as it has not reached impending motion for slipping. FBD to check tipping. FBD of block with a larger horizontal force applied. Compare the results If excedes the smaller of the limiting values, it will initiate the corresponding impending motion.   Failure in Engineering  The goal of engineering design is to forecast and plan for all the ways that something can fail. The challenge is to know the questions to ask and the data to gather to model all possible failure modes. The controlling failure is the mode which occurs at the smallest load.   "
 },
 {
-  "id": "objectives-34",
+  "id": "objectives-33",
   "level": "2",
-  "url": "Chapter_09-slipping-vs--tipping.html#objectives-34",
+  "url": "Chapter_09-slipping-vs--tipping.html#objectives-33",
   "type": "Key Questions",
-  "number": "9.3",
+  "number": "9.2",
   "title": "",
-  "body": "  Interpret all the ways that a system could reach impending motion and create free-body diagrams for each scenario  Select a criterion which you can compare across motion scenarios  Compare your results to conclude which scenario would reach impending motion first   "
-},
-{
-  "id": "insight-13",
-  "level": "2",
-  "url": "Chapter_09-slipping-vs--tipping.html#insight-13",
-  "type": "Thinking Deeper",
-  "number": "9.3.1",
-  "title": "Failure in Engineering.",
-  "body": " Failure in Engineering  The goal of engineering design is to forecast and plan for all the ways that something can fail. The challenge is to know the questions to ask and the data to gather to model all possible failure modes. The controlling failure is the mode which occurs at the smallest load.  "
+  "body": "  What are the possible motions which can occur when you apply a force to an object sitting on a rough surface?  How do you determine which motion will occur in a particular situation?  Which types of motion are beyond the scope of Statics?   "
 },
 {
   "id": "ggb_slip_tip",
   "level": "2",
   "url": "Chapter_09-slipping-vs--tipping.html#ggb_slip_tip",
   "type": "Figure",
-  "number": "9.3.2",
+  "number": "9.2.1",
   "title": "",
   "body": " Slipping vs. Tipping   "
 },
 {
-  "id": "slip_GG",
+  "id": "slip-tip-slip",
   "level": "2",
-  "url": "Chapter_09-slipping-vs--tipping.html#slip_GG",
+  "url": "Chapter_09-slipping-vs--tipping.html#slip-tip-slip",
   "type": "Figure",
-  "number": "9.3.3",
+  "number": "9.2.2",
   "title": "",
-  "body": "The box will slip when the pushing force exceeds the maximum force of friction. Dan Baker FBD of block with horizontal force applied. "
+  "body": "FBD to check slipping. FBD of block with horizontal force applied. "
 },
 {
-  "id": "tip_GG",
+  "id": "slip-tip-tip",
   "level": "2",
-  "url": "Chapter_09-slipping-vs--tipping.html#tip_GG",
+  "url": "Chapter_09-slipping-vs--tipping.html#slip-tip-tip",
   "type": "Figure",
-  "number": "9.3.4",
+  "number": "9.2.3",
   "title": "",
-  "body": "The box will tip if the resultant normal force moves to the corner before slipping. Dan Baker FBD of block with a larger horizontal force applied. "
+  "body": "FBD to check tipping. FBD of block with a larger horizontal force applied. "
+},
+{
+  "id": "insight-13",
+  "level": "2",
+  "url": "Chapter_09-slipping-vs--tipping.html#insight-13",
+  "type": "Thinking Deeper",
+  "number": "9.2.4",
+  "title": "Failure in Engineering.",
+  "body": " Failure in Engineering  The goal of engineering design is to forecast and plan for all the ways that something can fail. The challenge is to know the questions to ask and the data to gather to model all possible failure modes. The controlling failure is the mode which occurs at the smallest load.  "
+},
+{
+  "id": "Chapter_09-block-and-wedge-friction",
+  "level": "1",
+  "url": "Chapter_09-block-and-wedge-friction.html",
+  "type": "Section",
+  "number": "9.3",
+  "title": "Wedges",
+  "body": " Wedges    Why is the normal force always perpendicular to the contact surface while the friction force always lies parallel to it?  Can you demonstrate graphically that components of friction and normal forces are related to the right-triangle trigonometry terms sine and cosine?    A wedge is a tapered object which converts a small input force into a large output force using the principle of an inclined plane. Wedges are used to separate, split or cut objects, lift weights, or fix objects in place. The mechanical advantage of a wedge is determined by the angle of its taper; narrow tapers have a larger mechanical advantge.  Wedges are used in two primary ways:  Low friction wedges are a simple machines which allows users to create large output forces to move objects using comparatively small input forces. In the log spltter in , hydraulic ram pushes a log into a stationary wedge. The normal force pushes the two halves of the log apart while the friction force is opposes the pushing force .  High-friction (self-locking) wedges control the location of objects or hold them in place. Examples include doorstop wedges and carpentry wedges. The sailor in is hammering two wooden wedges towards each other to create large compressive forces to secure shoring timbers during a damage control operation.   Wedges in use.    A low friction wedge is used to split logs.    Wikimedia Commons  CC0    Image of a hydraulic ram splitting a piece of wood.     High friction wedges are used to secure shoring timbers.    Wikimedia Commons   Petty Officer 2nd Class Diana Quinlan  Public Domain   Sailors pounding wedges into damage control shoring.       Luckily the analysis of low- and high-friction wedges are identical and they are quite similar to the multi-force body equilibrium problems we saw in and . The main difference is the inclusion of friction from all non-smooth contact surfaces. The directions of both the normal and friction forces on the free-body diagrams are defined below.  Normal forces act between bodies act perpendicular to the contacting surfaces. All normal forces on a free-body diagram should be pointing towards the body because wedges are always subjected to compression.  Friction forces are between bodies which act parallel or tangential to the contacting surfaces and are created by the microscopic or large scale roughness of the surfaces. All friction forces on a free-body diagram should be drawn pointing int the a dirction which resists relative motion at the point of contact.  The key added challenge of solving wedge problems is that the angled faces of wedges usually need to be resolved into components in the and , unless a different coordinate system is used.  One of the critical steps in solving block or wedge problems is to determine which force is engaging the friction of the system. Start by drawing the friction forces on the body where this force acts . As you pass the friction and normal forces to adjacent free-body diagrams, you must always show them as equal and opposite, action-reaction pairs. This is illustrated in the following example.     Find the minimum force P requried to start raising the block. Assume that the wedge is massless.    Dan Baker    Schematic of a force being applied to an angled wedge to lift a larger block against a frictionless roller.           This figure demonstrates the free-body diagrams to find the minimum to raise the block. We would assume that all the friction forces are pushed to impending motion, thus you can use to relate the friction and normal forces at all contact surfaces. A detail of and has also been provided so that you can see how the angle is incorporated into the and components.      Using the same system as the previous problem  If the problem in was changed to Given a coefficient of static friction of find the minimum force to keep the wedge from slipping out under the block , the free-body diagrams would need to change in the following ways: all friction force directions would change as the impending motion of both the wedge and block would change direction and the direction of may have to change if the wedge has sufficient friction to stay static when .  Note that for all values of between and the system would be static, and the friction forces would be static-but-not-impending.    "
+},
+{
+  "id": "objectives-34",
+  "level": "2",
+  "url": "Chapter_09-block-and-wedge-friction.html#objectives-34",
+  "type": "Key Questions",
+  "number": "9.3",
+  "title": "",
+  "body": "  Why is the normal force always perpendicular to the contact surface while the friction force always lies parallel to it?  Can you demonstrate graphically that components of friction and normal forces are related to the right-triangle trigonometry terms sine and cosine?   "
+},
+{
+  "id": "wedges-in-use",
+  "level": "2",
+  "url": "Chapter_09-block-and-wedge-friction.html#wedges-in-use",
+  "type": "Figure",
+  "number": "9.3.1",
+  "title": "",
+  "body": " Wedges in use.    A low friction wedge is used to split logs.    Wikimedia Commons  CC0    Image of a hydraulic ram splitting a piece of wood.     High friction wedges are used to secure shoring timbers.    Wikimedia Commons   Petty Officer 2nd Class Diana Quinlan  Public Domain   Sailors pounding wedges into damage control shoring.     "
+},
+{
+  "id": "wedge-example",
+  "level": "2",
+  "url": "Chapter_09-block-and-wedge-friction.html#wedge-example",
+  "type": "Example",
+  "number": "9.3.2",
+  "title": "",
+  "body": "   Find the minimum force P requried to start raising the block. Assume that the wedge is massless.    Dan Baker    Schematic of a force being applied to an angled wedge to lift a larger block against a frictionless roller.           This figure demonstrates the free-body diagrams to find the minimum to raise the block. We would assume that all the friction forces are pushed to impending motion, thus you can use to relate the friction and normal forces at all contact surfaces. A detail of and has also been provided so that you can see how the angle is incorporated into the and components.   "
+},
+{
+  "id": "example-69",
+  "level": "2",
+  "url": "Chapter_09-block-and-wedge-friction.html#example-69",
+  "type": "Example",
+  "number": "9.3.3",
+  "title": "",
+  "body": "  Using the same system as the previous problem  If the problem in was changed to Given a coefficient of static friction of find the minimum force to keep the wedge from slipping out under the block , the free-body diagrams would need to change in the following ways: all friction force directions would change as the impending motion of both the wedge and block would change direction and the direction of may have to change if the wedge has sufficient friction to stay static when .  Note that for all values of between and the system would be static, and the friction forces would be static-but-not-impending.   "
 },
 {
   "id": "Chapter_09-screw-friction",
@@ -3687,8 +3813,8 @@ var ptx_lunr_docs = [
   "url": "Chapter_09-screw-friction.html",
   "type": "Section",
   "number": "9.4",
-  "title": "Screw Friction",
-  "body": " Screw Friction    Explain how the right-hand rule relates to the motion and rotation of screws,  Compute the thread pitch and friction angle for a screw,  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation, and  Describe how a screw and nut move in relatively opposite directions.     A power screw, also sometimes called a lead screw, is another simple machine that is essentially the surface of a wedge wound around a shaft.  A power screw assembly includes a nut that is machined to fit around the screw. There are several ways that a power screw can be used, based upon the movement of the screw and nut.    A power screw is essentially a ramp wrapped around a cylinder.     CC-0   Photo of a power screw.     A C-clamp screw rotates and translates through a fixed nut.     CC-0   Photo of a C-clamp.     Compare that with with a scissors car jack. Here the screw rotates and the nut (on the far end) translates along the screw. The handle end of the screw acts as a thrust bearing but is not threaded.   Scissors Jack.     CC-0   Photo of a scissors jack under the driver side of a car.    In either case, a small moment on the screw can cause enormous forces on the nut, with the added benefit of the force being applied at a precise location as controlled by the screw.    Screw Motion and the Right-hand rule  Most screw threads are right-hand threaded, which means they follow a right-hand rule as illustrated in . When you make a thumbs down with your right hand and then turn a threaded screw or bolt towards your fingertips, it will move in the direction of your thumb. When you are look at the head of a bolt and rotate it clockwise, it tightens (commonly taught as righty-tighty ). Of course, the reverse is true as well.    This figure demonstrates the movement of a right-handed screw thread.    Dan Baker    Twisting a screw clockwise tightens the screw, which agrees with the right hand rule, i.e. curling fingers of right hand in the direction of the tightening places points the thumb down in the direction the screw moves as tightened. The reverse is also true.    Note that sometimes screws are left-hand threaded. Some applications of left-handed threads are: machines where the reverse-threading prevents them from loosening gradually under the torque of the moving part. For example, the left pedal on a bicycle. machines where the movement of the screw creates dual motion, like a hand-screw wood clamp. situations where you do not want to mix up constituents. Cutting torches use right-hand threadfor the oxygen and left-hand threads for the acetylene connections.    Notice that the threads on a right hand threaded screw angle up to the right, while those on a left-hand threaded screw angle up to the left. Note that turning a screw upside-down does not reverse the direction of its threads.    Dan Baker    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.    The motion of left-hand screws can either be thought of as opposite the right-hand rule or conforming to the same relationships if you use your left hand.    Screw Thread Properties  For computational simplicity, all screw problems in this course will focus on square-threaded screws. Note that other threading shapes (like Acme or Trapezoidal threads) are also common, but their angled threads increase the computational complexity. The easiest way to analyze a square-thread power screw system is to turn the problem into a two-dimensional problem by \"unwrapping\" the ramp from around the cylinder of the shaft. We can summarize the geometry of the screw using two values (1) the mean radius of the screw (r) and secondly the lead (l) (also called the pitch), which is the distance between two adjacent threads. Alternately, you can compute the lead by computing the inverse of the threads-per-inch or centimeter. With a single thread design, this will also be the number of times the thread wraps around the screw in one inch\/centimeter.   To visualize these terms, we can imagine unwrapping a thread from around the screw, as seen below.    Notice that the threads on a right hand threaded screw angle up to the right, while those on a left-hand threaded screw angle up to the left. Note that turning a screw upside-down does not reverse the direction of its threads.    Dan Baker    Screw thread shown up close. The angle alpha is the angle between the thread and the horizontal. The circumference of the screw thread is pi*D*(threads\/inch) or 2*pi*mean radius. The lead or pitch is the inverse tangent of alpha x mean radius.      Using the right triangle shown in , we see that the thread pitch (also known as the lead angle or helix angle) is the inverse tangent of the ratio of the lead over the circumference       Moments to Reach Impending Motion  1. The focus of all screw problems covered by this book is to find the required rotational moment to push a screw to impending motion. As impending motion is the threshold between the system holding still and moving, your knowledge of the moments required at impending motion allows you to interpret what happens to the screw system in static-but-not-impending conditions as well.  2. Since all friction is impending, we will use the coefficient of static friction and the related friction angle . Recall from earlier in this chapter, that the friction angle can be related directly to the by the equation:     We now have the tools assembled to derive the relationship between a screw’s geometry and applied loads.    Screws where the Applied Force Opposes Impending Motion  The first scenario we will examine is the amount of moment required to raise a screw to impending motion against the applied force ( ). To eliminate any references to the orientation of the screw and force (like upward, downward, left, or right), this type of motion will be described as the applied force opposes impending motion. This case occurs any time you are applying a force to an object with a screw (like tightening a clamp).   Free body diagram showing the moment required to raise a load given the friction and normal force on a single thread of a screw interacting with a nut.    Dan Baker    Sketch of weight opposing screw motion.     For screw analysis, it is often easiest to express the friction force and normal force as the friction resultant and the friction angle . Recall that the friction force direction always opposes the impending motion of the point of contact – in this case, the screw threads. Also, the thread angle determines the angle of the normal force from the centerline of the screw. Finally, the friction angle is the angle between the friction resultant force and the normal force .    FBD of single thread element. is the fraction of the total weight on this element, and the total moment M is represented by the fraction of the rotational force acting at the mean radius from the center of the screw .    Dan Baker    FBD of single thread element.     Summing the forces in the and directions for the free-body diagram in yields:     By summing the forces across all elements of one wrap of the screw we find:     We next need to reduce these two equations to a single equation and also eliminate the difficulty to quantify term. Thus we solve both equations for .     Then, set them equal to each other and solve for the moment .   is the moment required to raise the screw to impending motion, is the force load on the screw, is the mean radius of the screw, is the screw friction angle, and is the screw thread pitch.  Practically, you can interpret from this equation that the moment to move a screw against an applied force must overcome the screw friction (represented by ) and also the component of the weight on the screw (represented by ).    Screws where the Applied Force Supports Impending Motion  When the impending motion of the screw is in the direction of the applied force, we can also state that the applied force supports impending motion. This case occurs any time you remove a force held by a screw (like loosening a screw clamp). This motion case is a bit more complicated than the force opposing impending motion, as there are three different cases determined by the relative magnitude of the friction angle and the thread angle . The basic derivation and variables in the case-specific equations below are quite similar to the derivation for , but use subtly different free-body diagrams (see below).     Free body diagrams for the three cases where the impending motion of the screw is in the direction of the force on the screw. Cases include (a) a self-locking screw , (b) a screw that will unwind-with-load , and (c) a screw at impending motion . Note that in all three cases, the thread angle also determines the angle of the normal force from the centerline of the screw, and the friction angle is the angle between the friction resultant force and the normal force .    Dan Baker    Image of a) self-locking screw, b) unwind-with-load, and c) impending motion.    Self-locking screw Self-locking screws are the typical type of screws that you will encounter in mechanical systems as they are highly predictable. They have sufficient friction available to hold their applied load even with no moment applied. Thus, they would be safely carrying the load in a static-but-not impending condition until you wish to overcome the excess friction by using a moment to push them to impending motion.   Summing the forces in the and directions for the free-body diagram in yields:     Unwind-with-load screw - As its name implies, an unwind-under-load screw will start turning unless a moment is applied to keep the screw at (or beyond) impending motion. Note that the moment to push a self-locking screw to impending motion is in the opposite direction as the moment to keep unwind-under-load screws at impending motion , as is in the same direction as the moment to loosen (or raise) a screw. These unwind-with-load screws are not often found in mechanical systems, except for in dynamic motion control systems, where the screw is used to slow down motion. To be designed in an unwind-with-load condition, a screw must have a quite steep thread angle and minimal friction between the threads and nut, which reduces .   Summing the forces in the and directions for the free-body diagram in yields:     Impending-motion screw - As the derived equations for all three unwind-with-load screw cases push the screw to impending motion if a screw is already at impending motion, it requires no applied moment. Note that this case is mechanically unstable. If the load increases, the screw will begin to unwind-under-load, whereas if the load decreases, the screw will become self-locking.     The concept of an applied force in the direction of impending motion works for either (1) a force applied in the impending motion direction of a screw, or (2) a force applied to the impending motion direction of a nut. The first case holds in the derivation and above, and the second could be seen in an example of a screw jack on a car that has a rotating but non-translating screw, plus a non-rotating but translating nut.   "
+  "title": "Screw Threads",
+  "body": " Screw Threads    Can you describe how the right-hand rule relates to the motion and rotation of screws?  What is the thread pitch and friction angle for a screw?  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation.  Why does a screw and a nut move in relatively opposite directions?     A screw thread is uniform shape which spirals around the inside or outside surface of a cylinder or cone. Like wedges, screws are simple machines. They are essentially a ramp or inclined plane wrapped into a helix, and the input to screws is torque rather than linear force. The mechanical advantage of a screw depends on its lead , which is the linear distance the screw travels in one revolution.  Screws used to fix objects in place are called fasteners , and screws used to move objects are called power screws or lead screws . In this chapter we will focus on power screws.  A power screw assembly includes a nut with matching internal threads which fits around the screw. There are two ways that a power screw can operate based on the movement of the screw and nut. In a scissors jack, the operator rotates the threaded rod with a crank fitted to the nut on the right, which is not threaded but acts as a thrust bearing. The nut on the left moves along the stationary screw to raise the load. In the C-clamp, the nut is stationary and the screw translates through as it rotates. In either case, a small moment on the screw can cause enormous forces on the nut, with the added benefit of the force being applied at a precise location as controlled by the screw.   Power Screws    A scissors jack uses fixed screw and a moving a nut.    William Haynes  CC-0   Photo of a C-clamp.     A C-clamp screw rotates and translates through a fixed nut.     CC-0   Photo of a C-clamp.        Screw Motion and the Right-hand rule  Most screw threads are right-hand threaded, which means they follow a right-hand rule as illustrated in . When you use your right hand to then turn a right-handed thread towards your fingertips, it will move in the direction of your thumb. When you are look at the head of a bolt and rotate it clockwise, it tightens  righty-tighty . The reverse, lefty-loosy , is also true.    Right Hand Threads    Loosening    William Haynes    Twisting a screw clockwise tightens the screw, which agrees with the right hand rule, i.e. curling fingers of right hand in the direction of the tightening places points the thumb down in the direction the screw moves as tightened.     Tightening    William Haynes        Left-handed screws are less common but are found in some applications, especiallly: machines where reverse-threading prevents them from loosening gradually under the torque of the moving part. For example, the left pedal on a bicycle. machines where the movement of the screw creates dual motion, like a hand-screw wood clamp. situations where you do not want to mix up constituents. Cutting torches use right-hand thread for the oxygen and left-hand threads for the acetylene connections.  The motion of left-handed screws can either be thought of as opposite the right-hand rule or conforming to the same relationships if you use your left hand. Notice that right-handed threads slope up to the right, while left-handed threads slope down. Note that turning a thread upside-down does not reverse its handedness.   Screw Thread Handedness    Right Hand Threads    William Haynes    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.     Left Hand Threads        Screw Thread Properties  Although most thread profiles are V-shaped, we only consider square threads in this book. General purpose thread profiles, like NPT and ISO metric are more difficult to analyze.  The easiest way to analyze a square-thread power screw system is to turn the problem into a two-dimensional problem by unwrapping the ramp from around the cylinder of the shaft. The significant geometrical properties of the thread are The mean radius , . The lead , , also called the pitch . The lead angle , , also called the helix angle . To visualize these terms, imagine unwrapping a thread from around the screw, as shown in .   Thread properties    = pitch, = mean radius     = lead angle    William Haynes        The mean radius is the distance from the centerline to a point halfway between the tip and the root of the thread. Twice this value is the effective diameter.  The lead is the linear travel the nut makes in one revolution, which is also the distance from a point on the screw thread to a corresponding point on the same thread after one rotation. Threads are commonly designated by the number of threads per-inch or per-centimeter, and pitch is the inverse of this value.  The lead angle is related to the pitch and the mean radius by trigonometry. Using the right triangle shown in , the thread lead angle is the inverse tangent of the ratio of the lead over the circumference       Moment to Reach Impending Motion   The focus of this section is to find the magnitude of a moment which will push a screw to impending motion. Impending motion is the threshold between the system holding still and moving, so knowledge of the moment required at impending motion allows you to interpret what happens to the screw system in static but not impending-motion conditions as well.  Assuming that motion is impending means that we can use the coefficient of static friction and the related friction angle . Recall from earlier in this chapter, that the friction angle is related directly to the by the equation:     We now have the tools assembled to derive the relationship between a screw’s geometry and the applied loads.    Applied Force Opposes Impending Motion  In this scenario we will examine the magnitude of moment required to raise a screw to impending motion against the applied force as shown in . To eliminate any references to the orientation of the screw and force like up, down, left, or right, this type of motion will be described as the applied force opposes impending motion. This case occurs any time you are applying a force to an object with a screw.  The free-body diagram in shows the moment required to raise a load and the friction and normal forces acting on a slice of thread. These must be summed over the entire length of the thread to find the total friction and normal forces.   A screw jack supports a load which opposes impending motion.    Screw Jack     John Alden  whaynes@maritime.edu cropped and added arrows.  CC BY-SA 3.0       FBD     William Haynes         It is often easiest to express the friction force and normal force as the friction resultant and the friction angle . Recall that the friction force direction always opposes the impending motion of the point of contact in this case, the screw threads. Also, the thread angle determines the angle of the normal force from the centerline of the screw. Finally, the friction angle is the angle between the friction resultant force and the normal force .  is a free-body diagram of single thread element. is the fraction of the total weight on this element, and the total moment is represented by the fraction of the rotational force acting at the mean radius from the center of the screw .   FBD of Thread Element    Summing the forces in the and directions for the free-body diagram in yields:     By summing the forces across all elements of one wrap of the screw we find:     We next need to reduce these two equations to a single equation and also eliminate the difficulty to quantify term. Thus we solve both equations for .     Then, set them equal to each other and solve for the moment .   is the moment required to raise the screw to impending motion, is the force load on the screw, is the mean radius of the screw, is the screw friction angle, and is the screw thread pitch.  Practically, this equation sayst hat the moment to move a screw against an applied force must overcome the screw friction, represented by , and the component of the load on the screw, represented by .    Applied Force Supports Impending Motion  When the impending motion of the screw is in the direction of the applied force, we can also state that the applied force supports impending motion. This case occurs any time you remove a force held by a screw, like lowering the load supported by the screw jack in .  This situation is a bit more complicated than the previous one, because there are three different possibilities depending on the the relative magnitude of the friction angle and the thread angle . Cases include Self-locking. In this case the load will not cause the screw to rotate by itself, Unwind-with-load. In this case, the load will move the screw without assistence, and Impending motion. This case is the boundry between the two other cases. In all three cases the thread angle is the angle between the normal force and the centerline of the screw, and the friction angle is the angle between the friction resultant force and the normal force .  The derivations of the relationships are quite similar to the derivation of , but use subtly different free-body diagrams for each of the three cases. See below.   Three possible situations when the load acts in the direction of impending motion.    Self-locking    William Haynes       Impending Motion    William Haynes       Unwinds with load     William Haynes         Self-locking screw  Self-locking screws are the type of screws that you will encounter most often in mechanical systems as they are highly predictable. They have sufficient friction available to hold their applied load even with no moment applied. Thus, they can safely carry a load in a static-but-not impending condition until you wish to overcome the excess friction by applying a moment to push them to impending motion.  Summing the forces in the and directions for the free-body diagram in yields:      Unwind-with-load screw As its name implies, an unwind-under-load screw will start turning unless a moment is applied to keep the screw at or beyond impending motion. The moment to push a self-locking screw to impending motion is in the opposite direction as the moment to keep unwind-under-load screws at impending motion , as is in the same direction as the moment to loosen (or raise) a screw. These unwind-with-load screws are not often found in mechanical systems, except for in dynamic motion control systems, where the screw is used to slow down motion.  To be designed in an unwind-with-load condition, a screw must have a quite steep thread angle and minimal friction between the threads and nut, which reduces .  Summing the forces in the and directions for the free-body diagram in yields:     Impending-motion screw As the derived equations for all three unwind-with-load screw cases push the screw towards impending motion, when a screw is already at impending motion, it requires no applied moment to maintiain equilibium; however, this case is mechanically unstable. If the load increases slightly the screw will begin to unwind-under-load, whereas if the load decreases slightly the screw will become self-locking.  Summing the forces in the and directions for the free-body diagram in yields:     The concept of an applied force in the direction of impending motion works equally well for either a force applied in the impending motion direction of a screw, or for a force applied to the impending motion direction of a nut. An example of he first case is the screw jack lowering a load, and the second could be a scissors jack that has a rotating but non-translating screw, plus a non-rotating but translating nut.    "
 },
 {
   "id": "objectives-35",
@@ -3697,88 +3823,97 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "9.4",
   "title": "",
-  "body": "  Explain how the right-hand rule relates to the motion and rotation of screws,  Compute the thread pitch and friction angle for a screw,  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation, and  Describe how a screw and nut move in relatively opposite directions.   "
+  "body": "  Can you describe how the right-hand rule relates to the motion and rotation of screws?  What is the thread pitch and friction angle for a screw?  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation.  Why does a screw and a nut move in relatively opposite directions?   "
 },
 {
-  "id": "power_screw_YY",
+  "id": "p-1849",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#power_screw_YY",
+  "url": "Chapter_09-screw-friction.html#p-1849",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "lead "
+},
+{
+  "id": "p-1850",
+  "level": "2",
+  "url": "Chapter_09-screw-friction.html#p-1850",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "fasteners power screws lead screws "
+},
+{
+  "id": "figure-197",
+  "level": "2",
+  "url": "Chapter_09-screw-friction.html#figure-197",
   "type": "Figure",
   "number": "9.4.1",
   "title": "",
-  "body": " A power screw is essentially a ramp wrapped around a cylinder.     CC-0   Photo of a power screw.   "
-},
-{
-  "id": "c_clamp",
-  "level": "2",
-  "url": "Chapter_09-screw-friction.html#c_clamp",
-  "type": "Figure",
-  "number": "9.4.2",
-  "title": "",
-  "body": " A C-clamp screw rotates and translates through a fixed nut.     CC-0   Photo of a C-clamp.   "
-},
-{
-  "id": "car_jack",
-  "level": "2",
-  "url": "Chapter_09-screw-friction.html#car_jack",
-  "type": "Figure",
-  "number": "9.4.3",
-  "title": "",
-  "body": " Scissors Jack.     CC-0   Photo of a scissors jack under the driver side of a car.   "
+  "body": " Power Screws    A scissors jack uses fixed screw and a moving a nut.    William Haynes  CC-0   Photo of a C-clamp.     A C-clamp screw rotates and translates through a fixed nut.     CC-0   Photo of a C-clamp.     "
 },
 {
   "id": "screw_rhr",
   "level": "2",
   "url": "Chapter_09-screw-friction.html#screw_rhr",
   "type": "Figure",
-  "number": "9.4.4",
+  "number": "9.4.2",
   "title": "",
-  "body": " This figure demonstrates the movement of a right-handed screw thread.    Dan Baker    Twisting a screw clockwise tightens the screw, which agrees with the right hand rule, i.e. curling fingers of right hand in the direction of the tightening places points the thumb down in the direction the screw moves as tightened. The reverse is also true.   "
+  "body": " Right Hand Threads    Loosening    William Haynes    Twisting a screw clockwise tightens the screw, which agrees with the right hand rule, i.e. curling fingers of right hand in the direction of the tightening places points the thumb down in the direction the screw moves as tightened.     Tightening    William Haynes       "
 },
 {
-  "id": "screw_threads_ZZ",
+  "id": "figure-203",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#screw_threads_ZZ",
+  "url": "Chapter_09-screw-friction.html#figure-203",
+  "type": "Figure",
+  "number": "9.4.3",
+  "title": "",
+  "body": " Screw Thread Handedness    Right Hand Threads    William Haynes    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.     Left Hand Threads     "
+},
+{
+  "id": "p-1857",
+  "level": "2",
+  "url": "Chapter_09-screw-friction.html#p-1857",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "mean radius lead pitch lead angle helix angle "
+},
+{
+  "id": "square-threads",
+  "level": "2",
+  "url": "Chapter_09-screw-friction.html#square-threads",
+  "type": "Figure",
+  "number": "9.4.4",
+  "title": "",
+  "body": " Thread properties    = pitch, = mean radius     = lead angle    William Haynes       "
+},
+{
+  "id": "figure-209",
+  "level": "2",
+  "url": "Chapter_09-screw-friction.html#figure-209",
   "type": "Figure",
   "number": "9.4.5",
   "title": "",
-  "body": " Notice that the threads on a right hand threaded screw angle up to the right, while those on a left-hand threaded screw angle up to the left. Note that turning a screw upside-down does not reverse the direction of its threads.    Dan Baker    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.   "
+  "body": " A screw jack supports a load which opposes impending motion.    Screw Jack     John Alden  whaynes@maritime.edu cropped and added arrows.  CC BY-SA 3.0       FBD     William Haynes       "
 },
 {
-  "id": "screw_pitch",
+  "id": "thread-element-fbd",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#screw_pitch",
-  "type": "Figure",
-  "number": "9.4.6",
-  "title": "",
-  "body": " Notice that the threads on a right hand threaded screw angle up to the right, while those on a left-hand threaded screw angle up to the left. Note that turning a screw upside-down does not reverse the direction of its threads.    Dan Baker    Screw thread shown up close. The angle alpha is the angle between the thread and the horizontal. The circumference of the screw thread is pi*D*(threads\/inch) or 2*pi*mean radius. The lead or pitch is the inverse tangent of alpha x mean radius.   "
-},
-{
-  "id": "screw_weight",
-  "level": "2",
-  "url": "Chapter_09-screw-friction.html#screw_weight",
+  "url": "Chapter_09-screw-friction.html#thread-element-fbd",
   "type": "Figure",
   "number": "9.4.7",
   "title": "",
-  "body": " Free body diagram showing the moment required to raise a load given the friction and normal force on a single thread of a screw interacting with a nut.    Dan Baker    Sketch of weight opposing screw motion.   "
-},
-{
-  "id": "screw_single_thread",
-  "level": "2",
-  "url": "Chapter_09-screw-friction.html#screw_single_thread",
-  "type": "Figure",
-  "number": "9.4.8",
-  "title": "",
-  "body": " FBD of single thread element. is the fraction of the total weight on this element, and the total moment M is represented by the fraction of the rotational force acting at the mean radius from the center of the screw .    Dan Baker    FBD of single thread element.   "
+  "body": " FBD of Thread Element   "
 },
 {
   "id": "screw_supports",
   "level": "2",
   "url": "Chapter_09-screw-friction.html#screw_supports",
   "type": "Figure",
-  "number": "9.4.9",
+  "number": "9.4.8",
   "title": "",
-  "body": " Free body diagrams for the three cases where the impending motion of the screw is in the direction of the force on the screw. Cases include (a) a self-locking screw , (b) a screw that will unwind-with-load , and (c) a screw at impending motion . Note that in all three cases, the thread angle also determines the angle of the normal force from the centerline of the screw, and the friction angle is the angle between the friction resultant force and the normal force .    Dan Baker    Image of a) self-locking screw, b) unwind-with-load, and c) impending motion.   "
+  "body": " Three possible situations when the load acts in the direction of impending motion.    Self-locking    William Haynes       Impending Motion    William Haynes       Unwinds with load     William Haynes       "
 },
 {
   "id": "Chapter_09-flexible-belt-friction",
@@ -3786,8 +3921,8 @@ var ptx_lunr_docs = [
   "url": "Chapter_09-flexible-belt-friction.html",
   "type": "Section",
   "number": "9.5",
-  "title": "Flexible Belt Friction",
-  "body": " Flexible Belt Friction    Use the impending motion of the system to determine which side of the belt will have a higher tension  Compute the contact angle \\beta between the belt and pulley or cylinder  Compute the tension differential on either side of the belt or cylinder for both flat and v-belts  Compute the maximum torque transfer available from a pulley system     When a belt, rope, or cable is wrapped around an object, there is potential for flexible belt friction. In friction allows the sailors to control the speed that the mooring line pays out. The friction between the line and the bollard depends on the number of turns the line takes around the bollard post. In friction forces prevent the belt from slipping allow it to transfer power from the motor to the drive pulley.    Sailors handling a mooring line.     https:\/\/www.dvidshub.net\/    US Navy sailors handling a mooring line.     Power transmission pulleys.    Kiilahihnakone  CC-BY-SA   Belt driven pulley      To evaluate flexible belt friction, we start a flat, massless belt passing over a cylindrical surface. If we have an equal tension at each end of the belt, the belt experiences a distributed normal force, which varies as a function of the angle between the contact surface of the belt and the direction the belt tension forces are pulling ( ).    With equal tensions on each side of the belt, the only interaction force between the belt and pulley is a non-uniform distributed force.    Dan Baker    Image of frictionless pulley with equal tension on each side of the belt. There is a non-uniform distributed load between the belt and the pulley.    If there were no friction between the belt and cylinder, if we were to increase the tension on one side of the rope, it would begin to slide across the cylinder. However, if friction is available between the rope and the surface, the friction force will oppose the sliding motion ( )    With unequal tensions, a distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces still exist but have been grayed-out to highlight the equal and opposite friction forces and . Additionally, the pulley needs a couple-moment to remain static, resisting the effects of .    Dan Baker    Belt and pulley with unequal tensions. A distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces that are equal and opposite are grayed-out. The pulley has couple-moment resisting the effects of pulley.      Friction in Flat Belts  There are two belt shapes discussed in this chapter, flat belts and v-belts ( ). We start with the analysis of flat belts as they are the simpler of the two.    A flat belt pulley interacts with one surface of the belt. A Vee shaped pulley allows the belt to wedge tightly in the groove, increasing friction and torque transmission.    Dan Baker    Flat belt pulley and V-belt pulley.    When analyzing systems with belts, we are usually interested in the range of values for the tension forces where the belt does not slip relative to the surface. Starting with the smaller tension force on one side we can increase the second tension force to some maximum value before slipping. For a flat belt, the maximum value for depends on the magnitude of , the static coefficient of friction between the belt and the surface, and the contact angle between the belt and the surface given in radians.    Finding the Contact Angle   On flexible belt problems, you need to translate the geometry of the incoming angles of each belt into a contact angle between the belt and pulley. The easiest way to do this is to create one or more right triangles using the incoming and outgoing belt paths and work through the various complementary angles to transfer the belt geometry into a contact angle (see example in ). There is no simplified rule for transferring cable angles over to the contact angle , but in general, extend radial lines from the center of the pulley out to the belt’s tangential lines. Next, create right triangles with each radial line and work to find all the angles which add up to the contact angle .   In this interactive you can change the directions of the belts and see the relation between the the angles they make with the vertical and the contact angle .      Determining which Belt has the Largest Tension.  Another challenging step in solving flexible belt friction problems is determining which belt has a larger tension and which has the smaller tension . Unlike guessing the direction of unknown support forces, this is not a decision that you can make incorrectly and later learn of your error with a negative value; hence we will guide you through two ways to make this decision up-front.   Method 1: Draw free-body diagrams and sum tension along the cable  Recall that friction always opposes the motion of the body you are evaluating, thus if you can create a free-body diagram of the cable, you can sum forces along the cable. This equation will verify which tension is larger\/smaller.    The mechanical system of a fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static. Note that the wheel and belt are considered massless (thus do not have a weight) in this example.    Dan Baker    Fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static.    The first free-body diagram shows the following forces acting of the wheel: Pin forces ( and ) from the support at the center A distributed normal force acting radially along the contact surface between the wheel and belt A distributed friction force acting along the surface of the wheel which is opposing the moment and thus the impending motion (I.M.) of the wheel  The second free-body diagrams shows how the contact forces on the wheel are transferred equal and opposite to the belt: A distributed normal force acting radially along the contact surface between the wheel and belt A distributed friction force acting along the surface of the belt, which is now opposing the relative impending motion of the belt (which is opposite the absolute impending motion of the wheel). Cutting the belt exposes the tension forces within.    First Free Body Diagram    Dan Baker    FBD of the pulley.      Second Free Body Diagram    Dan Baker    FBD of the belt.     Finally, the forces along the belt are in must be in equilibrium to keep the acceleration equal to zero. We see in this equation that the tension plus the distributed friction force add together to equal . Therefore, must be larger and smaller .    Method 2: Larger tension is always in the direction of the impending motion of the belt  Following the logic of Method 1, it turns out that the larger tension is always in the direction of the impending motion of the belt. It does not matter if the belt motion is relative (like in the example for Method 1 above) or absolute, the larger tension is always in the impending motion of the belt. If you are still learning the differences between relative and absolute motion, see the section above.  There are likely other robust ways to determine the smaller and larger sides of tension in a flexible belt system; make sure you learn a method that works for both potentially moving and also fixed-belt systems.     Finding the Change in Belt Tension due to Friction   As shown graphically in above, the friction force engages along the contact surface of the pulley and belt. Zooming in on a single differential element of the belt below in , we will further see the effect of the friction force on the tension within the belt.   Differential element of a flexible belt with applied normal force , friction force , and internal tensions and .    Dan Baker    Differential element of a flexible belt.    First, sum the forces in the direction acting on the belt element in .     As approaches zero, , so in the limit,  Now summing forces in the direction,     Where we have used the small angle approximation . Dropping the second order differential term as negligible, yields  Solving simultaneously by eliminating leaves us with , which we can integrate between and to find     1. or by solving for we find ,  where is the larger tension pulling on the belt, is the smaller tension pulling on the belt, is the natural log base 2.718, is the friction coefficient between the belt and pulley, and is the contact angle between the belt and pulley in radians.  Notice that the differential belt tension is independent of the surface size and shape, provided the belt makes continuous contact.    Friction in V-belts  V-belts fit into a groove on a pulley and thereby increases the normal force of contact with the pulley sides (see below). This increase in normal force sequentially increases the contact friction. The belt must only contact the sides and not the groove base to maintain this friction advantage.    A V-belt’s enhanced friction comes from the increased normal forces, which are a function of the groove angle . The sum of the normal force vertical components is the same for a flat belt or V-belt. However, the horizontal components of the normal forces in a V-belt, effectively pinch the belt, thereby increasing the available friction force.    Dan Baker    Image of V-belt.     As we can see from the equation above, steeper sides to the groove (corresponding to a smaller groove angle ) result in an increased potential difference in the tension forces. The trade-off with steeper sides, however, is that the belt becomes wedged more firmly in the groove and requires a higher force to unwedge itself as it leaves the pulley. This unwedging force decreases the efficiency of the belt-driven system. An alternate design choice would be a chain-driven system which carries very high-tension differences more efficiently.    Torque in Belt Systems  In belt-driven systems, there is usually an input pulley and one (or more) output pulleys. To determine the maximum torque or power that can be transmitted by the belt, we will need to consider each of the pulleys independently, understanding that slipping occurring at either the input or the output will result in a failure of the power transmission.    A belt-driven set of fixed axis pulleys. Note that the direction of the input moment is opposite that of the resisting output moment, but the impending motion is the same for both pulleys.    Dan Baker    A belt-driven set of fixed axis pulleys. The pulleys are separated into separate FBDs with the tension in the belts shown to be equal and opposite.    The first step in determining the maximum moment (or torque) that can be transmitted in the belt drive is to determine the maximum possible value for before slipping occurs at either the input or output pulley. To start this process, we you will need to start by solving for the resting tension. This resting tension is the tension the belts prior to anything moving or power transfer (analogous to the tension in your bike chain when it is at rest). Practically, if you wish to increase or decrease the resting tension, many machines have adjustments to increase or decrease the distance between the pulleys slightly. If we turn on the machine and increase the moments on both pulleys, the resting tension remains constant while the tension on the drive side increases.  If the pulleys are the same material (and therefore the same coefficients of friction), it can be assumed that the belt will first slip at the smaller of the two pulleys as the smaller pulley has a smaller contact angle .  Once we have the maximum value for , we can use that to find the maximum input and output moments. Next, to find the torque, we then find the net moment exerted by the two tension forces, where the radius of the pulley is the moment arm.  The maximum input torque before slipping is      The maximum output torque M_o before slipping is      To find the maximum power we can transfer with the belt drive system, we will use the rotational definition of power, where the power is equal to the torque times the angular velocity in radians per second. Unlike the torque, the power at the input and the output will be the same, assuming no inefficiencies.     "
+  "title": "Flexible Belts",
+  "body": " Flexible Belts    How does the impending motion of the system determine which side of the belt will have a larger tension?  How do you compute the contact angle between the belt and pulley or cylinder?  How do you compute the tension differential on either side of the belt or cylinder for both flat and v-belts?  What determines the maximum torque transfer available from a pulley system?     When a belt, rope, or cable is wrapped around an object, there is potential for flexible belt friction. In friction allows the sailors to control the speed that the mooring line pays out. The friction between the line and the bollard depends on the number of turns the line takes around the bollard post. In friction forces prevent the belt from slipping allow it to transfer power from the motor to the drive pulley.   Applications of belts.    Sailors handling a mooring line.     https:\/\/www.dvidshub.net\/    US Navy sailors handling a mooring line.     Power transmission pulleys.    Kiilahihnakone  CC-BY-SA   Belt driven pulley        Frictionless Belts  Imagine with a flat, massless cable or belt passing over a frictionless cylinder or pulley, in equilibrium. ( ). A non-uniform distributed normal force acts at points of contact with the cylinder to oppose the tension in the belt and maintain equilibrium. The normal force varies as a function of the angle between the contact surface and the direction the belt tension.   Free-body diagams, equal tension.    FBD Belt and pulley    William Haynes       FBD of belt    William Haynes       FBD of cylinder    William Haynes        Without friction, the two tensions must be equal otherwise the belt would slip around the cylinder. The only interaction force between the belt and pulley is the distributed normal force. Due to the symmetry of this example, the components of the distributed force all cancel and the resultant is purely vertical. In other situations this will not be true.    Friction in Flat Belts   When friction is available to oppose the sliding, the tensions in the two sides of the belt will not be equal and friction will cause the pulley to rotate. Alternately if the pulley is driven by an external moment, friction will cause one tension to increase and the other to decrease. This, of course, is the point of a belt and pulley system power transmission from the belt to the pulley or vice-versa.  shows a free-body diagram of a belt and pully in equilibrium. The net moment caused by the two belts and the appled moment are in balance. The system may be stationary, or it may be rotating at a constant velocity; however, it is impossible to tell from this diagram which direction.  shows a free-body diagram of the belt. Since is greater than , in the absense of friction, the left side will move up, and the right side will move down, as indicated by the arrows which indicate the relative motion of belt with respect to the pulley. A distributed friction force between the belt and pulley which opposes the relative motion and maintains rotational equilibrium. A distributed normal force also exists to maintain equilibrium in the direction.  shows a free-body diagram of the pulley. The frictional and normal forces acting on the pulley are equal and opposite to those acting on the belt. The arrow indicates that the impending reative motion of the pulley with respect to the belt is counter-clockwise. The actual direction of rotation is not known or indiated. Friction always acts opposite to the direction of relative motion.   Unequal Tensions    FBD of Belt and Pulley    William Haynes       FBD of Belt    William Haynes       FBD of pulley    William Haynes        Increasing or the belt tension ratio will increse the power transmitted until the belt starts to slip. This occurs when the friction increases maximum available value . At this point, motion (slipping) is impending.  We are interested in determing the range of values for the tension forces where the belt does not slip relative to the surface. For a flat belt, the maximum value for depends on the magnitude of , the static coefficient of friction between the belt and the surface , and the contact angle between the belt and the surface.    Contact Angle   You will need to use the geometry of the pulleys to find the contact angle between the belt and pulley. The belt will depart the pully at a point of tangency, which is always perpendicular to a radius. To find create one or more right triangles using the incoming and outgoing belt paths and apply complementary angles to relate the belt geometry to the contact angle. There is no simple rule for transferring cable angles over to the contact angle, but in general, extend radial lines from the center of the pulley out to the belt’s tangential lines. Next, create right triangles with each radial line and work to find all the angles which add up to the contact angle .   Relationship between pulley geometry and contact angle .        Belt Tension  We have seen that when there is friction between a belt and a pulley, the tensions on either end of the belt are not the same. In previous problems, we simply guessed a direction for an unknown force, and then used the sign of the numerical answer to confirm or reverse our assumption. Unfortunately, this does not work for flexible belts, where we must make the correct determination before starting computations. So, how can we determine which side has the larger tension, and which side is smaller?  The following discussion guides you through two methods to make this decision. shows a pulley and belt system and the associated free body diagrams. The pulley is driven by a motor which supplies a counterclockwise moment of . The belt is fixed, and holds the pulley in equilibrium until slipping occurs. Both the pulley and belt are assumed massless.  The grey arrows indicate the direction of impending motion. This is the motion which will occur if the belt slips. For the belt, which is fixed, this impending motion is relative to the pulley. For the pulley, motion is impending relative to the belt, but since it can actually rotate it also has absolute impending motion with respect to the earth.   Motor drive pulley with a fixed belt.    Problem Diagram     FBD of Pulley     FBD of Belt         Method 1: Draw free-body diagrams and sum tensions along the cable  Friction always opposes impending relative motion at the point of contact, so if you can determine the direction the belt will potentially slip, you also know the direction of the friction force. You can find out which tension is larger and which is smaller by drawing a free-body diagram of the belt and suming forces along it.  The free-body diagram shows the forces acting on the pulley, which are: Reaction force from the fixed center axle. A distributed normal force acting radially along the contact surface with the belt. The distributed normal forces is not symmetrical as drawn, but actually biased towards the right, in order to have the net leftward force required to oppose the net friction acting to the right. Fortunately, the actual shape is not sigificant to us. A distributed friction force acting along the contact surface, opposing moment and the impending motion of the pulley.  The free-body diagram shows the forces acting on the belt, which are: The belts’s internal tension forces and . A distributed normal force acting radially along the contact surface between the pulley and belt. These are the distributed normal forces on the pulley transferred equal-and-opposite to the belt. A distributed friction force acting along the surface of the belt, again equal-and-opposite to the corresponding forces on the pulley. Since the belt is not actually moving these forces oppose the belt’s relative impending motion with respect to the pulley.   Finally, the forces along the belt must be in equilibrium to hold the system static. Summing forces along the belt, we find that the tension plus the distributed friction force must equal . Therefore, is larger and is smaller.    Method 2: Larger tension acts in the direction of the impending motion of the belt  Following the logic of Method 1, it turns out that the larger tension always points in the direction of impending motion of the belt. It does not matter if the impending motion is relative as here with a fixed belt, or absolute as when the belt moves around a fixed object.  There are multiple ways to determine the smaller and larger tensions in a flexible belt system. You can use the interactive below to develop your intuition on the relationship between belt tension, pulley moment, friction and relative motion.      Friction transmits power between the belt and pulley.        Change in Belt Tension due to Friction  Applying the equilibrium equations to a free-body diagram of a differential element of the belt enables us to derive the relation between the tension two belt tensions, the contact angle , and the friction coefficient .   FBD of a differential element of a flexible belt.     William Haynes       Summing the forces in the direction gives   As approaches zero, approaches one, so in the limit,  And summing forces in the direction gives where we have used the small angle approximation . Dropping the second order differential term as negligible, yields .  Solving simultaneously by eliminating leaves us with , which we can integrate between and to find .  Integrating both sides gives: ,where is the natural log base 2.718, is the friction coefficient between the belt and pulley, and is the contact angle between the belt and pulley in radians. The larger this ratio is, the more torque the belt can transmit.  Notice that the belt tension ratio is independent of the surface size and shape, provided the belt makes continuous contact.     Torque in Belt Systems  A belt-driven systems consists of an input pulley driven by a rotational power source and one or more output pulleys driving loads. The maximum torque that can be transmitted by the system is determined by the maximum value for before slipping occurs at either the input or any output pulley. We will need to consider each of the pulleys independently.   Unequal Tensions    Belt Drive System    William Haynes    A belt-driven set of fixed axis pulleys. The pulleys are separated into separate FBDs with the tension in the belts shown to be equal and opposite.     Driving Pulley    William Haynes       Load Pulley    William Haynes        Start by solving for the resting tension . This is the tension the belts prior to any motion or power transfer. Practically, machines provide adjustments to pre-tension the belt to insure sufficient normal force when started. When we turn on the machine and increase the torque, the resting tension remains constant while the tension on the drive side increases.  If the pulleys have the same coefficients of friction, it can be assumed that the belt will first slip at the smaller of the two pulleys as the smaller pulley has a smaller contact angle . See .  Once we have the maximum value for , we can use that to find the maximum input and output moments. Next, to find the torque, we then find the net moment exerted by the two tension forces, where the radius of the pulley is the moment arm.  The maximum input torque before slipping is     The maximum output torque before slipping is     In a rotating shaft, power is equal to the torque times the angular velocity in radians per second. , so .  Unlike the torque which steps up or down based on the pulley radii, the input and output powers are equal to each other, ignoring all efficiency losses.    V-Belts  A flat belt pulley interacts with one surface of the belt. A V shaped pulley allows the belt to wedge tightly in the groove, increasing friction and torque transmission. A V-belt’s enhanced friction comes from the increased normal forces which are a function of the groove angle .  The sum of the normal force vertical components is the same for a flat belt or V-belt. However, the horizontal components of the normal forces in a V-belt, effectively pinch the belt, thereby increasing the available friction force. The belt should not contact the bottom of the groove, or else the wedge effect is lost .   V-belt and pulley cross section.    William Haynes       As we can see from the equation above, smaller groove angle and steeper sides result in a larger maximum tension ratio, resulting in higher torque transmission. The trade-off with steeper sides, however, is that the belt becomes wedged more firmly in the groove and requires more force to unwedge itself as it leaves the pulley. This unwedging force decreases the efficiency of the belt-driven system. An alternate design choice would be a chain-drive which carries very high-tension differences efficiently.   "
 },
 {
   "id": "objectives-36",
@@ -3796,115 +3931,88 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "9.5",
   "title": "",
-  "body": "  Use the impending motion of the system to determine which side of the belt will have a higher tension  Compute the contact angle \\beta between the belt and pulley or cylinder  Compute the tension differential on either side of the belt or cylinder for both flat and v-belts  Compute the maximum torque transfer available from a pulley system   "
+  "body": "  How does the impending motion of the system determine which side of the belt will have a larger tension?  How do you compute the contact angle between the belt and pulley or cylinder?  How do you compute the tension differential on either side of the belt or cylinder for both flat and v-belts?  What determines the maximum torque transfer available from a pulley system?   "
 },
 {
-  "id": "mooring-lines",
+  "id": "figure-217",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#mooring-lines",
+  "url": "Chapter_09-flexible-belt-friction.html#figure-217",
   "type": "Figure",
   "number": "9.5.1",
   "title": "",
-  "body": " Sailors handling a mooring line.     https:\/\/www.dvidshub.net\/    US Navy sailors handling a mooring line.   "
+  "body": " Applications of belts.    Sailors handling a mooring line.     https:\/\/www.dvidshub.net\/    US Navy sailors handling a mooring line.     Power transmission pulleys.    Kiilahihnakone  CC-BY-SA   Belt driven pulley     "
 },
 {
-  "id": "drive_belt",
+  "id": "equal-tension",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#drive_belt",
+  "url": "Chapter_09-flexible-belt-friction.html#equal-tension",
   "type": "Figure",
   "number": "9.5.2",
   "title": "",
-  "body": " Power transmission pulleys.    Kiilahihnakone  CC-BY-SA   Belt driven pulley   "
+  "body": " Free-body diagams, equal tension.    FBD Belt and pulley    William Haynes       FBD of belt    William Haynes       FBD of cylinder    William Haynes       "
 },
 {
-  "id": "belt_MM",
+  "id": "different-tension",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_MM",
+  "url": "Chapter_09-flexible-belt-friction.html#different-tension",
   "type": "Figure",
   "number": "9.5.3",
   "title": "",
-  "body": " With equal tensions on each side of the belt, the only interaction force between the belt and pulley is a non-uniform distributed force.    Dan Baker    Image of frictionless pulley with equal tension on each side of the belt. There is a non-uniform distributed load between the belt and the pulley.   "
+  "body": " Unequal Tensions    FBD of Belt and Pulley    William Haynes       FBD of Belt    William Haynes       FBD of pulley    William Haynes       "
 },
 {
-  "id": "belt_NN",
+  "id": "belt-friction-interactive",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_NN",
+  "url": "Chapter_09-flexible-belt-friction.html#belt-friction-interactive",
   "type": "Figure",
   "number": "9.5.4",
   "title": "",
-  "body": " With unequal tensions, a distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces still exist but have been grayed-out to highlight the equal and opposite friction forces and . Additionally, the pulley needs a couple-moment to remain static, resisting the effects of .    Dan Baker    Belt and pulley with unequal tensions. A distributed friction force along the surface of the belt opposes the impending motion of the belt due to the tension differential. The distributed normal forces that are equal and opposite are grayed-out. The pulley has couple-moment resisting the effects of pulley.   "
+  "body": " Relationship between pulley geometry and contact angle .     "
 },
 {
-  "id": "belt_OO",
+  "id": "find-max",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_OO",
+  "url": "Chapter_09-flexible-belt-friction.html#find-max",
   "type": "Figure",
   "number": "9.5.5",
   "title": "",
-  "body": " A flat belt pulley interacts with one surface of the belt. A Vee shaped pulley allows the belt to wedge tightly in the groove, increasing friction and torque transmission.    Dan Baker    Flat belt pulley and V-belt pulley.   "
+  "body": " Motor drive pulley with a fixed belt.    Problem Diagram     FBD of Pulley     FBD of Belt     "
 },
 {
-  "id": "ggb_fzgfuyex",
+  "id": "belt-equilibrium-interactive",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#ggb_fzgfuyex",
+  "url": "Chapter_09-flexible-belt-friction.html#belt-equilibrium-interactive",
   "type": "Figure",
   "number": "9.5.6",
   "title": "",
-  "body": " In this interactive you can change the directions of the belts and see the relation between the the angles they make with the vertical and the contact angle .   "
+  "body": " Friction transmits power between the belt and pulley.     "
 },
 {
-  "id": "belt_PP",
+  "id": "belt-differential-element",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_PP",
+  "url": "Chapter_09-flexible-belt-friction.html#belt-differential-element",
   "type": "Figure",
   "number": "9.5.7",
   "title": "",
-  "body": " The mechanical system of a fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static. Note that the wheel and belt are considered massless (thus do not have a weight) in this example.    Dan Baker    Fixed axis pulley hooked to a motor providing a rotational moment of M and a fixed belt designed to hold the pulley static.   "
+  "body": " FBD of a differential element of a flexible belt.     William Haynes      "
 },
 {
-  "id": "belt_QQ",
+  "id": "drive-system",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_QQ",
+  "url": "Chapter_09-flexible-belt-friction.html#drive-system",
   "type": "Figure",
   "number": "9.5.8",
   "title": "",
-  "body": " First Free Body Diagram    Dan Baker    FBD of the pulley.   "
+  "body": " Unequal Tensions    Belt Drive System    William Haynes    A belt-driven set of fixed axis pulleys. The pulleys are separated into separate FBDs with the tension in the belts shown to be equal and opposite.     Driving Pulley    William Haynes       Load Pulley    William Haynes       "
 },
 {
-  "id": "belt_RR",
+  "id": "figure-239",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_RR",
+  "url": "Chapter_09-flexible-belt-friction.html#figure-239",
   "type": "Figure",
   "number": "9.5.9",
   "title": "",
-  "body": " Second Free Body Diagram    Dan Baker    FBD of the belt.   "
-},
-{
-  "id": "belt_SS",
-  "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_SS",
-  "type": "Figure",
-  "number": "9.5.10",
-  "title": "",
-  "body": " Differential element of a flexible belt with applied normal force , friction force , and internal tensions and .    Dan Baker    Differential element of a flexible belt.   "
-},
-{
-  "id": "belt_TT",
-  "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_TT",
-  "type": "Figure",
-  "number": "9.5.11",
-  "title": "",
-  "body": " A V-belt’s enhanced friction comes from the increased normal forces, which are a function of the groove angle . The sum of the normal force vertical components is the same for a flat belt or V-belt. However, the horizontal components of the normal forces in a V-belt, effectively pinch the belt, thereby increasing the available friction force.    Dan Baker    Image of V-belt.   "
-},
-{
-  "id": "belt_UU",
-  "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#belt_UU",
-  "type": "Figure",
-  "number": "9.5.12",
-  "title": "",
-  "body": " A belt-driven set of fixed axis pulleys. Note that the direction of the input moment is opposite that of the resisting output moment, but the impending motion is the same for both pulleys.    Dan Baker    A belt-driven set of fixed axis pulleys. The pulleys are separated into separate FBDs with the tension in the belts shown to be equal and opposite.   "
+  "body": " V-belt and pulley cross section.    William Haynes     "
 },
 {
   "id": "Chapter_09-journal-bearing-friction",
@@ -3912,8 +4020,8 @@ var ptx_lunr_docs = [
   "url": "Chapter_09-journal-bearing-friction.html",
   "type": "Section",
   "number": "9.6",
-  "title": "Journal Bearing Friction",
-  "body": " Journal Bearing Friction    Draw a problem sketch and a free-body diagram of a journal bearing system including the appropriate shift in contact point due to impending rotation  Solve for unknown values associated with journal bearing     Journal Bearing Friction  A bearing is a machine element used to support a rotating shaft. Bearing friction is the friction that exists between the rotating shaft and the supporting bearing. Though many types of bearings exist (journal, ball, roller, hydrodynamic), in this course, we only focus on dry friction journal bearings. Most bearings are lubricated and thus require knowledge of fluids to analyze, but dry friction journal bearings have a single contact point between the shaft and bearing (as shown in below). While the single contact point makes them solvable in statics, the single contact point would be subject to wear and heat build-up if used for long-duration motion; thus, the use of journal bearings is only advisable in situations where there is limited motion.    Journal Bearings with a Rotating Shaft and a Fixed Bearing  A journal bearing consists of a circular shaft fitted into a slightly larger circular bearing, as shown in . The application of a standard journal bearing includes a rotating shaft, which is also exerting a load onto the bearing. The friction force and shaft rotation cause the shaft to climb up the side of the bearing.    (left) In a journal bearing like the one shown here with a vertical force applied to the shaft, the contact point is located along the line of action of the applied force. (middle) If a CW couple-moment attempts to rotate the shaft, then the contact point will move to the right as the friction force between the shaft and bearing causes the surfaces to stick, and the shaft climbs up the bearing until impending motion is reached. (right) If a CCW couple-moment is applied, then the contact point will shift to the left as the friction force between the shaft and bearing causes the surfaces to stick, and the shaft climbs up the bearing until impending motion is reached.    Dan Baker    Journal bearing cross section shows outside cylinder with internal shaft in three configurations a) Contact point at 270 degrees, b) contact point at ~300 degrees, c) contact point at ~240 degrees.    Now that you have learned the underlying physical interaction between a shaft and journal bearing, let us transition to the forces which support this interaction. If we create free-body diagrams for the shaft in all three cases presented in above, we see a combination of a normal force and a friction force at each contact point (in below).    The shafts in the three journal bearings above can be turned into free-body diagrams by replacing the bearing and contact point with the forces which act through the contact point. Note in all three cases the normal force perpendicular to the tangential line of contact, which makes its line of action a radial line through the center of each shaft. Additionally, (left) there is no friction engaged, (middle) the friction resists the CW moment, and (left) the friction resists the CCW moment. The friction circle (radius ) is explained in the steps below.    Dan Baker    FBD of the shaft of the journal bearing showing the F_applied, Normal force, and the friction force opposing direction of impending motion.    The most straightforward process to accurately relate the normal and friction forces for a journal bearing is by performing the following steps: First, assume for measured distances that the shaft and bearing opening have the same radius, but always draw the shaft a bit smaller so you can see its contact point with the bearing. Drawing them the same size will make it look like the shaft and bearing are in contact all the way around, which would violate our assumption of a single point of contact. Next, combine the normal and friction forces into a single friction resultant force (as presented in the first section of this chapter) . The friction resultant can then be assumed to be tangential to a friction circle. The friction circle is an imaginary circle of radius around the center of the shaft and is a function of the radius of the shaft (r) and the friction angle . Finally, draw a free-body diagram of the shaft (and\/or bearing) with all applied loads and the friction resultant and then use your equations of equilibrium to solve the problem.    Journal bearings with a Fixed Shaft and a Rotating Bearing  Another type of journal bearing is designed with a fixed shaft and a rotating bearing. While the solution process is quite similar to the process covered above, the main difference is that you will draw a free-body diagram of the rotating bearing (instead of the shaft) for this case.     Problem sketches (top) and free-body diagrams (bottom) for journal bearings with a fixed shaft and rotating bearing. The left set of drawings has no moment applied. The middle set has a CW moment applied to the bearing, and the right set have a CCW moment applied to the bearing.    Dan Baker    Journal bearing cross section shows outside cylinder with fixed internal shaft in three configurations a) Contact point at 90 degrees, b) contact point at ~60 degrees, c) contact point at ~120 degrees. Corresponding FBDs of the bearing in the three configurations are shown.     Finding the Direction of Shift for Contact Point  If you are still struggling to determine the direction of the contact point shift, try this rule:   The contact point always shifts in the direction of the impending motion of the bearing.   The impending motion can be absolute (in the case of a fixed shaft and rotating bearing) or relative (in the case of a fixed bearing). Remember, the relative motion of the bearing is always opposite the absolute impending motion of the shaft.    "
+  "title": "Journal Bearings",
+  "body": " Journal Bearings    Why does the point of contact between a shaft and a journal bearing shift as the shaft rotates?  Why is the resultant contact force tangent to the friction circle?  Can you draw appropriate free-body diagrams of journal bearing systems and solve for unknown values?     Journal Bearing Friction  A bearing is a machine element used to support a rotating shaft. Bearing friction exists between the rotating shaft and the supporting bearing. Though other types of bearings exist incuding, ball, roller and hydrodynamic, we will focus on dry friction journal bearings. Oil lubricated journal bearings require a knowledge of fluid mechanics to analyze, while dry journal bearings have point contact between the shaft and bearing and thus can be analized in Statics, they are subject to greater wear and heat build-up than other types of bearings; thus, the use of dry journal bearings is only advisable in situations where there is limited motion.    Rotating Shaft and Fixed Bearing  A dry friction journal bearing consists circular bearing surface which supports a rotating or stationary shaft. The support force acts at the single point of tangency of the two circular surfaces. The bearing prevents shaft motion in the radial directions but does not prevent axial motion due to shaft thrust.  shows a journal bearing supporting a shaft with a vertical load . Initially the contact point is located directly below the load along its line of action. When a clockwise moment is applied to rotate the shaft, friction between the shaft and bearing causes the surfaces to stick together, and the shaft climbs up the bearing surface until impending motion is reached and slipping occurs. Similarly, when a CCW moment is applied, the contact point will shift to the left.   Contact Point Shifts against the direction of relative motion of the shaft with respect to the bearing.    Stationary    William Haynes    Journal bearing cross section shows outside cylinder with internal shaft in three configurations a) Contact point at 270 degrees, b) contact point at ~300 degrees, c) contact point at ~240 degrees.     Clockwise shaft rotation    William Haynes       Counterclockwise shaft rotation    William Haynes        Free-body diagrams for the shaft in the three cases are shown in . At the contact points we see a normal force and a friction force which can be resolved into a single vertical resultant force . Normal forces are perpendicular to shaft at the contact point, which makes their lines of action pass through the center of the shaft. When no moment is applied, no friction exists, but in the other two cases, friction creates a moment about the center of the shaft which opposes the applied moment .   Shaft Free-body Diagrams    No Moment    William Haynes    FBD of the shaft of the journal bearing showing the F_applied, Normal force, and the friction force opposing direction of impending motion.     Clockwise Moment    William Haynes       Counterclockwise Moment    William Haynes        The most straightforward process to relate the load, normal and friction forces for a journal bearing is by performing the following steps: Assume that the shaft and bearing opening have the same radius, but draw the shaft a bit smaller to emphasizes the contact point at the point of tangency. Combine the normal and friction forces into a single friction resultant force . Determine the radius of the friction circle, , which is a circle around the center tangent to the friction resultant . The friction circle radius is a function of the shaft radius and the friction angle . Finally, draw a free-body diagram of the shaft with all applied loads and the friction resultant , then solve the equations of equilibrium to find the unknowns.    Fixed Shaft and Rotating Bearing  Another type of journal bearing is designed with a fixed shaft and a rotating bearing. While the solution process is quite similar to the process covered above, the main difference is that you will draw a free-body diagram of the rotating bearing instead of the shaft.  shows the diagrams for a journal bearings with a fixed shaft and rotating bearing.      Ring Bearing    William Haynes    Journal bearing cross section shows outside cylinder with fixed internal shaft.     Free-body Diagram    William Haynes         Contact Point Shift  In this section we saw that the contact point shifts in the direction of the relative impending motion of the bearing or opposite to the relative motion of the shaft;  This is true for dry friction bearings, but with oil lubricated bearings, the shaft starts by shift this way, but as the shaft speed increases a hydrodynamic oil wedge forms which shifts the shaft in the other direct in much the same way that a water skier lifts up and skims the water at high speeds.    "
 },
 {
   "id": "objectives-37",
@@ -3922,34 +4030,34 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "9.6",
   "title": "",
-  "body": "  Draw a problem sketch and a free-body diagram of a journal bearing system including the appropriate shift in contact point due to impending rotation  Solve for unknown values associated with journal bearing   "
+  "body": "  Why does the point of contact between a shaft and a journal bearing shift as the shaft rotates?  Why is the resultant contact force tangent to the friction circle?  Can you draw appropriate free-body diagrams of journal bearing systems and solve for unknown values?   "
 },
 {
-  "id": "journal_XX",
+  "id": "contact-point",
   "level": "2",
-  "url": "Chapter_09-journal-bearing-friction.html#journal_XX",
+  "url": "Chapter_09-journal-bearing-friction.html#contact-point",
   "type": "Figure",
   "number": "9.6.1",
   "title": "",
-  "body": " (left) In a journal bearing like the one shown here with a vertical force applied to the shaft, the contact point is located along the line of action of the applied force. (middle) If a CW couple-moment attempts to rotate the shaft, then the contact point will move to the right as the friction force between the shaft and bearing causes the surfaces to stick, and the shaft climbs up the bearing until impending motion is reached. (right) If a CCW couple-moment is applied, then the contact point will shift to the left as the friction force between the shaft and bearing causes the surfaces to stick, and the shaft climbs up the bearing until impending motion is reached.    Dan Baker    Journal bearing cross section shows outside cylinder with internal shaft in three configurations a) Contact point at 270 degrees, b) contact point at ~300 degrees, c) contact point at ~240 degrees.   "
+  "body": " Contact Point Shifts against the direction of relative motion of the shaft with respect to the bearing.    Stationary    William Haynes    Journal bearing cross section shows outside cylinder with internal shaft in three configurations a) Contact point at 270 degrees, b) contact point at ~300 degrees, c) contact point at ~240 degrees.     Clockwise shaft rotation    William Haynes       Counterclockwise shaft rotation    William Haynes       "
 },
 {
-  "id": "journal_YY",
+  "id": "shaft-fbds",
   "level": "2",
-  "url": "Chapter_09-journal-bearing-friction.html#journal_YY",
+  "url": "Chapter_09-journal-bearing-friction.html#shaft-fbds",
   "type": "Figure",
   "number": "9.6.2",
   "title": "",
-  "body": " The shafts in the three journal bearings above can be turned into free-body diagrams by replacing the bearing and contact point with the forces which act through the contact point. Note in all three cases the normal force perpendicular to the tangential line of contact, which makes its line of action a radial line through the center of each shaft. Additionally, (left) there is no friction engaged, (middle) the friction resists the CW moment, and (left) the friction resists the CCW moment. The friction circle (radius ) is explained in the steps below.    Dan Baker    FBD of the shaft of the journal bearing showing the F_applied, Normal force, and the friction force opposing direction of impending motion.   "
+  "body": " Shaft Free-body Diagrams    No Moment    William Haynes    FBD of the shaft of the journal bearing showing the F_applied, Normal force, and the friction force opposing direction of impending motion.     Clockwise Moment    William Haynes       Counterclockwise Moment    William Haynes       "
 },
 {
-  "id": "journal_ZZ",
+  "id": "ring-bearing",
   "level": "2",
-  "url": "Chapter_09-journal-bearing-friction.html#journal_ZZ",
+  "url": "Chapter_09-journal-bearing-friction.html#ring-bearing",
   "type": "Figure",
   "number": "9.6.3",
   "title": "",
-  "body": " Problem sketches (top) and free-body diagrams (bottom) for journal bearings with a fixed shaft and rotating bearing. The left set of drawings has no moment applied. The middle set has a CW moment applied to the bearing, and the right set have a CCW moment applied to the bearing.    Dan Baker    Journal bearing cross section shows outside cylinder with fixed internal shaft in three configurations a) Contact point at 90 degrees, b) contact point at ~60 degrees, c) contact point at ~120 degrees. Corresponding FBDs of the bearing in the three configurations are shown.   "
+  "body": "    Ring Bearing    William Haynes    Journal bearing cross section shows outside cylinder with fixed internal shaft.     Free-body Diagram    William Haynes       "
 },
 {
   "id": "insight-14",
@@ -3957,8 +4065,8 @@ var ptx_lunr_docs = [
   "url": "Chapter_09-journal-bearing-friction.html#insight-14",
   "type": "Thinking Deeper",
   "number": "9.6.4",
-  "title": "Finding the Direction of Shift for Contact Point.",
-  "body": " Finding the Direction of Shift for Contact Point  If you are still struggling to determine the direction of the contact point shift, try this rule:   The contact point always shifts in the direction of the impending motion of the bearing.   The impending motion can be absolute (in the case of a fixed shaft and rotating bearing) or relative (in the case of a fixed bearing). Remember, the relative motion of the bearing is always opposite the absolute impending motion of the shaft.  "
+  "title": "Contact Point Shift.",
+  "body": " Contact Point Shift  In this section we saw that the contact point shifts in the direction of the relative impending motion of the bearing or opposite to the relative motion of the shaft;  This is true for dry friction bearings, but with oil lubricated bearings, the shaft starts by shift this way, but as the shaft speed increases a hydrodynamic oil wedge forms which shifts the shaft in the other direct in much the same way that a water skier lifts up and skims the water at high speeds.  "
 },
 {
   "id": "Chapter_09-disc-friction",
@@ -3966,8 +4074,8 @@ var ptx_lunr_docs = [
   "url": "Chapter_09-disc-friction.html",
   "type": "Section",
   "number": "9.7",
-  "title": "Disk Friction",
-  "body": " Disk Friction    Select the appropriate disk friction equation among those for hollow circular areas, solid areas, and disk brakes with a circular arc and  Compute the possible moment the friction forces from disk friction can resist.     Disk Friction  Disk friction is the friction that exists between a rotating body and a stationary surface. Disk friction exerts a moment on the bodies involved which resists the relative rotation of each bodies. Disk friction is applicable to a wide variety of designs including end bearings, collar bearings, disk brakes, and clutches.   This orbital sander rotates a circular sanding disk against a stationary surface. The disk friction between the sanding disk and the surface will exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.       Collar bearing with a Hollow Circular Contact Area  To start our analysis of disk friction we will use the example of a collar bearing, which has a hollow circular contact area between the rotating collar and the stationary surface ( ). In this type of bearing, we will have a rotating shaft traveling through a hole in a surface. The shaft is supporting some load force as shown and a collar is used to support the shaft itself.   A collar bearing has a donut shaped contact area between the rotating collar and the stationary surface. The shaft transfers the applied load    Dan Baker    A collar bearing (side view), and contact area of collar (top view).     The friction force at any point in the contact area will be equal to the normal force at that point times the kinetic coefficient of friction at that point. If we assume a uniform pressure between the collar and the surface and a uniform coefficient of friction, then we will have the same friction force exerted at all points. This does not translate however into an equal moment exerted by each point. Points further from the center of rotation will exert a larger moment than points closer to the center of rotation because they will have a larger moment arm.   The friction forces on any differential element are assumed to be the same (due to a uniformly distributed normal force), yet elements along the outside edge of the contact area will cause a larger moment than those in the inside edge due to a greater radius.    Dan Baker    Top view of contact area of collar.     To determine the total moment exerted by the friction forces, we will need to integrate the friction from all elements of the contact area. The moment of each element ( ) will be equal to the product of the kinetic coefficient of friction ( ), the normal force pressure ( ), the distance from that point to the center of rotation ( ), and the area of each element ( ).  The total friction moment can be found by integrating the moment of each element over the contact area:   To simplify the equation we can move the constant coefficient of friction and the constant normal force pressure term outside of the integral. We can also replace the pressure term with the applied force on the bearing over the contact area. Finally, so that we can integrate over the range of values, we can recognize that the rate of change in the area ( ) for the hollow circular areas is simply the rate of change of the term multiplied by the circumference of the circle at . These changes lead to the equation below.   Finally, we can evaluate the integral from the inner radius to the outer radius. If we evaluate the integral and simplify we will end up with the final equation below.     End Bearing with a Solid Circular Contact Area  In cases where we have a solid circular contact area such as with a solid circular shaft in an end bearing or with the orbital sander shown at the top of the page we simply set the inner radius to zero and we can simplify the formula. If we do so, the original formula is reduced to the equation below.    An end bearing has a solid circular contact area between the rotating shaft and the stationary bearing.    Dan Baker    End bearing (side view) and contact area of end bearing (top view).       Disk Brakes with a Circular Arc  Disk brakes have a contact area that looks like a section of the hollow circular contact area we covered earlier.    The contact area in disk brakes is often approximated as a circular arc (inner radius and outer radius ) with a given contact angle ( )    Dan Baker    Contact area in disk brakes approximated as a circular arc.    However, disk brakes, due to their smaller contact area, have both smaller area over which to exert friction force and also higher pressure for the same applied force. In the end, these factors cancel each other out and we end up with the same formula we had for the hollow circular contact area (independent of ).  Brake pad on one side:      Most disk brakes, however, have a pair of pads (one on each side of the rotating disk), so we will need to double the moment in our equation for the usual pair of pads.  Brake pads on each side:       "
+  "title": "Rotating Discs",
+  "body": " Rotating Discs    Select the appropriate disc friction equation among those for hollow circular areas, solid areas, and disc brakes with a circular arc and  Compute the possible moment the friction forces from disc friction can resist.     Disc Friction  Disc friction refers friction between a flat, rotating body and a stationary surface. Disc friction exerts a moment on the bodies involved which resists the relative rotation of the bodies. Disc friction is applicable to a wide variety of designs including end bearings, collar bearings, disc brakes, and clutches.   This orbital sander rotates a circular sanding disc against a stationary surface. The disc friction between the sanding disc and the surface exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.      Collar Bearings  A collar bearing, shown in has a rotating annular area in contact with a stationary bearing surface. The rotating shaft passes through a hole or bearing in the surface to maintain radial alignment. The collar bearing prevents axial motion and acts as a thrust bearing to transmi the axial load to a solid foundation.   Collar bearing    Side view    William Haynes    A collar bearing (side view).     Contact Area    William Haynes    Annular contact area of collar (top view).      The friction force at any point of the contact area will equal the normal force at that point times the kinetic coefficient of friction at that point. If the coefficient of friction and the pressure between the collar and the surface is the same at all points, then the same friction force at every point is the same as well. This does not mean that the moment exerted at every point is equal as well. Elements along the outside edge of the contact area will cause a larger moment than those in the inside edge since they have larger moment arms.    Forces and moments on differential areas    William Haynes    Differential Elements.         The total moment exerted acting on the disc due to the friction forces is found by integrating the elements over the contact area. The moment of each element will be equal to the product of the coefficient of kinetic friction, the normal force pressure, the moment arm and the area of each element .   The coefficient of friction and pressure terms are constant so can be moved outside the intgral, and since pressure is defined as force per unit are area , the pressure term can be replaced with the applied load divided by the bearing contact area, .  A differential element of area can be expressed in terms of radial distance allowing us to integrate with respect to . ,  Making these substitutions leads to an equation that is easy to integrate.   Integrating this integral, evaluating the limits and simplifying gives the final result .    End Bearings  In cases where we have a solid circular contact area such as with a solid circular shaft, an end bearing, or the orbital sander shown in we simply set the inner radius to zero and simplify equation . If we do so, the result is .   A circular thrust bearing.    Side view.    William Haynes    A thrust bearing with a circular bearing surface.     Top view.    William Haynes    Top view.        Circular Arc Bearings  Automobile disc brakes have a contact area that looks like a section of the hollow circular contact area we covered earlier.    The contact area in disc brakes is often approximated as a circular arc with a contact angle .    Dan Baker    Contact area in disc brakes approximated as a circular arc.    Disc brakes, due to their smaller contact area, have higher pressure for the same applied force but a smaller area over which to exert friction. In the end, these factors cancel out and we end up with the same formula we found in . Notice that this formula is independent of .  Brake pad on one side:      Most disc brakes, however, have two pads one on each side of the rotating disc, so we will need to double the moment if so.  Brake pads on each side:       "
 },
 {
   "id": "objectives-38",
@@ -3976,52 +4084,61 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "9.7",
   "title": "",
-  "body": "  Select the appropriate disk friction equation among those for hollow circular areas, solid areas, and disk brakes with a circular arc and  Compute the possible moment the friction forces from disk friction can resist.   "
+  "body": "  Select the appropriate disc friction equation among those for hollow circular areas, solid areas, and disc brakes with a circular arc and  Compute the possible moment the friction forces from disc friction can resist.   "
 },
 {
-  "id": "Disk_sander",
+  "id": "disc_sander",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#Disk_sander",
+  "url": "Chapter_09-disc-friction.html#disc_sander",
   "type": "Figure",
   "number": "9.7.1",
   "title": "",
-  "body": " This orbital sander rotates a circular sanding disk against a stationary surface. The disk friction between the sanding disk and the surface will exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.   "
+  "body": " This orbital sander rotates a circular sanding disc against a stationary surface. The disc friction between the sanding disc and the surface exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.   "
 },
 {
-  "id": "disk_QQ",
+  "id": "p-1952",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#disk_QQ",
+  "url": "Chapter_09-disc-friction.html#p-1952",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "thrust bearing "
+},
+{
+  "id": "collar-bearing",
+  "level": "2",
+  "url": "Chapter_09-disc-friction.html#collar-bearing",
   "type": "Figure",
   "number": "9.7.2",
   "title": "",
-  "body": " A collar bearing has a donut shaped contact area between the rotating collar and the stationary surface. The shaft transfers the applied load    Dan Baker    A collar bearing (side view), and contact area of collar (top view).   "
+  "body": " Collar bearing    Side view    William Haynes    A collar bearing (side view).     Contact Area    William Haynes    Annular contact area of collar (top view).     "
 },
 {
-  "id": "disk_RR",
+  "id": "figure-255",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#disk_RR",
+  "url": "Chapter_09-disc-friction.html#figure-255",
   "type": "Figure",
   "number": "9.7.3",
   "title": "",
-  "body": " The friction forces on any differential element are assumed to be the same (due to a uniformly distributed normal force), yet elements along the outside edge of the contact area will cause a larger moment than those in the inside edge due to a greater radius.    Dan Baker    Top view of contact area of collar.   "
+  "body": " Forces and moments on differential areas    William Haynes    Differential Elements.   "
 },
 {
-  "id": "disk_SS",
+  "id": "figure-256",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#disk_SS",
+  "url": "Chapter_09-disc-friction.html#figure-256",
   "type": "Figure",
   "number": "9.7.4",
   "title": "",
-  "body": " An end bearing has a solid circular contact area between the rotating shaft and the stationary bearing.    Dan Baker    End bearing (side view) and contact area of end bearing (top view).   "
+  "body": " A circular thrust bearing.    Side view.    William Haynes    A thrust bearing with a circular bearing surface.     Top view.    William Haynes    Top view.     "
 },
 {
-  "id": "disk_TT",
+  "id": "disc-segment",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#disk_TT",
+  "url": "Chapter_09-disc-friction.html#disc-segment",
   "type": "Figure",
   "number": "9.7.5",
   "title": "",
-  "body": " The contact area in disk brakes is often approximated as a circular arc (inner radius and outer radius ) with a given contact angle ( )    Dan Baker    Contact area in disk brakes approximated as a circular arc.   "
+  "body": " The contact area in disc brakes is often approximated as a circular arc with a contact angle .    Dan Baker    Contact area in disc brakes approximated as a circular arc.   "
 },
 {
   "id": "exercises-8",
@@ -4051,9 +4168,9 @@ var ptx_lunr_docs = [
   "body": "   Why does the area moment of inertia integral equation include a distance squared term?    When performing a single integral, either or , what is your differential element shape?    "
 },
 {
-  "id": "p-1987",
+  "id": "p-1978",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1987",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1978",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4069,36 +4186,36 @@ var ptx_lunr_docs = [
   "body": " Definitions for area properties   "
 },
 {
-  "id": "p-2002",
+  "id": "p-1993",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2002",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1993",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area "
 },
 {
-  "id": "p-2004",
+  "id": "p-1995",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2004",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1995",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "first moment of area "
 },
 {
-  "id": "p-2007",
+  "id": "p-1998",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2007",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1998",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area moment of inertia "
 },
 {
-  "id": "p-2008",
+  "id": "p-1999",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2008",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1999",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4114,9 +4231,9 @@ var ptx_lunr_docs = [
   "body": "  These three triangles are all the same size. Rank them from largest to largest smallest moment of inertia with respect to the axis.   Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left.     From smallest to largest: .    Although the areas of all three triangles are the same, triangle has the area on both sides of the axis and relatively close to it, and so has the smallest , while triangle has the most of its area far from the axis which makes its moment of inertia largest. We will be able to show later that the .   "
 },
 {
-  "id": "p-2015",
+  "id": "p-2006",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2015",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2006",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4132,9 +4249,9 @@ var ptx_lunr_docs = [
   "body": " Beam bending  To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.  Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the axis while it’s flat is easy compared to bending it the other way, around the axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way.  The answer has to due with the moment of inertia, and how it relates to the bending axis.       Bending a ruler.    Dan Baker  CC-BY-SA     As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know how much harder ?  For a thick ruler that is tall, the bending resistance about the axis is over 20 times more than the bending resistance the other way, about the axis.  To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius. A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.   Beam of length which is being bent by opposing couple-moments to an arc with angle .    Dan Baker  CC-BY-SA      You will learn in Mechanics of Materials that the relationship is: where: is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material. is the length of the beam, and is the moment of inertia of the cross-section of the beam about the bending axis. is the moment applied to the ends of the beam, and is the curvature of the beam. Since and are in the numerator and is in the denominator, a longer beam is more flexible and larger values of or make the beam stiffer. With those properties fixed, angle is directly proportional to the moment .  The sag, or deflection , of a beam when supporting a load is also related to these factors, and the placement of the load as well. For example, if a beam is loaded with a concentrated force at its center its maximum deflection will occur at the midpoint, with   "
 },
 {
-  "id": "p-2032",
+  "id": "p-2023",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2032",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2023",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4150,9 +4267,9 @@ var ptx_lunr_docs = [
   "body": " Why don't we call the polar moment of inertia ?  The squared distance in the polar moment of inertia formula is the distance from the axis, so it would seem reasonable to name the polar moment to be consistent with and which use distances from the and axes.  Instead engineers use the letter to represent this quantity. Why?   In-plane and out-of-plane rotation of element about the , and axes.    If areas only existed in the - plane, this would be fine, but the real world is three-dimensional, so must be reserved to use with areas in the - or - plane.  As shown in the interactive, the rectangular moment of inertia involves rotating element about out-of-plane around an in-plain axis, and the polar moment involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.  "
 },
 {
-  "id": "p-2039",
+  "id": "p-2030",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2039",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2030",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4222,9 +4339,9 @@ var ptx_lunr_docs = [
   "body": " Moment of Inertia for Area Between Two Curves     Graph with area shaded between two functions y1=x^2\/4 and y2 = x\/4.   Use vertical strips to find both and for the area bounded by the functions . Units are cm.             Set up the integral  The area is bounded by the functions   By equating the two functions, we learn that they intersect at and , so the limits on are and .  The differential area for vertical strip is .    Find   For vertical strips, which are parallel to the axis we can use the definition of the Moment of Inertia.     Find   For vertical strips, which are perpendicular to the axis, we will take subtract the moment of inertia of the area below from the moment of inertia of the area below .       "
 },
 {
-  "id": "table-6",
+  "id": "table-5",
   "level": "2",
-  "url": "MOI-common-shapes.html#table-6",
+  "url": "MOI-common-shapes.html#table-5",
   "type": "Table",
   "number": "10.2.8",
   "title": "Moment of Inertia Integration Strategies",
@@ -4294,9 +4411,9 @@ var ptx_lunr_docs = [
   "body": " Interactive: Semi-Circle  Use this interactive to practice computing the area moments of inertia of the semi-circle about the centroidal axis, the bottom edge , and the system axis. You can change the location and size of the semicircle by moving the red points..    Moment of Inertia of a Semi-Circle    "
 },
 {
-  "id": "table-7",
+  "id": "table-6",
   "level": "2",
-  "url": "parallel-axis-theorem-section.html#table-7",
+  "url": "parallel-axis-theorem-section.html#table-6",
   "type": "Table",
   "number": "10.3.9",
   "title": "Moments of Inertia of Common Shapes",
@@ -4456,18 +4573,18 @@ var ptx_lunr_docs = [
   "body": "  Why do we need to quantify the product of inertia for beams?  Why is the product of inertia of a symmetrical cross section zero?   "
 },
 {
-  "id": "p-2286",
+  "id": "p-2277",
   "level": "2",
-  "url": "products-of-inertia.html#p-2286",
+  "url": "products-of-inertia.html#p-2277",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "product of inertia "
 },
 {
-  "id": "p-2288",
+  "id": "p-2279",
   "level": "2",
-  "url": "products-of-inertia.html#p-2288",
+  "url": "products-of-inertia.html#p-2279",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4483,9 +4600,9 @@ var ptx_lunr_docs = [
   "body": " Mass Moment of Inertia  You may recall from physics the relationship . This formula is the rotational analog of Newton's second law . Here, the represents the mass moment of inertia, which is the three-dimensional measure of a rigid body’s resistance to rotation around an axis. Mass moment of inertia plays the same role for angular motion as mass does for linear motion.  Mass moment of inertia is defined by an integral equation identical to , except that the differential area is replaced with a differential element of mass, . The integration is conducted over a three dimensional physical object instead of a two dimensional massless area.  The units of mass moment of inertia are , in contrast to area moment of inertia's units of .  Mass moments of inertia are covered in more detail and used extensively in the study of rigid body kinetics in Engineering Dynamics .  "
 },
 {
-  "id": "p-2290",
+  "id": "p-2281",
   "level": "2",
-  "url": "Chapter_10-mass-moment-of-inertia.html#p-2290",
+  "url": "Chapter_10-mass-moment-of-inertia.html#p-2281",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4537,36 +4654,36 @@ var ptx_lunr_docs = [
   "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors. , and are functions of an angle and their values are unitless ratios of lengths. The inverse trig functions are functions of unitless ratios and their results are angles. The sine of an angle equals the cosine of its complement and vice-versa. The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive. The sine, cosine, and tangent of angles between 0 and 90° are always positive. The inverse trig functions of positive numbers will always yield angles between 0 and 90° The legs of a right triangle are always shorter than the hypotenuse. Only right triangles have a hypotenuse.     Hints  Here are some useful tips for angle calculations Take care that your calculator is set in degrees mode for this course. Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions. Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.    "
 },
 {
-  "id": "p-2324",
+  "id": "p-2315",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2324",
+  "url": "soh-coh-toa.html#p-2315",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "right triangle "
 },
 {
-  "id": "p-2325",
+  "id": "p-2316",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2325",
+  "url": "soh-coh-toa.html#p-2316",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "hypotenuse "
 },
 {
-  "id": "p-2326",
+  "id": "p-2317",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2326",
+  "url": "soh-coh-toa.html#p-2317",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "complementary angles "
 },
 {
-  "id": "p-2327",
+  "id": "p-2318",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2327",
+  "url": "soh-coh-toa.html#p-2318",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4582,18 +4699,18 @@ var ptx_lunr_docs = [
   "body": " Oblique Triangle Trigonometry   An oblique triangle is any triangle which does not contain a right angle. As such, the rules of do not apply!   For an oblique triangle labeled as shown, the relations between the sides and angles are given by the Law of Sines and the Law of Cosines .      Law of Sines     The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.  Take care in the (SSA) situation. This is known as the ambiguous case , and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find it may return the supplement of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.  If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the .    Law of Cosines     The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.  If one of the angles is the Law of Cosines simplifies to the Pythagorean Theorem since .   "
 },
 {
-  "id": "p-2334",
+  "id": "p-2325",
   "level": "2",
-  "url": "los-loc.html#p-2334",
+  "url": "los-loc.html#p-2325",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Law of Sines Law of Cosines "
 },
 {
-  "id": "p-2337",
+  "id": "p-2328",
   "level": "2",
-  "url": "los-loc.html#p-2337",
+  "url": "los-loc.html#p-2328",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4609,18 +4726,18 @@ var ptx_lunr_docs = [
   "body": " Propeties of Shapes   Centroids of Common Shapes         Shape    Area                  A rectangle with width of b and height of h, centroid at (x-bar,y-bar).                       A right triangle with right angle at the origin. Width of b and height of h, centroid at (x-bar,y-bar).                       A trapezoid with bottom width of b, top width of a, and height of h, centroid at (x-bar,y-bar).                       A circle with radius of r, centroid at (x-bar,y-bar)=(r,r).                       A semicircle with radius of r, centroid at (x-bar,y-bar)=(r,4r\/(3*pi)).                  See for proof.          A quarter circle with radius of r. The center of curvature is at the origin. Centroid at (x-bar,y-bar)=(4r\/(3*pi),4r\/(3*pi)).                  Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                             Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                           "
 },
 {
-  "id": "table-8",
+  "id": "table-7",
   "level": "2",
-  "url": "centroids-moi-tables.html#table-8",
+  "url": "centroids-moi-tables.html#table-7",
   "type": "Table",
   "number": "C.0.1",
   "title": "Centroids of Common Shapes",
   "body": " Centroids of Common Shapes         Shape    Area                  A rectangle with width of b and height of h, centroid at (x-bar,y-bar).                       A right triangle with right angle at the origin. Width of b and height of h, centroid at (x-bar,y-bar).                       A trapezoid with bottom width of b, top width of a, and height of h, centroid at (x-bar,y-bar).                       A circle with radius of r, centroid at (x-bar,y-bar)=(r,r).                       A semicircle with radius of r, centroid at (x-bar,y-bar)=(r,4r\/(3*pi)).                  See for proof.          A quarter circle with radius of r. The center of curvature is at the origin. Centroid at (x-bar,y-bar)=(4r\/(3*pi),4r\/(3*pi)).                "
 },
 {
-  "id": "table-9",
+  "id": "table-8",
   "level": "2",
-  "url": "centroids-moi-tables.html#table-9",
+  "url": "centroids-moi-tables.html#table-8",
   "type": "Table",
   "number": "C.0.2",
   "title": "Moments of Inertia of Common Shapes",
