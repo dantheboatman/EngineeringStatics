@@ -4354,7 +4354,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "10.3",
   "title": "Parallel Axis Theorem",
-  "body": " Parallel Axis Theorem   The parallel axis theorem relates the moment of inertia of a shape about an arbitrary axis to its moment of inertia about a parallel centroidal axis.  This theorem is particularly useful because if we know the centroidal moment of inertia of a shape, we can calculate its moment of inertia about any parallel axis by adding an appropriate correction factor. Alternately, if we know the moment of inertia about an axis, we can find the associated centroidal moment of inertia by subtracting the same factor.  The centroidal moment of inertia of common shapes are well known, and readily available in tables of properties of shapes such as .    Derivation    We will use the defining equation for the moment of inertia to derive the parallel axis theorem.  The diagram shows an arbitrary shape, and two parallel axes: the axis, drawn in red, passes through the centroid of the shape at , and the axis, which is parallel and separated by a distance, . The shape has area , which is divided into square differential elements . The distance from the axis to the element is , and the distance from the axis is .  By , the moment of inertia of the shape about the and axes are     Definitions for the parallel axis theorem.    Dan Baker  CC-BY-SA   Image illustrating parallel-axis-theorem.     The first is the value we are looking for, and the second is the centroidal moment of inertia of the shape. These two are related through the distance , because . Substituting that relation into the first equation and expanding the binomial gives .  You should recognize these three integrals. The first is the centroidal moment of inertia of the shape , and the third is the total area of the shape, . The middle integral is , the first moment of area with respect to the centroidal axis . So we have, .  Furthermore, is exactly zero because the axis passes through the centroid, meaning that elements of area above and below the centroidal axis exactly balance and cancel each other out. After dropping the middle term we get the version of the parallel axis theorem which you should remember, .  The subscripts designating the and axes have been dropped because this equation is applicable to any direction of parallel axes, not specifically horizontal axes.  This equation says that you find the moment of inertia of a shape about any axis by adding to the parallel centroidal moment of inertia. You can consider the term as correction factor to account for the distance of the axis from the centroid. This term is always positive, so the centroidal moment of inertia is always the minimum moment of inertia for a particular axis direction.  The next example show how the parallel axis theorem is typically used to find the moment of inertia of a shape about an axis, by using then centroidal moment of inertia formulas found in .   Circular Ring     Circular ring with inner radius ri and outer radius ro. The left edge is a distance of a mm from the y-axis. The y' axis intersects the centroid.    Use the parallel axis theorem to find the moment of inertia of the circular ring about the axis.  The dimensions of the ring are , , and            To apply the parallel axis theorem, we need three pieces of information The centroidal moment of inertia of the ring, , the area of the ring, , the distance between the parallel axes, .   The area of the ring is found by subtracting the area of the inner circle from the area of the outer circle. The centroidal moment of inertia is calculated similarly using . The distance between the and axis is available from the diagram. Inserting these values into the parallel axis theorem gives,   It is interesting that the correction factor is more than 20 times greater than the centroidal moment of inertia of the ring. This indicates the importance of the distance squared term on the moment of inertia of a shape.   You may feel like the answer to this problem is too big . Large answers are normal in problems like this because the moment of inertia involves raising lengths the fourth power.  If it really bothers you, you can convert the results from to , but then the number will probably feel too small to you. It's best not to worry about it.     The parallel axis theorem can also be used to find a centroidal moment of inertia when you already know the moment of inertia of a shape about another axis, by using the theorem backwards , .   Centroidal Moment of Inertia of a Triangle      Right triangle with vertices at (0,0), (b,0), and (0,h). Axes x' and y' intersect the centroid.   Find the centroidal moment of inertia of a triangle knowing that the moment of inertia about its base is .             For the triangle the moment of we have the following information: , , and .  Looking for :   The procedure for is similar, or you can simply reverse the roles of and .     Centroidal Moment of inertia of a Semi-Circle     Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.   Find the centroidal moment of inertia of a semi-circle knowing that the moment of inertia about its base is .          The area of a semicircle is and the distance between the parallel axes is , so      Interactive: Rectangle  This interactive allows you to change the location and size of the grey rectangle. Try to compute both the centroidal area moment of inertia and and the area moment of inertia about the system axes and     Moment of Inertia of a Rectangle      Interactive: Semi-Circle  Use this interactive to practice computing the area moments of inertia of the semi-circle about the centroidal axis, the bottom edge , and the system axis. You can change the location and size of the semicircle by moving the red points..    Moment of Inertia of a Semi-Circle       Moments of Inertia Table  This table summarizes the properties of the common shapes discussed previously.    Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                             Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                            "
+  "body": " Parallel Axis Theorem   The parallel axis theorem relates the moment of inertia of a shape about an arbitrary axis to its moment of inertia about a parallel centroidal axis.  This theorem is particularly useful because if we know the centroidal moment of inertia of a shape, we can calculate its moment of inertia about any parallel axis by adding an appropriate correction factor. Alternately, if we know the moment of inertia about an axis, we can find the associated centroidal moment of inertia by subtracting the same factor.  The centroidal moment of inertia of common shapes are well known, and readily available in tables of properties of shapes such as .    Derivation    We will use the defining equation for the moment of inertia to derive the parallel axis theorem.  The diagram shows an arbitrary shape, and two parallel axes: the axis, drawn in red, passes through the centroid of the shape at , and the axis, which is parallel and separated by a distance, . The shape has area , which is divided into square differential elements . The distance from the axis to the element is , and the distance from the axis is .  By , the moment of inertia of the shape about the and axes are     Definitions for the parallel axis theorem.    Dan Baker  CC-BY-SA   Image illustrating parallel-axis-theorem.     The first is the value we are looking for, and the second is the centroidal moment of inertia of the shape. These two are related through the distance , because . Substituting that relation into the first equation and expanding the binomial gives .  You should recognize these three integrals. The first is the centroidal moment of inertia of the shape , and the third is the total area of the shape, . The middle integral is , the first moment of area with respect to the centroidal axis . So we have, .  Furthermore, is exactly zero because the axis passes through the centroid, meaning that elements of area above and below the centroidal axis exactly balance and cancel each other out. After dropping the middle term we get the version of the parallel axis theorem which you should remember, .  The subscripts designating the and axes have been dropped because this equation is applicable to any direction of parallel axes, not specifically horizontal axes.  This equation says that you find the moment of inertia of a shape about any axis by adding to the parallel centroidal moment of inertia. You can consider the term as correction factor to account for the distance of the axis from the centroid. This term is always positive, so the centroidal moment of inertia is always the minimum moment of inertia for a particular axis direction.  The next example show how the parallel axis theorem is typically used to find the moment of inertia of a shape about an axis, by using then centroidal moment of inertia formulas found in .   Circular Ring     Circular ring with inner radius ri and outer radius ro. The left edge is a distance of a mm from the y-axis. The y' axis intersects the centroid.    Use the parallel axis theorem to find the moment of inertia of the circular ring about the axis.  The dimensions of the ring are , , and            To apply the parallel axis theorem, we need three pieces of information The centroidal moment of inertia of the ring, , the area of the ring, , the distance between the parallel axes, .   The area of the ring is found by subtracting the area of the inner circle from the area of the outer circle. The centroidal moment of inertia is calculated similarly using . The distance between the and axis is available from the diagram. Inserting these values into the parallel axis theorem gives,   It is interesting that the correction factor is more than 20 times greater than the centroidal moment of inertia of the ring. This indicates the importance of the distance squared term on the moment of inertia of a shape.   You may feel like the answer to this problem is too big . Large answers are normal in problems like this because the moment of inertia involves raising lengths the fourth power.  If it really bothers you, you can convert the results from to , but then the number will probably feel too small to you. It's best not to worry about it.     The parallel axis theorem can also be used to find a centroidal moment of inertia when you already know the moment of inertia of a shape about another axis, by using the theorem backwards , .   Centroidal Moment of Inertia of a Triangle      Right triangle with vertices at (0,0), (b,0), and (0,h). Axes x' and y' intersect the centroid.   Find the centroidal moment of inertia of a triangle knowing that the moment of inertia about its base is .             For the triangle the moment of we have the following information: , , and .  Looking for :   The procedure for is similar, or you can simply reverse the roles of and .     Centroidal Moment of inertia of a Semi-Circle     Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.   Find the centroidal moment of inertia of a semi-circle knowing that the moment of inertia about its base is .          The area of a semicircle is and the distance between the parallel axes is , so      Interactive: Rectangle  This interactive allows you to change the location and size of the grey rectangle. Try to compute both the centroidal area moment of inertia and and the area moment of inertia about the system axes and     Moment of Inertia of a Rectangle      Interactive: Semi-Circle  Use this interactive to practice computing the area moments of inertia of the semi-circle about the centroidal axis, the bottom edge , and the system axis. You can change the location and size of the semicircle by moving the red points..    Moment of Inertia of a Semi-Circle       Moments of Inertia Table  This table summarizes the properties of the common shapes discussed previously.    Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                                Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                            "
 },
 {
   "id": "MOI-parallel-axis-theorem",
@@ -4417,7 +4417,7 @@ var ptx_lunr_docs = [
   "type": "Table",
   "number": "10.3.9",
   "title": "Moments of Inertia of Common Shapes",
-  "body": " Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                             Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                          "
+  "body": " Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                                Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                          "
 },
 {
   "id": "Chapter_10-moment-of-inertia-of-composite-shapes",
@@ -4573,18 +4573,18 @@ var ptx_lunr_docs = [
   "body": "  Why do we need to quantify the product of inertia for beams?  Why is the product of inertia of a symmetrical cross section zero?   "
 },
 {
-  "id": "p-2276",
+  "id": "p-2277",
   "level": "2",
-  "url": "products-of-inertia.html#p-2276",
+  "url": "products-of-inertia.html#p-2277",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "product of inertia "
 },
 {
-  "id": "p-2278",
+  "id": "p-2279",
   "level": "2",
-  "url": "products-of-inertia.html#p-2278",
+  "url": "products-of-inertia.html#p-2279",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4600,9 +4600,9 @@ var ptx_lunr_docs = [
   "body": " Mass Moment of Inertia  You may recall from physics the relationship . This formula is the rotational analog of Newton's second law . Here, the represents the mass moment of inertia, which is the three-dimensional measure of a rigid body’s resistance to rotation around an axis. Mass moment of inertia plays the same role for angular motion as mass does for linear motion.  Mass moment of inertia is defined by an integral equation identical to , except that the differential area is replaced with a differential element of mass, . The integration is conducted over a three dimensional physical object instead of a two dimensional massless area.  The units of mass moment of inertia are , in contrast to area moment of inertia's units of .  Mass moments of inertia are covered in more detail and used extensively in the study of rigid body kinetics in Engineering Dynamics .  "
 },
 {
-  "id": "p-2280",
+  "id": "p-2281",
   "level": "2",
-  "url": "Chapter_10-mass-moment-of-inertia.html#p-2280",
+  "url": "Chapter_10-mass-moment-of-inertia.html#p-2281",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4654,22 +4654,13 @@ var ptx_lunr_docs = [
   "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors. , and are functions of an angle and their values are unitless ratios of lengths. The inverse trig functions are functions of unitless ratios and their results are angles. The sine of an angle equals the cosine of its complement and vice-versa. The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive. The sine, cosine, and tangent of angles between 0 and 90° are always positive. The inverse trig functions of positive numbers will always yield angles between 0 and 90° The legs of a right triangle are always shorter than the hypotenuse. Only right triangles have a hypotenuse.     Hints  Here are some useful tips for angle calculations Take care that your calculator is set in degrees mode for this course. Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions. Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.    "
 },
 {
-  "id": "p-2314",
-  "level": "2",
-  "url": "soh-coh-toa.html#p-2314",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "right triangle "
-},
-{
   "id": "p-2315",
   "level": "2",
   "url": "soh-coh-toa.html#p-2315",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "hypotenuse "
+  "body": "right triangle "
 },
 {
   "id": "p-2316",
@@ -4678,12 +4669,21 @@ var ptx_lunr_docs = [
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "complementary angles "
+  "body": "hypotenuse "
 },
 {
   "id": "p-2317",
   "level": "2",
   "url": "soh-coh-toa.html#p-2317",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "complementary angles "
+},
+{
+  "id": "p-2318",
+  "level": "2",
+  "url": "soh-coh-toa.html#p-2318",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4699,18 +4699,18 @@ var ptx_lunr_docs = [
   "body": " Oblique Triangle Trigonometry   An oblique triangle is any triangle which does not contain a right angle. As such, the rules of do not apply!   For an oblique triangle labeled as shown, the relations between the sides and angles are given by the Law of Sines and the Law of Cosines .      Law of Sines     The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.  Take care in the (SSA) situation. This is known as the ambiguous case , and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find it may return the supplement of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.  If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the .    Law of Cosines     The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.  If one of the angles is the Law of Cosines simplifies to the Pythagorean Theorem since .   "
 },
 {
-  "id": "p-2324",
+  "id": "p-2325",
   "level": "2",
-  "url": "los-loc.html#p-2324",
+  "url": "los-loc.html#p-2325",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Law of Sines Law of Cosines "
 },
 {
-  "id": "p-2327",
+  "id": "p-2328",
   "level": "2",
-  "url": "los-loc.html#p-2327",
+  "url": "los-loc.html#p-2328",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4723,7 +4723,7 @@ var ptx_lunr_docs = [
   "type": "Appendix",
   "number": "C",
   "title": "Properties of Shapes",
-  "body": " Properties of Shapes   Centroids of Common Shapes         Shape    Area                  A rectangle with width of b and height of h, centroid at (x-bar,y-bar).                       A right triangle with right angle at the origin. Width of b and height of h, centroid at (x-bar,y-bar).                       A trapezoid with bottom width of b, top width of a, and height of h, centroid at (x-bar,y-bar).                       A circle with radius of r, centroid at (x-bar,y-bar)=(r,r).                       A semicircle with radius of r, centroid at (x-bar,y-bar)=(r,4r\/(3*pi)).                  See for proof.          A quarter circle with radius of r. The center of curvature is at the origin. Centroid at (x-bar,y-bar)=(4r\/(3*pi),4r\/(3*pi)).                  Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                             Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                           "
+  "body": " Properties of Shapes   Centroids of Common Shapes         Shape    Area                  A rectangle with width of b and height of h, centroid at (x-bar,y-bar).                       A right triangle with right angle at the origin. Width of b and height of h, centroid at (x-bar,y-bar).                       A trapezoid with bottom width of b, top width of a, and height of h, centroid at (x-bar,y-bar).                       A circle with radius of r, centroid at (x-bar,y-bar)=(r,r).                       A semicircle with radius of r, centroid at (x-bar,y-bar)=(r,4r\/(3*pi)).                  See for proof.          A quarter circle with radius of r. The center of curvature is at the origin. Centroid at (x-bar,y-bar)=(4r\/(3*pi),4r\/(3*pi)).                  Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                                Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                           "
 },
 {
   "id": "table-7",
@@ -4741,7 +4741,7 @@ var ptx_lunr_docs = [
   "type": "Table",
   "number": "C.0.2",
   "title": "Moments of Inertia of Common Shapes",
-  "body": " Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                             Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                          "
+  "body": " Moments of Inertia of Common Shapes        Shape  Centroid  Centroidal MOI          Rectangle with base b and height h                           Right triangle with vertices (0,0), (0, h), and (b, 0)                         Circle with centered at *x-bar, y-bar). The x' and y' axes intersect the centroid.                       Half circle with base on x-axis and centered on y-axis. The x' axis intersects the centroid.                                Quarter circle with base on x-axis and side on y-axis. The x' axis intersects the centroid.                          "
 },
 {
   "id": "AISC-angles",
