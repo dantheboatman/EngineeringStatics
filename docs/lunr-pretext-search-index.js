@@ -1195,7 +1195,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "3.4",
   "title": "Particles in Two Dimensions",
-  "body": " Particles in Two Dimensions   Introduction  In this section we will study situations where everything of importance occurs in a 2-dimensional plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile, because they illustrate all the important principles of engineering statics while being easier to visualize and less mathematically complex.  We will normally work in the plane of the page, that is, a two-dimensional Cartesian plane with a horizontal axis and a vertical axis discussed in previously. This coordinate system can represent either the front, side, or top view of a system as appropriate. In some problems it may be worthwhile to rotate the coordinate system, that is, to establish a coordinate system where the and axes are not horizontal and vertical. This is usually done to simplify the mathematics by avoiding simultaneous equations.    General Procedure  The general procedure for solving equilibrium of a particle problems in two dimensions is to: Identify the particle. The particle will be the object or point where the lines of action of all the forces intersect. Establish a coordinate system. Normally this will be a system with the origin at the particle and a horizontal axis and a vertical axis, though it may be advantageous to align one axis with an unknown. Draw a free-body diagram. The FBD shows the object and all the forces acting on it, and defines the symbols we will use. Every force should be labeled with a roman letter to represent its magnitude and, unless it aligns with a coordinate axis, a Greek letter or degree measure for its direction. State any given values and identify the unknown values. Find trivial angles. Some angles may be easily found from the geometry of the problem. If that is the case, draw a simple, labeled triangle and use trigonometry to determine the measure of the angle. Count knowns and unknowns. At this point you should have no more than two unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution. Formulate equilibrium equations. Based on the free-body diagram, and using the symbols you have selected, formulate an equilibrium equation using one of the methods described in this section. The choice of method is up to you, and as you gain experience you will be able to identify the best approach. Simplify. Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles. Substitute values for symbols. When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers. Check your work. Have you made any algebra or trig mistakes? If you add the forces graphically do they appear to add to zero? Do the results seem reasonable given the situation? Have you included appropriate units? If you have time, work the problem using another approach and compare answers.     Force Triangle Method  The force triangle method is applicable to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.  If such a particle is in equilibrium then the three forces must add to zero. Graphically, if you arrange the force vectors tip-to-tail, they will form a closed, three-sided polygon, a triangle. This is illustrated in .   Free Body Diagram and Force Triangle      Why do the forces always form a closed polygon?    Because their resultant is zero.    The force triangle is a graphical representation of the vector equilibrium equation . It can be used to solve for the unknown values in a number of different ways, which will be illustrated in the next two examples. In We will use a graphical approach to find the forces causing equilibrium, and in we will use trigonometry to solve for the unknown forces mathematically.  In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation. We are using Geogebra to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the magnitudes and directions of the forces which hold the particle in equilibrium.   Frictionless Incline     A force is being applied to a block resting on a frictionless incline as shown. Determine the magnitude and direction of force and of the contact force on the bottom of the block.     William Haynes  CC-BY-SA   A flat, frictionless surface is inclined at 25 degrees from the horizontal. A force is being applied to a block resting on the incline, pushing it up the incline, at an angle of 10 degrees below the horizontal.              Assumptions  We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction which is normal to the surface since it is frictionless and can't prevent motion along the surface.    Givens  The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.  The unknown values are the magnitudes of forces and .    Free Body Diagram  You should always begin a statics problem by drawing a free-body diagram. It gives you an opportunity to think about the situation, identify knowns and unknowns, and define symbols.  We define three symbols, , , and , representing the weight, normal force, and the applied force respectively. The angles could be given symbols too, but since we know their values it isn't necessary.     William Haynes  CC-BY-SA     The free-body can be a quick sketch or an accurate drawing but it must show all the forces acting on the particle and define the symbols. In most cases you won't know the magnitudes of all the forces, so the lengths of the vectors are just approximate.    Notice that the force is represented as acting 25° from the axis, which is 90° away from the direction of the surface.    Force Triangle   Use the known information to carefully and accurately construct the force triangle. Start by placing point at the origin. Draw force straight down from with a length of 1, and place point at its tip. The length of this vector represents the weight. We know the direction of force but not its magnitude. For now, just draw line passing through point with an angle of 10° from the horizontal. Similarly we know force acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line passing through point and at a 25° angle from the axis. Call the point where lines and intersect point . Points , , and define the force triangle. Now draw force from point to point , and Draw force from point back to point .    Can you prove from the geometry of the triangle that angle is 75°?     Results  In steps 6 and 7, Geogebra tells us that p = (0.438;10.0°) which means force is 0.438 units long with a direction of 10°, similarly n = (1.02;115°) means is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive axis.  These are not the answers we are looking for, but we’re close. Remember that for this diagram, our scale is , so scaling the lengths of p and n by this factor gives .  If you use technology such as Geogebra, as we did here, or CAD software to draw the force triangle, it will accurately produce the solution.  If technology isn't available to you, such as during an exam, you can still use a ruler and protractor draw the force triangle, but your results will only be as accurate as your diagram. In the best case, using a sharp pencil and carefully measuring lengths and angles, you can only expect about two significant digits of accuracy from an hand drawn triangle. Nevertheless, even a roughly drawn triangle can give you an idea of the correct answers and be used to check your work after you use another method to solve the problem.         Trigonometric Method  The general approach for solving particle equilibrium problems using the trigonometric method is to: Draw and label a free-body diagram. Rearrange the forces into a force triangle and label it. Identify the knowns and unknowns. Use trigonometry to find the unknown sides or angles of the triangle.   There must be no more than two unknowns to use this method, which may be either magnitudes or directions. During the problem setup you will probably need to use the geometry of the situation to find one or more angles.  If the force triangle has a right angle you can use to find the unknown values, but in most cases the triangle will be oblique and you will need to use either or both of the or the to find the sides or angles.   Cargo Boom     A crate is being lowered into the cargo hold of a ship. Boom is long and acts at a 40° angle from kingpost . The boom is held in this position by topping lift which has a 1:4 slope.  Determine the forces in the boom and in the topping lift.     William Haynes  CC-BY-SA   The boom AB is 20 m long and acts at a 40° angle from the vertical support (kingpost). The boom is connected to the bottom of the vertical support by a pin connection at point A. The boom is held in this position by topping lift BC (cable attached at point C on the kingpost and at point B on the boom) which has a -1\/4 slope.              Draw diagrams  Start by identifying the particle and drawing a free-body diagram. The particle in this case is point at the end of the boom because it is the point where all three forces intersect. Let be the tension of the topping lift, be the force in the boom, and be the weight of the load. Let and be the angles that forces and make with the horizontal.  Rearrange the forces acting on point to form a force triangle as was done in the previous example.     William Haynes  CC-BY-SA      William Haynes  CC-BY-SA       Find angles  Angle can be found from the slope of the topping lift.  .  Angle is the complement of the 40° angle the boom makes with the vertical kingpost.     Use these values to find the three angles in the force triangle.       Solve force triangle  With the angles and one side of the force triangle known, apply the to find the two unknown sides.               Scalar Components Method  The general statement of equilibrium of forces, , can be expressed as the sum of forces in the , and directions .  This statement will only be true if all three coefficients of the unit vectors are themselves equal to zero, leading to this scalar interpretation of the equilibrium equation .  In other words the single vector equilibrium equation is equivalent to three independent scalar equations, one for each coordinate direction.  In two-dimensional situations, no forces act in the direction leaving just these two equilibrium equations to be satisfied . We will use this equation as the basis for solving two-dimensional particle equilibrium problems in this section and equation for three-dimensional problems in .  You are undoubtedly familiar with utility poles which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again? Why is this?  If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road. This force is typically opposed by a guy wire pulling in the opposite direction which prevents the pole from tipping over due to unbalanced forces. The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.   Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right hand diagram. If each of the six cables pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, the parallel, horizontal beams at the top are shown. On each of the beams, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the beams, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations, because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens       Procedure  Begin by drawing a neat, labeled, free-body diagram of the pole, establishing a coordinate system and indicating the directions of the forces. Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry. Let be the tension in one wire, and be the tension of the guy wire.   To solve apply the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.        This problem could have also been solved using the force triangle method. See .    In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.   Slider     Three forces act on a machine part which is free to slide along a vertical, frictionless rod. Forces and have a magnitude of and force has a magnitude of . Force acts degrees from the horizontal, and force acts at the same angle from the vertical.  Determine the angle required for equilibrium, and the magnitude and direction of the reaction force acting on the slider.    Three forces act on a machine part which is free to slide along a vertical, frictionless rod. The machine part has an attachment point where 3 forces are applied. Force A acts upwards vertically. Force B acts up and to the right at an angle alpha from the horizontal. Force C acts down and to the right at an angle of alpha from the negative y-axis.      The question asks for the reaction force. The reaction force is equal and opposite to force .          Givens  We are given magnitudes of forces , , and . The unknowns are angle and resultant force .    Procedure   Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently the slider will only be in equilibrium is if the resultant of the three load forces is horizontal. Since a horizontal force has no component, we can establish this equilibrium condition:     Inserting the known values into the equilibrium relation and simplifying gives an equation in terms of unknown angle .     This is a single equation with a single unknown, although it is not particularly easy to solve with algebra. One approach is described at socratic.org . An alternate approach is to use technology to graph the function . The roots of this equation correspond to values of which satisfy the equilibrium condition above. The root occurring closest to will be the answer corresponding to our problem, in this case which you can verify by plugging it back into the equilibrium equation. Note that -90° also satisfies this equation, but it is not the solution we are looking for.   Once is known, we can find the reaction force by adding the components of , , and .     The resultant force is the vector sum of and , but in this situation is zero, so the resultant acts purely to the right with a magnitude of . .  Note that this value is the resultant force, the net force applied to the slider by , , and . However the question asks for the reaction force, which is the force required for equilibrium. The reaction is equal and opposite to the resultant.        The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the and axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.   Roller     A lawn roller which weighs is being pulled up a slope at a constant velocity.  Determine the required pulling force .     William Haynes  CC-BY-SA   A lawn roller weighs 160 lb. is being pulled up a 10 degree slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal.              Strategy     Select a coordinate system, in this case horizontal and vertical.  Draw a free-body diagram  Solve the equations of equilibrium using the scalar approach.      William Haynes  CC-BY-SA       Procedure     Solving simultaneously for              Strategy     Rotate the standard coordinate system clockwise to align the new axis with force .  Draw a free-body diagram and calculate the angles between the forces and the rotated coordinate system.  Solve for force directly.      William Haynes  CC-BY-SA       Procedure            Multi-Particle Equilibrium  When two or more particles interact with each other there will always be common forces between them as a result of Newton’s Third Law, the action-reaction principle.   Consider the two boxes with weights and connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces and .   Two suspended weights     From the free-body diagrams you can see that cable only supports the weight of the bottom box, while cable and the ceiling support the combined weight. The tension is common to both diagrams. Recognizing the common force is the key to solving multi-particle equilibrium problems.   Two hanging weights     A weight is supported by cable . There is a frictionless pulley at and the hook is firmly attached to the cable at point .  What is the magnitude and direction of force required to hold the system in the position shown?     William Haynes  CC-BY-SA   At the ceiling, Point D is 150 cm to the right of A. Point B is 20 cm to the right of A, and 40 cm below A. Point C is 100 cm to the right of A, and 50 cm below A. A weight is supported by a hook that is firmly attached to the cable at point C. There is a frictionless pulley at B and a Force P acts down at to the left, at an angle of theta from the -x axis.      The particles are points and . The common force is the tension in rope segment .            Strategy  Following the we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions , , and for the endpoints of the rope segments, and label the angles of the forces , , and . We will use the standard Cartesian coordinate system and use the scalar components method .   Weight was given, and we can easily find angles , , and so the knowns are:     Counting unknowns we find that there are two on the free-body diagram of particle ( and , but four on particle , (  , and ).  Two unknowns on particle means it is solvable since there are two equilibrium equations available, so we begin there.    Solve Particle C     Solving these two equations simultaneously gives     With particle solved, we can use the results to solve particle . There are three unknowns remaining, tension , magnitude , and direction . Unfortunately, we still only have two available equilibrium equations. When you find yourself in this situation with more unknowns than equations, it generally means that you are missing something. In this case it is the pulley. When a cable wraps around a frictionless pulley the tension doesn't change. The missing information is that . Knowing this, the magnitude and direction of force can be determined.   Because , the free-body diagram of particle is symmetric, and the technique used in to rotate the coordinate system could be applied here.     Solve Particle B  Referring to the FBD for particle we can write these equations.     Since , substituting and solving simultaneously gives     These are the magnitude and direction of vector . If you wish, you can express in terms of its scalar components. The negative signs on the components have been applied by hand since points down and to the left.           "
+  "body": " Particles in Two Dimensions   Introduction  In this section we will study situations where everything of importance occurs in a 2-dimensional plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile, because they illustrate all the important principles of engineering statics while being easier to visualize and less mathematically complex.  We will normally work in the plane of the page, that is, a two-dimensional Cartesian plane with a horizontal axis and a vertical axis discussed in previously. This coordinate system can represent either the front, side, or top view of a system as appropriate. In some problems it may be worthwhile to rotate the coordinate system, that is, to establish a coordinate system where the and axes are not horizontal and vertical. This is usually done to simplify the mathematics by avoiding simultaneous equations.    General Procedure  The general procedure for solving equilibrium of a particle problems in two dimensions is to: Identify the particle. The particle will be the object or point where the lines of action of all the forces intersect. Establish a coordinate system. Normally this will be a system with the origin at the particle and a horizontal axis and a vertical axis, though it may be advantageous to align one axis with an unknown. Draw a free-body diagram. The FBD shows the object and all the forces acting on it, and defines the symbols we will use. Every force should be labeled with a roman letter to represent its magnitude and, unless it aligns with a coordinate axis, a Greek letter or degree measure for its direction. State any given values and identify the unknown values. Find trivial angles. Some angles may be easily found from the geometry of the problem. If that is the case, draw a simple, labeled triangle and use trigonometry to determine the measure of the angle. Count knowns and unknowns. At this point you should have no more than two unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution. Formulate equilibrium equations. Based on the free-body diagram, and using the symbols you have selected, formulate an equilibrium equation using one of the methods described in this section. The choice of method is up to you, and as you gain experience you will be able to identify the best approach. Simplify. Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles. Substitute values for symbols. When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers. Check your work. Have you made any algebra or trig mistakes? If you add the forces graphically do they appear to add to zero? Do the results seem reasonable given the situation? Have you included appropriate units? If you have time, work the problem using another approach and compare answers.     Force Triangle Method  The force triangle method is applicable to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.  If such a particle is in equilibrium then the three forces must add to zero. Graphically, if you arrange the force vectors tip-to-tail, they will form a closed, three-sided polygon, a triangle. This is illustrated in .   Free Body Diagram and Force Triangle      Why do the forces always form a closed polygon?    Because their resultant is zero.    The force triangle is a graphical representation of the vector equilibrium equation . It can be used to solve for the unknown values in a number of different ways, which will be illustrated in the next two examples. In We will use a graphical approach to find the forces causing equilibrium, and in we will use trigonometry to solve for the unknown forces mathematically.  In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation. We are using Geogebra to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the magnitudes and directions of the forces which hold the particle in equilibrium.   Frictionless Incline     A force is being applied to a block resting on a frictionless incline as shown. Determine the magnitude and direction of force and of the contact force on the bottom of the block.     William Haynes  CC-BY-SA   A flat, frictionless surface is inclined at 25 degrees from the horizontal. A force is being applied to a block resting on the incline, pushing it up the incline, at an angle of 10 degrees below the horizontal.              Assumptions  We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction which is normal to the surface since it is frictionless and can't prevent motion along the surface.    Givens  The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.  The unknown values are the magnitudes of forces and .    Free Body Diagram  You should always begin a statics problem by drawing a free-body diagram. It gives you an opportunity to think about the situation, identify knowns and unknowns, and define symbols.  We define three symbols, , , and , representing the weight, normal force, and the applied force respectively. The angles could be given symbols too, but since we know their values it isn't necessary.     William Haynes  CC-BY-SA     The free-body can be a quick sketch or an accurate drawing but it must show all the forces acting on the particle and define the symbols. In most cases you won't know the magnitudes of all the forces, so the lengths of the vectors are just approximate.    Notice that the force is represented as acting 25° from the axis, which is 90° away from the direction of the surface.    Force Triangle   Use the known information to carefully and accurately construct the force triangle. Start by placing point at the origin. Draw force straight down from with a length of 1, and place point at its tip. The length of this vector represents the weight. We know the direction of force but not its magnitude. For now, just draw line passing through point with an angle of 10° from the horizontal. Similarly we know force acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line passing through point and at a 25° angle from the axis. Call the point where lines and intersect point . Points , , and define the force triangle. Now draw force from point to point , and Draw force from point back to point .    Can you prove from the geometry of the triangle that angle is 75°?     Results  In steps 6 and 7, Geogebra tells us that p = (0.438;10.0°) which means force is 0.438 units long with a direction of 10°, similarly n = (1.02;115°) means is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive axis.  These are not the answers we are looking for, but we’re close. Remember that for this diagram, our scale is , so scaling the lengths of p and n by this factor gives .  If you use technology such as Geogebra, as we did here, or CAD software to draw the force triangle, it will accurately produce the solution.  If technology isn't available to you, such as during an exam, you can still use a ruler and protractor draw the force triangle, but your results will only be as accurate as your diagram. In the best case, using a sharp pencil and carefully measuring lengths and angles, you can only expect about two significant digits of accuracy from an hand drawn triangle. Nevertheless, even a roughly drawn triangle can give you an idea of the correct answers and be used to check your work after you use another method to solve the problem.         Trigonometric Method  The general approach for solving particle equilibrium problems using the trigonometric method is to: Draw and label a free-body diagram. Rearrange the forces into a force triangle and label it. Identify the knowns and unknowns. Use trigonometry to find the unknown sides or angles of the triangle.   There must be no more than two unknowns to use this method, which may be either magnitudes or directions. During the problem setup you will probably need to use the geometry of the situation to find one or more angles.  If the force triangle has a right angle you can use to find the unknown values, but in most cases the triangle will be oblique and you will need to use either or both of the or the to find the sides or angles.   Cargo Boom     A crate is being lowered into the cargo hold of a ship. Boom is long and acts at a 40° angle from kingpost . The boom is held in this position by topping lift which has a 1:4 slope.  Determine the forces in the boom and in the topping lift.     William Haynes  CC-BY-SA   The boom AB is 20 m long and acts at a 40° angle from the vertical support (kingpost). The boom is connected to the bottom of the vertical support by a pin connection at point A. The boom is held in this position by topping lift BC (cable attached at point C on the kingpost and at point B on the boom) which has a -1\/4 slope.              Draw diagrams  Start by identifying the particle and drawing a free-body diagram. The particle in this case is point at the end of the boom because it is the point where all three forces intersect. Let be the tension of the topping lift, be the force in the boom, and be the weight of the load. Let and be the angles that forces and make with the horizontal.  Rearrange the forces acting on point to form a force triangle as was done in the previous example.     William Haynes  CC-BY-SA      William Haynes  CC-BY-SA       Find angles  Angle can be found from the slope of the topping lift.  .  Angle is the complement of the 40° angle the boom makes with the vertical kingpost.     Use these values to find the three angles in the force triangle.       Solve force triangle  With the angles and one side of the force triangle known, apply the to find the two unknown sides.               Scalar Components Method  The general statement of equilibrium of forces, , can be expressed as the sum of forces in the , and directions .  This statement will only be true if all three coefficients of the unit vectors are themselves equal to zero, leading to this scalar interpretation of the equilibrium equation .  In other words the single vector equilibrium equation is equivalent to three independent scalar equations, one for each coordinate direction.  In two-dimensional situations, no forces act in the direction leaving just these two equilibrium equations to be satisfied . We will use this equation as the basis for solving two-dimensional particle equilibrium problems in this section and equation for three-dimensional problems in .  You are undoubtedly familiar with utility poles which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again? Why is this?  If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road. This force is typically opposed by a guy wire pulling in the opposite direction which prevents the pole from tipping over due to unbalanced forces. The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.   Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right hand diagram. If each of the six power lines pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, two parallel, horizontal members called crossarms at the top are shown. On each of the crossarms, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the crossarms, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we can solve this problem as if it was by first considering the force components acting in a horizontal plane, and then considering the components in a vertical plane.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three power lines in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations, because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens  and 38° and 152° angles.    Free Body Diagram  Begin by drawing a neat, labeled, free-body diagram of the top view of the pole, establishing a coordinate system and indicating the directions of the forces.  Call the tension in one power line and the tension in the guy wire . Resolve the the tension of the guy wire into a horizontal component , and a vertical component . Only the horizontal component of is visible in the top view.  Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry.     Solution  Solve for by applying the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.     Once is determined, the tension of the guy wire is easily found by considering the components of in the side view. Note that the vertical component tends to compress the pole.         This problem could have also been solved using the force triangle method. See .    In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.   Slider     Three forces act on a machine part which is free to slide along a vertical, frictionless rod. Forces and have a magnitude of and force has a magnitude of . Force acts degrees from the horizontal, and force acts at the same angle from the vertical.  Determine the angle required for equilibrium, and the magnitude and direction of the reaction force acting on the slider.    Three forces act on a machine part which is free to slide along a vertical, frictionless rod. The machine part has an attachment point where 3 forces are applied. Force A acts upwards vertically. Force B acts up and to the right at an angle alpha from the horizontal. Force C acts down and to the right at an angle of alpha from the negative y-axis.      The question asks for the reaction force. The reaction force is equal and opposite to force .          Givens  We are given magnitudes of forces , , and . The unknowns are angle and resultant force .    Procedure   Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently the slider will only be in equilibrium is if the resultant of the three load forces is horizontal. Since a horizontal force has no component, we can establish this equilibrium condition:     Inserting the known values into the equilibrium relation and simplifying gives an equation in terms of unknown angle .     This is a single equation with a single unknown, although it is not particularly easy to solve with algebra. One approach is described at socratic.org . An alternate approach is to use technology to graph the function . The roots of this equation correspond to values of which satisfy the equilibrium condition above. The root occurring closest to will be the answer corresponding to our problem, in this case which you can verify by plugging it back into the equilibrium equation. Note that -90° also satisfies this equation, but it is not the solution we are looking for.   Once is known, we can find the reaction force by adding the components of , , and .     The resultant force is the vector sum of and , but in this situation is zero, so the resultant acts purely to the right with a magnitude of . .  Note that this value is the resultant force, the net force applied to the slider by , , and . However the question asks for the reaction force, which is the force required for equilibrium. The reaction is equal and opposite to the resultant.        The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the and axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.   Roller     A lawn roller which weighs is being pulled up a slope at a constant velocity.  Determine the required pulling force .     William Haynes  CC-BY-SA   A lawn roller weighs 160 lb. is being pulled up a 10 degree slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal.              Strategy     Select a coordinate system, in this case horizontal and vertical.  Draw a free-body diagram  Solve the equations of equilibrium using the scalar approach.      William Haynes  CC-BY-SA       Procedure     Solving simultaneously for              Strategy     Rotate the standard coordinate system clockwise to align the new axis with force .  Draw a free-body diagram and calculate the angles between the forces and the rotated coordinate system.  Solve for force directly.      William Haynes  CC-BY-SA       Procedure            Multi-Particle Equilibrium  When two or more particles interact with each other there will always be common forces between them as a result of Newton’s Third Law, the action-reaction principle.   Consider the two boxes with weights and connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces and .   Two suspended weights     From the free-body diagrams you can see that cable only supports the weight of the bottom box, while cable and the ceiling support the combined weight. The tension is common to both diagrams. Recognizing the common force is the key to solving multi-particle equilibrium problems.   Two hanging weights     A weight is supported by cable . There is a frictionless pulley at and the hook is firmly attached to the cable at point .  What is the magnitude and direction of force required to hold the system in the position shown?     William Haynes  CC-BY-SA   At the ceiling, Point D is 150 cm to the right of A. Point B is 20 cm to the right of A, and 40 cm below A. Point C is 100 cm to the right of A, and 50 cm below A. A weight is supported by a hook that is firmly attached to the cable at point C. There is a frictionless pulley at B and a Force P acts down at to the left, at an angle of theta from the -x axis.      The particles are points and . The common force is the tension in rope segment .            Strategy  Following the we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions , , and for the endpoints of the rope segments, and label the angles of the forces , , and . We will use the standard Cartesian coordinate system and use the scalar components method .   Weight was given, and we can easily find angles , , and so the knowns are:     Counting unknowns we find that there are two on the free-body diagram of particle ( and , but four on particle , (  , and ).  Two unknowns on particle means it is solvable since there are two equilibrium equations available, so we begin there.    Solve Particle C     Solving these two equations simultaneously gives     With particle solved, we can use the results to solve particle . There are three unknowns remaining, tension , magnitude , and direction . Unfortunately, we still only have two available equilibrium equations. When you find yourself in this situation with more unknowns than equations, it generally means that you are missing something. In this case it is the pulley. When a cable wraps around a frictionless pulley the tension doesn't change. The missing information is that . Knowing this, the magnitude and direction of force can be determined.   Because , the free-body diagram of particle is symmetric, and the technique used in to rotate the coordinate system could be applied here.     Solve Particle B  Referring to the FBD for particle we can write these equations.     Since , substituting and solving simultaneously gives     These are the magnitude and direction of vector . If you wish, you can express in terms of its scalar components. The negative signs on the components have been applied by hand since points down and to the left.           "
 },
 {
   "id": "p-484",
@@ -1249,7 +1249,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "3.4.5",
   "title": "Utility Pole.",
-  "body": " Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right hand diagram. If each of the six cables pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, the parallel, horizontal beams at the top are shown. On each of the beams, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the beams, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we will consider the top view and forces in the horizontal plane only.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three cables in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations, because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens       Procedure  Begin by drawing a neat, labeled, free-body diagram of the pole, establishing a coordinate system and indicating the directions of the forces. Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry. Let be the tension in one wire, and be the tension of the guy wire.   To solve apply the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.        This problem could have also been solved using the force triangle method. See .   "
+  "body": " Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right hand diagram. If each of the six power lines pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, two parallel, horizontal members called crossarms at the top are shown. On each of the crossarms, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the crossarms, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we can solve this problem as if it was by first considering the force components acting in a horizontal plane, and then considering the components in a vertical plane.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three power lines in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations, because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens  and 38° and 152° angles.    Free Body Diagram  Begin by drawing a neat, labeled, free-body diagram of the top view of the pole, establishing a coordinate system and indicating the directions of the forces.  Call the tension in one power line and the tension in the guy wire . Resolve the the tension of the guy wire into a horizontal component , and a vertical component . Only the horizontal component of is visible in the top view.  Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry.     Solution  Solve for by applying the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.     Once is determined, the tension of the guy wire is easily found by considering the components of in the side view. Note that the vertical component tends to compress the pole.         This problem could have also been solved using the force triangle method. See .   "
 },
 {
   "id": "Slider",
@@ -1297,9 +1297,9 @@ var ptx_lunr_docs = [
   "body": " Particles in Three Dimensions   The world we live in has three dimensions. One and two dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.  Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.    Three-Dimensional Coordinate Frame  We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis to our existing two-dimensional frame.  For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the axis is horizontal, and the axis is vertical just as in a two-dimensional situation. The orientation of the axis is determined by the right hand rule . Using your right hand , put your palm at the origin and point your fingers along the positive axis. Then curl your fingers towards the positive axis. Your thumb will point in the direction of the positive axis. For example, in the plane of the page with the positive axis horizontal and to the right and the positive axis vertical and upwards, the positive axis will point towards you out of the page. Remember that the three axes are mutually perpendicular, each axis is perpendicular to both of the others. The right hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.   Point-and-curl right-hand rule technique.    Dan Baker  CC-0   Using your right hand, put your palm at the origin and point your fingers along the positive x axis. Then curl your fingers towards the positive y axis. Your thumb will point in the direction of the positive z axis. In this case, if the positive x axis is horizontal and to the right and the positive y axis is vertical and upwards, the positive z axis will be coming towards you. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.      Free Body Diagrams  As we did before, we begin our analysis by drawing a free-body diagram which shows all forces and moment acting on the object of interest. Drawing a FBD in three-dimensions can be difficult. It is sometimes hard to see things in three-dimensions when they are drawn on a two-dimensional sheet. Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and\/or unnecessary information. When working in two-dimensions, you only need one angle to determine the direction of the vector, but when working in three-dimensions you actually need two or three angles.    Angles   As stated above, when working in three dimensions you actually need three angles to determine the direction of the vector, namely, the angle with respect to the axis, the angle with respect to the axis and the angle with respect to the axis. The three angles mentioned above are not necessarily located in any of the coordinate planes. Think of it this way three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis. The plane made by those three points is not necessarily the , , or plane. It is most likely a tilted plane.   Direction Cosine Angles     The angle the vector makes with the positive axis is usually labeled , but any Greek letter will do. The angle the vector makes with the positive axis is usually labeled ; and the angle the vector makes with the positive is usually labeled .  As with two dimensions, angles can be determined from geometry a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.  If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.  Let’s suppose that the line of action goes through two points and , and the direction of the force is from towards . The first step in determining the three angles is to write the distance vector from point towards point . Let’s call this vector . Starting at point , you need to determine how to get to point by moving in each of the three directions. Ask yourself: to get from point to point do I have to move in the direction? If so, how far do I have to travel? This becomes the component of the vector namely . Next, to get from point to point how far do I move in direction? This distance is . Finally, to get from point A to point B how far do I move in the z-direction? This distance is .  When writing these scalar components pay attention to which way you move along the axes. If you travel towards the positive end of an axis, the corresponding scalar component gets a positive sign. Travel towards the negative end results in a negative sign. The sign is important.  Once you have determined the components of the distance vector , you can determine the total distance from point to using the three-dimensional Pythagorean Theorem    Lastly, the angles are determined by the direction cosines, namely   Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles, . So,   Now, that is a bit of math there, but the important things to remember are: You can use three angles to determine the direction of a force in three dimensions. You can use the geometry to get them from a distance vector that lies along the line of action of the force.   The three direction cosine angles are not mutually independent. From you can easily show that , so if you know two direction cosine angles you can find the third from this relationship.    General Procedure  The general procedure for solving equilibrium of a particle (or concurrent force) problems in three dimensions is essentially the same as for two dimensions using the components method. The major differences are that you must be very careful about the orientation and direction of each axis of the coordinate frame and the angles each vector makes with each axis. When working in three dimensions there are three important angles, but the general procedure is the same. The overall procedure is presented here and then each of the new steps is explained in more detail. Identify the particle. The particle will be the object or point where the lines of action of all the forces intersect. Establish a coordinate system. Normally this will be a system with the origin at the particle or directly below the particle, a horizontal axis, a vertical axis, and the axis coming out of the page and towards you. It is important to follow the right-hand rule when defining the coordinate system. Draw a free-body diagram. The FBD shows the object and all the forces acting on it, and defines the symbols we will use. Every force should be labeled with a roman letter to represent its magnitude. Appropriate angles should be represented by a Greek letter with a subscript indicating which axis the angle of the vector is measured against. State any given values and identify the unknown values. Determine the direction of each of the force vectors. Angles are usually determined by the geometry. Count knowns and unknowns. At this point you should have no more than three unknowns remaining. If you don't, reread the problem and look for overlooked information. When solving mechanics problems, it is always helpful to know what you know and what you are looking for and this information changes as you work through your solution. Formulate equilibrium equations. Based on the free-body diagram and using the symbols you have selected, formulate the three equilibrium equations. Simplify. Use algebra to simplify the equilibrium equations. Get them into a form where the unknown values are alone on the left of the equals sign. Work symbolically as long as you can and avoid the temptation to insert numeric values prematurely, because this tends to lead to errors and obscures the relationships between the forces and angles. Substitute values for symbols. When your equilibrium equations have been fully simplified in symbolic form, pull out your calculator and substitute the known values and calculate the unknowns. Indicate the units of your results, and underline or box your answers. Check your work. Have you made any algebra or trig mistakes? If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?    Balloon     A hot air balloon above the ground is tethered by three cables as shown in the diagram.  If the balloon is pulling upwards with a force of , what is the tension in each of the three cables?  The grid lines on the ground plane are spaced apart.    A hot air balloon is 30 ft above the ground (coordinates (0, 30, 0)) tethered by three cables. Assume the origin is directly below the balloon on the ground. The three cables are attached from the basket of the balloon to the following points (ft): A (-20, 0, 0), B (30, 0, -20), C (0, 0, -20).              Strategy    The three tensions are the unknowns which we can find by applying the three equilibrium equations.  We'll establish a coordinate system with the origin directly below the balloon and the axis vertical, then draw and label a free-body diagram.  Next we'll use the given information to find two points on each line of action, and use them to find the components of each force in terms of the unknowns.     When the , and components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.    Geometry  From the diagram, the coordinates of the points are     Use the point coordinates to find the , and components of the forces.     Where , and are the lengths of the three cables found with the distance formula .       Equilibrium Equations  Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.     Solving these equations simultaneously yields the answers we are seeking. One way to do this is to substitute equations (1) and (2) into (3) to eliminate and and solve the resulting equation for .     With known, substitute it into equations (1) and (2) to find and .           Skycam   The skycam at Stanford University Stadium has a mass of and is supported by three cables as shown. Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.      Jrienstra   CC-BY-SA   Skycam has mass of 20 kg and is in equilibrium. Cable A is in the x-y plane, acting 35 degrees from positive x-axis. Cable B acts -30 degrees from the negative x-axis in the x-z plane, and 15 degrees above the x-z plane. Cable C acts 20 degrees in the y-z plane, -20 degrees from the positive z-axis.            In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces , , and .   We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the components unit vectors, and determining the angles each makes with the coordinate axis.   Particle equilibrium requires that , so, . This is a 3 3 system of three simultaneous equation, one for each coordinate direction, which needs to be solved for , , and .   These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives .  This is an equation in the form . Entering the coefficient matrices into Sage.   After evaluating, we learn that .     "
 },
 {
-  "id": "p-600",
+  "id": "p-604",
   "level": "2",
-  "url": "ch3-3d-particles.html#p-600",
+  "url": "ch3-3d-particles.html#p-604",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1360,9 +1360,9 @@ var ptx_lunr_docs = [
   "body": " Direction of a Moment  In a two-dimensional problem the direction of a moment can be determined easily by inspection as either clockwise or counter-clockwise. A counter-clockwise rotation corresponds with a moment vector pointing out of page and is considered positive.  In three-dimensions a moment vector may point in any direction in space and is more difficult to visualize. The direction is established by the right hand rule .  To apply the right hand rule, first establish a position vector  pointing from the rotation center to the point of application of the force, or another point on its line of action. If you align your thumb with the position vector and your index finger with the force vector, then your middle finger points the direction of the moment vector . Alternately, you can align your index finger with the position vector and your middle finger with the force vector, and your thumb will point in the direction of the moment vector.    Two ways to apply the right hand rule to determine the direction of a moment.       Using the right hand, point index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The thumb represents the position vector, and the index finger represents the force vector. Taking the cross product r x F results in M which is represented by the middle finger. Alternatively, r can be the index finger, F the middle finger, and M the thumb.    Another approach is the point-and-curl method. Start with your right hand flat and fingertips pointing along the position vector pointing from the center of rotation to a point on the force’s line of action. Rotate your hand until the force is perpendicular to your fingers and imagine that it pushes your fingers into a curl around your thumb. In this position, your thumb defines the axis of rotation, and points in the direction of the moment .   Point-and-curl right-hand rule technique for moments.       Image of a right hand held out flat, where is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of and the thumb in the direction of .     Consider the page shown below on a horizontal surface. Using these techniques, we see that a counter-clockwise moment vector points up, or out of the page, while the clockwise moment points down or in to the page. In other words, the counter-clockwise moment acts in the positive direction and the clockwise moment acts in the direction.   Moments in the plane of the page.   A counter-clockwise moment symbol on a horizontal page, and the corresponding unit vector pointing up, also a similar clockwise moment pointing down.    Any of these techniques may be used to find the direction of a moment. They all produce the same result so you don’t need to learn them all, but make sure you have at least one method you can use accurately and consistently.  "
 },
 {
-  "id": "p-652",
+  "id": "p-656",
   "level": "2",
-  "url": "Chapter_04-direction-of-a-moment.html#p-652",
+  "url": "Chapter_04-direction-of-a-moment.html#p-656",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1414,9 +1414,9 @@ var ptx_lunr_docs = [
   "body": "  Why is there no moment about any point on the line of action of a force?  If you increase the distance between a force and a point of interest, does the moment of the force go up or down?  What practical applications can you think of that could use moments to describe?   "
 },
 {
-  "id": "p-660",
+  "id": "p-664",
   "level": "2",
-  "url": "Chapter_04-magnitude-of-a-moment.html#p-660",
+  "url": "Chapter_04-magnitude-of-a-moment.html#p-664",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1441,9 +1441,9 @@ var ptx_lunr_docs = [
   "body": " Scalar Components  We saw in that vectors can be expressed as the product of a scalar component and a unit vector.  For example, a force acting down can be represented by , where is the scalar component and . This describes a vector which has a magnitude of and acts in the direction,  . The unit vector along with the sign of determines the direction, while the absolute value of determines the vector’s magnitude.  Moments in two dimensions are either clockwise or counter-clockwise, or alternately they point into or out of the page. This means that a single scalar value is sufficient to completely specify such a moment if we have established which direction is positive. The choice is arbitrary, but the default sign convention is based on the right-handed Cartesian coordinate system, as illustrated in .  When using the standard convention, counter-clockwise moments are positive and clockwise moments are negative. Simply append a positive sign to the magnitude for counter-clockwise moments or a negative sign for clockwise moments to a to create a scalar component. You are free to use the opposite convention, but this should be explicitly stated.   Sign Conventions   For each scalar component, determine the direction of the corresponding moment vector.       CCW  CW  CW  CCW         CCW. Use the default sign convention, CCW is positive.    CW. Negative value means moment acts opposite to positive direction.    CW. The arrow overrides default sign convention, so now CW is positive direction.    CCW. Negative CW is CCW.       Scalar components are most useful when combining several clockwise and counter-clockwise moments. The resulting algebraic sum of the scalar components will be either positive, negative, or zero, and this sign indicates the direction of the resultant moment.   Scalar addition   Use scalar moments to determine the magnitude of the resultant of three moments:  , , and         Manually attaching the signs according to the standard sign convention (CCW +) gives the scalar moments: .  Adding these moments gives the resultant scalar moment. . The negative sign indicates that the resultant vector moment is clockwise.  Interpreting the resultant as a vector gives: .  The corresponding magnitude of is .    In three dimensions, moments, like forces, can be resolved into components in the , , and directions. . This means that the three scalar components are required to fully specify a moment in three dimensions.   Be careful not to mix up magnitudes with scalar components. Both are scalar values with units. Magnitudes are never negative. Scalar components have a sign. Scalar components always have an associated sign convention. It may be implied or specifically indicated. By default counter-clockwise moments are positive. There is no special symbol or notation to indicate whether a quantity represents a vector magnitude or a scalar moment, so pay attention to context.     "
 },
 {
-  "id": "p-663",
+  "id": "p-667",
   "level": "2",
-  "url": "scalar-components-moments.html#p-663",
+  "url": "scalar-components-moments.html#p-667",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1585,9 +1585,9 @@ var ptx_lunr_docs = [
   "body": " Moment of a force about a line   "
 },
 {
-  "id": "p-734",
+  "id": "p-738",
   "level": "2",
-  "url": "Chapter_04-moments-in-three-dimensions.html#p-734",
+  "url": "Chapter_04-moments-in-three-dimensions.html#p-738",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1612,18 +1612,18 @@ var ptx_lunr_docs = [
   "body": "  What makes a couple different than a typical moment?  Why is a couple considered a pure moment?  If a couple is applied about the point we are summing moments, does it still need to be included in the sum of moments equation?   "
 },
 {
-  "id": "p-738",
+  "id": "p-742",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-738",
+  "url": "Chapter_04-couples.html#p-742",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "couple "
 },
 {
-  "id": "p-739",
+  "id": "p-743",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-739",
+  "url": "Chapter_04-couples.html#p-743",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1864,9 +1864,9 @@ var ptx_lunr_docs = [
   "body": " Table of common three-dimensional supports and their associated reactions.    Dan Baker  CC-BY-SA   As in the previous table, support types are shown here. A support produces a reaction in the direction in which it prevents motion (1 reaction). Two-force support member constrains translation in one direction. Smooth surface constrains translation in one direction (1 reaction). Ball and socket constrains translation in 3 directions, but not rotation (3 reactions). Free axle bearing constrains translation in two directions (y and z) and rotation in two directions (couple moment about z and about y) (4 reactions). Confined axle bearings (e.g., thrust bearing, smooth pin, hinge) only allows rotation about one axis, and does not allow translation in any direction (5 reactions). A square axle bearing only allows translation in one direction, and no rotation (5 reactions). A fixed support prevents any translation or rotation (6 reactions).   "
 },
 {
-  "id": "p-862",
+  "id": "p-866",
   "level": "2",
-  "url": "Chapter_05-free-body-diagrams.html#p-862",
+  "url": "Chapter_05-free-body-diagrams.html#p-866",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1990,27 +1990,27 @@ var ptx_lunr_docs = [
   "body": "  What does stable mean for a rigid body?  What does determinate mean for a rigid body?  Does stability depend on the external loads or only on the reactions?  How can I tell if a system is determinate?  How can I decide if a problem is both stable and determinate, which makes it solvable statics?   "
 },
 {
-  "id": "p-954",
+  "id": "p-958",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-954",
+  "url": "Chapter_05-stability-and-determinacy.html#p-958",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "determinate indeterminate "
 },
 {
-  "id": "p-956",
+  "id": "p-960",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-956",
+  "url": "Chapter_05-stability-and-determinacy.html#p-960",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "under-constrained over-constrained indeterminate "
 },
 {
-  "id": "p-957",
+  "id": "p-961",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-957",
+  "url": "Chapter_05-stability-and-determinacy.html#p-961",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2080,27 +2080,27 @@ var ptx_lunr_docs = [
   "body": " Structures  Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.  A truss is a multi-body structure made up of long slender members connected at their ends in triangular subunits. Truss members carry axial forces only. Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example. They are also used for crane booms, radio towers and the like. Trusses are lightweight and relatively strong. Over the years many unique truss designs have been developed and are often named after the original designer.  A frame is a multi-part, rigid, stationary structure primarily designed to support some type of load. A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces. Many common items can be considered frames. Some examples: building structure, bike frames, ladders, scaffolding, and more.  A machine is very similar to a frame, except that it includes some moving parts. The purpose of a machine is usually to provide a mechanical advantage and multiply forces. Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.    Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge     Solving a structure means determining all forces acting on all of its parts. The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part. The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.   Two-force Members  Many structures contain at least one two-force member, and trusses consist of two-force members exclusively. Recall from that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.  Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces. In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied. Since these points are known, the direction of the line-of-action is readily found.  The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression. If the two forces tend to stretch the object we say it is in tension ; if they act the other way and squash the object, it is in compression . The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly. If the analysis shows that the forces are negative then they actually act with the opposite sense, compression.   Two-force members in tension and compression.    CC-BY-SA   A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).     "
 },
 {
-  "id": "p-988",
+  "id": "p-992",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-988",
+  "url": "Chapter_06-structures.html#p-992",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss "
 },
 {
-  "id": "p-989",
+  "id": "p-993",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-989",
+  "url": "Chapter_06-structures.html#p-993",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "frame "
 },
 {
-  "id": "p-990",
+  "id": "p-994",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-990",
+  "url": "Chapter_06-structures.html#p-994",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2116,9 +2116,9 @@ var ptx_lunr_docs = [
   "body": " Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge    "
 },
 {
-  "id": "p-992",
+  "id": "p-996",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-992",
+  "url": "Chapter_06-structures.html#p-996",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2188,27 +2188,27 @@ var ptx_lunr_docs = [
   "body": "  What are simple trusses and how do they differ from other structural systems?  What are the benefits and dangers of simple trusses?  How can we determine the forces acting within simple truss systems?  For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?  How do we identify zero-force members in a truss and use their presence to simplify the analysis?   "
 },
 {
-  "id": "p-1003",
+  "id": "p-1007",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1003",
+  "url": "Chapter_06-trusses.html#p-1007",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss Planar trusses space trusses "
 },
 {
-  "id": "p-1004",
+  "id": "p-1008",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1004",
+  "url": "Chapter_06-trusses.html#p-1008",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "simple truss method of sections method of joints "
 },
 {
-  "id": "p-1005",
+  "id": "p-1009",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1005",
+  "url": "Chapter_06-trusses.html#p-1009",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2296,9 +2296,9 @@ var ptx_lunr_docs = [
   "body": "  What are the important components to include on a free-body diagram of a joint in a truss?  How are the solutions found at one joint used to create an accurate free-body diagram of another joint?  How do we ensure that tension or compression in a member is properly represented?   "
 },
 {
-  "id": "p-1046",
+  "id": "p-1050",
   "level": "2",
-  "url": "method-of-joints.html#p-1046",
+  "url": "method-of-joints.html#p-1050",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2332,9 +2332,9 @@ var ptx_lunr_docs = [
   "body": "  How do we determine an appropriate section to cut through a truss?  How are equilibrium equations applied to a section?   "
 },
 {
-  "id": "p-1063",
+  "id": "p-1067",
   "level": "2",
-  "url": "method-of-sections.html#p-1063",
+  "url": "method-of-sections.html#p-1067",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2368,18 +2368,18 @@ var ptx_lunr_docs = [
   "body": "  How are frames and machines different from trusses?  Why can the method of joints and method of sections not be used for frames and machines?  How do we identify if a structure is independently rigid?  How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?   "
 },
 {
-  "id": "p-1078",
+  "id": "p-1082",
   "level": "2",
-  "url": "frames-and-machines.html#p-1078",
+  "url": "frames-and-machines.html#p-1082",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Frames "
 },
 {
-  "id": "p-1079",
+  "id": "p-1083",
   "level": "2",
-  "url": "frames-and-machines.html#p-1079",
+  "url": "frames-and-machines.html#p-1083",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2575,18 +2575,18 @@ var ptx_lunr_docs = [
   "body": " Weighted Averages  You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is   More formally, if is a set with elements then the average, or mean, value is . This average is also called the arithmetic mean . When calculating an arithmetic mean, each number is equally important when evaluating the average. The overbar symbol is often used to indicate that a quantity is a mean value.  In situations where some values are more important than others, we use a weighted average . A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken. The credit values are called the weighting factors .  In general terms a weighted average is Where are the values we are averaging and are the corresponding weighting factors. The weighting factors may be different for each item being averaged, so is the weighting factor for value . In this book we will not write the limits on the sums, and understand that the intent is always to sum over all the values. Notice that if the weighting factors are all identical, they can be factored out of the sums so the weighted average and the arithmetic mean will be the same.  Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter. All three are points located at the center the object, but the meaning of center depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.   Course Grades   The mechanics syllabus says that there are two exams worth 25% each, homework is 10%, and the final is worth 40%. You have a 40 on the first exam, a 80 on the second exam, and your homework grade is 90.  What do you have to earn on the final exam to get a 70 in the class?    You need a 77.5 on the final to get a 70 for the class.    Your known grades and the weighting factors are   Find final exam score so that your average grade is 70%. .    "
 },
 {
-  "id": "p-1178",
+  "id": "p-1182",
   "level": "2",
-  "url": "weghted-average.html#p-1178",
+  "url": "weghted-average.html#p-1182",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "arithmetic mean "
 },
 {
-  "id": "p-1179",
+  "id": "p-1183",
   "level": "2",
-  "url": "weghted-average.html#p-1179",
+  "url": "weghted-average.html#p-1183",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2611,9 +2611,9 @@ var ptx_lunr_docs = [
   "body": " Center of Gravity  So far in this book we have always taken the weight of an object to act at a point at its center. This is the center of gravity : the point where all of an object’s weight may be concentrated and still have the same external effect on the body. In this chapter we will learn to actually locate this point.    We will indicate the center of gravity with a circle with black and white quadrants, and call its coordinates or . This point represents the average location of all the particles which make up the body.    The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in the center of gravity of the block is at its geometric center meaning that and are positive, but if the block is moved to the left of the axis, or the coordinate system is translated to the right of the block, would then become negative.   Location of the centroid, measured from the origin.   Square shape shown on x-y plane in Quadrant I. x-bar is distance of centroid from y axis, and y-bar is distance of centroid from x-axis.     Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.  Let’s develop this balanced moment idea mathematically.  Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from that statically equivalent systems produce the same external effect on the object the net force on the object, and the net moment about any point don't change. An upward force at this point will support the pencil without tipping.  To be equivalent, the total weight must equal the total weight of the parts. . Common sense also tells us that will act somewhere between and .    (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.      Next, let’s do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point to be the origin, then calculate the total moment about due to the two weights.  The sum of moments around point can be written as:     Notice that the moment of both forces are clockwise around point , so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the center of gravity .  represents the mean distance of the weight, mass, or area depending on the context of the problem. We are evaluating weights in this problem, so represents the distance from to the center of gravity.  The sum of moments around point for the equivalent system can be written as:   The moment of total weight is also clockwise around point , so the sign of moment will also be negative according to the right-hand rule. Since the two representation are equivalent we can equate them and solve for .    This result is exactly in the form of where the value being averaged is distance and the weighting factor is the weight of part and the result is the mean distance .  The pencil was made up of two halves, but this equation can easily be extended discrete parts. The resulting general definition of the centroidal coordinate is: where: is the weight of part , is the coordinate of the center of gravity of element , and is understood to mean sum all parts so there is no need to write .   The numerator is the first moment of force which is literally a moment of force as we defined it in . The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in , we will introduce second moments , which are the integral of some quantity like area, multiplied by a distance squared .  We treated the pencil as a one-dimensional object, so this discussion focused on . There are similar formula for the other dimensions as well .   In words, these equations say   They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object’s center of gravity.    Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?    If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side. The first moment for the entire shape about the axis will sum to zero, meaning that . In other words, the distance from the axis of symmetry of the shape to the centroid is zero.     Simple Center of Gravity    Three boxes are distributed along the axis as shown.       Find the total weight and the distance from the origin to the center of gravity of the three boxes.    How would the center of gravity change if the right-most box weighed instead of ?       a)   b)   The total weight increases by and the center of gravity shifts to the right by . Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.  .        "
 },
 {
-  "id": "p-1187",
+  "id": "p-1191",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1187",
+  "url": "Chapter_07-center-of-gravity.html#p-1191",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2638,9 +2638,9 @@ var ptx_lunr_docs = [
   "body": " (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.     "
 },
 {
-  "id": "p-1208",
+  "id": "p-1212",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1208",
+  "url": "Chapter_07-center-of-gravity.html#p-1212",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2674,18 +2674,18 @@ var ptx_lunr_docs = [
   "body": " Center of Mass  The center of mass is the mean location of the mass of an object, and is related to the center of gravity by Newton’s Second Law because , where is the local strength of the gravitational field. In this course you may take in the SI system, or in the US customary system as reasonable approximations for objects on the surface of the earth.  Substituting in gives the equations for the center of mass. .  By our assumption that is constant on the surface of the earth, can be factored out of the sums and drops out of the equation completely. .  These equations give the coordinates of the center of mass. The numerator contains the first moment of mass , and the denominator contains the total mass of the object. As long as the assumption that is constant is valid, the center of mass and the center of gravity are identical points and the two terms may be used interchangeably.  "
 },
 {
-  "id": "p-1223",
+  "id": "p-1227",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1223",
+  "url": "Chapter_07-center-of-mass.html#p-1227",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "center of mass "
 },
 {
-  "id": "p-1226",
+  "id": "p-1230",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1226",
+  "url": "Chapter_07-center-of-mass.html#p-1230",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2854,9 +2854,9 @@ var ptx_lunr_docs = [
   "body": "  How do you find the centroid of an area using integration?  What is a differential quantity?  Why are double integrals required for square elements and single integrals required for rectangular elements?   "
 },
 {
-  "id": "p-1335",
+  "id": "p-1339",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1335",
+  "url": "centroids-by-integration.html#p-1339",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2881,9 +2881,9 @@ var ptx_lunr_docs = [
   "body": " What is ?  is just an area, but an extremely tiny one!  It’s an example of an differential quantity   also called an infinitesimal . A differential quantity is a value which is as close to zero as it can possibly be without actually being zero. You can think of its value as . Integration is the process of adding up an infinite number of infinitesimal quantities.  Some other differential quantities we will see in statics are , and , which are infinitesimal increments of distance; , which is a differential volume; , a differential weight; , a differential mass, and so on.  Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by then, even though height is a real number, the area is a differential because is differential.  If you like, you can pronounce the as the little bit of so reads The little bit of area is the height times a little bit x. and reads The total area is the sum of the little bits of area.   "
 },
 {
-  "id": "p-1360",
+  "id": "p-1364",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1360",
+  "url": "centroids-by-integration.html#p-1364",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2971,18 +2971,18 @@ var ptx_lunr_docs = [
   "body": "  What is a distributed load?  Given a distributed load, how do we find the magnitude of the equivalent concentrated force?  Given a distributed load, how do we find the location of the equivalent concentrated force?   "
 },
 {
-  "id": "p-1507",
+  "id": "p-1511",
   "level": "2",
-  "url": "distributed-loads.html#p-1507",
+  "url": "distributed-loads.html#p-1511",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Distributed loads "
 },
 {
-  "id": "p-1508",
+  "id": "p-1512",
   "level": "2",
-  "url": "distributed-loads.html#p-1508",
+  "url": "distributed-loads.html#p-1512",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2998,9 +2998,9 @@ var ptx_lunr_docs = [
   "body": "     A shelf of books with various weights.   Shelf of books.       Each book represented as an individual weight   Shelf with books represented by different individual weights.       All the books represented as a distributed load.   All books represented as distributed load      "
 },
 {
-  "id": "p-1509",
+  "id": "p-1513",
   "level": "2",
-  "url": "distributed-loads.html#p-1509",
+  "url": "distributed-loads.html#p-1513",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3016,9 +3016,9 @@ var ptx_lunr_docs = [
   "body": " Bookshelf   A common paperback is about thick and weighs approximately .  What is the loading function for a shelf full of paperbacks and what is the total weight of paperback books on a shelf?         The weight of one paperback over its thickness is the load intensity , so .  The total weight is the area under the load intensity diagram, which in this case is a rectangle. So, a bookshelf covered with paperbacks would have to support .  The line of action of this equivalent load passes through the centroid of the rectangular loading, so it acts at .     "
 },
 {
-  "id": "p-1523",
+  "id": "p-1527",
   "level": "2",
-  "url": "distributed-loads.html#p-1523",
+  "url": "distributed-loads.html#p-1527",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3070,9 +3070,9 @@ var ptx_lunr_docs = [
   "body": "  What is the basic relationship between depth and pressure?  How are absolute and relative pressure different?  How can use our knowledge of centroids to compute the equivalent point forces of fluids?   "
 },
 {
-  "id": "p-1543",
+  "id": "p-1547",
   "level": "2",
-  "url": "Chapter_07-fluid-statics.html#p-1543",
+  "url": "Chapter_07-fluid-statics.html#p-1547",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3160,9 +3160,9 @@ var ptx_lunr_docs = [
   "body": " Internal Forces  In you were introduced to axial loadings, which were either tension or compression, or possibly zero. This section will explain two other internal forces found in two-dimensional systems, the internal  shear and internal  bending moment .  Internal forces are present at every point within a rigid body, but they always occur in equal-and-opposite pairs which cancel each other out, so they’re not obvious. They’re there however, and when an object is cut (in your imagination) into two parts the internal forces become visible and can be determined.  You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end. Now imagine that we cut the member at some point along its length. To maintain equilibrium, forces must exist at the cut, equal and opposite to the external forces. These forces are internal forces.    Internal forces in a straight two-force member.    Now let’s examine the two-force member shown in . This time, the member is L shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding an equal and opposite horizontal force at the cut won't produce static equilibrium because the two forces form a couple which causes the piece to rotate. This means that something is missing!   A horizontal force alone does not create equilibrium.    Dan Baker    L-shaped beam turned 45 degrees with force applied horizontally to each end. If the beam is split on one leg, a horizontal force alone does not result in equilibrium; a moment is necessary.     Two-dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy static equilibrium in order to prevent translation in the direction, the direction, and to prevent rotation about the axis.  Assuming the material is rigid, the connection between the two halves must resist both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction and a couple-moment reaction as shown in the free-body diagrams of . This internal loading is actually a simplification of a more complex loading distributed across the section plane. The couple represents the net rotational effect of the force system on the surface of the cut.   The internal forces are represented as an equal and opposite force and a bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force and moment achieve equilibrium.    The horizontal force can also be resolved into orthogonal components parallel and perpendicular to the cut. These components have special names in the context of internal forces.   The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.     The internal force component perpendicular to the cut is called the normal force . This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the normal force may also be properly called an axial force .  The internal force component parallel to the cut is called the shear force . The word shear refers to the shearing that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.  The internal couple-moment is called the bending moment because it tends to bend the material by rotating the cut surface.  The shear force is often simply referred to as shear, and the bending moment as moment ; together with the normal or axial force the three together are referred to as the internal forces . The symbol is commonly chosen for the shear force, and , or for the normal force and for the bending moment.    Internal Loading in a L shaped member.     Deformation  The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a span, the deflection would need to be less than .   To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal forces that arise from the externally applied loads, using the methods of this chapter.   "
 },
 {
-  "id": "p-1591",
+  "id": "p-1595",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1591",
+  "url": "Chapter_08-internal-forces.html#p-1595",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3205,36 +3205,36 @@ var ptx_lunr_docs = [
   "body": " The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.   "
 },
 {
-  "id": "p-1602",
+  "id": "p-1606",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1602",
+  "url": "Chapter_08-internal-forces.html#p-1606",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "normal force axial force "
 },
 {
-  "id": "p-1603",
+  "id": "p-1607",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1603",
+  "url": "Chapter_08-internal-forces.html#p-1607",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "shear force "
 },
 {
-  "id": "p-1604",
+  "id": "p-1608",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1604",
+  "url": "Chapter_08-internal-forces.html#p-1608",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "bending moment "
 },
 {
-  "id": "p-1605",
+  "id": "p-1609",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1605",
+  "url": "Chapter_08-internal-forces.html#p-1609",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3331,9 +3331,9 @@ var ptx_lunr_docs = [
   "body": " Shear and Bending Moment Diagrams   Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these critical points, we need to check the shear force and bending moment at every point along the beam’s full length.  The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at every point in the object you will need a more powerful approach. This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.    Shear and Bending Moment Diagrams  Shear and moment diagrams are graphs which show the internal shear and bending moment plotted along the length of the beam. They allow us to see where the maximum loads occur so that we can optimize the design to prevent failures and reduce the overall weight and cost of the structure.  Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.  Beams can be supported in a variety of ways as shown in . The common support methods are Simply Supported Supported by a pin on one end and a roller at the other. Cantilevered Fixed at one end, and unsupported at the other. Overhanging One or both ends overhang the supports.     Beam Supports    Simply Supported    Dan Baker    Simply supported beam.     Cantilevered    Dan Baker    Cantilevered beam.     Overhanging    Dan Baker    Overhanging beam.       "
 },
 {
-  "id": "p-1675",
+  "id": "p-1679",
   "level": "2",
-  "url": "VM_diagrams.html#p-1675",
+  "url": "VM_diagrams.html#p-1679",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3412,9 +3412,9 @@ var ptx_lunr_docs = [
   "body": " A free-body diagram of a small section of the beam with a width of     Dan Baker    FBD of the small segment delta x, with shear and bending moments indicated on the \"cut\" surfaces.   "
 },
 {
-  "id": "p-1714",
+  "id": "p-1718",
   "level": "2",
-  "url": "VM_relations.html#p-1714",
+  "url": "VM_relations.html#p-1718",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3529,18 +3529,18 @@ var ptx_lunr_docs = [
   "body": "  Which types of friction do we study in statics, and which are studied elsewhere?  What is a normal force?  What is impending motion ?  How do you decide when you can use the equation and when you can not?  Can you show graphically how friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion?  What is the friction angle ?  Why is a distributed normal force represented as a point force that moves as the normal force shifts?   "
 },
 {
-  "id": "p-1781",
+  "id": "p-1785",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1781",
+  "url": "Chapter_09-dry-friction.html#p-1785",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Coulomb friction "
 },
 {
-  "id": "p-1782",
+  "id": "p-1786",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1782",
+  "url": "Chapter_09-dry-friction.html#p-1786",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3583,9 +3583,9 @@ var ptx_lunr_docs = [
   "body": "    Block on rough surface.     FBD showing normal and friction forces.     "
 },
 {
-  "id": "p-1790",
+  "id": "p-1794",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1790",
+  "url": "Chapter_09-dry-friction.html#p-1794",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3601,27 +3601,27 @@ var ptx_lunr_docs = [
   "body": " Phases of Coulomb friction.   "
 },
 {
-  "id": "p-1791",
+  "id": "p-1795",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1791",
+  "url": "Chapter_09-dry-friction.html#p-1795",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "impending motion "
 },
 {
-  "id": "p-1797",
+  "id": "p-1801",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1797",
+  "url": "Chapter_09-dry-friction.html#p-1801",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "friction resultant "
 },
 {
-  "id": "p-1798",
+  "id": "p-1802",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1798",
+  "url": "Chapter_09-dry-friction.html#p-1802",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3826,18 +3826,18 @@ var ptx_lunr_docs = [
   "body": "  Can you describe how the right-hand rule relates to the motion and rotation of screws?  What is the thread pitch and friction angle for a screw?  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation.  Why does a screw and a nut move in relatively opposite directions?   "
 },
 {
-  "id": "p-1849",
+  "id": "p-1853",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1849",
+  "url": "Chapter_09-screw-friction.html#p-1853",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "lead "
 },
 {
-  "id": "p-1850",
+  "id": "p-1854",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1850",
+  "url": "Chapter_09-screw-friction.html#p-1854",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3871,9 +3871,9 @@ var ptx_lunr_docs = [
   "body": " Screw Thread Handedness    Right Hand Threads    William Haynes    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.     Left Hand Threads     "
 },
 {
-  "id": "p-1857",
+  "id": "p-1861",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1857",
+  "url": "Chapter_09-screw-friction.html#p-1861",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4096,9 +4096,9 @@ var ptx_lunr_docs = [
   "body": " This orbital sander rotates a circular sanding disc against a stationary surface. The disc friction between the sanding disc and the surface exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.   "
 },
 {
-  "id": "p-1951",
+  "id": "p-1955",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#p-1951",
+  "url": "Chapter_09-disc-friction.html#p-1955",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4168,9 +4168,9 @@ var ptx_lunr_docs = [
   "body": "   Why does the area moment of inertia integral equation include a distance squared term?    When performing a single integral, either or , what is your differential element shape?    "
 },
 {
-  "id": "p-1977",
+  "id": "p-1981",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1977",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1981",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4186,36 +4186,36 @@ var ptx_lunr_docs = [
   "body": " Definitions for area properties   "
 },
 {
-  "id": "p-1992",
+  "id": "p-1996",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1992",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1996",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area "
 },
 {
-  "id": "p-1994",
+  "id": "p-1998",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1994",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-1998",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "first moment of area "
 },
 {
-  "id": "p-1997",
+  "id": "p-2001",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1997",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2001",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area moment of inertia "
 },
 {
-  "id": "p-1998",
+  "id": "p-2002",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-1998",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2002",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4231,9 +4231,9 @@ var ptx_lunr_docs = [
   "body": "  These three triangles are all the same size. Rank them from largest to largest smallest moment of inertia with respect to the axis.   Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left.     From smallest to largest: .    Although the areas of all three triangles are the same, triangle has the area on both sides of the axis and relatively close to it, and so has the smallest , while triangle has the most of its area far from the axis which makes its moment of inertia largest. We will be able to show later that the .   "
 },
 {
-  "id": "p-2005",
+  "id": "p-2009",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2005",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2009",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4249,9 +4249,9 @@ var ptx_lunr_docs = [
   "body": " Beam bending  To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.  Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the axis while it’s flat is easy compared to bending it the other way, around the axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way.  The answer has to due with the moment of inertia, and how it relates to the bending axis.       Bending a ruler.    Dan Baker  CC-BY-SA     As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know how much harder ?  For a thick ruler that is tall, the bending resistance about the axis is over 20 times more than the bending resistance the other way, about the axis.  To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius. A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.   Beam of length which is being bent by opposing couple-moments to an arc with angle .    Dan Baker  CC-BY-SA      You will learn in Mechanics of Materials that the relationship is: where: is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material. is the length of the beam, and is the moment of inertia of the cross-section of the beam about the bending axis. is the moment applied to the ends of the beam, and is the curvature of the beam. Since and are in the numerator and is in the denominator, a longer beam is more flexible and larger values of or make the beam stiffer. With those properties fixed, angle is directly proportional to the moment .  The sag, or deflection , of a beam when supporting a load is also related to these factors, and the placement of the load as well. For example, if a beam is loaded with a concentrated force at its center its maximum deflection will occur at the midpoint, with   "
 },
 {
-  "id": "p-2022",
+  "id": "p-2026",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2022",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2026",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4267,9 +4267,9 @@ var ptx_lunr_docs = [
   "body": " Why don't we call the polar moment of inertia ?  The squared distance in the polar moment of inertia formula is the distance from the axis, so it would seem reasonable to name the polar moment to be consistent with and which use distances from the and axes.  Instead engineers use the letter to represent this quantity. Why?   In-plane and out-of-plane rotation of element about the , and axes.    If areas only existed in the - plane, this would be fine, but the real world is three-dimensional, so must be reserved to use with areas in the - or - plane.  As shown in the interactive, the rectangular moment of inertia involves rotating element about out-of-plane around an in-plain axis, and the polar moment involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.  "
 },
 {
-  "id": "p-2029",
+  "id": "p-2033",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2029",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2033",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4573,18 +4573,18 @@ var ptx_lunr_docs = [
   "body": "  Why do we need to quantify the product of inertia for beams?  Why is the product of inertia of a symmetrical cross section zero?   "
 },
 {
-  "id": "p-2277",
+  "id": "p-2281",
   "level": "2",
-  "url": "products-of-inertia.html#p-2277",
+  "url": "products-of-inertia.html#p-2281",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "product of inertia "
 },
 {
-  "id": "p-2279",
+  "id": "p-2283",
   "level": "2",
-  "url": "products-of-inertia.html#p-2279",
+  "url": "products-of-inertia.html#p-2283",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4600,9 +4600,9 @@ var ptx_lunr_docs = [
   "body": " Mass Moment of Inertia  You may recall from physics the relationship . This formula is the rotational analog of Newton's second law . Here, the represents the mass moment of inertia, which is the three-dimensional measure of a rigid body’s resistance to rotation around an axis. Mass moment of inertia plays the same role for angular motion as mass does for linear motion.  Mass moment of inertia is defined by an integral equation identical to , except that the differential area is replaced with a differential element of mass, . The integration is conducted over a three dimensional physical object instead of a two dimensional massless area.  The units of mass moment of inertia are , in contrast to area moment of inertia's units of .  Mass moments of inertia are covered in more detail and used extensively in the study of rigid body kinetics in Engineering Dynamics .  "
 },
 {
-  "id": "p-2281",
+  "id": "p-2285",
   "level": "2",
-  "url": "Chapter_10-mass-moment-of-inertia.html#p-2281",
+  "url": "Chapter_10-mass-moment-of-inertia.html#p-2285",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4654,36 +4654,36 @@ var ptx_lunr_docs = [
   "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors. , and are functions of an angle and their values are unitless ratios of lengths. The inverse trig functions are functions of unitless ratios and their results are angles. The sine of an angle equals the cosine of its complement and vice-versa. The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive. The sine, cosine, and tangent of angles between 0 and 90° are always positive. The inverse trig functions of positive numbers will always yield angles between 0 and 90° The legs of a right triangle are always shorter than the hypotenuse. Only right triangles have a hypotenuse.     Hints  Here are some useful tips for angle calculations Take care that your calculator is set in degrees mode for this course. Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions. Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.    "
 },
 {
-  "id": "p-2315",
+  "id": "p-2319",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2315",
+  "url": "soh-coh-toa.html#p-2319",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "right triangle "
 },
 {
-  "id": "p-2316",
+  "id": "p-2320",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2316",
+  "url": "soh-coh-toa.html#p-2320",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "hypotenuse "
 },
 {
-  "id": "p-2317",
+  "id": "p-2321",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2317",
+  "url": "soh-coh-toa.html#p-2321",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "complementary angles "
 },
 {
-  "id": "p-2318",
+  "id": "p-2322",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2318",
+  "url": "soh-coh-toa.html#p-2322",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4699,18 +4699,18 @@ var ptx_lunr_docs = [
   "body": " Oblique Triangle Trigonometry   An oblique triangle is any triangle which does not contain a right angle. As such, the rules of do not apply!   For an oblique triangle labeled as shown, the relations between the sides and angles are given by the Law of Sines and the Law of Cosines .      Law of Sines     The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.  Take care in the (SSA) situation. This is known as the ambiguous case , and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find it may return the supplement of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.  If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the .    Law of Cosines     The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.  If one of the angles is the Law of Cosines simplifies to the Pythagorean Theorem since .   "
 },
 {
-  "id": "p-2325",
+  "id": "p-2329",
   "level": "2",
-  "url": "los-loc.html#p-2325",
+  "url": "los-loc.html#p-2329",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Law of Sines Law of Cosines "
 },
 {
-  "id": "p-2328",
+  "id": "p-2332",
   "level": "2",
-  "url": "los-loc.html#p-2328",
+  "url": "los-loc.html#p-2332",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
