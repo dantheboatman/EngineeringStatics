@@ -75,15 +75,24 @@ external:
 #  Utilities
 ###############################################
 info:
+	@echo
+#	@echo   PreTeXt files:
+#	@echo  $(PTX) | sed "s/ /\\n/g"
+#	@echo
 	@echo   Project folder---------$(PRJ)
 	@echo   All Source files-------$(SOURCE)
-	@echo   PreTeXt files ---------$(PTX)
 	@echo   Resource Folder------- $(RESOURCES)
 	@echo   BUILD----------------- $(BUILD)
 	@echo   HTMLOUT--------------- $(HTMLOUT)
 	@echo   PDFOUT---------------- $(PDFOUT)
 	@echo   GENERATED------------- $(GENERATED)
 	@echo   EXTERNAL-------------- $(EXTERNAL)
+	@echo   GITHUB---------------- $(GITHUB)
+	@echo   LOCALDIR-------------- $(LOCALDIR)
+	@echo   LOCALURL-------------- $(LOCALURL)
+	@echo   BROWSER----------------$(BROWSER)
+	@echo
+
 #
 clean:
 	-rm -r $(BUILD)
