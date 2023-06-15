@@ -104,10 +104,10 @@ folders:
 #
 #Formats all pretext files consistently
 tidy: $(PTX)
-	@echo  Format the ptx files:
-	for file in  $(PTX) ; do \
-		xmllint --format -o $${file}  $${file}; \
-	done 
+#	@echo  Format the ptx files:
+#	for file in  $(PTX) ; do \
+#		xmllint --format -o $${file}  $${file}; \
+#	done 
 #
 
 	
