@@ -9,12 +9,78 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math"><div class="solution solution-like">
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:48%;"><div class="para">Begin by drawing a neat rectangle to represent the beam disconnected from its supports, then add all the known forces and couple-moments. Label the magnitudes of the loads and the known dimensions symbolically.</div></div>
-<div class="sbspanel top" style="width:48%;"><img src="external/images/Example-Cantilever-FBD.svg" role="img" class="contained"></div>
-</div></div> <div class="para">Choose the standard <span class="process-math">\(xy\)</span> coordinate system, since it aligns well with the forces.</div> <div class="para">The wall at <span class="process-math">\(A\)</span> is a fixed support which prevents the beam from translating up, down, left or right, or rotating in the plane of the page. These constraints are represented by two perpendicular forces and a concentrated moment, as shown in <a href="" class="xref" data-knowl="./knowl/reactions-from-supports-2d.html" title="Figure 5.2.1">Figure 5.2.1</a>. Label these unknowns as well.</div> <div class="para">The knowns in this problem are the magnitudes and directions of moment <span class="process-math">\(\vec{C}\text{,}\)</span> forces <span class="process-math">\(\vec{B}\text{,}\)</span> and <span class="process-math">\(\vec{D} \)</span> and the dimensions of the beam. The unknowns are the two force components <span class="process-math">\(A_x\)</span> and <span class="process-math">\(A_y\)</span> and the scalar moment <span class="process-math">\(M_A\)</span> caused by the fixed connection. If you prefer, you may represent force <span class="process-math">\(\vec{A}\)</span> as a force of unknown magnitude acting at an unknown direction. Whether you represent it as <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components or as a magnitude and direction, there are two unknowns associated with force <span class="process-math">\(\vec{A}\text{.}\)</span>
-</div> <div class="para">The three unknown reactions can be found using the three independent equations of equilibrium we will discuss later in this chapter.</div>
+<div class="para logical">
+<div class="para">In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces <span class="process-math">\(\vec{A}\text{,}\)</span> <span class="process-math">\(\vec{B}\text{,}\)</span> and <span class="process-math">\(\vec{C}\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+W = m g = \kg{20}\ \aSI{9.81} = \N{196.2}
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the component’s unit vectors and determining the angles each makes with the coordinate axis.</div>
+<div class="displaymath process-math">
+\begin{align*}
+\hat{\vec{W}} \amp = \langle 0, -1, 0 \rangle \\
+\hat{\vec{A}} \amp = \langle \cos \ang{35}, \cos{55} , 0 \rangle\\
+\hat{\vec{B}} \amp = \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75} , -\cos \ang{15} \cos \ang{60} \rangle\\
+\hat{\vec{C}} \amp = \langle 0, \cos{70} , \cos \ang{20} \rangle
+\end{align*}
+</div>
+</div> <div class="para logical">
+<div class="para">Particle equilibrium requires that <span class="process-math">\(\sum \vec{F} = 0\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A\ \hat{\vec{A}} + B\ \hat{\vec{B}} + C\ \hat{\vec{C}} = - W\ \hat{\vec{W}}
+\end{equation*}
+</div>
+<div class="para">This is a 3 <span class="process-math">\(\times\)</span> 3 system of three simultaneous equations, one for each coordinate direction, which needs to be solved for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\text{,}\)</span> and <span class="process-math">\(C\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{align*}
+A \cos \ang{35} - B \cos \ang{15} \cos \ang{30} + 0 \amp = 0 \amp \amp \amp (\Sigma F_x \amp= 0)\\
+A \cos \ang{55} + B \cos \ang{75} + C \cos \ang{70} \amp = \N{196.2} \amp \amp \amp (\Sigma F_y \amp= 0)\\
+0 - \cos \ang{15} \cos \ang{60} + C \cos \ang{20} \amp = 0 \amp \amp \amp (\Sigma F_z \amp= 0)
+\end{align*}
+</div>
+</div> <div class="para logical">
+<div class="para">These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{bmatrix} 0.819 \amp -0.837 \amp 0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix} \begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} 
+\end{equation*}
+</div>
+<div class="para">.</div>
+</div> <div class="para logical">
+<div class="para">This is an equation in the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+[A][x] =[B]
+\end{equation*}
+</div>
+<div class="para">. Entering the coefficient matrices into Sage.</div>
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-2"><script type="text/x-sage">A = Matrix([[0.819,-0.837,0],[0.574,0.259, 0.342],[0,-0.482,0.940]])
+B = vector([0, 196.2, 0]) 
+x = A.solve_right(B)
+x
+</script></pre> <div class="para logical">
+<div class="para">After evaluating, we learn that</div>
+<div class="displaymath process-math">
+\begin{align*}
+A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}
+\end{align*}
+</div>
+<div class="para">.</div>
+</div>
 </div></body>
 </html>
