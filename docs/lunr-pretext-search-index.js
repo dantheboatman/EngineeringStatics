@@ -385,7 +385,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.2",
   "title": "One-Dimensional Vectors",
-  "body": " One-Dimensional Vectors    Given two one-dimensional vectors, how do you compute and then draw the resultant?  What happens when you multiply a vector by a scalar?     The simplest vector calculations involve one-dimensional vectors. You can learn some important terminology here without much mathematical difficulty. In one-dimensional situations, all vectors share the same line of action, but may point towards either end. If the line of action has a positive end like a coordinate axis does, then a vector pointing towards that end will have a positive scalar component.    Vector Addition  Adding multiple vectors together finds the resultant vector. Resultant vectors can be thought of as the sum of or combination of two or more vectors.  To find the resultant vector of two one-dimensional vectors and you can use the tip-to-tail technique in below. In the tip-to-tail technique, you slide vector until its tail is at the tip of , and the vector from the tail of to the tip of is the resultant . Note that the resultant is the same when you add onto , so the order of vector addition does not matter and is considered commutative.     One Dimensional Vector Addition       Vector Subtraction  The easiest way to handle vector subtraction is to add the negative of the vector you are subtracting to the other vector. In this way, you can still use the tip-to-tail technique after flipping the vector you are subtracting.    Vector subtraction   Find where and .    .    You can simulate this in . Set to a value of and to a value of , the negative of its actual value. Move the vectors until they are tip-to-tail. The order does not matter because vector addition is commutative.   .      Vector Multiplication by a Scalar  Multiplying or dividing a vector by a scalar changes the vector’s magnitude but maintains its original line of action. One common transformation is to find the negative of a vector. To find the negative of vector , we multiply it by -1; in equation form   Spatially, the effect of negating a vector this way is to rotate it by 180°. The magnitude, line of action, and orientation stay the same, but the sense reverses so now the arrowhead points in the opposite direction.   "
+  "body": " One-Dimensional Vectors    Given two one-dimensional vectors, how do you compute and then draw the resultant?  What happens when you multiply a vector by a scalar?     The simplest vector calculations involve one-dimensional vectors. You can learn some important terminology here without much mathematical difficulty. In one-dimensional situations, all vectors share the same line of action, but may point towards either end. If the line of action has a positive end like a coordinate axis does, then a vector pointing towards that end will have a positive scalar component.    Vector Addition  Adding multiple vectors together finds the resultant vector. Resultant vectors can be thought of as the sum of or combination of two or more vectors.  To find the resultant vector of two one-dimensional vectors and you can use the tip-to-tail technique in below. In the tip-to-tail technique, you slide vector until its tail is at the tip of , and the vector from the tail of to the tip of is the resultant . Note that the resultant is the same when you add onto , so the order of vector addition does not matter and is considered commutative.     One Dimensional Vector Addition       Vector Subtraction  The easiest way to handle vector subtraction is to add the negative of the vector you are subtracting to the other vector. In this way, you can still use the tip-to-tail technique after flipping the vector you are subtracting.    Vector subtraction   Find where and .     .    You can simulate this in .  Set to a value of and to a value of , the negative of its actual value.  Move the vectors until they are tip-to-tail. The order does not matter because vector addition is commutative.     .      Vector Multiplication by a Scalar  Multiplying or dividing a vector by a scalar changes the vector’s magnitude but maintains its original line of action. One common transformation is to find the negative of a vector. To find the negative of vector , we multiply it by -1; in equation form   Spatially, the effect of negating a vector this way is to rotate it by 180°. The magnitude, line of action, and orientation stay the same, but the sense reverses so now the arrowhead points in the opposite direction.   "
 },
 {
   "id": "objectives-6",
@@ -421,7 +421,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.2.2",
   "title": "Vector subtraction.",
-  "body": " Vector subtraction   Find where and .    .    You can simulate this in . Set to a value of and to a value of , the negative of its actual value. Move the vectors until they are tip-to-tail. The order does not matter because vector addition is commutative.   .   "
+  "body": " Vector subtraction   Find where and .     .    You can simulate this in .  Set to a value of and to a value of , the negative of its actual value.  Move the vectors until they are tip-to-tail. The order does not matter because vector addition is commutative.     .   "
 },
 {
   "id": "cartesian-coords-2d",
@@ -547,7 +547,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.4",
   "title": "3D Coordinate Systems &amp; Vectors",
-  "body": " 3D Coordinate Systems & Vectors    What is a right-hand Cartesian coordinate system?  What are direction cosine angles and why are they always less than 180°?  How are spherical coordinates different than cylindrical coordinates?     In this section we will discuss four methods to specify points and vectors in three-dimensional space.  The most commonly used method is an extension of two-dimensional rectangular coordinates to three-dimensions. Alternately, points and vectors in three dimensions can be specified in terms of direction cosines , or using spherical or cylindrical coordinate systems. These will be discussed in the following sections.  You will often need to convert from one representation to another. Good visualization skills are helpful here.    Rectangular Coordinates  We can extend the two-dimensional Cartesian coordinate system into three dimensions easily by adding a axis perpendicular to the two-dimensional Cartesian plane. The notation is similar to the notation used for two-dimensional vectors. Points and forces are expressed as ordered triples of rectangular coordinates following the same notation used previously.     For nearly all three-dimensional problems, you will need the rectangular , , and locations of points in space and components of vectors before proceeding with the computations. If you are given the components upfront, then you are set to move forward, but otherwise, you will need to transform one coordinate system into rectangular coordinates.    Three-Dimensional Rectangular Coordinates      Right Handed Coordinate Systems  Does it matter which way the axes are oriented? Is it OK to make the axis point left or the axis point down?     In one sense, it doesn't matter at all. The positive directions of the coordinate axes are arbitrary. On the other hand, it’s convenient for everyone if we can agree on a standard orientation. In mathematics and engineering, the default is a right-handed coordinate system , where the coordinate axes are oriented according to the right hand rule shown in the figure.  To apply the right-hand rule, orient your thumb and first two fingers at right angles to each other and align them with three coordinate axes. Starting with your thumb, name your the axes in alphabetical order - - .    Right-handed coordinate system.      CC-BY-SA-3.0   The image depicts three right-angled triangles. The vector is the hypotenuse and the adjacent sides are the, x, y, and z rectangular components. The rectangular components have corresponding coordinate direction angles (theta_x, theta_y, and theta_z).     These are the labels for the three axes and your fingers point in their positive directions. If it is more convenient, you may name your thumb or , as long as you name the other two fingers in the same sequence - - or - - .     Direction Cosine Angles  The direction of a vector in two-dimensional systems could be expressed clearly with a single angle measured from a reference axis, but adding an additional dimension means that one angle is no longer enough.  One way to define the direction of a three-dimensional vector is by using direction cosine angles , also commonly known as coordinate direction angles . The direction cosine angles are the angles between the positive , , and axes to a given vector and are traditionally named , , and . Three-dimensional vectors, components, and angles are often difficult to visualize because they do not commonly lie in the Cartesian planes.    Direction Cosine Angles     We can relate the components of a vector to its direction cosine angles using the following equations.   Note the component in the numerator of each direction cosine equation is positive or negative as defined by the coordinate system, and the vector magnitude in the denominator is always positive. From these equations, we can conclude that: Direction cosines are signed value between -1 and 1. Direction cosine angles must always be between and or  Any direction cosine angle greater than indicates a negative component along that respective axis. Spatially this is because all direction cosine angles are measured from the positive side of each axis. Mathematically this is because the cosine of any angle between 90 and 180 degrees is numerically negative.    Direction Cosine Angles     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the magnitude of force vector and the direction cosine angles, , , and . components.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .     Direction cosine angles are equal to the inverse cosine of each Cartesian force component divided by the force magnitude.    In summary, all direction cosine angles are measured from the positive , , and axes. Hence, given the negative component of , the direction cosine angle , while both and are less than as their components are positive.   Direction cosine angles for measured from the postive axes.         Spherical Coordinates  In spherical coordinates, points are specified with these three coordinates , the distance from the origin to the tip of the vector, , the angle, measured counter-clockwise from the positive axis to the projection of the vector onto the plane, and , the polar angle from the axis to the vector.     Spherical Coordinate System       What are the differences between polar coordinates and terrestrial latitude\/longitude locations?    In terrestrial measurements Coordinate is not needed since all points are on the surface of the globe. Longitude is measured to East or West of the prime meridian, rather than to counter-clockwise from the axis. Latitude is measured to North or South of the equator, whereas polar angle is to measured from the North Pole .     When vectors are specified using cylindrical coordinates the magnitude of the vector is used instead of distance from the origin to the point.  When the two given spherical angles are defined in the manner shown here, the rectangular components of the vector are found thus:   Reflect on the equations above. Can you think through the process of how they were derived? The generalized steps are as follows. First, draw an accurate sketch of the given information and define the right triangles related to both and . Then use trig identities on the right triangle involving the vector, the axis and angle to find , and , the projection of onto the plane. Finally, use trig identities on the right triangle involving vector and to find the remaining components of .   Spherical Coordinates     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the spherical coordinates of force vector where is measured in the plane from the axis and is measured from the axis.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The next component, the angle , measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .   Right triangle to find the angle theta θ in the xy plane.       Finally, the last component, the angle , is measured down from the axis to the vector . Using a right triangle between and the axis, we find using the inverse cosine of the adjacent side, , divided by the hypotenuse . Recognize that is the same angle as the direction cosine angle .   Right triangle to find the angle phi φ in between the +z axis and the vector F.       In summary, the three spherical components of are the magnitude of and the angles and . Notice that the sperical angle is smaller than the direction cosine angle , as is only in the plane, but is a 3D angle from the axis up to the vector .   Spherical components for vector F.         Cylindrical Coordinates  The cylindrical coordinate system is seldom used in statics, however, it is useful in certain geometries. Cylindrical coordinates extend two-dimensional polar coordinates by adding a coordinate indicating the distance above or below the plane.  Points are specified with these three cylindrical coordinates. , the distance from the origin to the projection of the tip of the vector onto the plane, , the angle, measured counter-clockwise from the positive axis to the projection of the vector onto the plane , the vertical height of the vector tip.     Cylindrical Coordinate System     Unfortunately, not all problems give the angles and as defined here; so you will need to find them from the given angles in other situations.  You can use the interactive diagram in this section to practice visualizing and finding the components of a vector from a given magnitude and polar angles and . You should be able to find the , , and coordinates given direction angles or spherical coordinates, and vice-versa.   Cylindrical Coordinates     A cable force pulls on an anchor ring centered on the x, y, and z-axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the cylindrical coordinates of force vector where is measured from the x axis and the height component, , is measured up from the plane.         You'll notice that the spherical and cylindrical coordinates only vary by one component. The spherical system measures height with an angle, whereas the cylindrical system measures height in the units of the vector, in this case, pounds-force .  Again, the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The angle , is the same as in spherical and measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .   Right triangle to find the angle theta θ in the xy plane.      Finally, the height is measured from the plane to the tip of vector and thus is the vertical force component .    In summary, the three cylindrical components of are the magnitude of , the angle , and the height .   Spherical components for .       "
+  "body": " 3D Coordinate Systems & Vectors    What is a right-hand Cartesian coordinate system?  What are direction cosine angles and why are they always less than 180°?  How are spherical coordinates different than cylindrical coordinates?     In this section we will discuss four methods to specify points and vectors in three-dimensional space.  The most commonly used method is an extension of two-dimensional rectangular coordinates to three-dimensions. Alternately, points and vectors in three dimensions can be specified in terms of direction cosines , or using spherical or cylindrical coordinate systems. These will be discussed in the following sections.  You will often need to convert from one representation to another. Good visualization skills are helpful here.    Rectangular Coordinates  We can extend the two-dimensional Cartesian coordinate system into three dimensions easily by adding a axis perpendicular to the two-dimensional Cartesian plane. The notation is similar to the notation used for two-dimensional vectors. Points and forces are expressed as ordered triples of rectangular coordinates following the same notation used previously.     For nearly all three-dimensional problems, you will need the rectangular , , and locations of points in space and components of vectors before proceeding with the computations. If you are given the components upfront, then you are set to move forward, but otherwise, you will need to transform one coordinate system into rectangular coordinates.    Three-Dimensional Rectangular Coordinates      Right Handed Coordinate Systems  Does it matter which way the axes are oriented? Is it OK to make the axis point left or the axis point down?     In one sense, it doesn't matter at all. The positive directions of the coordinate axes are arbitrary. On the other hand, it’s convenient for everyone if we can agree on a standard orientation. In mathematics and engineering, the default is a right-handed coordinate system , where the coordinate axes are oriented according to the right hand rule shown in the figure.  To apply the right-hand rule, orient your thumb and first two fingers at right angles to each other and align them with three coordinate axes. Starting with your thumb, name your the axes in alphabetical order - - .    Right-handed coordinate system.      CC-BY-SA-3.0   The image depicts three right-angled triangles. The vector is the hypotenuse and the adjacent sides are the, x, y, and z rectangular components. The rectangular components have corresponding coordinate direction angles (theta_x, theta_y, and theta_z).     These are the labels for the three axes and your fingers point in their positive directions. If it is more convenient, you may name your thumb or , as long as you name the other two fingers in the same sequence - - or - - .     Direction Cosine Angles  The direction of a vector in two-dimensional systems could be expressed clearly with a single angle measured from a reference axis, but adding an additional dimension means that one angle is no longer enough.  One way to define the direction of a three-dimensional vector is by using direction cosine angles , also commonly known as coordinate direction angles . The direction cosine angles are the angles between the positive , , and axes to a given vector and are traditionally named , , and . Three-dimensional vectors, components, and angles are often difficult to visualize because they do not commonly lie in the Cartesian planes.    Direction Cosine Angles     We can relate the components of a vector to its direction cosine angles using the following equations.   Note the component in the numerator of each direction cosine equation is positive or negative as defined by the coordinate system, and the vector magnitude in the denominator is always positive. From these equations, we can conclude that:  Direction cosines are signed value between -1 and 1.  Direction cosine angles must always be between and or   Any direction cosine angle greater than indicates a negative component along that respective axis. Spatially this is because all direction cosine angles are measured from the positive side of each axis. Mathematically this is because the cosine of any angle between 90 and 180 degrees is numerically negative.     Direction Cosine Angles     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the magnitude of force vector and the direction cosine angles, , , and . components.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .     Direction cosine angles are equal to the inverse cosine of each Cartesian force component divided by the force magnitude.    In summary, all direction cosine angles are measured from the positive , , and axes. Hence, given the negative component of , the direction cosine angle , while both and are less than as their components are positive.    Direction cosine angles for measured from the postive axes.         Spherical Coordinates  In spherical coordinates, points are specified with these three coordinates  , the distance from the origin to the tip of the vector,  , the angle, measured counter-clockwise from the positive axis to the projection of the vector onto the plane, and  , the polar angle from the axis to the vector.      Spherical Coordinate System       What are the differences between polar coordinates and terrestrial latitude\/longitude locations?    In terrestrial measurements  Coordinate is not needed since all points are on the surface of the globe.  Longitude is measured to East or West of the prime meridian, rather than to counter-clockwise from the axis.  Latitude is measured to North or South of the equator, whereas polar angle is to measured from the North Pole .      When vectors are specified using cylindrical coordinates the magnitude of the vector is used instead of distance from the origin to the point.  When the two given spherical angles are defined in the manner shown here, the rectangular components of the vector are found thus:   Reflect on the equations above. Can you think through the process of how they were derived? The generalized steps are as follows. First, draw an accurate sketch of the given information and define the right triangles related to both and . Then use trig identities on the right triangle involving the vector, the axis and angle to find , and , the projection of onto the plane. Finally, use trig identities on the right triangle involving vector and to find the remaining components of .   Spherical Coordinates     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the spherical coordinates of force vector where is measured in the plane from the axis and is measured from the axis.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The next component, the angle , measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .    Right triangle to find the angle theta θ in the xy plane.         Finally, the last component, the angle , is measured down from the axis to the vector . Using a right triangle between and the axis, we find using the inverse cosine of the adjacent side, , divided by the hypotenuse . Recognize that is the same angle as the direction cosine angle .    Right triangle to find the angle phi φ in between the +z axis and the vector F.         In summary, the three spherical components of are the magnitude of and the angles and . Notice that the sperical angle is smaller than the direction cosine angle , as is only in the plane, but is a 3D angle from the axis up to the vector .    Spherical components for vector F.         Cylindrical Coordinates  The cylindrical coordinate system is seldom used in statics, however, it is useful in certain geometries. Cylindrical coordinates extend two-dimensional polar coordinates by adding a coordinate indicating the distance above or below the plane.  Points are specified with these three cylindrical coordinates.  , the distance from the origin to the projection of the tip of the vector onto the plane,  , the angle, measured counter-clockwise from the positive axis to the projection of the vector onto the plane  , the vertical height of the vector tip.      Cylindrical Coordinate System     Unfortunately, not all problems give the angles and as defined here; so you will need to find them from the given angles in other situations.  You can use the interactive diagram in this section to practice visualizing and finding the components of a vector from a given magnitude and polar angles and . You should be able to find the , , and coordinates given direction angles or spherical coordinates, and vice-versa.   Cylindrical Coordinates     A cable force pulls on an anchor ring centered on the x, y, and z-axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the cylindrical coordinates of force vector where is measured from the x axis and the height component, , is measured up from the plane.         You'll notice that the spherical and cylindrical coordinates only vary by one component. The spherical system measures height with an angle, whereas the cylindrical system measures height in the units of the vector, in this case, pounds-force .  Again, the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The angle , is the same as in spherical and measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .    Right triangle to find the angle theta θ in the xy plane.        Finally, the height is measured from the plane to the tip of vector and thus is the vertical force component .    In summary, the three cylindrical components of are the magnitude of , the angle , and the height .    Spherical components for .        "
 },
 {
   "id": "objectives-8",
@@ -610,7 +610,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.4.5",
   "title": "Direction Cosine Angles.",
-  "body": " Direction Cosine Angles     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the magnitude of force vector and the direction cosine angles, , , and . components.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .     Direction cosine angles are equal to the inverse cosine of each Cartesian force component divided by the force magnitude.    In summary, all direction cosine angles are measured from the positive , , and axes. Hence, given the negative component of , the direction cosine angle , while both and are less than as their components are positive.   Direction cosine angles for measured from the postive axes.      "
+  "body": " Direction Cosine Angles     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the magnitude of force vector and the direction cosine angles, , , and . components.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .     Direction cosine angles are equal to the inverse cosine of each Cartesian force component divided by the force magnitude.    In summary, all direction cosine angles are measured from the positive , , and axes. Hence, given the negative component of , the direction cosine angle , while both and are less than as their components are positive.    Direction cosine angles for measured from the postive axes.      "
 },
 {
   "id": "figure-19",
@@ -628,7 +628,7 @@ var ptx_lunr_docs = [
   "type": "Question",
   "number": "2.4.7",
   "title": "",
-  "body": "  What are the differences between polar coordinates and terrestrial latitude\/longitude locations?    In terrestrial measurements Coordinate is not needed since all points are on the surface of the globe. Longitude is measured to East or West of the prime meridian, rather than to counter-clockwise from the axis. Latitude is measured to North or South of the equator, whereas polar angle is to measured from the North Pole .    "
+  "body": "  What are the differences between polar coordinates and terrestrial latitude\/longitude locations?    In terrestrial measurements  Coordinate is not needed since all points are on the surface of the globe.  Longitude is measured to East or West of the prime meridian, rather than to counter-clockwise from the axis.  Latitude is measured to North or South of the equator, whereas polar angle is to measured from the North Pole .     "
 },
 {
   "id": "Chapter_02-3d-components-spherical",
@@ -637,7 +637,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.4.8",
   "title": "Spherical Coordinates.",
-  "body": " Spherical Coordinates     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the spherical coordinates of force vector where is measured in the plane from the axis and is measured from the axis.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The next component, the angle , measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .   Right triangle to find the angle theta θ in the xy plane.       Finally, the last component, the angle , is measured down from the axis to the vector . Using a right triangle between and the axis, we find using the inverse cosine of the adjacent side, , divided by the hypotenuse . Recognize that is the same angle as the direction cosine angle .   Right triangle to find the angle phi φ in between the +z axis and the vector F.       In summary, the three spherical components of are the magnitude of and the angles and . Notice that the sperical angle is smaller than the direction cosine angle , as is only in the plane, but is a 3D angle from the axis up to the vector .   Spherical components for vector F.      "
+  "body": " Spherical Coordinates     A cable force pulls on an anchor ring centered on , , axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the spherical coordinates of force vector where is measured in the plane from the axis and is measured from the axis.         As the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The next component, the angle , measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .    Right triangle to find the angle theta θ in the xy plane.         Finally, the last component, the angle , is measured down from the axis to the vector . Using a right triangle between and the axis, we find using the inverse cosine of the adjacent side, , divided by the hypotenuse . Recognize that is the same angle as the direction cosine angle .    Right triangle to find the angle phi φ in between the +z axis and the vector F.         In summary, the three spherical components of are the magnitude of and the angles and . Notice that the sperical angle is smaller than the direction cosine angle , as is only in the plane, but is a 3D angle from the axis up to the vector .    Spherical components for vector F.      "
 },
 {
   "id": "figure-20",
@@ -655,7 +655,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.4.10",
   "title": "Cylindrical Coordinates.",
-  "body": " Cylindrical Coordinates     A cable force pulls on an anchor ring centered on the x, y, and z-axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the cylindrical coordinates of force vector where is measured from the x axis and the height component, , is measured up from the plane.         You'll notice that the spherical and cylindrical coordinates only vary by one component. The spherical system measures height with an angle, whereas the cylindrical system measures height in the units of the vector, in this case, pounds-force .  Again, the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The angle , is the same as in spherical and measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .   Right triangle to find the angle theta θ in the xy plane.      Finally, the height is measured from the plane to the tip of vector and thus is the vertical force component .    In summary, the three cylindrical components of are the magnitude of , the angle , and the height .   Spherical components for .     "
+  "body": " Cylindrical Coordinates     A cable force pulls on an anchor ring centered on the x, y, and z-axis origin.   A rope pulls on an anchor ring with the Cartesian components , where represents a force in the units of pounds-force .   Find the cylindrical coordinates of force vector where is measured from the x axis and the height component, , is measured up from the plane.         You'll notice that the spherical and cylindrical coordinates only vary by one component. The spherical system measures height with an angle, whereas the cylindrical system measures height in the units of the vector, in this case, pounds-force .  Again, the three components of are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of .      The angle , is the same as in spherical and measures the angle between the axis and the projection of onto the plane. Using a right triangle of the projection of into the plane, we find using the inverse tangent of the side opposite , , divided by adjacent side, .    Right triangle to find the angle theta θ in the xy plane.        Finally, the height is measured from the plane to the tip of vector and thus is the vertical force component .    In summary, the three cylindrical components of are the magnitude of , the angle , and the height .    Spherical components for .      "
 },
 {
   "id": "Chapter_02-unit-vectors",
@@ -664,7 +664,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.5",
   "title": "Unit Vectors",
-  "body": "  Unit Vectors    Why are unit vectors useful?  What are the unit vectors along the Cartesian x, y, and z axes?  How do you find the force vector components of known force magnitude along a geometric line?  How can you find unit vector components from direction cosine angles?     A unit vector is a vector with a magnitude of one and no units. As such, a unit vector represents a pure direction. By convention, a unit vector is indicated by a hat over a vector symbol. This may sound like a new concept, but it’s a simple one, directly related to the unit circle, the Pythagorean Theorem, and the definitions of sine and cosine.    Cartesian Unit Vectors  A unit vector can point in any direction, but because they occur so frequently the unit vectors in each of the three Cartesian coordinate directions are given their own symbols, which are: , for the unit vector pointing in the direction, , for the unit vector pointing in the direction, and , for the unit vector pointing in the direction..     Unit Vector Interactive     Applying the Pythagorean Theorem to the triangle gives the equation for a unit circle     No matter what angle a unit vector makes with the axis, and are its scalar components. This relation assumes that the angle is measured from the axis, if it is measured from the axis the sine and cosine functions reverse, with defining the horizontal component and the defining the vertical component.  The and components of a point on the unit circle are also the scalar components of , so .    Relation between Vectors and Unit Vectors  When a purely-directional unit vector is multiplied by a scalar value it is scaled by that amount. For example, when a unit vector pointing to the right is multiplied by the result is a vector pointing to the right. When a unit vector pointing up is multiplied by , the negative magnitude flips the direction of the unit vector and the result is a vector pointing down.  In general, , where is the magnitude of vector , and is the unit vector pointing in the direction of .  Solving equation for gives the approach to find the unit vector of known vector .  The process is straightforward divide the vector by its magnitude.  To emphasize that unit vectors are pure direction, recall that vectors consist of both a magnitude and direction, so when we divide a vector by its own magnitude we are just left with direction.     This interactive shows vector , its associated unit vector , and expressions for in terms of its unit vector .    Unit Vectors     Find unit vector of a force   Find the unit vector corresponding to a force at 60° above the positive -axis.         In polar coordinates, the unit vector is a vector of magnitude 1, pointing in the same direction as the force, so, by inspection   In rectangular coordinates, first express in terms of its and components.   Solve equation for        Force Vectors from Position Vectors  Unit vectors are generally the best approach when working with forces and distances in three dimensions.  For example, when the locations of two points on the line of action of a force are known, the unit vector of the line of action can be found and used to determine the components of a force acting along that line. This can be accomplished as follows, where and are points on the line of action.  Use the problem geometry to find , the displacement vector from point to point , then either subtract the coordinates of the starting point from the coordinates of the destination point to find the vector  or, write the displacements directly by noting the change in each coordinate direction when moving from to . The result is the same with either method.   Find the distance between point and point using the Pythagorean Theorem. This distance is also the magnitude of or .    Find , the unit vector from to , by dividing vector by its magnitude. This is a unitless vector with a magnitude of 1 which points from to .  Finally, multiply the magnitude of the force by the unit vector to get force    The interactive below can be used to visualize the displacement vector and its unit vector, and practice this procedure.   Unit Vectors in Space     Component in a Specified Direction   Determine the components of a force acting at point , in the direction of a line from to . Given: and   We will take the solution one step at a time.    Draw a good diagram.   The interactive in may be useful for this problem.    Find the displacement vector from to .            Find the magnitude of the displacement vector.            Find the unit vector pointing from to .            Find the force vector.            Given the properties of unit vectors, there are some conceptual checks you can make after computing unit vector components which can prevent subsequent errors. The signs of unit vector components need to match the signs of the original position vector. A unit vector has the same line of action and sense as the position vector but is scaled down to one unit in magnitude. Components of a unit vector must be between -1 and 1. If the magnitude of a unit vector is one, then it is impossible for it to have rectangular components larger than one.     Unit Vectors and Direction Cosines  If you look closely at the right side of equation , you will see that each equation consists of a component divided by the total vector magnitude. These are the same equations just used to find unit vectors. Thus, the cosine of each direction cosine angle collectively also computes the components of the unit vector; hence we can write an equation for , , the unit vector along .   Combining the Pythagorean Theorem with our knowledge of unit vectors and direction cosine angles gives this result: if you know two of the three direction cosine angles you can manipulate the following equation to find the third.    "
+  "body": "  Unit Vectors    Why are unit vectors useful?  What are the unit vectors along the Cartesian x, y, and z axes?  How do you find the force vector components of known force magnitude along a geometric line?  How can you find unit vector components from direction cosine angles?     A unit vector is a vector with a magnitude of one and no units. As such, a unit vector represents a pure direction. By convention, a unit vector is indicated by a hat over a vector symbol. This may sound like a new concept, but it’s a simple one, directly related to the unit circle, the Pythagorean Theorem, and the definitions of sine and cosine.    Cartesian Unit Vectors  A unit vector can point in any direction, but because they occur so frequently the unit vectors in each of the three Cartesian coordinate directions are given their own symbols, which are:  , for the unit vector pointing in the direction,  , for the unit vector pointing in the direction, and  , for the unit vector pointing in the direction..      Unit Vector Interactive     Applying the Pythagorean Theorem to the triangle gives the equation for a unit circle     No matter what angle a unit vector makes with the axis, and are its scalar components. This relation assumes that the angle is measured from the axis, if it is measured from the axis the sine and cosine functions reverse, with defining the horizontal component and the defining the vertical component.  The and components of a point on the unit circle are also the scalar components of , so .    Relation between Vectors and Unit Vectors  When a purely-directional unit vector is multiplied by a scalar value it is scaled by that amount. For example, when a unit vector pointing to the right is multiplied by the result is a vector pointing to the right. When a unit vector pointing up is multiplied by , the negative magnitude flips the direction of the unit vector and the result is a vector pointing down.  In general, , where is the magnitude of vector , and is the unit vector pointing in the direction of .  Solving equation for gives the approach to find the unit vector of known vector .  The process is straightforward divide the vector by its magnitude.   To emphasize that unit vectors are pure direction, recall that vectors consist of both a magnitude and direction, so when we divide a vector by its own magnitude we are just left with direction.     This interactive shows vector , its associated unit vector , and expressions for in terms of its unit vector .    Unit Vectors     Find unit vector of a force   Find the unit vector corresponding to a force at 60° above the positive -axis.         In polar coordinates, the unit vector is a vector of magnitude 1, pointing in the same direction as the force, so, by inspection   In rectangular coordinates, first express in terms of its and components.   Solve equation for        Force Vectors from Position Vectors  Unit vectors are generally the best approach when working with forces and distances in three dimensions.  For example, when the locations of two points on the line of action of a force are known, the unit vector of the line of action can be found and used to determine the components of a force acting along that line. This can be accomplished as follows, where and are points on the line of action.  Use the problem geometry to find , the displacement vector from point to point , then either subtract the coordinates of the starting point from the coordinates of the destination point to find the vector  or, write the displacements directly by noting the change in each coordinate direction when moving from to . The result is the same with either method.   Find the distance between point and point using the Pythagorean Theorem. This distance is also the magnitude of or .    Find , the unit vector from to , by dividing vector by its magnitude. This is a unitless vector with a magnitude of 1 which points from to .    Finally, multiply the magnitude of the force by the unit vector to get force       The interactive below can be used to visualize the displacement vector and its unit vector, and practice this procedure.   Unit Vectors in Space     Component in a Specified Direction   Determine the components of a force acting at point , in the direction of a line from to . Given: and   We will take the solution one step at a time.    Draw a good diagram.   The interactive in may be useful for this problem.    Find the displacement vector from to .            Find the magnitude of the displacement vector.            Find the unit vector pointing from to .            Find the force vector.            Given the properties of unit vectors, there are some conceptual checks you can make after computing unit vector components which can prevent subsequent errors.  The signs of unit vector components need to match the signs of the original position vector. A unit vector has the same line of action and sense as the position vector but is scaled down to one unit in magnitude.  Components of a unit vector must be between -1 and 1. If the magnitude of a unit vector is one, then it is impossible for it to have rectangular components larger than one.      Unit Vectors and Direction Cosines  If you look closely at the right side of equation , you will see that each equation consists of a component divided by the total vector magnitude. These are the same equations just used to find unit vectors. Thus, the cosine of each direction cosine angle collectively also computes the components of the unit vector; hence we can write an equation for , , the unit vector along .   Combining the Pythagorean Theorem with our knowledge of unit vectors and direction cosine angles gives this result: if you know two of the three direction cosine angles you can manipulate the following equation to find the third.    "
 },
 {
   "id": "objectives-9",
@@ -727,7 +727,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.6",
   "title": "Vector Addition",
-  "body": " Vector Addition    How do you set up vectors for graphical addition using the Triangle Rule?  Does it matter which vector you start with when using the Triangle Rule?  Why can you separate a two-dimensional vector equation into two independent equations to solve for up to two unknowns?  If you and another student define vectors using different direction coordinate systems, will you end up with the same resultant vector?  What is the preferred technique to add vectors in three-dimensional systems?     In this section we will look at several different methods of vector addition. Vectors being added together are called the components , and the sum of the components is called the resultant vector .  These different methods are tools for your statics toolbox. They give you multiple different ways to think about vector addition and to approach a problem. Your goal should be to learn to use them all and to identify which approach will be the easiest to use in a given situation.    Triangle Rule of Vector Addition  All methods of vector addition are ultimately based on the tip-to-tail method discussed in a one-dimensional context in . There are two ways to draw or visualize adding vectors in two or three dimensions, the Triangle Rule and Parallelogram Rule . Both are equivalent. Triangle Rule Place the tail of one vector at the tip of the other vector, then draw the resultant from the first vector’s tail to the final vector’s tip. Parallelogram Rule Place both vectors' tails at the origin, then complete a parallelogram with lines parallel to each vector through the tip of the other. The resultant is equal to the diagonal from the tails to the opposite corner.   The interactive below shows two forces and pulling on a particle at the origin, and the appropriate diagram for the triangle or parallelogram rule. Both approaches produce the same resultant force as expected.    Vector Addition Methods      Orthogonal Components  Any arbitrary vector can broken into two component vectors which are the sides of a parallelogram having as its diagonal. The process of finding components of a vector in particular directions is called vector resolution .  While a vector can be resolved into components in any two directions, it's generally most useful to resolve them into rectangular or orthogonal components , where the parallelogram is a rectangle and the sides are perpendicular.  One benefit of finding orthogonal components is that each component is independent of the other. This independence simplifies the vector computations by allowing us to use independent equations for each orthogonal direction. Another benefit of components parallel to the coordinate axes is that you can treat these components as scalar quantities and use ordinary algebra to work with them.  However, there are an infinite number of possible rectangles to choose from, so each vector has an infinite number of sets of rectangular components. Of these, the most important one is found when the sides of the rectangle are parallel to the and axes. These particular components are given and subscripts indicate that the components are aligned with the and axes. For the vector , , where and are the scalar components of .  Another possibility is to rotate the coordinate system to any other convenient angle, and find the components in the directions of the rotated coordinate axes and . In either case, the vector is the sum of the rectangular components .  The interactive below can help you visualize the relationship between a vector and its components in both the - and - directions.    Orthogonal Components        Graphical Vector Addition  Graphical vector addition involves drawing a scaled diagram using either the parallelogram or triangle rule, and then measuring the magnitudes and directions from the diagram. Graphical solutions work well enough for two-dimensional problems where all the vectors live in the same plane and can be drawn on a sheet of paper, but are not very useful for three-dimensional problems unless you use technology.  If you carefully draw the triangle accurately to scale and use a protractor and ruler you can measure the magnitude and direction of the resultant. However, your answer will only be as precise as your diagram and your ability to read your tools. If you use technology such as GeoGebra or a CAD program to make the diagram, your answer will be precise. The interactive in may be useful for this.  Even though the graphical approach has limitations, it is worth your attention because it provides a good way to visualize the effects of multiple forces, to quickly estimate ballpark answers, and to visualize the diagrams you need to use alternate methods to follow.    Trigonometric Vector Addition  You can get a precise answer from the triangle or parallelogram rule by drawing a quick diagram using either rule, identifying three known sides or angles, using trigonometry to solve for the unknown sides and angles.   The trigonometric tools you will need is in .  Using triangle-based geometry to solve vector problems is a quick and powerful tool, but includes the following limitations: There are only three sides in a triangle; thus vectors can only be added two at a time. If you need to add three or more vectors using this method, you must add the first two, then add the third to that sum and so on. If you fail to draw the correct vector triangle or identify the known sides and angles, you will not find the correct answer. The trigonometric functions are scalar functions. They are quick ways of solving for the magnitudes of vectors and the angle between vectors, but you may still need to find the vector components from a given datum.   When you need to find the resultant of more than two vectors, it is generally best to use the algebraic methods described below.    Algebraic Addition of Components  While the parallelogram rule and the graphical and trigonometric methods are useful tools for visualizing and finding the sum of two vectors, they are not particularly suited for adding more than two vectors or working in three dimensions.  Consider vector which is the sum of several vectors , , and perhaps more. Vectors , and are the components of , and the is the resultant of , and .  It is easy enough to say that , but how can we calculate if we know the components? You could draw the vectors arranged tip-to-tail and then use the triangle rule to add the first two components, then use it again to add the third component to that sum, and so forth until all the components have been added. The final sum is the resultant, . The process gets progressively more tedious the more components there are to sum.  This section introduces an alternate method to add multiple vectors which is straightforward, efficient and robust. This is called algebraic method , because the vector addition is replaced with a process of scalar addition of scalar components. The algebraic technique works equally well for two and three-dimensional vectors, and for summing any number of vectors.  To find the sum of multiple vectors using the algebraic: Find the scalar components of each component vector in the and directions using the P to R procedure described in . Algebraically sum the scalar components in each coordinate direction. The scalar components will be positive if they point right or up, negative if they point left or down. These sums are the scalar components of the resultant. Resolve the resultant’s components to find the magnitude and direction of the resultant vector using the R to P procedure described in .   We can write the equation for the resultant as or in bracket notation .  This process is illustrated in the following interactive diagram and in the next example.    Vector addition by summing rectangular components.      Vector Addition    Vector counter-clockwise from the axis, and vector  counter-clockwise from the axis.  Find the resultant by addition of scalar components.          Use the given information to draw a sketch of the situation. By imagining or sketching the parallelogram rule, it should be apparent that the resultant vector points up and to the left.       This answer indicates that the resultant points down and to the left. This is because the calculator answers for the inverse trig function will always be in the first or fourth quadrant. To get the actual direction of the resultant, add to the calculator result.   The final answer for the magnitude and direction of the resultant is  measured counter-clockwise from the axis.    The process for adding vectors in space is exactly the same as in two dimensions, except that an additional component is included. This interactive allows you to input the three-dimensional vector components of forces and and view the resultant force which is the sum of and .   Vector Addition in Three Dimensions       Vector Subtraction  Like one-dimensional vector subtraction, the easiest way to handle two-dimensional vector subtraction is by taking the negative of a vector followed by vector addition. Multiplying a vector by -1 preserves its magnitude but flips its direction, which has the effect of changing the sign of the scalar components.   After negating the second vector you can choose any technique you prefer for vector addition.   "
+  "body": " Vector Addition    How do you set up vectors for graphical addition using the Triangle Rule?  Does it matter which vector you start with when using the Triangle Rule?  Why can you separate a two-dimensional vector equation into two independent equations to solve for up to two unknowns?  If you and another student define vectors using different direction coordinate systems, will you end up with the same resultant vector?  What is the preferred technique to add vectors in three-dimensional systems?     In this section we will look at several different methods of vector addition. Vectors being added together are called the components , and the sum of the components is called the resultant vector .  These different methods are tools for your statics toolbox. They give you multiple different ways to think about vector addition and to approach a problem. Your goal should be to learn to use them all and to identify which approach will be the easiest to use in a given situation.    Triangle Rule of Vector Addition  All methods of vector addition are ultimately based on the tip-to-tail method discussed in a one-dimensional context in . There are two ways to draw or visualize adding vectors in two or three dimensions, the Triangle Rule and Parallelogram Rule . Both are equivalent.  Triangle Rule Place the tail of one vector at the tip of the other vector, then draw the resultant from the first vector’s tail to the final vector’s tip.  Parallelogram Rule Place both vectors' tails at the origin, then complete a parallelogram with lines parallel to each vector through the tip of the other. The resultant is equal to the diagonal from the tails to the opposite corner.    The interactive below shows two forces and pulling on a particle at the origin, and the appropriate diagram for the triangle or parallelogram rule. Both approaches produce the same resultant force as expected.    Vector Addition Methods      Orthogonal Components  Any arbitrary vector can broken into two component vectors which are the sides of a parallelogram having as its diagonal. The process of finding components of a vector in particular directions is called vector resolution .  While a vector can be resolved into components in any two directions, it's generally most useful to resolve them into rectangular or orthogonal components , where the parallelogram is a rectangle and the sides are perpendicular.  One benefit of finding orthogonal components is that each component is independent of the other. This independence simplifies the vector computations by allowing us to use independent equations for each orthogonal direction. Another benefit of components parallel to the coordinate axes is that you can treat these components as scalar quantities and use ordinary algebra to work with them.  However, there are an infinite number of possible rectangles to choose from, so each vector has an infinite number of sets of rectangular components. Of these, the most important one is found when the sides of the rectangle are parallel to the and axes. These particular components are given and subscripts indicate that the components are aligned with the and axes. For the vector , , where and are the scalar components of .  Another possibility is to rotate the coordinate system to any other convenient angle, and find the components in the directions of the rotated coordinate axes and . In either case, the vector is the sum of the rectangular components .  The interactive below can help you visualize the relationship between a vector and its components in both the - and - directions.    Orthogonal Components        Graphical Vector Addition  Graphical vector addition involves drawing a scaled diagram using either the parallelogram or triangle rule, and then measuring the magnitudes and directions from the diagram. Graphical solutions work well enough for two-dimensional problems where all the vectors live in the same plane and can be drawn on a sheet of paper, but are not very useful for three-dimensional problems unless you use technology.  If you carefully draw the triangle accurately to scale and use a protractor and ruler you can measure the magnitude and direction of the resultant. However, your answer will only be as precise as your diagram and your ability to read your tools. If you use technology such as GeoGebra or a CAD program to make the diagram, your answer will be precise. The interactive in may be useful for this.  Even though the graphical approach has limitations, it is worth your attention because it provides a good way to visualize the effects of multiple forces, to quickly estimate ballpark answers, and to visualize the diagrams you need to use alternate methods to follow.    Trigonometric Vector Addition  You can get a precise answer from the triangle or parallelogram rule by  drawing a quick diagram using either rule,  identifying three known sides or angles,  using trigonometry to solve for the unknown sides and angles.    The trigonometric tools you will need is in .  Using triangle-based geometry to solve vector problems is a quick and powerful tool, but includes the following limitations:  There are only three sides in a triangle; thus vectors can only be added two at a time. If you need to add three or more vectors using this method, you must add the first two, then add the third to that sum and so on.  If you fail to draw the correct vector triangle or identify the known sides and angles, you will not find the correct answer.  The trigonometric functions are scalar functions. They are quick ways of solving for the magnitudes of vectors and the angle between vectors, but you may still need to find the vector components from a given datum.    When you need to find the resultant of more than two vectors, it is generally best to use the algebraic methods described below.    Algebraic Addition of Components  While the parallelogram rule and the graphical and trigonometric methods are useful tools for visualizing and finding the sum of two vectors, they are not particularly suited for adding more than two vectors or working in three dimensions.  Consider vector which is the sum of several vectors , , and perhaps more. Vectors , and are the components of , and the is the resultant of , and .  It is easy enough to say that , but how can we calculate if we know the components? You could draw the vectors arranged tip-to-tail and then use the triangle rule to add the first two components, then use it again to add the third component to that sum, and so forth until all the components have been added. The final sum is the resultant, . The process gets progressively more tedious the more components there are to sum.  This section introduces an alternate method to add multiple vectors which is straightforward, efficient and robust. This is called algebraic method , because the vector addition is replaced with a process of scalar addition of scalar components. The algebraic technique works equally well for two and three-dimensional vectors, and for summing any number of vectors.  To find the sum of multiple vectors using the algebraic:  Find the scalar components of each component vector in the and directions using the P to R procedure described in .  Algebraically sum the scalar components in each coordinate direction. The scalar components will be positive if they point right or up, negative if they point left or down. These sums are the scalar components of the resultant.  Resolve the resultant’s components to find the magnitude and direction of the resultant vector using the R to P procedure described in .    We can write the equation for the resultant as or in bracket notation .  This process is illustrated in the following interactive diagram and in the next example.    Vector addition by summing rectangular components.      Vector Addition    Vector counter-clockwise from the axis, and vector  counter-clockwise from the axis.  Find the resultant by addition of scalar components.          Use the given information to draw a sketch of the situation. By imagining or sketching the parallelogram rule, it should be apparent that the resultant vector points up and to the left.       This answer indicates that the resultant points down and to the left. This is because the calculator answers for the inverse trig function will always be in the first or fourth quadrant. To get the actual direction of the resultant, add to the calculator result.   The final answer for the magnitude and direction of the resultant is   measured counter-clockwise from the axis.    The process for adding vectors in space is exactly the same as in two dimensions, except that an additional component is included. This interactive allows you to input the three-dimensional vector components of forces and and view the resultant force which is the sum of and .   Vector Addition in Three Dimensions       Vector Subtraction  Like one-dimensional vector subtraction, the easiest way to handle two-dimensional vector subtraction is by taking the negative of a vector followed by vector addition. Multiplying a vector by -1 preserves its magnitude but flips its direction, which has the effect of changing the sign of the scalar components.   After negating the second vector you can choose any technique you prefer for vector addition.   "
 },
 {
   "id": "objectives-10",
@@ -808,7 +808,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.6.4",
   "title": "Vector Addition.",
-  "body": " Vector Addition    Vector counter-clockwise from the axis, and vector  counter-clockwise from the axis.  Find the resultant by addition of scalar components.          Use the given information to draw a sketch of the situation. By imagining or sketching the parallelogram rule, it should be apparent that the resultant vector points up and to the left.       This answer indicates that the resultant points down and to the left. This is because the calculator answers for the inverse trig function will always be in the first or fourth quadrant. To get the actual direction of the resultant, add to the calculator result.   The final answer for the magnitude and direction of the resultant is  measured counter-clockwise from the axis.   "
+  "body": " Vector Addition    Vector counter-clockwise from the axis, and vector  counter-clockwise from the axis.  Find the resultant by addition of scalar components.          Use the given information to draw a sketch of the situation. By imagining or sketching the parallelogram rule, it should be apparent that the resultant vector points up and to the left.       This answer indicates that the resultant points down and to the left. This is because the calculator answers for the inverse trig function will always be in the first or fourth quadrant. To get the actual direction of the resultant, add to the calculator result.   The final answer for the magnitude and direction of the resultant is   measured counter-clockwise from the axis.   "
 },
 {
   "id": "vectors_resultant_3d",
@@ -826,7 +826,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.7",
   "title": "Dot Products",
-  "body": " Dot Products    What are dot products used for?  What does it mean when the dot product of two vectors is zero?  How do you use a dot product to find the angle between two vectors?  What does it mean when the scalar component of the projection is negative?     Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the dot product or scalar product because the result is a scalar value, and the second is called the cross product or vector product and has a vector result. The dot product will be discussed in this section and the cross product in the next.  For two vectors and the dot product multiplication is computed by summing the products of the components.   An alternate, equivalent method to compute the dot product is where in the equation is the angle between the two vectors and and are the magnitudes of and .  We can conclude from this equation that the dot product of two perpendicular vectors is zero, because , and that the dot product of two parallel vectors is the product of their magnitudes.   When dotting unit vectors that have a magnitude of one, the dot products of a unit vector with itself is one and the dot product two perpendicular unit vectors is zero, so for , , and we have   Dot products are commutative, associative and distributive: Commutative. The order does not matter. Associative. It does not matter whether you multiply a scalar value by the final dot product, or either of the individual vectors, you will still get the same answer.  Distributive. If you are dotting one vector with the sum of two more , you can either add first, or dot by both and add the final value.    Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.    Magnitude of a Vector  Dot products can be used to find vector magnitudes. When a vector is dotted with itself using , the result is the square of the magnitude of the vector. By the Pythagorean theorem .  The proof is trivial. Consider vector . . The results are similar for three-dimensional vectors.   Find Vector Magnitude using the Dot Product   Find the magnitude of vector with components , and                 Angle between Two Vectors  A second application of the dot product is to find the angle between two vectors. Equation provides the procedure.     Angle between Orthogonal Unit Vectors   Find the angle between and .         This shows that and are perpendicular to each other.     Angle between Two Vectors   Find the angle between and .                Vector Projection  The dot product is used to find the projection of one vector onto another. You can think of a projection of on as a vector the length of the shadow of on the line of action of when the sun is directly above . More precisely, the projection of onto produces the rectangular component of in the direction parallel to . This is one side of a rectangle aligned with , having as its diagonal.  This is illustrated in , where is the projection of onto , or alternately is the rectangular component of in the direction of .  In this text we will use the symbols to mean the vector projection of on  to mean the magnitude of the projection, a positive or zero-valued scalar value, and to mean the scalar component of the projection, also known as the scalar projection , which can have a positive, zero, or negative scalar value.   As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or opposite when the scalar component is negative.   Vector projection in two dimensions.    The interactive shows that the projection is the adjacent side of a right triangle with as the hypotenuse. From the definition of the dot product we find that , where is the scalar component of the projection. So, the dot product of and gives us the projection of onto times the magnitude of . This value will be positive when , negative when , and zero when the vectors are perpendicular because of the properties of the cosine function.  So, to find the scalar value of the projection of onto we divide by the magnitude of .     The final simplified form is written in terms of the unit vector in the direction vector .  If you want the vector projection of onto , as opposed to the scalar projection we just found, multiply the scalar projection by the unit vector .   Rearranging the vectors to find the vector projection of onto , we dot the vector onto the unit vector and then multiply by .   The spatial interpretation of the results the scalar projection is Positive value means that and are generally in the same direction. Negative value means that and are generally in opposite directions. Zero means that and are perpendicular. Magnitude smaller than  This is the most common answer. The vectors are neither parallel nor perpendicular. Magnitude equal to  and point in the same direction, thus 100% of acts in the direction of . Magnitude larger than  This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of .     Vector projections in three dimensions.      Perpendicular Components  The final application of dot products is to find the component of one vector perpendicular to another.   To find the component of perpendicular to , first find the vector projection of on , then subtract that from . What remains is the perpendicular component.    Perpendicular and parallel components of .    To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component.      Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor   If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .   As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .   Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.  Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.     Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .   The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .   Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:  We want to find the part of perpendicular to , so we can rearrange the equation to find:   Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.   The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.        "
+  "body": " Dot Products    What are dot products used for?  What does it mean when the dot product of two vectors is zero?  How do you use a dot product to find the angle between two vectors?  What does it mean when the scalar component of the projection is negative?     Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the dot product or scalar product because the result is a scalar value, and the second is called the cross product or vector product and has a vector result. The dot product will be discussed in this section and the cross product in the next.  For two vectors and the dot product multiplication is computed by summing the products of the components.   An alternate, equivalent method to compute the dot product is where in the equation is the angle between the two vectors and and are the magnitudes of and .  We can conclude from this equation that the dot product of two perpendicular vectors is zero, because , and that the dot product of two parallel vectors is the product of their magnitudes.   When dotting unit vectors that have a magnitude of one, the dot products of a unit vector with itself is one and the dot product two perpendicular unit vectors is zero, so for , , and we have   Dot products are commutative, associative and distributive:  Commutative. The order does not matter.    Associative. It does not matter whether you multiply a scalar value by the final dot product, or either of the individual vectors, you will still get the same answer.   Distributive. If you are dotting one vector with the sum of two more , you can either add first, or dot by both and add the final value.     Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.    Magnitude of a Vector  Dot products can be used to find vector magnitudes. When a vector is dotted with itself using , the result is the square of the magnitude of the vector. By the Pythagorean theorem .  The proof is trivial. Consider vector . . The results are similar for three-dimensional vectors.   Find Vector Magnitude using the Dot Product   Find the magnitude of vector with components , and                 Angle between Two Vectors  A second application of the dot product is to find the angle between two vectors. Equation provides the procedure.     Angle between Orthogonal Unit Vectors   Find the angle between and .          This shows that and are perpendicular to each other.     Angle between Two Vectors   Find the angle between and .                Vector Projection  The dot product is used to find the projection of one vector onto another. You can think of a projection of on as a vector the length of the shadow of on the line of action of when the sun is directly above . More precisely, the projection of onto produces the rectangular component of in the direction parallel to . This is one side of a rectangle aligned with , having as its diagonal.  This is illustrated in , where is the projection of onto , or alternately is the rectangular component of in the direction of .  In this text we will use the symbols  to mean the vector projection of on  to mean the magnitude of the projection, a positive or zero-valued scalar value, and  to mean the scalar component of the projection, also known as the scalar projection , which can have a positive, zero, or negative scalar value.    As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or opposite when the scalar component is negative.   Vector projection in two dimensions.    The interactive shows that the projection is the adjacent side of a right triangle with as the hypotenuse. From the definition of the dot product we find that , where is the scalar component of the projection. So, the dot product of and gives us the projection of onto times the magnitude of . This value will be positive when , negative when , and zero when the vectors are perpendicular because of the properties of the cosine function.  So, to find the scalar value of the projection of onto we divide by the magnitude of .     The final simplified form is written in terms of the unit vector in the direction vector .  If you want the vector projection of onto , as opposed to the scalar projection we just found, multiply the scalar projection by the unit vector .   Rearranging the vectors to find the vector projection of onto , we dot the vector onto the unit vector and then multiply by .   The spatial interpretation of the results the scalar projection is  Positive value means that and are generally in the same direction.  Negative value means that and are generally in opposite directions.  Zero means that and are perpendicular.  Magnitude smaller than  This is the most common answer. The vectors are neither parallel nor perpendicular.  Magnitude equal to  and point in the same direction, thus 100% of acts in the direction of .  Magnitude larger than  This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of .      Vector projections in three dimensions.      Perpendicular Components  The final application of dot products is to find the component of one vector perpendicular to another.   To find the component of perpendicular to , first find the vector projection of on , then subtract that from . What remains is the perpendicular component.    Perpendicular and parallel components of .    To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component.      Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor       If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .       As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .       Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.  Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.     Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .       The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .       Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:   We want to find the part of perpendicular to , so we can rearrange the equation to find:    Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.    The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.        "
 },
 {
   "id": "objectives-11",
@@ -871,7 +871,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.7.2",
   "title": "Angle between Orthogonal Unit Vectors.",
-  "body": " Angle between Orthogonal Unit Vectors   Find the angle between and .         This shows that and are perpendicular to each other.   "
+  "body": " Angle between Orthogonal Unit Vectors   Find the angle between and .          This shows that and are perpendicular to each other.   "
 },
 {
   "id": "Chapter_02-example-angle-between-two-vectors",
@@ -934,7 +934,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.7.7",
   "title": "Dot Products.",
-  "body": " Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor   If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .   As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .   Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.  Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.     Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .   The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .   Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:  We want to find the part of perpendicular to , so we can rearrange the equation to find:   Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.   The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.      "
+  "body": " Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor       If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .       As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .       Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.  Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.     Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .       The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .       Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:   We want to find the part of perpendicular to , so we can rearrange the equation to find:    Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.    The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.      "
 },
 {
   "id": "cross-product-math",
@@ -943,7 +943,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.8",
   "title": "Cross Products",
-  "body": " Cross Products    How is a cross product different than a dot product?  What is a determinant?  What defines a right-handed Cartesian coordinate system?  How do you use the cross-product circle to find the cross product of two unit vectors?       The vector cross product is a mathematical operation applied to two vectors which produces a third mutually perpendicular vector as a result. It’s sometimes called the vector product , to emphasize this and to distinguish it from the dot product which produces a scalar value. The symbol is used to indicate this operation.  Cross products are used in mechanics to find the moment of a force about a point.    Direction of a cross product.     The cross product is a vector multiplication process defined by . The result is a vector mutually perpendicular to the first two with a sense determined by the right-hand rule. If and are in the plane, this is . The operation is not commutative, in fact reversing the order introduces a negative sign.   The magnitude of the cross product is the product of the perpendicular component of with the magnitude of which is also the area of the parallelogram formed by vectors and . The magnitude of the cross product is zero if and are parallel, and it is maximum when they are perpendicular.  Notice that all the terms in the cross product equation are similar to those of the dot product, except that is used rather than and the product includes a unit vector making the result a vector. This unit vector is simple to find in a two-dimensional problem as it will always be perpendicular to the page, but for three-dimensional cross products it is advisable to use a vector determinant method discussed here.    Cross Product of Unit Vectors  Let's begin our investigation of cross products with unit vectors. Since unit vectors have a magnitude of one and are perpendicular to each other, the magnitude of the cross product of two perpendicular unit vectors will always be a unit vector that is perpendicular to both of the original vectors with the direction determined by the right-hand rule.  There are two techniques to apply the right-hand rule, the three-finger technique and the point-and-curl method. You don't need both, but do you will need to master one or the other to find the direction of cross products.  The three-finger right-hand rule technique relies on the basic body geometry that your extended index finger, middle finger, and thumb are all perpendicular to each other. If you can align your index finger with the first vector you are crossing and your middle finger with the second vector you are crossing, then your thumb will point in the direction of the cross-product vector. Alternately, if you align your thumb with the first vector you are crossing and your index finger with the second vector you are crossing, then your middle finger points in the direction of the cross-product vector. We prefer to use the index-crossed-into-middle version as it results in a thumb-direction cross product in the same way the point-and-curl method does below.    The three-finger technique to find the direction of a cross product using the right-hand rule where you cross index into middle (left) or thumb into index (right).       Using the right hand, point your index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The index represents the first vector you are crossing, the middle finger represents the second vector you are crossing, and the thumb represents the cross product of the two vectors. Alternatively, the first vector can be your thumb, the second your index finger, and the middle finger is the direction of the cross product.    The point-and-curl right-hand rule method can also be used to find a cross product's direction. Start with your right hand flat and fingertips pointing along the first vector you are crossing with your fingertips pointing in the direction of the arrowhead. Then rotate your hand until the 2nd vector you are crossing is perpendicular to your fingers and imagine that it pushes your fingers into a curl around your thumb. In this position, your thumb defines the direction of the cross product.   Point-and-curl right-hand rule technique for cross products.    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of the second vector you are crossing and the thumb in the direction of cross product.    Now we can apply these techniques to unit vectors. Assuming a standard axis to the right and axis up system, let's cross in the direction with in the direction. Given what you have already learned about right-hand coordinate systems from Physics or , you might be able to forecast that where going in the positive direction. The figure below demonstrates how you would use either three-finger or point-and-curl to find this answer.   Crossing into to get coming out of the page using both the three-finger technique (left) and point-and-curl method (right).    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.    Using these same techniques you should be able to compute the cross products of the positive unit vectors below.       An alternate way to remember this is to use the cross-product circle shown. For example when you cross with you are going in the positive (counter-clockwise) direction around the blue inner circle and thus the answer is . But when you cross into you go in the negative (clockwise) direction around the circle and thus get a . Remember that the order of cross products matter. If you put the vectors in the wrong order you will introduce a sign error.  If you have any negative unit vectors it is easiest to pull out the negatives until after you have taken the cross product, like the following.     Unit vector cross product circle.    Dan Baker  CC-0   An alternate way to remember this is to use the cross-product circle in this image. i is shown at the top of the circle, j is shown at the bottom left of the circle (120 degrees from i), and k is shown at the bottom right of the circle (120 degrees from j). Curved blue arrows are drawn from i to j to k (counter-clockwise) and indicated as the positive (+) direction). An outer circle is formed by red curved arrows that are drawn from k to j to i (clockwise) and indicated with the negative direction. For example when you cross i with j you are going in the positive (counter-clockwise) direction around the blue inner circle and thus the answer is +k. But when you cross j into i you go in the negative (clockwise) direction around the circle and thus get a −k. Remember that the order of cross products matters. If you put the vectors in the wrong order, you will introduce a sign error.       Cross Product of Arbitrary Vectors  The cross product of two three-dimensional vectors can be calculated by evaluating the determinant of this matrix.   Here, the first row contains the unit vectors, the second row contains the components of , and the third row, the components of .  Calculating the determinant can be reduced to calculating three determinants using the method of cofactors, as follows   Finally a determinant can be evaluated with the formula   After simplifying, the resulting formula for a three-dimensional cross product is   In practice, the easiest way to remember this equation is to use the augmented determinant below, where the first two columns have been copied and placed after the determinant. The cross product is then calculated by adding the product of the red diagonals and subtracting the product of blue diagonals.   Augmented determinant    William Haynes  CC-BY-SA   The image illustrates what is stated in the equation (2.8.6) which defines the cross product.    The result is , which is mathematically equivalent to equation .  In two dimensions, vectors and have no components, so reduces to . This equation produces the same result as equation and you may use it if it is more convenient.   2D Cross Product      William Haynes  CC-BY-SA   A force of A acts from the origin with a magnitude of 60 N along the +x axis (0 degrees). A vector B acts from the origin with a magnitude of 40 N at an angle of -45 degrees from the positive x-axis.   Determine the cross product .          In this solution we will apply equation .     The direction of the cross product is determined by applying the right-hand rule. With the right hand, rotating towards we find that our thumb points into the plane, so the direction of is .       From the diagram:     From :        3D Cross Product   Find the cross product of and .  Given that we are crossing a distance and with a force vector , this cross product is analogous to finding the moment caused by force about a point located from the force. You will learn about moments in of this textbook.         To solve, set up the augmented determinant and evaluate it by adding the left-to-right diagonals and subtracting the right-to-left diagonals using equation .     Thus, the force creates a three-dimensional rotational moment equal to    Calculating three-dimensional cross products by hand is tedious and error-prone. Whenever you can, you should use technology to do the grunt work for you and focus on the meaning of the results. In this solution, we will use an embedded Sage calculator to calculate the cross product. This same calculator can be used to do other problems.  Given:      and are defined in the first two lines, and A.cross_product(B) is the expression to be evaluated. Click Evaluate to see the result. You'll have to work out the correct units for yourself.   Try changing the third line to B.cross_product(A) . What changes?     "
+  "body": " Cross Products    How is a cross product different than a dot product?  What is a determinant?  What defines a right-handed Cartesian coordinate system?  How do you use the cross-product circle to find the cross product of two unit vectors?       The vector cross product is a mathematical operation applied to two vectors which produces a third mutually perpendicular vector as a result. It’s sometimes called the vector product , to emphasize this and to distinguish it from the dot product which produces a scalar value. The symbol is used to indicate this operation.  Cross products are used in mechanics to find the moment of a force about a point.    Direction of a cross product.     The cross product is a vector multiplication process defined by The result is a vector mutually perpendicular to the first two with a sense determined by the right-hand rule. If and are in the plane, this is The operation is not commutative, in fact reversing the order introduces a negative sign.   The magnitude of the cross product is the product of the perpendicular component of with the magnitude of which is also the area of the parallelogram formed by vectors and . The magnitude of the cross product is zero if and are parallel, and it is maximum when they are perpendicular. The magnitude of the cross product of two perpendicular unit vectors is one.  Notice that all the terms in the cross product equation are similar to those of the dot product, except that is used rather than and the product includes a unit vector making the result a vector. This unit vector is simple to find in a two-dimensional problem as it will always be perpendicular to the page, but for three-dimensional cross products it is advisable to use a vector determinant method discussed in .    Direction of the Vector Cross Product  The direction of a cross product is determined by the right-hand rule.  There are two ways to apply the right-hand rule, the three-finger method, and the point-and-curl method. You don't need both, but you will need to master one or the other to find the direction of cross products.  The three-finger method uses the fact that your extended index finger, middle finger, and thumb are all roughly mutually perpendicular. If you align your index finger with the first vector you are crossing and your middle finger with the second, then your thumb will point in the direction of the cross product. Alternately, if you align your thumb with the first vector and your index finger with the second, your middle finger will point in the direction of the cross-product.    Right-hand rule using three fingers.    Technique 1       Using the right hand, point your index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The index represents the first vector you are crossing, the middle finger represents the second vector you are crossing, and the thumb represents the cross product of the two vectors.     Technique 2       Alternatively, the first vector can be your thumb, the second your index finger, and the middle finger is the direction of the cross product.      The point-and-curl right-hand rule method can also be used to find a cross product's direction. Start with your right hand flat and fingertips pointing along the first vector you are crossing with your fingertips pointing in the direction of the arrowhead. Then rotate your hand until the second vector you are crossing is perpendicular to your fingers and imagine that it pushes your fingers into a curl around your thumb. In this position, your thumb defines the direction of the cross product.   Right-hand rule using the point-and-curl technique.    Step one    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat.     Step one    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of the second vector you are crossing and the thumb in the direction of cross product.        Cross Product of Unit Vectors  The demonstrates how you can apply these techniques to find the cross product of . Assuming the axis points right and the axis points up, we find that that the cross product points in the positive direction. Recalling that the magnitude of the cross product of two peperpedicular unit vectors is one, we conclude that    Crossing into to get .    Using the three-finger method.    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.     Using the point-and-curl method.    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.      Similarly, the cross products of the other pairs of vectors are:     An alternate way to remember this is to use the cross-product circle shown. For example when you cross with you are going in the positive (counter-clockwise) direction around the blue inner circle and thus the answer is . But when you cross into you go in the negative (clockwise) direction around the circle and thus get a . Remember that the order of cross products matter. If you put the vectors in the wrong order you will introduce a sign error.  If you have any negative unit vectors it is easiest to pull out the negatives until after you have taken the cross product, like the following.     Unit vector cross product circle.    Dan Baker  CC-0   An alternate way to remember this is to use the cross-product circle in this image. i is shown at the top of the circle, j is shown at the bottom left of the circle (120 degrees from i), and k is shown at the bottom right of the circle (120 degrees from j). Curved blue arrows are drawn from i to j to k (counter-clockwise) and indicated as the positive (+) direction). An outer circle is formed by red curved arrows that are drawn from k to j to i (clockwise) and indicated with the negative direction. For example when you cross i with j you are going in the positive (counter-clockwise) direction around the blue inner circle and thus the answer is +k. But when you cross j into i you go in the negative (clockwise) direction around the circle and thus get a −k. Remember that the order of cross products matters. If you put the vectors in the wrong order, you will introduce a sign error.       Cross Product of Arbitrary Vectors  The cross product of two three-dimensional vectors can be calculated by evaluating the determinant of this matrix.   Here, the first row contains the unit vectors, the second row contains the components of , and the third row, the components of .  Calculating the determinant can be reduced to calculating three determinants using the method of cofactors, as follows   Finally a determinant can be evaluated with the formula   After simplifying, the resulting formula for a three-dimensional cross product is   In practice, the easiest way to remember this equation is to use the augmented determinant below, where the first two columns have been copied and placed after the determinant. The cross product is then calculated by adding the product of the red diagonals and subtracting the product of blue diagonals.   Augmented determinant    William Haynes  CC-BY-SA   The image illustrates what is stated in the equation (2.8.6) which defines the cross product.    The result is which is mathematically equivalent to equation .  In two dimensions, vectors and have no components, so reduces to This equation produces the same result as equation and you may use it if it is more convenient.   2D Cross Product      William Haynes  CC-BY-SA   A force of A acts from the origin with a magnitude of 60 N along the +x axis (0 degrees). A vector B acts from the origin with a magnitude of 40 N at an angle of -45 degrees from the positive x-axis.   The two vectors and shown lie in the plane. Determine the cross product .          In this solution we will apply equation .     The direction of the cross product is determined by applying the right-hand rule. With the right hand, rotating towards we find that our thumb points into the plane, so the direction of is .       In this solution we will use .  First, establish a coordinate system with the origin and with the axis aligned with , then find the rectangular components and apply the cross product equation.       3D Cross Product   Find the cross product of and .  Here, we are crossing a distance  and with a force  This calculation is equivalent to finding the moment about a point caused by force acting distance from . You will learn about moments in .         To solve, set up the augmented determinant and evaluate it by adding the left-to-right diagonals and subtracting the right-to-left diagonals using equation .     Thus, the force creates a three-dimensional rotational moment equal to    Calculating three-dimensional cross products by hand is tedious and error-prone. Whenever you can, you should use technology to do the grunt work for you and focus on the meaning of the results. In this solution, we will use an embedded Sage calculator to calculate the cross product. This same calculator can be used to do other problems.  Given:      and are defined in the first two lines, and A.cross_product(B) is the expression to be evaluated. Click Evaluate to see the result. You'll have to work out the correct units for yourself.   Try changing the third line to B.cross_product(A) . What changes?     "
 },
 {
   "id": "objectives-12",
@@ -973,13 +973,22 @@ var ptx_lunr_docs = [
   "body": " Direction of a cross product.   "
 },
 {
+  "id": "p-425",
+  "level": "2",
+  "url": "cross-product-math.html#p-425",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "right-hand rule. "
+},
+{
   "id": "rhr_cross3",
   "level": "2",
   "url": "cross-product-math.html#rhr_cross3",
   "type": "Figure",
   "number": "2.8.2",
   "title": "",
-  "body": " The three-finger technique to find the direction of a cross product using the right-hand rule where you cross index into middle (left) or thumb into index (right).       Using the right hand, point your index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The index represents the first vector you are crossing, the middle finger represents the second vector you are crossing, and the thumb represents the cross product of the two vectors. Alternatively, the first vector can be your thumb, the second your index finger, and the middle finger is the direction of the cross product.   "
+  "body": " Right-hand rule using three fingers.    Technique 1       Using the right hand, point your index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The index represents the first vector you are crossing, the middle finger represents the second vector you are crossing, and the thumb represents the cross product of the two vectors.     Technique 2       Alternatively, the first vector can be your thumb, the second your index finger, and the middle finger is the direction of the cross product.     "
 },
 {
   "id": "rhr_cross2",
@@ -988,16 +997,16 @@ var ptx_lunr_docs = [
   "type": "Figure",
   "number": "2.8.3",
   "title": "",
-  "body": " Point-and-curl right-hand rule technique for cross products.    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of the second vector you are crossing and the thumb in the direction of cross product.   "
+  "body": " Right-hand rule using the point-and-curl technique.    Step one    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat.     Step one    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where the first vector you are crossing is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of the second vector you are crossing and the thumb in the direction of cross product.     "
 },
 {
-  "id": "rhr_cross6",
+  "id": "figure-38",
   "level": "2",
-  "url": "cross-product-math.html#rhr_cross6",
+  "url": "cross-product-math.html#figure-38",
   "type": "Figure",
   "number": "2.8.4",
   "title": "",
-  "body": " Crossing into to get coming out of the page using both the three-finger technique (left) and point-and-curl method (right).    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.   "
+  "body": " Crossing into to get .    Using the three-finger method.    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.     Using the point-and-curl method.    Dan Baker  CC-BY-SA   Image crossing i-hat into j-hat resulting in k-hat using both the three-finger technique and point-and-curl methods.     "
 },
 {
   "id": "cross_product_circle_EE",
@@ -1024,7 +1033,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.8.7",
   "title": "2D Cross Product.",
-  "body": " 2D Cross Product      William Haynes  CC-BY-SA   A force of A acts from the origin with a magnitude of 60 N along the +x axis (0 degrees). A vector B acts from the origin with a magnitude of 40 N at an angle of -45 degrees from the positive x-axis.   Determine the cross product .          In this solution we will apply equation .     The direction of the cross product is determined by applying the right-hand rule. With the right hand, rotating towards we find that our thumb points into the plane, so the direction of is .       From the diagram:     From :      "
+  "body": " 2D Cross Product      William Haynes  CC-BY-SA   A force of A acts from the origin with a magnitude of 60 N along the +x axis (0 degrees). A vector B acts from the origin with a magnitude of 40 N at an angle of -45 degrees from the positive x-axis.   The two vectors and shown lie in the plane. Determine the cross product .          In this solution we will apply equation .     The direction of the cross product is determined by applying the right-hand rule. With the right hand, rotating towards we find that our thumb points into the plane, so the direction of is .       In this solution we will use .  First, establish a coordinate system with the origin and with the axis aligned with , then find the rectangular components and apply the cross product equation.     "
 },
 {
   "id": "Chapter_02-example-3-d-cross-product",
@@ -1033,7 +1042,7 @@ var ptx_lunr_docs = [
   "type": "Example",
   "number": "2.8.8",
   "title": "3D Cross Product.",
-  "body": " 3D Cross Product   Find the cross product of and .  Given that we are crossing a distance and with a force vector , this cross product is analogous to finding the moment caused by force about a point located from the force. You will learn about moments in of this textbook.         To solve, set up the augmented determinant and evaluate it by adding the left-to-right diagonals and subtracting the right-to-left diagonals using equation .     Thus, the force creates a three-dimensional rotational moment equal to    Calculating three-dimensional cross products by hand is tedious and error-prone. Whenever you can, you should use technology to do the grunt work for you and focus on the meaning of the results. In this solution, we will use an embedded Sage calculator to calculate the cross product. This same calculator can be used to do other problems.  Given:      and are defined in the first two lines, and A.cross_product(B) is the expression to be evaluated. Click Evaluate to see the result. You'll have to work out the correct units for yourself.   Try changing the third line to B.cross_product(A) . What changes?   "
+  "body": " 3D Cross Product   Find the cross product of and .  Here, we are crossing a distance  and with a force  This calculation is equivalent to finding the moment about a point caused by force acting distance from . You will learn about moments in .         To solve, set up the augmented determinant and evaluate it by adding the left-to-right diagonals and subtracting the right-to-left diagonals using equation .     Thus, the force creates a three-dimensional rotational moment equal to    Calculating three-dimensional cross products by hand is tedious and error-prone. Whenever you can, you should use technology to do the grunt work for you and focus on the meaning of the results. In this solution, we will use an embedded Sage calculator to calculate the cross product. This same calculator can be used to do other problems.  Given:      and are defined in the first two lines, and A.cross_product(B) is the expression to be evaluated. Click Evaluate to see the result. You'll have to work out the correct units for yourself.   Try changing the third line to B.cross_product(A) . What changes?   "
 },
 {
   "id": "exercises-1",
@@ -1054,36 +1063,36 @@ var ptx_lunr_docs = [
   "body": " Equilibrium  Engineering statics is the study of rigid bodies in equilibrium so it’s appropriate to begin by defining what we mean by rigid bodies and what we mean by equilibrium .  A body is an object, possibly made up of many parts, which may be examined as a unit. In statics, we consider the forces acting on the object as a whole and also examine it in greater detail by studying each of its parts, which are bodies in their own right. The choice of the body is an engineering decision based on what we are interested in finding out. We might, for example, consider an entire high-rise building as a body for the purpose of designing the building’s foundation, and later consider each column and beam of the structure to ensure that they are strong enough to perform their individual roles.  A rigid body is a body that doesn't deform under load, that is to say, an object which doesn't bend, stretch, or twist when forces are applied to it. It is an idealization or approximation because no objects in the real world behave this way; however, this simplification still produces valuable information. You will drop the rigid body assumption and study deformation, stress, and strain in a later course called Strength of Materials or Mechanics of Materials. In that course, you will perform analysis of non-rigid bodies, but each problem you do there will begin with the rigid body analysis you will learn to do here .  A body in equilibrium is not accelerating. As you learned in physics, acceleration is velocity's time rate of change and is a vector quantity. For linear motion, .  For an object in equilibrium which implies that the body is either stationary or moving with a constant velocity .  The acceleration of an object is related to the net force acting on it by Newton’s Second Law  .  So for the special case of static equilibrium Newton’s Law becomes .  This simple equation is one of the two foundations of engineering statics.  There are several ways to think about this equation. Reading it from left to right it says that if all the forces acting on a body sum to zero, then the body will be in equilibrium . If you read it from right to left it says that if a body is in equilibrium, then all the forces acting on the body must sum to zero . Both interpretations are equally valid but we will be using the second one more often. In a typical problem equilibrium of a body implies that the forces sum to zero, and we use that fact to find the unknown forces which make it so. Remember that we are talking about vector addition here, so the sums of the forces must be calculated using the rules of vector addition; you won't get correct answers if you can't add vectors!  We'll be using all of the different vector addition techniques introduced in , which may lead to some confusion. It doesn't matter, mathematically, which technique you use but part of the challenge and reward of statics is learning to select the best tool for the job at hand; to select the simplest, easiest, fastest, or clearest way to get to the solution. You'll do best in this course if can use multiple approaches to solve the same problem.  In we will add another requirement for equilibrium, namely equilibrium equation which says the forces which cause rotational motion and angular acceleration also must sum to zero, but for the problems of this chapter the only condition we'll need for equilibrium is .  "
 },
 {
-  "id": "p-466",
+  "id": "p-463",
   "level": "2",
-  "url": "ch3-intro.html#p-466",
+  "url": "ch3-intro.html#p-463",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "body "
 },
 {
-  "id": "p-467",
+  "id": "p-464",
   "level": "2",
-  "url": "ch3-intro.html#p-467",
+  "url": "ch3-intro.html#p-464",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "rigid body "
 },
 {
-  "id": "p-468",
+  "id": "p-465",
   "level": "2",
-  "url": "ch3-intro.html#p-468",
+  "url": "ch3-intro.html#p-465",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "equilibrium "
 },
 {
-  "id": "p-470",
+  "id": "p-467",
   "level": "2",
-  "url": "ch3-intro.html#p-470",
+  "url": "ch3-intro.html#p-467",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1099,18 +1108,18 @@ var ptx_lunr_docs = [
   "body": " Particles  We'll begin our study of Equilibrium with the simplest possible object in the simplest possible situation a particle in a one-dimensional coordinate system . Also, in this chapter and the next all forces will be represented as concentrated forces . In later sections, we will address more complicated situations, higher dimensions, and distributed forces, but beginning with very simple situations will help you to develop engineering sense and problem-solving skills which will be useful later.  The defining characteristic of a particle is that all forces that act on it are coincident Two lines are coincident when one lies on top of the other. or concurrent Two or more lines are concurrent if they intersect at a single point. , not that it is small. Forces are coincident if they have the same line of action, and concurrent if they intersect at a point. The moon, earth and sun can all be treated as particles, but we probably won’t encounter them in statics since they’re not in equilibrium. Forces are coincident\/concurrent if their lines of action all intersect at a single, common point. Two or more forces are also considered concurrent if they share the same line of action. One practical consequence of this is that particles are never subjected to forces that cause rotation. So a see-saw, for example, is not a particle because the weights of the children tend We say \"tend to cause rotation\" because in a static's context, all objects are static so no actual rotation occurs. to cause rotation.  Another consequence of concurrent forces is that Equation is the only equilibrium equation that applies. This vector equation can be used to solve for a maximum of one unknown per dimension. If you find yourself trying to solve a two-dimensional particle equilibrium problem and you are seeking more than two unknowns, it’s likely that you have missed something and need to re-read the question.  Another simplification we will be making is to treat all forces as concentrated . Concentrated forces act at a single point, have a well-defined line of action, and can be represented with an arrow in other words, they are vectors. Real forces don’t actually act at a single mathematical point but concentrating them is intuitive and will be justified in a later chapter . You’re already familiar with the concept if you have ever placed all the weight of an object at its center of gravity.  "
 },
 {
-  "id": "p-476",
+  "id": "p-473",
   "level": "2",
-  "url": "ch3-1d-particles.html#p-476",
+  "url": "ch3-1d-particles.html#p-473",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "particle one-dimensional coordinate system concentrated forces "
 },
 {
-  "id": "p-479",
+  "id": "p-476",
   "level": "2",
-  "url": "ch3-1d-particles.html#p-479",
+  "url": "ch3-1d-particles.html#p-476",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1126,9 +1135,9 @@ var ptx_lunr_docs = [
   "body": " 1D Particle Equilibrium   A simple case  Consider the weight suspended by a rope shown in . Diagrams of this type are called space diagrams ; they show the objects as they exist in space.  In mechanics we are interested in studying the forces acting on objects and in this course, the objects will be in equilibrium. The best way to do this is to draw a diagram that focuses on the forces acting on the object, not the mechanisms that hold it in place. We call this type of diagram a free-body diagram because it shows the object disconnected or freed from its supporting mechanisms. You can see the free-body diagram for this situation by moving the slider in the interactive to position two. This shows that there are two forces acting on the object; the force of the rope holding it up, and the weight of the object which is trying to pull it to earth, which we treat as acting at its center of gravity.   The actual shape of the weight is not important to us, so it can simply be represented with a dot, as shown when the view control is in position three. The forces have been slid along their common line of action until they both act on the dot, which is an example of an equivalent transformation called the Principle of Transmissibility. This diagram in view three is completely sufficient for this situation.   A suspended weight     Drawing free-body diagrams can be surprisingly tricky. The reason for this is that you must identify all the forces acting on the object and correctly represent them on the free-body diagram. If you fail to account for all the forces, include additional ones, or represent them incorrectly, your analysis will surely be wrong.  So what kind of analysis can we do here? Admittedly not much. We can find the tension in the rope caused by a particular weight and use it to select an appropriately strong rope, or we can determine the maximum weight a particular rope can safely support.  The actual analysis is so trivial that you've probably already done it in your head, nevertheless several ways to approach it will be shown next.  In the vector approach we will use the equation of equilibrium .   1D Vector Addition   Find the relationship between the tension in the rope and the suspended weight for the system of .       We learn that the tension equals the weight.     The free-body diagram shows two forces acting on the particle, and since the particle is in equilibrium they must add to zero.     We conclude that force is equal and opposite to , that is, since the weight is acting down, the rope acts with the same magnitude but up.  Tension is the magnitude of the rope’s force. Recall that the magnitude of a vector is always a positive scalar. We use normal (non-bold) typefaces or absolute value bars surrounding a vector to indicate its magnitude. For any force , .  To find how the tension is related to , take the absolute value of both sides       We can also formulate this example in terms of unit vectors. Recall that is the unit vector that points up. It has a magnitude of one with no units associated. So in terms of unit vector , and .   1D Vector Addition using unit vectors   Find the relation between the tension and weight for the system of using unit vectors.          Express the forces in terms of their magnitudes and the unit vector then proceed as before,       In the previous example, the unit vector completely dropped out of the equation leaving only the coefficients of . This will be the case whenever you add vectors which all act along the same line of action.  The coefficients of , , and are known as the scalar components . A scalar component times the associated unit vector is a force vector.  When you use scalar components, the forces are represented by scalar values and the equilibrium equations are solved using normal algebraic addition rather than vector addition. This leads to a slight simplification of the solution as shown in the next example.   1D Vector Addition using scalar components   Find the relation between the tension and weight for the system of using scalar components.       Unsurprisingly, we get the same result.      The forces in this problem are and , so the corresponding scalar components are .  Adding scalar components gives,      Unsurprisingly, we get the same result.      Scalar Components  The scalar component of a vector is a signed number which indicates the vector’s magnitude and sense , and is usually identified by a symbol with a subscript which indicates the line of action of the vector.  So for example, is a scalar component. We can tell it’s not a vector because it is not bold. is the magnitude of the associated vector; the subscript indicates that the force acts \"in the direction,\" in other words it acts on a line of action which is parallel to the axis; and the (implied) positive sign means that the vector points towards the positive end of the axis towards positive infinity. So a scalar component, while not a vector, contains all the information necessary to completely describe and draw the corresponding vector. Be careful not to confuse scalar components with vector magnitudes. A force with a magnitude of can point in any direction, but can never have a negative magnitude.  Scalar components can be added together algebraically, but only if they act in the same direction. It makes no sense to add to . If that’s what you want to do, first you must convert the scalar components to vectors, then add them according to the rules of vector addition.   1D Scalar Addition   If and = , find the magnitude and direction of their resultant .         Start by sketching the two forces. The subscripts indicate the line of action of the force, and the sign indicates the direction along the line of action. A negative points towards the negative end of the axis.          William Haynes  CC-BY-SA     is the scalar component of the resultant .  The negative sign on the result indicates that the resultant force acts to the left.     2D Scalar Addition   If = and = , find the magnitude and direction of their resultant .         In this example the scalar components have different subscripts indicating that they act along different lines of action, and this must be accounted for when they are added together.    Make a sketch of the two vectors and add them using the parallelogram rule to get     These are the magnitude and direction of vector .     William Haynes  CC-BY-SA         Two-force Bodies  As you might expect from the name, a two-force body is a body with two forces acting on it, like the weight just discussed. As we just saw, in order for a two-force body to be in equilibrium the two forces must add to zero. There are only three possible ways that this can happen:  The two forces must either share the same line of action, have the same magnitude, and point away from each other, or share the same line of action, have the same magnitude, and point towards each other, or both forces have zero magnitude.   When two forces have the same magnitude but act in diametrically opposite directions, we say that they are equal-and-opposite . When equal and opposite forces act on an object and they point towards each other we say that the object is in compression , when they point away from each other the object is in tension . Tension and compression describe the internal state of the object.   Examples of two-force bodies   Two force bodies have two forces with the same magnitude but acting in diametrically opposite directions.    Two force bodies appear frequently in multipart structures and machines which will be covered in . Some examples of two force bodies are struts and linkages, ropes, cables and guy wires, and springs.   Tug of War   Marines and Airmen at Goodfellow Air Force Base are competing in a tug of war and have reached a stalemate. The Marines are pulling with a force of . How hard are the Airmen pulling? What is the tension in the rope?    US Air Force photo\/Staff Sgt. Laura R. McFarlane   CC-0   Marines and Airmen at Goodfellow Air Force Base competing in a tug of war.   This is a simple question, but students often get it wrong at first.    The tension in the rope is . Both teams are pulling with the same force.       Assumptions  A free-body diagram of the rope is shown.      We'll solve this with scalar components because there’s no need for the additional complexity of the vector approaches in this simple situation.  We'll align the axis with the rope with positive to the right as usual to establish a coordinate system.  Assume that the pull of each team can be represented by a single force. Let force be supplied by the Marines and force by the Airmen; call the tension in the rope .  Assume that the weight of the rope is negligible; then the rope can be considered a particle because both forces lie along same line of action.    Givens  .    Procedure  Since they’re stalemated we know that the rope is in equilibrium.  Applying the equation of equilibrium gives:     We find out that both teams pull with the same force. This was probably obvious without drawing the free-body diagram or solving the equilibrium equation.  It may seem equally obvious that if both teams are pulling with in opposite directions that the tension in the rope must be . This is wrong however.  The tension in the rope is an example of an internal force and in order to learn its magnitude we need a free-body diagram which includes force . To expose the internal force we take an imaginary cut through the rope and draw (or imagine) a free-body diagram of either half of the rope.      The correct answer is easily seen to be .        Hanging Weight     The wire spool being lifted into the truck consists of of three strand medium voltage (5 kV) 1\/0 AWG electrical power cable with a 195 amp capacity at 90°C, weighing 927 kg\/km, on a steel reel.  How much weight is supported by the hook and high tension polymer lifting sling?        A wire spool being lifted into a truck.           The entire weight of the wire and the spool is supported by the hook and sling.  Remember that weight is not mass and mass is not force. The total weight is found by multiplying the total mass by the gravitational constant .         How can we apply the principles of mechanics in the two previous examples if the rope and the sling are clearly not rigid bodies?     They are not rigid, but they are inextensible and in tension. Under these conditions they don't change shape, so we can treat them as rigid. If the force were to change direction and put either into compression, our assumptions and analysis would fail. That is why tug of war involves pulling and not pushing.      General Procedure  The general procedure for solving one, two, or three-dimensional particle equilibrium problems is essentially the same. Start with the 5-step method for creating a free-body diagram and solve for your unknowns using your equilibrium equations.  Draw a Free-Body Diagram   Select and isolate the particle. The “free-body” in free-body diagram means that a concurrent force particle or connection must be isolated from the supports physically holding it in place. This means creating a separate free-body diagram from your problem sketch.  Establish a coordinate system. This step is simple for one-dimensional problems: just label a positive direction for the forces.  Identify all loads. Include force vectors on your free-body diagram representing each applied load pushing or pulling the body, in addition to the body’s weight, if it is non-negligible. Every vector should have a descriptive variable name and a clear arrowhead indicating its direction.  Identify all reactions. Reactions represent the resistance of the physical supports you cut away by isolating the body in step 1. All particle supports are two-force members that result in tension or compression forces. Label each reaction with a descriptive variable name and a clear arrowhead.  Label the diagram. Verify that every force is labeled with either a value or a symbolic name if the value is unknown. Your final free-body diagram should be a stand-alone presentation and is the basis of your equilibrium equations.   Create and Solve Equilibrium Equations   Write the equilibrium equation. Now represent your free-body diagram as an equilibrium equation. Your computation should start with the governing equation, like .  Solve for unknown. Use algebra to simplify the equilibrium equation and solve for the unknown value. Write the unit of your answer. All answers in engineering have units unless you prove that they don’t. Finally, underline or box your answers.  Check your work. Do the results seem reasonable given the situation? Have you included appropriate units?    "
 },
 {
-  "id": "p-480",
+  "id": "p-477",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-480",
+  "url": "CH03-1d-particles.html#p-477",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1162,9 +1171,9 @@ var ptx_lunr_docs = [
   "body": " 1D Vector Addition using unit vectors   Find the relation between the tension and weight for the system of using unit vectors.          Express the forces in terms of their magnitudes and the unit vector then proceed as before,      "
 },
 {
-  "id": "p-501",
+  "id": "p-498",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-501",
+  "url": "CH03-1d-particles.html#p-498",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1180,9 +1189,9 @@ var ptx_lunr_docs = [
   "body": " 1D Vector Addition using scalar components   Find the relation between the tension and weight for the system of using scalar components.       Unsurprisingly, we get the same result.      The forces in this problem are and , so the corresponding scalar components are .  Adding scalar components gives,      Unsurprisingly, we get the same result.   "
 },
 {
-  "id": "p-509",
+  "id": "p-506",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-509",
+  "url": "CH03-1d-particles.html#p-506",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1207,27 +1216,27 @@ var ptx_lunr_docs = [
   "body": " 2D Scalar Addition   If = and = , find the magnitude and direction of their resultant .         In this example the scalar components have different subscripts indicating that they act along different lines of action, and this must be accounted for when they are added together.    Make a sketch of the two vectors and add them using the parallelogram rule to get     These are the magnitude and direction of vector .     William Haynes  CC-BY-SA      "
 },
 {
-  "id": "p-524",
+  "id": "p-521",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-524",
+  "url": "CH03-1d-particles.html#p-521",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "two-force body "
 },
 {
-  "id": "p-526",
+  "id": "p-523",
   "level": "2",
-  "url": "CH03-1d-particles.html#p-526",
+  "url": "CH03-1d-particles.html#p-523",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "equal-and-opposite in compression in tension "
 },
 {
-  "id": "figure-38",
+  "id": "figure-44",
   "level": "2",
-  "url": "CH03-1d-particles.html#figure-38",
+  "url": "CH03-1d-particles.html#figure-44",
   "type": "Figure",
   "number": "3.3.7",
   "title": "",
@@ -1270,9 +1279,9 @@ var ptx_lunr_docs = [
   "body": " 2D Particle Equilibrium   Introduction  In this section we will study situations where everything of importance occurs in a two-dimensional plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile because they illustrate all the important principles of engineering statics while being easier to visualize and less mathematically complex.  We will normally work in the plane of the page, that is, a two-dimensional Cartesian plane with a horizontal axis and a vertical axis discussed in previously. This coordinate system can represent either the front, side, or top view of a system as appropriate. In some problems it may be worthwhile to rotate the coordinate system, that is, to establish a coordinate system where the and axes are not horizontal and vertical. This is usually done to simplify the mathematics by avoiding simultaneous equations.    General Procedure  The general procedure for solving two-dimensional particle equilibrium is a step up from solving , as you now need to find equilibrium in two independent directions. The major difference is that you must carefully find each independent vector component and then solve for the equilibrium in each component direction. The process follows the same five-step method for creating a free-body diagram, followed by steps to solve your equilibrium equations.  Draw a Free-Body Diagram:   Select and isolate the particle. The “free-body” in free-body diagram means that a concurrent force particle or connection must be isolated from the supports that are physically holding it in place. This means creating a separate free-body diagram from your problem sketch.  Establish a coordinate system. Draw a right-handed coordinate system to use as a reference for your equilibrium equations. Look ahead and select a coordinate system that minimizes the number of force components. This will simplify your vector algebra. The choice is technically arbitrary, but a good choice will simplify your calculations and reduce your effort.  Identify all loads. Add force vectors to your free-body diagram representing each applied load pushing or pulling the body, in addition to the body’s weight, if it is non-negligible. If a force vector has a known direction, draw it. If its direction is unknown, assume one, and your later algebra will check your assumption. Every vector should have a descriptive variable name and a clear arrowhead indicating its direction.  Identify all reactions. Reactions represent the resistance of the physical supports you cut away by isolating the body in step 1. All particle supports are some type of two-force members with tension or compression reaction forces. These reactions will all be concurrent with the body loads from Step 2. Label each reaction with a descriptive variable name and a clear arrowhead. Again, if a vector’s direction is unknown, just assume one.  Label the diagram. Verify that every dimension, angle, force, and moment is labeled with either a value or a symbolic name if the value is unknown. In our eyes, dimensioning is optional. Having the information needed for your calculations is helpful, but don't clutter the diagram up with unneeded details. Your final free-body diagram should be a stand-alone presentation and is the basis of your equilibrium equations.   Create and Solve Equilibrium Equations   Break vectors into components. Compute each force’s x and y components, likely using right-triangle trigonometry.  Write equilibrium equations. Now represent your free-body diagram as two equilibrium equations, and .  Count knowns and unknowns. At this point, you should have at most two unknown values. If you have more than two, reread the problem and look for overlooked information.  Solve for unknowns. Use algebra to simplify the equilibrium equations and solve for unknowns. All answers in Statics will have units - unless you have solved for a dimensionless value, like a friction coefficient. Finally, underline or box your answers.  Check your work. If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?     Force Triangle Method  The force triangle method applies to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.  If such a particle is in equilibrium then the three forces must add to zero. Graphically, if you arrange the force vectors tip-to-tail, they will form a closed, three-sided polygon, a triangle. This is illustrated in .   Free-Body Diagram and Force Triangle      Why do the forces always form a closed polygon?    Because their resultant is zero.    The force triangle is a graphical representation of the vector equilibrium equation . It can be used to solve for unknown values in multiple different ways, which will be illustrated in the next two examples. In We will use a graphical approach to find the forces causing equilibrium, and in we will use trigonometry to solve for the unknown forces mathematically.  In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation. We are using Geogebra to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the magnitudes and directions of the forces which hold the particle in equilibrium.   Frictionless Incline     A force is being applied to a block resting on a frictionless incline as shown. Determine the magnitude and direction of force and of the contact force on the bottom of the block.     William Haynes  CC-BY-SA   A flat, frictionless surface is inclined at 25 degrees from the horizontal. A force is being applied to a block resting on the incline, pushing it up the incline, at an angle of 10 degrees below the horizontal.              Assumptions  We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction that is normal to the surface since it is frictionless and can't prevent motion along the surface.    Givens  The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.  The unknown values are the magnitudes of forces and .    Free-Body Diagram  You should always begin a statics problem by drawing a free-body diagram. It allows you to think about the situation, identify knowns and unknowns, and define symbols.  We define three symbols, , , and , representing the weight, normal force, and applied force respectively. The angles could be given symbols too, but since we know their values it isn't necessary.     William Haynes  CC-BY-SA     The free-body can be a quick sketch or an accurate drawing but it must show all the forces acting on the particle and define the symbols. In most cases, you won't know the magnitudes of all the forces, so the lengths of the vectors are just approximate.    Notice that the force is represented as acting 25° from the axis, which is 90° away from the direction of the surface.    Force Triangle   Use the known information to carefully and accurately construct the force triangle. Start by placing point at the origin. Draw force straight down from with a length of 1, and place point at its tip. The length of this vector represents the weight. We know the direction of force but not its magnitude. For now, just draw line passing through point with an angle of 10° from the horizontal. Similarly we know force acts at 25° from vertical because it is perpendicular to the inclined surface, and it will close the triangle. So draw line passing through point and at a 25° angle from the axis. Call the point where lines and intersect point . Points , , and define the force triangle. Now draw force from point to point , and Draw force from point back to point .    Can you prove from the geometry of the triangle that angle is 75°?     Results  In steps 6 and 7, Geogebra tells us that p = (0.438;10.0°) which means force is 0.438 units long with a direction of 10°, similarly n = (1.02;115°) means is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive axis.  These are not the answers we are looking for, but we’re close. Remember that for this diagram, our scale is , so scaling the lengths of p and n by this factor gives .  If you use technology such as Geogebra, as we did here, or CAD software to draw the force triangle, it will accurately produce the solution.  If technology isn't available to you, such as during an exam, you can still use a ruler and protractor to draw the force triangle, but your results will only be as accurate as your diagram. In the best case, using a sharp pencil and carefully measuring lengths and angles, you can only expect about two significant digits of accuracy from a hand-drawn triangle. Nevertheless, even a roughly drawn triangle can give you an idea of the correct answers and be used to check your work after you use another method to solve the problem.         Trigonometric Method  The general approach for solving particle equilibrium problems using the trigonometric method is to: Draw and label a free-body diagram. Rearrange the forces into a force triangle and label it. Identify the knowns and unknowns. Use trigonometry to find the unknown sides or angles of the triangle.   There must be no more than two unknowns to use this method, which may be either magnitudes or directions. During the problem setup, you will probably need to use the geometry of the situation to find one or more angles.  If the force triangle has a right angle you can use to find the unknown values, but in most cases, the triangle will be oblique and you will need to use either or both of the or the to find the sides or angles.   Cargo Boom     A crate is being lowered into the cargo hold of a ship. Boom is long and acts at a 40° angle from kingpost . The boom is held in this position by topping lift which has a 1:4 slope.  Determine the forces in the boom and in the topping lift.     William Haynes  CC-BY-SA   The boom AB is 20 m long and acts at a 40° angle from the vertical support (kingpost). The boom is connected to the bottom of the vertical support by a pin connection at point A. The boom is held in this position by topping lift BC (cable attached at point C on the kingpost and at point B on the boom) which has a -1\/4 slope.              Draw diagrams  Start by identifying the particle and drawing a free-body diagram. The particle in this case is point at the end of the boom because it is the point where all three forces intersect. Let be the tension of the topping lift, be the force in the boom, and be the weight of the load. Let and be the angles that forces and make with the horizontal.  Rearrange the forces acting on point to form a force triangle as was done in the previous example.     William Haynes  CC-BY-SA      William Haynes  CC-BY-SA       Find angles  Angle can be found from the slope of the topping lift.  .  Angle is the complement of the 40° angle the boom makes with the vertical kingpost.     Use these values to find the three angles in the force triangle.       Solve force triangle  With the angles and one side of the force triangle known, apply the to find the two unknown sides.               Scalar Components Method  The general statement of equilibrium of forces, , can be expressed as the sum of forces in the , and directions .  This statement will only be true if all three coefficients of the unit vectors are themselves equal to zero, leading to this scalar interpretation of the equilibrium equation .  In other words, the single vector equilibrium equation is equivalent to three independent scalar equations, one for each coordinate direction.  In two-dimensional situations, no forces act in the direction leaving just these two equilibrium equations to be satisfied . We will use this equation as the basis for solving two-dimensional particle equilibrium problems in this section and equation for three-dimensional problems in .  You are undoubtedly familiar with utility poles, which carry electric, cable and telephone lines, but have you ever noticed as you drive down a winding road that the poles will switch from one side of the road to the other and back again? Why is this?  If you consider the forces acting on the top of a pole beside a curving section of road you'll observe that the tensions of the cables produce a net force towards the road. This force is typically opposed by a guy wire pulling in the opposite direction which prevents the pole from tipping over due to unbalanced forces. The power company tries to keep poles beside road segments with convex curvature. If they didn't switch sides, the guy wire for poles at concave curves would extend into the road... which is a poor design.   Utility Pole   Consider the utility pole next to the road shown below. A top view is shown in the right-hand diagram. If each of the six power lines pulls with a force of , determine the magnitude of the tension in the guy wire.    Utility pole.    Looking at the top view of a utility pole, two parallel, horizontal members called crossarms at the top are shown. On each crossarm, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the crossarms, the tension in each cable is the same magnitude. A \"guy wire\" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.              Assumptions  A utility pole isn't two-dimensional, but we can solve this problem as if it was by first considering the force components acting in a horizontal plane, and then considering the components in a vertical plane.  It also isn't a concurrent force problem because the lines of action of the forces don't all intersect at a single point. However, we can make it into one by replacing the forces of the three power lines in each direction with a single force three times larger. This is an example of an equivalent transformation , a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in later.    Givens  and 38° and 152° angles.    Free-Body Diagram  Begin by drawing a neat, labeled, free-body diagram of the top view of the pole, establishing a coordinate system and indicating the directions of the forces.  Call the tension in one power line and the tension in the guy wire . Resolve the the tension of the guy wire into a horizontal component , and a vertical component . Only the horizontal component of is visible in the top view.  Although it is not necessary, it simplifies this problem considerably to note the symmetry and establish the axis along the axis of symmetry.     Solution  Solve for by applying the equations of equilibrium. The symmetry of this problem means that the equation is sufficient.     Once is determined, the tension of the guy wire is easily found by considering the components of in the side view. Note that the vertical component tends to compress the pole.         This problem could have also been solved using the force triangle method. See .    In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.   Slider     Three forces act on a machine part that is free to slide along a vertical, frictionless rod. Forces and have a magnitude of and force has a magnitude of . Force acts degrees from the horizontal, and force acts at the same angle from the vertical.  Determine the angle required for equilibrium, and the magnitude and direction of the reaction force acting on the slider.    Three forces act on a machine part that is free to slide along a vertical, frictionless rod. The machine part has an attachment point where 3 forces are applied. Force A acts upwards vertically. Force B acts up and to the right at an angle alpha from the horizontal. Force C acts down and to the right at an angle of alpha from the negative y-axis.      The question asks for the reaction force. The reaction force is equal and opposite to force .          Givens  We are given magnitudes of forces , , and . The unknowns are angle and resultant force .    Procedure   Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently, the slider will only be in equilibrium if the resultant of the three load forces is horizontal. Since a horizontal force has no component, we can establish this equilibrium condition:     Inserting the known values into the equilibrium relation and simplifying gives an equation in terms of unknown angle .     This is a single equation with a single unknown, although it is not particularly easy to solve with algebra. One approach is described at socratic.org . An alternate approach is to use technology to graph the function . The roots of this equation correspond to values of which satisfy the equilibrium condition above. The root occurring closest to will be the answer corresponding to our problem, in this case which you can verify by plugging it back into the equilibrium equation. Note that -90° also satisfies this equation, but it is not the solution we are looking for.   Once is known, we can find the reaction force by adding the components of , , and .     The resultant force is the vector sum of and , but in this situation is zero, so the resultant acts purely to the right with a magnitude of . .  Note that this value is the resultant force, the net force applied to the slider by , , and . However, the question asks for the reaction force, which is the force required for equilibrium. The reaction is equal and opposite to the resultant.        The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the and axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.   Roller     A lawn roller which weighs is being pulled up a slope at a constant velocity.  Determine the required pulling force .     William Haynes  CC-BY-SA   A lawn roller weighs 160 lb. is being pulled up a 10° slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal.              Strategy     Select a coordinate system, in this case, horizontal and vertical.  Draw a free-body diagram  Solve the equations of equilibrium using the scalar approach.      William Haynes  CC-BY-SA       Procedure     Solving simultaneously for              Strategy     Rotate the standard coordinate system clockwise to align the new axis with force .  Draw a free-body diagram and calculate the angles between the forces and the rotated coordinate system.  Solve for force directly.      William Haynes  CC-BY-SA       Procedure            Multi-Particle Equilibrium  When two or more particles interact with each other there will always be common forces between them as a result of Newton’s Third Law, the action-reaction principle.   Consider the two boxes with weights and connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces and .   Two suspended weights     From the free-body diagrams you can see that cable only supports the weight of the bottom box, while cable and the ceiling support the combined weight. The tension is common to both diagrams. Recognizing the common force is the key to solving multi-particle equilibrium problems.   Two hanging weights     A weight is supported by cable . There is a frictionless pulley at and the hook is firmly attached to the cable at point .  What is the magnitude and direction of force required to hold the system in the position shown?     William Haynes  CC-BY-SA   At the ceiling, Point D is 150 cm to the right of A. Point B is 20 cm to the right of A, and 40 cm below A. Point C is 100 cm to the right of A, and 50 cm below A. A weight is supported by a hook that is firmly attached to the cable at point C. There is a frictionless pulley at B and a Force P acts down and to the left, at an angle of theta from the -x axis.      The particles are points and . The common force is the tension in rope segment .            Strategy  Following the we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions , , and for the endpoints of the rope segments, and label the angles of the forces , , and . We will use the standard Cartesian coordinate system and use the scalar components method .   Weight was given, and we can easily find angles , , and so the knowns are:     Counting unknowns we find that there are two on the free-body diagram of particle ( and , but four on particle , (  , and ).  Two unknowns on particle means it is solvable since there are two equilibrium equations available, so we begin there.    Solve Particle C     Solving these two equations simultaneously gives     With particle solved, we can use the results to solve particle . There are three unknowns remaining, tension , magnitude , and direction . Unfortunately, we still only have two available equilibrium equations. When you find yourself in this situation with more unknowns than equations, it generally means that you are missing something. In this case, it is the pulley. When a cable wraps around a frictionless pulley the tension doesn't change. The missing information is that . Knowing this, the magnitude and direction of force can be determined.   Because , the free-body diagram of particle is symmetric, and the technique used in to rotate the coordinate system could be applied here.     Solve Particle B  Referring to the FBD for particle we can write these equations.     Since , substituting and solving simultaneously gives     These are the magnitude and direction of vector . If you wish, you can express in terms of its scalar components. The negative signs on the components have been applied by hand since points down and to the left.           "
 },
 {
-  "id": "p-559",
+  "id": "p-556",
   "level": "2",
-  "url": "CH03-2d-particles.html#p-559",
+  "url": "CH03-2d-particles.html#p-556",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1342,9 +1351,9 @@ var ptx_lunr_docs = [
   "body": " Roller     A lawn roller which weighs is being pulled up a slope at a constant velocity.  Determine the required pulling force .     William Haynes  CC-BY-SA   A lawn roller weighs 160 lb. is being pulled up a 10° slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal.              Strategy     Select a coordinate system, in this case, horizontal and vertical.  Draw a free-body diagram  Solve the equations of equilibrium using the scalar approach.      William Haynes  CC-BY-SA       Procedure     Solving simultaneously for              Strategy     Rotate the standard coordinate system clockwise to align the new axis with force .  Draw a free-body diagram and calculate the angles between the forces and the rotated coordinate system.  Solve for force directly.      William Haynes  CC-BY-SA       Procedure         "
 },
 {
-  "id": "figure-42",
+  "id": "figure-48",
   "level": "2",
-  "url": "CH03-2d-particles.html#figure-42",
+  "url": "CH03-2d-particles.html#figure-48",
   "type": "Figure",
   "number": "3.4.8",
   "title": "",
@@ -1369,9 +1378,9 @@ var ptx_lunr_docs = [
   "body": " 3D Particle Equilibrium   The world we live in has three dimensions. One and two-dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.  Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.    Three-Dimensional Coordinate Frame  We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis to our existing two-dimensional frame.  For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the axis is horizontal, and the axis is vertical just as in a two-dimensional situation. The orientation of the axis is determined by the right-hand rule . Using your right hand , put your palm at the origin and point your fingers along the positive axis. Then curl your fingers towards the positive axis. Your thumb will point in the direction of the positive axis. For example, in the plane of the page with the positive axis horizontal and to the right and the positive axis vertical and upwards, the positive axis will point towards you out of the page. Remember that the three axes are mutually perpendicular, each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.   Point-and-curl right-hand rule technique.    Dan Baker  CC-0   Using your right hand, put your palm at the origin and point your fingers along the positive x axis. Then curl your fingers towards the positive y axis. Your thumb will point in the direction of the positive z axis. In this case, if the positive x axis is horizontal and to the right and the positive y axis is vertical and upwards, the positive z axis will be coming towards you. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.      Free-Body Diagrams  As we did before, we begin our analysis by drawing a free-body diagram that shows all forces and moments acting on the object of interest. Drawing a FBD in three dimensions can be difficult. It is sometimes hard to see things in three dimensions when they are drawn on a two-dimensional sheet. Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and\/or unnecessary information. When working in two dimensions, you only need one angle to determine the direction of the vector, but when working in three dimensions you need two or three angles.    Angles   As stated above, when working in three dimensions you need three angles to determine the direction of the vector, namely, the angle with respect to the axis, the angle with respect to the axis and the angle with respect to the axis. The three angles mentioned above are not necessarily located in any of the coordinate planes. Think of it this way three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis. The plane made by those three points is not necessarily the , , or plane. It is most likely a tilted plane.   Direction Cosine Angles     As you learned in , one way to quantify the direction of a vector is with direction cosine angles. These direction cosine angles are measured from the positive x, y, and z axes and are often labeled , , and , respectively.  As with two dimensions, angles can be determined from geometry a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.  If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.  Let’s suppose that the line of action goes through two points and , and the direction of the force is from towards . The first step in determining the three angles is to write the distance vector from point towards point . Let’s call this vector . Starting at point , you need to determine how to get to point by moving in each of the three directions. Ask yourself: to get from point to point do I have to move in the direction? If so, how far do I have to travel? This becomes the component of the vector namely . Next, to get from point to point how far do I move in direction? This distance is . Finally, to get from point A to point B how far do I move in the z-direction? This distance is .  When writing these scalar components pay attention to which way you move along the axes. If you travel toward the positive end of an axis, the corresponding scalar component gets a positive sign. Travel towards the negative end results in a negative sign. The sign is important.  Once you have determined the components of the distance vector , you can determine the total distance from point to using the three-dimensional Pythagorean Theorem    Lastly, the angles are determined by the direction cosines, namely   Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles, . So,   Now, that is a bit of math there, but the important things to remember are: You can use three angles to determine the direction of a force in three dimensions. You can use the geometry to get them from a distance vector that lies along the line of action of the force.   The three direction cosine angles are not mutually independent. From you can easily show that , so if you know two direction cosine angles you can find the third from this relationship.    General Procedure  The general procedure for solving three-dimensional particle equilibrium is essentially the same as for two-dimensional particle equilibrium using the components method. The major differences are that you must carefully find each vector component using the techniques from . The process follows the same five-step method for creating a free-body diagram, followed by steps to solve your equilibrium equations.  Draw a Free-body Diagram:   Select and isolate the particle. The “free-body” in free-body diagram means that a concurrent force particle or connection must be isolated from the supports that are physically holding it in place. This means creating a separate free-body diagram from your problem sketch.  Establish a coordinate system. Draw a right-handed coordinate system to use as a reference for your equilibrium equations. Look ahead and select a coordinate system that minimizes the number of force components. This will simplify your vector algebra. The choice is technically arbitrary, but a good choice will simplify your calculations and reduce your effort.  Identify all loads. Add force vectors to your free-body diagram representing each applied load pushing or pulling the body, in addition to the body’s weight, if it is non-negligible. If a force vector has a known direction, draw it. If its direction is unknown, assume one, and your later algebra will check your assumption. Every vector should have a descriptive variable name and a clear arrowhead indicating its direction.  Identify all reactions. Reactions represent the resistance of the physical supports you cut away by isolating the body in step 1. All particle supports are some type of two-force members with tension or compression reaction forces. These reactions will all be concurrent with the body loads from Step 2. Label each reaction with a descriptive variable name and a clear arrowhead. Again, if a vector’s direction is unknown, just assume one.  Label the diagram. Verify that every dimension, angle, force, and moment is labeled with either a value or a symbolic name if the value is unknown. In our eyes, dimensioning is optional. Having the information needed for your calculations is helpful, but don't clutter the diagram up with unneeded details. Your final free-body diagram should be a stand-alone presentation and is the basis of your equilibrium equations.   Create and Solve Equilibrium Equations   Break vectors into components. Compute each force’s x, y, and z components using the tools outlined in . While the components in two-dimensional problems can often be found with right triangle trigonometry, three-dimensional problems often use unit vectors.  Write equilibrium equations. Now represent your free-body diagram as equilibrium equations. For a three-dimensional particle equilibrium problem, you can have up to three force equilibrium equations corresponding to a force balance in the three independent x, y, and z directions. Each equation should start with the governing equation, like ΣF_x=0.  Count knowns and unknowns. At this point, you should have at most three unknowns remaining. If you have over three, reread the problem and look for overlooked information.  Solve for unknowns. Use algebra to simplify the equilibrium equations and solve for unknowns. With multiple unknowns scattered across multiple equations, linear algebra may be more efficient than substitution. Assume that all answers have units - unless you prove that they don’t. Finally, underline or box your answers.  Check your work. If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?   Now let's see how that process looks on an example problem.   Balloon     A hot air balloon above the ground is tethered by three cables as shown in the diagram.  If the balloon is pulling upwards with a force of , what is the tension in each of the three cables?  The grid lines on the ground plane are spaced apart.    A hot air balloon is 30 ft above the ground (coordinates (0, 30, 0)) and tethered by three cables. Assume the origin is directly below the balloon on the ground. The three cables are attached from the basket of the balloon to the following points (ft): A (-20, 0, 0), B (30, 0, -20), C (0, 0, -20).              Strategy    The three tensions are the unknowns which we can find by applying the three equilibrium equations.  We'll establish a coordinate system with the origin directly below the balloon and the axis vertical, then draw and label a free-body diagram.  Next we'll use the given information to find two points on each line of action to find the components of each force in terms of the unknowns.     When the , and components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.    Geometry  From the diagram, the coordinates of the points are     Use the point coordinates to find the , and components of the forces.     Where , and are the lengths of the three cables found with the distance formula .       Equilibrium Equations  Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.     Solving these equations simultaneously yields the answers we are seeking. One way to do this is to substitute equations (1) and (2) into (3) to eliminate and and solve the resulting equation for .     With known, substitute it into equations (1) and (2) to find and .           Skycam   The skycam at Stanford University Stadium has a mass of and is supported by three cables as shown. Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.      Jrienstra   CC-BY-SA   Skycam has mass of 20 kg and is in equilibrium. Cable A is in the x-y plane, acting 35 degrees from the positive x-axis. Cable B acts -30 degrees from the negative x-axis in the x-z plane, and 15 degrees above the x-z plane. Cable C acts 20 degrees in the y-z plane, -20 degrees from the positive z-axis.            In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces , , and .   We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the component's unit vectors and determining the angles each makes with the coordinate axis.   Particle equilibrium requires that . This is a 3 3 system of three simultaneous equations, one for each coordinate direction, which needs to be solved for , , and .   These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives .  This is an equation in the form . Entering the coefficient matrices into Sage.   After evaluating, we learn that .     "
 },
 {
-  "id": "p-683",
+  "id": "p-680",
   "level": "2",
-  "url": "ch3-3d-particles.html#p-683",
+  "url": "ch3-3d-particles.html#p-680",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1387,9 +1396,9 @@ var ptx_lunr_docs = [
   "body": " Point-and-curl right-hand rule technique.    Dan Baker  CC-0   Using your right hand, put your palm at the origin and point your fingers along the positive x axis. Then curl your fingers towards the positive y axis. Your thumb will point in the direction of the positive z axis. In this case, if the positive x axis is horizontal and to the right and the positive y axis is vertical and upwards, the positive z axis will be coming towards you. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.   "
 },
 {
-  "id": "figure-44",
+  "id": "figure-50",
   "level": "2",
-  "url": "ch3-3d-particles.html#figure-44",
+  "url": "ch3-3d-particles.html#figure-50",
   "type": "Figure",
   "number": "3.5.2",
   "title": "",
@@ -1432,9 +1441,9 @@ var ptx_lunr_docs = [
   "body": " Direction of a Moment  In a two-dimensional problem the direction of a moment can be determined easily by inspection as either clockwise or counterclockwise. A counter-clockwise rotation corresponds with a moment vector pointing out of the page and is considered positive.  In three dimensions, a moment vector may point in any direction in space and is more difficult to visualize. The direction is established by the right-hand rule . Recall that in that you were introduced to the right-hand rule and cross products.  To find a moment using the right-hand rule, first establish a position vector  pointing from the point of interest (the rotation center) to a point along the force's line-of-action. Next, there are two options for physically finding the direction of the moment from the right-hand rule, the three-finger or slide-and-curl methods.  To use the three-finger method, align your right-hand index finger with the position vector and your middle finger with the force vector, then your thumb will point in the direction of the moment vector. Alternately, if you align your thumb with the position vector and your index finger with the force vector, then your middle finger points in the direction of the moment vector    To find the direction of a moment you can apply the right-hand rule by either (left) crossing your index into your middle finger to get a cross product in the direction of your thumb or (right) cross your thumb into your index finger to get a cross product in the direction of your middle finger.       Using the right hand, point index finger straight out, the thumb up (like giving a thumbs-up), and the middle finger pointed perpendicular to the pointer finger and thumb. The thumb represents the position vector, and the index finger represents the force vector. Taking the cross product r x F results in M which is represented by the middle finger. Alternatively, r can be the index finger, F the middle finger, and M the thumb.    Another approach is the point-and-curl method. Start with your right hand flat and fingertips pointing along the position vector pointing from the center of rotation to a point on the force’s line of action. Rotate your hand until the force is perpendicular to your fingers and imagine that it pushes your fingers into a curl around your thumb. In this position, your thumb defines the axis of rotation, and points in the direction of the moment .   Point-and-curl right-hand rule technique for moments.    Dan Baker  CC-BY-SA   Image of a right hand held out flat, where is in the direction of the fingers held out flat. If the fingers were curled in, and the thumb pointed up, then the curled fingers are in the direction of and the thumb in the direction of .     Consider the page shown below on a horizontal surface. Using these techniques, we see that a counter-clockwise moment vector points up, or out of the page, while the clockwise moment points down or into the page. In other words, the counter-clockwise moment acts in the positive direction and the clockwise moment acts in the direction.   Moments in the plane of the page.   A counter-clockwise moment symbol on a horizontal page, and the corresponding unit vector pointing up, also a similar clockwise moment pointing down.    Any of these techniques may be used to find the direction of a moment. They all produce the same result so you don’t need to learn them all, but make sure you have at least one method you can use accurately and consistently.  "
 },
 {
-  "id": "p-740",
+  "id": "p-737",
   "level": "2",
-  "url": "Chapter_04-direction-of-a-moment.html#p-740",
+  "url": "Chapter_04-direction-of-a-moment.html#p-737",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1486,9 +1495,9 @@ var ptx_lunr_docs = [
   "body": "  Why is there no moment about any point on the line of action of a force?  If you increase the distance between a force and a point of interest, does the moment of the force go up or down?  What practical applications can you think of that could use moments to describe?   "
 },
 {
-  "id": "p-749",
+  "id": "p-746",
   "level": "2",
-  "url": "Chapter_04-magnitude-of-a-moment.html#p-749",
+  "url": "Chapter_04-magnitude-of-a-moment.html#p-746",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1513,9 +1522,9 @@ var ptx_lunr_docs = [
   "body": " Scalar Components  We saw in that vectors can be expressed as the product of a scalar component and a unit vector.  For example, a force acting down can be represented by , where is the scalar component and . This describes a vector which has a magnitude of and acts in the direction,  . The unit vector along with the sign of determines the direction, while the absolute value of determines the vector’s magnitude.  Moments in two dimensions are either clockwise or counter-clockwise, or alternately they point into or out of the page. This means that a single scalar value is sufficient to completely specify such a moment if we have established which direction is positive. The choice is arbitrary, but the default sign convention is based on the right-handed Cartesian coordinate system, as illustrated in .  When using the standard convention, counter-clockwise moments are positive and clockwise moments are negative. Simply append a positive sign to the magnitude for counter-clockwise moments or a negative sign for clockwise moments to create a scalar component. You are free to use the opposite convention, but this should be explicitly stated.   Sign Conventions   For each scalar component, determine the direction of the corresponding moment vector.       CCW  CW  CW  CCW         CCW. Use the default sign convention, CCW is positive.    CW. Negative value means the moment acts opposite to positive direction.    CW. The arrow overrides default sign convention, so now CW is positive direction.    CCW. Negative CW is CCW.       Scalar components are most useful when combining several clockwise and counter-clockwise moments. The resulting algebraic sum of the scalar components will be either positive, negative, or zero, and this sign indicates the direction of the resultant moment.   Scalar addition   Use scalar moments to determine the magnitude of the resultant of three moments:  , , and         Manually attaching the signs according to the standard sign convention (CCW +) gives the scalar moments: .  Adding these moments gives the resultant scalar moment. . The negative sign indicates that the resultant vector moment is clockwise.  Interpreting the resultant as a vector gives: .  The corresponding magnitude of is .    In three dimensions, moments, like forces, can be resolved into components in the , , and directions. . This means that the three scalar components are required to fully specify a moment in three dimensions.   Be careful not to mix up magnitudes with scalar components. Both are scalar values with units. Magnitudes are never negative. Scalar components have a sign. Scalar components always have an associated sign convention. It may be implied or specifically indicated. By default counter-clockwise moments are positive. There is no special symbol or notation to indicate whether a quantity represents a vector magnitude or a scalar moment, so pay attention to context.     "
 },
 {
-  "id": "p-752",
+  "id": "p-749",
   "level": "2",
-  "url": "scalar-components-moments.html#p-752",
+  "url": "scalar-components-moments.html#p-749",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1558,18 +1567,18 @@ var ptx_lunr_docs = [
   "body": " Varignon’s Theorem   Varignon’s Theorem is a method to calculate moments developed in 1687 by French mathematician Pierre Varignon (1654 1722). It states that sum of the moments of several concurrent forces about a point is equal to the moment of the resultant of those forces, or alternately, the moment of a force about a point equals the sum of the moments of its components.  This means you can find the moment of a force by first breaking it into components, evaluating the scalar moments of the individual components, and finally summing them to find the net moment about the point. The scalar moment of a component is the magnitude of the component times the perpendicular distance to the moment center by the definition of a moment , with a positive or negative sign assigned to indicate its direction.   This may sound like more work than just finding the moment of the original force, but in practice, it is often easier. Consider the interactive to the right. If we break the force into components along the wrench handle and perpendicular to it, the sum of the moments is , where is the length of the handle, and is the component of perpendicular to the handle. Here, the contribution of the parallel component to the sum is zero, since its line of action passes through the moment center .   Varignon's Theorem:      This result agrees with our intuitive understanding of how a wrench works; the greatest torque is developed when the force is applied at a right angle to the handle.  Equations and not only produce the same result, but they are also completely identical. If the length of the handle is and the angle between the force and the handle is , then and . Using either equation to calculate the moment gives .    Rectangular Components  Varignon's theorem is particularly convenient to use because the diagram provides horizontal and vertical dimensions, which is often the case. If you decompose forces into horizontal and vertical components you can find the scalar moments of the components without difficulty.   The moment of a force is the sum of the moments of the components. Take care to assign the correct sign to the individual moment terms to indicate direction; positive moments tend to rotate the object counter-clockwise and negative moments tend to rotate it clockwise according to the standard right-hand rule convention.   Sum of moments of components.    Point A is shown as an origin, with a distance dx indicated in the horizontal direction and distance dy indicated in the vertical direction. At coordinates (dx, dy), a Force F originates acting up and to the right with components of Fx in the horizontal direction and Fy in the vertical direction.      Varignon's theorem    A force is applied to the frame as shown. Determine the moment this force makes about point .           Force acts from the vertical with a magnitude, so its horizontal and vertical components are   For component , the perpendicular distance from point is so the moment of this component is .  For component , the perpendicular distance from point is so the moment of this component is .  Assigning a negative sign to and a positive sign to to account for their directions and summing, gives the moment of about .   The negative sign indicates that the resultant moment is clockwise, with a magnitude of .       The interactive diagram below will help you visualize the different tools to find moments that were covered in this section.    Three equivalent approaches to finding a moment about a point.     2D Moments - Four Ways     A 500-pound-force vector pulls from point D located at (0,2) feet and we want to find the moment of this force around point A at (-4,-3) feet. A position vector r connects point A with point D   Find the moment vector caused by force vector around point . Force has a slope of above the axis.   This problem demonstrates four different ways you can solve the problem. The first two focus on vector algebra and the second two are more geometric.    Find the moment of about point using Varignon's Theorem.     TBD   As you learned in , Varignon's Theorem isolates the perpendicular components of and and takes adds together the cross products of each perpendicular pair.   As 3:2 does not correspond to a familiar right-triangle ratio, like 3:4:5, the 3:2 slope of can be changed to an angle .  Next, let's find the components of both and .  Finally, following Varignon's Theorem, we'll cross just the perpendicular component pairs.  Notes:  For two-dimensional vectors in component form, this is often the preferred method for computing moments as it is quick and most find the process intuitive.  The first cross product, , has a postitve value because , not because you are simply multiplying two postive components.  The second cross product, , results in a negative value because . You can confirm this with either the three-finger or slide-and-curl right-hand rule methods you learned in .  The units of are a force times a distance . All moments will have similar units, force times distance.  Given that we used the right-hand rule to determine the sign of each moment term, the overall sign of determines the final direction. Where  a positive answer corresponds to a CCW moment - right thumb out of the page with the moment in your fingertip direction (for hand diagram, see ), and  a negative answer would indicate a CW moment - right thumb into the page with the moment in your fingertip direction.       Find the moment of about point using a vector cross product.     A diagram with both position vector r and force vector F broken into x and y components.   We can also solve for the moment using a vector determinant that you learned about back in . We can use the values of , , and computed in part (a) above. Jumping straight into the vector determinant, we find:    Notes:  Determinants are a robust way to compute two-dimensional cross products but take a bit more effort than Varignon's Theorem. Notice that the math to complete the determinant is exactly the same as the math using Varignon's Theorem. Hence, Varignon's Theorem is just a two-dimensional shortcut to working through a vector determinant.  The signs on each cross-product term, and , still come from the right-hand rule and, conveniently, the process of multiplying diagonals in the determinant takes care of the signs for us.  Recognize that the reason we multiply diagonals in a determinant is that we only want to multiply the perpendicular components.     Find the moment of about point using .     A diagram where the line-of-action of F is extended down past A and a perpendicular distance is drawn between point A and this line-of-action.   This solution requires you to find the perpendicular distance between the point and line-of-action of . Finding this distance required a multi-step process which could include the steps below.     Draw a moderately large and accurate diagram. Too much confusion has been created by small, inaccurately-drawn diagrams.  Start with the angle that you found in Part (a) of this example. The angle opposite is .  Next, using the corresponding angles of parallel lines, transfer from the force triangle to triangle as .  Finally, find using the sine function.     Finally, compute the moment about . The direction of comes from the observation of the right-hand rule, as scalar moment computations are not directional.     Find the moment of about point using .     A diagram where the portion of force F perpendicular to the moment arm r is shown.   This solution requires you to find the portion of force which is perpendicular to the moment arm . Finding requires a multi-step process which could include the steps below.    Draw a large and accurate diagram to assist in finding the distances and angles in this problem.  The next three steps focus on finding the angle to help find . Using triangle , compute the angle .   Next, recognizing that is measured from horizontal and is perpendicular to , then the angle between vertical and must also be , which we'll label . This geometric rule for horizontal: vertical angles of perpendicular lines is also supported by the fact that and are both complementary to .  The last angle needed is , which is complimentary to .   Find using right triangle .   Next to last, find the length of using the Pythagorean Theorem.   Finally, compute . The direction of comes from the observation of the right-hand rule, as scalar moment computations are not directional.      "
 },
 {
-  "id": "figure-50",
+  "id": "figure-56",
   "level": "2",
-  "url": "varignons-theorem.html#figure-50",
+  "url": "varignons-theorem.html#figure-56",
   "type": "Figure",
   "number": "4.4.1",
   "title": "",
   "body": " Varignon's Theorem:    "
 },
 {
-  "id": "figure-51",
+  "id": "figure-57",
   "level": "2",
-  "url": "varignons-theorem.html#figure-51",
+  "url": "varignons-theorem.html#figure-57",
   "type": "Figure",
   "number": "4.4.2",
   "title": "",
@@ -1657,27 +1666,27 @@ var ptx_lunr_docs = [
   "body": " 3D Moment about a Point     In an axis system with x to the right, y up on the page, and z coming A thin plate OABC sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. Find the moment of the tension force around point O.   A thin plate sits in the plane. Cable pulls with a tension of through a frictionless ring at point . Find the moment caused by the tension force around point .      Start the problem by using the position information and tension magnitude to find the force vector . This will be done in three steps:     Find the position vector : Find position vectors by either subtracting the start-point coordinates from the end-point coordinates or focusing on the changes in the position components from to .    Find the unit vector of : Compute a unit vector by dividing by the total length of . Note that is unitless and is the pure direction of .   Multiply the unit vector by force magnitude: Now multiply by the force magnitude to find the force components.     Next, find the moment arm from point to the line of action of the force. There are two obvious options for moment arms, either or . To demonstrate how both moment arms give the same answer, solutions for both moment arms will be shown.  Option 1: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.    Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    Option 2: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.    Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    It is worth your effort to compute moments both ways for this example, or another problem, to prove to yourself that the answers work out exactly the same with different moment arms. Technically, you could select a position vector from anywhere on line and get the correct answer, but or are the only two between defined points in this problem.   Solution drawing to moment form force F_BD on the upper left corner of thin plate OABC.   Drawing , demonstrates that a moment vector direction is both 1) the axis of rotation caused by around point , with the moment aligning to your thumb and the moment rotating around your fingers from the right-hand rule and 2) that is perpendicular to the plane formed by and . Recall that all cross products result in vectors perpendicular to the two crossed vectors.   "
 },
 {
-  "id": "figure-56",
+  "id": "figure-62",
   "level": "2",
-  "url": "Chapter_04-moments-in-three-dimensions.html#figure-56",
+  "url": "Chapter_04-moments-in-three-dimensions.html#figure-62",
   "type": "Figure",
   "number": "4.5.5",
   "title": "",
   "body": " Moment on a hinge.   "
 },
 {
-  "id": "figure-57",
+  "id": "figure-63",
   "level": "2",
-  "url": "Chapter_04-moments-in-three-dimensions.html#figure-57",
+  "url": "Chapter_04-moments-in-three-dimensions.html#figure-63",
   "type": "Figure",
   "number": "4.5.6",
   "title": "",
   "body": " Moment of a force about a line   "
 },
 {
-  "id": "p-886",
+  "id": "p-883",
   "level": "2",
-  "url": "Chapter_04-moments-in-three-dimensions.html#p-886",
+  "url": "Chapter_04-moments-in-three-dimensions.html#p-883",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1702,18 +1711,18 @@ var ptx_lunr_docs = [
   "body": "  What makes a couple different than a typical moment?  Why is a couple considered a pure moment?  If a couple is applied about the point we are summing moments, does it still need to be included in the sum of moments equation?   "
 },
 {
-  "id": "p-890",
+  "id": "p-887",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-890",
+  "url": "Chapter_04-couples.html#p-887",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "couple "
 },
 {
-  "id": "p-891",
+  "id": "p-888",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-891",
+  "url": "Chapter_04-couples.html#p-888",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1756,9 +1765,9 @@ var ptx_lunr_docs = [
   "body": "  What is an equivalent transformation?  What are some examples of equivalent transformations?  What are external effects ?   "
 },
 {
-  "id": "figure-59",
+  "id": "figure-65",
   "level": "2",
-  "url": "equivalent-tranformations.html#figure-59",
+  "url": "equivalent-tranformations.html#figure-65",
   "type": "Figure",
   "number": "4.7.1",
   "title": "",
@@ -1774,18 +1783,18 @@ var ptx_lunr_docs = [
   "body": " Internal Effects  We made a point of saying that equivalent systems of force have the same effect on the body. This implies that there may be some other effects that are not the same. As you will see in , we sometimes need to consider internal forces and moments. These are the forces inside a body that hold all the parts of the object to each other, otherwise, it would break apart and fail. Although the external effects are the same for all equivalent systems, the internal forces depend on the specifics of how the loads are applied.    Let’s imagine that you have gone off-roading and have managed to get your Jeep stuck in the mud. You have two basic options to get it out: you can it out using the winch on the front bumper, or you can ask your friend to you out with his truck. Both methods (assuming that they apply forces with the same magnitude, direction and line of action) are statically equivalent, and both will equally move your vehicle forward.     Dave_7  CC-BY-SA     The difference is what might happen to your vehicle. With one method there’s a danger that you will rip your front bumper off, with the other, you might damage your rear bumper. These are the internal effects and they depend on where the equivalent force is applied. These forces are necessary to maintain rigidity and hold the parts of the body together.  "
 },
 {
-  "id": "figure-60",
+  "id": "figure-66",
   "level": "2",
-  "url": "equivalent-tranformations.html#figure-60",
+  "url": "equivalent-tranformations.html#figure-66",
   "type": "Figure",
   "number": "4.7.3",
   "title": "",
   "body": " Sliding a vector along its line of action    William Haynes  CC-BY-SA   A force vector is shown acting along a line of action. It is equivalent to a diagram where the same force vector has been shifted along the same line of action.   "
 },
 {
-  "id": "figure-61",
+  "id": "figure-67",
   "level": "2",
-  "url": "equivalent-tranformations.html#figure-61",
+  "url": "equivalent-tranformations.html#figure-67",
   "type": "Figure",
   "number": "4.7.4",
   "title": "",
@@ -1828,18 +1837,18 @@ var ptx_lunr_docs = [
   "body": " Statically equivalent systems    "
 },
 {
-  "id": "figure-63",
+  "id": "figure-69",
   "level": "2",
-  "url": "statically-equivalent-systems.html#figure-63",
+  "url": "statically-equivalent-systems.html#figure-69",
   "type": "Figure",
   "number": "4.8.2",
   "title": "",
   "body": " Moving a force is not an equivalent transformation     Force at end of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point A.     Force moved to center of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point B.       FBD and reactions for (a).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point A. At O, a force P acts upward. A Moment of M = 2P*l is developed in the counter-clockwise direction.     FBD and reactions for (b).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point B. At O, a force P acts upward. A Moment of M = P*l is developed in the counter-clockwise direction.      "
 },
 {
-  "id": "figure-68",
+  "id": "figure-74",
   "level": "2",
-  "url": "statically-equivalent-systems.html#figure-68",
+  "url": "statically-equivalent-systems.html#figure-74",
   "type": "Figure",
   "number": "4.8.3",
   "title": "",
@@ -1873,9 +1882,9 @@ var ptx_lunr_docs = [
   "body": " Finding Statically Equivalent Loads   Which of the three loading systems shown are statically equivalent?      Dan Baker  CC-0   A vertical column is 12 ft tall and 3 ft wide. Figure (a) has horizontal force of 10 lb acting to the left on the right side of the bar at a height of 6 ft and a clockwise moment of 80 ft-lb is shown at the bottom. Figure (b) has 10 lb force acting to the right on the left side of the bar at height of 6 ft. Another force of 20 lb acts to the left on the right side of the bar at height of 12 ft. A moment of 120 ft-lb is shown in the clockwise direction at the base. Figure (c) has a force of 10 lb acting to the left at a height of 0 ft. A clockwise moment of 40 ft-lb is shown at the bottom of the bar, and a counter-clockwise moment of 20 ft-lb is shown at the top of the bar.      (a) and (c) are statically equivalent       Strategy  Evaluate the resultant force and resultant moment for each case and compare. We choose to evaluate the resultant moment about point A, though any other point would work.    For system (a)       For system (b)       For system (c)        Systems (a) and (c) are statically equivalent since and are the same in both cases. System (b) is not as its resultant moment is different than the other two.   "
 },
 {
-  "id": "figure-74",
+  "id": "figure-80",
   "level": "2",
-  "url": "statically-equivalent-systems.html#figure-74",
+  "url": "statically-equivalent-systems.html#figure-80",
   "type": "Figure",
   "number": "4.8.8",
   "title": "",
@@ -1954,9 +1963,9 @@ var ptx_lunr_docs = [
   "body": " Table of common three-dimensional supports and their associated reactions.    Dan Baker  CC-BY-SA   As in the previous table, support types are shown here. A support produces a reaction in the direction in which it prevents motion (1 reaction). Two-force support member constrains translation in one direction. Smooth surface constrains translation in one direction (1 reaction). Ball and socket constrains translation in 3 directions, but not rotation (3 reactions). Free axle bearing constrains translation in two directions (y and z) and rotation in two directions (couple moment about z and about y) (4 reactions). Confined axle bearings (e.g., thrust bearing, smooth pin, hinge) only allows rotation about one axis, and does not allow translation in any direction (5 reactions). A square axle bearing only allows translation in one direction, and no rotation (5 reactions). A fixed support prevents any translation or rotation (6 reactions).   "
 },
 {
-  "id": "p-1014",
+  "id": "p-1011",
   "level": "2",
-  "url": "Chapter_05-free-body-diagrams.html#p-1014",
+  "url": "Chapter_05-free-body-diagrams.html#p-1011",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2080,27 +2089,27 @@ var ptx_lunr_docs = [
   "body": "  What does stable mean for a rigid body?  What does determinate mean for a rigid body?  Does stability depend on the external loads or only on the reactions?  How can I tell if a system is determinate?  How can I decide if a problem is both stable and determinate, which makes it solvable statics?   "
 },
 {
-  "id": "p-1106",
+  "id": "p-1103",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-1106",
+  "url": "Chapter_05-stability-and-determinacy.html#p-1103",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "determinate indeterminate "
 },
 {
-  "id": "p-1108",
+  "id": "p-1105",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-1108",
+  "url": "Chapter_05-stability-and-determinacy.html#p-1105",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "under-constrained over-constrained indeterminate "
 },
 {
-  "id": "p-1109",
+  "id": "p-1106",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-1109",
+  "url": "Chapter_05-stability-and-determinacy.html#p-1106",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2170,27 +2179,27 @@ var ptx_lunr_docs = [
   "body": " Structures  Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.  A truss is a multi-body structure made up of long slender members connected at their ends in triangular subunits. Truss members carry axial forces only. Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example. They are also used for crane booms, radio towers and the like. Trusses are lightweight and relatively strong. Over the years many unique truss designs have been developed and are often named after the original designer.  A frame is a multi-part, rigid, stationary structure primarily designed to support some type of load. A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces. Many common items can be considered frames. Some examples: building structure, bike frames, ladders, scaffolding, and more.  A machine is very similar to a frame, except that it includes some moving parts. The purpose of a machine is usually to provide a mechanical advantage and multiply forces. Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.    Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge     Solving a structure means determining all forces acting on all of its parts. The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part. The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.   Two-force Members  Many structures contain at least one two-force member, and trusses consist of two-force members exclusively. Recall from that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.  Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces. In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied. Since these points are known, the direction of the line-of-action is readily found.  The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression. If the two forces tend to stretch the object we say it is in tension ; if they act the other way and squash the object, it is in compression . The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly. If the analysis shows that the forces are negative then they actually act with the opposite sense, compression.   Two-force members in tension and compression.    CC-BY-SA   A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).     "
 },
 {
-  "id": "p-1140",
+  "id": "p-1137",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1140",
+  "url": "Chapter_06-structures.html#p-1137",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss "
 },
 {
-  "id": "p-1141",
+  "id": "p-1138",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1141",
+  "url": "Chapter_06-structures.html#p-1138",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "frame "
 },
 {
-  "id": "p-1142",
+  "id": "p-1139",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1142",
+  "url": "Chapter_06-structures.html#p-1139",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2206,18 +2215,18 @@ var ptx_lunr_docs = [
   "body": " Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge    "
 },
 {
-  "id": "p-1144",
+  "id": "p-1141",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1144",
+  "url": "Chapter_06-structures.html#p-1141",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Solving "
 },
 {
-  "id": "figure-86",
+  "id": "figure-92",
   "level": "2",
-  "url": "Chapter_06-structures.html#figure-86",
+  "url": "Chapter_06-structures.html#figure-92",
   "type": "Figure",
   "number": "6.1.2",
   "title": "",
@@ -2278,36 +2287,36 @@ var ptx_lunr_docs = [
   "body": "  What are simple trusses and how do they differ from other structural systems?  What are the benefits and dangers of simple trusses?  How can we determine the forces acting within simple truss systems?  For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?  How do we identify zero-force members in a truss and use their presence to simplify the analysis?   "
 },
 {
-  "id": "p-1155",
+  "id": "p-1152",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1155",
+  "url": "Chapter_06-trusses.html#p-1152",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss Planar trusses space trusses "
 },
 {
-  "id": "p-1156",
+  "id": "p-1153",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1156",
+  "url": "Chapter_06-trusses.html#p-1153",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "simple truss method of sections method of joints "
 },
 {
-  "id": "p-1157",
+  "id": "p-1154",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1157",
+  "url": "Chapter_06-trusses.html#p-1154",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "simple trusses "
 },
 {
-  "id": "figure-96",
+  "id": "figure-102",
   "level": "2",
-  "url": "Chapter_06-trusses.html#figure-96",
+  "url": "Chapter_06-trusses.html#figure-102",
   "type": "Figure",
   "number": "6.3.1",
   "title": "",
@@ -2386,9 +2395,9 @@ var ptx_lunr_docs = [
   "body": "  What are the important components to include on a free-body diagram of a joint in a truss?  How are the solutions found at one joint used to create an accurate free-body diagram of another joint?  How do we ensure that tension or compression in a member is properly represented?   "
 },
 {
-  "id": "p-1198",
+  "id": "p-1195",
   "level": "2",
-  "url": "method-of-joints.html#p-1198",
+  "url": "method-of-joints.html#p-1195",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2422,9 +2431,9 @@ var ptx_lunr_docs = [
   "body": "  How do we determine an appropriate section to cut through a truss?  How are equilibrium equations applied to a section?   "
 },
 {
-  "id": "p-1215",
+  "id": "p-1212",
   "level": "2",
-  "url": "method-of-sections.html#p-1215",
+  "url": "method-of-sections.html#p-1212",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2458,18 +2467,18 @@ var ptx_lunr_docs = [
   "body": "  How are frames and machines different from trusses?  Why can the method of joints and method of sections not be used for frames and machines?  How do we identify if a structure is independently rigid?  How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?   "
 },
 {
-  "id": "p-1230",
+  "id": "p-1227",
   "level": "2",
-  "url": "frames-and-machines.html#p-1230",
+  "url": "frames-and-machines.html#p-1227",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Frames "
 },
 {
-  "id": "p-1231",
+  "id": "p-1228",
   "level": "2",
-  "url": "frames-and-machines.html#p-1231",
+  "url": "frames-and-machines.html#p-1228",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2539,27 +2548,27 @@ var ptx_lunr_docs = [
   "body": " Free-body Diagram 1     Anna Howard  CC-BY-SA   Toggle clamp is shown separated from the floor, with the external force applied to the handle, and the reaction force of the floor on the base of the assembly.       Included  Excluded     Lever , Short Link , Wooden Block, Roller , Wall, Bearing     Floor      "
 },
 {
-  "id": "figure-109",
+  "id": "figure-115",
   "level": "2",
-  "url": "frames-and-machines.html#figure-109",
+  "url": "frames-and-machines.html#figure-115",
   "type": "Figure",
   "number": "6.6.8",
   "title": "",
   "body": " Free-body diagram 2     Anna Howard  CC-BY-SA   Toggle clamp assembly is now separated from the wall, with external forces from the wall shown acting on the assembly.       Included  Excluded     Lever , Short Link , Wooden Block, Roller , Bearing     Floor, Wall      "
 },
 {
-  "id": "figure-110",
+  "id": "figure-116",
   "level": "2",
-  "url": "frames-and-machines.html#figure-110",
+  "url": "frames-and-machines.html#figure-116",
   "type": "Figure",
   "number": "6.6.9",
   "title": "",
   "body": " Free-body diagram 3     Anna Howard  CC-BY-SA   The bearing is removed since it has equal and opposite forces on the top member.       Included  Excluded     Lever , Short Link , Wooden Block, Roller ,    Floor, Wall, Bearing       "
 },
 {
-  "id": "figure-111",
+  "id": "figure-117",
   "level": "2",
-  "url": "frames-and-machines.html#figure-111",
+  "url": "frames-and-machines.html#figure-117",
   "type": "Figure",
   "number": "6.6.10",
   "title": "",
@@ -2575,45 +2584,45 @@ var ptx_lunr_docs = [
   "body": " Free-body diagram 5 (lever and link)     Anna Howard  CC-BY-SA   FBD of the toggle clamp with wooden block removed.       Included  Excluded     Lever , Short Link , Roller     Floor, Wall, Bearing , Wooden Block      "
 },
 {
-  "id": "figure-113",
+  "id": "figure-119",
   "level": "2",
-  "url": "frames-and-machines.html#figure-113",
+  "url": "frames-and-machines.html#figure-119",
   "type": "Figure",
   "number": "6.6.12",
   "title": "",
   "body": " Free-body diagram 6 (short link)     Anna Howard  CC-BY-SA   The short link of toggle clamp (a two-force member).   When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the and components are not independent but are actually related by the direction of the force.   "
 },
 {
-  "id": "figure-114",
+  "id": "figure-120",
   "level": "2",
-  "url": "frames-and-machines.html#figure-114",
+  "url": "frames-and-machines.html#figure-120",
   "type": "Figure",
   "number": "6.6.13",
   "title": "",
   "body": " Free-body diagram 7 (roller)     Anna Howard  CC-BY-SA   FBD of the roller.   Note that the force acting on the roller is shown pointing down and to the left. This is the opposite to the force acting on the link at , which acts up and to the right. These two must act in opposite directions because they are an action-reaction pair.   "
 },
 {
-  "id": "figure-115",
+  "id": "figure-121",
   "level": "2",
-  "url": "frames-and-machines.html#figure-115",
+  "url": "frames-and-machines.html#figure-121",
   "type": "Figure",
   "number": "6.6.14",
   "title": "",
   "body": " Free-body diagram 8     Anna Howard  CC-BY-SA   FBD of toggle clamp without the roller.       Included  Excluded     Lever , Short Link     Floor, Wall, Bearing , Wooden Block, Roller       "
 },
 {
-  "id": "figure-116",
+  "id": "figure-122",
   "level": "2",
-  "url": "frames-and-machines.html#figure-116",
+  "url": "frames-and-machines.html#figure-122",
   "type": "Figure",
   "number": "6.6.15",
   "title": "",
   "body": " Free-body diagram 9 (lever)     Anna Howard  CC-BY-SA   FBD of the single remaining member of the toggle clamp assembly.       Included  Excluded     Lever     Floor, Wall, Bearing , Wooden Block, Roller , Short Link       "
 },
 {
-  "id": "figure-117",
+  "id": "figure-123",
   "level": "2",
-  "url": "frames-and-machines.html#figure-117",
+  "url": "frames-and-machines.html#figure-123",
   "type": "Figure",
   "number": "6.6.16",
   "title": "",
@@ -2665,18 +2674,18 @@ var ptx_lunr_docs = [
   "body": " Weighted Averages  You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is   More formally, if is a set with elements then the average, or mean, value is . This average is also called the arithmetic mean . When calculating an arithmetic mean, each number is equally important when evaluating the average. The overbar symbol is often used to indicate that a quantity is a mean value.  In situations where some values are more important than others, we use a weighted average . A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken. The credit values are called the weighting factors .  In general terms a weighted average is Where are the values we are averaging and are the corresponding weighting factors. The weighting factors may be different for each item being averaged, so is the weighting factor for value . In this book we will not write the limits on the sums, and understand that the intent is always to sum over all the values. Notice that if the weighting factors are all identical, they can be factored out of the sums so the weighted average and the arithmetic mean will be the same.  Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter. All three are points located at the center the object, but the meaning of center depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.   Course Grades   The mechanics syllabus says that there are two exams worth 25% each, homework is 10%, and the final is worth 40%. You have a 40 on the first exam, a 80 on the second exam, and your homework grade is 90.  What do you have to earn on the final exam to get a 70 in the class?    You need a 77.5 on the final to get a 70 for the class.    Your known grades and the weighting factors are   Find final exam score so that your average grade is 70%. .    "
 },
 {
-  "id": "p-1330",
+  "id": "p-1327",
   "level": "2",
-  "url": "weghted-average.html#p-1330",
+  "url": "weghted-average.html#p-1327",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "arithmetic mean "
 },
 {
-  "id": "p-1331",
+  "id": "p-1328",
   "level": "2",
-  "url": "weghted-average.html#p-1331",
+  "url": "weghted-average.html#p-1328",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2701,9 +2710,9 @@ var ptx_lunr_docs = [
   "body": " Center of Gravity  So far in this book we have always taken the weight of an object to act at a point at its center. This is the center of gravity : the point where all of an object’s weight may be concentrated and still have the same external effect on the body. In this chapter we will learn to actually locate this point.    We will indicate the center of gravity with a circle with black and white quadrants, and call its coordinates or . This point represents the average location of all the particles which make up the body.    The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in the center of gravity of the block is at its geometric center meaning that and are positive, but if the block is moved to the left of the axis, or the coordinate system is translated to the right of the block, would then become negative.   Location of the centroid, measured from the origin.   Square shape shown on x-y plane in Quadrant I. x-bar is distance of centroid from y axis, and y-bar is distance of centroid from x-axis.     Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.  Let’s develop this balanced moment idea mathematically.  Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from that statically equivalent systems produce the same external effect on the object the net force on the object, and the net moment about any point don't change. An upward force at this point will support the pencil without tipping.  To be equivalent, the total weight must equal the total weight of the parts. . Common sense also tells us that will act somewhere between and .    (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.      Next, let’s do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point to be the origin, then calculate the total moment about due to the two weights.  The sum of moments around point can be written as:     Notice that the moment of both forces are clockwise around point , so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the center of gravity .  represents the mean distance of the weight, mass, or area depending on the context of the problem. We are evaluating weights in this problem, so represents the distance from to the center of gravity.  The sum of moments around point for the equivalent system can be written as:   The moment of total weight is also clockwise around point , so the sign of moment will also be negative according to the right-hand rule. Since the two representation are equivalent we can equate them and solve for .    This result is exactly in the form of where the value being averaged is distance and the weighting factor is the weight of part and the result is the mean distance .  The pencil was made up of two halves, but this equation can easily be extended discrete parts. The resulting general definition of the centroidal coordinate is: where: is the weight of part , is the coordinate of the center of gravity of element , and is understood to mean sum all parts so there is no need to write .   The numerator is the first moment of force which is literally a moment of force as we defined it in . The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in , we will introduce second moments , which are the integral of some quantity like area, multiplied by a distance squared .  We treated the pencil as a one-dimensional object, so this discussion focused on . There are similar formula for the other dimensions as well .   In words, these equations say   They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object’s center of gravity.    Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?    If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side. The first moment for the entire shape about the axis will sum to zero, meaning that . In other words, the distance from the axis of symmetry of the shape to the centroid is zero.     Simple Center of Gravity    Three boxes are distributed along the axis as shown.       Find the total weight and the distance from the origin to the center of gravity of the three boxes.    How would the center of gravity change if the right-most box weighed instead of ?       a)   b)   The total weight increases by and the center of gravity shifts to the right by . Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.  .        "
 },
 {
-  "id": "p-1339",
+  "id": "p-1336",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1339",
+  "url": "Chapter_07-center-of-gravity.html#p-1336",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2728,9 +2737,9 @@ var ptx_lunr_docs = [
   "body": " (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar.     "
 },
 {
-  "id": "p-1360",
+  "id": "p-1357",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1360",
+  "url": "Chapter_07-center-of-gravity.html#p-1357",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2764,18 +2773,18 @@ var ptx_lunr_docs = [
   "body": " Center of Mass  The center of mass is the mean location of the mass of an object, and is related to the center of gravity by Newton’s Second Law because , where is the local strength of the gravitational field. In this course you may take in the SI system, or in the US customary system as reasonable approximations for objects on the surface of the earth.  Substituting in gives the equations for the center of mass. .  By our assumption that is constant on the surface of the earth, can be factored out of the sums and drops out of the equation completely. .  These equations give the coordinates of the center of mass. The numerator contains the first moment of mass , and the denominator contains the total mass of the object. As long as the assumption that is constant is valid, the center of mass and the center of gravity are identical points and the two terms may be used interchangeably.  "
 },
 {
-  "id": "p-1375",
+  "id": "p-1372",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1375",
+  "url": "Chapter_07-center-of-mass.html#p-1372",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "center of mass "
 },
 {
-  "id": "p-1378",
+  "id": "p-1375",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1378",
+  "url": "Chapter_07-center-of-mass.html#p-1375",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2800,9 +2809,9 @@ var ptx_lunr_docs = [
   "body": "  What is the difference between a centroid, center of gravity and a center of mass?  When will the centroid, center of gravity and center of mass refer to the same point?  Why do the equations for the center of gravity, mass, volume, and area all have the same structure?   "
 },
 {
-  "id": "figure-123",
+  "id": "figure-129",
   "level": "2",
-  "url": "Chapter_07-centroids.html#figure-123",
+  "url": "Chapter_07-centroids.html#figure-129",
   "type": "Figure",
   "number": "7.4.1",
   "title": "",
@@ -2944,18 +2953,18 @@ var ptx_lunr_docs = [
   "body": "  How do you find the centroid of an area using integration?  What is a differential quantity?  Why are double integrals required for square elements and single integrals required for rectangular elements?   "
 },
 {
-  "id": "p-1487",
+  "id": "p-1484",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1487",
+  "url": "centroids-by-integration.html#p-1484",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": ""
 },
 {
-  "id": "figure-128",
+  "id": "figure-134",
   "level": "2",
-  "url": "centroids-by-integration.html#figure-128",
+  "url": "centroids-by-integration.html#figure-134",
   "type": "Figure",
   "number": "7.7.1",
   "title": "",
@@ -2971,9 +2980,9 @@ var ptx_lunr_docs = [
   "body": " What is ?  is just an area, but an extremely tiny one!  It’s an example of an differential quantity   also called an infinitesimal . A differential quantity is a value which is as close to zero as it can possibly be without actually being zero. You can think of its value as . Integration is the process of adding up an infinite number of infinitesimal quantities.  Some other differential quantities we will see in statics are , and , which are infinitesimal increments of distance; , which is a differential volume; , a differential weight; , a differential mass, and so on.  Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by then, even though height is a real number, the area is a differential because is differential.  If you like, you can pronounce the as the little bit of so reads The little bit of area is the height times a little bit x. and reads The total area is the sum of the little bits of area.   "
 },
 {
-  "id": "p-1512",
+  "id": "p-1509",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1512",
+  "url": "centroids-by-integration.html#p-1509",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3061,36 +3070,36 @@ var ptx_lunr_docs = [
   "body": "  What is a distributed load?  Given a distributed load, how do we find the magnitude of the equivalent concentrated force?  Given a distributed load, how do we find the location of the equivalent concentrated force?   "
 },
 {
-  "id": "p-1659",
+  "id": "p-1656",
   "level": "2",
-  "url": "distributed-loads.html#p-1659",
+  "url": "distributed-loads.html#p-1656",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Distributed loads "
 },
 {
-  "id": "p-1660",
+  "id": "p-1657",
   "level": "2",
-  "url": "distributed-loads.html#p-1660",
+  "url": "distributed-loads.html#p-1657",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "uniformly distributed load "
 },
 {
-  "id": "figure-139",
+  "id": "figure-145",
   "level": "2",
-  "url": "distributed-loads.html#figure-139",
+  "url": "distributed-loads.html#figure-145",
   "type": "Figure",
   "number": "7.8.1",
   "title": "",
   "body": "     A shelf of books with various weights.   Shelf of books.       Each book represented as an individual weight   Shelf with books represented by different individual weights.       All the books represented as a distributed load.   All books represented as distributed load      "
 },
 {
-  "id": "p-1661",
+  "id": "p-1658",
   "level": "2",
-  "url": "distributed-loads.html#p-1661",
+  "url": "distributed-loads.html#p-1658",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3106,9 +3115,9 @@ var ptx_lunr_docs = [
   "body": " Bookshelf   A common paperback is about thick and weighs approximately .  What is the loading function for a shelf full of paperbacks and what is the total weight of paperback books on a shelf?         The weight of one paperback over its thickness is the load intensity , so .  The total weight is the area under the load intensity diagram, which in this case is a rectangle. So, a bookshelf covered with paperbacks would have to support .  The line of action of this equivalent load passes through the centroid of the rectangular loading, so it acts at .     "
 },
 {
-  "id": "p-1675",
+  "id": "p-1672",
   "level": "2",
-  "url": "distributed-loads.html#p-1675",
+  "url": "distributed-loads.html#p-1672",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3160,18 +3169,18 @@ var ptx_lunr_docs = [
   "body": "  What is the basic relationship between depth and pressure?  How are absolute and relative pressure different?  How can use our knowledge of centroids to compute the equivalent point forces of fluids?   "
 },
 {
-  "id": "p-1695",
+  "id": "p-1692",
   "level": "2",
-  "url": "Chapter_07-fluid-statics.html#p-1695",
+  "url": "Chapter_07-fluid-statics.html#p-1692",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Absolute pressure Gage pressure "
 },
 {
-  "id": "figure-143",
+  "id": "figure-149",
   "level": "2",
-  "url": "Chapter_07-fluid-statics.html#figure-143",
+  "url": "Chapter_07-fluid-statics.html#figure-149",
   "type": "Figure",
   "number": "7.9.1",
   "title": "",
@@ -3250,9 +3259,9 @@ var ptx_lunr_docs = [
   "body": " Internal Forces  In you were introduced to axial loadings, which were either tension or compression, or possibly zero. This section will explain two other internal forces found in two-dimensional systems, the internal  shear and internal  bending moment .  Internal forces are present at every point within a rigid body, but they always occur in equal-and-opposite pairs which cancel each other out, so they’re not obvious. They’re there however, and when an object is cut (in your imagination) into two parts the internal forces become visible and can be determined.  You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end. Now imagine that we cut the member at some point along its length. To maintain equilibrium, forces must exist at the cut, equal and opposite to the external forces. These forces are internal forces.    Internal forces in a straight two-force member.    Now let’s examine the two-force member shown in . This time, the member is L shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding an equal and opposite horizontal force at the cut won't produce static equilibrium because the two forces form a couple which causes the piece to rotate. This means that something is missing!   A horizontal force alone does not create equilibrium.    Dan Baker    L-shaped beam turned 45 degrees with force applied horizontally to each end. If the beam is split on one leg, a horizontal force alone does not result in equilibrium; a moment is necessary.     Two-dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy static equilibrium in order to prevent translation in the direction, the direction, and to prevent rotation about the axis.  Assuming the material is rigid, the connection between the two halves must resist both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction and a couple-moment reaction as shown in the free-body diagrams of . This internal loading is actually a simplification of a more complex loading distributed across the section plane. The couple represents the net rotational effect of the force system on the surface of the cut.   The internal forces are represented as an equal and opposite force and a bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force and moment achieve equilibrium.    The horizontal force can also be resolved into orthogonal components parallel and perpendicular to the cut. These components have special names in the context of internal forces.   The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.     The internal force component perpendicular to the cut is called the normal force . This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the normal force may also be properly called an axial force .  The internal force component parallel to the cut is called the shear force . The word shear refers to the shearing that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.  The internal couple-moment is called the bending moment because it tends to bend the material by rotating the cut surface.  The shear force is often simply referred to as shear, and the bending moment as moment ; together with the normal or axial force the three together are referred to as the internal forces . The symbol is commonly chosen for the shear force, and , or for the normal force and for the bending moment.    Internal Loading in a L shaped member.     Deformation  The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a span, the deflection would need to be less than .   To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal forces that arise from the externally applied loads, using the methods of this chapter.   "
 },
 {
-  "id": "p-1743",
+  "id": "p-1740",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1743",
+  "url": "Chapter_08-internal-forces.html#p-1740",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3286,45 +3295,45 @@ var ptx_lunr_docs = [
   "body": " The internal forces are represented as an equal and opposite force and a bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force and moment achieve equilibrium.   "
 },
 {
-  "id": "figure-150",
+  "id": "figure-156",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#figure-150",
+  "url": "Chapter_08-internal-forces.html#figure-156",
   "type": "Figure",
   "number": "8.1.4",
   "title": "",
   "body": " The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.   "
 },
 {
-  "id": "p-1754",
+  "id": "p-1751",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1754",
+  "url": "Chapter_08-internal-forces.html#p-1751",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "normal force axial force "
 },
 {
-  "id": "p-1755",
+  "id": "p-1752",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1755",
+  "url": "Chapter_08-internal-forces.html#p-1752",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "shear force "
 },
 {
-  "id": "p-1756",
+  "id": "p-1753",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1756",
+  "url": "Chapter_08-internal-forces.html#p-1753",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "bending moment "
 },
 {
-  "id": "p-1757",
+  "id": "p-1754",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1757",
+  "url": "Chapter_08-internal-forces.html#p-1754",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3376,9 +3385,9 @@ var ptx_lunr_docs = [
   "body": " Internal Forces at a Point   This section covers the procedure to compute the internal normal force, shear force, and bending moment at a designated point in a multi-force rigid body.    Consider the frame shown in consisting of two-force members and , and multi-force members and . Since no information is provided, we can assume that the components have negligible weight. The internal loading within the two-force members is purely axial, but the multi-force members will be subject to the complete set of shear force, normal force, and bending moment.  To find the internal forces at a specified point within one of the members, we make an imaginary cut there.  shows the free-body diagram of member , with a proposed cut between points and . The free-body diagram is shown with reactions for pinned connections at and and forces from the two-force members at locations and .  We then separate the free-body diagram of the member into two independent free-body diagrams, one above the cut and one below. This is analogous to the Method of Sections technique of . The free-body diagrams for the two sections of the member are shown in . The three internal forces are exposed and labeled , , and . Either free-body diagram can be used to solve for the internal forces, so it is wise to choose the easier one. Recognizing which one is easier takes practice, but look for the piece with more known and fewer unknown values.  Note that the internal forces at the cut are drawn in the positive direction according to the sign conventions for internal forces, that they act in opposite direction either side of the cut, and they cancel out if the object is put back together.  This technique can be used to find the internal forces at any point within any object. In the examples below we will find the internal loadings at a specific point in load carrying beams.        A frame supporting a load at .    Dan Baker    Vertical column pinned at its base and anchored by a cable to the ground. The column has a horizontal beam supported by an angled beam. A force is applied at the end of the horizontal beam.       Wavy line indicates the location of the imaginary cut.    Dan Baker    FBD of the vertical column from previous image. The internal load will be determined at an imaginary \"cut\".       Internal forces are exposed by the cut.    Dan Baker    The two sections of the column from the previous figure are shown separated. Each is a FBD with the internal loads shown as reactions at each of the cut surfaces.         Internal forces in a simply supported beam     A beam of length is supported by a pin at and a roller at and is subjected to a horizontal force applied to point and a uniformly distributed load over its entire length. The intensity of the distributed load is with units of [force\/length].     Dan Baker    A beam of length L is supported by a pin at A on the left side and a roller at B on the right. It is subjected to a horizontal force F applied to point B and a uniformly distributed load over its entire length is w with units [force\/length].     Find the internal forces at the midpoint of the beam.    At the midpoint of the beam,          Find the external reactions      Begin by drawing a free-body diagram of the entire beam, simplified by replacing the distributed load with an equivalent concentrated load at the centroid of the rectangle.    Dan Baker      The magnitude of the equivalent load is equal to the area under the rectangular loading curve.   Then apply and simplify the equations of equilibrium to find the external reactions at and .     Cut the beam  Cut the beam at the point of interest and separate the beam into two sections. Notice that as the beam is cut in two, the distributed load is cut as well. Each of these distributed load halves will support equivalent point loads of acting through the centroid of each cut half.    Dan Baker       Dan Baker       Add the internal forces  At each cut, a shear force, a normal force, and a bending moment will be exposed, and these need to be included on the free-body diagram.  At this point, we don't know the actual directions of the internal forces, but we do know that they act in opposite directions. We will assume that they act in the positive sense as defined by the standard sign convention .  Axial forces are positive in tension and act in opposite directions on the two halves of the cut beam.  Positive shear forces act down when looking at the cut from the right, and up when looking at the cut from the left. An alternate definition of positive shears is that the positive shears cause clockwise rotation. This definition is useful if you are dealing with a vertical column instead of a horizontal beam.   Bending moments are positive when the moment tends to bend the beam into a smiling U-shape. Negative moments bend the beam into a frowning shape.  For vertical columns, positive bending moments bend a beam into a C shape and negative into a backward C-shape.  The final free-body diagrams look like this.    Dan Baker     Horizontal beams should always have assumed internal loadings in these directions at the cut, indicating that you have assumed positive shear, positive normal force and positive bending moments at that point.    Solve for the internal forces  You may uses either FBD to find the internal forces using the techniques you have already learned. So, with a standard coordinate system, forces to the right or up are positive when summing forces and counter-clockwise moments are positive when summing moments.  Using the left free-body diagram and substituting in the reactions, we get:   Using the right side free-body diagram we get:        Regardless of which side is chosen, we get the same results for the internal forces at the chosen point.  When you solve for the internal forces, the results can be either positive, negative, or sometimes zero. Negative values indicate that the actual direction of the load is opposite to the assumed direction. Since we assumed all three internal forces were positive as defined by the standard sign convention , a negative answer means that the load actually acts in the opposite direction to the vector shown on the free-body diagram.   Internal forces in a cantilever beam    Consider a cantilever beam which is supported by a fixed connection at , and loaded by a vertical force and horizontal force at the free end . Determine the internal forces at a point a distance from the left end.    Dan Baker    A cantilever beam is supported by a fixed connection at A on the left, and loaded by a vertical force P and horizontal force F at the free end on the right.      If you think ahead, you may not need to find the reactions at .            Determine the reactions   Draw an FBD of the entire, uncut beam and determine the reactions.    Dan Baker      Notice that only the applied loads and support reactions are included on this uncut beam FBD . The internal forces are only exposed and shown on a FBD after the beam is cut.  Use this free-body diagram and the equations of equilibrium to determine the external reaction forces.     Section the beam  Take a cut at the point of interest and draw a FBD of either or both parts. Try to choose the simpler free-body diagram. If one side has no external reactions, then you can skip the previous step if you choose that side.    Dan Baker     The free-body diagrams of both portions have been drawn with the internal forces and moments drawn in the positive direction defined by the standard sign convention .  The axial force is shown in tension on both parts. This force has been named so its name doesn't conflict with the forces at point .  The shear force is positive when the shear is down on the right face of the cut and up on the left face.  The bending moment is positive if the bending direction would tend to bend the beam into a concave upward curve.  Always assume that the unknown internal forces act in the positive direction as defined by the standard sign convention.    Solve for the internal forces  Selecting the right hand diagram and solving for the unknown internal forces gives: . Solving the other free-body diagram would produce the same results  Once you have found the reactions and drawn a free-body diagram of the simpler portion with the normal force, shear force, and bending moment assumed positive, you then solve for the unknown values and signs just like any other equilibrium problem.       This workflow typically includes: Establishing a horizontal and vertical coordinate system. Taking a cut at the point of interest. Assuming that the internal forces act in the positive direction and drawing a free-body diagram accordingly Using , , and to solve for the three unknown internal forces.   The shear force , normal force , and bending moment are scalar components and they may be positive, zero, or negative depending on the applied loads. The signs of the scalar components together with the sign convention for internal forces establish the actual directions of the shear force, normal force and bending moment vectors.    Interactive Internal Forces  The internal forces and bending moments inside a beam depend on the load that the beam is supporting and differ from point to point. This simply supported beam supports a uniformly varying load. The interactive traces out the value of the shear and bending moment as you move point . Can you deduce the relation between the triangular loading and the value of the shear and bending moment?    Internal forces in a beam with a uniformly varying load.     "
 },
 {
-  "id": "figure-152",
+  "id": "figure-158",
   "level": "2",
-  "url": "internal_force_at_point.html#figure-152",
+  "url": "internal_force_at_point.html#figure-158",
   "type": "Figure",
   "number": "8.3.1",
   "title": "",
@@ -3421,9 +3430,9 @@ var ptx_lunr_docs = [
   "body": " Shear and Bending Moment Diagrams   Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that’s where the beam is most likely to fail. To find these critical points, we need to check the shear force and bending moment at every point along the beam’s full length.  The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at every point in the object you will need a more powerful approach. This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.    Shear and Bending Moment Diagrams  Shear and moment diagrams are graphs which show the internal shear and bending moment plotted along the length of the beam. They allow us to see where the maximum loads occur so that we can optimize the design to prevent failures and reduce the overall weight and cost of the structure.  Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.  Beams can be supported in a variety of ways as shown in . The common support methods are Simply Supported Supported by a pin on one end and a roller at the other. Cantilevered Fixed at one end, and unsupported at the other. Overhanging One or both ends overhang the supports.     Beam Supports    Simply Supported    Dan Baker    Simply supported beam.     Cantilevered    Dan Baker    Cantilevered beam.     Overhanging    Dan Baker    Overhanging beam.       "
 },
 {
-  "id": "p-1827",
+  "id": "p-1824",
   "level": "2",
-  "url": "VM_diagrams.html#p-1827",
+  "url": "VM_diagrams.html#p-1824",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3466,9 +3475,9 @@ var ptx_lunr_docs = [
   "body": " Shear and Bending Moment Diagrams    vs.    Shear diagram for the previous FBD. V(x)=P from x=0 to x=L.     vs.    Moment diagram for the previous FBD. M(x) starts at (0,-PL) and ends at (L,0).     "
 },
 {
-  "id": "figure-168",
+  "id": "figure-174",
   "level": "2",
-  "url": "section_cut_method.html#figure-168",
+  "url": "section_cut_method.html#figure-174",
   "type": "Figure",
   "number": "8.5.3",
   "title": "",
@@ -3502,9 +3511,9 @@ var ptx_lunr_docs = [
   "body": " A free-body diagram of a small section of the beam with a width of     Dan Baker    FBD of the small segment delta x, with shear and bending moments indicated on the \"cut\" surfaces.   "
 },
 {
-  "id": "p-1866",
+  "id": "p-1863",
   "level": "2",
-  "url": "VM_relations.html#p-1866",
+  "url": "VM_relations.html#p-1863",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3619,18 +3628,18 @@ var ptx_lunr_docs = [
   "body": "  Which types of friction do we study in statics, and which are studied elsewhere?  What is a normal force?  What is impending motion ?  How do you decide when you can use the equation and when you can not?  Can you show graphically how friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion?  What is the friction angle ?  Why is a distributed normal force represented as a point force that moves as the normal force shifts?   "
 },
 {
-  "id": "p-1933",
+  "id": "p-1930",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1933",
+  "url": "Chapter_09-dry-friction.html#p-1930",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Coulomb friction "
 },
 {
-  "id": "p-1934",
+  "id": "p-1931",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1934",
+  "url": "Chapter_09-dry-friction.html#p-1931",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3673,9 +3682,9 @@ var ptx_lunr_docs = [
   "body": "    Block on rough surface.     FBD showing normal and friction forces.     "
 },
 {
-  "id": "p-1942",
+  "id": "p-1939",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1942",
+  "url": "Chapter_09-dry-friction.html#p-1939",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3691,27 +3700,27 @@ var ptx_lunr_docs = [
   "body": " Phases of Coulomb friction.   "
 },
 {
-  "id": "p-1943",
+  "id": "p-1940",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1943",
+  "url": "Chapter_09-dry-friction.html#p-1940",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "impending motion "
 },
 {
-  "id": "p-1949",
+  "id": "p-1946",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1949",
+  "url": "Chapter_09-dry-friction.html#p-1946",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "friction resultant "
 },
 {
-  "id": "p-1950",
+  "id": "p-1947",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1950",
+  "url": "Chapter_09-dry-friction.html#p-1947",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3916,27 +3925,27 @@ var ptx_lunr_docs = [
   "body": "  Can you describe how the right-hand rule relates to the motion and rotation of screws?  What is the thread pitch and friction angle for a screw?  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation.  Why does a screw and a nut move in relatively opposite directions?   "
 },
 {
-  "id": "p-2001",
+  "id": "p-1998",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-2001",
+  "url": "Chapter_09-screw-friction.html#p-1998",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "lead "
 },
 {
-  "id": "p-2002",
+  "id": "p-1999",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-2002",
+  "url": "Chapter_09-screw-friction.html#p-1999",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "fasteners power screws lead screws "
 },
 {
-  "id": "figure-200",
+  "id": "figure-206",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#figure-200",
+  "url": "Chapter_09-screw-friction.html#figure-206",
   "type": "Figure",
   "number": "9.4.1",
   "title": "",
@@ -3952,18 +3961,18 @@ var ptx_lunr_docs = [
   "body": " Right Hand Threads    Loosening    William Haynes    Twisting a screw clockwise tightens the screw, which agrees with the right hand rule, i.e. curling fingers of right hand in the direction of the tightening places points the thumb down in the direction the screw moves as tightened.     Tightening    William Haynes       "
 },
 {
-  "id": "figure-206",
+  "id": "figure-212",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#figure-206",
+  "url": "Chapter_09-screw-friction.html#figure-212",
   "type": "Figure",
   "number": "9.4.3",
   "title": "",
   "body": " Screw Thread Handedness    Right Hand Threads    William Haynes    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.     Left Hand Threads     "
 },
 {
-  "id": "p-2009",
+  "id": "p-2006",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-2009",
+  "url": "Chapter_09-screw-friction.html#p-2006",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3979,9 +3988,9 @@ var ptx_lunr_docs = [
   "body": " Thread properties    = pitch, = mean radius     = lead angle    William Haynes       "
 },
 {
-  "id": "figure-212",
+  "id": "figure-218",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#figure-212",
+  "url": "Chapter_09-screw-friction.html#figure-218",
   "type": "Figure",
   "number": "9.4.5",
   "title": "",
@@ -4024,9 +4033,9 @@ var ptx_lunr_docs = [
   "body": "  How does the impending motion of the system determine which side of the belt will have a larger tension?  How do you compute the contact angle between the belt and pulley or cylinder?  How do you compute the tension differential on either side of the belt or cylinder for both flat and v-belts?  What determines the maximum torque transfer available from a pulley system?   "
 },
 {
-  "id": "figure-220",
+  "id": "figure-226",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#figure-220",
+  "url": "Chapter_09-flexible-belt-friction.html#figure-226",
   "type": "Figure",
   "number": "9.5.1",
   "title": "",
@@ -4096,9 +4105,9 @@ var ptx_lunr_docs = [
   "body": " Unequal Tensions    Belt Drive System    William Haynes    A belt-driven set of fixed axis pulleys. The pulleys are separated into separate FBDs with the tension in the belts shown to be equal and opposite.     Driving Pulley    William Haynes       Load Pulley    William Haynes       "
 },
 {
-  "id": "figure-242",
+  "id": "figure-248",
   "level": "2",
-  "url": "Chapter_09-flexible-belt-friction.html#figure-242",
+  "url": "Chapter_09-flexible-belt-friction.html#figure-248",
   "type": "Figure",
   "number": "9.5.9",
   "title": "",
@@ -4186,9 +4195,9 @@ var ptx_lunr_docs = [
   "body": " This orbital sander rotates a circular sanding disc against a stationary surface. The disc friction between the sanding disc and the surface exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.   "
 },
 {
-  "id": "p-2103",
+  "id": "p-2100",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#p-2103",
+  "url": "Chapter_09-disc-friction.html#p-2100",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4204,18 +4213,18 @@ var ptx_lunr_docs = [
   "body": " Collar bearing    Side view    William Haynes    A collar bearing (side view).     Contact Area    William Haynes    Annular contact area of collar (top view).     "
 },
 {
-  "id": "figure-258",
+  "id": "figure-264",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#figure-258",
+  "url": "Chapter_09-disc-friction.html#figure-264",
   "type": "Figure",
   "number": "9.7.3",
   "title": "",
   "body": " Forces and moments on differential areas    William Haynes    Differential Elements.   "
 },
 {
-  "id": "figure-259",
+  "id": "figure-265",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#figure-259",
+  "url": "Chapter_09-disc-friction.html#figure-265",
   "type": "Figure",
   "number": "9.7.4",
   "title": "",
@@ -4258,9 +4267,9 @@ var ptx_lunr_docs = [
   "body": "   Why does the area moment of inertia integral equation include a distance squared term?    When performing a single integral, either or , what is your differential element shape?    "
 },
 {
-  "id": "p-2129",
+  "id": "p-2126",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2129",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2126",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4276,13 +4285,22 @@ var ptx_lunr_docs = [
   "body": " Definitions for area properties   "
 },
 {
-  "id": "p-2144",
+  "id": "p-2141",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2144",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2141",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area "
+},
+{
+  "id": "p-2143",
+  "level": "2",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2143",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "first moment of area "
 },
 {
   "id": "p-2146",
@@ -4291,21 +4309,12 @@ var ptx_lunr_docs = [
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "first moment of area "
-},
-{
-  "id": "p-2149",
-  "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2149",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
   "body": "area moment of inertia "
 },
 {
-  "id": "p-2150",
+  "id": "p-2147",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2150",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2147",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4321,9 +4330,9 @@ var ptx_lunr_docs = [
   "body": "  These three triangles are all the same size. Rank them from largest to largest smallest moment of inertia with respect to the axis.   Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left.     From smallest to largest: .    Although the areas of all three triangles are the same, triangle has the area on both sides of the axis and relatively close to it, and so has the smallest , while triangle has the most of its area far from the axis which makes its moment of inertia largest. We will be able to show later that the .   "
 },
 {
-  "id": "p-2157",
+  "id": "p-2154",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2157",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2154",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4339,9 +4348,9 @@ var ptx_lunr_docs = [
   "body": " Beam bending  To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.  Try to bend the ruler both when it’s flat and also when it’s turned on edge. You will find that bending the ruler around the axis while it’s flat is easy compared to bending it the other way, around the axis . Why is it easier to bend the ruler one way than the other? It’s the same object, made of the same material either way.  The answer has to due with the moment of inertia, and how it relates to the bending axis.       Bending a ruler.    Dan Baker  CC-BY-SA     As engineers we are not satisfied with merely knowing that it’s harder to bend a ruler one way than the other, we’d like to know how much harder ?  For a thick ruler that is tall, the bending resistance about the axis is over 20 times more than the bending resistance the other way, about the axis.  To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius. A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.   Beam of length which is being bent by opposing couple-moments to an arc with angle .    Dan Baker  CC-BY-SA      You will learn in Mechanics of Materials that the relationship is: where: is a material property called Young’s Modulus or the modulus of elasticity which characterizes the stiffness of a material. is the length of the beam, and is the moment of inertia of the cross-section of the beam about the bending axis. is the moment applied to the ends of the beam, and is the curvature of the beam. Since and are in the numerator and is in the denominator, a longer beam is more flexible and larger values of or make the beam stiffer. With those properties fixed, angle is directly proportional to the moment .  The sag, or deflection , of a beam when supporting a load is also related to these factors, and the placement of the load as well. For example, if a beam is loaded with a concentrated force at its center its maximum deflection will occur at the midpoint, with   "
 },
 {
-  "id": "p-2174",
+  "id": "p-2171",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2174",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2171",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4357,9 +4366,9 @@ var ptx_lunr_docs = [
   "body": " Why don't we call the polar moment of inertia ?  The squared distance in the polar moment of inertia formula is the distance from the axis, so it would seem reasonable to name the polar moment to be consistent with and which use distances from the and axes.  Instead engineers use the letter to represent this quantity. Why?   In-plane and out-of-plane rotation of element about the , and axes.    If areas only existed in the - plane, this would be fine, but the real world is three-dimensional, so must be reserved to use with areas in the - or - plane.  As shown in the interactive, the rectangular moment of inertia involves rotating element about out-of-plane around an in-plain axis, and the polar moment involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.  "
 },
 {
-  "id": "p-2181",
+  "id": "p-2178",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2181",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2178",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4663,18 +4672,18 @@ var ptx_lunr_docs = [
   "body": "  Why do we need to quantify the product of inertia for beams?  Why is the product of inertia of a symmetrical cross section zero?   "
 },
 {
-  "id": "p-2429",
+  "id": "p-2426",
   "level": "2",
-  "url": "products-of-inertia.html#p-2429",
+  "url": "products-of-inertia.html#p-2426",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "product of inertia "
 },
 {
-  "id": "p-2431",
+  "id": "p-2428",
   "level": "2",
-  "url": "products-of-inertia.html#p-2431",
+  "url": "products-of-inertia.html#p-2428",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4690,9 +4699,9 @@ var ptx_lunr_docs = [
   "body": " Mass Moment of Inertia  You may recall from physics the relationship . This formula is the rotational analog of Newton's second law . Here, the represents the mass moment of inertia, which is the three-dimensional measure of a rigid body’s resistance to rotation around an axis. Mass moment of inertia plays the same role for angular motion as mass does for linear motion.  Mass moment of inertia is defined by an integral equation identical to , except that the differential area is replaced with a differential element of mass, . The integration is conducted over a three dimensional physical object instead of a two dimensional massless area.  The units of mass moment of inertia are , in contrast to area moment of inertia's units of .  Mass moments of inertia are covered in more detail and used extensively in the study of rigid body kinetics in Engineering Dynamics .  "
 },
 {
-  "id": "p-2433",
+  "id": "p-2430",
   "level": "2",
-  "url": "Chapter_10-mass-moment-of-inertia.html#p-2433",
+  "url": "Chapter_10-mass-moment-of-inertia.html#p-2430",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4744,36 +4753,36 @@ var ptx_lunr_docs = [
   "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors. , and are functions of an angle and their values are unitless ratios of lengths. The inverse trig functions are functions of unitless ratios and their results are angles. The sine of an angle equals the cosine of its complement and vice-versa. The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive. The sine, cosine, and tangent of angles between 0 and 90° are always positive. The inverse trig functions of positive numbers will always yield angles between 0 and 90° The legs of a right triangle are always shorter than the hypotenuse. Only right triangles have a hypotenuse.     Hints  Here are some useful tips for angle calculations Take care that your calculator is set in degrees mode for this course. Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions. Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.    "
 },
 {
-  "id": "p-2467",
+  "id": "p-2464",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2467",
+  "url": "soh-coh-toa.html#p-2464",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "right triangle "
 },
 {
-  "id": "p-2468",
+  "id": "p-2465",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2468",
+  "url": "soh-coh-toa.html#p-2465",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "hypotenuse "
 },
 {
-  "id": "p-2469",
+  "id": "p-2466",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2469",
+  "url": "soh-coh-toa.html#p-2466",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "complementary angles "
 },
 {
-  "id": "p-2470",
+  "id": "p-2467",
   "level": "2",
-  "url": "soh-coh-toa.html#p-2470",
+  "url": "soh-coh-toa.html#p-2467",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4789,18 +4798,18 @@ var ptx_lunr_docs = [
   "body": " Oblique Triangle Trigonometry   An oblique triangle is any triangle which does not contain a right angle. As such, the rules of do not apply!   For an oblique triangle labeled as shown, the relations between the sides and angles are given by the Law of Sines and the Law of Cosines .      Law of Sines     The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.  Take care in the (SSA) situation. This is known as the ambiguous case , and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find it may return the supplement of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.  If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the .    Law of Cosines     The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.  If one of the angles is the Law of Cosines simplifies to the Pythagorean Theorem since .   "
 },
 {
-  "id": "p-2477",
+  "id": "p-2474",
   "level": "2",
-  "url": "los-loc.html#p-2477",
+  "url": "los-loc.html#p-2474",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Law of Sines Law of Cosines "
 },
 {
-  "id": "p-2480",
+  "id": "p-2477",
   "level": "2",
-  "url": "los-loc.html#p-2480",
+  "url": "los-loc.html#p-2477",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
