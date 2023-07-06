@@ -29,14 +29,14 @@ chapter: tidy external
 	cp -R  $(HTMLOUT)/ $(LOCALDIR)
 	open -a $(BROWSER) $(LOCALURL)/Chapter_$(n).html
 	
-interactives: tidy images
+interactives: tidy external
 # Builds a directory and index of all Interactives
 # for testing purposes
 # make html wipes this directory 
 	pretext build interactives
 	mkdir -p $(LOCALDIR)/interactives
 	cp -R  $(BUILD)/interactives $(LOCALDIR)
-	open -a $(BROWSER) $(LOCALURL)/interactives/interactives.html
+	open -a safari
 #
 ## move images to external directory
 images: generated external
