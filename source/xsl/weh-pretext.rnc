@@ -1,20 +1,14 @@
 namespace html="http://www.w3.org/1999/xhtml"
-include "../../../mathbook/schema/pretext.rnc"
+include "../../../mathbook/schema/pretext-dev.rnc"
 
 
 
 wellformed-html =
   (
-  text | element  html:div | span | input | html:button { attribute * {text}*, wellformed-html  }
+  text | element  html:div | html:span | html:input | html:button { attribute * {text}*, wellformed-html  }
    )*
  
 
-#  Covers and favicons are documented, but not in schema  7/15/22
-Configuration |=
-    element covers {
-       attribute front {text},
-       attribute rear {text}?
-       }
        
 Configuration |= 
     element html { element favicon {text}}
@@ -50,52 +44,35 @@ Remix_info =
  }
  
 
-# define Interactive and Slate elements based on sample-doc.
+# add remix element to interactives. weh 
 # Interactive and slates are not in the schema as of 4/10/22
-# I'm not sure which elements are required so this is not definitive.
+# Based on definition from pretext-dev.rnc as of 6/6/23.
 
-Interactive =
- element interactive {
-  (attribute aspect { text }?,
-  attribute width { text }?,
-  attribute platform { text }?, 
-  attribute xml:id {text},
-  attribute xml:base {text}?,   #not sure why I need this, something to do with xinclude?
-  attribute preview { text }?,
-  attribute iframe {text}?,
-  attribute source {text}?),
-  Slate*,
-  Remix_info?,
-  element instructions { BlockText* | text }?
- }
-
-# this schema only allows geogebra and ptx slates
-# the ptx slate to contain standard pretext, but allow the javascript to stuff elements with innerHTML.  
-# in addition to standard pts, minimal html is allowed: 
-Slate =
- element slate {
-  UniqueID?,
-  attribute surface { 'ptx' | 'geogebra' },
-  (attribute source { text }  | attribute material { text })?,
-  attribute aspect { text }?,
-  (wellformed-html | Paragraph | Tabular | SideBySideNoCaption)* # things that can go in a slate
- }
- 
- 
-# add Interactives where used
-BlockStatement |= Interactive
-Figure |= element figure { MetaDataCaption, Interactive }
-SideBySide |= element sidebyside { SidebySideAttributes, (Figure | Poem | Tabular | Image | Video | Program | Console | Paragraph | Preformatted | List | Stack | Interactive)+ }
-Exercises |=  element exercises {
-                    MetaDataAltTitleOptional,
-                    IntroductionDivision?,
-                    (
-                        (Exercise | ExerciseGroup)+ |
-                        Subexercises+ | Interactive
-                    ),
-                    ConclusionDivision?
+Interactive |=
+                element interactive {
+                    UniqueID?,
+                    PermanentID?,
+                    attribute aspect { text }?,
+                    attribute width { text }?,
+                    attribute platform { text }?,
+                    attribute preview { text }?,
+                    attribute iframe { text }?,
+                    attribute source { text }?,
+                    attribute version { text }?,
+                    attribute xml:base {text}?,   #weh, not sure why I need this, something to do with xinclude?
+                    (Slate | SideBySideNoCaption | SideBySideGroupNoCaption | Remix_info )*,  #weh remix_info added
+                    element instructions { BlockText* | text }?
                 }
 
+# in addition to standard ptx, minimal html is allowed: 
+Slate |=
+                element slate {
+                    UniqueID?,
+                    attribute surface { text },
+                    (attribute source { text } | attribute material { text })?,
+                    attribute aspect { text }?,
+                    (Paragraph | Tabular | SideBySideNoCaption | wellformed-html)*  # weh add wellformed-html
+                }
 
 
 # permit Images in tables,  This is not supported by the xslt or in Latex. 4/23/22
@@ -107,16 +84,7 @@ Paragraph |=
                     Image
                 }
                 
-# Permit @header in table rows,  headers are mentioned in pretext docs, but not in schema 3/24/2021
-TableRow |=
-                element row {
-                    attribute header {"yes"|"no"}?,
-                    AlignmentHorizontal?,
-                    AlignmentVertical?,
-                    BorderBottom?,
-                    BorderLeft?,
-                    TableCell+
-                }
+
                 
 # permit some html in these ptx elements for interactive 'ptx' slate
 TableCell |= element cell { wellformed-html }
