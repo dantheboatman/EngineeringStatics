@@ -166,11 +166,9 @@ This is a modified copy of the template in pretext-html.xsl -->
  <!-- created a new slate[@surface='ptx']  which can contain pretext, but also html elements. Obviously it doesn't validate, and
     sometimes when transformed, the standard templates eat the html elements. I need to figure out which are necessary and allow for them.   -->
 
- <xsl:template match="slate[@surface = 'ptx']" >
-  <div class="ptx-content process-math blue">
+ <xsl:template match="slate[@surface = 'ptx']" > 
    <xsl:call-template name="latex-macros" />
    <xsl:apply-templates />
-  </div>
  </xsl:template>
 
  <xsl:template match="slate[@surface = 'ptx']//html:*">

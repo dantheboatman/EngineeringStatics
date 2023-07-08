@@ -1,7 +1,6 @@
 var listeners = function(ggb) {
     
     const tbody1 = document.getElementById('ggb_2__17_table1').getElementsByTagName('tbody')[0];
-    const tbody2 = document.getElementById('ggb_2__17_table2').getElementsByTagName('tbody')[0];
     const a_to_b = document.getElementById('a_to_b');  // buttons
     const b_to_a = document.getElementById('b_to_a');
 

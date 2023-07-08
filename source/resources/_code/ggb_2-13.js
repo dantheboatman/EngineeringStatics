@@ -1,11 +1,9 @@
 var listeners = function(ggb) {
     
 const t1 = document.getElementById('ggb_2__13_table1').getElementsByTagName('tbody')[0]
-const t2 = document.getElementById('ggb_2__13_table2').getElementsByTagName('tbody')[0]
-const r = t2.getElementsByTagName('tr')[0].getElementsByTagName('td')[0]
-const theta = t2.getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
-//    console.log(theta);
-const vecR = t2.getElementsByTagName('tr')[2].getElementsByTagName('td')[0]
+const r = t1.getElementsByTagName('tr')[1].getElementsByTagName('td')[3]
+const theta = t1.getElementsByTagName('tr')[2].getElementsByTagName('td')[3]
+const vecR = t1.getElementsByTagName('tr')[4].getElementsByTagName('td')[3]
 
 // update html (slate) when diagram changes
 function coordinates(){
@@ -28,9 +26,9 @@ var updateSlate = function (){
       }
    let mag =  `\\N{ ${ggb.getValue('round(abs(r),2)')} }` 
    let dir =  ggb.getValue('arg(r)/°').toFixed(1)
-   r.innerHTML = `\\(R = ${mag}  \\)`;
-   theta.innerHTML = `\\(\\theta = ${dir}° \\)`;
-   vecR.innerHTML =  `\\(\\vec{R}= (${mag}\\, \\angle \\, ${dir}°) \\)`;
+//   r.innerHTML = `\\(R = ${mag}  \\)`;
+//   theta.innerHTML = `\\(\\theta = ${dir}° \\)`;
+    vecR.innerHTML =  `\\(\\qquad= (${mag}\\, \\angle \\, ${dir}°) \\)`;
    if (window.MathJax) {
       MathJax.typesetPromise([r,theta,vecR]).then(() => {});
    }
