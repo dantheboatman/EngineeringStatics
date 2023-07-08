@@ -175,4 +175,49 @@ This is a modified copy of the template in pretext-html.xsl -->
   <xsl:copy-of select="." />
  </xsl:template>
 
+	<!-- We take in all three rows and package       -->
+	<!-- them up inside an overriding "sidebyside"   -->
+	<!-- div containing three "sbsrow" divs.  Purely -->
+	<!--  a container, never a target, so no xml:id  -->
+	<!-- in source, so no HTML id on div.sidebyside  -->
+	<xsl:template match="sidebyside" mode="compose-panels">
+		<xsl:param name="layout" />
+		<xsl:param name="panels" />
+		
+		<xsl:variable name="left-margin"  select="$layout/left-margin" />
+		<xsl:variable name="right-margin" select="$layout/right-margin" />
+		
+		<xsl:call-template name="latex-macros" />             <!--weh: apply my custom macros -->
+
+		<!-- A "sidebyside" div, to contain headers, -->
+		<!-- panels, captions rows as "sbsrow" divs  -->
+		<xsl:element name="div">
+			<xsl:attribute name="class">
+				<xsl:text>ptx-content blue sidebyside</xsl:text>  <!-- weh: needs ptx-content to make sidebysides work,  blue style -->
+			</xsl:attribute>
+			<xsl:attribute name="style">
+				<xsl:text>min-height: 1vh;</xsl:text>             <!-- weh: reduce minimum height of sbs, so it shrinks to fit. -->
+			</xsl:attribute>
+			
+			<!-- Panels in an "sbsrow" div, always -->
+			<xsl:element name="div">
+				<xsl:attribute name="class">
+					<xsl:text>sbsrow</xsl:text>
+				</xsl:attribute>
+				<!-- margins are custom from source -->
+				<xsl:attribute name="style">
+					<xsl:text>margin-left:</xsl:text>
+					<xsl:value-of select="$left-margin" />
+					<xsl:text>;</xsl:text>
+					<xsl:text>margin-right:</xsl:text>
+					<xsl:value-of select="$right-margin" />
+					<xsl:text>;</xsl:text>
+				</xsl:attribute>
+				<xsl:copy-of select="$panels" />
+			</xsl:element>
+			
+		</xsl:element>
+	</xsl:template>
+	
+	
 </xsl:stylesheet>
