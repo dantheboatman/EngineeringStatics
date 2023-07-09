@@ -29,12 +29,11 @@ var updateSlate = function (){
    if (ggb.getValue('showAB')==true) {
         info.innerHTML = "\\[{ "  +  ggb.getValueString('textAB') + " \\qquad" + ggb.getValueString('textABhat') + "}\\]";
   }
-  else if (ggb.getValue('showBA')==true) {
+  
+  if (ggb.getValue('showBA')==true) {
        info.innerHTML =  "\\[{ " +  ggb.getValueString('textBA') + " \\qquad" + ggb.getValueString('textBAhat') + "}\\]";
   }
-  else {
-      info.innerHTML='';
-  }
+  
   if (window.MathJax) {
      MathJax.typesetPromise([info]).then(() => {});
   }

@@ -180,7 +180,7 @@ This is a modified copy of the template in pretext-html.xsl -->
 	<!-- div containing three "sbsrow" divs.  Purely -->
 	<!--  a container, never a target, so no xml:id  -->
 	<!-- in source, so no HTML id on div.sidebyside  -->
-	<xsl:template match="sidebyside" mode="compose-panels">
+	<xsl:template match="//interactive/sidebyside" mode="compose-panels">
 		<xsl:param name="layout" />
 		<xsl:param name="panels" />
 		
