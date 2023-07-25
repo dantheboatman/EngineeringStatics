@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Statics: Equivalent Transformations</title>
@@ -18,20 +18,38 @@
 <meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -41,66 +59,71 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6RNJ8K3E00');
-</script><!--End: Google Global Site Tag code-->
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -203,7 +226,7 @@ window.MathJax = {
 </ol>
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="Chapter_04-couples.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_04.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="statically-equivalent-systems.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -263,7 +286,7 @@ window.MathJax = {
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
@@ -692,7 +715,13 @@ window.MathJax = {
 </li>
 </ul>
 </li>
-<li><div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
 <li>
 <div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
 <ul class="structural">
@@ -734,30 +763,30 @@ window.MathJax = {
 </h2>
 <article class="objectives goal-like" id="objectives-16"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc">
-<li id="li-261"><div class="para" id="p-derived-li-261">What is an equivalent transformation?</div></li>
-<li id="li-262"><div class="para" id="p-derived-li-262">What are some examples of equivalent transformations?</div></li>
-<li id="li-263"><div class="para" id="p-derived-li-263">What are <em class="emphasis">external effects</em>?</div></li>
-</ul></article><div class="para" id="p-890">An <em class="emphasis">equivalent transformation</em> occurs when a loading on an object is replaced with another loading that has the same <em class="emphasis">external</em> effect on the object. By external effect, we mean the response of the body that we can see from the outside, with no consideration of what happens to it internally. If the object is a free body, the external effect would be translation and rotation. In statics, since objects are not accelerating, the external effect really means the reactions at the supports required to maintain equilibrium. The external effects will be exactly the same before and after an equivalent transformation.</div>
-<div class="para" id="p-891">Equivalent transformation permits us to swap out one set of forces with another one without changing the fundamental physics of the situation. This is usually done to simplify or clarify the situation, or to give you an alternate way to think about, understand, and solve a mechanics problem.</div>
-<div class="para" id="p-892">You already know several equivalent transformations although we have not used this terminology before. Here are some transformations you have applied previously.</div>
-<section class="paragraphs" id="paragraphs-10"><h3 class="heading"><span class="title">Vector Addition.</span></h3> <div class="para" id="p-893">When you add forces together using the rules of vector addition, you are performing an equivalent transformation. You can swap out two or more components and replace them with a single equivalent resultant force.</div> <div class="para" id="p-894">Any number of <em class="emphasis">concurrent</em> forces can be added together to produce a single resultant force. By definition, the lines of action of concurrent forces all intersect at a common point. The resultant must be placed at this intersection point in order for this replacement to be equivalent. This is because before and after the replacement, the moment about the intersection point is zero. If the resultant was placed somewhere else, that would not be true.</div></section><section class="paragraphs" id="paragraphs-11"><h3 class="heading"><span class="title">Replacing a Force with its Component.</span></h3> <div class="para" id="p-895">Resolving forces into components is also an equivalent transformation, as it is the inverse operation of vector addition. The components are usually orthogonal and in the coordinate directions, or in a given plane and perpendicular to it, but any combination of force components that add to the original force is equivalent.</div> <figure class="figure figure-like" id="figure-65"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_forces.svg" role="img" class="contained" alt="A fixed ring is shown with two forces F1 and F2. This is equal to a fixed ring with the resultant force shown acting at an angle of theta from the horizontal, which would be pointing towards the coordinates (F1x+F2x, F1y+F2y). This is equal to a fixed ring with a horizontal force of F*cos(theta) and a vertical force of F*sin(theta)."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.1<span class="period">.</span></span><span class="space"> </span>Equivalent transformations of vectors</figcaption></figure> <div class="para logical" id="p-896">
+<li id="li-259"><div class="para" id="p-derived-li-259">What is an equivalent transformation?</div></li>
+<li id="li-260"><div class="para" id="p-derived-li-260">What are some examples of equivalent transformations?</div></li>
+<li id="li-261"><div class="para" id="p-derived-li-261">What are <em class="emphasis">external effects</em>?</div></li>
+</ul></article><div class="para" id="p-887">An <em class="emphasis">equivalent transformation</em> occurs when a loading on an object is replaced with another loading that has the same <em class="emphasis">external</em> effect on the object. By external effect, we mean the response of the body that we can see from the outside, with no consideration of what happens to it internally. If the object is a free body, the external effect would be translation and rotation. In statics, since objects are not accelerating, the external effect really means the reactions at the supports required to maintain equilibrium. The external effects will be exactly the same before and after an equivalent transformation.</div>
+<div class="para" id="p-888">Equivalent transformation permits us to swap out one set of forces with another one without changing the fundamental physics of the situation. This is usually done to simplify or clarify the situation, or to give you an alternate way to think about, understand, and solve a mechanics problem.</div>
+<div class="para" id="p-889">You already know several equivalent transformations although we have not used this terminology before. Here are some transformations you have applied previously.</div>
+<section class="paragraphs" id="paragraphs-10"><h3 class="heading"><span class="title">Vector Addition.</span></h3> <div class="para" id="p-890">When you add forces together using the rules of vector addition, you are performing an equivalent transformation. You can swap out two or more components and replace them with a single equivalent resultant force.</div> <div class="para" id="p-891">Any number of <em class="emphasis">concurrent</em> forces can be added together to produce a single resultant force. By definition, the lines of action of concurrent forces all intersect at a common point. The resultant must be placed at this intersection point in order for this replacement to be equivalent. This is because before and after the replacement, the moment about the intersection point is zero. If the resultant was placed somewhere else, that would not be true.</div></section><section class="paragraphs" id="paragraphs-11"><h3 class="heading"><span class="title">Replacing a Force with its Component.</span></h3> <div class="para" id="p-892">Resolving forces into components is also an equivalent transformation, as it is the inverse operation of vector addition. The components are usually orthogonal and in the coordinate directions, or in a given plane and perpendicular to it, but any combination of force components that add to the original force is equivalent.</div> <figure class="figure figure-like" id="figure-65"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_forces.svg" role="img" class="contained" alt="A fixed ring is shown with two forces F1 and F2. This is equal to a fixed ring with the resultant force shown acting at an angle of theta from the horizontal, which would be pointing towards the coordinates (F1x+F2x, F1y+F2y). This is equal to a fixed ring with a horizontal force of F*cos(theta) and a vertical force of F*sin(theta)."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.1<span class="period">.</span></span><span class="space"> </span>Equivalent transformations of vectors</figcaption></figure> <div class="para logical" id="p-893">
 <div class="para">In this diagram,</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\vec{F_1} + \vec{F}_2 = \vec{F} = (F; \theta) = \langle F \cos\theta, F\sin\theta \rangle
+\vec{F_1} + \vec{F}_2 = \vec{F} = (F; \theta) = \langle F \cos\theta, F\sin\theta \rangle\text{.}
 \end{equation*}
 </div>
-<div class="para">. The effects of the force in the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and (in three dimensions the <span class="process-math">\(z\)</span>) directions remain the same, and by Varignon’s theorem, we know that the moment these forces make about any point will also be the same.</div>
-</div> <div class="para" id="p-897">An interesting special case occurs when two forces are equal and opposite and have the same line of action. When these are added together, they cancel out, so replacing these two forces with nothing is an equivalent transformation. The opposite is true as well, so you can make two equal and opposite forces spontaneously appear at a point if you wish.</div></section><article class="insight remark-like" id="insight-4"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-4"><h3 class="heading">
+<div class="para">The effects of the force in the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and (in three dimensions the <span class="process-math">\(z\)</span>) directions remain the same, and by Varignon’s theorem, we know that the moment these forces make about any point will also be the same.</div>
+</div> <div class="para" id="p-894">An interesting special case occurs when two forces are equal and opposite and have the same line of action. When these are added together, they cancel out, so replacing these two forces with nothing is an equivalent transformation. The opposite is true as well, so you can make two equal and opposite forces spontaneously appear at a point if you wish.</div></section><article class="insight remark-like" id="insight-4"><a href="" data-knowl="" class="id-ref insight-knowl original has-image" data-refid="hk-insight-4"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">4.7.2</span><span class="period">.</span><span class="space"> </span><span class="title">Internal Effects.</span>
-</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-4"><article class="insight remark-like"> <div class="para" id="p-898">We made a point of saying that equivalent systems of force have the same <span class="process-math">\(external\)</span> effect on the body. This implies that there may be some other effects that are not the same. As you will see in <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Forces">Chapter 8</a>, we sometimes need to consider internal forces and moments. These are the forces inside a body that hold all the parts of the object to each other, otherwise, it would break apart and fail. Although the external effects are the same for all equivalent systems, the internal forces depend on the specifics of how the loads are applied.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:48%;"><div class="para" id="p-899">Let’s imagine that you have gone off-roading and have managed to get your Jeep stuck in the mud. You have two basic options to get it out: you can <span class="process-math">\(pull\)</span> it out using the winch on the front bumper, or you can ask your friend to <span class="process-math">\(push\)</span> you out with his truck. Both methods (assuming that they apply forces with the same magnitude, direction and line of action) are statically equivalent, and both will equally move your vehicle forward.</div></div>
+</h3></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-4"><article class="insight remark-like"> <div class="para" id="p-895">We made a point of saying that equivalent systems of force have the same <span class="process-math">\(external\)</span> effect on the body. This implies that there may be some other effects that are not the same. As you will see in <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Forces">Chapter 8</a>, we sometimes need to consider internal forces and moments. These are the forces inside a body that hold all the parts of the object to each other, otherwise, it would break apart and fail. Although the external effects are the same for all equivalent systems, the internal forces depend on the specifics of how the loads are applied.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:48%;"><div class="para" id="p-896">Let’s imagine that you have gone off-roading and have managed to get your Jeep stuck in the mud. You have two basic options to get it out: you can <span class="process-math">\(pull\)</span> it out using the winch on the front bumper, or you can ask your friend to <span class="process-math">\(push\)</span> you out with his truck. Both methods (assuming that they apply forces with the same magnitude, direction and line of action) are statically equivalent, and both will equally move your vehicle forward.</div></div>
 <div class="sbspanel top" style="width:48%;"><img src="external/images/2820337726_1e3f0bcb46_c.jpg" class="contained"></div>
-</div></div> <div class="para" id="p-900">The difference is what might happen to your vehicle. With one method there’s a danger that you will rip your front bumper off, with the other, you might damage your rear bumper. These are the internal effects and they depend on <em class="emphasis">where</em> the equivalent force is applied. These forces are necessary to maintain rigidity and hold the parts of the body together.</div></article></div>
-<section class="paragraphs" id="paragraphs-12"><h3 class="heading"><span class="title">Sliding a force along its line of action.</span></h3> <div class="para" id="p-901">Sliding a force along its line of action is an equivalent transformation because sliding a force does not change its magnitude, direction or the perpendicular distance from the line of action to any point, so the moments it creates do not change either. This transformation is called the “Principle of Transmissibility”.</div> <figure class="figure figure-like" id="figure-66"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_slide.svg" role="img" class="contained" alt="A force vector is shown acting along a line of action. It is equivalent to a diagram where the same force vector has been shifted along the same line of action."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.3<span class="period">.</span></span><span class="space"> </span>Sliding a vector along its line of action</figcaption></figure></section><section class="paragraphs" id="paragraphs-13"><h3 class="heading"><span class="title">Replacing a couple with couple-moment or vice-versa.</span></h3> <div class="para" id="p-902">A <em class="emphasis">couple</em>, defined as “two equal and opposite forces with different lines of action,” produces a pure turning action that is equivalent to a concentrated moment, called the <em class="emphasis">couple-moment</em>. Couples and couple-moments have no translational effect. Couple-moments are free vectors, which means that they are not bound to any point. Their external effect is on the entire body and is the same regardless of where it is applied.</div> <div class="para" id="p-903">This means that you are free to swap out a couple for its couple-moment, or swap a couple-moment for a couple that has the same moment, and you may put the replacement anywhere on you please and it will still be equivalent.</div> <div class="para" id="p-904">The diagram shows a series of equivalent transformations of a couple.</div> <figure class="figure figure-like" id="figure-67"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_couples.svg" role="img" class="contained" alt="Six equivalent diagrams are shown representing a couple-moment. Two equal and opposite forces in parallel of magnitude F separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude (F/2) separated by a perpendicular distance 2d = two equal/opposite parallel forces at a different angle separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude 2F separated by a perpendicular distance of (d/2) = a Moment of magnitude M = Fd acting counter-clockwise at the middle of the object = a Moment of M = Fd acting counter-clockwise at the edge of the object."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.4<span class="period">.</span></span><span class="space"> </span>Equivalent transformations of couples</figcaption></figure> <div class="para" id="p-905">Concentrated moments are <em class="emphasis">free vectors</em>, which you may draw the circular arrow anywhere you like on the body. In other words, moving a concentrated moment from one point to another is an equivalent transformation. Remember though, this equivalence only applies to the external effects. What happens inside the body definitely does depend on the specific point where the moment is applied.</div></section><section class="paragraphs" id="paragraphs-14"><h3 class="heading"><span class="title">Adding moments to produce a resultant moment.</span></h3> <div class="para" id="p-906">If more than one couple-moment or concentrated moment acts on an object the situation may be simplified by adding them together to produce one <em class="emphasis">resultant moment</em>,<em class="emphasis"></em> <span class="process-math">\(\vec{M}_R\text{.}\)</span> The standard rules of vector addition apply.</div> <div class="para" id="p-907">In two-dimensional problems moments are either clockwise or counter-clockwise, so they may be considered scalar values and added algebraically. Give counter-clockwise moments a positive sign and clockwise moments a negative sign according to the right-hand rule sign convention. If this is done, the sign of the resultant moment will indicate the direction of the net moment. You can use the right-hand rule to establish the direction of the moment vector, which will point into or out of the page.</div> <div class="para logical" id="p-908"><div class="displaymath process-math">
+</div></div> <div class="para" id="p-897">The difference is what might happen to your vehicle. With one method there’s a danger that you will rip your front bumper off, with the other, you might damage your rear bumper. These are the internal effects and they depend on <em class="emphasis">where</em> the equivalent force is applied. These forces are necessary to maintain rigidity and hold the parts of the body together.</div></article></div>
+<section class="paragraphs" id="paragraphs-12"><h3 class="heading"><span class="title">Sliding a force along its line of action.</span></h3> <div class="para" id="p-898">Sliding a force along its line of action is an equivalent transformation because sliding a force does not change its magnitude, direction or the perpendicular distance from the line of action to any point, so the moments it creates do not change either. This transformation is called the “Principle of Transmissibility”.</div> <figure class="figure figure-like" id="figure-66"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_slide.svg" role="img" class="contained" alt="A force vector is shown acting along a line of action. It is equivalent to a diagram where the same force vector has been shifted along the same line of action."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.3<span class="period">.</span></span><span class="space"> </span>Sliding a vector along its line of action</figcaption></figure></section><section class="paragraphs" id="paragraphs-13"><h3 class="heading"><span class="title">Replacing a couple with couple-moment or vice-versa.</span></h3> <div class="para" id="p-899">A <em class="emphasis">couple</em>, defined as “two equal and opposite forces with different lines of action,” produces a pure turning action that is equivalent to a concentrated moment, called the <em class="emphasis">couple-moment</em>. Couples and couple-moments have no translational effect. Couple-moments are free vectors, which means that they are not bound to any point. Their external effect is on the entire body and is the same regardless of where it is applied.</div> <div class="para" id="p-900">This means that you are free to swap out a couple for its couple-moment, or swap a couple-moment for a couple that has the same moment, and you may put the replacement anywhere on you please and it will still be equivalent.</div> <div class="para" id="p-901">The diagram shows a series of equivalent transformations of a couple.</div> <figure class="figure figure-like" id="figure-67"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/equiv_couples.svg" role="img" class="contained" alt="Six equivalent diagrams are shown representing a couple-moment. Two equal and opposite forces in parallel of magnitude F separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude (F/2) separated by a perpendicular distance 2d = two equal/opposite parallel forces at a different angle separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude 2F separated by a perpendicular distance of (d/2) = a Moment of magnitude M = Fd acting counter-clockwise at the middle of the object = a Moment of M = Fd acting counter-clockwise at the edge of the object."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.7.4<span class="period">.</span></span><span class="space"> </span>Equivalent transformations of couples</figcaption></figure> <div class="para" id="p-902">Concentrated moments are <em class="emphasis">free vectors</em>, which you may draw the circular arrow anywhere you like on the body. In other words, moving a concentrated moment from one point to another is an equivalent transformation. Remember though, this equivalence only applies to the external effects. What happens inside the body definitely does depend on the specific point where the moment is applied.</div></section><section class="paragraphs" id="paragraphs-14"><h3 class="heading"><span class="title">Adding moments to produce a resultant moment.</span></h3> <div class="para" id="p-903">If more than one couple-moment or concentrated moment acts on an object the situation may be simplified by adding them together to produce one <em class="emphasis">resultant moment</em>,<em class="emphasis"></em> <span class="process-math">\(\vec{M}_R\text{.}\)</span> The standard rules of vector addition apply.</div> <div class="para" id="p-904">In two-dimensional problems moments are either clockwise or counter-clockwise, so they may be considered scalar values and added algebraically. Give counter-clockwise moments a positive sign and clockwise moments a negative sign according to the right-hand rule sign convention. If this is done, the sign of the resultant moment will indicate the direction of the net moment. You can use the right-hand rule to establish the direction of the moment vector, which will point into or out of the page.</div> <div class="para logical" id="p-905"><div class="displaymath process-math">
 \begin{equation*}
 M_R = \Sigma M 
 \end{equation*}
@@ -766,23 +795,23 @@ M_R = \Sigma M
 </h3>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:60%;">
-<div class="para" id="p-909">Two concentrated moments and a couple are acting on the object shown. Given: <span class="process-math">\(M_1 = \Nm{400}\text{,}\)</span> <span class="process-math">\(M_2 =\Nm{200}\text{,}\)</span> <span class="process-math">\(F = \N{40}\)</span> and <span class="process-math">\(d=\m{2}\text{.}\)</span>
+<div class="para" id="p-906">Two concentrated moments and a couple are acting on the object shown. Given: <span class="process-math">\(M_1 = \Nm{400}\text{,}\)</span> <span class="process-math">\(M_2 =\Nm{200}\text{,}\)</span> <span class="process-math">\(F = \N{40}\)</span> and <span class="process-math">\(d=\m{2}\text{.}\)</span>
 </div>
-<div class="para" id="p-910">Replace these with a single, equivalent concentrated moment, and give the magnitude and direction of your result.</div>
+<div class="para" id="p-907">Replace these with a single, equivalent concentrated moment, and give the magnitude and direction of your result.</div>
 </div>
 <div class="sbspanel top" style="width:35%;"><img src="external/images/equiv_example1.svg" role="img" class="contained" alt="An object is shown with a Force couple where two equal/opposite parallel forces of magnitude 40 N are shown. The distance between them is shown as d = 2 m, but the forces act at an angle of 60 degrees from the distance vector. M1 = 400 N*m in clockwise direction, and M2 = 2200 N*m in counter-clockwise direction."></div>
 </div></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-51" id="answer-51"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-51"><div class="answer solution-like"><div class="para" id="p-911">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-51" id="answer-51"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-51"><div class="answer solution-like"><div class="para" id="p-908">
 <span class="process-math">\(M_r = \Nm{130.7}\)</span> clockwise.</div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-53" id="solution-53"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-53"><div class="solution solution-like">
-<div class="para" id="p-912">First, replace the couple with an equivalent couple, <span class="process-math">\(M_3\text{,}\)</span> the magnitude of which is</div> <div class="para logical" id="p-913"><div class="displaymath process-math" id="md-125">
+<div class="para" id="p-909">First, replace the couple with an equivalent couple, <span class="process-math">\(M_3\text{,}\)</span> the magnitude of which is</div> <div class="para logical" id="p-910"><div class="displaymath process-math" id="md-124">
 \begin{align*}
 M_3 \amp = F d_\perp\\
 \amp = F d \sin \ang{60}\\
 \amp = \Nm{69.3}
 \end{align*}
-</div></div> <div class="para" id="p-914">By observation, this is a counter-clockwise moment as is <span class="process-math">\(M_2\text{.}\)</span> <span class="process-math">\(M_1\)</span> is clockwise. Summing the scalar magnitudes gives the resultant moment. The signs of the terms are assigned according to the sign convention: positive if counter-clockwise, negative if clockwise.</div> <div class="para logical" id="p-915"><div class="displaymath process-math" id="md-126">
+</div></div> <div class="para" id="p-911">By observation, this is a counter-clockwise moment as is <span class="process-math">\(M_2\text{.}\)</span> <span class="process-math">\(M_1\)</span> is clockwise. Summing the scalar magnitudes gives the resultant moment. The signs of the terms are assigned according to the sign convention: positive if counter-clockwise, negative if clockwise.</div> <div class="para logical" id="p-912"><div class="displaymath process-math" id="md-125">
 \begin{align*}
 M_R \amp = \Sigma M\\
 \amp = M_1 + M_2 + M_3\\
@@ -792,12 +821,12 @@ M_R \amp = \Sigma M\\
 \end{align*}
 </div></div>
 </div></div>
-</div></article><section class="paragraphs" id="paragraphs-15"><h3 class="heading"><span class="title">Resolving a moment into components.</span></h3> <div class="para" id="p-916">For three-dimensional moment vectors, another potential equivalent transformation is to resolve a moment vector into components. These may be orthogonal components in the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> directions, or components in a plane and perpendicular to it, or components in some other rotated coordinate system.</div></section></section></div>
+</div></article><section class="paragraphs" id="paragraphs-15"><h3 class="heading"><span class="title">Resolving a moment into components.</span></h3> <div class="para" id="p-913">For three-dimensional moment vectors, another potential equivalent transformation is to resolve a moment vector into components. These may be orthogonal components in the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> directions, or components in a plane and perpendicular to it, or components in some other rotated coordinate system.</div></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="Chapter_04-couples.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="statically-equivalent-systems.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->

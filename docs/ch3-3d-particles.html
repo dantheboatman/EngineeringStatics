@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Statics: 3D Particle Equilibrium</title>
@@ -18,20 +18,38 @@
 <meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -41,72 +59,81 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6RNJ8K3E00');
-</script><!--End: Google Global Site Tag code-->
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -209,7 +236,7 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </ol>
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="CH03-2d-particles.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_03.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="exercises-2.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -269,7 +296,7 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
@@ -698,7 +725,13 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </li>
 </ul>
 </li>
-<li><div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
 <li>
 <div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
 <ul class="structural">
@@ -738,32 +771,29 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="ch3-3d-particles"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">3.5</span> <span class="title">3D Particle Equilibrium</span>
 </h2>
-<section class="introduction" id="introduction-13"><div class="para" id="p-669">The world we live in has three dimensions. One and two-dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.</div> <div class="para" id="p-670">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</div></section><section class="subsection" id="Chapter_03-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-13"><div class="para" id="p-668">The world we live in has three dimensions. One and two-dimensional textbook problems have been useful for learning the principles of engineering mechanics, but to model real-world problems we will have to consider all three.</div> <div class="para" id="p-669">Fortunately, all the principles you have learned so far still apply, but many students have difficulty visualizing three-dimensional problems drawn on two-dimensional paper and the mathematics becomes a bit harder. It is especially important to have good diagrams and keep your work neat and organized to avoid errors.</div></section><section class="subsection" id="Chapter_03-three-dimensional-coordinate-frame"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span>
 </h3>
-<div class="para" id="p-671">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis <span class="process-math">\(z\)</span> to our existing two-dimensional frame.</div>
-<div class="para" id="p-672">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the <span class="process-math">\(x\)</span> axis is horizontal, and the <span class="process-math">\(y\)</span> axis is vertical just as in a two-dimensional situation. The orientation of the <span class="process-math">\(z\)</span> axis is determined by the <dfn class="terminology">right-hand rule</dfn>. Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive <span class="process-math">\(x\)</span> axis. Then curl your fingers towards the positive <span class="process-math">\(y\)</span> axis. Your thumb will point in the direction of the positive <span class="process-math">\(z\)</span> axis. For example, in the plane of the page with the positive <span class="process-math">\(x\)</span> axis horizontal and to the right and the positive <span class="process-math">\(y\)</span> axis vertical and upwards, the positive <span class="process-math">\(z\)</span> axis will point <em class="emphasis">towards</em> you out of the page. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.</div>
+<div class="para" id="p-670">We need a coordinate frame for three dimensions, just as we did in two dimensions, so we add a third orthogonal axis <span class="process-math">\(z\)</span> to our existing two-dimensional frame.</div>
+<div class="para" id="p-671">For equilibrium of a particle, usually the origin of the coordinate frame is at the particle, the <span class="process-math">\(x\)</span> axis is horizontal, and the <span class="process-math">\(y\)</span> axis is vertical just as in a two-dimensional situation. The orientation of the <span class="process-math">\(z\)</span> axis is determined by the <dfn class="terminology">right-hand rule</dfn>. Using your <em class="emphasis">right hand</em>, put your palm at the origin and point your fingers along the positive <span class="process-math">\(x\)</span> axis. Then curl your fingers towards the positive <span class="process-math">\(y\)</span> axis. Your thumb will point in the direction of the positive <span class="process-math">\(z\)</span> axis. For example, in the plane of the page with the positive <span class="process-math">\(x\)</span> axis horizontal and to the right and the positive <span class="process-math">\(y\)</span> axis vertical and upwards, the positive <span class="process-math">\(z\)</span> axis will point <em class="emphasis">towards</em> you out of the page. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors.</div>
 <figure class="figure figure-like" id="rhr2"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/rhr2.svg" role="img" class="contained" alt="Using your right hand, put your palm at the origin and point your fingers along the positive x axis. Then curl your fingers towards the positive y axis. Your thumb will point in the direction of the positive z axis. In this case, if the positive x axis is horizontal and to the right and the positive y axis is vertical and upwards, the positive z axis will be coming towards you. Remember that the three axes are mutually perpendicular, i.e. each axis is perpendicular to both of the others. The right-hand rule is important in many aspects of engineering, so make sure that you understand how it works. Mistakes will lead to sign errors."></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.1<span class="period">.</span></span><span class="space"> </span>Point-and-curl right-hand rule technique.</figcaption></figure></section><section class="subsection" id="Chapter_03-free-body-diagrams"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.2</span> <span class="title">Free-Body Diagrams</span>
 </h3>
-<div class="para" id="p-673">As we did before, we begin our analysis by drawing a free-body diagram that shows all forces and moments acting on the object of interest. Drawing a <abbr class="acronym">FBD</abbr> in three dimensions can be difficult. It is sometimes hard to see things in three dimensions when they are drawn on a two-dimensional sheet. Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information. When working in two dimensions, you only need one angle to determine the direction of the vector, but when working in three dimensions you need two or three angles.</div></section><section class="subsection" id="Chapter_03-angles"><h3 class="heading hide-type">
+<div class="para" id="p-672">As we did before, we begin our analysis by drawing a free-body diagram that shows all forces and moments acting on the object of interest. Drawing a <abbr class="acronym">FBD</abbr> in three dimensions can be difficult. It is sometimes hard to see things in three dimensions when they are drawn on a two-dimensional sheet. Consequently, it is important to carefully label vectors and angles, but not to clutter up the diagram with too much and/or unnecessary information. When working in two dimensions, you only need one angle to determine the direction of the vector, but when working in three dimensions you need two or three angles.</div></section><section class="subsection" id="Chapter_03-angles"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.3</span> <span class="title">Angles</span>
 </h3>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:45%;"><div class="para" id="p-674">As stated above, when working in three dimensions you need three angles to determine the direction of the vector, namely, the angle with respect to the <span class="process-math">\(x\)</span> axis, the angle with respect to the <span class="process-math">\(y\)</span> axis and the angle with respect to the <span class="process-math">\(z\)</span> axis. The three angles mentioned above are not necessarily located in any of the coordinate planes. Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis. The plane made by those three points is not necessarily the <span class="process-math">\(xy\text{,}\)</span> <span class="process-math">\(yz\text{,}\)</span> or <span class="process-math">\(xz\)</span> plane. It is most likely a “tilted” plane.</div></div>
-<div class="sbspanel top" style="width:50%;"><figure class="figure figure-like" id="figure-50"><iframe id="ggb_3d-direction-angles_interactive" width="300" height="180" src="ggb_3d-direction-angles_interactive-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-24" id="instructions-24"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-24"><div class="solution-like"><div class="para" id="p-675">Rotate the diagram to see the force and angles in space.</div></div></div>
+<div class="para" id="p-673">As stated above, when working in three dimensions you need three angles to determine the direction of the vector, namely, the angle with respect to the <span class="process-math">\(x\)</span> axis, the angle with respect to the <span class="process-math">\(y\)</span> axis and the angle with respect to the <span class="process-math">\(z\)</span> axis. The three angles mentioned above are not necessarily located in any of the coordinate planes. Think of it this way — three points determine a plane, and in this case, the three points are: the origin, the tip of the vector, and a point on an axis. The plane made by those three points is not necessarily the <span class="process-math">\(xy\text{,}\)</span> <span class="process-math">\(yz\text{,}\)</span> or <span class="process-math">\(xz\)</span> plane. It is most likely a “tilted” plane.</div>
+<div class="para" id="p-674">As you learned in <a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal" title="Subsection 2.4.2: Direction Cosine Angles">Subsection 2.4.2</a>, one way to quantify the direction of a vector is with direction cosine angles. These direction cosine angles are measured from the positive x, y, and z axes and are often labeled <span class="process-math">\(θ_x\text{,}\)</span> <span class="process-math">\(θ_y\text{,}\)</span> and <span class="process-math">\(θ_z\text{,}\)</span> respectively.</div>
+<div class="para" id="p-675">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</div>
+<figure class="figure figure-like" id="figure-50"><iframe id="ggb_3d-direction-angles_interactive" width="600" height="390" src="ggb_3d-direction-angles_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-24" id="instructions-24"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-24"><div class="solution-like"><div class="para" id="p-676">Rotate the diagram to see the force and angles in space.</div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.2<span class="period">.</span></span><span class="space"> </span>Direction Cosine Angles</figcaption></figure></div>
-</div></div>
-<div class="para" id="p-676">As you learned in <a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal" title="Subsection 2.4.2: Direction Cosine Angles">Subsection 2.4.2</a>, one way to quantify the direction of a vector is with direction cosine angles. These direction cosine angles are measured from the positive x, y, and z axes and are often labeled <span class="process-math">\(θ_x\text{,}\)</span> <span class="process-math">\(θ_y\text{,}\)</span> and <span class="process-math">\(θ_z\text{,}\)</span> respectively.</div>
-<div class="para" id="p-677">As with two dimensions, angles can be determined from geometry — a distance vector going in the same direction as the force vector. This is the three-dimensional equivalent of similar triangles that you used in the two-dimensional problems.</div>
-<div class="para" id="p-678">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</div>
-<div class="para" id="p-679">Let’s suppose that the line of action goes through two points <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{,}\)</span> and the direction of the force is from <span class="process-math">\(A\)</span> towards <span class="process-math">\(B\text{.}\)</span> The first step in determining the three angles is to write the distance vector from point <span class="process-math">\(A\)</span> towards point <span class="process-math">\(B\text{.}\)</span> Let’s call this vector <span class="process-math">\(\vec{r}_{AB}\text{.}\)</span> Starting at point <span class="process-math">\(A\text{,}\)</span> you need to determine how to get to point <span class="process-math">\(B\)</span> by moving in each of the three directions. Ask yourself: to get from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\)</span> do I have to move in the <span class="process-math">\(x\)</span> direction? If so, how far do I have to travel? This becomes the <span class="process-math">\(x\)</span> component of the vector <span class="process-math">\(\vec{r}_{AB}\)</span> namely <span class="process-math">\(r_{AB_x}\text{.}\)</span> Next, to get from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\)</span> how far do I move in <span class="process-math">\(y\)</span> direction? This distance is <span class="process-math">\(r_{AB_y}\text{.}\)</span> Finally, to get from point A to point B how far do I move in the z-direction? This distance is <span class="process-math">\(r_{AB_z}\text{.}\)</span>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.5.2<span class="period">.</span></span><span class="space"> </span>Direction Cosine Angles</figcaption></figure><div class="para" id="p-677">If you know that the line of action of a force vector goes between two points, then you can use the distance vector that goes from one point to the other to determine the angles.</div>
+<div class="para" id="p-678">Let’s suppose that the line of action goes through two points <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{,}\)</span> and the direction of the force is from <span class="process-math">\(A\)</span> towards <span class="process-math">\(B\text{.}\)</span> The first step in determining the three angles is to write the distance vector from point <span class="process-math">\(A\)</span> towards point <span class="process-math">\(B\text{.}\)</span> Let’s call this vector <span class="process-math">\(\vec{r}_{AB}\text{.}\)</span> Starting at point <span class="process-math">\(A\text{,}\)</span> you need to determine how to get to point <span class="process-math">\(B\)</span> by moving in each of the three directions. Ask yourself: to get from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\)</span> do I have to move in the <span class="process-math">\(x\)</span> direction? If so, how far do I have to travel? This becomes the <span class="process-math">\(x\)</span> component of the vector <span class="process-math">\(\vec{r}_{AB}\)</span> namely <span class="process-math">\(r_{AB_x}\text{.}\)</span> Next, to get from point <span class="process-math">\(A\)</span> to point <span class="process-math">\(B\)</span> how far do I move in <span class="process-math">\(y\)</span> direction? This distance is <span class="process-math">\(r_{AB_y}\text{.}\)</span> Finally, to get from point A to point B how far do I move in the z-direction? This distance is <span class="process-math">\(r_{AB_z}\text{.}\)</span>
 </div>
-<div class="para" id="p-680">When writing these scalar components pay attention to which way you move along the axes. If you travel toward the positive end of an axis, the corresponding scalar component gets a positive sign. Travel towards the negative end results in a negative sign. The sign is important.</div>
-<div class="para logical" id="p-681">
+<div class="para" id="p-679">When writing these scalar components pay attention to which way you move along the axes. If you travel toward the positive end of an axis, the corresponding scalar component gets a positive sign. Travel towards the negative end results in a negative sign. The sign is important.</div>
+<div class="para logical" id="p-680">
 <div class="para">Once you have determined the components of the distance vector <span class="process-math">\(r_{AB}\text{,}\)</span> you can determine the total distance from point <span class="process-math">\(A\)</span> to <span class="process-math">\(B\)</span> using the <a href="" class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">three-dimensional Pythagorean Theorem</a>
 </div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/distance_formula_3d.html" id="pythag-3d">
@@ -772,49 +802,49 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 \end{equation}
 </div>
 </div>
-<div class="para logical" id="p-682">
+<div class="para logical" id="p-681">
 <div class="para">Lastly, the angles are determined by the direction cosines, namely</div>
-<div class="displaymath process-math" id="md-90">
+<div class="displaymath process-math" id="md-89">
 \begin{align*}
 \cos \theta_x \amp = \dfrac{r_{AB_x}}{r_{AB}} \amp \cos \theta_y \amp = \dfrac{r_{AB_y}}{r_{AB}} \amp \cos \theta_z \amp = \dfrac{r_{AB_z}}{r_{AB}}
 \end{align*}
 </div>
 </div>
-<div class="para logical" id="p-683">
+<div class="para logical" id="p-682">
 <div class="para">Since the force vector has the same line of action as the distance vector, by the three-dimensional version of similar triangles,</div>
-<div class="displaymath process-math" id="md-91">
+<div class="displaymath process-math" id="md-90">
 \begin{align*}
-\dfrac{r_{AB_x}}{r_{AB}} \amp = \dfrac{F_x}{F} \amp \dfrac{r_{AB_y}}{r_{AB}} \amp = \dfrac{F_y}{F} \amp \dfrac{r_{AB_z}}{r_{AB}} \amp = \dfrac{F_z}{F}
+\dfrac{r_{AB_x}}{r_{AB}} \amp = \dfrac{F_x}{F} \amp \dfrac{r_{AB_y}}{r_{AB}} \amp = \dfrac{F_y}{F} \amp \dfrac{r_{AB_z}}{r_{AB}} \amp = \dfrac{F_z}{F}\text{.}
 \end{align*}
 </div>
-<div class="para">. So,</div>
-<div class="displaymath process-math" id="md-92">
+<div class="para">So,</div>
+<div class="displaymath process-math" id="md-91">
 \begin{align*}
 F_x \amp = \left(\dfrac{r_{AB_x}}{r_{AB}}\right) F \amp F_y \amp = \left(\dfrac{r_{AB_y}}{r_{AB}}\right) F \amp F_z \amp = \left(\dfrac{r_{AB_z}}{r_{AB}}\right) F 
 \end{align*}
 </div>
 </div>
-<div class="para logical" id="p-684">
+<div class="para logical" id="p-683">
 <div class="para">Now, that is a bit of math there, but the important things to remember are:</div>
 <ul class="disc">
 <li id="li-182"><div class="para" id="p-derived-li-182">You can use three angles to determine the direction of a force in three dimensions.</div></li>
 <li id="li-183"><div class="para" id="p-derived-li-183">You can use the geometry to get them from a distance vector that lies along the line of action of the force.</div></li>
 </ul>
 </div>
-<div class="para logical" id="p-685">
+<div class="para logical" id="p-684">
 <div class="para">The three direction cosine angles are not mutually independent. From <a href="" class="xref" data-knowl="./knowl/pythag-3d.html" title="Equation 3.5.1">(3.5.1)</a> you can easily show that</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/pythag-3d.html" id="men-36">
 \begin{equation}
-\cos \theta_x^2 + \cos \theta_y^2 + \cos \theta_z^2 = 1 \tag{3.5.2}
+\cos \theta_x^2 + \cos \theta_y^2 + \cos \theta_z^2 = 1 \text{,}\tag{3.5.2}
 \end{equation}
 </div>
-<div class="para">, so if you know two direction cosine angles you can find the third from this relationship.</div>
+<div class="para">so if you know two direction cosine angles you can find the third from this relationship.</div>
 </div></section><section class="subsection" id="Chapter_03-general-procedure"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">3.5.4</span> <span class="title">General Procedure</span>
 </h3>
-<div class="para" id="p-686">The general procedure for solving three-dimensional particle equilibrium is essentially the same as for two-dimensional particle equilibrium using the components method. The major differences are that you must carefully find each vector component using the techniques from <a href="coordinates-3d.html" class="internal" title="Section 2.4: 3D Coordinate Systems &amp; Vectors">Section 2.4</a>. The process follows the same five-step method for creating a free-body diagram, followed by steps to solve your equilibrium equations.</div>
-<div class="para" id="p-687"><em class="alert">Draw a Free-body Diagram:</em></div>
-<div class="para logical" id="p-688"><ol class="decimal">
+<div class="para" id="p-685">The general procedure for solving three-dimensional particle equilibrium is essentially the same as for two-dimensional particle equilibrium using the components method. The major differences are that you must carefully find each vector component using the techniques from <a href="coordinates-3d.html" class="internal" title="Section 2.4: 3D Coordinate Systems &amp; Vectors">Section 2.4</a>. The process follows the same five-step method for creating a free-body diagram, followed by steps to solve your equilibrium equations.</div>
+<div class="para" id="p-686"><em class="alert">Draw a Free-body Diagram:</em></div>
+<div class="para logical" id="p-687"><ol class="decimal">
 <li id="li-184"><div class="para" id="p-derived-li-184">
 <em class="emphasis">Select and isolate the particle.</em> The “free-body” in free-body diagram means that a concurrent force particle or connection must be isolated from the supports that are physically holding it in place. This means creating a separate free-body diagram from your problem sketch.</div></li>
 <li id="li-185"><div class="para" id="p-derived-li-185">
@@ -826,12 +856,13 @@ F_x \amp = \left(\dfrac{r_{AB_x}}{r_{AB}}\right) F \amp F_y \amp = \left(\dfrac{
 <li id="li-188"><div class="para" id="p-derived-li-188">
 <em class="emphasis">Label the diagram.</em> Verify that every dimension, angle, force, and moment is labeled with either a value or a symbolic name if the value is unknown. In our eyes, dimensioning is optional. Having the information needed for your calculations is helpful, but don’t clutter the diagram up with unneeded details. Your final free-body diagram should be a stand-alone presentation and is the basis of your equilibrium equations.</div></li>
 </ol></div>
-<div class="para" id="p-689"><em class="alert">Create and Solve Equilibrium Equations</em></div>
-<div class="para logical" id="p-690"><ol class="decimal">
+<div class="para" id="p-688"><em class="alert">Create and Solve Equilibrium Equations</em></div>
+<div class="para logical" id="p-689"><ol class="decimal">
 <li id="li-189"><div class="para" id="p-derived-li-189">
-<em class="emphasis">Break vectors into components.</em> Compute each force’s x, y, and z components using the tools outlined in <a href="coordinates-3d.html" class="internal" title="Section 2.4: 3D Coordinate Systems &amp; Vectors">Section 2.4</a>. While the components in two-dimensional problems can often be found with right triangle trigonometry, three-dimensional problems often use unit vectors.</div></li>
+<em class="emphasis">Break vectors into components.</em> Compute each force’s <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> components using the tools outlined in <a href="coordinates-3d.html" class="internal" title="Section 2.4: 3D Coordinate Systems &amp; Vectors">Section 2.4</a>. While the components in two-dimensional problems can often be found with right triangle trigonometry, three-dimensional problems often use unit vectors.</div></li>
 <li id="li-190"><div class="para" id="p-derived-li-190">
-<em class="emphasis">Write equilibrium equations.</em> Now represent your free-body diagram as equilibrium equations. For a three-dimensional particle equilibrium problem, you can have up to three force equilibrium equations corresponding to a force balance in the three independent x, y, and z directions. Each equation should start with the governing equation, like ΣF_x=0.</div></li>
+<em class="emphasis">Write equilibrium equations.</em> Now represent your free-body diagram as equilibrium equations. For a three-dimensional particle equilibrium problem, you can have up to three force equilibrium equations corresponding to a force balance in the three independent <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> directions. Each equation should start with the governing equation, like <span class="process-math">\(\Sigma F_x=0\text{.}\)</span>
+</div></li>
 <li id="li-191"><div class="para" id="p-derived-li-191">
 <em class="emphasis">Count knowns and unknowns.</em> At this point, you should have at most three unknowns remaining. If you have over three, reread the problem and look for overlooked information.</div></li>
 <li id="li-192"><div class="para" id="p-derived-li-192">
@@ -839,53 +870,53 @@ F_x \amp = \left(\dfrac{r_{AB_x}}{r_{AB}}\right) F \amp F_y \amp = \left(\dfrac{
 <li id="li-193"><div class="para" id="p-derived-li-193">
 <em class="emphasis">Check your work.</em> If you add the components of the forces, do they add to zero? Do the results seem reasonable given the situation? Have you included appropriate units?</div></li>
 </ol></div>
-<div class="para" id="p-691">Now let’s see how that process looks on an example problem.</div>
+<div class="para" id="p-690">Now let’s see how that process looks on an example problem.</div>
 <article class="example example-like" id="Balloon"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Balloon.</span>
 </h4>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:50%;">
-<div class="para" id="p-692">A hot air balloon <span class="process-math">\(\ft{30}\)</span> above the ground is tethered by three cables as shown in the diagram.</div>
-<div class="para" id="p-693">If the balloon is pulling upwards with a force of <span class="process-math">\(\lb{900}\text{,}\)</span> what is the tension in each of the three cables?</div>
-<div class="para" id="p-694">The grid lines on the ground plane are spaced <span class="process-math">\(\ft{10}\)</span> apart.</div>
+<div class="para" id="p-691">A hot air balloon <span class="process-math">\(\ft{30}\)</span> above the ground is tethered by three cables as shown in the diagram.</div>
+<div class="para" id="p-692">If the balloon is pulling upwards with a force of <span class="process-math">\(\lb{900}\text{,}\)</span> what is the tension in each of the three cables?</div>
+<div class="para" id="p-693">The grid lines on the ground plane are spaced <span class="process-math">\(\ft{10}\)</span> apart.</div>
 </div>
 <div class="sbspanel middle" style="width:45%;"><img src="external/images/Ch03-balloon.svg" role="img" class="contained" alt="A hot air balloon is 30 ft above the ground (coordinates (0, 30, 0)) and tethered by three cables. Assume the origin is directly below the balloon on the ground. The three cables are attached from the basket of the balloon to the following points (ft): A (-20, 0, 0), B (30, 0, -20), C (0, 0, -20)."></div>
 </div></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-41" id="answer-41"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-41"><div class="answer solution-like"><div class="para logical" id="p-695"><div class="displaymath process-math" id="md-93">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-41" id="answer-41"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-41"><div class="answer solution-like"><div class="para logical" id="p-694"><div class="displaymath process-math" id="md-92">
 \begin{align*}
 A \amp = \lb{464} \amp B \amp = \lb{402} \amp C \amp = \lb{309}
 \end{align*}
 </div></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-43" id="solution-43"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-43"><div class="solution solution-like"><div class="para logical" id="p-696"><ol class="decimal">
+<a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-43" id="solution-43"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-43"><div class="solution solution-like"><div class="para logical" id="p-695"><ol class="decimal">
 <li id="li-194">
 <span class="heading"><span class="title">Strategy.</span></span><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel top" style="width:50%;">
-<div class="para" id="p-697">The three tensions are the unknowns which we can find by applying the three equilibrium equations.</div>
-<div class="para" id="p-698">We’ll establish a coordinate system with the origin directly below the balloon and the <span class="process-math">\(y\)</span> axis vertical, then draw and label a free-body diagram.</div>
-<div class="para" id="p-699">Next we’ll use the given information to find two points on each line of action to find the components of each force in terms of the unknowns.</div>
+<div class="para" id="p-696">The three tensions are the unknowns which we can find by applying the three equilibrium equations.</div>
+<div class="para" id="p-697">We’ll establish a coordinate system with the origin directly below the balloon and the <span class="process-math">\(y\)</span> axis vertical, then draw and label a free-body diagram.</div>
+<div class="para" id="p-698">Next we’ll use the given information to find two points on each line of action to find the components of each force in terms of the unknowns.</div>
 </div>
 <div class="sbspanel top" style="width:50%;"><img src="external/images/Ch03-balloon-fbd.svg" role="img" class="contained"></div>
 </div></div>
-<div class="para" id="p-700">When the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.</div>
+<div class="para" id="p-699">When the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> components of all forces can be expressed in terms of known values, the equilibrium equations can be solved.</div>
 </li>
 <li id="li-195">
-<span class="heading"><span class="title">Geometry.</span></span><div class="para" id="p-701">From the diagram, the coordinates of the points are</div>
-<div class="para logical" id="p-702"><div class="displaymath process-math" id="md-94">
+<span class="heading"><span class="title">Geometry.</span></span><div class="para" id="p-700">From the diagram, the coordinates of the points are</div>
+<div class="para logical" id="p-701"><div class="displaymath process-math" id="md-93">
 \begin{align*}
 \text{A} \amp= (-20,0,0)\amp \text{B}\amp= (30,0,20) \amp \text{C}\amp= (0,0,-20) \amp \text{D} \amp = (0,30,0)
 \end{align*}
 </div></div>
-<div class="para" id="p-703">Use the point coordinates to find the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> components of the forces.</div>
-<div class="para logical" id="p-704"><div class="displaymath process-math" id="md-95">
+<div class="para" id="p-702">Use the point coordinates to find the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\)</span> and <span class="process-math">\(z\)</span> components of the forces.</div>
+<div class="para logical" id="p-703"><div class="displaymath process-math" id="md-94">
 \begin{align*}
 A_x \amp = \frac{-20}{L_A} A \amp A_y \amp = \frac{-30}{L_A} A \amp A_z \amp = \frac{0}{L_A} A \\
 B_x \amp = \frac{30}{L_B} B \amp B_y \amp = \frac{-30}{L_B} B \amp B_z \amp = \frac{20}{L_B} B \\
 C_x \amp = \frac{0}{L_C} C\amp C_y \amp = \frac{-30}{L_C} C\amp C_z \amp = \frac{-20}{L_C} C
 \end{align*}
 </div></div>
-<div class="para" id="p-705">Where <span class="process-math">\(L_A\text{,}\)</span> <span class="process-math">\(L_B\)</span> and <span class="process-math">\(L_C\)</span> are the lengths of the three cables found with the <a href="" class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">distance formula</a>.</div>
-<div class="para logical" id="p-706"><div class="displaymath process-math" id="md-96">
+<div class="para" id="p-704">Where <span class="process-math">\(L_A\text{,}\)</span> <span class="process-math">\(L_B\)</span> and <span class="process-math">\(L_C\)</span> are the lengths of the three cables found with the <a href="" class="xref" data-knowl="./knowl/distance_formula_3d.html" title="Equation B.1.2">distance formula</a>.</div>
+<div class="para logical" id="p-705"><div class="displaymath process-math" id="md-95">
 \begin{align*}
 L_A \amp= \sqrt{(-20)^2 + (-30)^2+ 0^2} \amp= \ft{36.1}\\
 L_B \amp= \sqrt{30^2 + (-30)^2 +20^2} \amp= \ft{46.9}\\
@@ -894,8 +925,8 @@ L_C \amp= \sqrt{0^2+(-30)^2 + (-20)^2} \amp= \ft{36.1}
 </div></div>
 </li>
 <li id="li-196">
-<span class="heading"><span class="title">Equilibrium Equations.</span></span><div class="para" id="p-707">Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.</div>
-<div class="para logical" id="p-708"><div class="displaymath process-math" id="md-97">
+<span class="heading"><span class="title">Equilibrium Equations.</span></span><div class="para" id="p-706">Applying the three equations of equilibrium yields three equations in terms of the three unknown tensions.</div>
+<div class="para logical" id="p-707"><div class="displaymath process-math" id="md-96">
 \begin{align*}
 \Sigma F_x \amp = 0\\
 \amp A_x + B_x + C_x = 0\\
@@ -911,18 +942,18 @@ C \amp= 0.769 \,B \amp (2)\\\\
 \amp 0.832\, A + 0.640\, B + 0.832\, C = \lb{900} \amp (3)
 \end{align*}
 </div></div>
-<div class="para" id="p-709">Solving these equations simultaneously yields the answers we are seeking. One way to do this is to substitute equations (1) and (2) into (3) to eliminate <span class="process-math">\(A\)</span> and <span class="process-math">\(C\)</span> and solve the resulting equation for <span class="process-math">\(B\text{.}\)</span>
+<div class="para" id="p-708">Solving these equations simultaneously yields the answers we are seeking. One way to do this is to substitute equations (1) and (2) into (3) to eliminate <span class="process-math">\(A\)</span> and <span class="process-math">\(C\)</span> and solve the resulting equation for <span class="process-math">\(B\text{.}\)</span>
 </div>
-<div class="para logical" id="p-710"><div class="displaymath process-math" id="md-98">
+<div class="para logical" id="p-709"><div class="displaymath process-math" id="md-97">
 \begin{align*}
 0.832\, (1.153\, B) + 0.640\, B + 0.832\, (0.769 \,B) \amp= \lb{900}\\
 2.24 B \amp = \lb{900}\\
 B \amp = \lb{402}
 \end{align*}
 </div></div>
-<div class="para" id="p-711">With <span class="process-math">\(B\)</span> known, substitute it into equations (1) and (2) to find <span class="process-math">\(A\)</span> and <span class="process-math">\(C\text{.}\)</span>
+<div class="para" id="p-710">With <span class="process-math">\(B\)</span> known, substitute it into equations (1) and (2) to find <span class="process-math">\(A\)</span> and <span class="process-math">\(C\text{.}\)</span>
 </div>
-<div class="para logical" id="p-712"><div class="displaymath process-math" id="md-99">
+<div class="para logical" id="p-711"><div class="displaymath process-math" id="md-98">
 \begin{align*}
 A \amp = 1.153\, B \amp C \amp =0.769\, B \\
 \amp = \lb{464} \amp \amp = \lb{309}
@@ -933,22 +964,20 @@ A \amp = 1.153\, B \amp C \amp =0.769\, B \\
 </div></article><article class="example example-like" id="Skycam"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">3.5.4</span><span class="period">.</span><span class="space"> </span><span class="title">Skycam.</span>
 </h4>
-<div class="para" id="p-713">The skycam at Stanford University Stadium has a mass of <span class="process-math">\(\kg{20}\)</span> and is supported by three cables as shown. Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:50%;"><img src="external/images/640px-Sky_Cam_at_Stanford.jpg" class="contained" alt="Skycam has mass of 20 kg and is in equilibrium. Cable A is in the x-y plane, acting 35 degrees from the positive x-axis. Cable B acts -30 degrees from the negative x-axis in the x-z plane, and 15 degrees above the x-z plane. Cable C acts 20 degrees in the y-z plane, -20 degrees from the positive z-axis."></div>
-<div class="sbspanel top" style="width:50%;">
-<iframe id="ggb_skycam-labeled_interactive" width="300" height="240" src="ggb_skycam-labeled_interactive-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-25" id="instructions-25"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-25"><div class="solution-like"><div class="para" id="p-714">Rotating the interactive diagram may help you visualize the situation.</div></div></div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:47%;"><div class="para" id="p-712">The skycam at Stanford University Stadium has a mass of <span class="process-math">\(\kg{20}\)</span> and is supported by three cables as shown. Assuming that it is currently in equilibrium, find the tension in each of the three supporting cables.</div></div>
+<div class="sbspanel middle" style="width:47%;"><img src="external/images/640px-Sky_Cam_at_Stanford.jpg" class="contained" alt="Skycam has mass of 20 kg and is in equilibrium. Cable A is in the x-y plane, acting 35 degrees from the positive x-axis. Cable B acts -30 degrees from the negative x-axis in the x-z plane, and 15 degrees above the x-z plane. Cable C acts 20 degrees in the y-z plane, -20 degrees from the positive z-axis."></div>
+</div></div> <iframe id="ggb_skycam-labeled_interactive" width="600" height="330" src="ggb_skycam-labeled_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-25" id="instructions-25"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-25"><div class="solution-like"><div class="para" id="p-713">Rotating the interactive diagram may help you visualize the situation.</div></div></div>
 </div>
-</div>
-</div></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-42" id="answer-42"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-42"><div class="answer solution-like"><div class="para logical" id="p-715"><div class="displaymath process-math" id="md-100">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-42" id="answer-42"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-42"><div class="answer solution-like"><div class="para logical" id="p-714"><div class="displaymath process-math" id="md-99">
 \begin{align*}
 A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}
 \end{align*}
 </div></div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-44" id="solution-44"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-44"><div class="solution solution-like">
-<div class="para logical" id="p-716">
+<div class="para logical" id="p-715">
 <div class="para">In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces <span class="process-math">\(\vec{A}\text{,}\)</span> <span class="process-math">\(\vec{B}\text{,}\)</span> and <span class="process-math">\(\vec{C}\text{.}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -956,17 +985,17 @@ A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}
 W = m g = \kg{20}\ \aSI{9.81} = \N{196.2}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-717">
+</div> <div class="para logical" id="p-716">
 <div class="para">We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the component’s unit vectors and determining the angles each makes with the coordinate axis.</div>
-<div class="displaymath process-math" id="md-101">
+<div class="displaymath process-math" id="md-100">
 \begin{align*}
 \hat{\vec{W}} \amp = \langle 0, -1, 0 \rangle \\
-\hat{\vec{A}} \amp = \langle \cos \ang{35}, \cos{55} , 0 \rangle\\
-\hat{\vec{B}} \amp = \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75} , -\cos \ang{15} \cos \ang{60} \rangle\\
-\hat{\vec{C}} \amp = \langle 0, \cos{70} , \cos \ang{20} \rangle
+\hat{\vec{A}} \amp = \langle \cos \ang{35}, \cos{55}, 0 \rangle\\
+\hat{\vec{B}} \amp = \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75}, -\cos \ang{15} \cos \ang{60} \rangle\\
+\hat{\vec{C}} \amp = \langle 0, \cos{70}, \cos \ang{20} \rangle
 \end{align*}
 </div>
-</div> <div class="para logical" id="p-718">
+</div> <div class="para logical" id="p-717">
 <div class="para">Particle equilibrium requires that <span class="process-math">\(\sum \vec{F} = 0\text{.}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -976,41 +1005,39 @@ A\ \hat{\vec{A}} + B\ \hat{\vec{B}} + C\ \hat{\vec{C}} = - W\ \hat{\vec{W}}
 </div>
 <div class="para">This is a 3 <span class="process-math">\(\times\)</span> 3 system of three simultaneous equations, one for each coordinate direction, which needs to be solved for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\text{,}\)</span> and <span class="process-math">\(C\text{.}\)</span>
 </div>
-<div class="displaymath process-math" id="md-102">
+<div class="displaymath process-math" id="md-101">
 \begin{align*}
 A \cos \ang{35} - B \cos \ang{15} \cos \ang{30} + 0 \amp = 0 \amp \amp \amp (\Sigma F_x \amp= 0)\\
 A \cos \ang{55} + B \cos \ang{75} + C \cos \ang{70} \amp = \N{196.2} \amp \amp \amp (\Sigma F_y \amp= 0)\\
 0 - \cos \ang{15} \cos \ang{60} + C \cos \ang{20} \amp = 0 \amp \amp \amp (\Sigma F_z \amp= 0)
 \end{align*}
 </div>
-</div> <div class="para logical" id="p-719">
+</div> <div class="para logical" id="p-718">
 <div class="para">These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{bmatrix} 0.819 \amp -0.837 \amp 0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix} \begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} 
+\begin{bmatrix} 0.819 \amp -0.837 \amp 0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix} \begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} \text{.}
 \end{equation*}
 </div>
-<div class="para">.</div>
-</div> <div class="para logical" id="p-720">
+</div> <div class="para logical" id="p-719">
 <div class="para">This is an equation in the form</div>
 <div class="displaymath process-math">
 \begin{equation*}
-[A][x] =[B]
+[A][x] =[B]\text{.}
 \end{equation*}
 </div>
-<div class="para">. Entering the coefficient matrices into Sage.</div>
+<div class="para">Entering the coefficient matrices into Sage.</div>
 </div> <pre class="ptx-sagecell hidden-sagecell-sage" id="sage-2"><script type="text/x-sage">A = Matrix([[0.819,-0.837,0],[0.574,0.259, 0.342],[0,-0.482,0.940]])
 B = vector([0, 196.2, 0]) 
 x = A.solve_right(B)
 x
-</script></pre> <div class="para logical" id="p-721">
+</script></pre> <div class="para logical" id="p-720">
 <div class="para">After evaluating, we learn that</div>
-<div class="displaymath process-math" id="md-103">
+<div class="displaymath process-math" id="md-102">
 \begin{align*}
-A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}
+A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}\text{.}
 \end{align*}
 </div>
-<div class="para">.</div>
 </div>
 </div></div>
 </div></article></section></section></div>
@@ -1018,7 +1045,7 @@ A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}
 <a class="previous-button button" href="CH03-2d-particles.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="exercises-2.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->

@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Statics: Dot Products</title>
@@ -18,20 +18,38 @@
 <meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -41,66 +59,71 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6RNJ8K3E00');
-</script><!--End: Google Global Site Tag code-->
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -203,7 +226,7 @@ window.MathJax = {
 </ol>
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="vector_algebra_2D.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_02.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="cross-product-math.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -263,7 +286,7 @@ window.MathJax = {
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
@@ -692,7 +715,13 @@ window.MathJax = {
 </li>
 </ul>
 </li>
-<li><div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
 <li>
 <div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
 <ul class="structural">
@@ -738,14 +767,14 @@ window.MathJax = {
 <li id="li-101"><div class="para" id="p-derived-li-101">What does it mean when the dot product of two vectors is zero?</div></li>
 <li id="li-102"><div class="para" id="p-derived-li-102">How do you use a dot product to find the angle between two vectors?</div></li>
 <li id="li-103"><div class="para" id="p-derived-li-103">What does it mean when the scalar component of the projection <span class="process-math">\(\|\proj_{\vec{A}}\vec{B}\|\)</span> is negative?</div></li>
-</ul></article><section class="introduction" id="introduction-10"><div class="para" id="p-333">Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the <dfn class="terminology">dot product</dfn> or <dfn class="terminology">scalar product</dfn> because the result is a scalar value, and the second is called the <dfn class="terminology">cross product</dfn> or <dfn class="terminology">vector product</dfn> and has a vector result. The dot product will be discussed in this section and the cross product in the next.</div> <div class="para logical" id="p-334">
+</ul></article><section class="introduction" id="introduction-10"><div class="para" id="p-334">Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the <dfn class="terminology">dot product</dfn> or <dfn class="terminology">scalar product</dfn> because the result is a scalar value, and the second is called the <dfn class="terminology">cross product</dfn> or <dfn class="terminology">vector product</dfn> and has a vector result. The dot product will be discussed in this section and the cross product in the next.</div> <div class="para logical" id="p-335">
 <div class="para">For two vectors <span class="process-math">\(\vec{A}= \langle A_x, A_y, A_z \rangle\)</span> and <span class="process-math">\(\vec{B} = \langle B_x, B_y, B_z \rangle,\)</span> the dot product multiplication is computed by summing the products of the components.</div>
 <div class="displaymath process-math" id="dot-product-1">
 \begin{equation}
 \vec{A} \cdot \vec{B} = A_x B_x + A_y B_y + A_z B_z \tag{2.7.1}
 \end{equation}
 </div>
-</div> <div class="para logical" id="p-335">
+</div> <div class="para logical" id="p-336">
 <div class="para">An alternate, equivalent method to compute the dot product is</div>
 <div class="displaymath process-math" id="dot-product-2">
 \begin{equation}
@@ -754,7 +783,7 @@ window.MathJax = {
 </div>
 <div class="para">where <span class="process-math">\(\theta\)</span> in the equation is the angle between the two vectors and <span class="process-math">\(| \vec{A} |\)</span> and <span class="process-math">\(| \vec{B} |\)</span> are the magnitudes of <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-336">We can conclude from this equation that the dot product of two perpendicular vectors is zero, because <span class="process-math">\(\cos \ang{90} = 0\text{,}\)</span> and that the dot product of two parallel vectors is the product of their magnitudes.</div>  <div class="para logical" id="p-337">
+</div> <div class="para" id="p-337">We can conclude from this equation that the dot product of two perpendicular vectors is zero, because <span class="process-math">\(\cos \ang{90} = 0\text{,}\)</span> and that the dot product of two parallel vectors is the product of their magnitudes.</div>  <div class="para logical" id="p-338">
 <div class="para">When dotting unit vectors that have a magnitude of one, the dot products of a unit vector with itself is one and the dot product two perpendicular unit vectors is zero, so for <span class="process-math">\(\ihat\text{,}\)</span><span class="process-math">\(\jhat\text{,}\)</span> and <span class="process-math">\(\khat\)</span> we have</div>
 <div class="displaymath process-math" id="md-35">
 \begin{align*}
@@ -763,13 +792,13 @@ window.MathJax = {
 \ihat \cdot \khat \amp = 0 \amp \jhat \cdot \khat \amp = 0 \amp \khat \cdot \khat \amp = 1
 \end{align*}
 </div>
-</div> <div class="para logical" id="p-338">
+</div> <div class="para logical" id="p-339">
 <div class="para">Dot products are commutative, associative and distributive:</div>
 <ol class="decimal">
 <li id="li-104">
-<div class="para" id="p-339">
+<div class="para" id="p-340">
 <dfn class="terminology">Commutative.</dfn> The order does not matter.</div>
-<div class="para logical" id="p-340"><div class="displaymath process-math" id="men-15">
+<div class="para logical" id="p-341"><div class="displaymath process-math" id="men-15">
 \begin{equation}
 \vec{A}\cdot\vec{B} = \vec{B}\cdot\vec{A}\tag{2.7.3}
 \end{equation}
@@ -790,18 +819,18 @@ C\left( \vec{A}\cdot\vec{B} \right ) = C\ \vec{A}\cdot\vec{B}= \vec{A}\cdot C\ \
 </div>
 </div></li>
 </ol>
-</div> <div class="para" id="p-341">Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.</div></section><section class="subsection" id="Chapter_02-magnitude-of-a-vector"><h3 class="heading hide-type">
+</div> <div class="para" id="p-342">Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.</div></section><section class="subsection" id="Chapter_02-magnitude-of-a-vector"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span>
 </h3>
-<div class="para logical" id="p-342">
-<div class="para">Dot products can be used to find vector magnitudes. When a vector is dotted with itself using <a href="" class="xref" data-knowl="./knowl/dot-product-1.html" title="Equation 2.7.1">(2.7.1)</a> , the result is the square of the magnitude of the vector. By the Pythagorean theorem</div>
+<div class="para logical" id="p-343">
+<div class="para">Dot products can be used to find vector magnitudes. When a vector is dotted with itself using <a href="" class="xref" data-knowl="./knowl/dot-product-1.html" title="Equation 2.7.1">(2.7.1)</a>, the result is the square of the magnitude of the vector. By the Pythagorean theorem</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/dot-product-1.html" id="men-18">
 \begin{equation}
 |\vec{A}| = \sqrt{\vec{A} \cdot \vec{A}}\text{.}\tag{2.7.6}
 \end{equation}
 </div>
 </div>
-<div class="para logical" id="p-343">
+<div class="para logical" id="p-344">
 <div class="para">The proof is trivial. Consider vector <span class="process-math">\(\vec{A} = \langle A_x, A_y \rangle\text{.}\)</span>
 </div>
 <div class="displaymath process-math" id="md-36">
@@ -815,15 +844,15 @@ C\left( \vec{A}\cdot\vec{B} \right ) = C\ \vec{A}\cdot\vec{B}= \vec{A}\cdot C\ \
 <article class="example example-like" id="intro_2D_dot_products"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.7.1</span><span class="period">.</span><span class="space"> </span><span class="title">Find Vector Magnitude using the Dot Product.</span>
 </h4>
-<div class="para" id="p-344">Find the magnitude of vector <span class="process-math">\(\vec{F}\)</span> with components <span class="process-math">\(F_x = \N{30}\text{,}\)</span><span class="process-math">\(F_y=\N{-40}\)</span> and <span class="process-math">\(F_z = \N{50}\)</span>
+<div class="para" id="p-345">Find the magnitude of vector <span class="process-math">\(\vec{F}\)</span> with components <span class="process-math">\(F_x = \N{30}\text{,}\)</span><span class="process-math">\(F_y=\N{-40}\)</span> and <span class="process-math">\(F_z = \N{50}\)</span>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-16" id="answer-16"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-16"><div class="answer solution-like"><div class="para logical" id="p-345"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-16" id="answer-16"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-16"><div class="answer solution-like"><div class="para logical" id="p-346"><div class="displaymath process-math">
 \begin{equation*}
 F = |\vec{F}| = \N{70.7}
 \end{equation*}
 </div></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-17" id="solution-17"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-17"><div class="solution solution-like"><div class="para logical" id="p-346"><div class="displaymath process-math" id="md-37">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-17" id="solution-17"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-17"><div class="solution solution-like"><div class="para logical" id="p-347"><div class="displaymath process-math" id="md-37">
 \begin{align*}
 \vec{F} \amp = \langle \N{30}, \N{-40}, \N{50} \rangle\\
 \\
@@ -839,7 +868,7 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div></article></section><section class="subsection" id="Chapter_02-angle-between-two-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span>
 </h3>
-<div class="para logical" id="p-347">
+<div class="para logical" id="p-348">
 <div class="para">A second application of the dot product is to find the angle between two vectors. Equation <a href="" class="xref" data-knowl="./knowl/dot-product-2.html" title="Equation 2.7.2">(2.7.2)</a> provides the procedure.</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/dot-product-2.html" id="mdn-7">
 \begin{align}
@@ -851,15 +880,15 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <article class="example example-like" id="Chapter_02-example-angle-between-orthogonal-unit-vectors"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.7.2</span><span class="period">.</span><span class="space"> </span><span class="title">Angle between Orthogonal Unit Vectors.</span>
 </h4>
-<div class="para" id="p-348">Find the angle between <span class="process-math">\(\ihat= \langle 1,0,0 \rangle\)</span> and <span class="process-math">\(\jhat =\langle 0,1,0 \rangle\text{.}\)</span>
+<div class="para" id="p-349">Find the angle between <span class="process-math">\(\ihat= \langle 1,0,0 \rangle\)</span> and <span class="process-math">\(\jhat =\langle 0,1,0 \rangle\text{.}\)</span>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-17" id="answer-17"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-17"><div class="answer solution-like"><div class="para logical" id="p-349"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-17" id="answer-17"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-17"><div class="answer solution-like"><div class="para logical" id="p-350"><div class="displaymath process-math">
 \begin{equation*}
 \theta= \ang{90}
 \end{equation*}
 </div></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-18" id="solution-18"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-18"><div class="solution solution-like"><div class="para logical" id="p-350">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-18" id="solution-18"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-18"><div class="solution solution-like"><div class="para logical" id="p-351">
 <div class="displaymath process-math" id="md-38">
 \begin{align*}
 \cos \theta \amp = \frac{\ihat \cdot \jhat}{ | \ihat | | \jhat |}\\
@@ -875,15 +904,15 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div></article><article class="example example-like" id="Chapter_02-example-angle-between-two-vectors"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">2.7.3</span><span class="period">.</span><span class="space"> </span><span class="title">Angle between Two Vectors.</span>
 </h4>
-<div class="para" id="p-351">Find the angle between <span class="process-math">\(\vec{F} = \langle \N{100}, \N{200}, \N{-50} \rangle\)</span> and <span class="process-math">\(\vec{G} = \langle \N{-75}, \N{150}, \N{-40} \rangle\text{.}\)</span>
+<div class="para" id="p-352">Find the angle between <span class="process-math">\(\vec{F} = \langle \N{100}, \N{200}, \N{-50} \rangle\)</span> and <span class="process-math">\(\vec{G} = \langle \N{-75}, \N{150}, \N{-40} \rangle\text{.}\)</span>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-18" id="answer-18"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-18"><div class="answer solution-like"><div class="para logical" id="p-352"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-18" id="answer-18"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-18"><div class="answer solution-like"><div class="para logical" id="p-353"><div class="displaymath process-math">
 \begin{equation*}
 \theta= \ang{51.7}
 \end{equation*}
 </div></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-19" id="solution-19"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-19"><div class="solution solution-like"><div class="para logical" id="p-353"><div class="displaymath process-math" id="md-39">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-19" id="solution-19"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-19"><div class="solution solution-like"><div class="para logical" id="p-354"><div class="displaymath process-math" id="md-39">
 \begin{align*}
 \cos \theta \amp = \frac{\vec{F} \cdot \vec{G}}{ | \vec{F} | | \vec{G} |}\\
 \amp = \frac{ F_x G_x + F_y G_y + F_z G_z }{\sqrt{F_x^2 + F_y^2 + F_z^2}\sqrt{G_x^2 + G_y^2 + G_z^2}}\\
@@ -898,10 +927,10 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div></article></section><section class="subsection" id="vector-projections"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span>
 </h3>
-<div class="para" id="p-354">The dot product is used to find the <dfn class="terminology">projection</dfn> of one vector onto another. You can think of a projection of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\)</span> as a vector the length of the shadow of <span class="process-math">\(\vec{B}\)</span> on the line of action of <span class="process-math">\(\vec{A}\)</span> when the sun is directly above <span class="process-math">\(\vec{A}\text{.}\)</span> More precisely, the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> produces the rectangular component of <span class="process-math">\(\vec{B}\)</span> in the direction <em class="emphasis">parallel</em> to <span class="process-math">\(\vec{A}\text{.}\)</span> This is one side of a rectangle aligned with <span class="process-math">\(\vec{A}\text{,}\)</span> having <span class="process-math">\(\vec{B}\)</span> as its diagonal.</div>
-<div class="para" id="p-355">This is illustrated in <a href="" class="xref" data-knowl="./knowl/ggb_dot_product.html" title="Figure 2.7.4">Figure 2.7.4</a> , where <span class="process-math">\(\vec{u}\)</span> is the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{,}\)</span> or alternately <span class="process-math">\(\vec{u}\)</span> is the rectangular component of <span class="process-math">\(\vec{B}\)</span> in the direction of <span class="process-math">\(\vec{A}\text{.}\)</span>
+<div class="para" id="p-355">The dot product is used to find the <dfn class="terminology">projection</dfn> of one vector onto another. You can think of a projection of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\)</span> as a vector the length of the shadow of <span class="process-math">\(\vec{B}\)</span> on the line of action of <span class="process-math">\(\vec{A}\)</span> when the sun is directly above <span class="process-math">\(\vec{A}\text{.}\)</span> More precisely, the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> produces the rectangular component of <span class="process-math">\(\vec{B}\)</span> in the direction <em class="emphasis">parallel</em> to <span class="process-math">\(\vec{A}\text{.}\)</span> This is one side of a rectangle aligned with <span class="process-math">\(\vec{A}\text{,}\)</span> having <span class="process-math">\(\vec{B}\)</span> as its diagonal.</div>
+<div class="para" id="p-356">This is illustrated in <a href="" class="xref" data-knowl="./knowl/ggb_dot_product.html" title="Figure 2.7.4">Figure 2.7.4</a>, where <span class="process-math">\(\vec{u}\)</span> is the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{,}\)</span> or alternately <span class="process-math">\(\vec{u}\)</span> is the rectangular component of <span class="process-math">\(\vec{B}\)</span> in the direction of <span class="process-math">\(\vec{A}\text{.}\)</span>
 </div>
-<div class="para logical" id="p-356">
+<div class="para logical" id="p-357">
 <div class="para">In this text we will use the symbols</div>
 <ul class="disc">
 <li id="li-107"><div class="para" id="p-derived-li-107">
@@ -913,12 +942,12 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <span class="process-math">\(\|\proj_{\vec{A}}\vec{B}\|\)</span> to mean the scalar component of the projection, also known as the <dfn class="terminology">scalar projection</dfn>, which can have a positive, zero, or negative scalar value.</div></li>
 </ul>
 </div>
-<div class="para" id="p-357">As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or <span class="process-math">\(\ang{180}\)</span> opposite when the scalar component is negative.</div>
+<div class="para" id="p-358">As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or <span class="process-math">\(\ang{180}\)</span> opposite when the scalar component is negative.</div>
 <figure class="figure figure-like" id="ggb_dot_product"><iframe id="ggb_2d-dot-product_interactive" width="600" height="390" src="ggb_2d-dot-product_interactive-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-17" id="instructions-17"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-17"><div class="solution-like"><div class="para" id="p-360">This interactive demonstrates the relationship between vectors <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> and the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{.}\)</span> The checkbox switches between showing <span class="process-math">\(\proj_\vec{A}\vec{B}\)</span> and <span class="process-math">\(\proj_\vec{B}\vec{A}\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-17" id="instructions-17"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-17"><div class="solution-like"><div class="para" id="p-361">This interactive demonstrates the relationship between vectors <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> and the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{.}\)</span> The checkbox switches between showing <span class="process-math">\(\proj_\vec{A}\vec{B}\)</span> and <span class="process-math">\(\proj_\vec{B}\vec{A}\text{.}\)</span>
 </div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.7.4<span class="period">.</span></span><span class="space"> </span>Vector projection in two dimensions.</figcaption></figure><div class="para logical" id="p-361">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.7.4<span class="period">.</span></span><span class="space"> </span>Vector projection in two dimensions.</figcaption></figure><div class="para logical" id="p-362">
 <div class="para">The interactive shows that the projection is the adjacent side of a right triangle with <span class="process-math">\(\vec{B}\)</span> as the hypotenuse. From the definition of the dot product <a href="" class="xref" data-knowl="./knowl/dot-product-2.html" title="Equation 2.7.2">(2.7.2)</a> we find that</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/dot-product-2.html">
 \begin{equation*}
@@ -927,16 +956,16 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div>
 <div class="para">where <span class="process-math">\(B\ \cos \theta\)</span> is the scalar component of the projection. So, the dot product of <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> gives us the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> times the magnitude of <span class="process-math">\(\vec{A}\text{.}\)</span> This value will be positive when <span class="process-math">\(\theta &lt; \ang{90}\text{,}\)</span> negative when <span class="process-math">\(\theta &gt; \ang{90}\text{,}\)</span> and zero when the vectors are perpendicular because of the properties of the cosine function.</div>
 </div>
-<div class="para" id="p-362">So, to find the scalar value of the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> we divide by the magnitude of <span class="process-math">\(\vec{A}\text{.}\)</span>
+<div class="para" id="p-363">So, to find the scalar value of the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> we divide by the magnitude of <span class="process-math">\(\vec{A}\text{.}\)</span>
 </div>
-<div class="para logical" id="p-363"><div class="displaymath process-math" id="projection2">
+<div class="para logical" id="p-364"><div class="displaymath process-math" id="projection2">
 \begin{equation}
 \|\proj_{\vec{A}}\vec{B} \| =\frac{\vec{A}\cdot \vec{B}}{A}=\frac{\vec{A}}{A} \cdot \vec{B}=\hat{\vec{A}}\cdot \vec{B}\tag{2.7.8}
 \end{equation}
 </div></div>
-<div class="para" id="p-364">The final simplified form is written in terms of the unit vector in the direction vector <span class="process-math">\(\hat{\vec{A}}=\dfrac{\vec{A}}{A}\text{.}\)</span>
+<div class="para" id="p-365">The final simplified form is written in terms of the unit vector in the direction vector <span class="process-math">\(\hat{\vec{A}}=\dfrac{\vec{A}}{A}\text{.}\)</span>
 </div>
-<div class="para logical" id="p-365">
+<div class="para logical" id="p-366">
 <div class="para">If you want the <em class="emphasis">vector</em> projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{,}\)</span> as opposed to the <em class="emphasis">scalar</em> projection we just found, multiply the <em class="emphasis">scalar</em> projection by the unit vector <span class="process-math">\(\hat{\vec{A}}\text{.}\)</span>
 </div>
 <div class="displaymath process-math" id="projection3">
@@ -945,7 +974,7 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 \end{equation}
 </div>
 </div>
-<div class="para logical" id="p-366">
+<div class="para logical" id="p-367">
 <div class="para">Rearranging the vectors to find the vector projection of <span class="process-math">\(\vec{A}\)</span> onto <span class="process-math">\(\vec{B}\text{,}\)</span> we dot the vector <span class="process-math">\(\vec{A}\)</span> onto the unit vector <span class="process-math">\(\hat{B}\)</span> and then multiply by <span class="process-math">\(\hat{B}\text{.}\)</span>
 </div>
 <div class="displaymath process-math" id="men-21">
@@ -954,33 +983,33 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 \end{equation}
 </div>
 </div>
-<div class="para logical" id="p-367">
+<div class="para logical" id="p-368">
 <div class="para">The spatial interpretation of the results the scalar projection <span class="process-math">\(\|\proj_A B\|\)</span> is</div>
 <ul class="disc">
 <li id="li-110">
-<span class="heading"><span class="title">Positive value.</span></span><div class="para" id="p-368">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are generally in the same direction.</div>
+<span class="heading"><span class="title">Positive value.</span></span><div class="para" id="p-369">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are generally in the same direction.</div>
 </li>
 <li id="li-111">
-<span class="heading"><span class="title">Negative value.</span></span><div class="para" id="p-369">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are generally in opposite directions.</div>
+<span class="heading"><span class="title">Negative value.</span></span><div class="para" id="p-370">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are generally in opposite directions.</div>
 </li>
 <li id="li-112">
-<span class="heading"><span class="title">Zero.</span></span><div class="para" id="p-370">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are perpendicular.</div>
+<span class="heading"><span class="title">Zero.</span></span><div class="para" id="p-371">means that <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> are perpendicular.</div>
 </li>
 <li id="li-113">
-<span class="heading"><span class="title">Magnitude smaller than <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-371">This is the most common answer. The vectors are neither parallel nor perpendicular.</div>
+<span class="heading"><span class="title">Magnitude smaller than <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-372">This is the most common answer. The vectors are neither parallel nor perpendicular.</div>
 </li>
 <li id="li-114">
-<span class="heading"><span class="title">Magnitude equal to <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-372">
+<span class="heading"><span class="title">Magnitude equal to <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-373">
 <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> point in the same direction, thus 100% of <span class="process-math">\(\vec{B}\)</span> acts in the direction of <span class="process-math">\(\vec{A}\text{.}\)</span>
 </div>
 </li>
 <li id="li-115">
-<span class="heading"><span class="title">Magnitude larger than <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-373">This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of <span class="process-math">\(\vec{A}\text{.}\)</span>
+<span class="heading"><span class="title">Magnitude larger than <span class="process-math">\(\vec{B}\)</span>.</span></span><div class="para" id="p-374">This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of <span class="process-math">\(\vec{A}\text{.}\)</span>
 </div>
 </li>
 </ul>
 </div>
-<figure class="figure figure-like" id="vector_dot_product_3d"><iframe id="ggb_3d-dot_product_interactive" width="600" height="510" src="ggb_3d-dot_product_interactive-if.html"></iframe><div class="instructions">
+<figure class="figure figure-like" id="vector_dot_product_3d"><iframe id="ggb_3d-dot_product_interactive" width="600" height="480" src="ggb_3d-dot_product_interactive-if.html"></iframe><div class="instructions">
 <a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-18" id="instructions-18"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-18"><div class="solution-like">
 <div class="para" id="p-377">This interactive shows the vector projection of <span class="process-math">\(\vec{A}\)</span> on <span class="process-math">\(\vec{B}\)</span> or of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\text{.}\)</span>
 </div>
@@ -1070,7 +1099,7 @@ AB \amp = \m{0.4}\\
 </div>
 <div class="para">Thus, <span class="process-math">\(\N{83.3}\)</span> of the <span class="process-math">\(T=\N{102.47}\)</span> tension force is directed opposite the anchor AB.</div>
 </div> <div class="para logical" id="p-401">
-<div class="para">As previously discussed in <a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal" title="Subsection 2.5.1: Cartesian Unit Vectors">Subsection 2.5.1</a> , recognize that <span class="process-math">\(\vec{AB}\)</span> is a two-dimensional vector with its direction defined by the angle <span class="process-math">\(\ang{30}\text{,}\)</span> thus the unit vector <span class="process-math">\(\widehat{\vec{AB}}\)</span> is also equal to</div>
+<div class="para">As previously discussed in <a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal" title="Subsection 2.5.1: Cartesian Unit Vectors">Subsection 2.5.1</a>, recognize that <span class="process-math">\(\vec{AB}\)</span> is a two-dimensional vector with its direction defined by the angle <span class="process-math">\(\ang{30}\text{,}\)</span> thus the unit vector <span class="process-math">\(\widehat{\vec{AB}}\)</span> is also equal to</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/unit-vectors.html">
 \begin{equation*}
 \widehat{\vec{AB}} = \langle \cos \ang{30}, - \sin \ang{30}, 0 \rangle = \langle 0.866, -0.5, 0 \rangle
@@ -1126,7 +1155,7 @@ AB \amp = \m{0.4}\\
 <a class="previous-button button" href="vector_algebra_2D.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="cross-product-math.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->

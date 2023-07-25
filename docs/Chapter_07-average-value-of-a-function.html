@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Statics: Average Value of a Function</title>
@@ -18,20 +18,38 @@
 <meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -41,66 +59,71 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6RNJ8K3E00');
-</script><!--End: Google Global Site Tag code-->
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -203,7 +226,7 @@ window.MathJax = {
 </ol>
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="composite-parts.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_07.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="centroids-by-integration.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -263,7 +286,7 @@ window.MathJax = {
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
@@ -692,7 +715,13 @@ window.MathJax = {
 </li>
 </ul>
 </li>
-<li><div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
 <li>
 <div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
 <ul class="structural">
@@ -732,9 +761,9 @@ window.MathJax = {
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_07-average-value-of-a-function"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span>
 </h2>
-<div class="para" id="p-1452">The weighted average technique discussed in <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> are a fine for averaging several discrete values, but what do we do if we need to find the average of an infinite number of values or values which change continuously?</div>
-<div class="para" id="p-1453">Consider a function <span class="process-math">\(y=f(x)\)</span> over some interval from <span class="process-math">\(a\)</span> to <span class="process-math">\(b\text{.}\)</span> How can we find the average value <span class="process-math">\(\bar{y}\)</span> of the function over that interval? To understand what is meant by the average value of a function, look at the interactive below. There, the function <span class="process-math">\(f(x)\)</span> is the red curve, and which you can change if you like. The blue dots <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> mark the beginning and end of the interval and are also adjustable.</div>
-<div class="para logical" id="p-1454">
+<div class="para" id="p-1449">The weighted average technique discussed in <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> are a fine for averaging several discrete values, but what do we do if we need to find the average of an infinite number of values or values which change continuously?</div>
+<div class="para" id="p-1450">Consider a function <span class="process-math">\(y=f(x)\)</span> over some interval from <span class="process-math">\(a\)</span> to <span class="process-math">\(b\text{.}\)</span> How can we find the average value <span class="process-math">\(\bar{y}\)</span> of the function over that interval? To understand what is meant by the average value of a function, look at the interactive below. There, the function <span class="process-math">\(f(x)\)</span> is the red curve, and which you can change if you like. The blue dots <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> mark the beginning and end of the interval and are also adjustable.</div>
+<div class="para logical" id="p-1451">
 <div class="para">The area under this curve between <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> is shaded with gray, and we can find it using a definite integral</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -745,17 +774,12 @@ window.MathJax = {
 </div>
 </div>
 <figure class="figure figure-like" id="function-average"><iframe id="ggb_function-average_interactive" width="600" height="300" src="ggb_function-average_interactive-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-46" id="instructions-46"><h3 class="heading"><span class="type">Instructions<span class="period">.</span></span></h3></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-46"><div class="solution-like">
-<div class="para" id="p-1455">This interactive shows that <span class="process-math">\(\bar{y}\)</span> represents the mean <span class="process-math">\(y\)</span> height of the curve between <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-46" id="instructions-46"><h3 class="heading"><span class="type">Instructions<span class="period">.</span></span></h3></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-46"><div class="solution-like"><div class="para" id="p-1452">This interactive shows that <span class="process-math">\(\bar{y}\)</span> represents the mean <span class="process-math">\(y\)</span> height of the curve between <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span> The gray shaded area under the curve and the rectangular area are equal. The shape of the curve can be changed by moving the red points.</div></div></div>
 </div>
-<div class="para" id="p-1456">The gray shaded area under the curve and the rectangular area are equal.</div>
-<div class="para" id="p-1457">The shape of the curve can be changed by moving the red points.</div>
-</div></div>
-</div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.6.1<span class="period">.</span></span><span class="space"> </span>The average value of a function between <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span></figcaption></figure><div class="para logical" id="p-1458">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.6.1<span class="period">.</span></span><span class="space"> </span>The average value of a function between <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span></figcaption></figure><div class="para logical" id="p-1453">
 <div class="para">With this in mind, we can calculate the average value of <span class="process-math">\(f(x)\)</span> by equating the area under the curve with the area of the rectangle and solving for <span class="process-math">\(\bar{y}\text{.}\)</span>
 </div>
-<div class="displaymath process-math" id="md-168">
+<div class="displaymath process-math" id="md-167">
 \begin{align*}
 \int_a^b \amp f(x)\ dx = \bar{y} (b-a)\\
 \bar{y} \amp = \dfrac{\int_a^b f(x)\ dx}{(b-a)} \amp \text{and since} \int_a^b dx \amp = (b-a)\\
@@ -763,23 +787,23 @@ window.MathJax = {
 \end{align*}
 </div>
 </div>
-<div class="para" id="p-1459">This is a weighted average like <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> but instead of summing <span class="process-math">\(n\)</span> discrete values, we integrate of an infinite number of infinitesimal values. <span class="process-math">\(f(x)\)</span> is the value being averaged and the weighting function is <span class="process-math">\(dx\text{.}\)</span>
+<div class="para" id="p-1454">This is a weighted average like <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> but instead of summing <span class="process-math">\(n\)</span> discrete values, we integrate of an infinite number of infinitesimal values. <span class="process-math">\(f(x)\)</span> is the value being averaged and the weighting function is <span class="process-math">\(dx\text{.}\)</span>
 </div>
-<div class="para logical" id="p-1460">
+<div class="para logical" id="p-1455">
 <div class="para">This approach is true for any choice of weighting function. To find <span class="process-math">\(\bar{x}\)</span> for a two dimensional area, the value to be averaged is <span class="process-math">\(x\)</span> and the weighting function is <span class="process-math">\(dA\text{,}\)</span> so replacing <span class="process-math">\(dx\)</span> with <span class="process-math">\(dA\)</span> and <span class="process-math">\(x_i\)</span> with <span class="process-math">\(x\text{,}\)</span>
 </div>
-<div class="displaymath process-math" id="md-169">
+<div class="displaymath process-math" id="md-168">
 \begin{align*}
 \bar{x}\amp = \frac{\sum \bar{x}_{i} A_i}{\sum A_i} \amp \amp \Rightarrow \amp \bar{x}\amp = \frac{\int x dA}{\int dA}
 \end{align*}
 </div>
 </div>
-<div class="para logical" id="p-1461">
+<div class="para logical" id="p-1456">
 <div class="para">In other words, to transform a discrete summation to an equivalent continuous integral form you:</div>
 <ol class="decimal">
-<li id="li-424"><div class="para" id="p-1462">Replace the summation with integration, <span class="process-math">\(\Sigma \Rightarrow \smallint\text{.}\)</span>
+<li id="li-422"><div class="para" id="p-1457">Replace the summation with integration, <span class="process-math">\(\Sigma \Rightarrow \smallint\text{.}\)</span>
 </div></li>
-<li id="li-425"><div class="para logical" id="p-1463">
+<li id="li-423"><div class="para logical" id="p-1458">
 <div class="para">Replace the discrete weighting factor with the corresponding differential element,</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -787,39 +811,38 @@ window.MathJax = {
 \end{equation*}
 </div>
 </div></li>
-<li id="li-426"><div class="para" id="p-1464">Rename the value being averaged to eliminate the index <span class="process-math">\(i\text{.}\)</span> We often use <span class="process-math">\(el\)</span> as a subscript when referring to a differential element.</div></li>
+<li id="li-424"><div class="para" id="p-1459">Rename the value being averaged to eliminate the index <span class="process-math">\(i\text{.}\)</span> We often use <span class="process-math">\(el\)</span> as a subscript when referring to a differential element.</div></li>
 </ol>
 </div>
-<div class="para logical" id="p-1465">
+<div class="para logical" id="p-1460">
 <div class="para">The two-dimensional centroid equations <a href="" class="xref" data-knowl="./knowl/composite-centroid.html" title="Equation 7.5.1">(7.5.1)</a> become,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-169">
+\begin{align*}
+\bar{x} \amp= \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \Rightarrow \frac{ \int \bar{x}_{\text{el}}\ dA}{\int dA} \amp \bar{y} \amp = \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i} \Rightarrow \frac{ \int \bar{y}_{\text{el}}\ dA}{\int dA}\text{,}
+\end{align*}
+</div>
+<div class="para">and in the same way the center of gravity equations become</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-170">
 \begin{align*}
-\bar{x} \amp= \frac{ \sum {\bar{x}_i}\ A_i}{\sum A_i} \Rightarrow \frac{ \int \bar{x}_{\text{el}}\ dA}{\int dA} \amp \bar{y} \amp = \frac{ \sum {\bar{y}_i}\ A_i}{\sum A_i} \Rightarrow \frac{ \int \bar{y}_{\text{el}}\ dA}{\int dA}
+\bar{x} \amp = \frac{ \int \bar{x}_{\text{el}}\ dW}{\int dW} \amp \bar{y} \amp = \frac{ \int \bar{y}_{\text{el}}\ dW}{\int dW} \amp \bar{z} \amp = \frac{ \int \bar{z}_{\text{el}}\ dW}{\int dW}\text{.}
 \end{align*}
 </div>
-<div class="para">, and in the same way the center of gravity equations become</div>
-<div class="displaymath process-math" data-contains-math-knowls="./knowl/composite-centroid.html" id="md-171">
-\begin{align*}
-\bar{x} \amp = \frac{ \int \bar{x}_{\text{el}}\ dW}{\int dW} \amp \bar{y} \amp = \frac{ \int \bar{y}_{\text{el}}\ dW}{\int dW} \amp \bar{z} \amp = \frac{ \int \bar{z}_{\text{el}}\ dW}{\int dW}
-\end{align*}
-</div>
-<div class="para">.</div>
 </div>
 <article class="question example-like" id="question-6"><h3 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.6.2</span><span class="period">.</span>
 </h3>
-<div class="para" id="p-1466">How far is it from the earth to the sun?</div>
+<div class="para" id="p-1461">How far is it from the earth to the sun?</div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-63" id="answer-63"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-63"><div class="answer solution-like"><div class="para" id="p-1467">92,958,412 miles</div></div></div>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-63" id="answer-63"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-63"><div class="answer solution-like"><div class="para" id="p-1462">92,958,412 miles</div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-69" id="solution-69"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-69"><div class="solution solution-like">
-<div class="para" id="p-1468">Siri says that “The average distance from the earth to the sun is 92,958,412 miles.”</div> <div class="para" id="p-1469">That’s a pretty exact answer. What does it mean, exactly? From what point on the earth to what point on the sun?</div> <div class="para" id="p-1470">If the earth and sun were perfect spheres, we could use the distance between their centroids. With more information about shape and density, we could find their centers of mass and measure between those points.</div> <div class="para" id="p-1471">The bigger problem is that this distance changes continuously as the earth revolves around the sun. How can we find an average value for something which is continuously changing?</div> <div class="para" id="p-1472">We need to use the methods described here, integrating the distance as a function of time over the course of a year.</div>
+<div class="para" id="p-1463">Siri says that “The average distance from the earth to the sun is 92,958,412 miles.”</div> <div class="para" id="p-1464">That’s a pretty exact answer. What does it mean, exactly? From what point on the earth to what point on the sun?</div> <div class="para" id="p-1465">If the earth and sun were perfect spheres, we could use the distance between their centroids. With more information about shape and density, we could find their centers of mass and measure between those points.</div> <div class="para" id="p-1466">The bigger problem is that this distance changes continuously as the earth revolves around the sun. How can we find an average value for something which is continuously changing?</div> <div class="para" id="p-1467">We need to use the methods described here, integrating the distance as a function of time over the course of a year.</div>
 </div></div>
-</div></article><div class="para" id="p-1473"></div></section></div>
+</div></article><div class="para" id="p-1468"></div></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="composite-parts.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="centroids-by-integration.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->

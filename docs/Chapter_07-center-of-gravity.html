@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Statics: Center of Gravity</title>
@@ -18,20 +18,38 @@
 <meta property="book:author" content="William Haynes">
 <link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -41,66 +59,71 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6RNJ8K3E00');
-</script><!--End: Google Global Site Tag code-->
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href="https://engineeringstatics.org" target="_blank"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
 <h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
 <p class="byline">Daniel W. Baker, William Haynes</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -203,7 +226,7 @@ window.MathJax = {
 </ol>
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="weghted-average.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_07.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="Chapter_07-center-of-mass.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -263,7 +286,7 @@ window.MathJax = {
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
@@ -692,7 +715,13 @@ window.MathJax = {
 </li>
 </ul>
 </li>
-<li><div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div></li>
+<li>
+<div class="toc-item"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li><div class="toc-item"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
 <li>
 <div class="toc-item"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
 <ul class="structural">
@@ -732,36 +761,36 @@ window.MathJax = {
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_07-center-of-gravity"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.2</span> <span class="title">Center of Gravity</span>
 </h2>
-<div class="para" id="p-1328">So far in this book we have always taken the weight of an object to act at a point at its center. This is the <dfn class="terminology">center of gravity</dfn>: the point where all of an object’s weight may be concentrated and still have the same <em class="emphasis">external</em> effect on the body. In this chapter we will learn to actually locate this point.</div>
+<div class="para" id="p-1325">So far in this book we have always taken the weight of an object to act at a point at its center. This is the <dfn class="terminology">center of gravity</dfn>: the point where all of an object’s weight may be concentrated and still have the same <em class="emphasis">external</em> effect on the body. In this chapter we will learn to actually locate this point.</div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
 <div class="sbspanel middle" style="width:5%;"><img src="external/images/CG-symbol.svg" role="img" class="contained"></div>
-<div class="sbspanel middle" style="width:95%;"><div class="para" id="p-1329">We will indicate the center of gravity with a circle with black and white quadrants, and call its coordinates <span class="process-math">\((\bar{x}, \bar{y})\)</span> or <span class="process-math">\((\bar{x}, \bar{y}, \bar{z})\text{.}\)</span> This point represents the average location of all the particles which make up the body.</div></div>
+<div class="sbspanel middle" style="width:95%;"><div class="para" id="p-1326">We will indicate the center of gravity with a circle with black and white quadrants, and call its coordinates <span class="process-math">\((\bar{x}, \bar{y})\)</span> or <span class="process-math">\((\bar{x}, \bar{y}, \bar{z})\text{.}\)</span> This point represents the average location of all the particles which make up the body.</div></div>
 </div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel middle" style="width:48%;"><div class="para" id="p-1330">The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in <a href="" class="xref" data-knowl="./knowl/centroid_def.html" title="Figure 7.2.1">Figure 7.2.1</a> the center of gravity of the block is at its geometric center meaning that <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\)</span> are positive, but if the block is moved to the left of the <span class="process-math">\(y\)</span> axis, or the coordinate system is translated to the right of the block, <span class="process-math">\(\bar{x}\)</span> would then become negative.</div></div>
+<div class="sbspanel middle" style="width:48%;"><div class="para" id="p-1327">The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in <a href="" class="xref" data-knowl="./knowl/centroid_def.html" title="Figure 7.2.1">Figure 7.2.1</a> the center of gravity of the block is at its geometric center meaning that <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\)</span> are positive, but if the block is moved to the left of the <span class="process-math">\(y\)</span> axis, or the coordinate system is translated to the right of the block, <span class="process-math">\(\bar{x}\)</span> would then become negative.</div></div>
 <div class="sbspanel middle" style="width:48%;"><figure class="figure figure-like" id="centroid_def"><img src="external/images/Centroid-def.svg" role="img" class="contained" alt="Square shape shown on x-y plane in Quadrant I. x-bar is distance of centroid from y axis, and y-bar is distance of centroid from x-axis."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.2.1<span class="period">.</span></span><span class="space"> </span>Location of the centroid, measured from the origin.</figcaption></figure></div>
 </div></div>
-<div class="para" id="p-1331">Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.</div>
-<div class="para" id="p-1332">Let’s develop this balanced moment idea mathematically.</div>
-<div class="para" id="p-1333">Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from <a href="statically-equivalent-systems.html" class="internal" title="Section 4.8: Statically Equivalent Systems">Section 4.8</a> that statically equivalent systems produce the same external effect on the object —the net force on the object, and the net moment about any point don’t change. An upward force at this point will support the pencil without tipping.</div>
-<div class="para" id="p-1334">To be equivalent, the total weight must equal the total weight of the parts. <span class="process-math">\(W = W_1 + W_2\text{.}\)</span> Common sense also tells us that <span class="process-math">\(W\)</span> will act somewhere between <span class="process-math">\(W_1\)</span> and <span class="process-math">\(W_2\text{.}\)</span>
+<div class="para" id="p-1328">Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.</div>
+<div class="para" id="p-1329">Let’s develop this balanced moment idea mathematically.</div>
+<div class="para" id="p-1330">Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from <a href="statically-equivalent-systems.html" class="internal" title="Section 4.8: Statically Equivalent Systems">Section 4.8</a> that statically equivalent systems produce the same external effect on the object —the net force on the object, and the net moment about any point don’t change. An upward force at this point will support the pencil without tipping.</div>
+<div class="para" id="p-1331">To be equivalent, the total weight must equal the total weight of the parts. <span class="process-math">\(W = W_1 + W_2\text{.}\)</span> Common sense also tells us that <span class="process-math">\(W\)</span> will act somewhere between <span class="process-math">\(W_1\)</span> and <span class="process-math">\(W_2\text{.}\)</span>
 </div>
-<div class="para" id="p-1335"></div>
+<div class="para" id="p-1332"></div>
 <figure class="figure figure-like" id="pen1"><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pen1.svg" role="img" class="contained"></div></div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pen2.svg" role="img" class="contained"></div></div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pen3.svg" role="img" class="contained" alt="A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil’s center of gravity x-bar."></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.2.2<span class="period">.</span></span><span class="space"> </span>(top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.</figcaption></figure><div class="para" id="p-1336">Next, let’s do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point <span class="process-math">\(O\)</span> to be the origin, then calculate the total moment about <span class="process-math">\(O\)</span> due to the two weights.</div>
-<div class="para" id="p-1337">The sum of moments around point <span class="process-math">\(O\)</span> can be written as:</div>
-<div class="para logical" id="p-1338"><div class="displaymath process-math">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.2.2<span class="period">.</span></span><span class="space"> </span>(top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil’s center of gravity.</figcaption></figure><div class="para" id="p-1333">Next, let’s do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point <span class="process-math">\(O\)</span> to be the origin, then calculate the total moment about <span class="process-math">\(O\)</span> due to the two weights.</div>
+<div class="para" id="p-1334">The sum of moments around point <span class="process-math">\(O\)</span> can be written as:</div>
+<div class="para logical" id="p-1335"><div class="displaymath process-math">
 \begin{equation*}
 \sum M_O=-x_1 W_1 -x_2 W_2
 \end{equation*}
 </div></div>
-<div class="para" id="p-1339">Notice that the moment of both forces are clockwise around point <span class="process-math">\(O\text{,}\)</span> so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the center of gravity <span class="process-math">\(\bar{x}\text{.}\)</span>
+<div class="para" id="p-1336">Notice that the moment of both forces are clockwise around point <span class="process-math">\(O\text{,}\)</span> so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the center of gravity <span class="process-math">\(\bar{x}\text{.}\)</span>
 </div>
-<div class="para" id="p-1340">
+<div class="para" id="p-1337">
 <span class="process-math">\(\bar{x}\)</span> represents the mean distance of the weight, mass, or area depending on the context of the problem. We are evaluating weights in this problem, so <span class="process-math">\(\bar{x}\)</span> represents the distance from <span class="process-math">\(O\)</span> to the center of gravity.</div>
-<div class="para logical" id="p-1341">
+<div class="para logical" id="p-1338">
 <div class="para">The sum of moments around point <span class="process-math">\(O\)</span> for the equivalent system can be written as:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -769,20 +798,20 @@ window.MathJax = {
 \end{equation*}
 </div>
 </div>
-<div class="para logical" id="p-1342">
+<div class="para logical" id="p-1339">
 <div class="para">The moment of total weight <span class="process-math">\(W\)</span> is also clockwise around point <span class="process-math">\(O\text{,}\)</span> so the sign of moment will also be negative according to the right-hand rule. Since the two representation are equivalent we can equate them and solve for <span class="process-math">\(\bar{x}\text{.}\)</span>
 </div>
-<div class="displaymath process-math" id="md-160">
+<div class="displaymath process-math" id="md-159">
 \begin{align*}
 -\bar{x} W \amp=-x_1 W_1 -x_2 W_2\\
 \bar{x} \amp =\frac{x_1 W_1 +x_2 W_2}{W_1 + W_2}
 \end{align*}
 </div>
 </div>
-<div class="para" id="p-1343"></div>
-<div class="para" id="p-1344">This result is exactly in the form of <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> where the value being averaged is distance <span class="process-math">\(x\)</span> and the weighting factor is the weight of part <span class="process-math">\(W_i\)</span> and the result is the mean distance <span class="process-math">\(\bar{x}\text{.}\)</span>
+<div class="para" id="p-1340"></div>
+<div class="para" id="p-1341">This result is exactly in the form of <a href="" class="xref" data-knowl="./knowl/weighted-average.html" title="Equation 7.1.2">(7.1.2)</a> where the value being averaged is distance <span class="process-math">\(x\)</span> and the weighting factor is the weight of part <span class="process-math">\(W_i\)</span> and the result is the mean distance <span class="process-math">\(\bar{x}\text{.}\)</span>
 </div>
-<div class="para logical" id="p-1345">
+<div class="para logical" id="p-1342">
 <div class="para">The pencil was made up of two halves, but this equation can easily be extended <span class="process-math">\(n\)</span> discrete parts. The resulting general definition of the centroidal coordinate <span class="process-math">\(\bar{x}\)</span> is:</div>
 <div class="displaymath process-math" id="men-50">
 \begin{equation}
@@ -791,28 +820,27 @@ window.MathJax = {
 </div>
 <div class="para">where:</div>
 <ul class="no-marker">
-<li id="li-399"><div class="para" id="p-1346">
+<li id="li-397"><div class="para" id="p-1343">
 <span class="process-math">\(W_i\)</span> is the weight of part <span class="process-math">\(i\text{,}\)</span>
 </div></li>
-<li id="li-400"><div class="para" id="p-1347">
+<li id="li-398"><div class="para" id="p-1344">
 <span class="process-math">\(\bar{x}_{i}\)</span> is the <span class="process-math">\(x\)</span> coordinate of the center of gravity of element <span class="process-math">\(i\text{,}\)</span> and</div></li>
-<li id="li-401"><div class="para" id="p-1348">
+<li id="li-399"><div class="para" id="p-1345">
 <span class="process-math">\(\sum\)</span> is understood to mean “sum all parts” so there is no need to write <span class="process-math">\(\sum\limits_{i = 1}^n\text{.}\)</span>
 </div></li>
 </ul>
 </div>
-<div class="para" id="p-1349">The numerator is the <dfn class="terminology">first moment</dfn> of force which is literally a moment of force as we defined it in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in <a href="Chapter_10.html" class="internal" title="Chapter 10: Moments of Inertia">Chapter 10</a>, we will introduce <dfn class="terminology">second moments</dfn>, which are the integral of some quantity like area, multiplied by a distance <em class="emphasis">squared</em>.</div>
-<div class="para logical" id="p-1350">
+<div class="para" id="p-1346">The numerator is the <dfn class="terminology">first moment</dfn> of force which is literally a moment of force as we defined it in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in <a href="Chapter_10.html" class="internal" title="Chapter 10: Moments of Inertia">Chapter 10</a>, we will introduce <dfn class="terminology">second moments</dfn>, which are the integral of some quantity like area, multiplied by a distance <em class="emphasis">squared</em>.</div>
+<div class="para logical" id="p-1347">
 <div class="para">We treated the pencil as a one-dimensional object, so this discussion focused on <span class="process-math">\(\bar{x}\text{.}\)</span> There are similar formula for the other dimensions as well</div>
 <div class="displaymath process-math" id="center_of_gravity">
 \begin{equation}
-\bar{x}=\frac{\sum \bar{x}_{i} W_i}{\sum W_i} \quad \bar{y}=\frac{\sum \bar{y}_{i} W_i}{\sum W_i} \quad \bar{z}=\frac{\sum \bar{z}_{i} W_i}{\sum W_i} \tag{7.2.2}
+\bar{x}=\frac{\sum \bar{x}_{i} W_i}{\sum W_i} \quad \bar{y}=\frac{\sum \bar{y}_{i} W_i}{\sum W_i} \quad \bar{z}=\frac{\sum \bar{z}_{i} W_i}{\sum W_i} \text{.}\tag{7.2.2}
 \end{equation}
 </div>
-<div class="para">.</div>
 </div>
-<div class="para" id="p-1351"></div>
-<div class="para logical" id="p-1352">
+<div class="para" id="p-1348"></div>
+<div class="para logical" id="p-1349">
 <div class="para">In words, these equations say</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -820,44 +848,41 @@ window.MathJax = {
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-1353">They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object’s center of gravity.</div>
+<div class="para" id="p-1350">They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object’s center of gravity.</div>
 <article class="question example-like" id="question-4"><h3 class="heading">
 <span class="type">Question</span><span class="space"> </span><span class="codenumber">7.2.3</span><span class="period">.</span>
 </h3>
-<div class="para" id="p-1354">Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?</div>
+<div class="para" id="p-1351">Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?</div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-59" id="answer-59"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-59"><div class="answer solution-like"><div class="para logical" id="p-1355">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-59" id="answer-59"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-59"><div class="answer solution-like"><div class="para logical" id="p-1352">
 <div class="para">If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side. The first moment for the entire shape about the axis will sum to zero, meaning that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\bar{x} = \frac{\sum \bar{x}_{i} W_i}{\sum W_i} = \frac{0}{W} = 0 
+\bar{x} = \frac{\sum \bar{x}_{i} W_i}{\sum W_i} = \frac{0}{W} = 0 \text{.}
 \end{equation*}
 </div>
-<div class="para">. In other words, the distance from the axis of symmetry of the shape to the centroid is zero.</div>
+<div class="para">In other words, the distance from the axis of symmetry of the shape to the centroid is zero.</div>
 </div></div></div>
 </div></article><article class="example example-like" id="Chapter_07-example-simple-center-of-gravity"><h3 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.2.4</span><span class="period">.</span><span class="space"> </span><span class="title">Simple Center of Gravity.</span>
 </h3>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel middle" style="width:48%;"><div class="para" id="p-1356">Three <span class="process-math">\(\lb{10}\)</span> boxes are distributed along the <span class="process-math">\(x\)</span> axis as shown.</div></div>
+<div class="sbspanel middle" style="width:48%;"><div class="para" id="p-1353">Three <span class="process-math">\(\lb{10}\)</span> boxes are distributed along the <span class="process-math">\(x\)</span> axis as shown.</div></div>
 <div class="sbspanel middle" style="width:48%;"><img src="external/images/Example-7-1.svg" role="img" class="contained"></div>
-</div></div> <div class="para logical" id="p-1357"><ol class="lower-alpha">
-<li id="li-402"><div class="para" id="p-1358">Find the total weight and the distance from the origin to the center of gravity of the three boxes.</div></li>
-<li id="li-403"><div class="para" id="p-1359">How would the center of gravity change if the right-most box weighed <span class="process-math">\(\lb{20}\)</span> instead of <span class="process-math">\(\lb{10}\text{?}\)</span>
+</div></div> <div class="para logical" id="p-1354"><ol class="lower-alpha">
+<li id="li-400"><div class="para" id="p-1355">Find the total weight and the distance from the origin to the center of gravity of the three boxes.</div></li>
+<li id="li-401"><div class="para" id="p-1356">How would the center of gravity change if the right-most box weighed <span class="process-math">\(\lb{20}\)</span> instead of <span class="process-math">\(\lb{10}\text{?}\)</span>
 </div></li>
 </ol></div>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-60" id="answer-60"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-60"><div class="answer solution-like">
-<div class="para" id="p-1360">a) <span class="process-math">\(W = \lb{30} \qquad \bar{x}=\ft{2.5}\)</span>
-</div> <div class="para" id="p-1361">b) <span class="process-math">\(W = \lb{40} \qquad \bar{x}=\ft{3.25}\)</span>
-</div> <div class="para" id="p-1362">The total weight increases by <span class="process-math">\(\lb{10}\)</span> and the center of gravity shifts to the right by <span class="process-math">\(\ft{0.75}\text{.}\)</span> Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.</div> <div class="para logical" id="p-1363">
-<div class="displaymath process-math">
+<div class="para" id="p-1357">a) <span class="process-math">\(W = \lb{30} \qquad \bar{x}=\ft{2.5}\)</span>
+</div> <div class="para" id="p-1358">b) <span class="process-math">\(W = \lb{40} \qquad \bar{x}=\ft{3.25}\)</span>
+</div> <div class="para" id="p-1359">The total weight increases by <span class="process-math">\(\lb{10}\)</span> and the center of gravity shifts to the right by <span class="process-math">\(\ft{0.75}\text{.}\)</span> Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.</div> <div class="para logical" id="p-1360"><div class="displaymath process-math">
 \begin{equation*}
-M_3 = W_3 x_3 = (\lb{20})(\ft{5.5}) = \ftlb{110} 
+M_3 = W_3 x_3 = (\lb{20})(\ft{5.5}) = \ftlb{110} \text{.}
 \end{equation*}
-</div>
-<div class="para">.</div>
-</div>
+</div></div>
 </div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original has-video" data-refid="hk-solution-66" id="solution-66"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-66"><div class="solution solution-like">
 <div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="video-1" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/HdqM4wITZq8?&amp;modestbranding=1&amp;rel=0"></iframe></div> </div></div>
@@ -866,7 +891,7 @@ M_3 = W_3 x_3 = (\lb{20})(\ft{5.5}) = \ftlb{110}
 <a class="previous-button button" href="weghted-average.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_07-center-of-mass.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 <!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
