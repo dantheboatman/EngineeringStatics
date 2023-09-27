@@ -8,3 +8,37 @@ A [Google Group](https://groups.google.com/g/engineering-statics-oer-text) is av
 direct any comments, suggestions or errors to this group, or directly to [William Haynes](mailto:whaynes@maritime.edu).  
 
 If you would like to contribute content to the textbook, contact the project coordinator and lead author, [Dr. Dan Baker](mailto:dan.baker@colostate.edu).  We are particularly interested in adding more example problems to all chapters.  
+
+## Authoring and deployment instructions
+
+To build HTML and PDF versions of the book using the CLI:
+
+```bash
+pretext build web --clean
+pretext build print --clean
+```
+
+To preview how these will appear upon a deploy to `engineeringstatics.org`:
+
+```bash
+pretext deploy --stage-only
+pretext view # open /output/stage in your browser
+```
+
+To deploy updates to `engineeringstatics.org`:
+
+```bash
+pretext deploy
+```
+
+### Asset management
+
+The source for several assets may be found at `source/resources`. All output files
+from these assets (`.pdf`, `.svg`, etc.) are not tracked by Git and are not seen
+by PreTeXt by default. These output files must be named differently, and can be automatically
+copied into the `assets` directly where they can be seen by PreTeXt using
+the `update_assets.py` script:
+
+```bash
+python scripts/update_assets.py
+```
