@@ -2,12 +2,11 @@
 import fnmatch
 import os
 import shutil
-import sys
 
 images = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
 # these command line arguments are set by the makefile
-resource_dir = sys.argv[1]  #(RESOURCES)
-external_dir = sys.argv[2]  #(EXTERNAL)
+resource_dir = "source/resources"  #(RESOURCES)
+external_dir = "assets"  #(EXTERNAL)
 
 def flatten(match_patterns, source, dest):
     print(f"\tFlattening {match_patterns} in {source} to {dest}.")
@@ -29,8 +28,7 @@ def flatten(match_patterns, source, dest):
             target = os.path.join(dest, file)
             if '/_' in root: continue  # Skip any files in directories starting with underscore.
             if os.path.exists(target):  # Warn if this filename has been seen before.
-                print(f"\n***Quitting: Duplicate filename***  \n \"{file}\" shadows a file with same name somewhere else in the source folder.\n\n")
-                sys.exit()
+                raise RuntimeError(f"***Duplicate filename*** \"{file}\" shadows a file with same name somewhere else in the source folder.")
             shutil.copy2(this_file, target)
 
 def copy_and_overwrite(source, dest):
@@ -39,9 +37,12 @@ def copy_and_overwrite(source, dest):
         shutil.rmtree(dest)
     shutil.copytree(source, dest)
 
-print(f"\nmove_externals.py\n\tWorking dir: {os.getcwd()}")
+print("update_assets.py")
+print()
+print(f"\tWorking dir: {os.getcwd()}")
 print(f"\tResource Directory {resource_dir}")
-print(f"\tExternal Directory: {external_dir}\n")
+print(f"\tExternal Directory: {external_dir}")
+print()
 
 flatten(images, resource_dir, external_dir + '/images')
 copy_and_overwrite(resource_dir + '/_Numbas', external_dir + '/numbas')
