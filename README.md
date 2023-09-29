@@ -22,20 +22,26 @@ the `update_assets.py` script before any build:
 python scripts/update_assets.py
 ```
 
+This process must be done once when the project is cloned from Git, and repeated
+each time an asset in `source/resources` is updated.
+
 ### Building
 
-To build HTML and PDF versions of the book using the CLI:
+To build HTML and PDF versions of the book using the CLI after managing assets
+(see above):
 
 ```bash
 pretext build web --clean
 pretext build print --clean
 ```
 
-## Deploying
+### Deploying
 
-To preview how these will appear upon a deploy to `engineeringstatics.org`:
+To preview how this book will appear upon a deploy to `engineeringstatics.org`:
 
 ```bash
+## after adding/commiting everything with Git
+rm -rf output/stage # to remove cached files
 pretext deploy --stage-only
 pretext view # open /output/stage in your browser
 ```
@@ -43,5 +49,7 @@ pretext view # open /output/stage in your browser
 To deploy updates to `engineeringstatics.org`:
 
 ```bash
+## after adding/commiting everything with Git
+rm -rf output/stage # to remove cached files
 pretext deploy
 ```
