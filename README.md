@@ -40,7 +40,6 @@ pretext build print --clean
 To preview how this book will appear upon a deploy to `engineeringstatics.org`:
 
 ```bash
-## after adding/commiting everything with Git
 rm -rf output/stage # to remove cached files
 pretext deploy --stage-only
 pretext view # open /output/stage in your browser
