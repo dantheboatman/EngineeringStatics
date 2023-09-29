@@ -11,12 +11,27 @@ If you would like to contribute content to the textbook, contact the project coo
 
 ## Authoring and deployment instructions
 
+### Asset management
+
+The source for several assets may be found at `source/resources`.
+These output files must be named differently, and must be automatically
+copied into the gitignored `assets` directly where they can be seen by PreTeXt using
+the `update_assets.py` script before any build:
+
+```bash
+python scripts/update_assets.py
+```
+
+### Building
+
 To build HTML and PDF versions of the book using the CLI:
 
 ```bash
 pretext build web --clean
 pretext build print --clean
 ```
+
+## Deploying
 
 To preview how these will appear upon a deploy to `engineeringstatics.org`:
 
@@ -29,16 +44,4 @@ To deploy updates to `engineeringstatics.org`:
 
 ```bash
 pretext deploy
-```
-
-### Asset management
-
-The source for several assets may be found at `source/resources`. All output files
-from these assets (`.pdf`, `.svg`, etc.) are not tracked by Git and are not seen
-by PreTeXt by default. These output files must be named differently, and can be automatically
-copied into the `assets` directly where they can be seen by PreTeXt using
-the `update_assets.py` script:
-
-```bash
-python scripts/update_assets.py
 ```
