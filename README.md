@@ -1,6 +1,6 @@
 # Engineering Statics
 
-This is the source repository for [*Engineering Statics*](https://engineeringstatics.org), a free, open-source, university-level OER textbook.  The book is produced using [PreText](https://pretextbook.org).
+This is the source repository for [*Engineering Statics*: Open and Interactive](https://engineeringstatics.org), a free, open-source, university-level OER textbook.  The book is produced using [PreText](https://pretextbook.org).
 
 The online  version  is available at [https://engineeringstatics.org](https://engineeringstatics.org), and a pdf version at [https://engineeringstatics.org/pdf/statics.pdf](https://engineeringstatics.org/pdf/statics.pdf) for print or tablet use.
 
@@ -13,10 +13,7 @@ If you would like to contribute content to the textbook, contact the project coo
 
 ### Asset management
 
-The source for several assets may be found at `source/resources`.
-These output files must be named differently, and must be automatically
-copied into the gitignored `assets` directly where they can be seen by PreTeXt using
-the `update_assets.py` script before any build:
+The source for several assets may be found at `source/resources`. These output files must have unique names, and must be copied into the gitignored `assets`  where they can be seen by PreTeXt, using the `update_assets.py` script:
 
 ```bash
 python scripts/update_assets.py
