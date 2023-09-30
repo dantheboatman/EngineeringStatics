@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Statics: Wide Flange Sections</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
+<link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
+  },
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        },
+        ""
+      ]
+    }
+  },
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
+  },
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
+  },
+  "startup": {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  }
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.31/pretext_search.js"></script><link href="https://pretextbook.org/css/0.81/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.31</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.31/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.31/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.31/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link href="https://pretextbook.org/css/0.81/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/shell_crc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="external/css/statics.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" target="_blank" href="https://engineeringstatics.org"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="searchbox">
+<div class="searchwidget"><button id="searchbutton" class="searchbutton button" type="button" title="Search book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<div class="search-results-controls">
+<input aria-label="Search term" id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search term"><button title="Close search" id="closesearchresults" class="closesearchresults"><span class="material-symbols-outlined">close</span></button>
+</div>
+<h2 class="search-results-heading">Search Results: </h2>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
+</div>
+</div>
+<span class="nav-other-controls"></span><span class="treebuttons"><a class="previous-button button" href="AISC-standard-sections.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="AISC-properties.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><span class="next-button button disabled"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></span></span></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
+
+
+
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lbm} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
+
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
+
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lbf} }
+
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\ftlbf}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lbf} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
+
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural contains-active toc-item-list">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-preface">
+<div class="toc-title-box"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-contributors"><div class="toc-title-box"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li class="toc-item toc-preface"><div class="toc-title-box"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">2D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">3D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-direction-of-unit-vectors" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Direction of the Vector Cross Product</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.3</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">1D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#scalar-components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#one-d-particle-equilibrium" class="internal"><span class="codenumber">3.3.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">2D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">3D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="scalar-components-moments.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.5</span> <span class="title">3D Moments</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Couples</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-3.html" class="internal"><span class="codenumber">4.9</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Forces</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-internal-forces.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="internal_force_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Forces at a Point</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="internal_force_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Forces</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">Coulomb Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction Angle and Friction Resultant</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-coulomb-friction-examples" class="internal"><span class="codenumber">9.1.4</span> <span class="title">Coulomb Friction Examples.</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Wedges</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Threads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw Motion and the Right-hand rule</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw Thread Properties</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moment to Reach Impending Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="title">Applied Force Opposes Impending Motion</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="title">Applied Force Supports Impending Motion</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-86" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Frictionless Belts</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-87" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Friction in Flat Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="title">Contact Angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="title">Belt Tension</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="title">Change in Belt Tension due to Friction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Torque in Belt Systems</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="codenumber">9.5.4</span> <span class="title">V-Belts</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearings</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Rotating Shaft and Fixed Bearing</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Fixed Shaft and Rotating Bearing</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Rotating Discs</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#disc-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Circular Arc Bearings</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Composite Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-backmatter contains-active">
+<div class="toc-title-box"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-appendix"><div class="toc-title-box"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-appendix contains-active">
+<div class="toc-title-box"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-angles.html" class="internal"><span class="codenumber">D.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">D.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">D.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-channels.html" class="internal"><span class="codenumber">D.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">D.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">D.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">D.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">D.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">D.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section active">
+<div class="toc-title-box"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">D.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">D.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">D.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="AISC-wide-flange"><h2 class="heading hide-type">
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">D.4</span><span class="space"> </span><span class="title">Wide Flange Sections</span>
+</h2>
+<section class="subsection" id="wf-us"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">D.4.1</span><span class="space"> </span><span class="title">Wide Flange Section-US</span>
+</h3>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:20%;"><img src="external/images/W_section.svg" role="img" class="contained"></div>
+<div class="sbspanel fixed-width top" style="width:80%;"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t0 lines">Description<br><span class="process-math">\({d} \times \, {W}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(W\)</span><br><span class="process-math">\(\text{lb/ft}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(A\)</span><br><span class="process-math">\(\text{in}^2\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(d\)</span><br><span class="process-math">\(\text{in}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(b_f\)</span><br><span class="process-math">\(\text{in}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(t_w\)</span><br><span class="process-math">\(\text{in}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(t_f\)</span><br><span class="process-math">\(\text{in}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(\bar{I}_{xx}\)</span><br><span class="process-math">\(\text{in}^4\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(\bar{I}_{yy}\)</span><br><span class="process-math">\(\text{in}^4\)</span>
+</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W44<span class="process-math">\(\times\)</span>335</td>
+<td class="l m b0 r0 l0 t0 lines">335</td>
+<td class="l m b0 r0 l0 t0 lines">98.5</td>
+<td class="l m b0 r0 l0 t0 lines">44</td>
+<td class="l m b0 r0 l0 t0 lines">15.9</td>
+<td class="l m b0 r0 l0 t0 lines">1.03</td>
+<td class="l m b0 r0 l0 t0 lines">1.77</td>
+<td class="l m b0 r0 l0 t0 lines">31100</td>
+<td class="l m b0 r0 l0 t0 lines">1200</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W44<span class="process-math">\(\times\)</span>290</td>
+<td class="l m b0 r0 l0 t0 lines">290</td>
+<td class="l m b0 r0 l0 t0 lines">85.4</td>
+<td class="l m b0 r0 l0 t0 lines">43.6</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.865</td>
+<td class="l m b0 r0 l0 t0 lines">1.58</td>
+<td class="l m b0 r0 l0 t0 lines">27000</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W44<span class="process-math">\(\times\)</span>262</td>
+<td class="l m b0 r0 l0 t0 lines">262</td>
+<td class="l m b0 r0 l0 t0 lines">77.2</td>
+<td class="l m b0 r0 l0 t0 lines">43.3</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.785</td>
+<td class="l m b0 r0 l0 t0 lines">1.42</td>
+<td class="l m b0 r0 l0 t0 lines">24100</td>
+<td class="l m b0 r0 l0 t0 lines">923</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W44<span class="process-math">\(\times\)</span>230</td>
+<td class="l m b0 r0 l0 t0 lines">230</td>
+<td class="l m b0 r0 l0 t0 lines">67.8</td>
+<td class="l m b0 r0 l0 t0 lines">42.9</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.71</td>
+<td class="l m b0 r0 l0 t0 lines">1.22</td>
+<td class="l m b0 r0 l0 t0 lines">20800</td>
+<td class="l m b0 r0 l0 t0 lines">796</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>655</td>
+<td class="l m b0 r0 l0 t0 lines">655</td>
+<td class="l m b0 r0 l0 t0 lines">193</td>
+<td class="l m b0 r0 l0 t0 lines">43.6</td>
+<td class="l m b0 r0 l0 t0 lines">16.9</td>
+<td class="l m b0 r0 l0 t0 lines">1.97</td>
+<td class="l m b0 r0 l0 t0 lines">3.54</td>
+<td class="l m b0 r0 l0 t0 lines">56500</td>
+<td class="l m b0 r0 l0 t0 lines">2870</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>593</td>
+<td class="l m b0 r0 l0 t0 lines">593</td>
+<td class="l m b0 r0 l0 t0 lines">174</td>
+<td class="l m b0 r0 l0 t0 lines">43</td>
+<td class="l m b0 r0 l0 t0 lines">16.7</td>
+<td class="l m b0 r0 l0 t0 lines">1.79</td>
+<td class="l m b0 r0 l0 t0 lines">3.23</td>
+<td class="l m b0 r0 l0 t0 lines">50400</td>
+<td class="l m b0 r0 l0 t0 lines">2520</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>503</td>
+<td class="l m b0 r0 l0 t0 lines">503</td>
+<td class="l m b0 r0 l0 t0 lines">148</td>
+<td class="l m b0 r0 l0 t0 lines">42.1</td>
+<td class="l m b0 r0 l0 t0 lines">16.4</td>
+<td class="l m b0 r0 l0 t0 lines">1.54</td>
+<td class="l m b0 r0 l0 t0 lines">2.76</td>
+<td class="l m b0 r0 l0 t0 lines">41600</td>
+<td class="l m b0 r0 l0 t0 lines">2040</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>431</td>
+<td class="l m b0 r0 l0 t0 lines">431</td>
+<td class="l m b0 r0 l0 t0 lines">127</td>
+<td class="l m b0 r0 l0 t0 lines">41.3</td>
+<td class="l m b0 r0 l0 t0 lines">16.2</td>
+<td class="l m b0 r0 l0 t0 lines">1.34</td>
+<td class="l m b0 r0 l0 t0 lines">2.36</td>
+<td class="l m b0 r0 l0 t0 lines">34800</td>
+<td class="l m b0 r0 l0 t0 lines">1690</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>397</td>
+<td class="l m b0 r0 l0 t0 lines">397</td>
+<td class="l m b0 r0 l0 t0 lines">117</td>
+<td class="l m b0 r0 l0 t0 lines">41</td>
+<td class="l m b0 r0 l0 t0 lines">16.1</td>
+<td class="l m b0 r0 l0 t0 lines">1.22</td>
+<td class="l m b0 r0 l0 t0 lines">2.2</td>
+<td class="l m b0 r0 l0 t0 lines">32000</td>
+<td class="l m b0 r0 l0 t0 lines">1540</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>372</td>
+<td class="l m b0 r0 l0 t0 lines">372</td>
+<td class="l m b0 r0 l0 t0 lines">110</td>
+<td class="l m b0 r0 l0 t0 lines">40.6</td>
+<td class="l m b0 r0 l0 t0 lines">16.1</td>
+<td class="l m b0 r0 l0 t0 lines">1.16</td>
+<td class="l m b0 r0 l0 t0 lines">2.05</td>
+<td class="l m b0 r0 l0 t0 lines">29600</td>
+<td class="l m b0 r0 l0 t0 lines">1420</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>362</td>
+<td class="l m b0 r0 l0 t0 lines">362</td>
+<td class="l m b0 r0 l0 t0 lines">106</td>
+<td class="l m b0 r0 l0 t0 lines">40.6</td>
+<td class="l m b0 r0 l0 t0 lines">16</td>
+<td class="l m b0 r0 l0 t0 lines">1.12</td>
+<td class="l m b0 r0 l0 t0 lines">2.01</td>
+<td class="l m b0 r0 l0 t0 lines">28900</td>
+<td class="l m b0 r0 l0 t0 lines">1380</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>324</td>
+<td class="l m b0 r0 l0 t0 lines">324</td>
+<td class="l m b0 r0 l0 t0 lines">95.3</td>
+<td class="l m b0 r0 l0 t0 lines">40.2</td>
+<td class="l m b0 r0 l0 t0 lines">15.9</td>
+<td class="l m b0 r0 l0 t0 lines">1</td>
+<td class="l m b0 r0 l0 t0 lines">1.81</td>
+<td class="l m b0 r0 l0 t0 lines">25600</td>
+<td class="l m b0 r0 l0 t0 lines">1220</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>297</td>
+<td class="l m b0 r0 l0 t0 lines">297</td>
+<td class="l m b0 r0 l0 t0 lines">87.3</td>
+<td class="l m b0 r0 l0 t0 lines">39.8</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.93</td>
+<td class="l m b0 r0 l0 t0 lines">1.65</td>
+<td class="l m b0 r0 l0 t0 lines">23200</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>277</td>
+<td class="l m b0 r0 l0 t0 lines">277</td>
+<td class="l m b0 r0 l0 t0 lines">81.5</td>
+<td class="l m b0 r0 l0 t0 lines">39.7</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.83</td>
+<td class="l m b0 r0 l0 t0 lines">1.58</td>
+<td class="l m b0 r0 l0 t0 lines">21900</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>249</td>
+<td class="l m b0 r0 l0 t0 lines">249</td>
+<td class="l m b0 r0 l0 t0 lines">73.5</td>
+<td class="l m b0 r0 l0 t0 lines">39.4</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.75</td>
+<td class="l m b0 r0 l0 t0 lines">1.42</td>
+<td class="l m b0 r0 l0 t0 lines">19600</td>
+<td class="l m b0 r0 l0 t0 lines">926</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>215</td>
+<td class="l m b0 r0 l0 t0 lines">215</td>
+<td class="l m b0 r0 l0 t0 lines">63.5</td>
+<td class="l m b0 r0 l0 t0 lines">39</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.65</td>
+<td class="l m b0 r0 l0 t0 lines">1.22</td>
+<td class="l m b0 r0 l0 t0 lines">16700</td>
+<td class="l m b0 r0 l0 t0 lines">803</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>199</td>
+<td class="l m b0 r0 l0 t0 lines">199</td>
+<td class="l m b0 r0 l0 t0 lines">58.8</td>
+<td class="l m b0 r0 l0 t0 lines">38.7</td>
+<td class="l m b0 r0 l0 t0 lines">15.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.65</td>
+<td class="l m b0 r0 l0 t0 lines">1.07</td>
+<td class="l m b0 r0 l0 t0 lines">14900</td>
+<td class="l m b0 r0 l0 t0 lines">695</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>392</td>
+<td class="l m b0 r0 l0 t0 lines">392</td>
+<td class="l m b0 r0 l0 t0 lines">116</td>
+<td class="l m b0 r0 l0 t0 lines">41.6</td>
+<td class="l m b0 r0 l0 t0 lines">12.4</td>
+<td class="l m b0 r0 l0 t0 lines">1.42</td>
+<td class="l m b0 r0 l0 t0 lines">2.52</td>
+<td class="l m b0 r0 l0 t0 lines">29900</td>
+<td class="l m b0 r0 l0 t0 lines">803</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>331</td>
+<td class="l m b0 r0 l0 t0 lines">331</td>
+<td class="l m b0 r0 l0 t0 lines">97.7</td>
+<td class="l m b0 r0 l0 t0 lines">40.8</td>
+<td class="l m b0 r0 l0 t0 lines">12.2</td>
+<td class="l m b0 r0 l0 t0 lines">1.22</td>
+<td class="l m b0 r0 l0 t0 lines">2.13</td>
+<td class="l m b0 r0 l0 t0 lines">24700</td>
+<td class="l m b0 r0 l0 t0 lines">644</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>327</td>
+<td class="l m b0 r0 l0 t0 lines">327</td>
+<td class="l m b0 r0 l0 t0 lines">95.9</td>
+<td class="l m b0 r0 l0 t0 lines">40.8</td>
+<td class="l m b0 r0 l0 t0 lines">12.1</td>
+<td class="l m b0 r0 l0 t0 lines">1.18</td>
+<td class="l m b0 r0 l0 t0 lines">2.13</td>
+<td class="l m b0 r0 l0 t0 lines">24500</td>
+<td class="l m b0 r0 l0 t0 lines">640</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>294</td>
+<td class="l m b0 r0 l0 t0 lines">294</td>
+<td class="l m b0 r0 l0 t0 lines">86.2</td>
+<td class="l m b0 r0 l0 t0 lines">40.4</td>
+<td class="l m b0 r0 l0 t0 lines">12</td>
+<td class="l m b0 r0 l0 t0 lines">1.06</td>
+<td class="l m b0 r0 l0 t0 lines">1.93</td>
+<td class="l m b0 r0 l0 t0 lines">21900</td>
+<td class="l m b0 r0 l0 t0 lines">562</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>278</td>
+<td class="l m b0 r0 l0 t0 lines">278</td>
+<td class="l m b0 r0 l0 t0 lines">82.3</td>
+<td class="l m b0 r0 l0 t0 lines">40.2</td>
+<td class="l m b0 r0 l0 t0 lines">12</td>
+<td class="l m b0 r0 l0 t0 lines">1.03</td>
+<td class="l m b0 r0 l0 t0 lines">1.81</td>
+<td class="l m b0 r0 l0 t0 lines">20500</td>
+<td class="l m b0 r0 l0 t0 lines">521</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>264</td>
+<td class="l m b0 r0 l0 t0 lines">264</td>
+<td class="l m b0 r0 l0 t0 lines">77.4</td>
+<td class="l m b0 r0 l0 t0 lines">40</td>
+<td class="l m b0 r0 l0 t0 lines">11.9</td>
+<td class="l m b0 r0 l0 t0 lines">0.96</td>
+<td class="l m b0 r0 l0 t0 lines">1.73</td>
+<td class="l m b0 r0 l0 t0 lines">19400</td>
+<td class="l m b0 r0 l0 t0 lines">493</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>235</td>
+<td class="l m b0 r0 l0 t0 lines">235</td>
+<td class="l m b0 r0 l0 t0 lines">69.1</td>
+<td class="l m b0 r0 l0 t0 lines">39.7</td>
+<td class="l m b0 r0 l0 t0 lines">11.9</td>
+<td class="l m b0 r0 l0 t0 lines">0.83</td>
+<td class="l m b0 r0 l0 t0 lines">1.58</td>
+<td class="l m b0 r0 l0 t0 lines">17400</td>
+<td class="l m b0 r0 l0 t0 lines">444</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>211</td>
+<td class="l m b0 r0 l0 t0 lines">211</td>
+<td class="l m b0 r0 l0 t0 lines">62.1</td>
+<td class="l m b0 r0 l0 t0 lines">39.4</td>
+<td class="l m b0 r0 l0 t0 lines">11.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.75</td>
+<td class="l m b0 r0 l0 t0 lines">1.42</td>
+<td class="l m b0 r0 l0 t0 lines">15500</td>
+<td class="l m b0 r0 l0 t0 lines">390</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>183</td>
+<td class="l m b0 r0 l0 t0 lines">183</td>
+<td class="l m b0 r0 l0 t0 lines">53.3</td>
+<td class="l m b0 r0 l0 t0 lines">39</td>
+<td class="l m b0 r0 l0 t0 lines">11.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.65</td>
+<td class="l m b0 r0 l0 t0 lines">1.2</td>
+<td class="l m b0 r0 l0 t0 lines">13200</td>
+<td class="l m b0 r0 l0 t0 lines">331</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>167</td>
+<td class="l m b0 r0 l0 t0 lines">167</td>
+<td class="l m b0 r0 l0 t0 lines">49.3</td>
+<td class="l m b0 r0 l0 t0 lines">38.6</td>
+<td class="l m b0 r0 l0 t0 lines">11.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.65</td>
+<td class="l m b0 r0 l0 t0 lines">1.03</td>
+<td class="l m b0 r0 l0 t0 lines">11600</td>
+<td class="l m b0 r0 l0 t0 lines">283</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W40<span class="process-math">\(\times\)</span>149</td>
+<td class="l m b0 r0 l0 t0 lines">149</td>
+<td class="l m b0 r0 l0 t0 lines">43.8</td>
+<td class="l m b0 r0 l0 t0 lines">38.2</td>
+<td class="l m b0 r0 l0 t0 lines">11.8</td>
+<td class="l m b0 r0 l0 t0 lines">0.63</td>
+<td class="l m b0 r0 l0 t0 lines">0.83</td>
+<td class="l m b0 r0 l0 t0 lines">9800</td>
+<td class="l m b0 r0 l0 t0 lines">229</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>925</td>
+<td class="l m b0 r0 l0 t0 lines">925</td>
+<td class="l m b0 r0 l0 t0 lines">272</td>
+<td class="l m b0 r0 l0 t0 lines">43.1</td>
+<td class="l m b0 r0 l0 t0 lines">18.6</td>
+<td class="l m b0 r0 l0 t0 lines">3.02</td>
+<td class="l m b0 r0 l0 t0 lines">4.53</td>
+<td class="l m b0 r0 l0 t0 lines">73000</td>
+<td class="l m b0 r0 l0 t0 lines">4940</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>853</td>
+<td class="l m b0 r0 l0 t0 lines">853</td>
+<td class="l m b0 r0 l0 t0 lines">251</td>
+<td class="l m b0 r0 l0 t0 lines">43.1</td>
+<td class="l m b0 r0 l0 t0 lines">18.2</td>
+<td class="l m b0 r0 l0 t0 lines">2.52</td>
+<td class="l m b0 r0 l0 t0 lines">4.53</td>
+<td class="l m b0 r0 l0 t0 lines">70000</td>
+<td class="l m b0 r0 l0 t0 lines">4600</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>802</td>
+<td class="l m b0 r0 l0 t0 lines">802</td>
+<td class="l m b0 r0 l0 t0 lines">236</td>
+<td class="l m b0 r0 l0 t0 lines">42.6</td>
+<td class="l m b0 r0 l0 t0 lines">18</td>
+<td class="l m b0 r0 l0 t0 lines">2.38</td>
+<td class="l m b0 r0 l0 t0 lines">4.29</td>
+<td class="l m b0 r0 l0 t0 lines">64800</td>
+<td class="l m b0 r0 l0 t0 lines">4210</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>723</td>
+<td class="l m b0 r0 l0 t0 lines">723</td>
+<td class="l m b0 r0 l0 t0 lines">213</td>
+<td class="l m b0 r0 l0 t0 lines">41.8</td>
+<td class="l m b0 r0 l0 t0 lines">17.8</td>
+<td class="l m b0 r0 l0 t0 lines">2.17</td>
+<td class="l m b0 r0 l0 t0 lines">3.9</td>
+<td class="l m b0 r0 l0 t0 lines">57300</td>
+<td class="l m b0 r0 l0 t0 lines">3700</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>652</td>
+<td class="l m b0 r0 l0 t0 lines">652</td>
+<td class="l m b0 r0 l0 t0 lines">192</td>
+<td class="l m b0 r0 l0 t0 lines">41.1</td>
+<td class="l m b0 r0 l0 t0 lines">17.6</td>
+<td class="l m b0 r0 l0 t0 lines">1.97</td>
+<td class="l m b0 r0 l0 t0 lines">3.54</td>
+<td class="l m b0 r0 l0 t0 lines">50600</td>
+<td class="l m b0 r0 l0 t0 lines">3230</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>529</td>
+<td class="l m b0 r0 l0 t0 lines">529</td>
+<td class="l m b0 r0 l0 t0 lines">156</td>
+<td class="l m b0 r0 l0 t0 lines">39.8</td>
+<td class="l m b0 r0 l0 t0 lines">17.2</td>
+<td class="l m b0 r0 l0 t0 lines">1.61</td>
+<td class="l m b0 r0 l0 t0 lines">2.91</td>
+<td class="l m b0 r0 l0 t0 lines">39600</td>
+<td class="l m b0 r0 l0 t0 lines">2490</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>487</td>
+<td class="l m b0 r0 l0 t0 lines">487</td>
+<td class="l m b0 r0 l0 t0 lines">143</td>
+<td class="l m b0 r0 l0 t0 lines">39.3</td>
+<td class="l m b0 r0 l0 t0 lines">17.1</td>
+<td class="l m b0 r0 l0 t0 lines">1.5</td>
+<td class="l m b0 r0 l0 t0 lines">2.68</td>
+<td class="l m b0 r0 l0 t0 lines">36000</td>
+<td class="l m b0 r0 l0 t0 lines">2250</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>441</td>
+<td class="l m b0 r0 l0 t0 lines">441</td>
+<td class="l m b0 r0 l0 t0 lines">130</td>
+<td class="l m b0 r0 l0 t0 lines">38.9</td>
+<td class="l m b0 r0 l0 t0 lines">17</td>
+<td class="l m b0 r0 l0 t0 lines">1.36</td>
+<td class="l m b0 r0 l0 t0 lines">2.44</td>
+<td class="l m b0 r0 l0 t0 lines">32100</td>
+<td class="l m b0 r0 l0 t0 lines">1990</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>395</td>
+<td class="l m b0 r0 l0 t0 lines">395</td>
+<td class="l m b0 r0 l0 t0 lines">116</td>
+<td class="l m b0 r0 l0 t0 lines">38.4</td>
+<td class="l m b0 r0 l0 t0 lines">16.8</td>
+<td class="l m b0 r0 l0 t0 lines">1.22</td>
+<td class="l m b0 r0 l0 t0 lines">2.2</td>
+<td class="l m b0 r0 l0 t0 lines">28500</td>
+<td class="l m b0 r0 l0 t0 lines">1750</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>361</td>
+<td class="l m b0 r0 l0 t0 lines">361</td>
+<td class="l m b0 r0 l0 t0 lines">106</td>
+<td class="l m b0 r0 l0 t0 lines">38</td>
+<td class="l m b0 r0 l0 t0 lines">16.7</td>
+<td class="l m b0 r0 l0 t0 lines">1.12</td>
+<td class="l m b0 r0 l0 t0 lines">2.01</td>
+<td class="l m b0 r0 l0 t0 lines">25700</td>
+<td class="l m b0 r0 l0 t0 lines">1570</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>330</td>
+<td class="l m b0 r0 l0 t0 lines">330</td>
+<td class="l m b0 r0 l0 t0 lines">96.9</td>
+<td class="l m b0 r0 l0 t0 lines">37.7</td>
+<td class="l m b0 r0 l0 t0 lines">16.6</td>
+<td class="l m b0 r0 l0 t0 lines">1.02</td>
+<td class="l m b0 r0 l0 t0 lines">1.85</td>
+<td class="l m b0 r0 l0 t0 lines">23300</td>
+<td class="l m b0 r0 l0 t0 lines">1420</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>302</td>
+<td class="l m b0 r0 l0 t0 lines">302</td>
+<td class="l m b0 r0 l0 t0 lines">89</td>
+<td class="l m b0 r0 l0 t0 lines">37.3</td>
+<td class="l m b0 r0 l0 t0 lines">16.7</td>
+<td class="l m b0 r0 l0 t0 lines">0.945</td>
+<td class="l m b0 r0 l0 t0 lines">1.68</td>
+<td class="l m b0 r0 l0 t0 lines">21100</td>
+<td class="l m b0 r0 l0 t0 lines">1300</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>282</td>
+<td class="l m b0 r0 l0 t0 lines">282</td>
+<td class="l m b0 r0 l0 t0 lines">82.9</td>
+<td class="l m b0 r0 l0 t0 lines">37.1</td>
+<td class="l m b0 r0 l0 t0 lines">16.6</td>
+<td class="l m b0 r0 l0 t0 lines">0.885</td>
+<td class="l m b0 r0 l0 t0 lines">1.57</td>
+<td class="l m b0 r0 l0 t0 lines">19600</td>
+<td class="l m b0 r0 l0 t0 lines">1200</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>262</td>
+<td class="l m b0 r0 l0 t0 lines">262</td>
+<td class="l m b0 r0 l0 t0 lines">77.2</td>
+<td class="l m b0 r0 l0 t0 lines">36.9</td>
+<td class="l m b0 r0 l0 t0 lines">16.6</td>
+<td class="l m b0 r0 l0 t0 lines">0.84</td>
+<td class="l m b0 r0 l0 t0 lines">1.44</td>
+<td class="l m b0 r0 l0 t0 lines">17900</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>247</td>
+<td class="l m b0 r0 l0 t0 lines">247</td>
+<td class="l m b0 r0 l0 t0 lines">72.5</td>
+<td class="l m b0 r0 l0 t0 lines">36.7</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">0.8</td>
+<td class="l m b0 r0 l0 t0 lines">1.35</td>
+<td class="l m b0 r0 l0 t0 lines">16700</td>
+<td class="l m b0 r0 l0 t0 lines">1010</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>231</td>
+<td class="l m b0 r0 l0 t0 lines">231</td>
+<td class="l m b0 r0 l0 t0 lines">68.2</td>
+<td class="l m b0 r0 l0 t0 lines">36.5</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">0.76</td>
+<td class="l m b0 r0 l0 t0 lines">1.26</td>
+<td class="l m b0 r0 l0 t0 lines">15600</td>
+<td class="l m b0 r0 l0 t0 lines">940</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>256</td>
+<td class="l m b0 r0 l0 t0 lines">256</td>
+<td class="l m b0 r0 l0 t0 lines">75.3</td>
+<td class="l m b0 r0 l0 t0 lines">37.4</td>
+<td class="l m b0 r0 l0 t0 lines">12.2</td>
+<td class="l m b0 r0 l0 t0 lines">0.96</td>
+<td class="l m b0 r0 l0 t0 lines">1.73</td>
+<td class="l m b0 r0 l0 t0 lines">16800</td>
+<td class="l m b0 r0 l0 t0 lines">528</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>232</td>
+<td class="l m b0 r0 l0 t0 lines">232</td>
+<td class="l m b0 r0 l0 t0 lines">68</td>
+<td class="l m b0 r0 l0 t0 lines">37.1</td>
+<td class="l m b0 r0 l0 t0 lines">12.1</td>
+<td class="l m b0 r0 l0 t0 lines">0.87</td>
+<td class="l m b0 r0 l0 t0 lines">1.57</td>
+<td class="l m b0 r0 l0 t0 lines">15000</td>
+<td class="l m b0 r0 l0 t0 lines">468</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W36<span class="process-math">\(\times\)</span>210</td>
+<td class="l m b0 r0 l0 t0 lines">210</td>
+<td class="l m b0 r0 l0 t0 lines">61.9</td>
+<td class="l m b0 r0 l0 t0 lines">36.7</td>
+<td class="l m b0 r0 l0 t0 lines">12.2</td>
+<td class="l m b0 r0 l0 t0 lines">0.83</td>
+<td class="l m b0 r0 l0 t0 lines">1.36</td>
+<td class="l m b0 r0 l0 t0 lines">13200</td>
+<td class="l m b0 r0 l0 t0 lines">411</td>
+</tr>
+</table></div>
+</div></div></section><section class="subsection" id="wf-si"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">D.4.2</span><span class="space"> </span><span class="title">Wide Flange Section-SI</span>
+</h3>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:20%;"><img src="external/images/W_section.svg" role="img" class="contained"></div>
+<div class="sbspanel fixed-width top" style="width:80%;"><table class="tabular">
+<tr>
+<td class="c m b2 r0 l0 t0 lines">Description<br><span class="process-math">\({d} \times \, {W}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(W\)</span><br><span class="process-math">\(\text{kg/m}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(A\)</span><br><span class="process-math">\(\text{mm}^2\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(d\)</span><br><span class="process-math">\(\text{mm}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(b_f\)</span><br><span class="process-math">\(\text{mm}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(t_w\)</span><br><span class="process-math">\(\text{mm}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(t_f\)</span><br><span class="process-math">\(\text{mm}\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(\bar{I}_{xx}\)</span><br><span class="process-math">\(10^6\text{ mm}^4\)</span>
+</td>
+<td class="c m b2 r0 l0 t0 lines">
+<span class="process-math">\(\bar{I}_{yy}\)</span><br><span class="process-math">\(10^6\text{ mm}^4\)</span>
+</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1100<span class="process-math">\(\times\)</span>499</td>
+<td class="l m b0 r0 l0 t0 lines">499</td>
+<td class="l m b0 r0 l0 t0 lines">63500</td>
+<td class="l m b0 r0 l0 t0 lines">1120</td>
+<td class="l m b0 r0 l0 t0 lines">404</td>
+<td class="l m b0 r0 l0 t0 lines">26.2</td>
+<td class="l m b0 r0 l0 t0 lines">45</td>
+<td class="l m b0 r0 l0 t0 lines">12900</td>
+<td class="l m b0 r0 l0 t0 lines">499</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1100<span class="process-math">\(\times\)</span>433</td>
+<td class="l m b0 r0 l0 t0 lines">433</td>
+<td class="l m b0 r0 l0 t0 lines">55100</td>
+<td class="l m b0 r0 l0 t0 lines">1110</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">22</td>
+<td class="l m b0 r0 l0 t0 lines">40.1</td>
+<td class="l m b0 r0 l0 t0 lines">11200</td>
+<td class="l m b0 r0 l0 t0 lines">433</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1100<span class="process-math">\(\times\)</span>390</td>
+<td class="l m b0 r0 l0 t0 lines">390</td>
+<td class="l m b0 r0 l0 t0 lines">49800</td>
+<td class="l m b0 r0 l0 t0 lines">1100</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">19.9</td>
+<td class="l m b0 r0 l0 t0 lines">36.1</td>
+<td class="l m b0 r0 l0 t0 lines">10000</td>
+<td class="l m b0 r0 l0 t0 lines">384</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1100<span class="process-math">\(\times\)</span>343</td>
+<td class="l m b0 r0 l0 t0 lines">343</td>
+<td class="l m b0 r0 l0 t0 lines">43700</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">18</td>
+<td class="l m b0 r0 l0 t0 lines">31</td>
+<td class="l m b0 r0 l0 t0 lines">8660</td>
+<td class="l m b0 r0 l0 t0 lines">331</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>976</td>
+<td class="l m b0 r0 l0 t0 lines">975</td>
+<td class="l m b0 r0 l0 t0 lines">125000</td>
+<td class="l m b0 r0 l0 t0 lines">1110</td>
+<td class="l m b0 r0 l0 t0 lines">429</td>
+<td class="l m b0 r0 l0 t0 lines">50</td>
+<td class="l m b0 r0 l0 t0 lines">89.9</td>
+<td class="l m b0 r0 l0 t0 lines">23500</td>
+<td class="l m b0 r0 l0 t0 lines">1190</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>883</td>
+<td class="l m b0 r0 l0 t0 lines">883</td>
+<td class="l m b0 r0 l0 t0 lines">112000</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+<td class="l m b0 r0 l0 t0 lines">424</td>
+<td class="l m b0 r0 l0 t0 lines">45.5</td>
+<td class="l m b0 r0 l0 t0 lines">82</td>
+<td class="l m b0 r0 l0 t0 lines">21000</td>
+<td class="l m b0 r0 l0 t0 lines">1050</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>748</td>
+<td class="l m b0 r0 l0 t0 lines">748</td>
+<td class="l m b0 r0 l0 t0 lines">95500</td>
+<td class="l m b0 r0 l0 t0 lines">1070</td>
+<td class="l m b0 r0 l0 t0 lines">417</td>
+<td class="l m b0 r0 l0 t0 lines">39.1</td>
+<td class="l m b0 r0 l0 t0 lines">70.1</td>
+<td class="l m b0 r0 l0 t0 lines">17300</td>
+<td class="l m b0 r0 l0 t0 lines">849</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>642</td>
+<td class="l m b0 r0 l0 t0 lines">642</td>
+<td class="l m b0 r0 l0 t0 lines">81900</td>
+<td class="l m b0 r0 l0 t0 lines">1050</td>
+<td class="l m b0 r0 l0 t0 lines">411</td>
+<td class="l m b0 r0 l0 t0 lines">34</td>
+<td class="l m b0 r0 l0 t0 lines">59.9</td>
+<td class="l m b0 r0 l0 t0 lines">14500</td>
+<td class="l m b0 r0 l0 t0 lines">703</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>591</td>
+<td class="l m b0 r0 l0 t0 lines">591</td>
+<td class="l m b0 r0 l0 t0 lines">75500</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+<td class="l m b0 r0 l0 t0 lines">409</td>
+<td class="l m b0 r0 l0 t0 lines">31</td>
+<td class="l m b0 r0 l0 t0 lines">55.9</td>
+<td class="l m b0 r0 l0 t0 lines">13300</td>
+<td class="l m b0 r0 l0 t0 lines">641</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>554</td>
+<td class="l m b0 r0 l0 t0 lines">554</td>
+<td class="l m b0 r0 l0 t0 lines">71000</td>
+<td class="l m b0 r0 l0 t0 lines">1030</td>
+<td class="l m b0 r0 l0 t0 lines">409</td>
+<td class="l m b0 r0 l0 t0 lines">29.5</td>
+<td class="l m b0 r0 l0 t0 lines">52.1</td>
+<td class="l m b0 r0 l0 t0 lines">12300</td>
+<td class="l m b0 r0 l0 t0 lines">591</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>539</td>
+<td class="l m b0 r0 l0 t0 lines">539</td>
+<td class="l m b0 r0 l0 t0 lines">68400</td>
+<td class="l m b0 r0 l0 t0 lines">1030</td>
+<td class="l m b0 r0 l0 t0 lines">406</td>
+<td class="l m b0 r0 l0 t0 lines">28.4</td>
+<td class="l m b0 r0 l0 t0 lines">51.1</td>
+<td class="l m b0 r0 l0 t0 lines">12000</td>
+<td class="l m b0 r0 l0 t0 lines">574</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>483</td>
+<td class="l m b0 r0 l0 t0 lines">483</td>
+<td class="l m b0 r0 l0 t0 lines">61500</td>
+<td class="l m b0 r0 l0 t0 lines">1020</td>
+<td class="l m b0 r0 l0 t0 lines">404</td>
+<td class="l m b0 r0 l0 t0 lines">25.4</td>
+<td class="l m b0 r0 l0 t0 lines">46</td>
+<td class="l m b0 r0 l0 t0 lines">10700</td>
+<td class="l m b0 r0 l0 t0 lines">508</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>443</td>
+<td class="l m b0 r0 l0 t0 lines">443</td>
+<td class="l m b0 r0 l0 t0 lines">56300</td>
+<td class="l m b0 r0 l0 t0 lines">1010</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">23.6</td>
+<td class="l m b0 r0 l0 t0 lines">41.9</td>
+<td class="l m b0 r0 l0 t0 lines">9660</td>
+<td class="l m b0 r0 l0 t0 lines">454</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>412</td>
+<td class="l m b0 r0 l0 t0 lines">412</td>
+<td class="l m b0 r0 l0 t0 lines">52600</td>
+<td class="l m b0 r0 l0 t0 lines">1010</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">21.1</td>
+<td class="l m b0 r0 l0 t0 lines">40.1</td>
+<td class="l m b0 r0 l0 t0 lines">9120</td>
+<td class="l m b0 r0 l0 t0 lines">433</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>371</td>
+<td class="l m b0 r0 l0 t0 lines">371</td>
+<td class="l m b0 r0 l0 t0 lines">47400</td>
+<td class="l m b0 r0 l0 t0 lines">1000</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">19.1</td>
+<td class="l m b0 r0 l0 t0 lines">36.1</td>
+<td class="l m b0 r0 l0 t0 lines">8160</td>
+<td class="l m b0 r0 l0 t0 lines">385</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>321</td>
+<td class="l m b0 r0 l0 t0 lines">321</td>
+<td class="l m b0 r0 l0 t0 lines">41000</td>
+<td class="l m b0 r0 l0 t0 lines">991</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">31</td>
+<td class="l m b0 r0 l0 t0 lines">6950</td>
+<td class="l m b0 r0 l0 t0 lines">334</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>296</td>
+<td class="l m b0 r0 l0 t0 lines">296</td>
+<td class="l m b0 r0 l0 t0 lines">37900</td>
+<td class="l m b0 r0 l0 t0 lines">983</td>
+<td class="l m b0 r0 l0 t0 lines">401</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">27.2</td>
+<td class="l m b0 r0 l0 t0 lines">6200</td>
+<td class="l m b0 r0 l0 t0 lines">289</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>584</td>
+<td class="l m b0 r0 l0 t0 lines">584</td>
+<td class="l m b0 r0 l0 t0 lines">74800</td>
+<td class="l m b0 r0 l0 t0 lines">1060</td>
+<td class="l m b0 r0 l0 t0 lines">315</td>
+<td class="l m b0 r0 l0 t0 lines">36.1</td>
+<td class="l m b0 r0 l0 t0 lines">64</td>
+<td class="l m b0 r0 l0 t0 lines">12400</td>
+<td class="l m b0 r0 l0 t0 lines">334</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>494</td>
+<td class="l m b0 r0 l0 t0 lines">494</td>
+<td class="l m b0 r0 l0 t0 lines">63000</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+<td class="l m b0 r0 l0 t0 lines">310</td>
+<td class="l m b0 r0 l0 t0 lines">31</td>
+<td class="l m b0 r0 l0 t0 lines">54.1</td>
+<td class="l m b0 r0 l0 t0 lines">10300</td>
+<td class="l m b0 r0 l0 t0 lines">268</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>486</td>
+<td class="l m b0 r0 l0 t0 lines">486</td>
+<td class="l m b0 r0 l0 t0 lines">61900</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+<td class="l m b0 r0 l0 t0 lines">307</td>
+<td class="l m b0 r0 l0 t0 lines">30</td>
+<td class="l m b0 r0 l0 t0 lines">54.1</td>
+<td class="l m b0 r0 l0 t0 lines">10200</td>
+<td class="l m b0 r0 l0 t0 lines">266</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>438</td>
+<td class="l m b0 r0 l0 t0 lines">438</td>
+<td class="l m b0 r0 l0 t0 lines">55600</td>
+<td class="l m b0 r0 l0 t0 lines">1030</td>
+<td class="l m b0 r0 l0 t0 lines">305</td>
+<td class="l m b0 r0 l0 t0 lines">26.9</td>
+<td class="l m b0 r0 l0 t0 lines">49</td>
+<td class="l m b0 r0 l0 t0 lines">9120</td>
+<td class="l m b0 r0 l0 t0 lines">234</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>415</td>
+<td class="l m b0 r0 l0 t0 lines">415</td>
+<td class="l m b0 r0 l0 t0 lines">53100</td>
+<td class="l m b0 r0 l0 t0 lines">1020</td>
+<td class="l m b0 r0 l0 t0 lines">305</td>
+<td class="l m b0 r0 l0 t0 lines">26.2</td>
+<td class="l m b0 r0 l0 t0 lines">46</td>
+<td class="l m b0 r0 l0 t0 lines">8530</td>
+<td class="l m b0 r0 l0 t0 lines">217</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>393</td>
+<td class="l m b0 r0 l0 t0 lines">393</td>
+<td class="l m b0 r0 l0 t0 lines">49900</td>
+<td class="l m b0 r0 l0 t0 lines">1020</td>
+<td class="l m b0 r0 l0 t0 lines">302</td>
+<td class="l m b0 r0 l0 t0 lines">24.4</td>
+<td class="l m b0 r0 l0 t0 lines">43.9</td>
+<td class="l m b0 r0 l0 t0 lines">8070</td>
+<td class="l m b0 r0 l0 t0 lines">205</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>350</td>
+<td class="l m b0 r0 l0 t0 lines">350</td>
+<td class="l m b0 r0 l0 t0 lines">44600</td>
+<td class="l m b0 r0 l0 t0 lines">1010</td>
+<td class="l m b0 r0 l0 t0 lines">302</td>
+<td class="l m b0 r0 l0 t0 lines">21.1</td>
+<td class="l m b0 r0 l0 t0 lines">40.1</td>
+<td class="l m b0 r0 l0 t0 lines">7240</td>
+<td class="l m b0 r0 l0 t0 lines">185</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>314</td>
+<td class="l m b0 r0 l0 t0 lines">314</td>
+<td class="l m b0 r0 l0 t0 lines">40100</td>
+<td class="l m b0 r0 l0 t0 lines">1000</td>
+<td class="l m b0 r0 l0 t0 lines">300</td>
+<td class="l m b0 r0 l0 t0 lines">19.1</td>
+<td class="l m b0 r0 l0 t0 lines">36.1</td>
+<td class="l m b0 r0 l0 t0 lines">6450</td>
+<td class="l m b0 r0 l0 t0 lines">162</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>272</td>
+<td class="l m b0 r0 l0 t0 lines">272</td>
+<td class="l m b0 r0 l0 t0 lines">34400</td>
+<td class="l m b0 r0 l0 t0 lines">991</td>
+<td class="l m b0 r0 l0 t0 lines">300</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">30.5</td>
+<td class="l m b0 r0 l0 t0 lines">5490</td>
+<td class="l m b0 r0 l0 t0 lines">138</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>249</td>
+<td class="l m b0 r0 l0 t0 lines">249</td>
+<td class="l m b0 r0 l0 t0 lines">31800</td>
+<td class="l m b0 r0 l0 t0 lines">980</td>
+<td class="l m b0 r0 l0 t0 lines">300</td>
+<td class="l m b0 r0 l0 t0 lines">16.5</td>
+<td class="l m b0 r0 l0 t0 lines">26.2</td>
+<td class="l m b0 r0 l0 t0 lines">4830</td>
+<td class="l m b0 r0 l0 t0 lines">118</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W1000<span class="process-math">\(\times\)</span>222</td>
+<td class="l m b0 r0 l0 t0 lines">222</td>
+<td class="l m b0 r0 l0 t0 lines">28300</td>
+<td class="l m b0 r0 l0 t0 lines">970</td>
+<td class="l m b0 r0 l0 t0 lines">300</td>
+<td class="l m b0 r0 l0 t0 lines">16</td>
+<td class="l m b0 r0 l0 t0 lines">21.1</td>
+<td class="l m b0 r0 l0 t0 lines">4080</td>
+<td class="l m b0 r0 l0 t0 lines">95.3</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>1377</td>
+<td class="l m b0 r0 l0 t0 lines">1380</td>
+<td class="l m b0 r0 l0 t0 lines">175000</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+<td class="l m b0 r0 l0 t0 lines">472</td>
+<td class="l m b0 r0 l0 t0 lines">76.7</td>
+<td class="l m b0 r0 l0 t0 lines">115</td>
+<td class="l m b0 r0 l0 t0 lines">30400</td>
+<td class="l m b0 r0 l0 t0 lines">2060</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>1269</td>
+<td class="l m b0 r0 l0 t0 lines">1270</td>
+<td class="l m b0 r0 l0 t0 lines">162000</td>
+<td class="l m b0 r0 l0 t0 lines">1090</td>
+<td class="l m b0 r0 l0 t0 lines">462</td>
+<td class="l m b0 r0 l0 t0 lines">64</td>
+<td class="l m b0 r0 l0 t0 lines">115</td>
+<td class="l m b0 r0 l0 t0 lines">29100</td>
+<td class="l m b0 r0 l0 t0 lines">1910</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>1194</td>
+<td class="l m b0 r0 l0 t0 lines">1190</td>
+<td class="l m b0 r0 l0 t0 lines">152000</td>
+<td class="l m b0 r0 l0 t0 lines">1080</td>
+<td class="l m b0 r0 l0 t0 lines">457</td>
+<td class="l m b0 r0 l0 t0 lines">60.5</td>
+<td class="l m b0 r0 l0 t0 lines">109</td>
+<td class="l m b0 r0 l0 t0 lines">27000</td>
+<td class="l m b0 r0 l0 t0 lines">1750</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>1077</td>
+<td class="l m b0 r0 l0 t0 lines">1080</td>
+<td class="l m b0 r0 l0 t0 lines">137000</td>
+<td class="l m b0 r0 l0 t0 lines">1060</td>
+<td class="l m b0 r0 l0 t0 lines">452</td>
+<td class="l m b0 r0 l0 t0 lines">55.1</td>
+<td class="l m b0 r0 l0 t0 lines">99.1</td>
+<td class="l m b0 r0 l0 t0 lines">23800</td>
+<td class="l m b0 r0 l0 t0 lines">1540</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>970</td>
+<td class="l m b0 r0 l0 t0 lines">970</td>
+<td class="l m b0 r0 l0 t0 lines">124000</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+<td class="l m b0 r0 l0 t0 lines">447</td>
+<td class="l m b0 r0 l0 t0 lines">50</td>
+<td class="l m b0 r0 l0 t0 lines">89.9</td>
+<td class="l m b0 r0 l0 t0 lines">21100</td>
+<td class="l m b0 r0 l0 t0 lines">1340</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>787</td>
+<td class="l m b0 r0 l0 t0 lines">787</td>
+<td class="l m b0 r0 l0 t0 lines">101000</td>
+<td class="l m b0 r0 l0 t0 lines">1010</td>
+<td class="l m b0 r0 l0 t0 lines">437</td>
+<td class="l m b0 r0 l0 t0 lines">40.9</td>
+<td class="l m b0 r0 l0 t0 lines">73.9</td>
+<td class="l m b0 r0 l0 t0 lines">16500</td>
+<td class="l m b0 r0 l0 t0 lines">1040</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>725</td>
+<td class="l m b0 r0 l0 t0 lines">725</td>
+<td class="l m b0 r0 l0 t0 lines">92300</td>
+<td class="l m b0 r0 l0 t0 lines">998</td>
+<td class="l m b0 r0 l0 t0 lines">434</td>
+<td class="l m b0 r0 l0 t0 lines">38.1</td>
+<td class="l m b0 r0 l0 t0 lines">68.1</td>
+<td class="l m b0 r0 l0 t0 lines">15000</td>
+<td class="l m b0 r0 l0 t0 lines">937</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>656</td>
+<td class="l m b0 r0 l0 t0 lines">656</td>
+<td class="l m b0 r0 l0 t0 lines">83900</td>
+<td class="l m b0 r0 l0 t0 lines">988</td>
+<td class="l m b0 r0 l0 t0 lines">432</td>
+<td class="l m b0 r0 l0 t0 lines">34.5</td>
+<td class="l m b0 r0 l0 t0 lines">62</td>
+<td class="l m b0 r0 l0 t0 lines">13400</td>
+<td class="l m b0 r0 l0 t0 lines">828</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>588</td>
+<td class="l m b0 r0 l0 t0 lines">588</td>
+<td class="l m b0 r0 l0 t0 lines">74800</td>
+<td class="l m b0 r0 l0 t0 lines">975</td>
+<td class="l m b0 r0 l0 t0 lines">427</td>
+<td class="l m b0 r0 l0 t0 lines">31</td>
+<td class="l m b0 r0 l0 t0 lines">55.9</td>
+<td class="l m b0 r0 l0 t0 lines">11900</td>
+<td class="l m b0 r0 l0 t0 lines">728</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>537</td>
+<td class="l m b0 r0 l0 t0 lines">537</td>
+<td class="l m b0 r0 l0 t0 lines">68400</td>
+<td class="l m b0 r0 l0 t0 lines">965</td>
+<td class="l m b0 r0 l0 t0 lines">424</td>
+<td class="l m b0 r0 l0 t0 lines">28.4</td>
+<td class="l m b0 r0 l0 t0 lines">51.1</td>
+<td class="l m b0 r0 l0 t0 lines">10700</td>
+<td class="l m b0 r0 l0 t0 lines">653</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>491</td>
+<td class="l m b0 r0 l0 t0 lines">491</td>
+<td class="l m b0 r0 l0 t0 lines">62500</td>
+<td class="l m b0 r0 l0 t0 lines">958</td>
+<td class="l m b0 r0 l0 t0 lines">422</td>
+<td class="l m b0 r0 l0 t0 lines">25.9</td>
+<td class="l m b0 r0 l0 t0 lines">47</td>
+<td class="l m b0 r0 l0 t0 lines">9700</td>
+<td class="l m b0 r0 l0 t0 lines">591</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>449</td>
+<td class="l m b0 r0 l0 t0 lines">449</td>
+<td class="l m b0 r0 l0 t0 lines">57400</td>
+<td class="l m b0 r0 l0 t0 lines">947</td>
+<td class="l m b0 r0 l0 t0 lines">424</td>
+<td class="l m b0 r0 l0 t0 lines">24</td>
+<td class="l m b0 r0 l0 t0 lines">42.7</td>
+<td class="l m b0 r0 l0 t0 lines">8780</td>
+<td class="l m b0 r0 l0 t0 lines">541</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>420</td>
+<td class="l m b0 r0 l0 t0 lines">420</td>
+<td class="l m b0 r0 l0 t0 lines">53500</td>
+<td class="l m b0 r0 l0 t0 lines">942</td>
+<td class="l m b0 r0 l0 t0 lines">422</td>
+<td class="l m b0 r0 l0 t0 lines">22.5</td>
+<td class="l m b0 r0 l0 t0 lines">39.9</td>
+<td class="l m b0 r0 l0 t0 lines">8160</td>
+<td class="l m b0 r0 l0 t0 lines">499</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>390</td>
+<td class="l m b0 r0 l0 t0 lines">390</td>
+<td class="l m b0 r0 l0 t0 lines">49800</td>
+<td class="l m b0 r0 l0 t0 lines">937</td>
+<td class="l m b0 r0 l0 t0 lines">422</td>
+<td class="l m b0 r0 l0 t0 lines">21.3</td>
+<td class="l m b0 r0 l0 t0 lines">36.6</td>
+<td class="l m b0 r0 l0 t0 lines">7450</td>
+<td class="l m b0 r0 l0 t0 lines">454</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>368</td>
+<td class="l m b0 r0 l0 t0 lines">368</td>
+<td class="l m b0 r0 l0 t0 lines">46800</td>
+<td class="l m b0 r0 l0 t0 lines">932</td>
+<td class="l m b0 r0 l0 t0 lines">419</td>
+<td class="l m b0 r0 l0 t0 lines">20.3</td>
+<td class="l m b0 r0 l0 t0 lines">34.3</td>
+<td class="l m b0 r0 l0 t0 lines">6950</td>
+<td class="l m b0 r0 l0 t0 lines">420</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>344</td>
+<td class="l m b0 r0 l0 t0 lines">344</td>
+<td class="l m b0 r0 l0 t0 lines">44000</td>
+<td class="l m b0 r0 l0 t0 lines">927</td>
+<td class="l m b0 r0 l0 t0 lines">419</td>
+<td class="l m b0 r0 l0 t0 lines">19.3</td>
+<td class="l m b0 r0 l0 t0 lines">32</td>
+<td class="l m b0 r0 l0 t0 lines">6490</td>
+<td class="l m b0 r0 l0 t0 lines">391</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>381</td>
+<td class="l m b0 r0 l0 t0 lines">381</td>
+<td class="l m b0 r0 l0 t0 lines">48600</td>
+<td class="l m b0 r0 l0 t0 lines">951</td>
+<td class="l m b0 r0 l0 t0 lines">310</td>
+<td class="l m b0 r0 l0 t0 lines">24.4</td>
+<td class="l m b0 r0 l0 t0 lines">43.9</td>
+<td class="l m b0 r0 l0 t0 lines">6990</td>
+<td class="l m b0 r0 l0 t0 lines">220</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>345</td>
+<td class="l m b0 r0 l0 t0 lines">345</td>
+<td class="l m b0 r0 l0 t0 lines">43900</td>
+<td class="l m b0 r0 l0 t0 lines">943</td>
+<td class="l m b0 r0 l0 t0 lines">307</td>
+<td class="l m b0 r0 l0 t0 lines">22.1</td>
+<td class="l m b0 r0 l0 t0 lines">39.9</td>
+<td class="l m b0 r0 l0 t0 lines">6240</td>
+<td class="l m b0 r0 l0 t0 lines">195</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>313</td>
+<td class="l m b0 r0 l0 t0 lines">313</td>
+<td class="l m b0 r0 l0 t0 lines">39900</td>
+<td class="l m b0 r0 l0 t0 lines">932</td>
+<td class="l m b0 r0 l0 t0 lines">310</td>
+<td class="l m b0 r0 l0 t0 lines">21.1</td>
+<td class="l m b0 r0 l0 t0 lines">34.5</td>
+<td class="l m b0 r0 l0 t0 lines">5490</td>
+<td class="l m b0 r0 l0 t0 lines">171</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>289</td>
+<td class="l m b0 r0 l0 t0 lines">289</td>
+<td class="l m b0 r0 l0 t0 lines">36800</td>
+<td class="l m b0 r0 l0 t0 lines">927</td>
+<td class="l m b0 r0 l0 t0 lines">307</td>
+<td class="l m b0 r0 l0 t0 lines">19.4</td>
+<td class="l m b0 r0 l0 t0 lines">32</td>
+<td class="l m b0 r0 l0 t0 lines">5040</td>
+<td class="l m b0 r0 l0 t0 lines">156</td>
+</tr>
+<tr>
+<td class="l m b0 r0 l0 t0 lines">W920<span class="process-math">\(\times\)</span>271</td>
+<td class="l m b0 r0 l0 t0 lines">271</td>
+<td class="l m b0 r0 l0 t0 lines">34600</td>
+<td class="l m b0 r0 l0 t0 lines">922</td>
+<td class="l m b0 r0 l0 t0 lines">307</td>
+<td class="l m b0 r0 l0 t0 lines">18.4</td>
+<td class="l m b0 r0 l0 t0 lines">30</td>
+<td class="l m b0 r0 l0 t0 lines">4700</td>
+<td class="l m b0 r0 l0 t0 lines">144</td>
+</tr>
+</table></div>
+</div></div></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="AISC-standard-sections.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><span class="next-button button disabled"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></span>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
+</body>
+</html>

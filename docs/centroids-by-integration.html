@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Statics: Centroids using Integration</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
+<link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
+  },
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        },
+        ""
+      ]
+    }
+  },
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
+  },
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
+  },
+  "startup": {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  }
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.31/pretext_search.js"></script><link href="https://pretextbook.org/css/0.81/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.31</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.31/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.31/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.31/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link href="https://pretextbook.org/css/0.81/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/shell_crc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="external/css/statics.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" target="_blank" href="https://engineeringstatics.org"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="searchbox">
+<div class="searchwidget"><button id="searchbutton" class="searchbutton button" type="button" title="Search book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<div class="search-results-controls">
+<input aria-label="Search term" id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search term"><button title="Close search" id="closesearchresults" class="closesearchresults"><span class="material-symbols-outlined">close</span></button>
+</div>
+<h2 class="search-results-heading">Search Results: </h2>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
+</div>
+</div>
+<span class="nav-other-controls"></span><span class="treebuttons"><a class="previous-button button" href="Chapter_07-average-value-of-a-function.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_07.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="distributed-loads.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
+
+
+
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lbm} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
+
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
+
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lbf} }
+
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\ftlbf}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lbf} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
+
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural contains-active toc-item-list">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-preface">
+<div class="toc-title-box"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-contributors"><div class="toc-title-box"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li class="toc-item toc-preface"><div class="toc-title-box"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">2D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">3D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-direction-of-unit-vectors" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Direction of the Vector Cross Product</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.3</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">1D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#scalar-components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#one-d-particle-equilibrium" class="internal"><span class="codenumber">3.3.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">2D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">3D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="scalar-components-moments.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.5</span> <span class="title">3D Moments</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Couples</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-3.html" class="internal"><span class="codenumber">4.9</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li class="toc-item toc-section active">
+<div class="toc-title-box"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Forces</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-internal-forces.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="internal_force_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Forces at a Point</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="internal_force_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Forces</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">Coulomb Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction Angle and Friction Resultant</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-coulomb-friction-examples" class="internal"><span class="codenumber">9.1.4</span> <span class="title">Coulomb Friction Examples.</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Wedges</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Threads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw Motion and the Right-hand rule</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw Thread Properties</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moment to Reach Impending Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="title">Applied Force Opposes Impending Motion</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="title">Applied Force Supports Impending Motion</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-86" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Frictionless Belts</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-87" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Friction in Flat Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="title">Contact Angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="title">Belt Tension</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="title">Change in Belt Tension due to Friction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Torque in Belt Systems</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="codenumber">9.5.4</span> <span class="title">V-Belts</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearings</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Rotating Shaft and Fixed Bearing</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Fixed Shaft and Rotating Bearing</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Rotating Discs</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#disc-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Circular Arc Bearings</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Composite Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-backmatter">
+<div class="toc-title-box"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-appendix"><div class="toc-title-box"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-angles.html" class="internal"><span class="codenumber">D.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">D.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">D.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-channels.html" class="internal"><span class="codenumber">D.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">D.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">D.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">D.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">D.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">D.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">D.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">D.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">D.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="centroids-by-integration"><h2 class="heading hide-type">
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">7.7</span><span class="space"> </span><span class="title">Centroids using Integration</span>
+</h2>
+<article class="objectives goal-like" id="objectives-29"><h3 class="heading"><span class="type">Key Questions</span></h3>
+<ul class="disc">
+<li id="li-425"><div class="para" id="p-derived-li-425">How do you find the centroid of an area using integration?</div></li>
+<li id="li-426"><div class="para" id="p-derived-li-426">What is a differential quantity?</div></li>
+<li id="li-427"><div class="para" id="p-derived-li-427">Why are double integrals required for square <span class="process-math">\(dA\)</span> elements and single integrals required for rectangular <span class="process-math">\(dA\)</span> elements?</div></li>
+</ul></article><section class="introduction" id="introduction-29"><div class="para logical" id="p-1469">
+<div class="para">In this section we will use the integral form of <a href="" class="xref" data-knowl="./knowl/two-d-centroid.html" title="Equation 7.4.2">(7.4.2)</a> to find the centroids of non-homogenous objects or shapes with curved boundaries.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/two-d-centroid.html" id="mdn-13">
+\begin{align}
+\bar x \amp = \frac{ \int \bar{x}_{\text{el}}\ dA}{\int dA} \amp\bar y \amp= \frac{ \int \bar{y}_{\text{el}}\ dA}{\int dA} \amp\bar z \amp= \frac{ \int \bar{z}_{\text{el}}\ dA}{\int dA}\tag{7.7.1}
+\end{align}
+</div>
+</div> <div class="para" id="p-1470">With the integral equations we are mathematically breaking up a shape into an infinite number of infinitesimally small pieces and adding them together by integrating. This powerful method is conceptually identical to the discrete sums we introduced first.</div></section><section class="subsection" id="Chapter_07-integration-process"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.7.1</span><span class="space"> </span><span class="title">Integration Process</span>
+</h3>
+<div class="para logical" id="p-1471">
+<div class="para">Determining the centroid of a area using integration involves finding weighted average values <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\text{,}\)</span> by evaluating these three integrals,</div>
+<div class="displaymath process-math" id="mdn-14">
+\begin{align}
+A \amp = \int dA, \amp Q_x\amp =\int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA\text{,}\tag{7.7.2}
+\end{align}
+</div>
+<div class="para">where</div>
+<ul class="disc">
+<li id="li-428"><div class="para" id="p-1472">
+<span class="process-math">\(dA\)</span> is a differential bit of area called the <em class="emphasis">element</em>.</div></li>
+<li id="li-429"><div class="para" id="p-1473">
+<span class="process-math">\(A\)</span> is the <em class="emphasis">total area</em> enclosed by the shape, and is found by evaluating the first integral.</div></li>
+<li id="li-430"><div class="para" id="p-1474">
+<span class="process-math">\(\bar{x}_{\text{el}}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are the coordinates of the <em class="emphasis">centroid of the element</em>. These are frequently functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{,}\)</span> not constant values.</div></li>
+<li id="li-431"><div class="para" id="p-1475">
+<span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> are the <dfn class="terminology"></dfn> <em class="emphasis">First moments of Area</em> with respect to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axis.</div></li>
+</ul>
+</div>
+<div class="para logical" id="p-1476">
+<div class="para">The procedure for finding centroids with integration can be broken into three steps:</div>
+<ol class="decimal">
+<li id="li-432">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1477">Usually this is the hardest step.</div>
+<div class="para" id="p-1478">You should always begin by drawing a sketch of the problem and reviewing the given information.</div>
+<div class="para" id="p-1479">You will need to understand the boundaries of the shape, which may be lines or functions. You may need to know some math facts, like the definition of slope, or the equation of a line or parabola. A bounding function may be given as a function of <span class="process-math">\(x\text{,}\)</span> but you want it as a function of <span class="process-math">\(y,\)</span> or vice-versa or it may have a constant which you will need to determine.</div>
+<div class="para" id="p-1480">You will need to choose an element of area <span class="process-math">\(dA\text{.}\)</span> There are several choices available, including vertical strips, horizontal strips, or square elements; or in polar coordinates, rings, wedges or squares. There really is no right or wrong choice; they will all work, but one may make the integration easier than another. The best choice depends on the nature of the problem, and it takes some experience to predict which it will be.</div>
+<figure class="figure figure-like" id="figure-134"><div class="sidebyside"><div class="sbsrow" style="margin-left:4.166666666666667%;margin-right:4.166666666666667%;">
+<div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-135"><img src="external/images/triangle-dx-dy.svg" role="img" class="contained" alt="Square differential element of width dx, height dy, located at (x, y)."><figcaption><span class="codenumber">(a)</span><span class="space"> </span>Square element</figcaption></figure></div>
+<div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-136"><img src="external/images/triangle-dx.svg" role="img" class="contained" alt="Vertical differential element of width dx, height y."><figcaption><span class="codenumber">(b)</span><span class="space"> </span>Vertical strip</figcaption></figure></div>
+<div class="sbspanel top" style="width:27.2727272727273%;"><figure class="figure figure-like" id="figure-137"><img src="external/images/triangle-dy.svg" role="img" class="contained" alt="Horizontal differential element of width x, height dy."><figcaption><span class="codenumber">(c)</span><span class="space"> </span>Horizontal strip</figcaption></figure></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.1<span class="period">.</span></span><span class="space"> </span>Differential Elements of Area</figcaption></figure><div class="para logical" id="p-1481">
+<div class="para">The two most common choices for differential elements are:</div>
+<ul class="disc">
+<li id="li-433">
+<span class="heading"><span class="title">Square elements and double integrals.</span></span><div class="para" id="p-1482">If you choose an infinitesimal square element <span class="process-math">\(dA = dx\;dy\text{,}\)</span> you must integrate twice, over <span class="process-math">\(x\)</span> and over <span class="process-math">\(y\)</span> between the appropriate integration limits. The position of the element typically designated <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+</li>
+<li id="li-434">
+<span class="heading"><span class="title">Rectangular elements and single integrals.</span></span><div class="para" id="p-1483">If you choose rectangular strips you eliminate the need to integrate twice. You may select a vertical element with a different width <span class="process-math">\(dx\text{,}\)</span> and a height extending from the lower to the upper bound, or a horizontal strip with a differential height <span class="process-math">\(dy\)</span> and a width extending from the left to the right boundaries. Either way, you only integrate once to cover the enclosed area.</div>
+<div class="para" id="p-1484">When finding the area enclosed by a single function <span class="process-math">\(y=f(x)\text{,}\)</span> and the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes <span class="process-math">\((x,y)\)</span> represents a point on the function and <span class="process-math">\(dA = y\ dx\)</span> for vertical strips, or <span class="process-math">\(dA = x\ dy\)</span> for horizontal strips.</div>
+</li>
+</ul>
+</div>
+<div class="para" id="p-1485">You must find expressions for the area <span class="process-math">\(dA\)</span> and centroid of the element <span class="process-math">\((\bar{x}_{\text{el}}, \bar{y}_{\text{el}})\)</span> in terms of the bounding functions. This is how we turn an integral over an area into a definite integral which can be integrated.</div>
+<div class="para" id="p-1486">When you have established all these items, you can substitute them into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and proceed to the integration step.</div>
+</li>
+<li id="li-435">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para" id="p-1487">This step is pure mathematics.</div>
+<div class="para" id="p-1488">Here are some tips if you are doing integration “by hand”. Be neat, work carefully, and check your work as you go along. Use proper mathematics notation: don’t lose the differential <span class="process-math">\(dx\)</span> or <span class="process-math">\(dy\)</span> before the integration step, and don’t include it afterwords. Don’t forget to use equals signs between steps. Simplify as you go and don’t substitute numbers or other constants too soon. Pay attention to units: Area <span class="process-math">\(A\)</span> should have units of <span class="process-math">\([\textrm{length}]^2\)</span> and the first moments of area <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> should have units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span> If your units aren’t consistent, then you have made a mistake.</div>
+</li>
+<li id="li-436">
+<span class="heading"><span class="title">Evaluate the centroid.</span></span><div class="para logical" id="p-1489">
+<div class="para">After you have evaluated the integrals you will have expressions or values for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(Q_x\text{,}\)</span> and <span class="process-math">\(Q_y\text{.}\)</span> All that remains is to substitute these into the defining equations for <span class="process-math">\(\bar{x}\)</span> and <span class="process-math">\(\bar{y}\)</span> and simplify. Notice the <span class="process-math">\(Q_x\)</span> goes into the <span class="process-math">\(\bar{y}\)</span> equation, and vice-versa.</div>
+<div class="displaymath process-math" id="md-171">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y}\amp = \frac{Q_x}{A}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1490">Finally, plot the centroid at <span class="process-math">\((\bar{x}, \bar{y})\)</span> on your sketch and decide if your answer makes sense for area.</div>
+</li>
+</ol>
+</div>
+<article class="insight remark-like" id="insight-9"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-9"><h4 class="heading">
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">7.7.2</span><span class="period">.</span><span class="space"> </span><span class="title">What is <span class="process-math">\(dA\text{?}\)</span></span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-9"><article class="insight remark-like"> <div class="para" id="p-1491">
+<span class="process-math">\(dA\)</span> is just an area, but an extremely tiny one!</div> <div class="para" id="p-1492">It’s an example of an <dfn class="terminology">differential quantity</dfn> — <dfn class="terminology"></dfn>also called an <dfn class="terminology">infinitesimal</dfn>. A differential quantity is a value which is as close to zero as it can possibly be without actually being zero. You can think of its value as <span class="process-math">\(\frac{1}{\infty}\text{.}\)</span> Integration is the process of adding up an infinite number of infinitesimal quantities.</div> <div class="para" id="p-1493">Some other differential quantities we will see in statics are <span class="process-math">\(dx\text{,}\)</span> <span class="process-math">\(dy\)</span> and <span class="process-math">\(dz\text{,}\)</span> which are infinitesimal increments of distance; <span class="process-math">\(dV\text{,}\)</span> which is a differential volume; <span class="process-math">\(dW\text{,}\)</span> a differential weight; <span class="process-math">\(dm\text{,}\)</span> a differential mass, and so on.</div> <div class="para" id="p-1494">Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by <span class="process-math">\(dA =y\ dx\)</span> then, even though height <span class="process-math">\(y\)</span> is a real number, the area is a differential because <span class="process-math">\(dx\)</span> is differential.</div> <div class="para" id="p-1495">If you like, you can pronounce the <span class="process-math">\(d\)</span> as “the little bit of” so <span class="process-math">\(dA = y\ dx\)</span> reads “The little bit of area is the height <span class="process-math">\(y\)</span> times a little bit x.” and <span class="process-math">\(A = \int dA\)</span> reads “The total area is the sum of the little bits of area.”</div></article></div></section><section class="subsection" id="area-of-a-general-spandrel"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.7.2</span><span class="space"> </span><span class="title">Area of a General Spandrel</span>
+</h3>
+<div class="para" id="p-1496">In this section we will use the integration process describe above to calculate the area of the general spandrel shown in <a href="" class="xref" data-knowl="./knowl/general-spandrel-ggb.html" title="Figure 7.7.3">Figure 7.7.3</a>. A <dfn class="terminology">spandrel</dfn> is the area between a curve and a rectangular frame. This is a general spandrel because the curve is defined by the function <span class="process-math">\(y = k x^n\text{,}\)</span> where <span class="process-math">\(n\)</span> is not specified. If <span class="process-math">\(n = 0\)</span> the function is constant, if <span class="process-math">\(n=1\)</span> then it is a straight line, <span class="process-math">\(n=2\)</span> it’s a parabola, etc.. You can change the slider to see the effect of different values of <span class="process-math">\(n\text{.}\)</span>
+</div>
+<figure class="figure figure-like" id="general-spandrel-ggb"><iframe id="general-spandrel_interactive" width="600" height="390" src="general-spandrel_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-47" id="instructions-47"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-47"><div class="solution-like"><div class="para" id="p-1498">Use the sliders to vary the exponent <span class="process-math">\(n\)</span> and the widths of the differential strips.</div></div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.3<span class="period">.</span></span><span class="space"> </span>A general spandrel of the form <span class="process-math">\(y = k x^n\)</span></figcaption></figure><div class="para logical" id="p-1499">
+<div class="para">Begin by identifying the bounding functions. From the diagram, we see that the boundaries are the function, the <span class="process-math">\(x\)</span> axis and, the vertical line <span class="process-math">\(x = b\text{.}\)</span> The function <span class="process-math">\(y=kx^n\)</span> has a constant <span class="process-math">\(k\)</span> which has not been specified, but which is not arbitrary. The diagram indicates that the function passes through the origin and point <span class="process-math">\((a,b)\text{,}\)</span> and there is only one value of <span class="process-math">\(k\)</span> which will cause this. We can find <span class="process-math">\(k\)</span> by substituting <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> into the function for <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> then solving for it.</div>
+<div class="displaymath process-math" id="md-172">
+\begin{align*}
+y \amp = k x^n\\
+b \amp = k a^n\\
+k \amp = \frac{b}{a^n}
+\end{align*}
+</div>
+</div>
+<div class="para logical" id="p-1500">
+<div class="para">Next, choose a differential area. For this problem a vertical strip works well. A vertical strip has a width <span class="process-math">\(dx\text{,}\)</span> and extends from the bottom boundary to the top boundary. Any point on the curve is <span class="process-math">\((x,y)\)</span> and a point directly below it on the <span class="process-math">\(x\)</span> axis is <span class="process-math">\((x,0)\text{.}\)</span> This means that the height of the strip is <span class="process-math">\((y-0) = y\)</span> and the area of the strip is (base <span class="process-math">\(\times\)</span> height), so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA =y\ dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-1501">The limits on the integral are from <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x=a\)</span> on the right since we are integrating with respect to <span class="process-math">\(x\text{.}\)</span>
+</div>
+<div class="para logical" id="p-1502">
+<div class="para">With these details established, the next step is to set up and evaluate the integral <span class="process-math">\(A = \int dA = \int_0^a y\ dx\text{.}\)</span> This is the familiar formula from calculus for the area under a curve. Proceeding with the integration</div>
+<div class="displaymath process-math" id="md-173">
+\begin{align*}
+A \amp = \int_0^a y\ dx \amp \left(y = kx^n\right)\\
+\amp = \int_0^a k x^n dx \amp \text{(integrate)}\\
+\amp = k \left. \frac{x^{n+1}}{n+1} \right \vert_0^a \amp \text{(evaluate limits)} \\
+\amp = k \frac{a^{n+1}}{n+1} \amp \left(k = \frac{b}{a^n}\right)\\
+\amp = \frac{b}{a^n} \frac{a^{n+1}}{n+1} \text{(simplify)}\\
+A \amp = \frac{ab}{n+1} \amp \text{(result)}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1503">This result is not a number, but a general formula for the area under a curve in terms of <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(n\text{.}\)</span> Explore with the interactive, and notice for instance that when <span class="process-math">\(n=0\text{,}\)</span> the shape is a rectangle and <span class="process-math">\(A = ab\text{;}\)</span> when <span class="process-math">\(n=1\)</span> the shape is a triangle and the <span class="process-math">\(A = ab/2\text{;}\)</span> when <span class="process-math">\(n=2\)</span> the shape is a parabola and <span class="process-math">\(A = ab/3\)</span> etc. This single formula gives the equation for the area under a whole family of curves.</div>
+<article class="insight remark-like" id="insight-10"><a href="" data-knowl="" class="id-ref insight-knowl original has-image has-interactive" data-refid="hk-insight-10"><h4 class="heading">
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">7.7.4</span><span class="period">.</span><span class="space"> </span><span class="title">Which is better, horizontal or vertical elements?</span>
+</h4></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-10"><article class="insight remark-like"> <div class="para" id="p-1504">Recall that the first moment of area <span class="process-math">\(Q_x = \int \bar{x}_{\text{el}}\ dA\)</span> is the distance weighted area as measured from a desired axis. The distance term <span class="process-math">\(\bar{x}_{\text{el}}\)</span> is the distance from the desired axis to the centroid of each differential element of area, <span class="process-math">\(dA\text{.}\)</span>
+</div> <div class="para" id="p-1505"></div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:66%;"><div class="para logical" id="p-1506">
+<div class="para">If you’re using a single integral with a <em class="emphasis">vertical</em> element <span class="process-math">\(dA\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = \underbrace{f(x)}_{\text{height}} \underbrace{(dx)}_{\text{base}} = y\,dx
+\end{equation*}
+</div>
+<div class="para">and the horizontal distance from the <span class="process-math">\(y\)</span> axis to the centroid of <span class="process-math">\(dA\)</span> would simply be</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bar{x}_{\text{el}}=x
+\end{equation*}
+</div>
+</div></div>
+<div class="sbspanel middle" style="width:30%;"><img src="external/images/dan-strips-1.svg" role="img" class="contained"></div>
+</div></div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:66%;"><div class="para logical" id="p-1507">
+<div class="para">It is also possible to find <span class="process-math">\(\bar{x}\)</span> using a horizontal element but the computations are a bit more challenging. First the equation for <span class="process-math">\(dA\)</span> changes to</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA= \underbrace{g(y)}_{\text{height}} \underbrace{(dy)}_{\text{base}} = x\,dy\text{.}
+\end{equation*}
+</div>
+</div></div>
+<div class="sbspanel middle" style="width:30%;"><img src="external/images/dan-strips-2.svg" role="img" class="contained"></div>
+</div></div> <div class="para" id="p-1508"></div> <div class="para logical" id="p-1509">
+<div class="para">Additionally, the distance to the centroid of each element, <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> must measure to the middle of the horizontal element. For this triangle,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bar{x}_{\text{el}}=\frac{x}{2}\text{.}
+\end{equation*}
+</div>
+</div> <div class="para" id="p-1510">We find a similar contrast to finding the vertical centroidal distance <span class="process-math">\(\bar{y}\)</span> where it is easier to use a <span class="process-math">\(dy\)</span> element to find <span class="process-math">\(\bar{y}\)</span> than it is to use a <span class="process-math">\(dx\)</span> element.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
+<div class="sbspanel top" style="width:37.5%;"><img src="external/images/dan-strips-3.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:37.5%;"><img src="external/images/dan-strips-4.svg" role="img" class="contained"></div>
+</div></div> <div class="para" id="p-1511">The interactive below compares horizontal and vertical strips for a shape bounded by the parabola <span class="process-math">\(y^2 = x\)</span> and the diagonal line <span class="process-math">\(y = x-2\text{.}\)</span> Horizontal strips are a better choice in this case, because the left and right boundaries are easy to express as functions of <span class="process-math">\(y\text{.}\)</span> If vertical strips are chosen, the parabola must be expressed as two different functions of <span class="process-math">\(x\text{,}\)</span> and two integrals are needed to cover the area, the first from <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=1\text{,}\)</span> and the second from <span class="process-math">\(x=1\)</span> to <span class="process-math">\(x=4\text{.}\)</span>
+</div> <figure class="figure figure-like" id="integrate_2_curves-ggb"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;">
+<iframe id="integrate_2_curves_interactive" width="450" height="292" src="integrate_2_curves_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-48" id="instructions-48"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-48"><div class="solution-like">
+<div class="para" id="p-1513">This interactive shows the difference between horizontal and vertical differential elements <span class="process-math">\(dA\text{.}\)</span>
+</div>
+<div class="para" id="p-1514">Note that for vertical elements, the lower bounding function changes at <span class="process-math">\(x = 1\text{,}\)</span> whereas for horizontal strips the bounding functions don’t change over the range of <span class="process-math">\(y\text{.}\)</span>
+</div>
+<div class="para" id="p-1515">Use the slider to switch to the differential element.</div>
+</div></div>
+</div>
+</div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.5<span class="period">.</span></span><span class="space"> </span>Function demonstrating good and bad choices of differential elements.</figcaption></figure></article></div></section><section class="subsection" id="Chapter_07-examples"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.7.3</span><span class="space"> </span><span class="title">Examples</span>
+</h3>
+<div class="para" id="p-1516">This section contains several examples of finding centroids by integration, starting with very simple shapes and getting progressively more difficult. All the examples include interactive diagrams to help you visualize the integration process, and to see how <span class="process-math">\(dA\)</span> is related to <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span>
+</div>
+<div class="para" id="p-1517">The first two examples are a rectangle and a triangle evaluated three different ways: with vertical strips, horizontal strips, and using double integration. The different approaches produce identical results, as you would expect. You should try to decide which method is easiest for a particular situation.</div>
+<article class="example example-like" id="Chapter_07-example-centroid-of-a-rectangle"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.6</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a rectangle.</span>
+</h4>
+<div class="para" id="p-1518">Use integration to show that the centroid of a rectangle with a base <span class="process-math">\(b\)</span> and a height of <span class="process-math">\(h\)</span> is at its center.</div> <figure class="figure figure-like" id="figure-140"><iframe id="ggb_integrate_rectangle_interactive" width="600" height="300" src="ggb_integrate_rectangle_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-49" id="instructions-49"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-49"><div class="solution-like">
+<div class="para" id="p-1520">This interactive shows three possible differential elements to use for integration.</div>
+<div class="para" id="p-1521">Use the red slider to change the element.</div>
+</div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.7<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-64" id="answer-64"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-64"><div class="answer solution-like"><div class="para logical" id="p-1522"><div class="displaymath process-math" id="men-57">
+\begin{equation}
+\bar{x} = b/2 \qquad \bar{y}=h/2\tag{7.7.3}
+\end{equation}
+</div></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-70" id="solution-70"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-70"><div class="solution solution-like">
+<div class="para" id="p-1523">This solution demonstrates solving integrals using vertical rectangular strips. Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</div> <div class="para logical" id="p-1524"><ol class="decimal">
+<li id="li-437">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1525">The bounding functions in this example are vertical lines <span class="process-math">\(x=0\)</span> and <span class="process-math">\(x=a\text{,}\)</span> and horizontal lines <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span>
+</div>
+<div class="para" id="p-1526">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,h)\)</span> on the top of the rectangle, and has a differential width <span class="process-math">\(dx\text{.}\)</span>
+</div>
+<div class="para logical" id="p-1527">
+<div class="para">The area of the strip is the base times the height, so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = h\ dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1528">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-174">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = h/2
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1529">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits on <span class="process-math">\(x\)</span> run from <span class="process-math">\(x=0\)</span> at the left to <span class="process-math">\(x=b\)</span> on the right. For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{y}_{\text{el}}\)</span> and the left or right limits may be functions of <span class="process-math">\(x\text{.}\)</span>
+</div>
+</li>
+<li id="li-438">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1530">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-175">
+\begin{align*}
+A \amp = \int dA \amp Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^b h\ dx \amp \amp = \int_0^b \frac{h}{2} ( h\ dx ) \amp \amp = \int_0^b x\; (h\ dx)\\
+\amp = \Big [ hx \Big ]_0^b \amp \amp = \frac{h^2}{2} \int_0^b dx \amp \amp = h \int_0^b x \ dx\\
+\amp = hb - 0 \amp \amp = \frac{h^2}{2} \Big [x \Big ]_0^b \amp \amp = h \left[\frac{x^2}{2} \right ]_0^b\\
+A \amp = bh \amp Q_x \amp = \frac{h^2 b}{2} \amp Q_y \amp = \frac{b^2 h}{2}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1531">Unsurprisingly, we learn that the area of a rectangle is base times height. Since the area formula is well known, it was not really necessary to solve the first integral. Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\textrm{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span>
+</div>
+</li>
+<li id="li-439">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1532">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-176">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{2} \bigg/ { bh} \amp \amp = \frac{h^2b}{2} \bigg/ { bh}\\
+\amp = \frac{b}{2}\amp \amp = \frac{h}{2}\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-71" id="solution-71"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-71"><div class="solution solution-like">
+<div class="para" id="p-1533">This solution demonstrates solving integrals using horizontal rectangular strips. Set the slider on the diagram to <span class="process-math">\(b\;dy\)</span> to see a representative element.</div> <div class="para logical" id="p-1534"><ol class="decimal">
+<li id="li-440">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1535">The bounding functions <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span>
+</div>
+<div class="para" id="p-1536">The strip extends from <span class="process-math">\((0,y)\)</span> on the <span class="process-math">\(y\)</span> axis to <span class="process-math">\((b,y)\)</span> on the right, and has a differential height <span class="process-math">\(dy\text{.}\)</span>
+</div>
+<div class="para logical" id="p-1537">
+<div class="para">The area of the strip is the base times the height, so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = b\ dy\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1538">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-177">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = b/2 \\
+\bar{y}_{\text{el}} \amp = y
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1539">With horizontal strips the variable of integration is <span class="process-math">\(y\text{,}\)</span> and the limits on <span class="process-math">\(y\)</span> run from <span class="process-math">\(y=0\)</span> at the bottom to <span class="process-math">\(y = h\)</span> at the top.</div>
+<div class="para" id="p-1540">For a rectangle, both 0 and <span class="process-math">\(h\)</span> are constants, but in other situations, <span class="process-math">\(\bar{x}_{\text{el}}\)</span> and the upper or lower limits may be functions of <span class="process-math">\(y\text{.}\)</span>
+</div>
+</li>
+<li id="li-441">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1541">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate. The results are the same as we found using vertical strips.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-178">
+\begin{align*}
+A \amp = \int dA \amp Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^h b\ dy \amp \amp = \int_0^h y\ ( b\ dy ) \amp \amp = \int_0^h \frac{b}{2} (b\ dy)\\
+\amp = \Big [ by \Big ]_0^h \amp \amp = b\int_0^h y\ dy \amp \amp = \frac{b^2}{2} \int_0^h dy\\
+\amp = bh \amp \amp = b\ \Big [\frac{y^2}{2} \Big ]_0^h \amp \amp = \frac{b^2}{2} \Big[y \Big ]_0^h\\
+A\amp = bh \amp Q_x \amp = \frac{h^2 b}{2} \amp Q_y \amp = \frac{b^2 h}{2}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-442">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1542">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-179">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{2} \bigg/ { bh} \amp \amp = \frac{h^2b}{2} \bigg/ { bh}\\
+\amp = \frac{b}{2}\amp \amp = \frac{h}{2}\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-72" id="solution-72"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">3</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-72"><div class="solution solution-like">
+<div class="para" id="p-1543">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</div> <div class="para logical" id="p-1544"><ol class="decimal">
+<li id="li-443">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1545">Set the slider on the diagram to <span class="process-math">\(dx\;dy\)</span> to see a representative element.</div>
+<div class="para" id="p-1546">The bounding functions <span class="process-math">\(x=0\text{,}\)</span> <span class="process-math">\(x=a\text{,}\)</span> <span class="process-math">\(y = 0\)</span> and <span class="process-math">\(y = h\text{.}\)</span>
+</div>
+<div class="para" id="p-1547">Instead of strips, the integrals will be evaluated using square elements with width <span class="process-math">\(dx\)</span> and height <span class="process-math">\(dy\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+<div class="para logical" id="p-1548">
+<div class="para">The area of the square element is the base times the height, so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = dx\ dy = dy\ dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1549">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-180">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = y
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1550">We will integrate twice, first with respect to <span class="process-math">\(y\)</span> and then with respect to <span class="process-math">\(x\text{.}\)</span> The limits on the first integral are <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(h\)</span> and <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(b\)</span> on the second. For a rectangle, both <span class="process-math">\(b\)</span> and <span class="process-math">\(h\)</span> are constants. In other situations, the upper or lower limits may be functions of <span class="process-math">\(x\)</span> or <span class="process-math">\(y\text{.}\)</span>
+</div>
+</li>
+<li id="li-444">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1551">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral. The results are the same as before.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-181">
+\begin{align*}
+A \amp = \int dA \amp Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^b\int_0^h dy\ dx \amp \amp = \int_0^b\int_0^h y\ dy\ dx \amp \amp = \int_0^b \int_0^h x\ dy\ dx\\
+\amp = \int_0^b \left[ \int_0^h dy \right] dx \amp \amp = \int_0^b \left[\int_0^h y\ dy\right] dx \amp \amp = \int_0^b x \left[ \int_0^h dy\right] dx\\
+\amp = \int_0^b \Big[ y \Big]_0^h dx \amp \amp = \int_0^b \Big[ \frac{y^2}{2} \Big]_0^h dx \amp \amp = \int_0^b x \Big[ y \Big]_0^h dx\\
+\amp = h \int_0^b dx \amp \amp = \frac{h^2}{2} \int_0^b dx \amp \amp = h\int_0^b x\ dx\\
+\amp = h\Big [ x \Big ]_0^b \amp \amp =\frac{h^2}{2} \Big [ x \Big ]_0^b \amp \amp = h \Big [ \frac{x^2}{2} \Big ]_0^b \\
+A\amp = hb \amp Q_x\amp = \frac{h^2b}{2} \amp Q_y \amp = \frac{b^2 h}{2}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-445">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1552">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-182">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{2} \bigg/ { bh} \amp \amp = \frac{h^2b}{2} \bigg/ { bh}\\
+\amp = \frac{b}{2}\amp \amp = \frac{h}{2}\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original has-video" data-refid="hk-solution-73" id="solution-73"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">4</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-73"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-rectangle" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/XoeDvh6NuZk?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+</div></article><article class="example example-like" id="Chapter_07-example-centroid-of-a-triangle"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.8</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a triangle.</span>
+</h4>
+<div class="para" id="p-1553">Use integration to locate the centroid of a triangle with base <span class="process-math">\(b\)</span> and height of <span class="process-math">\(h\)</span> oriented as shown in the interactive.</div> <figure class="figure figure-like" id="figure-141"><iframe id="ggb_integrate_triangle_interactive" width="600" height="300" src="ggb_integrate_triangle_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-50" id="instructions-50"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-50"><div class="solution-like"><div class="para" id="p-1555">Use the red slider to see the options for the differential element.</div></div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.9<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-65" id="answer-65"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-65"><div class="answer solution-like"><div class="para logical" id="p-1556"><div class="displaymath process-math" id="men-58">
+\begin{equation}
+\bar{x} = \frac{2}{3}b \qquad \bar{y}=\frac{1}{3}h\tag{7.7.4}
+\end{equation}
+</div></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-74" id="solution-74"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-74"><div class="solution solution-like">
+<div class="para" id="p-1557">This solution demonstrates finding the centroid of the triangle using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span> Set the slider on the diagram to <span class="process-math">\(y\;dx\)</span> to see a representative element.</div> <div class="para logical" id="p-1558"><ol class="decimal">
+<li id="li-446">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para logical" id="p-1559">
+<div class="para">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = f(x) = \frac{h}{b} x
+\end{equation*}
+</div>
+<div class="para">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1560">
+<div class="para">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span> The area of this strip is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = y dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1561">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-183">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = y/2
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1562">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span>
+</div>
+</li>
+<li id="li-447">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1563">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate. In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-184">
+\begin{align*}
+A \amp = \int dA \amp Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^b y\ dx \amp \amp = \int_0^b \frac{y}{2} (y\ dx ) \amp \amp = \int_0^b x\; (y\ dx)\\
+\amp = \int_0^b \frac{h}{b}x\ dx \amp \amp = \frac{1}{2} \int_0^b \left(\frac{h}{b} x\right)^2\ dx \amp \amp = \int_0^b x\; \left(\frac{h}{b} x \right) \ dx\\
+\amp = \frac{h}{b} \Big [ \frac{x^2}{2} \Big ]_0^b \amp \amp = \frac{h^2}{2 b^2} \int_0^b x^2 dx \amp \amp = \frac{h}{b} \int_0^b x^2 \ dx\\
+\amp = \frac{h}{\cancel{b}} \frac{b^{\cancel{2}}}{2} \amp \amp = \frac{h^2}{2b^2} \Big [\frac{x^3}{3} \Big ]_0^b \amp \amp = \frac{h}{b} \left[\frac{x^3}{3} \right ]_0^b\\
+A \amp =\frac{bh}{2} \amp Q_x \amp = \frac{h^2 b}{6} \amp Q_y \amp = \frac{b^2 h}{3}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1564">We learn that the area of a triangle is one half base times height. Since the area formula is well known, it would have been more efficient to skip the first integral. Note that <span class="process-math">\(A\)</span> has units of <span class="process-math">\([\textrm{length}]^2\text{,}\)</span> and <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> have units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span>
+</div>
+</li>
+<li id="li-448">
+<span class="heading"><span class="title">Find the Centroid.</span></span><div class="para logical" id="p-1565">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-185">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{3} \bigg/ \frac{bh}{2} \amp \amp = \frac{h^2b}{6} \bigg/ \frac{bh}{2}\\
+\amp = \frac{2}{3}b\amp \amp = \frac{1}{3}h\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-75" id="solution-75"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-75"><div class="solution solution-like">
+<div class="para" id="p-1566">This solution demonstrates solving integrals using horizontal rectangular strips. Set the slider on the diagram to <span class="process-math">\((b-x)\;dy\)</span> to see a representative element.</div> <div class="para logical" id="p-1567"><ol class="decimal">
+<li id="li-449">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para logical" id="p-1568">
+<div class="para">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = f(x) = \frac{h}{b} x\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1569">
+<div class="para">To integrate using horizontal strips, the function <span class="process-math">\(f(x)\)</span> must be inverted to express <span class="process-math">\(x\)</span> in terms of <span class="process-math">\(y\text{.}\)</span> Solving for <span class="process-math">\(f(x)\)</span> for <span class="process-math">\(x\)</span> gives</div>
+<div class="displaymath process-math">
+\begin{equation*}
+x = g(y) = \frac{b}{h} y\text{.}
+\end{equation*}
+</div>
+<div class="para">The limits on the integral are from <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(y = h\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1570">
+<div class="para">The strip extends from <span class="process-math">\((x,y)\)</span> to <span class="process-math">\((b,y)\text{,}\)</span> has a height of <span class="process-math">\(dy\text{,}\)</span> and a length of <span class="process-math">\((b-x)\text{,}\)</span> therefore the area of this strip is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = (b-x) dy\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1571">
+<div class="para">The coordinates of the midpoint of the element are</div>
+<div class="displaymath process-math" id="md-186">
+\begin{align*}
+\bar{y}_{\text{el}} \amp = y\\
+\bar{x}_{\text{el}} \amp = x + \frac{(b-x)}{2} = \frac{b+x}{2}\text{.}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1572">These expressions are recognized as the <em class="emphasis">average</em> of the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of strip’s endpoints.</div>
+<div class="para" id="p-1573">A common student mistake is to use <span class="process-math">\(dA = x\ dy\text{,}\)</span> and <span class="process-math">\(\bar{x}_{\text{el}} = x/2\text{.}\)</span> These would be correct if you were looking for the properties of the area to the left of the curve.</div>
+</li>
+<li id="li-450">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1574">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into the definitions of <span class="process-math">\(Q_x\)</span> and <span class="process-math">\(Q_y\)</span> and integrate. The results are the same as we found using vertical strips. There in no need to evaluate <span class="process-math">\(A = \int dA\)</span> since we know that <span class="process-math">\(A = \frac{bh}{2}\)</span> for a triangle.</div>
+<div class="displaymath process-math" id="md-187">
+\begin{align*}
+Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^h y\ (b-x) \ dy \amp \amp = \int_0^h \frac{(b+x)}{2} (b-x)\ dy\\
+\amp = \int_0^h \left( by - xy\right) \ dy \amp \amp = \frac{1}{2}\int_0^h \left(b^2-x^2\right)\ dy\\
+\amp = \int_0^h \left( by -\frac{by^2}{h}\right) dy \amp \amp = \frac{1}{2}\int_0^h\left( b^2 - \frac{b^2y^2}{h^2}\right) dy\\
+\amp = b \Big [\frac{ y^2}{2} - \frac{y^3}{3h} \Big ]_0^h \amp \amp = \frac{b^2}{2} \Big[y - \frac{y^3}{3 h^2}\Big ]_0^h\\
+\amp = bh^2 \Big (\frac{1}{2} - \frac{1}{3} \Big ) \amp \amp = \frac{1}{2}( b^2h) \Big(1 - \frac{1}{3}\Big )\\
+Q_x \amp = \frac{h^2 b}{6} \amp Q_y \amp = \frac{b^2 h}{3}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1575">It makes solving these integrals easier if you avoid prematurely substituting in the function for <span class="process-math">\(x\)</span> and if you factor out constants whenever possible. Here it <span class="process-math">\(x = g(y)\)</span> was not substituted until the fourth line.</div>
+</li>
+<li id="li-451">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1576">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-188">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{3} \bigg/ \frac{bh}{2} \amp \amp = \frac{h^2b}{6} \bigg/ \frac{bh}{2}\\
+\amp = \frac{2}{3}b\amp \amp = \frac{1}{3}h\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-76" id="solution-76"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">3</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-76"><div class="solution solution-like">
+<div class="para" id="p-1577">This solution demonstrates solving integrals using square elements and double integrals. Set the slider on the diagram to <span class="process-math">\(dx\;dy\)</span> or <span class="process-math">\(dy\;dx\)</span> to see a representative element.</div> <div class="para logical" id="p-1578"><ol class="decimal">
+<li id="li-452">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para logical" id="p-1579">
+<div class="para">As before, the triangle is bounded by the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the line</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = f(x) = \frac{h}{b} x \quad \text{or in terms of } y, \quad x = g(y) = \frac{b}{h} y\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-1580">In this solution the integrals will be evaluated using square differential elements <span class="process-math">\(dA=dy\; dx\)</span> located at <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+<div class="para" id="p-1581">With double integration, you must take care to evaluate the limits correctly, since the limits on the inside integral are functions of the variable of integration of the outside integral. The inside integral essentially stacks the elements into strips and the outside integral adds all the strips to cover the area.</div>
+<div class="para" id="p-1582">Choosing to express <span class="process-math">\(dA\)</span> as <span class="process-math">\(dy\;dx\)</span> means that the integral over <span class="process-math">\(y\)</span> will be conducted first. The limits on the inside integral are from <span class="process-math">\(y = 0\)</span> to <span class="process-math">\(y = f(x)\text{.}\)</span> Then, the limits on the outside integral are from <span class="process-math">\(x = 0\)</span> to <span class="process-math">\(x=b.\)</span>
+</div>
+<div class="para" id="p-1583">Using <span class="process-math">\(dA= dx\;dy\)</span> would reverse the order of integration, so the inside integral’s limits would be from <span class="process-math">\(x = g(y)\)</span> to <span class="process-math">\(x = b\text{,}\)</span> and the limits on the outside integral would be <span class="process-math">\(y=0\)</span> to <span class="process-math">\(y = h\text{.}\)</span> Either choice will give the same results — <em class="emphasis">if you don’t make any errors!</em>
+</div>
+<div class="para logical" id="p-1584">
+<div class="para">The area of the square element is the base times the height, so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = dy\ dx\text{.}
+\end{equation*}
+</div>
+<div class="para">The centroid of the square is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-189">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = y
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-453">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1585">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate the ‘inside’ integral, then the ‘outside’ integral. The results are the same as before.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-190">
+\begin{align*}
+Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^b\int_0^{f(x)} y\ dy\ dx \amp \amp = \int_0^b \int_0^{f(x)} x\ dy\ dx\\
+\amp = \int_0^b \left[\int_0^{f(x)} y\ dy\right] dx \amp \amp = \int_0^b x \left[ \int_0^{f(x)} dy\right] dx\\
+\amp = \int_0^b \left[ \frac{y^2}{2} \right]_0^{f(x)} dx \amp \amp = \int_0^b x \bigg[ y \bigg]_0^{f(x)} dx\\
+\amp = \frac{1}{2}\int_0^b \left[ \frac{h^2}{b^2} x^2 \right] dx \amp \amp = \int_0^b x \left[ \frac{h}{b} x \right] dx\\
+\amp = \frac{h^2}{2b^2} \int_0^b x^2 dx \amp \amp = \frac{h}{b}\int_0^b x^2\ dx\\
+\amp =\frac{h^2}{2b^2} \Big [\frac{x^3}{3} \Big ]_0^b \amp \amp = \frac{h}{b} \Big [ \frac{x^3}{3} \Big ]_0^b \\
+Q_x \amp = \frac{h^2 b}{6} \amp Q_y \amp = \frac{b^2 h}{3}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-454">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1586">
+<div class="para">Substituting Q_x and <span class="process-math">\(Q_y\)</span> along with <span class="process-math">\(A = bh/2\)</span> into the centroid definitions gives</div>
+<div class="displaymath process-math" id="md-191">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{b^2h}{3} \bigg/ \frac{bh}{2} \amp \amp = \frac{h^2b}{6} \bigg/ \frac{bh}{2}\\
+\amp = \frac{2}{3}b\amp \amp = \frac{1}{3}h\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original has-video" data-refid="hk-solution-77" id="solution-77"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">4</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-77"><div class="solution solution-like"><div class="video-box" style="width: 100%;padding-top: 56.25%; margin-left: 0%; margin-right: 0%;"><iframe id="anna-triangle" class="video" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/AksWTa-kiv4?&amp;modestbranding=1&amp;rel=0"></iframe></div></div></div>
+</div></article><div class="para" id="p-1587">The next two examples involve areas with functions for both boundaries,</div>
+<article class="example example-like" id="Chapter_07-example-centroid-of-a-semi-parabola"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.10</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a semi-parabola.</span>
+</h4>
+<div class="para" id="p-1588">Find the coordinates of the centroid of a parabolic spandrel bounded by the <span class="process-math">\(y\)</span> axis, a horizontal line passing through the point <span class="process-math">\((a,b),\)</span> and a parabola with a vertex at the origin and passing through the same point. <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are positive integers.</div> <figure class="figure figure-like" id="figure-142"><iframe id="ggb_integrate_above_parabola_interactive" width="600" height="300" src="ggb_integrate_above_parabola_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-51" id="instructions-51"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-51"><div class="solution-like"><div class="para" id="p-1589">In this diagram you may change the positions of the red points.</div></div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.11<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-66" id="answer-66"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-66"><div class="answer solution-like"><div class="para logical" id="p-1590"><div class="displaymath process-math">
+\begin{equation*}
+\bar{x} = \frac{3}{8} a \qquad \bar{y} \frac{2}{5} b
+\end{equation*}
+</div></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-78" id="solution-78"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-78"><div class="solution solution-like">
+<div class="para" id="p-1591">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with vertical strips to find the centroid of a spandrel.</div> <div class="para logical" id="p-1592"><ol class="decimal">
+<li id="li-455">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1593">Determining the bounding functions and setting up the integrals is usually the most difficult part of problems like this. Begin by drawing and labeling a sketch of the situation.</div>
+<div class="para logical" id="p-1594"><ol class="lower-alpha">
+<li id="li-456"><div class="para" id="p-derived-li-456">Place a point in the first quadrant and label it <span class="process-math">\(P=(a,b)\text{.}\)</span> This point is in the first quadrant and fixed since we are told that <span class="process-math">\(a\)</span> and <span class="process-math">\(b\)</span> are positive integers</div></li>
+<li id="li-457"><div class="para" id="p-derived-li-457">Place a horizontal line through <span class="process-math">\(P\)</span> to make the upper bound.</div></li>
+<li id="li-458"><div class="para" id="p-derived-li-458">Sketch in a parabola with a vertex at the origin and passing through <span class="process-math">\(P\)</span> and shade in the enclosed area.</div></li>
+<li id="li-459"><div class="para" id="p-derived-li-459">Decide which differential element you intend to use. For this example we choose to use vertical strips, which you can see if you tick <code class="code-inline tex2jax_ignore">show strips</code> in the interactive above. Horizontal strips <span class="process-math">\(dA = x\ dy\)</span> would give the same result, but you would need to define the equation for the parabola in terms of <span class="process-math">\(y\text{.}\)</span>
+</div></li>
+</ol></div>
+<div class="para" id="p-1595">Determining the equation of the parabola and expressing it in terms of <span class="process-math">\(x\)</span> and any known constants is a critical step. You should remember from algebra that the general equation of parabola with a vertex at the origin is <span class="process-math">\(y = k x^2\text{,}\)</span> where <span class="process-math">\(k\)</span> is a constant which determines the shape of the parabola. If <span class="process-math">\(k \gt 0\text{,}\)</span> the parabola opens upward and if <span class="process-math">\(k \lt 0\text{,}\)</span> the parabola opens downward.</div>
+<div class="para logical" id="p-1596">
+<div class="para">To find the value of <span class="process-math">\(k\text{,}\)</span> substitute the coordinates of <span class="process-math">\(P\)</span> into the general equation, then solve for <span class="process-math">\(k\text{.}\)</span>
+</div>
+<div class="displaymath process-math" id="md-192">
+\begin{align*}
+y \amp = k x^2, \text{ so at } P \\
+(b) \amp = k (a)^2\\
+k \amp= \frac{b}{a^2}
+\end{align*}
+</div>
+</div>
+<div class="para logical" id="p-1597">
+<div class="para">The resulting function of the parabola is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = y(x) = \frac{b}{a^2} x^2\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1598">
+<div class="para">To perform the integrations, express the area and centroidal coordinates of the element in terms of the points at the top and bottom of the strip. The area of the strip is its height times its base, so</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = (b-y)\ dx\text{.}
+\end{equation*}
+</div>
+<div class="para">If you incorrectly used <span class="process-math">\(dA = y\ dx\text{,}\)</span> you would find the centroid of the spandrel below the curve.</div>
+</div>
+<div class="para logical" id="p-1599">
+<div class="para">For vertical strips, the bottom is at <span class="process-math">\((x,y)\)</span> on the parabola, and the top is directly above at <span class="process-math">\((x,b)\text{.}\)</span> The strip has a differential width <span class="process-math">\(dx\text{.}\)</span> The centroid of the strip is located at its midpoint and the coordinates are found by averaging the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> coordinates of the points at the top and bottom.</div>
+<div class="displaymath process-math" id="md-193">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = (x + x)/2 = x\\
+\bar{y}_{\text{el}} \amp = (y+b)/2
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1600">For vertical strips, the integrations are with respect to <span class="process-math">\(x\text{,}\)</span> and the limits on the integrals are <span class="process-math">\(x=0\)</span> on the left to <span class="process-math">\(x = a\)</span> on the right.</div>
+</li>
+<li id="li-460">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para" id="p-1601">We have already established that <span class="process-math">\(y(x) = k x^2\)</span> where <span class="process-math">\(k = b/a^2\text{.}\)</span> To simplify the algebra, it is best not to prematurely substitute y(x) and <span class="process-math">\(k\text{,}\)</span> but you must substitute in any functions of <span class="process-math">\(x\)</span> before you do the integration step.</div>
+<div class="para logical" id="p-1602"><div class="displaymath process-math" id="md-194">
+\begin{align*}
+A \amp = \int dA \amp Q_x \amp = \int \bar{y}_{\text{el}} dA \amp Q_y \amp = \int \bar{x}_{\text{el}} dA \\
+\amp = \int_0^a (b-y)\ dx \amp \amp = \int_0^a \frac{(b+y)}{2} (b-y) dx \amp \amp = \int_0^a x (b-y)\ dx\\
+\amp = \int_0^a (b-kx^2)\ dx \amp \amp = \frac{1}{2}\int_0^a (b^2-y^2)\ dx \amp \amp = \int_o^a x (b-y) \ dx\\
+\amp = \left. bx - k \frac{x^3}{3} \right |_0^a \amp \amp = \frac{1}{2} \int_0^a (b^2-(k x^2)^2)\ dx \amp \amp = \int_o^a x (b-k x^2) \ dx\\
+\amp = ba - k \frac{a^3}{3} \amp \amp = \frac{1}{2} \int_0^a (b^2-k^2 x^4)\ dx \amp \amp = \int_o^a (bx-k x^3) \ dx\\
+\amp = ba - \left(\frac{b}{a^2}\right)\frac{a^3}{3} \amp \amp = \frac{1}{2} \left[b^2 x - k^2 \frac{x^5}{5} \right ]_0^a \amp \amp = \left[\frac{bx^2}{2} - k \frac{x^4}{4}\right ]_0^a\\
+\amp = \frac{3ba}{3} - \frac{ba}{3} \amp \amp = \frac{1}{2} \left[b^2 a - \left(\frac{b}{a^2}\right)^2 \frac{a^5}{5} \right ] \amp \amp = \left[\frac{ba^2}{2} - \left(\frac{b}{a^2}\right) \frac{4^4}{4}\right ]\\
+\amp = \frac{2}{3} ba \amp \amp = \frac{1}{2} b^2a \left[1-\frac{1}{5}\right] \amp \amp = ba^2\left[\frac{1}{2} - \frac{1}{4}\right]\\
+A \amp = \frac{2}{3} ba \amp Q_x \amp = \frac{2}{5} b^2a \amp Q_y \amp = \frac{1}{4} ba^2
+\end{align*}
+</div></div>
+<div class="para" id="p-1603">The area of the spandrel is <span class="process-math">\(2/3\)</span> of the area of the enclosing rectangle and the moments of area have units of <span class="process-math">\([\textrm{length}]^3\text{.}\)</span>
+</div>
+</li>
+<li id="li-461">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1604">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-195">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = {Q_x}{A}\\
+\amp = \frac{ba^2}{4 } \bigg/ \frac{2 ba}{3} \amp \amp = \frac{2 b^2a }{5}\bigg/ \frac{2 ba}{3}\\
+\amp = \frac{3}{8} a \amp \amp = \frac{2}{5} b\text{.}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1605">
+<span class="process-math">\(\bar{x}\)</span> is <span class="process-math">\(3/8\)</span> of the width and <span class="process-math">\(\bar{y}\)</span> is <span class="process-math">\(2/5\)</span> of the height of the enclosing rectangle.</div>
+</li>
+</ol></div>
+</div></div>
+</div></article><article class="example example-like" id="Chapter_07-example-centroid-of-an-area-between-two-curves"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.12</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of an area between two curves.</span>
+</h4>
+<div class="para logical" id="p-1606">
+<div class="para">Use integration to locate the centroid of the area bounded by</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y_1 = \dfrac{x}{4} \text{ and }y_2 = \dfrac{x^2}{2}\text{.}
+\end{equation*}
+</div>
+</div> <figure class="figure figure-like" id="figure-143"><iframe id="ggb_integrate_2_curves_anna_interactive" width="600" height="360" src="ggb_integrate_2_curves_anna_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-52" id="instructions-52"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-52"><div class="solution-like"><div class="para" id="p-1608"><abbr class="abbreviation">Use the red slider to see the options for the differential element.</abbr></div></div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.13<span class="period">.</span></span><span class="space"> </span></figcaption></figure> <div class="para" id="p-1609">Find the centroid location <span class="process-math">\((\bar{x}\text{, }\bar{y})\)</span> of the shaded area between the two curves below.</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-67" id="answer-67"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-67"><div class="answer solution-like"><div class="para logical" id="p-1610"><div class="displaymath process-math" id="men-59">
+\begin{equation}
+\bar{x} = \frac{1}{4} \qquad \bar{y}=\frac{1}{20}\tag{7.7.5}
+\end{equation}
+</div></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-79" id="solution-79"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">1</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-79"><div class="solution solution-like">
+<div class="para" id="p-1611">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span> Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</div> <div class="para logical" id="p-1612"><ol class="decimal">
+<li id="li-462">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para logical" id="p-1613">
+<div class="para">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = f(x) = \frac{h}{b} x
+\end{equation*}
+</div>
+<div class="para">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1614">
+<div class="para">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span> The area of this strip is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = y dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1615">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-196">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = y/2
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1616">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span>
+</div>
+</li>
+<li id="li-463">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1617">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate. In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-197">
+\begin{align*}
+A \amp = \int dA \\
+\amp = \int_0^{1/2} (y_1 - y_2) \ dx \\
+\amp = \int_0^{1/2} \left (\frac{x}{4} - \frac{x^2}{2}\right) \ dx \\
+\amp = \Big [ \frac{x^2}{8} - \frac{x^3}{6} \Big ]_0^{1/2} \\
+\amp = \Big [ \frac{1}{32} - \frac{1}{48} \Big ] \\
+A \amp =\frac{1}{96} 
+\end{align*}
+</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-198">
+\begin{align*}
+Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^{1/2} \left(\frac{y_1+y_2}{2} \right) (y_1-y_2)\ dx \amp \amp = \int_0^{1/2} x(y_1-y_2)\ dx\\
+\amp = \frac{1}{2} \int_0^{1/2} \left(y_1^2 - y_2^2 \right)\ dx \amp \amp = \int_0^{1/2} x\left(\frac{x}{4} - \frac{x^2}{2}\right) \ dx\\
+\amp = \frac{1}{2} \int_0^{1/2} \left(\frac{x^2}{16} - \frac{x^4}{4}\right)\ dx\amp \amp = \int_0^{1/2}\left(\frac{x^2}{4} - \frac{x^3}{2}\right)\ dx\\
+\amp = \frac{1}{2} \Big [\frac{x^3}{48}-\frac{x^5}{20} \Big ]_0^{1/2} \amp \amp = \left[\frac{x^3}{12}- \frac{x^4}{8} \right ]_0^{1/2}\\
+\amp = \frac{1}{2} \Big [\frac{1}{384}-\frac{1}{640} \Big ] \amp \amp = \Big [\frac{1}{96}-\frac{1}{128} \Big ] \\
+Q_x \amp = \frac{1}{1920} \amp Q_y \amp = \frac{1}{384}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-464">
+<span class="heading"><span class="title">Find the Centroid.</span></span><div class="para logical" id="p-1618">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-199">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{1}{384} \bigg/ \frac{1}{96} \amp \amp = \frac{1}{1920} \bigg/ \frac{1}{96}\\
+\bar{x} \amp= \frac{1}{4} \amp \bar{y}\amp =\frac{1}{20}\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-80" id="solution-80"><span class="type">Solution</span><span class="space"> </span><span class="codenumber">2</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-80"><div class="solution solution-like">
+<div class="para" id="p-1619">This solution demonstrates finding the centroid of the area between two functions using vertical strips <span class="process-math">\(dA = y\ dx\text{.}\)</span> Set the slider on the diagram to <span class="process-math">\(h\;dx\)</span> to see a representative element.</div> <div class="para logical" id="p-1620"><ol class="decimal">
+<li id="li-465">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para logical" id="p-1621">
+<div class="para">The bounding functions in this example are the <span class="process-math">\(x\)</span> axis, the vertical line <span class="process-math">\(x = b\text{,}\)</span> and the straight line through the origin with a slope of <span class="process-math">\(\frac{h}{b}\text{.}\)</span> Using the slope-intercept form of the equation of a line, the upper bounding function is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = f(x) = \frac{h}{b} x
+\end{equation*}
+</div>
+<div class="para">and any point on this line is designated <span class="process-math">\((x,y)\text{.}\)</span>
+</div>
+</div>
+<div class="para logical" id="p-1622">
+<div class="para">The strip extends from <span class="process-math">\((x,0)\)</span> on the <span class="process-math">\(x\)</span> axis to <span class="process-math">\((x,y)\)</span> on the function, has a height of <span class="process-math">\(y\text{,}\)</span> and a differential width <span class="process-math">\(dx\text{.}\)</span> The area of this strip is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+dA = y dx\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1623">
+<div class="para">The centroid of the strip is located at its midpoint so, by inspection</div>
+<div class="displaymath process-math" id="md-200">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = x \\
+\bar{y}_{\text{el}} \amp = y/2
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1624">With vertical strips the variable of integration is <span class="process-math">\(x\text{,}\)</span> and the limits are <span class="process-math">\(x=0\)</span> to <span class="process-math">\(x=b\text{.}\)</span>
+</div>
+</li>
+<li id="li-466">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1625">
+<div class="para">Substitute <span class="process-math">\(dA\text{,}\)</span> <span class="process-math">\(\bar{x}_{\text{el}}\text{,}\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> into <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> and integrate. In contrast to the rectangle example both <span class="process-math">\(dA\)</span> and <span class="process-math">\(\bar{y}_{\text{el}}\)</span> are functions of <span class="process-math">\(x\text{,}\)</span> and will have to be integrated accordingly.</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-201">
+\begin{align*}
+A \amp = \int dA \\
+\amp = \int_0^y (x_2 - x_1) \ dy \\
+\amp = \int_0^{1/8} \left (4y - \sqrt{2y} \right) \ dy \\
+\amp = \Big [ 2y^2 - \frac{4}{3} y^{3/2} \Big ]_0^{1/8} \\
+\amp = \Big [ \frac{1}{32} - \frac{1}{48} \Big ] \\
+A \amp =\frac{1}{96} 
+\end{align*}
+</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html" id="md-202">
+\begin{align*}
+Q_x \amp = \int \bar{y}_{\text{el}}\ dA \amp Q_y \amp = \int \bar{x}_{\text{el}}\ dA \\
+\amp = \int_0^{1/8} y (x_2-x_1)\ dy \amp \amp = \int_0^{1/8} \left(\frac{x_2+x_1}{2} \right) (x_2-x_1)\ dy\\
+\amp = \int_0^{1/8} y \left(\sqrt{2y}-4y\right)\ dy \amp \amp = \frac{1}{2} \int_0^{1/8} \left(x_2^2 - x_1^2\right) \ dy\\
+\amp = \int_0^{1/8} \left(\sqrt{2} y^{3/2} - 4y^2 \right)\ dy\amp \amp = \frac{1}{2} \int_0^{1/8}\left(2y -16 y^2\right)\ dy\\
+\amp = \Big [\frac{2\sqrt{2}}{5} y^{5/2} -\frac{4}{3} y^3 \Big ]_0^{1/8} \amp \amp = \frac{1}{2} \left[y^2- \frac{16}{3}y^3 \right ]_0^{1/8}\\
+\amp = \Big [\frac{1}{320}-\frac{1}{384} \Big ] \amp \amp = \frac{1}{2} \Big [\frac{1}{64}-\frac{1}{96} \Big ] \\
+Q_x \amp = \frac{1}{1920} \amp Q_y \amp = \frac{1}{384}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-467">
+<span class="heading"><span class="title">Find the Centroid.</span></span><div class="para logical" id="p-1626">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-203">
+\begin{align*}
+\bar{x} \amp = \frac{Q_y}{A} \amp \bar{y} \amp = \frac{Q_x}{A}\\
+\amp = \frac{1}{384} \bigg/ \frac{1}{96} \amp \amp = \frac{1}{1920} \bigg/ \frac{1}{96}\\
+\bar{x} \amp= \frac{1}{4} \amp \bar{y}\amp =\frac{1}{20}\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+</div></article><div class="para" id="p-1627">The last example demonstrates using double integration with polar coordinates.</div>
+<article class="example example-like" id="four-r-three-pi"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.7.14</span><span class="period">.</span><span class="space"> </span><span class="title">Centroid of a semi-circle.</span>
+</h4>
+<div class="para" id="p-1628">Find the coordinates of the top half of a circle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin.</div> <figure class="figure figure-like" id="figure-144"><iframe id="ggb_integrate_semicircle_interactive" width="600" height="300" src="ggb_integrate_semicircle_interactive-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-53" id="instructions-53"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-53"><div class="solution-like"><div class="para" id="p-1629">This shows the differential element <span class="process-math">\(dA = \rho\, d\rho\, d\theta\)</span> used with polar coordinates.</div></div></div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.7.15<span class="period">.</span></span><span class="space"> </span></figcaption></figure><div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-68" id="answer-68"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-68"><div class="answer solution-like"><div class="para logical" id="p-1630">
+<div class="para">The centroid of a semicircle with radius <span class="process-math">\(r\text{,}\)</span> centered at the origin is</div>
+<div class="displaymath process-math" id="men-60">
+\begin{equation}
+\bar{x} = 0 \qquad \bar{y} = \frac{4r}{3\pi}\tag{7.7.6}
+\end{equation}
+</div>
+</div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-81" id="solution-81"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-81"><div class="solution solution-like">
+<div class="para logical" id="p-1631">
+<div class="para">We will use <a href="" class="xref" data-knowl="./knowl/centroid_eqn.html" title="Equation 7.7.2">(7.7.2)</a> with polar coordinates <span class="process-math">\((\rho, \theta)\)</span> to solve this problem because they are a natural fit for the geometry. In polar coordinates, the equation for the bounding semicircle is simply</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/centroid_eqn.html">
+\begin{equation*}
+\rho = r \text{.}
+\end{equation*}
+</div>
+</div> <div class="para" id="p-1632">Normally this involves evaluating three integrals but as you will see, we can take some shortcuts in this problem. Otherwise we will follow the same procedure as before.</div> <div class="para logical" id="p-1633"><ol class="decimal">
+<li id="li-468">
+<span class="heading"><span class="title">Set up the integrals.</span></span><div class="para" id="p-1634">Divide the semi-circle into "rectangular" differential elements of area <span class="process-math">\(dA\text{,}\)</span> as shown in the interactive when you select <code class="code-inline tex2jax_ignore">Show element</code>. This shape is not really a rectangle, but in the limit as <span class="process-math">\(d\rho\)</span> and <span class="process-math">\(d\theta\)</span> approach zero, it doesn’t make any difference.</div>
+<div class="para logical" id="p-1635">
+<div class="para">The radial height of the rectangle is <span class="process-math">\(d\rho\)</span> and the tangential width is the arc length <span class="process-math">\(\rho d\theta\text{.}\)</span> The product is the differential area <span class="process-math">\(dA\text{.}\)</span>
+</div>
+<div class="displaymath process-math" id="men-61">
+\begin{equation}
+dA = (d\rho)(\rho\ d\theta) = \rho\ d\rho\ d\theta\text{.}\tag{7.7.7}
+\end{equation}
+</div>
+</div>
+<div class="para logical" id="p-1636">
+<div class="para">The differential element is located at <span class="process-math">\((\rho, \theta)\)</span> in polar coordinates. Expressing this point in rectangular coordinates gives</div>
+<div class="displaymath process-math" id="md-204">
+\begin{align*}
+\bar{x}_{\text{el}} \amp = \rho \cos \theta\\
+\bar{y}_{\text{el}} \amp = \rho \sin \theta\text{.}
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-469">
+<span class="heading"><span class="title">Solve the integrals.</span></span><div class="para logical" id="p-1637">
+<div class="para">The area of a semicircle is well known, so there is no need to actually evaluate <span class="process-math">\(A = \int dA\text{,}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = \int dA = \frac{\pi r^2}{2}\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1638">
+<div class="para">Since the semi-circle is symmetrical about the <span class="process-math">\(y\)</span> axis,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q_y = \int \bar{x}_{\text{el}}\; dA= 0\text{.}
+\end{equation*}
+</div>
+<div class="para">This is because each element of area to the right of the <span class="process-math">\(y\)</span> axis is balanced by a corresponding element the same distance the left which cancel each other out in the sum.</div>
+</div>
+<div class="para logical" id="p-1639">
+<div class="para">All that remains is to evaluate the integral <span class="process-math">\(Q_x\)</span> in the numerator of</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bar{y} = \frac{Q_x}{A} = \frac{\bar{y}_{\text{el}}\; dA}{A}
+\end{equation*}
+</div>
+</div>
+<div class="para logical" id="p-1640">
+<div class="para">The differential area <span class="process-math">\(dA\)</span> is the product of two differential quantities, we will need to perform a double integration.</div>
+<div class="displaymath process-math" id="md-205">
+\begin{align*}
+Q_x \amp = \int \bar{y}_{\text{el}} dA \\
+\amp = \int_0^\pi \int_0^r (\rho \sin \theta) \rho \; d\rho\; d\theta\\
+\amp = \int_0^\pi \sin \theta \left[ \int_0^r \rho^2 \; d\rho\right ] d\theta\\
+\amp = \int_0^\pi \sin \theta \left[ \frac{\rho^3} {3}\right ]_0^r \; d\theta\\
+\amp = \frac{r^3}{3} \ \int_0^\pi \sin \theta \; d\theta\\
+\amp = \frac{r^3}{3} \left[ - \cos \theta \right]_0^\pi\\
+\amp = -\frac{r^3}{3} \left[ \cos \pi - \cos 0 \right ]\\
+\amp = -\frac{r^3}{3} \left[ (-1) - (1) \right ]\\
+Q_x \amp = \frac{2}{3} r^3
+\end{align*}
+</div>
+</div>
+</li>
+<li id="li-470">
+<span class="heading"><span class="title">Find the centroid.</span></span><div class="para logical" id="p-1641">
+<div class="para">Substituting the results into the definitions gives</div>
+<div class="displaymath process-math" id="md-206">
+\begin{align*}
+\bar{y} \amp = \frac{Q_x}{A} \\
+\amp = \frac{2 r^3}{3} \bigg/ \frac{\pi r^2}{2}\\
+\amp = \frac{4r}{3\pi}\text{.}
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-1642">So <span class="process-math">\(\bar{x}=0\)</span> and lies on the axis of symmetry, and <span class="process-math">\(\bar{y} =\dfrac{4r}{3\pi}\)</span> above the diameter.</div>
+<div class="para logical" id="p-1643">
+<div class="para">This result can be extended by noting that a semi-circle is mirrored quarter-circles on either side of the <span class="process-math">\(y\)</span> axis. These must have the same <span class="process-math">\(\bar{y}\)</span> value as the semi-circle. Further, quarter-circles are symmetric about a <span class="process-math">\(\ang{45}\)</span> line, so for the quarter-circle in the first quadrant,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bar{x} = \bar{y} = \frac{4r}{3\pi}\text{.}
+\end{equation*}
+</div>
+</div>
+</li>
+</ol></div>
+</div></div>
+</div></article></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="Chapter_07-average-value-of-a-function.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="distributed-loads.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script>
+</head>
+<body class="ignore-math">
+<div class="solution solution-like">
+<h4 class="heading">
+<span class="type">Solution</span><span class="space"> </span><span class="codenumber">3.5.4.1</span><span class="period">.</span>
+</h4>
+<div class="para logical">
+<div class="para">In this situation, the directions of all four forces are specified by the angles in the free-body diagram, and the magnitude of the weight is known. The three unknowns are the magnitudes of forces <span class="process-math">\(\vec{A}\text{,}\)</span> <span class="process-math">\(\vec{B}\text{,}\)</span> and <span class="process-math">\(\vec{C}\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+W = m g = \kg{20}\ \aSI{9.81} = \N{196.2}
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">We will first find unit vectors in the directions of the four forces by inspection of the free-body diagram. This step requires visualizing the component’s unit vectors and determining the angles each makes with the coordinate axis.</div>
+<div class="displaymath process-math">
+\begin{align*}
+\hat{\vec{W}} \amp = \langle 0, -1, 0 \rangle \\
+\hat{\vec{A}} \amp = \langle \cos \ang{35}, \cos{55}, 0 \rangle\\
+\hat{\vec{B}} \amp = \langle -\cos \ang{15} \cos \ang{30}, \cos \ang{75}, -\cos \ang{15} \cos \ang{60} \rangle\\
+\hat{\vec{C}} \amp = \langle 0, \cos{70}, \cos \ang{20} \rangle
+\end{align*}
+</div>
+</div> <div class="para logical">
+<div class="para">Particle equilibrium requires that <span class="process-math">\(\sum \vec{F} = 0\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A\ \hat{\vec{A}} + B\ \hat{\vec{B}} + C\ \hat{\vec{C}} = - W\ \hat{\vec{W}}
+\end{equation*}
+</div>
+<div class="para">This is a 3 <span class="process-math">\(\times\)</span> 3 system of three simultaneous equations, one for each coordinate direction, which needs to be solved for <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\text{,}\)</span> and <span class="process-math">\(C\text{.}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{align*}
+A \cos \ang{35} - B \cos \ang{15} \cos \ang{30} + 0 \amp = 0 \amp \amp \amp (\Sigma F_x \amp= 0)\\
+A \cos \ang{55} + B \cos \ang{75} + C \cos \ang{70} \amp = \N{196.2} \amp \amp \amp (\Sigma F_y \amp= 0)\\
+0 - \cos \ang{15} \cos \ang{60} + C \cos \ang{20} \amp = 0 \amp \amp \amp (\Sigma F_z \amp= 0)
+\end{align*}
+</div>
+</div> <div class="para logical">
+<div class="para">These can be solved by any method you choose. Here we will use Sage. Evaluating the coefficients and expressing the equations in matrix form gives</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{bmatrix} 0.819 \amp -0.837 \amp 0 \\ 0.574 \amp 0.259 \amp 0.342 \\ 0 \amp -0.482 \amp 0.940 \end{bmatrix} \begin{bmatrix} A \\ B \\ C\\ \end{bmatrix} = \begin{bmatrix} 0 \\ \N{196.2} \\ 0 \end{bmatrix} \text{.}
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">This is an equation in the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+[A][x] =[B]\text{.}
+\end{equation*}
+</div>
+<div class="para">Entering the coefficient matrices into Sage.</div>
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-2"><script type="text/x-sage">A = Matrix([[0.819,-0.837,0],[0.574,0.259, 0.342],[0,-0.482,0.940]])
+B = vector([0, 196.2, 0]) 
+x = A.solve_right(B)
+x
+</script></pre> <div class="para logical">
+<div class="para">After evaluating, we learn that</div>
+<div class="displaymath process-math">
+\begin{align*}
+A \amp = \N{196.4} \amp B \amp = \N{192.2} \amp C \amp = \N{98.5}\text{.}
+\end{align*}
+</div>
+</div>
+</div>
+<span class="incontext"><a href="ch3-3d-particles.html#solution-44" class="internal">in-context</a></span>
+</body>
+</html>
