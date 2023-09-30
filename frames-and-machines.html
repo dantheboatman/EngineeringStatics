@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US" dir="ltr">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Statics: Frames and Machines</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
+<meta property="book:title" content="Engineering Statics">
+<meta property="book:author" content="Daniel W. Baker">
+<meta property="book:author" content="William Haynes">
+<link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
+  },
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        },
+        ""
+      ]
+    }
+  },
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
+  },
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
+  },
+  "startup": {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  }
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.31/pretext_search.js"></script><link href="https://pretextbook.org/css/0.81/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.31</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.31/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.31/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.31/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link href="https://pretextbook.org/css/0.81/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/shell_crc.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/colors_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.81/setcolors.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="external/css/statics.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" target="_blank" href="https://engineeringstatics.org"><img src="external/images/front_cover-160x200.png" alt="Logo image"></a><div class="title-container">
+<h1 class="heading"><a href="book-1.html"><span class="title">Engineering Statics:</span> <span class="subtitle">Open and Interactive</span></a></h1>
+<p class="byline">Daniel W. Baker, William Haynes</p>
+</div>
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" title="Contents"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5d2;</span><span class="name">Contents</span></button><div class="searchbox">
+<div class="searchwidget"><button id="searchbutton" class="searchbutton button" type="button" title="Search book"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe8b6;</span><span class="name">Search Book</span></button></div>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<div class="search-results-controls">
+<input aria-label="Search term" id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search term"><button title="Close search" id="closesearchresults" class="closesearchresults"><span class="material-symbols-outlined">close</span></button>
+</div>
+<h2 class="search-results-heading">Search Results: </h2>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
+</div>
+</div>
+<span class="nav-other-controls"></span><span class="treebuttons"><a class="previous-button button" href="method-of-sections.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_06.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="Chapter_06-summary.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
+\renewcommand{\vec}{\mathbf}
+\newcommand{\ihat}{\vec{i}}
+\newcommand{\jhat}{\vec{j}}
+\newcommand{\khat}{\vec{k}}
+\DeclareMathOperator{\proj}{proj}
+
+
+
+\newcommand{\kg}[1]{#1~\mathrm{kg} }
+\newcommand{\lbm}[1]{#1~\mathrm{lbm} }
+\newcommand{\slug}[1]{#1~\mathrm{slug}}
+
+\newcommand{\m}[1]{#1~\mathrm{m}}
+\newcommand{\km}[1]{#1~\mathrm{km}}
+\newcommand{\cm}[1]{#1~\mathrm{cm}}
+\newcommand{\mm}[1]{#1~\mathrm{mm}}
+\newcommand{\ft}[1]{#1~\mathrm{ft}}
+\newcommand{\inch}[1]{#1~\mathrm{in}} 
+
+\newcommand{\N}[1]{#1~\mathrm{N} }
+\newcommand{\kN}[1]{#1~\mathrm{kN} }
+\newcommand{\MN}[1]{#1~\mathrm{MN} }
+\newcommand{\lb}[1]{#1~\mathrm{lb} }
+\newcommand{\lbf}[1]{#1~\mathrm{lbf} }
+
+\newcommand{\Nm}[1]{#1~\mathrm{N}\!\cdot\!\mathrm{m} }
+\newcommand{\kNm}[1]{#1~\mathrm{kN}\!\cdot\!\mathrm{m} }
+\newcommand{\ftlb}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lb} }
+\newcommand{\ftlbf}[1]{#1~\mathrm{ft}\!\cdot\!\mathrm{lbf} }
+\newcommand{\inlb}[1]{#1~\mathrm{in}\!\cdot\!\mathrm{lb} }   
+
+\newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
+\newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
+\newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
+\newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
+\newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
+\newcommand{\psf}[1]{#1~\mathrm{lb}/\mathrm{ft}^2 }
+\newcommand{\pqf}[1]{#1~\mathrm{lb}/\mathrm{ft}^3 }
+\newcommand{\Nsm}[1]{#1~\mathrm{N}/\mathrm{m}^2 }
+\newcommand{\kgsm}[1]{#1~\mathrm{kg}/\mathrm{m}^2 }
+\newcommand{\kgqm}[1]{#1~\mathrm{kg}/\mathrm{m}^3 }
+\newcommand{\Pa}[1]{#1~\mathrm{Pa} }
+\newcommand{\kPa}[1]{#1~\mathrm{kPa} }
+
+\newcommand{\aSI}[1]{#1~\mathrm{m}/\mathrm{s}^2 }
+\newcommand{\aUS}[1]{#1~\mathrm{ft}/\mathrm{s}^2 }
+
+\newcommand{\unit}[1]{#1~\mathrm{unit} }
+\newcommand{\ang}[1]{#1^\circ }
+\newcommand{\second}[1]{#1~\mathrm{s} }
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2 focused" data-preexpanded-levels="0" data-max-levels="2"><ul class="structural contains-active toc-item-list">
+<li class="toc-item toc-frontmatter">
+<div class="toc-title-box"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-preface">
+<div class="toc-title-box"><a href="preface.html" class="internal"><span class="title">About this Book</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-contributors"><div class="toc-title-box"><a href="preface.html#contributors-1" class="internal"><span class="title"></span></a></div></li></ul>
+</li>
+<li class="toc-item toc-preface"><div class="toc-title-box"><a href="acknowledgement.html" class="internal"><span class="title">Acknowledgements</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_01.html" class="internal"><span class="codenumber">1</span> <span class="title">Introduction to Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="newtons-laws.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Newton’s Laws of Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-first-law" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Newton’s 1st Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-second-law" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Newton’s 2nd Law</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="newtons-laws.html#newtons-third-law" class="internal"><span class="codenumber">1.1.3</span> <span class="title">Newton’s 3rd Law</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-units.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Units</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-forces.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_01-problem-solving.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Problem Solving</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_02.html" class="internal"><span class="codenumber">2</span> <span class="title">Forces and Other Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_02-vectors.html" class="internal"><span class="codenumber">2.1</span> <span class="title">Vectors</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html" class="internal"><span class="codenumber">2.2</span> <span class="title">One-Dimensional Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#one-dimensional-vector-addition" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#vector-subtraction-1d" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Vector Subtraction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-one-dimensional-vectors.html#Chapter_02-vector-multiplication-by-a-scalar" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Vector Multiplication by a Scalar</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cartesian-coords-2d.html" class="internal"><span class="codenumber">2.3</span> <span class="title">2D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#rectangular-coords" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#polar-coords" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Polar Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cartesian-coords-2d.html#coord-transformation" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Coordinate Transformation</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="coordinates-3d.html" class="internal"><span class="codenumber">2.4</span> <span class="title">3D Coordinate Systems &amp; Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-rectangular-coordinates" class="internal"><span class="codenumber">2.4.1</span> <span class="title">Rectangular Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-direction-cosine-angles" class="internal"><span class="codenumber">2.4.2</span> <span class="title">Direction Cosine Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-spherical-coordinates" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Spherical Coordinates</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="coordinates-3d.html#Chapter_02-cylindrical-coordinates" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Cylindrical Coordinates</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_02-unit-vectors.html" class="internal"><span class="codenumber">2.5</span> <span class="title">Unit Vectors</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#unit-vectors" class="internal"><span class="codenumber">2.5.1</span> <span class="title">Cartesian Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-relation-between-vectors-and-unit-vectors" class="internal"><span class="codenumber">2.5.2</span> <span class="title">Relation between Vectors and Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-force-vectors-from-position-vectors" class="internal"><span class="codenumber">2.5.3</span> <span class="title">Force Vectors from Position Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_02-unit-vectors.html#Chapter_02-unit-vectors-and-direction-cosines" class="internal"><span class="codenumber">2.5.4</span> <span class="title">Unit Vectors and Direction Cosines</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="vector_algebra_2D.html" class="internal"><span class="codenumber">2.6</span> <span class="title">Vector Addition</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-triangle-rule-of-vector-addition" class="internal"><span class="codenumber">2.6.1</span> <span class="title">Triangle Rule of Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-orthogonal-components" class="internal"><span class="codenumber">2.6.2</span> <span class="title">Orthogonal Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-graphical-vector-addition" class="internal"><span class="codenumber">2.6.3</span> <span class="title">Graphical Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-trigonometric-vector-addition" class="internal"><span class="codenumber">2.6.4</span> <span class="title">Trigonometric Vector Addition</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-algebraic-addition-of-components" class="internal"><span class="codenumber">2.6.5</span> <span class="title">Algebraic Addition of Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="vector_algebra_2D.html#Chapter_02-vector-subtraction" class="internal"><span class="codenumber">2.6.6</span> <span class="title">Vector Subtraction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="dot_products_2D.html" class="internal"><span class="codenumber">2.7</span> <span class="title">Dot Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-magnitude-of-a-vector" class="internal"><span class="codenumber">2.7.1</span> <span class="title">Magnitude of a Vector</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#Chapter_02-angle-between-two-vectors" class="internal"><span class="codenumber">2.7.2</span> <span class="title">Angle between Two Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#vector-projections" class="internal"><span class="codenumber">2.7.3</span> <span class="title">Vector Projection</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="dot_products_2D.html#dot-product-math" class="internal"><span class="codenumber">2.7.4</span> <span class="title">Perpendicular Components</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="cross-product-math.html" class="internal"><span class="codenumber">2.8</span> <span class="title">Cross Products</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-direction-of-unit-vectors" class="internal"><span class="codenumber">2.8.1</span> <span class="title">Direction of the Vector Cross Product</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#Chapter_02-cross-product-of-unit-vectors" class="internal"><span class="codenumber">2.8.2</span> <span class="title">Cross Product of Unit Vectors</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="cross-product-math.html#vector-cross-products" class="internal"><span class="codenumber">2.8.3</span> <span class="title">Cross Product of Arbitrary Vectors</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-1.html" class="internal"><span class="codenumber">2.9</span> <span class="title">Exercises (Ch. 2)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_03.html" class="internal"><span class="codenumber">3</span> <span class="title">Equilibrium of Particles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-intro.html" class="internal"><span class="codenumber">3.1</span> <span class="title">Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="ch3-1d-particles.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Particles</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-1d-particles.html" class="internal"><span class="codenumber">3.3</span> <span class="title">1D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal"><span class="codenumber">3.3.1</span> <span class="title">A simple case</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#scalar-components" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#two-force-bodies" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Two-force Bodies</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-1d-particles.html#one-d-particle-equilibrium" class="internal"><span class="codenumber">3.3.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="CH03-2d-particles.html" class="internal"><span class="codenumber">3.4</span> <span class="title">2D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Chapter_03-introduction" class="internal"><span class="codenumber">3.4.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#general-procedure" class="internal"><span class="codenumber">3.4.2</span> <span class="title">General Procedure</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#ForceTriangleMethod" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Force Triangle Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#Trigonometric-Method" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Trigonometric Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#scalar-components-method" class="internal"><span class="codenumber">3.4.5</span> <span class="title">Scalar Components Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="CH03-2d-particles.html#multi-particle" class="internal"><span class="codenumber">3.4.6</span> <span class="title">Multi-Particle Equilibrium</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="ch3-3d-particles.html" class="internal"><span class="codenumber">3.5</span> <span class="title">3D Particle Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-three-dimensional-coordinate-frame" class="internal"><span class="codenumber">3.5.1</span> <span class="title">Three-Dimensional Coordinate Frame</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-free-body-diagrams" class="internal"><span class="codenumber">3.5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-angles" class="internal"><span class="codenumber">3.5.3</span> <span class="title">Angles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="ch3-3d-particles.html#Chapter_03-general-procedure" class="internal"><span class="codenumber">3.5.4</span> <span class="title">General Procedure</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-2.html" class="internal"><span class="codenumber">3.6</span> <span class="title">Exercises (Ch. 3)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_04.html" class="internal"><span class="codenumber">4</span> <span class="title">Moments and Static Equivalence</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-direction-of-a-moment.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Direction of a Moment</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Magnitude of a Moment</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-magnitude-of-a-moment.html#Chapter_04-definition-of-a-moment" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Definition of a Moment</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="scalar-components-moments.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Scalar Components</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="varignons-theorem.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Varignon’s Theorem</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="varignons-theorem.html#Chapter_04-rectangular-components" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Rectangular Components</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html" class="internal"><span class="codenumber">4.5</span> <span class="title">3D Moments</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#cross-products" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Moment Cross Products</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-point-" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Moment about a Point</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_04-moments-in-three-dimensions.html#Chapter_04-moment-about-a-line" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Moment about a Line</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_04-couples.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Couples</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="equivalent-tranformations.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Equivalent Transformations</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="statically-equivalent-systems.html" class="internal"><span class="codenumber">4.8</span> <span class="title">Statically Equivalent Systems</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-3.html" class="internal"><span class="codenumber">4.9</span> <span class="title">Exercises (Ch. 4)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_05.html" class="internal"><span class="codenumber">5</span> <span class="title">Rigid Body Equilibrium</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-degree-of-freedom.html" class="internal"><span class="codenumber">5.1</span> <span class="title">Degree of Freedom</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-free-body-diagrams.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Free-Body Diagrams</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equations-of-equilibrium.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Equations of Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-2d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.4</span> <span class="title">2D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-3d-rigid-body-equilibrium.html" class="internal"><span class="codenumber">5.5</span> <span class="title">3D Rigid Body Equilibrium</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-stability-and-determinacy.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Stability and Determinacy</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_05-equilibrium-examples-.html" class="internal"><span class="codenumber">5.7</span> <span class="title">Equilibrium Examples</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-4.html" class="internal"><span class="codenumber">5.8</span> <span class="title">Exercises (Ch. 5)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter contains-active">
+<div class="toc-title-box"><a href="Chapter_06.html" class="internal"><span class="codenumber">6</span> <span class="title">Equilibrium of Structures</span></a></div>
+<ul class="structural toc-item-list contains-active">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-structures.html" class="internal"><span class="codenumber">6.1</span> <span class="title">Structures</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Interactions between members</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-interactions-between-members.html#Chapter_06-load-paths" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Load Paths</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_06-trusses.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Trusses</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#intro-trusses" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Introduction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#simple-trusses" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Simple Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#Chapter_06-solving-trusses" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Solving Trusses</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_06-trusses.html#zero-force-members" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Zero-Force Members</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-joints.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Method of Joints</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-joints.html#joints-procedure" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="method-of-sections.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Method of Sections</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="method-of-sections.html#sections-procedure" class="internal"><span class="codenumber">6.5.1</span> <span class="title">Procedure</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section active">
+<div class="toc-title-box"><a href="frames-and-machines.html" class="internal"><span class="codenumber">6.6</span> <span class="title">Frames and Machines</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="frames-and-machines.html#frames-procedure" class="internal"><span class="codenumber">6.6.1</span> <span class="title">Analyzing Frames and Machines</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-procedure" class="internal"><span class="title">Procedure</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="frames-and-machines.html#Chapter_06-free-body-diagram-of-structures" class="internal"><span class="title">Free-body diagram of structures</span></a></div></li>
+</ul>
+</li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_06-summary.html" class="internal"><span class="codenumber">6.7</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-5.html" class="internal"><span class="codenumber">6.8</span> <span class="title">Exercises (Ch. 6)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_07.html" class="internal"><span class="codenumber">7</span> <span class="title">Centroids and Centers of Gravity</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="weghted-average.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Weighted Averages</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-gravity.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Center of Gravity</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-center-of-mass.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Center of Mass</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-centroids.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Centroids</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#centroid-table" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Properties of Common Shapes</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-centroids.html#Chapter_07-relations-between-centroids-and-center-of-gravity" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Relations between Centroids and Center of gravity</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="composite-parts.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Centroids using Composite Parts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-composite-parts-method" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Composite Parts Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="composite-parts.html#Chapter_07-centroids-of-3d-objects" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Centroids of 3D objects</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_07-average-value-of-a-function.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Average Value of a Function</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="centroids-by-integration.html" class="internal"><span class="codenumber">7.7</span> <span class="title">Centroids using Integration</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-integration-process" class="internal"><span class="codenumber">7.7.1</span> <span class="title">Integration Process</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#area-of-a-general-spandrel" class="internal"><span class="codenumber">7.7.2</span> <span class="title">Area of a General Spandrel</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="centroids-by-integration.html#Chapter_07-examples" class="internal"><span class="codenumber">7.7.3</span> <span class="title">Examples</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="distributed-loads.html" class="internal"><span class="codenumber">7.8</span> <span class="title">Distributed Loads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-magnitude" class="internal"><span class="codenumber">7.8.1</span> <span class="title">Equivalent Magnitude</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-equivalent-location" class="internal"><span class="codenumber">7.8.2</span> <span class="title">Equivalent Location</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="distributed-loads.html#Chapter_07-distributed-load-applications" class="internal"><span class="codenumber">7.8.3</span> <span class="title">Distributed Load Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_07-fluid-statics.html" class="internal"><span class="codenumber">7.9</span> <span class="title">Fluid Statics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-principles-of-fluid-statics" class="internal"><span class="codenumber">7.9.1</span> <span class="title">Principles of Fluid Statics</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_07-fluid-statics.html#Chapter_07-fluid-statics-applications" class="internal"><span class="codenumber">7.9.2</span> <span class="title">Fluid Statics Applications</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-6.html" class="internal"><span class="codenumber">7.10</span> <span class="title">Exercises (Ch. 7)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_08.html" class="internal"><span class="codenumber">8</span> <span class="title">Internal Forces</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-internal-forces.html" class="internal"><span class="codenumber">8.1</span> <span class="title">Internal Forces</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_sign_convention.html" class="internal"><span class="codenumber">8.2</span> <span class="title">Sign Conventions</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="internal_force_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Forces at a Point</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="internal_force_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Forces</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
+<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html" class="internal"><span class="codenumber">8.9</span> <span class="title">Geogebra Interactives</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-forces" class="internal"><span class="codenumber">8.9.1</span> <span class="title">Concentrated Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-concentrated-force-and-moment" class="internal"><span class="codenumber">8.9.2</span> <span class="title">Concentrated Force and Moment</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-distributed-load" class="internal"><span class="codenumber">8.9.3</span> <span class="title">Distributed Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-combination-load" class="internal"><span class="codenumber">8.9.4</span> <span class="title">Combination Load</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_08-geogebra-interactives.html#Chapter_08-arbitrary-load" class="internal"><span class="codenumber">8.9.5</span> <span class="title">Arbitrary Load</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_08-summary.html" class="internal"><span class="codenumber">8.10</span> <span class="title">Summary</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-7.html" class="internal"><span class="codenumber">8.11</span> <span class="title">Exercises (Ch. 8)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_09.html" class="internal"><span class="codenumber">9</span> <span class="title">Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-dry-friction.html" class="internal"><span class="codenumber">9.1</span> <span class="title">Dry Friction</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-how-can-you-tell-from-a-problem-statement-which-phase-of-friction-to-use-" class="internal"><span class="codenumber">9.1.1</span> <span class="title">Coulomb Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-friction-angle-and-friction-resultant" class="internal"><span class="codenumber">9.1.2</span> <span class="title">Friction Angle and Friction Resultant</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-normal-forces" class="internal"><span class="codenumber">9.1.3</span> <span class="title">Normal Forces</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-dry-friction.html#Chapter_09-coulomb-friction-examples" class="internal"><span class="codenumber">9.1.4</span> <span class="title">Coulomb Friction Examples.</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-slipping-vs--tipping.html" class="internal"><span class="codenumber">9.2</span> <span class="title">Slipping vs. Tipping</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_09-block-and-wedge-friction.html" class="internal"><span class="codenumber">9.3</span> <span class="title">Wedges</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html" class="internal"><span class="codenumber">9.4</span> <span class="title">Screw Threads</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-motion-and-the-right-hand-rule" class="internal"><span class="codenumber">9.4.1</span> <span class="title">Screw Motion and the Right-hand rule</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screw-thread-properties" class="internal"><span class="codenumber">9.4.2</span> <span class="title">Screw Thread Properties</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-moments-to-reach-impending-motion" class="internal"><span class="codenumber">9.4.3</span> <span class="title">Moment to Reach Impending Motion</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-opposes-impending-motion" class="internal"><span class="title">Applied Force Opposes Impending Motion</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-screw-friction.html#Chapter_09-screws-where-the-applied-force-supports-impending-motion-" class="internal"><span class="title">Applied Force Supports Impending Motion</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html" class="internal"><span class="codenumber">9.5</span> <span class="title">Flexible Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-86" class="internal"><span class="codenumber">9.5.1</span> <span class="title">Frictionless Belts</span></a></div></li>
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#subsection-87" class="internal"><span class="codenumber">9.5.2</span> <span class="title">Friction in Flat Belts</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#finding-contact-angle" class="internal"><span class="title">Contact Angle <span class="process-math">\(\beta\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-determining-which-belt-has-the-largest-tension-" class="internal"><span class="title">Belt Tension</span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-finding-the-change-in-belt-tension-due-to-friction" class="internal"><span class="title">Change in Belt Tension due to Friction</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-torque-in-belt-systems" class="internal"><span class="codenumber">9.5.3</span> <span class="title">Torque in Belt Systems</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-flexible-belt-friction.html#Chapter_09-friction-in-v-belts" class="internal"><span class="codenumber">9.5.4</span> <span class="title">V-Belts</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html" class="internal"><span class="codenumber">9.6</span> <span class="title">Journal Bearings</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#journal-bearing-friction" class="internal"><span class="codenumber">9.6.1</span> <span class="title">Journal Bearing Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-rotating-shaft-and-a-fixed-bearing" class="internal"><span class="codenumber">9.6.2</span> <span class="title">Rotating Shaft and Fixed Bearing</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-journal-bearing-friction.html#Chapter_09-journal-bearings-with-a-fixed-shaft-and-a-rotating-bearing" class="internal"><span class="codenumber">9.6.3</span> <span class="title">Fixed Shaft and Rotating Bearing</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_09-disc-friction.html" class="internal"><span class="codenumber">9.7</span> <span class="title">Rotating Discs</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#disc-friction" class="internal"><span class="codenumber">9.7.1</span> <span class="title">Disc Friction</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#hollow-circular-contact-area" class="internal"><span class="codenumber">9.7.2</span> <span class="title">Collar Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-end-bearing-with-a-solid-circular-contact-area" class="internal"><span class="codenumber">9.7.3</span> <span class="title">End Bearings</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_09-disc-friction.html#Chapter_09-disc-brakes-with-a-circular-arc" class="internal"><span class="codenumber">9.7.4</span> <span class="title">Circular Arc Bearings</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-8.html" class="internal"><span class="codenumber">9.8</span> <span class="title">Exercises (Ch. 9)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-chapter">
+<div class="toc-title-box"><a href="Chapter_10.html" class="internal"><span class="codenumber">10</span> <span class="title">Moments of Inertia</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html" class="internal"><span class="codenumber">10.1</span> <span class="title">Integral Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-area" class="internal"><span class="codenumber">10.1.1</span> <span class="title">Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-first-moment-of-area" class="internal"><span class="codenumber">10.1.2</span> <span class="title">First Moment of Area</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#moment-of-inertia-intro" class="internal"><span class="codenumber">10.1.3</span> <span class="title">Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#polar-moi" class="internal"><span class="codenumber">10.1.4</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-integral-properties-of-shapes.html#Chapter_10-product-of-inertia" class="internal"><span class="codenumber">10.1.5</span> <span class="title">Product of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="MOI-common-shapes.html" class="internal"><span class="codenumber">10.2</span> <span class="title">Moments of Inertia of Common Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection">
+<div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-rectangle" class="internal"><span class="codenumber">10.2.1</span> <span class="title">Moment of Inertia of a Rectangle</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dx-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dx\ dy\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#dy-first" class="internal"><span class="title">Using <span class="process-math">\(dA = dy\ dx\)</span></span></a></div></li>
+<li class="toc-item toc-subsubsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-centroidal-moment-of-inertia" class="internal"><span class="title">Centroidal Moment of Inertia</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-triangle" class="internal"><span class="codenumber">10.2.2</span> <span class="title">Moment of Inertia of a Triangle</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-differential-strips" class="internal"><span class="codenumber">10.2.3</span> <span class="title">Moment of Inertia of a Differential Strip</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#MOI-circles" class="internal"><span class="codenumber">10.2.4</span> <span class="title">Circles, Semicircles, and Quarter-circles</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="MOI-common-shapes.html#Chapter_10-summary-of-integration-techniques" class="internal"><span class="codenumber">10.2.5</span> <span class="title">Summary of Integration Techniques</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="parallel-axis-theorem-section.html" class="internal"><span class="codenumber">10.3</span> <span class="title">Parallel Axis Theorem</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#Chapter_10-derivation" class="internal"><span class="codenumber">10.3.1</span> <span class="title">Derivation</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="parallel-axis-theorem-section.html#MOI-table" class="internal"><span class="codenumber">10.3.2</span> <span class="title">Moments of Inertia Table</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html" class="internal"><span class="codenumber">10.4</span> <span class="title">Composite Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-composite-area-method" class="internal"><span class="codenumber">10.4.1</span> <span class="title">Composite Area Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="Chapter_10-moment-of-inertia-of-composite-shapes.html#Chapter_10-structural-steel-sections" class="internal"><span class="codenumber">10.4.2</span> <span class="title">Structural Steel Sections</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="polar-moment.html" class="internal"><span class="codenumber">10.5</span> <span class="title">Polar Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="radius-of-gyration-sec.html" class="internal"><span class="codenumber">10.6</span> <span class="title">Radius of Gyration</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="products-of-inertia.html" class="internal"><span class="codenumber">10.7</span> <span class="title">Products of Inertia</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="Chapter_10-mass-moment-of-inertia.html" class="internal"><span class="codenumber">10.8</span> <span class="title">Mass Moment of Inertia</span></a></div></li>
+<li class="toc-item toc-exercises"><div class="toc-title-box"><a href="exercises-9.html" class="internal"><span class="codenumber">10.9</span> <span class="title">Exercises (Ch. 10)</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-backmatter">
+<div class="toc-title-box"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-appendix"><div class="toc-title-box"><a href="notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="useful-mathematics.html" class="internal"><span class="codenumber">B</span> <span class="title">Useful Mathematics</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="distance-formula.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Distance Formula</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="soh-coh-toa.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Right Triangle Trigonometry</span></a></div></li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="los-loc.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Oblique Triangle Trigonometry</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#los" class="internal"><span class="codenumber">B.3.1</span> <span class="title">Law of Sines</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="los-loc.html#loc" class="internal"><span class="codenumber">B.3.2</span> <span class="title">Law of Cosines</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="centroids-moi-tables.html" class="internal"><span class="codenumber">C</span> <span class="title">Properties of Shapes</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-77.html" class="internal"><span class="codenumber">C.1</span> <span class="title">Centroids of Common Shapes</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section-78.html" class="internal"><span class="codenumber">C.2</span> <span class="title">Moment of Inertia of Common Shapes</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-appendix">
+<div class="toc-title-box"><a href="AISC-properties.html" class="internal"><span class="codenumber">D</span> <span class="title">Properties of Steel Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-angles.html" class="internal"><span class="codenumber">D.1</span> <span class="title">Angles</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-us" class="internal"><span class="codenumber">D.1.1</span> <span class="title">Angle Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-angles.html#angles-si" class="internal"><span class="codenumber">D.1.2</span> <span class="title">Angle Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-channels.html" class="internal"><span class="codenumber">D.2</span> <span class="title">Channels</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-us" class="internal"><span class="codenumber">D.2.1</span> <span class="title">Channel Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-channels.html#channels-si" class="internal"><span class="codenumber">D.2.2</span> <span class="title">Channel Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-standard-sections.html" class="internal"><span class="codenumber">D.3</span> <span class="title">Standard Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-us" class="internal"><span class="codenumber">D.3.1</span> <span class="title">Standard Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-standard-sections.html#standards-si" class="internal"><span class="codenumber">D.3.2</span> <span class="title">Standard Section-SI</span></a></div></li>
+</ul>
+</li>
+<li class="toc-item toc-section">
+<div class="toc-title-box"><a href="AISC-wide-flange.html" class="internal"><span class="codenumber">D.4</span> <span class="title">Wide Flange Sections</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-us" class="internal"><span class="codenumber">D.4.1</span> <span class="title">Wide Flange Section-US</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="AISC-wide-flange.html#wf-si" class="internal"><span class="codenumber">D.4.2</span> <span class="title">Wide Flange Section-SI</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="frames-and-machines"><h2 class="heading hide-type">
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">6.6</span><span class="space"> </span><span class="title">Frames and Machines</span>
+</h2>
+<article class="objectives goal-like" id="objectives-25"><h3 class="heading"><span class="type">Key Questions</span></h3>
+<ul class="disc">
+<li id="li-352"><div class="para" id="p-derived-li-352">How are frames and machines different from trusses?</div></li>
+<li id="li-353"><div class="para" id="p-derived-li-353">Why can the method of joints and method of sections not be used for frames and machines?</div></li>
+<li id="li-354"><div class="para" id="p-derived-li-354">How do we identify if a structure is independently rigid?</div></li>
+<li id="li-355"><div class="para" id="p-derived-li-355">How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?</div></li>
+</ul></article><section class="introduction" id="introduction-24"><div class="para" id="p-1215">Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> were all multi-force bodies.</div> <div class="para" id="p-1216">
+<dfn class="terminology">Frames</dfn> are rigid, stationary structures designed to support loads and must include at least one multi-force member.</div> <div class="para" id="p-1217">
+<dfn class="terminology">Machines</dfn> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by their interacting and applied forces.</div> <div class="para" id="p-1218">Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="stool"><img src="external/images/TabouretAFDB.png" class="contained" alt="A kitchen stool is an example of a frame."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.1<span class="period">.</span></span><span class="space"> </span>Frames are rigid objects containing multi-force members.</figcaption></figure></div>
+<div class="sbspanel top" style="width:47.3684210526316%;"><figure class="figure figure-like" id="vice-grips-photo"><img src="external/images/Locking_pliers.png" class="contained" alt="A set of locking pliers is example of a machine."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.2<span class="period">.</span></span><span class="space"> </span>Machines contain multi-force members that can move relative to one another.</figcaption></figure></div>
+</div></div></section><section class="subsection" id="frames-procedure"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">6.6.1</span><span class="space"> </span><span class="title">Analyzing Frames and Machines</span>
+</h3>
+<section class="introduction" id="introduction-25"><div class="para" id="p-1219">Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.</div> <div class="para" id="p-1220">Multi-part structures are analyzed by mentally taking them apart and analyzing the entire structure and each part separately. Each component is analyzed as an separate rigid body using the techniques we have already seen.</div> <div class="para" id="p-1221">Although we can separate the structure into parts, the parts are not independent since, by Newton’s Third Law, every interaction is half of a complementary pair. For every force or moment of body <span class="process-math">\(A\)</span> on <span class="process-math">\(B\)</span> there is an equal-and-opposite force or moment of body <span class="process-math">\(B\)</span> on body <span class="process-math">\(A\)</span> and the free-body diagrams must reflect this. Incorrect representation of these interacting pairs on free-body diagrams is a common source of student errors.</div> <div class="para" id="p-1222">Once the frame or machine is disassembled and free-body diagrams have been drawn, the structure is analyzed by applying equations of equilibrium to free-body diagrams, exactly as you have done before —there’s nothing new here.</div> <div class="para" id="p-1223">The difficulty arises first in selecting objects and drawing correct free-body diagrams and second, in identifying an efficient solution strategy since you usually won’t be able to completely solve a diagram without first finding the value of an unknown force from another diagram.</div> <div class="para logical" id="p-1224">
+<div class="para">In <a href="Chapter_05.html" class="internal" title="Chapter 5: Rigid Body Equilibrium">Chapter 5</a> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations. By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values. Here’s a few more details on the number of equations that come from each type of two-dimensional free-body diagram:</div>
+<ul class="disc">
+<li id="li-356">
+<span class="heading"><span class="title">Two-force members.</span></span><div class="para" id="p-1225">One equation. Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins. The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.</div>
+</li>
+<li id="li-357">
+<span class="heading"><span class="title">Objects with concurrent forces and no couple-moments.</span></span><div class="para" id="p-1226">Two equations. These are the problems you solved in <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. There are two equations available <span class="process-math">\(\Sigma F_x = 0\)</span> and <span class="process-math">\(\Sigma F_y = 0\text{.}\)</span>
+</div>
+</li>
+<li id="li-358">
+<span class="heading"><span class="title">Multi-force rigid body with non-concurrent forces and/or couples.</span></span><div class="para" id="p-1227">Three equations. These are the most general body types. Use <span class="process-math">\(\Sigma F_x = 0\text{,}\)</span> <span class="process-math">\(\Sigma F_y = 0\text{,}\)</span> and<span class="process-math">\(\Sigma M = 0\)</span> to solve for three unknowns.</div>
+</li>
+</ul>
+</div></section><section class="subsubsection" id="Chapter_06-procedure"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span><span class="space"> </span><span class="codenumber"></span><span class="space"> </span><span class="title">Procedure</span>
+</h4>
+<div class="para logical" id="p-1228">
+<div class="para">The process used to analyze frames and machines is outlined below</div>
+<ol class="decimal">
+<li id="li-359">
+<div class="para" id="p-1229">Determine if the entire structure is independently rigid. An independently rigid structure will hold it shape even when separated from its supports. Look for triangles formed among the members, as triangles are inherently rigid. If it is not independently rigid, the structure will collapse when the supports are removed.</div>
+<div class="para" id="p-1230">If the structure is not independently rigid, skip to the next step. Otherwise, model it as a single rigid body and determine the external reaction forces.</div>
+</li>
+<li id="li-360">
+<div class="para logical" id="p-1231">
+<div class="para">Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:</div>
+<ul class="disc">
+<li id="li-361"><div class="para" id="p-derived-li-361">Applied forces and couples and the weights of the components if non-negligible.</div></li>
+<li id="li-362"><div class="para" id="p-derived-li-362">Interaction forces due to two-force members. There will be force of unknown magnitude but the known direction at points connected to two-force members. The forces will act along the line between the two connection points.</div></li>
+<li id="li-363"><div class="para" id="p-derived-li-363">All reaction forces and moments at the connection points between members. Forces with an unknown magnitude and direction are usually represented by unknown <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components, but can also be represented as a force with unknown magnitude acting in an unknown direction.</div></li>
+</ul>
+</div>
+<div class="para" id="p-1232">All interaction forces and moments between connected bodies <em class="emphasis">must</em> be shown as equal-and-opposite action-reaction pairs.</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:40%;"><figure class="figure figure-like" id="frame-example-fbd"><img src="external/images/Example-frame.svg" role="img" class="contained" alt="A frame of three members shaped like capital letter A. Pin A is bottom left, and continuing clockwise are pins B, C, D and E."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.3<span class="period">.</span></span><span class="space"> </span>Free-body diagram of a rigid frame with pin at <span class="process-math">\(A\text{,}\)</span> roller at <span class="process-math">\(E\text{,}\)</span> and load at <span class="process-math">\(F\text{.}\)</span></figcaption></figure></div>
+<div class="sbspanel top" style="width:53%;"><figure class="figure figure-like" id="frame-example-exploded"><img src="external/images/Example-frame-exploded.svg" role="img" class="contained" alt="Members of the frame are shown separated. Separated pin connections are shown with equal and opposite forces acting on the previously connected members."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.4<span class="period">.</span></span><span class="space"> </span>Free body diagrams of the individual components. External forces are red, exposed action-reaction pairs in blue.</figcaption></figure></div>
+</div></div>
+</li>
+<li id="li-364"><div class="para" id="p-1233">Write out the equilibrium equations for each free-body diagram.</div></li>
+<li id="li-365"><div class="para" id="p-1234">Solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.</div></li>
+</ol>
+</div>
+<div class="para" id="p-1235">In the following example, we’ll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free-body diagrams, and identify a good solution strategy.</div></section><section class="subsubsection" id="Chapter_06-free-body-diagram-of-structures"><h4 class="heading hide-type">
+<span class="type">Subsubsection</span><span class="space"> </span><span class="codenumber"></span><span class="space"> </span><span class="title">Free-body diagram of structures</span>
+</h4>
+<div class="para" id="p-1236">Drawing free-body diagrams of complex frames and machines can be tricky. In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.</div>
+<div class="para" id="p-1237">The toggle clamp shown in <a href="" class="xref" data-knowl="./knowl/toggle-clamp-01.html" title="Figure 6.6.5">Figure 6.6.5</a> is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints. The component parts are shown and named in <a href="" class="xref" data-knowl="./knowl/toggle-clamp-02.html" title="Figure 6.6.6">Figure 6.6.6</a>.</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:30%;"><figure class="figure figure-like" id="toggle-clamp-01"><img src="external/images/toggle-clamp-01.svg" role="img" class="contained" alt="Illustrated image of a toggle clamp."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.5<span class="period">.</span></span><span class="space"> </span>Original diagram</figcaption></figure></div>
+<div class="sbspanel top" style="width:37.5%;"><figure class="figure figure-like" id="toggle-clamp-02"><img src="external/images/toggle-clamp-02.svg" role="img" class="contained" alt="Component parts are shown separated from each other."><figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.6<span class="period">.</span></span><span class="space"> </span>Component parts.</figcaption></figure></div>
+</div></div>
+<div class="para" id="p-1238">This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated. The only force shown is <span class="process-math">\(F,\)</span> which is supplied by some external agent, presumably the machine operator. We must assume that the wall and floor are still attached to the world and held fixed.</div>
+<div class="para" id="p-1239">To perform an equilibrium analysis, we need to develop one or more free-body diagrams and apply the equations of equilibrium to them. Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts. Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need. In any event, a clear decision must always be made about what is part of the free-body and what is not.</div>
+<div class="para" id="p-1240">When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation. These forces and moments must be represented on the free-body diagrams consistently as halves of equal-and-opposite action-reaction pairs.</div>
+<div class="para" id="p-1241">For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains. In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams. In an actual situation you will not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.</div>
+<div class="para" id="p-1242">It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams. In planar problems a free-body diagram with three or fewer unknowns may be solved immediately. When there are more than three unknowns, you must incorporate information from other diagrams to complete the solution.</div>
+<section class="paragraphs" id="paragraphs-34"><h5 class="heading"><span class="title">Exclude the floor.</span></h5> <div class="para" id="p-1243">To begin, we can remove the floor from the system. Everything except the floor is now included as our body; only the floor is excluded. The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall.</div> <div class="para" id="p-1244">Since we don’t know how the wall and the floor are connected we will assume they were fixed together. We also have to model how the wall is attached to the rest of the world. The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <span class="process-math">\(V_x\)</span> and <span class="process-math">\(V_y\text{,}\)</span> and a concentrated moment <span class="process-math">\(M_v\text{.}\)</span>
+</div> <div class="para" id="p-1245"></div> <figure class="figure figure-like" id="toggle-clamp-03"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:30.7692307692308%;"><img src="external/images/toggle-clamp-03.svg" role="img" class="contained" alt="Toggle clamp is shown separated from the floor, with the external force applied to the handle, and the reaction force of the floor on the base of the assembly."></div>
+<div class="sbspanel fixed-width middle" style="width:66.6666666666667%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:128.7px;"><div class="para" id="p-1246">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Wall, Bearing <span class="process-math">\(A\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:257.4px;"><div class="para" id="p-1247">Floor</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.7<span class="period">.</span></span><span class="space"> </span>Free-body Diagram 1</figcaption></figure> <div class="para" id="p-1248">The effect of the floor on the block is represented by a single vertical force <span class="process-math">\(G\)</span> which holds the block the same way the floor was previously supporting it; the loads you add must constrain your object the same way they were constrained in the real world. This representation is really a simplification of the actual situation since the force of the floor is really distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we represent the weight of an object as a single force acting at its center of gravity.</div> <article class="assemblage assemblage-like" id="assemblage-1"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1249"><ul class="disc">
+<li id="li-366"><div class="para" id="p-derived-li-366">Include friction if it’s given or obvious.</div></li>
+<li id="li-367"><div class="para" id="p-derived-li-367">Internal forces in rigid bodies should be modeled as a fixed support.</div></li>
+<li id="li-368"><div class="para" id="p-derived-li-368">If you need info which you don’t have, select a variable to act as its name.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-35"><h5 class="heading"><span class="title">Exclude the wall.</span></h5> <div class="para" id="p-1250">If you next remove the wall, forces <span class="process-math">\(G\)</span> and <span class="process-math">\(F\)</span> remain from before, but we now expose four loads from where the wall was connected to what is now our body; a normal force <span class="process-math">\(N\)</span> at the roller and three loads from the fixed support between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\text{.}\)</span>
+</div> <figure class="figure figure-like" id="figure-115"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-04.svg" role="img" class="contained" alt="Toggle clamp assembly is now separated from the wall, with external forces from the wall shown acting on the assembly."></div>
+<div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><div class="para" id="p-1251">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Bearing <span class="process-math">\(A\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><div class="para" id="p-1252">Floor, Wall</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.8<span class="period">.</span></span><span class="space"> </span>Free-body diagram 2</figcaption></figure> <div class="para" id="p-1253">Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table. Only loads that cross from included to excluded produce a load on the free-body diagram.</div> <article class="assemblage assemblage-like" id="assemblage-2"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1254"><ul class="disc">
+<li id="li-369"><div class="para" id="p-derived-li-369">Every force needs a point of application and a clear arrowhead.</div></li>
+<li id="li-370"><div class="para" id="p-derived-li-370">Indicate any distances and angles needed and not available on the original diagram.</div></li>
+<li id="li-371"><div class="para" id="p-derived-li-371">Define the direction of forces which are not vertical or horizontal with an angle from a reference direction.</div></li>
+<li id="li-372"><div class="para" id="p-derived-li-372">Define a coordinate system unless you are using the standard <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> axes.</div></li>
+<li id="li-373"><div class="para" id="p-derived-li-373">Do not add forces that don’t act on your body.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-36"><h5 class="heading"><span class="title">Exclude the bearing at <span class="process-math">\(A\)</span>.</span></h5> <div class="para" id="p-1255">We are not interested in the loads between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and further, the free-body diagram still includes too many unknowns to solve.</div> <div class="para" id="p-1256">After removing the bearing we reduce the unknowns at <span class="process-math">\(A\)</span> to two because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support. The loads <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\)</span> and <span class="process-math">\(V_x\text{,}\)</span> <span class="process-math">\(V_y\text{,}\)</span> and <span class="process-math">\(M_v\)</span> are not included on this free-body diagram because they don’t act on this object.</div> <figure class="figure figure-like" id="figure-116"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-05.svg" role="img" class="contained" alt="The bearing is removed since it has equal and opposite forces on the top member."></div>
+<div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><div class="para" id="p-1257">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><div class="para" id="p-1258">Floor, Wall, Bearing <span class="process-math">\(A\)</span>
+</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.9<span class="period">.</span></span><span class="space"> </span>Free-body diagram 3</figcaption></figure> <div class="para" id="p-1259">The load from the short link at <span class="process-math">\(B\)</span> is does not appear on this free-body diagram because it is internal. Internal loads connect two parts of the body together. They should not be included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.</div> <article class="assemblage assemblage-like" id="assemblage-3"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1260"><ul class="disc">
+<li id="li-374"><div class="para" id="p-derived-li-374">Look for free-body diagrams which include only three unknowns in two dimensions or six unknowns in three.</div></li>
+<li id="li-375"><div class="para" id="p-derived-li-375">Don’t include internal loads on your free-body diagrams.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-37"><h5 class="heading"><span class="title">Examine the wooden block.</span></h5> <figure class="figure figure-like" id="figure-117"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-07.svg" role="img" class="contained" alt="FBD of the block at the base of the clamp."></div>
+<div class="sbspanel middle" style="width:82.0512820512821%;">
+<div class="para" id="p-1261">A free-body diagram of the block shows the clamping force Q, which we are seeking.</div>
+<div class="para" id="p-1262">Note that <span class="process-math">\(Q \ne G\text{.}\)</span> These forces are given different names since they may have different magnitudes. If the weight of the block is small<a class="xref" id="fn-9" href="" data-knowl="./knowl/fn-9.html" title="Footnote 6.6.1"><sup> 1 </sup></a> in comparison to the other forces acting on the object it may be neglected, in which case <span class="process-math">\(Q = G\)</span> and they could be given the same name.</div>
+</div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.10<span class="period">.</span></span><span class="space"> </span>Free-body diagram 4 (block)</figcaption></figure> <article class="assemblage assemblage-like" id="assemblage-4"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1263"><ul class="disc">
+<li id="li-376"><div class="para" id="p-derived-li-376">If the two forces are not the same don’t identify them by the same name.</div></li>
+<li id="li-377"><div class="para" id="p-derived-li-377">Make as few assumptions as you possibly can. Make a note of any assumptions you make.</div></li>
+<li id="li-378"><div class="para" id="p-derived-li-378">In textbook problems, if the weight of an object is not mentioned it may be neglected.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-38"><h5 class="heading"><span class="title">Exclude the wooden block.</span></h5> <div class="para" id="p-1264">We can further simplify the diagram by removing the wooden block, leaving only the roller, short link and lever.</div> <figure class="figure figure-like" id="toggle-clamp-06"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-06.svg" role="img" class="contained" alt="FBD of the toggle clamp with wooden block removed."></div>
+<div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><div class="para" id="p-1265">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\text{,}\)</span> Roller <span class="process-math">\(D\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><div class="para" id="p-1266">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.11<span class="period">.</span></span><span class="space"> </span>Free-body diagram 5 (lever and link)</figcaption></figure></section><section class="paragraphs" id="paragraphs-39"><h5 class="heading"><span class="title">Examine the short link <span class="process-math">\(BD\)</span>.</span></h5> <div class="para" id="p-1267">The short link <span class="process-math">\(BD\)</span> is a two-force body and as discussed in <a href="CH03-1d-particles.html#two-force-bodies" class="internal" title="Subsection 3.3.3: Two-force Bodies">Subsection 3.3.3</a> can only be in equilibrium if the forces at <span class="process-math">\(B\)</span> and <span class="process-math">\(D\)</span> are equal-and-opposite and act along a line passing through these two points. This means that the 24:7 slope of the link determines the direction of force <span class="process-math">\(BD\text{.}\)</span>
+</div> <figure class="figure figure-like" id="figure-119"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-11.svg" role="img" class="contained" alt="The short link of toggle clamp (a two-force member)."></div>
+<div class="sbspanel middle" style="width:82.0512820512821%;"><div class="para" id="p-1268">When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components are not independent but are actually related by the direction of the force.</div></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.12<span class="period">.</span></span><span class="space"> </span>Free-body diagram 6 (short link)</figcaption></figure> <div class="para" id="p-1269">Here we have assumed that the forces acting on the link are compressive. If the equilibrium equations produce a positive value for <span class="process-math">\(BD\)</span> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in tension.</div> <article class="assemblage assemblage-like" id="assemblage-5"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1270"><ul class="disc">
+<li id="li-379"><div class="para" id="p-derived-li-379">A short-link is a two-force body.</div></li>
+<li id="li-380"><div class="para" id="p-derived-li-380">Recognize two-force bodies because they give you information about direction.</div></li>
+<li id="li-381"><div class="para" id="p-derived-li-381">Represent the force of a two-force bodies as a force with unknown magnitude acting along a known line of action, not as <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components.</div></li>
+<li id="li-382"><div class="para" id="p-derived-li-382">If you don’t know the sense of a force along its line of action, assume one. If you guess wrong, the analysis will give you a negative value.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-40"><h5 class="heading"><span class="title">Examine the roller at <span class="process-math">\(D\)</span>.</span></h5> <figure class="figure figure-like" id="figure-120"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:15.3846153846154%;"><img src="external/images/toggle-clamp-09.svg" role="img" class="contained" alt="FBD of the roller."></div>
+<div class="sbspanel middle" style="width:82.0512820512821%;"><div class="para" id="p-1271">Note that the force <span class="process-math">\(BD\)</span> acting on the roller is shown pointing down and to the left. This is the opposite to the force acting on the link at <span class="process-math">\(D\text{,}\)</span> which acts up and to the right. These two must act in opposite directions because they are an action-reaction pair.</div></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.13<span class="period">.</span></span><span class="space"> </span>Free-body diagram 7 (roller)</figcaption></figure> <div class="para" id="p-1272">The roller is a three-force body, so the lines of action of <span class="process-math">\(N\text{,}\)</span> <span class="process-math">\(Q\text{,}\)</span> and <span class="process-math">\(BD\)</span> are coincident and it may be treated as a particle. Equilibrium analysis shows that <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> must oppose the horizontal and vertical components of force <span class="process-math">\(BD\text{.}\)</span>
+</div> <div class="para" id="p-1273">The clamping force <span class="process-math">\(Q\)</span> produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.</div> <article class="assemblage assemblage-like" id="assemblage-6"><h6 class="heading"><span class="title">Tips.</span></h6>
+<div class="para logical" id="p-1274"><ul class="disc">
+<li id="li-383"><div class="para" id="p-derived-li-383">Recognize three-force bodies and use their special properties to your advantage.</div></li>
+<li id="li-384"><div class="para" id="p-derived-li-384">Use the same name for the exposed forces on interacting bodies since they are equal-and-opposite halves of an action-reaction pair.</div></li>
+</ul></div></article></section><section class="paragraphs" id="paragraphs-41"><h5 class="heading"><span class="title">Exclude the roller.</span></h5> <div class="para" id="p-1275">We can further simplify the free-body diagram by removing the roller. The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action — the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint.</div> <figure class="figure figure-like" id="figure-121"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-08.svg" role="img" class="contained" alt="FBD of toggle clamp without the roller."></div>
+<div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><div class="para" id="p-1276">Lever <span class="process-math">\(ABC\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><div class="para" id="p-1277">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\)</span>
+</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.14<span class="period">.</span></span><span class="space"> </span>Free-body diagram 8</figcaption></figure></section><section class="paragraphs" id="paragraphs-42"><h5 class="heading"><span class="title">Exclude the short link.</span></h5> <div class="para" id="p-1278">The previous free-body diagram has three unknowns and can be solved but the free-body diagram of the lever by itself is also correct, and this is the free-body diagram that most people begin with.</div> <figure class="figure figure-like" id="figure-122"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-10.svg" role="img" class="contained" alt="FBD of the single remaining member of the toggle clamp assembly."></div>
+<div class="sbspanel fixed-width middle" style="width:73.8461538461538%;"><table class="tabular">
+<tr class="header-horizontal">
+<th scope="col" class="l t b2 r0 l0 t0 lines">Included</th>
+<th scope="col" class="l t b2 r0 l0 t0 lines">Excluded</th>
+</tr>
+<tr>
+<td class="l t b1 r0 l0 t0" style="max-width:142.56px;"><div class="para" id="p-1279">Lever <span class="process-math">\(ABC\)</span>
+</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:285.12px;"><div class="para" id="p-1280">Floor, Wall, Bearing <span class="process-math">\(A\text{,}\)</span> Wooden Block, Roller <span class="process-math">\(D\text{,}\)</span> Short Link <span class="process-math">\(BD\)</span>
+</div></td>
+</tr>
+</table></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.15<span class="period">.</span></span><span class="space"> </span>Free-body diagram 9 (lever)</figcaption></figure> <div class="para" id="p-1281">The load <span class="process-math">\(BD\)</span> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <span class="process-math">\(D\text{,}\)</span> so this can be thought of as sliding a force along its line of action — an equivalent transformation.</div> <div class="para logical" id="p-1282">
+<div class="para">The following loads are not shown here because they act between two objects which are not part of the body:</div>
+<ul class="disc">
+<li id="li-385"><div class="para" id="p-derived-li-385">the loads between the bearing block and the wall <span class="process-math">\(W_x\text{,}\)</span> <span class="process-math">\(W_y\text{,}\)</span> and <span class="process-math">\(M\text{,}\)</span>
+</div></li>
+<li id="li-386"><div class="para" id="p-derived-li-386">the loads between the floor and the wall <span class="process-math">\(V_x\text{,}\)</span> <span class="process-math">\(V_y\text{,}\)</span> and <span class="process-math">\(M_v\text{,}\)</span>
+</div></li>
+<li id="li-387"><div class="para" id="p-derived-li-387">the load between the block and the floor <span class="process-math">\(G\text{,}\)</span> and</div></li>
+<li id="li-388"><div class="para" id="p-derived-li-388">the load between the roller and the wall <span class="process-math">\(N\text{.}\)</span>
+</div></li>
+</ul>
+</div></section><div class="para" id="p-1283">All of the free-body diagrams we have drawn are correct, though not all are necessary. Generally we only draw the free-body diagrams needed for the solution. These diagrams form a chain which connect the known input forces to the desired output forces. When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which free-body diagrams you will need. Taking a few moments to consider what unknowns you’d have at each step can help you optimize your problem-solving effort.</div>
+<div class="para" id="p-1284">You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results. Consider the diagram below.</div>
+<figure class="figure figure-like" id="figure-123"><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
+<div class="sbspanel middle" style="width:23.5897435897436%;"><img src="external/images/toggle-clamp-12.svg" role="img" class="contained" alt="A FBD that is incorrect because it does not include the correct reaction at the bottom pin."></div>
+<div class="sbspanel middle" style="width:73.8461538461538%;"><div class="para" id="p-1285">This diagram doesn’t accurately represent what is happening at pin <span class="process-math">\(D\text{.}\)</span>
+</div></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.16<span class="period">.</span></span><span class="space"> </span>Free-body diagram 10 (Subtly incorrect)</figcaption></figure><div class="para" id="p-1286">Forces <span class="process-math">\(N\)</span> and <span class="process-math">\(Q\)</span> do not actually act on the short link at <span class="process-math">\(D\text{.}\)</span> Force <span class="process-math">\(N\)</span> acts between the roller and the wall and clearly this diagram doesn’t include the roller. Similarly <span class="process-math">\(Q\)</span> acts between the block and the roller. These forces don’t belong on the free-body diagram even though they are equal to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of force <span class="process-math">\(BD\text{.}\)</span> Only forces which cross the imaginary boundary between the object and the rest of the world belong on the free-body diagram.</div>
+<div class="para" id="p-1287">Students are inclined argue that this free-body diagram is statically equivalent to <a href="" class="xref" data-knowl="./knowl/toggle-clamp-06.html" title="Figure 6.6.11">Figure 6.6.11</a> and it produces the correct answer so it must be OK. It isn’t correct because it reflects a misunderstanding about what you are modeling and what you aren’t. Other engineers using your FBDs need to know what you are modeling. The FBD is the key to your analysis of the real world.</div>
+<article class="example example-like" id="Chapter_06-example-toggle-clamp"><h5 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.6.17</span><span class="period">.</span><span class="space"> </span><span class="title">Toggle Clamp.</span>
+</h5>
+<div class="para" id="p-1288">Knowing that angle <span class="process-math">\(\theta= 60°\text{,}\)</span> find the vertical clamping force acting on the piece at <span class="process-math">\(D\)</span> and the magnitude of the force exerted on member <span class="process-math">\(ABC\)</span> at pin <span class="process-math">\(B\)</span> in terms of force <span class="process-math">\(F\)</span> applied to the clamp arm at <span class="process-math">\(C\text{.}\)</span>
+</div> <div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/toggle-clamp-01.svg" role="img" class="contained"></div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-57" id="answer-57"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-57"><div class="answer solution-like"><div class="para logical" id="p-1289"><div class="displaymath process-math" id="md-152">
+\begin{gather*}
+BD = 2.52 F \\
+Q = 2.42 F
+\end{gather*}
+</div></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-64" id="solution-64"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-64"><div class="solution solution-like">
+<div class="para" id="p-1290">For this problem, we need two free-body diagrams. The first links the input force <span class="process-math">\(F\)</span> to the link force <span class="process-math">\(BD,\)</span> and the second links <span class="process-math">\(BD\)</span> to the clamping force <span class="process-math">\(Q\text{.}\)</span>
+</div> <figure class="figure figure-like" id="figure-124"><div class="sidebyside"><div class="sbsrow" style="margin-left:13.5%;margin-right:13.5%;">
+<div class="sbspanel top" style="width:31.5068493150685%;"><figure class="figure figure-like" id="figure-125"><img src="external/images/toggle-clamp-10.svg" role="img" class="contained" alt="FBD of the multi-force member of the toggle clam;."><figcaption><span class="codenumber">(a)</span><span class="space"> </span>FBD I</figcaption></figure></div>
+<div class="sbspanel top" style="width:31.5068493150685%;"><figure class="figure figure-like" id="figure-126"><img src="external/images/toggle-clamp-13.svg" role="img" class="contained" alt="FBD of the roller from the toggle clamp assembly."><figcaption><span class="codenumber">(b)</span><span class="space"> </span>FBD II</figcaption></figure></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.6.18<span class="period">.</span></span><span class="space"> </span></figcaption></figure> <div class="para logical" id="p-1291">
+<div class="para">We will assume the two-force member <span class="process-math">\(BD\)</span> is in compression based on the physical situation. The forces acting on the link, lever and roller are all directed along a line-of-action defined by a 7-24-25 triangle. Similar triangles gives</div>
+<div class="displaymath process-math" id="md-153">
+\begin{gather*}
+BD_x = \left(\frac{7}{25} \right) BD\\
+BD_y = \left(\frac{24}{25} \right) BD\text{.}
+\end{gather*}
+</div>
+</div> <div class="para logical" id="p-1292">
+<div class="para">Applying <span class="process-math">\(\sum M= 0\)</span> at <span class="process-math">\(A\)</span> to the free-body diagram of the lever gives <span class="process-math">\(BD\)</span> in terms of <span class="process-math">\(F\text{.}\)</span>
+</div>
+<div class="displaymath process-math" id="md-154">
+\begin{align*}
+\text{FBD I:}\quad \Sigma M_A \amp = 0 \\
+BD_x(24) + BD_y(7) - F_x (40) - F_y ( 16) \amp= 0 \\
+\left(\frac{7}{25} BD\right) (24) + \left(\frac{24}{25} BD \right) (7) \amp= (F \cos \ang{60}) ( 40) + (F \sin \ang{60}) (16) \\
+13.44 BD \amp = 33.86 F\\
+BD \amp = 2.52 F
+\end{align*}
+</div>
+</div> <div class="para" id="p-1293">The positive sign on the answer reveals that our assumption that member <span class="process-math">\(BD\)</span> was in compression was correct.</div> <div class="para logical" id="p-1294">
+<div class="para">Applying <span class="process-math">\(\sum F_y=0\)</span> to the free-body diagram of the roller will give <span class="process-math">\(Q\)</span> in terms of <span class="process-math">\(F\text{.}\)</span>
+</div>
+<div class="displaymath process-math" id="md-155">
+\begin{align*}
+\text{FBD II:}\quad \Sigma F_y \amp = 0 \\
+Q - BD_y \amp= 0 \\
+Q \amp= \frac{24}{25} BD\\
+\amp = \frac{24}{25} (2.52 F)\\
+\amp = 2.42 F
+\end{align*}
+</div>
+</div> <div class="para" id="p-1295">While you could certainly find <span class="process-math">\(A_x\text{,}\)</span> <span class="process-math">\(A_y\)</span> and <span class="process-math">\(N\)</span> using other equilibrium equations they weren’t asked for and we don’t bother to find them.</div>
+</div></div>
+</div></article><article class="insight remark-like" id="insight-8"><a href="" data-knowl="" class="id-ref insight-knowl original" data-refid="hk-insight-8"><h5 class="heading">
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">6.6.19</span><span class="period">.</span><span class="space"> </span><span class="title">Why does the Method of Joints work on trusses but not on Frames or Machines?</span>
+</h5></a></article><div class="hidden-content tex2jax_ignore" id="hk-insight-8"><article class="insight remark-like"> <div class="para" id="p-1296">We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies. Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action. The force acts along the axis of the member, and causes no bending if the member is straight. Cutting a truss member exposes <em class="emphasis">one</em> unknown.</div> <div class="para logical" id="p-1297">
+<div class="para">Frames and machines are made of multi-force members and cutting these, in general, exposes:</div>
+<ul class="disc">
+<li id="li-389"><div class="para" id="p-derived-li-389">A force with an unknown magnitude acting in an unknown direction, and</div></li>
+<li id="li-390"><div class="para" id="p-derived-li-390">A bending moment at the plane of the cut.</div></li>
+</ul>
+</div> <div class="para" id="p-1298">Cutting a two-dimensional multi-force member exposes <em class="emphasis">three</em> unknowns, and <em class="emphasis">six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.</div> <div class="para" id="p-1299">Bottom line: use method of sections and joints <em class="emphasis">only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.</div></article></div></section></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="method-of-sections.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_06-summary.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer" class="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+<!--Start: Google Global Site Tag code--><!--*** DO NOT COPY ANOTHER PROJECT'S MAGIC NUMBERS/ID ***--><!--***           GET YOUR OWN FROM GOOGLE             ***-->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6RNJ8K3E00"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6RNJ8K3E00');
+</script><!--End: Google Global Site Tag code-->
+</body>
+</html>
