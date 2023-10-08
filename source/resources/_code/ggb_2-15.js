@@ -21,12 +21,12 @@ var listeners = function(ggb) {
 
             `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{A}} \\amp = \\frac{\\vec{A}}{|\\vec{A}|} = ${val.Ahat} \\amp
-             \\vec{u}  \\amp = \\proj_AB = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
+             \\vec{u}  \\amp = \\proj_{\\vec{A}}\\vec{B} = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
              \\end{align*}`,
 
             `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{B}} \\amp = \\frac{\\vec{B}}{|\\vec{B}|} = ${val.Bhat} \\amp
-             \\vec{v}  \\amp = \\proj_BA = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
+             \\vec{v}  \\amp = \\proj_{\\vec{B}}\\vec{A} = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
              \\end{align*}`
         ];
         
