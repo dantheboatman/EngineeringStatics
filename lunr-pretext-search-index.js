@@ -7,7 +7,7 @@ var ptx_lunr_docs = [
   "type": "Preface",
   "number": "",
   "title": "About this Book",
-  "body": " About this Book  Engineering Statics: Open and Interactive is a free, open-source textbook for anyone who wishes to learn more about vectors, forces, moments, static equilibrium, and the properties of shapes. Specifically, it is appropriate as a textbook for Engineering Mechanics: Statics, the first course in the Engineering Mechanics series offered in most university-level engineering programs.  This book's content should prepare you for subsequent classes covering Engineering Mechanics: Dynamics and Mechanics of Materials. At its core, Engineering Statics provides the tools to solve static equilibrium problems for rigid bodies. The additional topics of resolving internal loads in rigid bodies and computing area moments of inertia are also included as stepping stones for later courses. We have endeavored to write in an approachable style and provide many questions, examples, and interactives for you to engage with and learn from.   Feedback  Feedback and suggestions can be provided directly to the lead author Dan Baker via email at dan.baker@colostate.edu , or through the . We would also appreciate knowing if you are using the book for teaching purposes.    Access  The entire book is available for free as an interactive online ebook at . While the interactive version works best on larger screens, it will also work smartphones but with some limitations due to limited screen width. A non-interactive PDF version, suitable for printing or offline reading on a tablet or computer, is available at . The PDF is searchable and easy to navigate using embedded links.  The source files for this book are available on GitHub at .    License  Engineering Statics: Open and Interactive by Daniel Baker and William Haynes is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 4.0 International License . You are free to download, use, and print this work as you wish as long as your use is not primarily intended for or directed toward commercial advantage or monetary compensation. You can also modify the text as much as you like (for example to create a custom edition for your students), as long as you attribute the parts of the book you use to the authors. Please share your improvements with the authors!  All the GeoGebra content found in the book is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 3.0 International License with more detailed information found at     On the Cover  Photo by from Yerba Buena Island across the San Francisco bridge of the San Francisco, California skyline. Image source:     History  This book is the vision of a handful of instructors who wanted to create a free and open Engineering Statics textbook filled with dynamic, interactive diagrams to encourage visualization and engineering intuition.  Dr. Baker brought together a team of volunteers from large public universities, small private colleges, and community colleges across the United States to write the text and create the interactive elements. Some content was adapted with permission from Jacob Moore's Mechanics Map - Open Textbook Project . . After two years of development the book was released to the public in 2020.  The book continues to evolve thanks to the contributions, suggestions, and corrections made by users of the text, both professors and students. The original authors are listed below, and others who have contributed are acknowledged in the source code on GitHub.      Daniel W. Baker  Colorado State University  Project lead, chapter author, and interactive developer    Devin Berg  University of Wisconsin - Stout  Chapter author    Andy Guyader  Cal Poly, San Luis Obispo  Chapter author    William Haynes  Massachusetts Maritime Academy  Chapter author, interactive developer, and PreTeXt lead    Erin Henslee  Wake Forest University  Chapter author    Anna Howard  North Carolina State University  Chapter author    James Lord  Virginia Tech  Chapter author    Randy Mondragon  Colorado State University  Interactive developer    Jacob Moore  Penn State University Mont Alto  Chapter author    Scott Bevill  Colorado Mesa University  Chapter reviewer    Eric Davishahl  Whatcom Community College  Chapter reviewer    Joel Lanning  University of California, Irvine  Chapter reviewer    Richard Pugsley  Tidewater Community College  Chapter reviewer    "
+  "body": " About this Book  Engineering Statics: Open and Interactive is a free, open-source textbook for anyone who wishes to learn more about vectors, forces, moments, static equilibrium, and the properties of shapes. Specifically, it is appropriate as a textbook for Engineering Mechanics: Statics, the first course in the Engineering Mechanics series offered in most university-level engineering programs.  This book's content should prepare you for subsequent classes covering Engineering Mechanics: Dynamics and Mechanics of Materials. At its core, Engineering Statics provides the tools to solve static equilibrium problems for rigid bodies. The additional topics of resolving internal loads in rigid bodies and computing area moments of inertia are also included as stepping stones for later courses. We have endeavored to write in an approachable style and provide many questions, examples, and interactives for you to engage with and learn from.   Feedback  Feedback and suggestions can be provided directly to the lead author Dan Baker via email at dan.baker@colostate.edu , by clicking the feedback button in the html footer. When reporting errors, please include a bit of the surrounding text to help locate the problem area in the source. The Engineering Statics Google Group\" is a good place to ask the authors and users questions about the book. Please join the group and say Hi if you are using the book for teaching purposes.    Access  The entire book is available for free as an interactive online ebook at . While the interactive version works best on larger screens, it will also work smartphones but with some limitations due to limited screen width. A non-interactive PDF version, suitable for printing or offline reading on a tablet or computer, is available at . The PDF is searchable and easy to navigate using embedded links.  The source files for this book are available on GitHub at .    License  Engineering Statics: Open and Interactive is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 4.0 International License . You are free to download, use, and print this work as you wish as long as your use is not primarily intended for or directed toward commercial advantage or monetary compensation. You can also modify the text as much as you like (for example to create a custom edition for your students), as long as you attribute the parts of the book you use to the authors. Please share your improvements with the authors!  All the GeoGebra content found in the book is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 3.0 International License with more detailed information found at     On the Cover  Photo of the San Francisco Oakland Bay Bridge and city skyline, taken from Yerba Buena Island by Artur Westergren. Image source:     History  This book is the vision of a handful of instructors who wanted to create a free and open Engineering Statics textbook filled with dynamic, interactive diagrams to encourage visualization and engineering intuition.  Dr. Baker brought together a team of volunteers from large public universities, small private colleges, and community colleges across the United States to write the text and create the interactive elements. Some content was adapted with permission from Jacob Moore's Mechanics Map - Open Textbook Project . . After two years of development the book was released to the public in 2020.  The book continues to evolve thanks to the contributions, suggestions, and corrections made by users of the text, both professors and students. The original authors are listed below, and others who have contributed are acknowledged in the source code on GitHub.      Daniel W. Baker  Colorado State University  Project lead, chapter author, and interactive developer    Devin Berg  University of Wisconsin - Stout  Chapter author    Andy Guyader  Cal Poly, San Luis Obispo  Chapter author    William Haynes  Massachusetts Maritime Academy  Chapter author, interactive developer, and PreTeXt lead    Erin Henslee  Wake Forest University  Chapter author    Anna Howard  North Carolina State University  Chapter author    James Lord  Virginia Tech  Chapter author    Randy Mondragon  Colorado State University  Interactive developer    Jacob Moore  Penn State University Mont Alto  Chapter author    Scott Bevill  Colorado Mesa University  Chapter reviewer    Eric Davishahl  Whatcom Community College  Chapter reviewer    Joel Lanning  University of California, Irvine  Chapter reviewer    Richard Pugsley  Tidewater Community College  Chapter reviewer    "
 },
 {
   "id": "acknowledgement",
@@ -835,7 +835,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.7",
   "title": "Dot Products",
-  "body": " Dot Products    What are dot products used for?  What does it mean when the dot product of two vectors is zero?  How do you use a dot product to find the angle between two vectors?  What does it mean when the scalar component of the projection is negative?     Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the dot product or scalar product because the result is a scalar value, and the second is called the cross product or vector product and has a vector result. The dot product will be discussed in this section and the cross product in the next.  For two vectors and the dot product multiplication is computed by summing the products of the components.   An alternate, equivalent method to compute the dot product is where in the equation is the angle between the two vectors and and are the magnitudes of and .  We can conclude from this equation that the dot product of two perpendicular vectors is zero, because , and that the dot product of two parallel vectors is the product of their magnitudes.   When dotting unit vectors that have a magnitude of one, the dot products of a unit vector with itself is one and the dot product two perpendicular unit vectors is zero, so for , , and we have   Dot products are commutative, associative and distributive:    Commutative. The order does not matter.       Associative. It does not matter whether you multiply a scalar value by the final dot product, or either of the individual vectors, you will still get the same answer.    Distributive. If you are dotting one vector with the sum of two more , you can either add first, or dot by both and add the final value.     Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.    Magnitude of a Vector  Dot products can be used to find vector magnitudes. When a vector is dotted with itself using , the result is the square of the magnitude of the vector. By the Pythagorean theorem .  The proof is trivial. Consider vector . . The results are similar for three-dimensional vectors.   Find Vector Magnitude using the Dot Product   Find the magnitude of vector with components , and                 Angle between Two Vectors  A second application of the dot product is to find the angle between two vectors. Equation provides the procedure.     Angle between Orthogonal Unit Vectors   Find the angle between and .          This shows that and are perpendicular to each other.     Angle between Two Vectors   Find the angle between and .                Vector Projection  The dot product is used to find the projection of one vector onto another. You can think of a projection of on as a vector the length of the shadow of on the line of action of when the sun is directly above . More precisely, the projection of onto produces the rectangular component of in the direction parallel to . This is one side of a rectangle aligned with , having as its diagonal.  This is illustrated in , where is the projection of onto , or alternately is the rectangular component of in the direction of .  In this text we will use the symbols   to mean the vector projection of on    to mean the magnitude of the projection, a positive or zero-valued scalar value, and   to mean the scalar component of the projection, also known as the scalar projection , which can have a positive, zero, or negative scalar value.    As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or opposite when the scalar component is negative.   Vector projection in two dimensions.    The interactive shows that the projection is the adjacent side of a right triangle with as the hypotenuse. From the definition of the dot product we find that , where is the scalar component of the projection. So, the dot product of and gives us the projection of onto times the magnitude of . This value will be positive when , negative when , and zero when the vectors are perpendicular because of the properties of the cosine function.  So, to find the scalar value of the projection of onto we divide by the magnitude of .     The final simplified form is written in terms of the unit vector in the direction vector .  If you want the vector projection of onto , as opposed to the scalar projection we just found, multiply the scalar projection by the unit vector .   Rearranging the vectors to find the vector projection of onto , we dot the vector onto the unit vector and then multiply by .   The spatial interpretation of the results the scalar projection is   Positive value  means that and are generally in the same direction.    Negative value  means that and are generally in opposite directions.    Zero  means that and are perpendicular.    Magnitude smaller than   This is the most common answer. The vectors are neither parallel nor perpendicular.    Magnitude equal to    and point in the same direction, thus 100% of acts in the direction of .    Magnitude larger than   This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of .       Vector projections in three dimensions.      Perpendicular Components  The final application of dot products is to find the component of one vector perpendicular to another.   To find the component of perpendicular to , first find the vector projection of on , then subtract that from . What remains is the perpendicular component.    Perpendicular and parallel components of .    To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component.      Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor        If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .       As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .       Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.   Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.      Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .       The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .       Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:   We want to find the part of perpendicular to , so we can rearrange the equation to find:    Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.    The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.        "
+  "body": " Dot Products    What are dot products used for?  What does it mean when the dot product of two vectors is zero?  How do you use a dot product to find the angle between two vectors?  What does it mean when the scalar component of the projection is negative?     Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations. The first is called the dot product or scalar product because the result is a scalar value, and the second is called the cross product or vector product and has a vector result. The dot product will be discussed in this section and the cross product in the next.  For two vectors and the dot product multiplication is computed by summing the products of the components.   An alternate, equivalent method to compute the dot product is where in the equation is the angle between the two vectors and and are the magnitudes of and .  We can conclude from this equation that the dot product of two perpendicular vectors is zero, because , and that the dot product of two parallel vectors is equal to the product of their magnitudes.   When dotting unit vectors that have a magnitude of one, the dot products of a unit vector with itself is one and the dot product two perpendicular unit vectors is zero, so for , , and we have   Dot products are commutative, associative and distributive:    Commutative. The order does not matter.       Associative. It does not matter whether you multiply a scalar value by the final dot product, or either of the individual vectors, you will still get the same answer.    Distributive. If you are dotting one vector with the sum of two more , you can either add first, or dot by both and add the final value.     Dot products are a particularly useful tool to compute the magnitude of a vector, determine the angle between two vectors, or find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.    Magnitude of a Vector  Dot products can be used to find vector magnitudes. When a vector is dotted with itself using , the result is the square of the magnitude of the vector. (Recall that and are alternate notations for the magnitude of vector  .  The proof is trivial. By the definition of the dot product and the Pythagorean theorem: Taking the square root of each side gives the magnitude of   The result is similar for three-dimensional vectors.   Find Vector Magnitude using the Dot Product   Find the magnitude of vector with components , and                 Angle between Two Vectors  A second application of the dot product is to find the angle between two vectors. Equation provides the procedure.     Angle between Orthogonal Unit Vectors   Find the angle between and .          This shows that and are perpendicular to each other.     Angle between Two Vectors   Find the angle between and .                Vector Projection  The dot product is used to find the projection of one vector onto another. You can think of a projection of on as a vector the length of the shadow of on the line of action of when the sun is directly above . More precisely, the projection of onto produces the rectangular component of in the direction parallel to . This is one side of a rectangle aligned with , having as its diagonal.  This is illustrated in , where is the projection of onto , or alternately is the rectangular component of in the direction of .  In this text we will use the symbols   to mean the vector projection of on    to mean the magnitude of the vector projection, a positive or zero-valued scalar, and   to mean the scalar projection . This value represents the component of in the direction, and can have a positive, zero, or negative value.    As we have mentioned before, the magnitude of a vector is its length and is always positive or zero, while a scalar component is a signed value that can be positive or negative. When a scalar component is multiplied by a unit vector the result is a vector in that direction when the scalar component is positive, or opposite when the scalar component is negative.   Vector projection in two dimensions.    The interactive shows that the projection is the adjacent side of a right triangle with as the hypotenuse. From the definition of the dot product we find that , where is the scalar component of the projection. So, the dot product of and gives us the projection of onto times the magnitude of . This value will be positive when , negative when , and zero when the vectors are perpendicular because of the properties of the cosine function.  So, to find the scalar value of the projection of onto we divide by the magnitude of .     The final simplified form is written in terms of the unit vector in the direction vector .  If you want the vector projection of onto , as opposed to the scalar projection we just found, multiply the scalar projection by the unit vector .   Rearranging the vectors to find the vector projection of onto , we dot the vector onto the unit vector and then multiply by .   The spatial interpretation of the results the scalar projection is   Positive value  means that and are generally in the same direction.    Negative value  means that and are generally in opposite directions.    Zero  means that and are perpendicular.    Magnitude smaller than   This is the most common answer. The vectors are neither parallel nor perpendicular.    Magnitude equal to    and point in the same direction, thus 100% of acts in the direction of .    Magnitude larger than   This answer is impossible. Check your algebra; you might have forgotten to divide by the magnitude of .       Vector projections in three dimensions.      Perpendicular Components  The final application of dot products is to find the component of one vector perpendicular to another.   To find the component of perpendicular to , first find the vector projection of on , then subtract that from . What remains is the perpendicular component.    Perpendicular and parallel components of .    To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component.      Dot Products     A cable force pulls on an anchor ring centered on xyz axis origin.   A cable pulls with tension on a long anchor . The anchor is embedded in a concrete wall which is in the plane. The anchor lies in the plane at an angle off the axis.   This is a multi-part problem that covers the full range of values you might be asked to compute using a dot product at this point in Statics. It will help you see how each computation is related to the others.  For the system above, compute the following:    Find the dot product of the cable tension and the anchor        If you are given the vector magnitudes and angle between them, it is typically easiest to use the dot product equation . But in this case, we were given the components of the two vectors, so we'll use .     The units of the result [N-m] are the product of the units of the vectors in the dot product. If you compute the dot product of two position vectors, the units will be length squared, or the dot product of two force vectors will be force squared.    Find the angle between the cable tension and the anchor .       As we can rearrange the terms equation to solve for the angle between the cable tension and and the anchor . Given that we already found in part (a), we'll use that value for this computation.     Note that correctly corresponds to the negative dot product result from part (a), both indicating that the two vectors generally oppose each other.    Find the scalar projection of the the cable tension onto the anchor .       Recall that the scalar projection represents the scalar magnitude of the force that is directed along the anchor. This is one of the most direct and practical applications of the dot product, to find out how much of one vector is parallel to another.   Alternative 1: Notice that we are asked to find the magnitude of the tension force that is along (or parallel to) the anchor. If we were to simply dot the tension force onto the anchor we would end up with the product of the tension force parallel to the anchor  times the anchor's length . Hence, we have to divide by the anchor's length to end up with just a unit force.      Alternative 2: You can also dot the force vector with the unit vector of , , eliminating the need to divide by the length of AB.   Thus, of the tension force is directed opposite the anchor AB.  As previously discussed in , recognize that is a two-dimensional vector with its direction defined by the angle , thus the unit vector is also equal to given that the and of any two-dimensional angle define the unit vector components of a vector.    Find the vector projection of the cable tension onto the anchor .       The vector projection is simply the scalar projection value multiplied by a direction to turn it into vector components. So we multiply the scalar projection with the unit vector of to compute the vector projection of onto .       Find the vector portion of cable tension that is perpendicular to the anchor .       Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.  Thus, any vector can be divided into two vectors parallel and perpendicular to another line. The vector projection , from Part (d), is the portion of parallel to . So the sum of can be expressed as the parallel and perpendicular terms:   We want to find the part of perpendicular to , so we can rearrange the equation to find:    Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) can be shown in this diagram.    The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB.        "
 },
 {
   "id": "objectives-11",
@@ -892,22 +892,22 @@ var ptx_lunr_docs = [
   "body": " Angle between Two Vectors   Find the angle between and .             "
 },
 {
-  "id": "p-355",
+  "id": "p-356",
   "level": "2",
-  "url": "dot_products_2D.html#p-355",
+  "url": "dot_products_2D.html#p-356",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "projection "
 },
 {
-  "id": "p-357",
+  "id": "p-358",
   "level": "2",
-  "url": "dot_products_2D.html#p-357",
+  "url": "dot_products_2D.html#p-358",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "scalar projection "
+  "body": "vector projection scalar projection "
 },
 {
   "id": "ggb_dot_product",
@@ -1627,7 +1627,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "4.5",
   "title": "3D Moments",
-  "body": " 3D Moments    Where does the moment arm vector start and end?  Why does Varignon's Theorem give you the same answer as a determinant?  How can you combine a dot product and a cross product to find the moment about a line?  Why does a mixed-triple determinant give you a scalar while a cross-product determinant gives you a vector?     Moments are vectors and they will typically have components in the , and directions in three-dimensional situations. The circular arrows we used to represent vectors in two dimensions are unclear in three dimensions, so moments are drawn as vectors just like force and position vectors, although you will sometimes see moments drawn with double arrowheads to differentiate them from force vectors. In three dimensions, it is usually not convenient to find the moment arm and use equation , so instead we will use the vector cross product, which is easier to apply but less intuitive.    Moment Cross Products  The most robust and general method to find the moment of a force is to use the vector cross product , where is the force creating the moment, and is a position vector from the moment center to the line of action of the force. The cross product is a vector multiplication operation and the product is a vector perpendicular to the vectors you multiplied.   Moment cross product.       The mathematics of cross products was discussed in , and equation provides one method to calculate a moment cross products . Here, is the angle between the two vectors as shown in above, and is the unit vector perpendicular to both and with the direction coming from the right-hand rule. This equation is useful if you know or can find the magnitudes of and and the angle between them. This equation is the vector equivalent of .  Alternately, if you know or can find the components of the position and force vectors, it's typically easiest to evaluate the moment cross product using the determinant form discussed in .   Here, , , and are components of the vector describing the distance from the point of interest to the force. , , and are components of the force. The resulting moment has three components. . These represent the component moments acting around each of the three coordinate axes. The magnitude of the resultant moment can be calculated using the three-dimensional Pythagorean Theorem.     It is important to avoid three common mistakes when setting up the cross product.  The order must always be , never . The moment arm appears in the middle line of the determinant and the force on the bottom line.  The moment arm must always be measured from the moment center to the line of action of the force. Never from the force to the point.  The signs of the components of must follow those of a right-hand coordinate system.    In two dimensions, and are zero, so reduces to . This is just the vector equivalent of Varignon's Theorem in two dimensions, with the correct signs automatically determined from the signs on the scalar components of and .    Moment about a Point  The next two interactives should help you visualize moments in three dimensions.  The first shows the force vector, position vector and the resulting moment all placed at the origin for simplicity. The moment is perpendicular to the plane containing and and has a magnitude equal to the area of the parallelogram with and for sides.   Moment about the origin.     The second interactive shows a more realistic situation. The moment center is at arbitrary point , and the line of action of force passes through arbitrary points and . The position vector is the vector from to a point on the line of action, and the force can be slid anywhere along that line.    Moment about an arbitrary point.      3D Moment about a Point     In an axis system with x to the right, y up on the page, and z coming A thin plate OABC sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. Find the moment of the tension force around point O.   A thin plate sits in the plane. Cable pulls with a tension of through a frictionless ring at point . Find the moment caused by the tension force around point .        Start the problem by using the position information and tension magnitude to find the force vector . This will be done in three steps:     Find the position vector : Find position vectors by either subtracting the start-point coordinates from the end-point coordinates or focusing on the changes in the position components from to .    Find the unit vector of : Compute a unit vector by dividing by the total length of . Note that is unitless and is the pure direction of .   Multiply the unit vector by force magnitude: Now multiply by the force magnitude to find the force components.     Next, find the moment arm from point to the line of action of the force. There are two obvious options for moment arms, either or . To demonstrate how both moment arms give the same answer, solutions for both moment arms will be shown.  Option 1: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.     Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    Option 2: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.     Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    It is worth your effort to compute moments both ways for this example, or another problem, to prove to yourself that the answers work out exactly the same with different moment arms. Technically, you could select a position vector from anywhere on line and get the correct answer, but or are the only two between defined points in this problem.   Solution drawing to moment form force F_BD on the upper left corner of thin plate OABC.   Drawing , demonstrates that a moment vector direction is both 1) the axis of rotation caused by around point , with the moment aligning to your thumb and the moment rotating around your fingers from the right-hand rule and 2) that is perpendicular to the plane formed by and . Recall that all cross products result in vectors perpendicular to the two crossed vectors.      Moment about a Line  In three dimensions, the moment of a force about a point can be resolved into components about the , and axes. The moment produces a rotational tendency about all three axes simultaneously, but only a portion of the total moment acts about any particular axis.  We are often interested in finding the effect of a moment about a specific line or axis. For example, consider the moment created by a push on a door handle. Unless you push with a force exactly perpendicular to the hinge, only a portion of the total moment you produce will act around the hinge axis and be effective to open the door. The moment we are looking for is the vector projection of the moment onto the axis of interest. Vector projections were first discussed in .    Moment on a hinge.     The axis of interest does not need to be a coordinate axis. This interactive shows the projection of moment on a line passing through points and .    Moment of a force about a line     To compute the moment of a force about a particular axis you combine skills you already have learned  finding the moment of a force about a point using the cross product, .  finding the scalar projection of one vector onto another vector using the dot product, and,  multiplying a scalar projection by a unit vector to find the vector projection, .    Carrying these operations out gives a vector which is the component of moment along the axis.   The combined dot and cross product is the scalar projection of the moment on the line of interest and is called the mixed triple product .   The mixed triple product can be calculated one operation at a time, or in a single step. Either way, the result is a scalar value which may be positive or negative. Both techniques require the components of three vectors  , the unit direction vector of the line or axis of interest. This vector represents the direction of the axis. In many texts, the Greek letter lambda, is often used to indicate unit direction vectors.  , the position vector from any point on the line of interest to any point on the line of action of the force.  , the force vector. If you have multiple concurrent forces, you can treat them individually or add them together first and find the moment of the resultant using Varignon's principle.    To calculate the triple product in a single step, evaluate the 3 3 determinant consisting of the components of the unit vector in the top row, the components of a position vector from the line of interest to the line of action of force in the middle row, and the components of the force in the bottom row using the augmented determinant method .   To find the vector projection along the selected axis, multiply this value by the unit vector for the axis, equation .   "
+  "body": " 3D Moments    Where does the moment arm vector start and end?  Why does Varignon's Theorem give you the same answer as a determinant?  How can you combine a dot product and a cross product to find the moment about a line?  Why does a mixed-triple determinant give you a scalar while a cross-product determinant gives you a vector?     The circular arrows we used to represent vectors in two dimensions are unclear in three dimensions, so instead, moments are drawn as arrows and represented by , and components, like force and position vectors. You will sometimes see moments indicated with double arrowheads to differentiate them from force vectors.  In three dimensions, it is usually not convenient to find the moment arm and use equation , so instead we will use the vector cross product, which is easier to apply but less intuitive.    Moment Cross Products  The most robust and general method to find the moment of a force is to use the vector cross product , where is the force creating the moment, and is a position vector from the moment center to the line of action of the force. The cross product is a vector multiplication operation and the product is a vector perpendicular to the vectors you multiplied.   Moment cross product.       The mathematics of cross products was discussed in , and equation provides one method to calculate a moment cross products . Here, is the angle between the two vectors as shown in above, and is the unit vector perpendicular to both and with the direction coming from the right-hand rule. This equation is useful if you know or can find the magnitudes of and and the angle between them. This equation is the vector equivalent of .  Alternately, if you know or can find the components of the position and force vectors, it's typically easiest to evaluate the moment cross product using the determinant form discussed in .   Here, , , and are components of the vector describing the distance from the point of interest to the force. , , and are components of the force. The resulting moment has three components. . These represent the component moments acting around each of the three coordinate axes. The magnitude of the resultant moment can be calculated using the three-dimensional Pythagorean Theorem.     It is important to avoid three common mistakes when setting up the cross product.  The order must always be , never . The moment arm appears in the middle line of the determinant and the force on the bottom line.  The moment arm must always be measured from the moment center to the line of action of the force. Never from the force to the point.  The signs of the components of must follow those of a right-hand coordinate system.    In two dimensions, and are zero, so reduces to . This is just the vector equivalent of Varignon's Theorem in two dimensions, with the correct signs automatically determined from the signs on the scalar components of and .    Moment about a Point  The next two interactives should help you visualize moments in three dimensions.  The first shows the force vector, position vector and the resulting moment all placed at the origin for simplicity. The moment is perpendicular to the plane containing and and has a magnitude equal to the area of the parallelogram with and for sides.   Moment about the origin.     The second interactive shows a more realistic situation. The moment center is at arbitrary point , and the line of action of force passes through arbitrary points and . The position vector is the vector from to a point on the line of action, and the force can be slid anywhere along that line.    Moment about an arbitrary point.      3D Moment about a Point     In an axis system with x to the right, y up on the page, and z coming A thin plate OABC sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. Find the moment of the tension force around point O.   A thin plate sits in the plane. Cable pulls with a tension of through a frictionless ring at point . Find the moment caused by the tension force around point .        Start the problem by using the position information and tension magnitude to find the force vector . This will be done in three steps:     Find the position vector : Find position vectors by either subtracting the start-point coordinates from the end-point coordinates or focusing on the changes in the position components from to .    Find the unit vector of : Compute a unit vector by dividing by the total length of . Note that is unitless and is the pure direction of .   Multiply the unit vector by force magnitude: Now multiply by the force magnitude to find the force components.     Next, find the moment arm from point to the line of action of the force. There are two obvious options for moment arms, either or . To demonstrate how both moment arms give the same answer, solutions for both moment arms will be shown.  Option 1: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.     Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    Option 2: Moment using   A thin plate sits in the xy plane. Cable BD pulls with a tension of 2 kN down to anchor point D. A position vector r_OB goes from the origin to the tail of the 2 kN force vector.     Moment arm starts at the point we are taking the moment around, , and ends at the point .   Cross with to find the moment of about point .    It is worth your effort to compute moments both ways for this example, or another problem, to prove to yourself that the answers work out exactly the same with different moment arms. Technically, you could select a position vector from anywhere on line and get the correct answer, but or are the only two between defined points in this problem.   Solution drawing to moment form force F_BD on the upper left corner of thin plate OABC.   Drawing , demonstrates that a moment vector direction is both 1) the axis of rotation caused by around point , with the moment aligning to your thumb and the moment rotating around your fingers from the right-hand rule and 2) that is perpendicular to the plane formed by and . Recall that all cross products result in vectors perpendicular to the two crossed vectors.      Moment about a Line  In three dimensions, the moment of a force about a point can be resolved into components about the , and axes. The moment produces a rotational tendency about all three axes simultaneously, but only a portion of the total moment acts about any particular axis.  We are often interested in finding the effect of a moment about a specific line or axis. For example, consider the moment created by a push on a door handle. Unless you push with a force exactly perpendicular to the hinge, only a portion of the total moment you produce will act around the hinge axis and be effective to open the door. The moment we are looking for is the vector projection of the moment onto the axis of interest. Vector projections were first discussed in .    Moment on a hinge.     The axis of interest does not need to be a coordinate axis. This interactive shows the projection of moment on a line passing through points and .    Moment of a force about a line     To find the moment of a force about a line, three vectors are required:  , a unit vector pointing in the direction of the line or axis of interest.  , a position vector from any point on the line of interest to any point on the line of action of the force.  , the force vector. If you have multiple concurrent forces, you can treat them individually or add them together first and find the moment of the resultant.    With these vectors known, calculating the moment combines skills you already have learned:  finding the moment of a force about a point using the cross product, . .  finding the scalar projection of one vector onto another vector using the dot product,   This combined dot and cross product is a signed scalar value called the scalar triple product . A positive sign indicates that the moment vector points in the positive direction.  and multiplying a scalar projection by a unit vector to find the vector projection,  .    Carrying these three operations out produces a vector that is the component of moment along a line in the direction.  The scalar triple product can be calculated efficiently in a single step by evaluating a 3 3 determinant consisting of the components of in the top row, the components of a position vector in the middle row, and the components of the in the bottom row using the augmented determinant method .   To find the vector projection along the selected axis, multiply this value by the unit vector for the axis, equation .   "
 },
 {
   "id": "objectives-14",
@@ -1699,7 +1699,7 @@ var ptx_lunr_docs = [
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "mixed triple product "
+  "body": "scalar triple product "
 },
 {
   "id": "Chapter_04-couples",
@@ -1720,18 +1720,18 @@ var ptx_lunr_docs = [
   "body": "  What makes a couple different than a typical moment?  Why is a couple considered a pure moment?  If a couple is applied about the point we are summing moments, does it still need to be included in the sum of moments equation?   "
 },
 {
-  "id": "p-877",
+  "id": "p-879",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-877",
+  "url": "Chapter_04-couples.html#p-879",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "couple "
 },
 {
-  "id": "p-878",
+  "id": "p-880",
   "level": "2",
-  "url": "Chapter_04-couples.html#p-878",
+  "url": "Chapter_04-couples.html#p-880",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -1825,7 +1825,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "4.8",
   "title": "Statically Equivalent Systems",
-  "body": " Statically Equivalent Systems    What is an equivalent system?  What is a resultant force?  What is a resultant moment?  Do you have to include both moments and couples to find the resultant moment?  How can you find the simplest equivalent system?  When will the simplest equivalent system be a wrench?  How can you determine if two loading systems are statically equivalent?    A loading system is a combination of load forces and moments that act on an object. It can be as simple as a single force, or as complex as a three-dimensional combination of many force and moment vectors.  You will see that any loading systems may be replaced with a simpler statically equivalent system consisting of one resultant force at a specific point and one resultant moment by performing a series of equivalent transformations. Force system resultants provide a convenient representation for complex force interactions at engineering connections that we will rely on later in a variety of contexts. For now, we will focus on the details of reducing a system to a single force and couple.  Depending on the original loading system, the resultant force, the resultant moment, or both may be zero. If they are both zero, it indicates that the object is in equilibrium under this load condition. If they are non-zero, the supports will need to provide an equal and opposite reaction to put the object into equilibrium.  The resultant force acting on a system, , can be found from adding the individual forces, , such that .   The resultant moment, , about a point , can be found from adding all of the moments , about that point, including both moments and concentrated moments.      It is often more convenient to work with the scalar components of the resultant vectors since they separate the effects in the three coordinate directions.      Statically equivalent systems      Force-Couple Systems  One transformation you might want to make is to move a force to another location. While sliding a force along its line of action is fine, moving a force to another point changes its line of action and thus its rotational effect on the object, so moving a force to a new line of action is not an equivalent transformation.  Consider the cantilever beam below. In diagram (a), the load is at the end of the beam, and in (b) it has been moved to the center. The external effects are shown in (c) and (d). Although the vertical reaction force is the in both cases, the reaction moment at point is in the first case and in the second.   Moving a force is not an equivalent transformation     Force at end of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point A.     Force moved to center of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point B.       FBD and reactions for (a).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point A. At O, a force P acts upward. A Moment of M = 2P*l is developed in the counter-clockwise direction.     FBD and reactions for (b).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point B. At O, a force P acts upward. A Moment of M = P*l is developed in the counter-clockwise direction.       You can move a force to a new line of action in an equivalent fashion if you add a compensatory couple to undo the effect of changing the line of action. This can be accomplished with a series of individual equivalent transformations as shown in the diagram below. To move to another location, first add two equal and opposite forces where you want the force to be, as in (b). Then recognize the couple you have formed (c), and replace it with an equivalent couple-moment. The result of this process is the equivalent force-couple system shown in diagram (d), which is statically equivalent to the original situation in (a).   Equivalent Force-couple system     Original situation.    William Haynes  CC-BY-SA   Rigid beam fixed on the left side, midpoint at length l and end of beam at length 2l. Force P acts downward at point A.     Add two equal and opposite forces at midpoint.    William Haynes  CC-BY-SA   Rigid beam fixed on the left side, midpoint at length l and end of beam at length 2l. Force P acts downward at point A. Force of magnitude P acts up at the midpoint, and another force of magnitude P acts down at the midpoint.       Recognize couple.    William Haynes  CC-BY-SA   In the previous part, the force P acting up at the midpoint and the force P acting down at the end of the beam separated by distance l are a force couple of magnitude M = P*l acting in the clockwise direction.     Replace couple to produce equivalent force-couple system, with the same reactions as .    William Haynes  CC-BY-SA   In the previous part, the force couple can be replaced by a Moment of magnitude M = P*l acting in the clockwise direction. The reactions at the left end of the rigid beam are P acting up and M = 2*P*l acting counter-clockwise.       Evaluating the moment at point was an arbitrary choice. Any other point would give the same result. For example, in the original situation (a) force makes a clockwise moment about the midpoint. When the force is moved to the center creates no moment there, so a clockwise compensatory couple with a magnitude of must be added to maintain equivalence. This is the same result as we found previously (d). The compensatory couple has been drawn centered around the midpoint, but this too is arbitrary because concentrated moments are free vectors and can be placed at any location.     Reduction of a complex system  Any loading system can be reduced to a statically equivalent system consisting of single force and a single moment at a specified point with the following procedure:  Determine the resultant moment about the specified point by considering all forces and concentrated moments on the original system.  Determine the resultant force by adding all forces acting on the original system.  Determine the resultant moment about a point in the original system  Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment at the selected point.     Eccentric loading      An vertical column is supporting an eccentric load as shown.  Replace this load with an equivalent force-couple system acting at the center of the beam's top surface.     William Haynes  CC-BY-SA   A vertical load of 1200 lb acts down on a fixed vertical column at the right edge of the column, 9 inches from the center of the column. It is equivalent to a column with a load of P acting down at the center of the column and a moment of M acting clockwise.      and clockwise    In order to move the vertical force to the left, a clockwise couple must be added to maintain equivalence, where   .      Equivalent Force-couple System   Replace the system of forces in diagram (a) with an equivalent force-couple system at .  Replace the force-couple system at with a single equivalent force and specify its location.       CC-0   Horizontal bar has point A at the left end, point B at distance d1 to the right, and point C at distance d2 to the right of point B. F1 acts down at point B, F2 acts down at point C.   (a)      CC-0   Horizontal bar has resultant force R acting down at point A, with moment M acting clockwise and shown at point A to produce a statically equivalent system to the original diagram.   (b)      CC-0   Horizontal bar has resultant force R acting downward at some distance d from point A to produce a statically equivalent system to the original diagram.   (c)      , and     The original system is shown in (a).  Since the and are parallel, the magnitude of the resultant force is just the sum of the two magnitudes and it points down.   The resultant moment about point is .  To create the equivalent system (b), the resultant force and resultant moment are placed at point .  The system in (b) can be further simplified to eliminate the moment at , by performing the process in reverse.  In (c) we place the resultant force a distance away from point such that the resultant moment around point remains the same. This distance can be found using .   The systems in (a), (b), and (c) are all statically equivalent    In this example, we started with two forces. We have found two different statically equivalent systems; one with a force and a couple, the other with a single force. This latter system is simpler than the original system.  It is important to note that static equivalence applies to external effects only. When determining internal forces, such as the shear and bending moment discussed in or when considering non-rigid bodies, the original loading system must be used.   Determining Equivalence  Two complex loading systems are equivalent if they reduce to the same resultant force and the same resultant moment about any arbitrary point.  Two loading systems are statically equivalent if  The resultant forces are the equal  The resultant moments about some point are equal    This process is illustrated in the following example.    Finding Statically Equivalent Loads   Which of the three loading systems shown are statically equivalent?      Dan Baker  CC-0   A vertical column is 12 ft tall and 3 ft wide. Figure (a) has horizontal force of 10 lb acting to the left on the right side of the bar at a height of 6 ft and a clockwise moment of 80 ft-lb is shown at the bottom. Figure (b) has 10 lb force acting to the right on the left side of the bar at height of 6 ft. Another force of 20 lb acts to the left on the right side of the bar at height of 12 ft. A moment of 120 ft-lb is shown in the clockwise direction at the base. Figure (c) has a force of 10 lb acting to the left at a height of 0 ft. A clockwise moment of 40 ft-lb is shown at the bottom of the bar, and a counter-clockwise moment of 20 ft-lb is shown at the top of the bar.      (a) and (c) are statically equivalent       Strategy  Evaluate the resultant force and resultant moment for each case and compare. We choose to evaluate the resultant moment about point A, though any other point would work.    For system (a)       For system (b)       For system (c)        Systems (a) and (c) are statically equivalent since and are the same in both cases. System (b) is not as its resultant moment is different than the other two.    Any load system can be simplified to its resultant force , and resultant couple , acting at any arbitrary point . There are four common special cases, which are worth highlighting individually.   Concurrent forces  When all forces in a system are concurrent, the resultant moment about their common intersection point will always be zero. We then need only find the resultant force and place it at the point of intersection. The resultant moment about any other point is the moment of the resultant force about that point.    Parallel forces  When all forces in a system are parallel, the resultant force will act in this direction with a magnitude equal to the sum of the individual magnitudes. There will be no moment created about this axis, but we need to find the resultant moment about the other two rectangular axes. That is, if all forces act in the direction, we need only find the resultant force in the direction and the resultant moment about the and axes.    Coplanar forces  When all forces in a system are coplanar we need only find the resultant force in this plane and the resultant moment about the axis perpendicular to this plane. That is, if all forces exist in the - plane, we need only to sum components in the and directions to find resultant force , and use these to determine the resultant moment about the axis. All two-dimensional problems fall into this category.    Wrench resultant  A wrench resultant is a special case where the resultant moment acts around the axis of the resultant force. The directions of the resultant force vector and the resultant moment vector are the same.    Wrench Resultant    William Haynes  CC-BY-SA     For example, if the resultant force is only in the direction and the resultant moment acts only around the axis, this is an example of a wrench resultant. An everyday example is a screwdriver, where both the resultant force and axis of rotation are in-line with the screwdriver. A wrench resultant is considered positive if the couple vector and force vector point in the same direction, and negative if they point in opposite directions.   Any three-dimensional force-couple system may be reduced to an equivalent wrench resultant even if the resultant force and resultant moment do not initially form a wrench resultant.  To find the equivalent wrench resultant:  First, find the resultant force and resultant moment at an arbitrary at arbitrary point, . These need not act along the same axis.  Resolve the resultant moment into scalar components and , parallel and perpendicular to the axis of the resultant force.  Eliminate by moving the resultant force away from point by distance     The simplified system consists of moment and force and acting distance away from point . Since and act along the same axis, the system has been reduced to a wrench resultant. Wrench resultants are the most general way to represent a complex force-couple system, but their utility is limited.   "
+  "body": " Statically Equivalent Systems    What is an equivalent system?  What is a resultant force?  What is a resultant moment?  Do you have to include both moments and couples to find the resultant moment?  How can you find the simplest equivalent system?  When will the simplest equivalent system be a wrench?  How can you determine if two loading systems are statically equivalent?    A loading system is a combination of load forces and moments that act on an object. It can be as simple as a single force, or as complex as a three-dimensional combination of many force and moment vectors.  You will see that any loading systems may be replaced with a simpler statically equivalent system consisting of one resultant force at a specific point and one resultant moment by performing a series of equivalent transformations. Force system resultants provide a convenient representation for complex force interactions at engineering connections that we will rely on later in a variety of contexts. For now, we will focus on the details of reducing a system to a single force and couple.  Depending on the original loading system, the resultant force, the resultant moment, or both may be zero. If they are both zero, it indicates that the object is in equilibrium under this load condition. If they are non-zero, the supports will need to provide an equal and opposite reaction to put the object into equilibrium.  The resultant force acting on a system, , can be found from adding the individual forces, , such that .   The resultant moment, , about a point , can be found from adding all of the moments , about that point, including both moments and concentrated moments.      It is often more convenient to work with the scalar components of the resultant vectors since they separate the effects in the three coordinate directions.     Statically equivalent systems      Force-Couple Systems  One transformation you might want to make is to move a force to another location. While sliding a force along its line of action is fine, moving a force to another point changes its line of action and thus its rotational effect on the object, so moving a force to a new line of action is not an equivalent transformation.  Consider the cantilever beam below. In diagram (a), the load is at the end of the beam, and in (b) it has been moved to the center. The external effects are shown in (c) and (d). Although the vertical reaction force is the in both cases, the reaction moment at point is in the first case and in the second.   Moving a force is not an equivalent transformation     Force at end of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point A.     Force moved to center of beam.    William Haynes  CC-BY-SA   Rigid beam fixed at O point B at length l and point A at length 2l. Force P acts downward at point B.       FBD and reactions for (a).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point A. At O, a force P acts upward. A Moment of M = 2P*l is developed in the counter-clockwise direction.     FBD and reactions for (b).    William Haynes  CC-BY-SA   FBD of a rigid beam which was fixed at O point with B at length l and point A at length 2l. Force P acts downward at point B. At O, a force P acts upward. A Moment of M = P*l is developed in the counter-clockwise direction.       You can move a force to a new line of action in an equivalent fashion if you add a compensatory couple to undo the effect of changing the line of action. This can be accomplished with a series of individual equivalent transformations as shown in the diagram below. To move to another location, first add two equal and opposite forces where you want the force to be, as in (b). Then recognize the couple you have formed (c), and replace it with an equivalent couple-moment. The result of this process is the equivalent force-couple system shown in diagram (d), which is statically equivalent to the original situation in (a).   Equivalent Force-couple system     Original situation.    William Haynes  CC-BY-SA   Rigid beam fixed on the left side, midpoint at length l and end of beam at length 2l. Force P acts downward at point A.     Add two equal and opposite forces at midpoint.    William Haynes  CC-BY-SA   Rigid beam fixed on the left side, midpoint at length l and end of beam at length 2l. Force P acts downward at point A. Force of magnitude P acts up at the midpoint, and another force of magnitude P acts down at the midpoint.       Recognize couple.    William Haynes  CC-BY-SA   In the previous part, the force P acting up at the midpoint and the force P acting down at the end of the beam separated by distance l are a force couple of magnitude M = P*l acting in the clockwise direction.     Replace couple to produce equivalent force-couple system, with the same reactions as .    William Haynes  CC-BY-SA   In the previous part, the force couple can be replaced by a Moment of magnitude M = P*l acting in the clockwise direction. The reactions at the left end of the rigid beam are P acting up and M = 2*P*l acting counter-clockwise.       Evaluating the moment at point was an arbitrary choice. Any other point would give the same result. For example, in the original situation (a) force makes a clockwise moment about the midpoint. When the force is moved to the center creates no moment there, so a clockwise compensatory couple with a magnitude of must be added to maintain equivalence. This is the same result as we found previously (d). The compensatory couple has been drawn centered around the midpoint, but this too is arbitrary because concentrated moments are free vectors and can be placed at any location.     Reduction of a complex system  Any loading system can be reduced to a statically equivalent system consisting of single force and a single moment at a specified point with the following procedure:  Determine the resultant moment about the specified point by considering all forces and concentrated moments on the original system.  Determine the resultant force by adding all forces acting on the original system.  Determine the resultant moment about a point in the original system  Create the statically equivalent system by replacing all loads with the resultant force and the resultant moment at the selected point.     Eccentric loading      An vertical column is supporting an eccentric load as shown.  Replace this load with an equivalent force-couple system acting at the center of the beam's top surface.     William Haynes  CC-BY-SA   A vertical load of 1200 lb acts down on a fixed vertical column at the right edge of the column, 9 inches from the center of the column. It is equivalent to a column with a load of P acting down at the center of the column and a moment of M acting clockwise.      and clockwise    In order to move the vertical force to the left, a clockwise couple must be added to maintain equivalence, where   .      Equivalent Force-couple System   Replace the system of forces in diagram (a) with an equivalent force-couple system at .  Replace the force-couple system at with a single equivalent force and specify its location.       CC-0   Horizontal bar has point A at the left end, point B at distance d1 to the right, and point C at distance d2 to the right of point B. F1 acts down at point B, F2 acts down at point C.   (a)      CC-0   Horizontal bar has resultant force R acting down at point A, with moment M acting clockwise and shown at point A to produce a statically equivalent system to the original diagram.   (b)      CC-0   Horizontal bar has resultant force R acting downward at some distance d from point A to produce a statically equivalent system to the original diagram.   (c)      , and     The original system is shown in (a).  Since the and are parallel, the magnitude of the resultant force is just the sum of the two magnitudes and it points down.   The resultant moment about point is .  To create the equivalent system (b), the resultant force and resultant moment are placed at point .  The system in (b) can be further simplified to eliminate the moment at , by performing the process in reverse.  In (c) we place the resultant force a distance away from point such that the resultant moment around point remains the same. This distance can be found using .   The systems in (a), (b), and (c) are all statically equivalent    In this example, we started with two forces. We have found two different statically equivalent systems; one with a force and a couple, the other with a single force. This latter system is simpler than the original system.  It is important to note that static equivalence applies to external effects only. When determining internal forces, such as the shear and bending moment discussed in or when considering non-rigid bodies, the original loading system must be used.   Determining Equivalence  Two complex loading systems are equivalent if they reduce to the same resultant force and the same resultant moment about any arbitrary point.  Two loading systems are statically equivalent if  The resultant forces are the equal  The resultant moments about some point are equal    This process is illustrated in the following example.    Finding Statically Equivalent Loads   Which of the three loading systems shown are statically equivalent?      Dan Baker  CC-0   A vertical column is 12 ft tall and 3 ft wide. Figure (a) has horizontal force of 10 lb acting to the left on the right side of the bar at a height of 6 ft and a clockwise moment of 80 ft-lb is shown at the bottom. Figure (b) has 10 lb force acting to the right on the left side of the bar at height of 6 ft. Another force of 20 lb acts to the left on the right side of the bar at height of 12 ft. A moment of 120 ft-lb is shown in the clockwise direction at the base. Figure (c) has a force of 10 lb acting to the left at a height of 0 ft. A clockwise moment of 40 ft-lb is shown at the bottom of the bar, and a counter-clockwise moment of 20 ft-lb is shown at the top of the bar.      (a) and (c) are statically equivalent       Strategy  Evaluate the resultant force and resultant moment for each case and compare. We choose to evaluate the resultant moment about point A, though any other point would work.    For system (a)       For system (b)       For system (c)        Systems (a) and (c) are statically equivalent since and are the same in both cases. System (b) is not as its resultant moment is different than the other two.    Any load system can be simplified to its resultant force , and resultant couple , acting at any arbitrary point . There are four common special cases, which are worth highlighting individually.   Concurrent forces  When all forces in a system are concurrent, the resultant moment about their common intersection point will always be zero. We then need only find the resultant force and place it at the point of intersection. The resultant moment about any other point is the moment of the resultant force about that point.    Parallel forces  When all forces in a system are parallel, the resultant force will act in this direction with a magnitude equal to the sum of the individual magnitudes. There will be no moment created about this axis, but we need to find the resultant moment about the other two rectangular axes. That is, if all forces act in the direction, we need only find the resultant force in the direction and the resultant moment about the and axes.    Coplanar forces  When all forces in a system are coplanar we need only find the resultant force in this plane and the resultant moment about the axis perpendicular to this plane. That is, if all forces exist in the - plane, we need only to sum components in the and directions to find resultant force , and use these to determine the resultant moment about the axis. All two-dimensional problems fall into this category.    Wrench resultant  A wrench resultant is a special case where the resultant moment acts around the axis of the resultant force. The directions of the resultant force vector and the resultant moment vector are the same.    Wrench Resultant    William Haynes  CC-BY-SA     For example, if the resultant force is only in the direction and the resultant moment acts only around the axis, this is an example of a wrench resultant. An everyday example is a screwdriver, where both the resultant force and axis of rotation are in-line with the screwdriver. A wrench resultant is considered positive if the couple vector and force vector point in the same direction, and negative if they point in opposite directions.   Any three-dimensional force-couple system may be reduced to an equivalent wrench resultant even if the resultant force and resultant moment do not initially form a wrench resultant.  To find the equivalent wrench resultant:  First, find the resultant force and resultant moment at an arbitrary at arbitrary point, . These need not act along the same axis.  Resolve the resultant moment into scalar components and , parallel and perpendicular to the axis of the resultant force.  Eliminate by moving the resultant force away from point by distance     The simplified system consists of moment and force and acting distance away from point . Since and act along the same axis, the system has been reduced to a wrench resultant. Wrench resultants are the most general way to represent a complex force-couple system, but their utility is limited.   "
 },
 {
   "id": "objectives-17",
@@ -1972,9 +1972,9 @@ var ptx_lunr_docs = [
   "body": " Table of common three-dimensional supports and their associated reactions.    Dan Baker  CC-BY-SA   As in the previous table, support types are shown here. A support produces a reaction in the direction in which it prevents motion (1 reaction). Two-force support member constrains translation in one direction. Smooth surface constrains translation in one direction (1 reaction). Ball and socket constrains translation in 3 directions, but not rotation (3 reactions). Free axle bearing constrains translation in two directions (y and z) and rotation in two directions (couple moment about z and about y) (4 reactions). Confined axle bearings (e.g., thrust bearing, smooth pin, hinge) only allows rotation about one axis, and does not allow translation in any direction (5 reactions). A square axle bearing only allows translation in one direction, and no rotation (5 reactions). A fixed support prevents any translation or rotation (6 reactions).   "
 },
 {
-  "id": "p-1000",
+  "id": "p-1002",
   "level": "2",
-  "url": "Chapter_05-free-body-diagrams.html#p-1000",
+  "url": "Chapter_05-free-body-diagrams.html#p-1002",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2098,27 +2098,27 @@ var ptx_lunr_docs = [
   "body": "  What does stable mean for a rigid body?  What does determinate mean for a rigid body?  Does stability depend on the external loads or only on the reactions?  How can I tell if a system is determinate?  How can I decide if a problem is both stable and determinate, which makes it solvable statics?   "
 },
 {
-  "id": "p-1092",
-  "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-1092",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "determinate indeterminate "
-},
-{
   "id": "p-1094",
   "level": "2",
   "url": "Chapter_05-stability-and-determinacy.html#p-1094",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
+  "body": "determinate indeterminate "
+},
+{
+  "id": "p-1096",
+  "level": "2",
+  "url": "Chapter_05-stability-and-determinacy.html#p-1096",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
   "body": "under-constrained over-constrained indeterminate "
 },
 {
-  "id": "p-1095",
+  "id": "p-1097",
   "level": "2",
-  "url": "Chapter_05-stability-and-determinacy.html#p-1095",
+  "url": "Chapter_05-stability-and-determinacy.html#p-1097",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2188,27 +2188,27 @@ var ptx_lunr_docs = [
   "body": " Structures  Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.  A truss is a multi-body structure made up of long slender members connected at their ends in triangular subunits. Truss members carry axial forces only. Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example. They are also used for crane booms, radio towers and the like. Trusses are lightweight and relatively strong. Over the years many unique truss designs have been developed and are often named after the original designer.  A frame is a multi-part, rigid, stationary structure primarily designed to support some type of load. A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces. Many common items can be considered frames. Some examples: building structure, bike frames, ladders, scaffolding, and more.  A machine is very similar to a frame, except that it includes some moving parts. The purpose of a machine is usually to provide a mechanical advantage and multiply forces. Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.    Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge     Solving a structure means determining all forces acting on all of its parts. The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part. The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.   Two-force Members  Many structures contain at least one two-force member, and trusses consist of two-force members exclusively. Recall from that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.  Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces. In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied. Since these points are known, the direction of the line-of-action is readily found.  The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression. If the two forces tend to stretch the object we say it is in tension ; if they act the other way and squash the object, it is in compression . The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly. If the analysis shows that the forces are negative then they actually act with the opposite sense, compression.   Two-force members in tension and compression.    CC-BY-SA   A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).     "
 },
 {
-  "id": "p-1126",
+  "id": "p-1128",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1126",
+  "url": "Chapter_06-structures.html#p-1128",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss "
 },
 {
-  "id": "p-1127",
+  "id": "p-1129",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1127",
+  "url": "Chapter_06-structures.html#p-1129",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "frame "
 },
 {
-  "id": "p-1128",
+  "id": "p-1130",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1128",
+  "url": "Chapter_06-structures.html#p-1130",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2224,9 +2224,9 @@ var ptx_lunr_docs = [
   "body": " Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss.     CC-BY-SA   Scissors     Simon (pixabay.com)  CC-0    A truss bridge    "
 },
 {
-  "id": "p-1130",
+  "id": "p-1132",
   "level": "2",
-  "url": "Chapter_06-structures.html#p-1130",
+  "url": "Chapter_06-structures.html#p-1132",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2296,27 +2296,27 @@ var ptx_lunr_docs = [
   "body": "  What are simple trusses and how do they differ from other structural systems?  What are the benefits and dangers of simple trusses?  How can we determine the forces acting within simple truss systems?  For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?  How do we identify zero-force members in a truss and use their presence to simplify the analysis?   "
 },
 {
-  "id": "p-1141",
+  "id": "p-1143",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1141",
+  "url": "Chapter_06-trusses.html#p-1143",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "truss Planar trusses space trusses "
 },
 {
-  "id": "p-1142",
+  "id": "p-1144",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1142",
+  "url": "Chapter_06-trusses.html#p-1144",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "simple truss method of sections method of joints "
 },
 {
-  "id": "p-1143",
+  "id": "p-1145",
   "level": "2",
-  "url": "Chapter_06-trusses.html#p-1143",
+  "url": "Chapter_06-trusses.html#p-1145",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2404,9 +2404,9 @@ var ptx_lunr_docs = [
   "body": "  What are the important components to include on a free-body diagram of a joint in a truss?  How are the solutions found at one joint used to create an accurate free-body diagram of another joint?  How do we ensure that tension or compression in a member is properly represented?   "
 },
 {
-  "id": "p-1184",
+  "id": "p-1186",
   "level": "2",
-  "url": "method-of-joints.html#p-1184",
+  "url": "method-of-joints.html#p-1186",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2440,9 +2440,9 @@ var ptx_lunr_docs = [
   "body": "  How do we determine an appropriate section to cut through a truss?  How are equilibrium equations applied to a section?   "
 },
 {
-  "id": "p-1201",
+  "id": "p-1203",
   "level": "2",
-  "url": "method-of-sections.html#p-1201",
+  "url": "method-of-sections.html#p-1203",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2476,18 +2476,18 @@ var ptx_lunr_docs = [
   "body": "  How are frames and machines different from trusses?  Why can the method of joints and method of sections not be used for frames and machines?  How do we identify if a structure is independently rigid?  How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?   "
 },
 {
-  "id": "p-1216",
+  "id": "p-1218",
   "level": "2",
-  "url": "frames-and-machines.html#p-1216",
+  "url": "frames-and-machines.html#p-1218",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Frames "
 },
 {
-  "id": "p-1217",
+  "id": "p-1219",
   "level": "2",
-  "url": "frames-and-machines.html#p-1217",
+  "url": "frames-and-machines.html#p-1219",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2683,18 +2683,18 @@ var ptx_lunr_docs = [
   "body": " Weighted Averages  You certainly know how to find the average of several numbers by adding them up and dividing by the number of values, so for example the average of the first four positive integers is   More formally, if is a set with elements then the average, or mean, value is . This average is also called the arithmetic mean . When calculating an arithmetic mean, each number is equally important when evaluating the average. The overbar symbol is often used to indicate that a quantity is a mean value.  In situations where some values are more important than others, we use a weighted average . A familiar example is your grade point average. Your GPA is calculated by weighting your grade for each class by the credits for that class, then dividing by the total credits you have taken. The credit values are called the weighting factors .  In general terms a weighted average is Where are the values we are averaging and are the corresponding weighting factors. The weighting factors may be different for each item being averaged, so is the weighting factor for value . In this book we will not write the limits on the sums, and understand that the intent is always to sum over all the values. Notice that if the weighting factors are all identical, they can be factored out of the sums so the weighted average and the arithmetic mean will be the same.  Weighted averaging is used to find centroids, centers of gravity and centers of mass, the subject of this chapter. All three are points located at the center the object, but the meaning of center depends on the weighting factors. Area or volume are the factors used for centroids, weight for center of gravity, and mass for center of mass.   Course Grades   The mechanics syllabus says that there are two exams worth 25% each, homework is 10%, and the final is worth 40%. You have a 40 on the first exam, a 80 on the second exam, and your homework grade is 90.  What do you have to earn on the final exam to get a 70 in the class?    You need a 77.5 on the final to get a 70 for the class.    Your known grades and the weighting factors are   Find final exam score so that your average grade is 70%. .    "
 },
 {
-  "id": "p-1316",
+  "id": "p-1318",
   "level": "2",
-  "url": "weghted-average.html#p-1316",
+  "url": "weghted-average.html#p-1318",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "arithmetic mean "
 },
 {
-  "id": "p-1317",
+  "id": "p-1319",
   "level": "2",
-  "url": "weghted-average.html#p-1317",
+  "url": "weghted-average.html#p-1319",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2719,9 +2719,9 @@ var ptx_lunr_docs = [
   "body": " Center of Gravity  So far in this book we have always taken the weight of an object to act at a point at its center. This is the center of gravity : the point where all of an object's weight may be concentrated and still have the same external effect on the body. In this chapter we will learn to actually locate this point.    We will indicate the center of gravity with a circle with black and white quadrants, and call its coordinates or . This point represents the average location of all the particles which make up the body.    The center of gravity of a body is fixed with respect to the body, but the coordinates depend on the choice of coordinate system. For example, in the center of gravity of the block is at its geometric center meaning that and are positive, but if the block is moved to the left of the axis, or the coordinate system is translated to the right of the block, would then become negative.   Location of the centroid, measured from the origin.   Square shape shown on x-y plane in Quadrant I. x-bar is distance of centroid from y axis, and y-bar is distance of centroid from x-axis.     Lets explore the center of gravity of a familiar object. Take a pencil and try to balance it on your finger. How do you decide where to place it? You likely supported it roughly in the middle, then adjusted it until it balanced. You found the point where the moments of the weights on either side of your finger were in equilibrium.  Let's develop this balanced moment idea mathematically.  Assume that the two halves of the pencil have known weights acting at points 1 and 2. How could we replace the two weights with a single statically equivalent force? Recall from that statically equivalent systems produce the same external effect on the object the net force on the object, and the net moment about any point don't change. An upward force at this point will support the pencil without tipping.  To be equivalent, the total weight must equal the total weight of the parts. . Common sense also tells us that will act somewhere between and .    (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil's center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil's center of gravity x-bar.      Next, let's do the mathematical equivalent of sliding your finger back and forth until a balance point is located. Pick any point to be the origin, then calculate the total moment about due to the two weights.  The sum of moments around point can be written as:     Notice that the moment of both forces are clockwise around point , so the signs are negative according to the right-hand rule. We want a single equivalent force acting at the (unknown) center of gravity. Call the distance from the origin to the center of gravity .  represents the mean distance of the weight, mass, or area depending on the context of the problem. We are evaluating weights in this problem, so represents the distance from to the center of gravity.  The sum of moments around point for the equivalent system can be written as:   The moment of total weight is also clockwise around point , so the sign of moment will also be negative according to the right-hand rule. Since the two representation are equivalent we can equate them and solve for .    This result is exactly in the form of where the value being averaged is distance and the weighting factor is the weight of part and the result is the mean distance .  The pencil was made up of two halves, but this equation can easily be extended discrete parts. The resulting general definition of the centroidal coordinate is: where:  is the weight of part ,  is the coordinate of the center of gravity of element , and  is understood to mean sum all parts so there is no need to write .    The numerator is the first moment of force which is literally a moment of force as we defined it in . The denominator is the sum of the weights of the pieces, which is the weight of the whole object. We will soon also see first moments of mass and first moments of area and in , we will introduce second moments , which are the integral of some quantity like area, multiplied by a distance squared .  We treated the pencil as a one-dimensional object, so this discussion focused on . There are similar formula for the other dimensions as well .   In words, these equations say   They apply to any object which can be divided into discrete parts, and they produce the coordinates of the object's center of gravity.    Can you explain why the center of gravity of a symmetrical object will always fall on the axis of symmetry?    If the object is symmetrical, every subpart on the positive side of the axis of symmetry will be balanced by an identical part on the negative side. The first moment for the entire shape about the axis will sum to zero, meaning that . In other words, the distance from the axis of symmetry of the shape to the centroid is zero.     Simple Center of Gravity    Three boxes are distributed along the axis as shown.       Find the total weight and the distance from the origin to the center of gravity of the three boxes.    How would the center of gravity change if the right-most box weighed instead of ?       a)   b)   The total weight increases by and the center of gravity shifts to the right by . Also, if the weights of box three doubles, the first moment of weight with respect to the origin of the third box would also double.   .        "
 },
 {
-  "id": "p-1325",
+  "id": "p-1327",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1325",
+  "url": "Chapter_07-center-of-gravity.html#p-1327",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2746,9 +2746,9 @@ var ptx_lunr_docs = [
   "body": " (top) Side view of a pencil representing each half as a particle. (middle) A force diagram showing the weights of the two particles. (bottom) An equivalent system consisting of a single weight acting at the pencil's center of gravity.            Dan Baker  CC-BY-SA   A pen with split into two parts with two centers of gravity. The distances from the tip of the pen to the CG are x1 and x2. Lastly, an equivalent system consisting of a single weight acting at the pencil's center of gravity x-bar.     "
 },
 {
-  "id": "p-1346",
+  "id": "p-1348",
   "level": "2",
-  "url": "Chapter_07-center-of-gravity.html#p-1346",
+  "url": "Chapter_07-center-of-gravity.html#p-1348",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2782,18 +2782,18 @@ var ptx_lunr_docs = [
   "body": " Center of Mass  The center of mass is the mean location of the mass of an object, and is related to the center of gravity by Newton's Second Law because , where is the local strength of the gravitational field. In this course you may take in the SI system, or in the US customary system as reasonable approximations for objects on the surface of the earth.  Substituting in gives the equations for the center of mass. .  By our assumption that is constant on the surface of the earth, can be factored out of the sums and drops out of the equation completely. .  These equations give the coordinates of the center of mass. The numerator contains the first moment of mass , and the denominator contains the total mass of the object. As long as the assumption that is constant is valid, the center of mass and the center of gravity are identical points and the two terms may be used interchangeably.  "
 },
 {
-  "id": "p-1361",
+  "id": "p-1363",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1361",
+  "url": "Chapter_07-center-of-mass.html#p-1363",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "center of mass "
 },
 {
-  "id": "p-1364",
+  "id": "p-1366",
   "level": "2",
-  "url": "Chapter_07-center-of-mass.html#p-1364",
+  "url": "Chapter_07-center-of-mass.html#p-1366",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2962,9 +2962,9 @@ var ptx_lunr_docs = [
   "body": "  How do you find the centroid of an area using integration?  What is a differential quantity?  Why are double integrals required for square elements and single integrals required for rectangular elements?   "
 },
 {
-  "id": "p-1471",
+  "id": "p-1473",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1471",
+  "url": "centroids-by-integration.html#p-1473",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -2989,9 +2989,9 @@ var ptx_lunr_docs = [
   "body": " What is ?  is just an area, but an extremely tiny one!  It's an example of an differential quantity   also called an infinitesimal . A differential quantity is a value which is as close to zero as it can possibly be without actually being zero. You can think of its value as . Integration is the process of adding up an infinite number of infinitesimal quantities.  Some other differential quantities we will see in statics are , and , which are infinitesimal increments of distance; , which is a differential volume; , a differential weight; , a differential mass, and so on.  Any product involving a differential quantity is itself a differential quantity, so if the area of a vertical strip is given by then, even though height is a real number, the area is a differential because is differential.  If you like, you can pronounce the as the little bit of so reads The little bit of area is the height times a little bit x. and reads The total area is the sum of the little bits of area.   "
 },
 {
-  "id": "p-1496",
+  "id": "p-1498",
   "level": "2",
-  "url": "centroids-by-integration.html#p-1496",
+  "url": "centroids-by-integration.html#p-1498",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3079,18 +3079,18 @@ var ptx_lunr_docs = [
   "body": "  What is a distributed load?  Given a distributed load, how do we find the magnitude of the equivalent concentrated force?  Given a distributed load, how do we find the location of the equivalent concentrated force?   "
 },
 {
-  "id": "p-1644",
+  "id": "p-1646",
   "level": "2",
-  "url": "distributed-loads.html#p-1644",
+  "url": "distributed-loads.html#p-1646",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Distributed loads "
 },
 {
-  "id": "p-1645",
+  "id": "p-1647",
   "level": "2",
-  "url": "distributed-loads.html#p-1645",
+  "url": "distributed-loads.html#p-1647",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3106,9 +3106,9 @@ var ptx_lunr_docs = [
   "body": "     A shelf of books with various weights.   Shelf of books.       Each book represented as an individual weight   Shelf with books represented by different individual weights.       All the books represented as a distributed load.   All books represented as distributed load      "
 },
 {
-  "id": "p-1646",
+  "id": "p-1648",
   "level": "2",
-  "url": "distributed-loads.html#p-1646",
+  "url": "distributed-loads.html#p-1648",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3124,9 +3124,9 @@ var ptx_lunr_docs = [
   "body": " Bookshelf   A common paperback is about thick and weighs approximately .  What is the loading function for a shelf full of paperbacks and what is the total weight of paperback books on a shelf?         The weight of one paperback over its thickness is the load intensity , so .  The total weight is the area under the load intensity diagram, which in this case is a rectangle. So, a bookshelf covered with paperbacks would have to support .  The line of action of this equivalent load passes through the centroid of the rectangular loading, so it acts at .     "
 },
 {
-  "id": "p-1660",
+  "id": "p-1662",
   "level": "2",
-  "url": "distributed-loads.html#p-1660",
+  "url": "distributed-loads.html#p-1662",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3178,9 +3178,9 @@ var ptx_lunr_docs = [
   "body": "  What is the basic relationship between depth and pressure?  How are absolute and relative pressure different?  How can use our knowledge of centroids to compute the equivalent point forces of fluids?   "
 },
 {
-  "id": "p-1680",
+  "id": "p-1682",
   "level": "2",
-  "url": "Chapter_07-fluid-statics.html#p-1680",
+  "url": "Chapter_07-fluid-statics.html#p-1682",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3268,9 +3268,9 @@ var ptx_lunr_docs = [
   "body": " Internal Forces  In you were introduced to axial loadings, which were either tension or compression, or possibly zero. This section will explain two other internal forces found in two-dimensional systems, the internal  shear and internal  bending moment .  Internal forces are present at every point within a rigid body, but they always occur in equal-and-opposite pairs which cancel each other out, so they're not obvious. They're there however, and when an object is cut (in your imagination) into two parts the internal forces become visible and can be determined.  You are familiar with straight, two-force members which only exist in equilibrium if equal and opposite forces act on either end. Now imagine that we cut the member at some point along its length. To maintain equilibrium, forces must exist at the cut, equal and opposite to the external forces. These forces are internal forces.    Internal forces in a straight two-force member.    Now let's examine the two-force member shown in . This time, the member is L shaped, not straight, but the external forces must still share the same line of action to maintain equilibrium. If you cut across the object, you will obtain two rigid bodies which must also be in equilibrium. However, adding an equal and opposite horizontal force at the cut won't produce static equilibrium because the two forces form a couple which causes the piece to rotate. This means that something is missing!   A horizontal force alone does not create equilibrium.    Dan Baker    L-shaped beam turned 45 degrees with force applied horizontally to each end. If the beam is split on one leg, a horizontal force alone does not result in equilibrium; a moment is necessary.     Two-dimensional rigid bodies have three degrees-of-freedom and require three equilibrium equations to satisfy static equilibrium in order to prevent translation in the direction, the direction, and to prevent rotation about the axis.  Assuming the material is rigid, the connection between the two halves must resist both translation and rotation, so we can model this connection as a fixed support and replace the removed half of the link with a force reaction and a couple-moment reaction as shown in the free-body diagrams of . This internal loading is actually a simplification of a more complex loading distributed across the section plane. The couple represents the net rotational effect of the force system on the surface of the cut.   The internal forces are represented as an equal and opposite force and a bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force and moment achieve equilibrium.    The horizontal force can also be resolved into orthogonal components parallel and perpendicular to the cut. These components have special names in the context of internal forces.   The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.     The internal force component perpendicular to the cut is called the normal force . This is the same internal tension or compression force that we assumed to be the only significant internal load for trusses. If the object has an axis, and the cut is perpendicular to it, the normal force may also be properly called an axial force .  The internal force component parallel to the cut is called the shear force . The word shear refers to the shearing that occurs between adjacent planes due to this force. You can get a feel for shearing adjacent planes by sliding two pieces of paper together.  The internal couple-moment is called the bending moment because it tends to bend the material by rotating the cut surface.  The shear force is often simply referred to as shear, and the bending moment as moment ; together with the normal or axial force the three together are referred to as the internal forces . The symbol is commonly chosen for the shear force, and , or for the normal force and for the bending moment.    Internal Loading in a L shaped member.     Deformation  The controlling design parameter for most engineering systems is deformation. Thankfully, due to a property called elasticity, most materials will bend, stretch, and compress, long before they ultimately break. For example, when designing the floor in a new building, the floor is often limited to deflecting less than the length of the span in inches, divided by 360. Any more deformation than this would be considered disconcerting to the building residents and also start damaging surface materials like drywall. For example, for a span, the deflection would need to be less than .   To meet this deformation limit, we need to consider the magnitude and location of applied loads, the size and shape of the floor beams, and the material the floor beams are made from. As deflection is an internal property of the flooring materials, the first step is to determine the internal forces that arise from the externally applied loads, using the methods of this chapter.   "
 },
 {
-  "id": "p-1728",
+  "id": "p-1730",
   "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1728",
+  "url": "Chapter_08-internal-forces.html#p-1730",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3313,36 +3313,36 @@ var ptx_lunr_docs = [
   "body": " The internal forces are represented as a normal force , a shear force , and bending moment     Dan Baker    The L-shaped beam from previous figure shown with resultant force broken into normal and shear components, as well as the bending moment.   "
 },
 {
-  "id": "p-1739",
-  "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1739",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "normal force axial force "
-},
-{
-  "id": "p-1740",
-  "level": "2",
-  "url": "Chapter_08-internal-forces.html#p-1740",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "shear force "
-},
-{
   "id": "p-1741",
   "level": "2",
   "url": "Chapter_08-internal-forces.html#p-1741",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "bending moment "
+  "body": "normal force axial force "
 },
 {
   "id": "p-1742",
   "level": "2",
   "url": "Chapter_08-internal-forces.html#p-1742",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "shear force "
+},
+{
+  "id": "p-1743",
+  "level": "2",
+  "url": "Chapter_08-internal-forces.html#p-1743",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "bending moment "
+},
+{
+  "id": "p-1744",
+  "level": "2",
+  "url": "Chapter_08-internal-forces.html#p-1744",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3439,9 +3439,9 @@ var ptx_lunr_docs = [
   "body": " Shear and Bending Moment Diagrams   Beams are structural elements primarily designed to support vertical loads. When designing a beam it is important to locate the points of maximum shear and maximum moment and their magnitudes because that's where the beam is most likely to fail. To find these critical points, we need to check the shear force and bending moment at every point along the beam's full length.  The previous section presented a method to find the shear and bending moment at a single point, which is useful; but in order to find the shear and moment at every point in the object you will need a more powerful approach. This can be done by creating a shear and bending moment diagram. This section will discuss three related but different methods to produce shear and bending moment diagrams, and conclude with a comparison of the advantages and disadvantages of each approach.    Shear and Bending Moment Diagrams  Shear and moment diagrams are graphs which show the internal shear and bending moment plotted along the length of the beam. They allow us to see where the maximum loads occur so that we can optimize the design to prevent failures and reduce the overall weight and cost of the structure.  Since beams primarily support vertical loads the axial forces are usually small, so they will not be considered in this section.  Beams can be supported in a variety of ways as shown in . The common support methods are  Simply Supported Supported by a pin on one end and a roller at the other.  Cantilevered Fixed at one end, and unsupported at the other.  Overhanging One or both ends overhang the supports.      Beam Supports    Simply Supported    Dan Baker    Simply supported beam.     Cantilevered    Dan Baker    Cantilevered beam.     Overhanging    Dan Baker    Overhanging beam.       "
 },
 {
-  "id": "p-1812",
+  "id": "p-1814",
   "level": "2",
-  "url": "VM_diagrams.html#p-1812",
+  "url": "VM_diagrams.html#p-1814",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3520,9 +3520,9 @@ var ptx_lunr_docs = [
   "body": " A free-body diagram of a small section of the beam with a width of     Dan Baker    FBD of the small segment delta x, with shear and bending moments indicated on the \"cut\" surfaces.   "
 },
 {
-  "id": "p-1851",
+  "id": "p-1853",
   "level": "2",
-  "url": "VM_relations.html#p-1851",
+  "url": "VM_relations.html#p-1853",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3637,18 +3637,18 @@ var ptx_lunr_docs = [
   "body": "  Which types of friction do we study in statics, and which are studied elsewhere?  What is a normal force?  What is impending motion ?  How do you decide when you can use the equation and when you can not?  Can you show graphically how friction and normal force vectors are related to the friction resultant vector and the friction angle at impending motion?  What is the friction angle ?  Why is a distributed normal force represented as a point force that moves as the normal force shifts?   "
 },
 {
-  "id": "p-1918",
+  "id": "p-1920",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1918",
+  "url": "Chapter_09-dry-friction.html#p-1920",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Coulomb friction "
 },
 {
-  "id": "p-1919",
+  "id": "p-1921",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1919",
+  "url": "Chapter_09-dry-friction.html#p-1921",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3691,9 +3691,9 @@ var ptx_lunr_docs = [
   "body": "    Block on rough surface.     FBD showing normal and friction forces.     "
 },
 {
-  "id": "p-1927",
+  "id": "p-1929",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1927",
+  "url": "Chapter_09-dry-friction.html#p-1929",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3709,27 +3709,27 @@ var ptx_lunr_docs = [
   "body": " Phases of Coulomb friction.   "
 },
 {
-  "id": "p-1928",
+  "id": "p-1930",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1928",
+  "url": "Chapter_09-dry-friction.html#p-1930",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "impending motion "
 },
 {
-  "id": "p-1934",
+  "id": "p-1936",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1934",
+  "url": "Chapter_09-dry-friction.html#p-1936",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "friction resultant "
 },
 {
-  "id": "p-1935",
+  "id": "p-1937",
   "level": "2",
-  "url": "Chapter_09-dry-friction.html#p-1935",
+  "url": "Chapter_09-dry-friction.html#p-1937",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3934,18 +3934,18 @@ var ptx_lunr_docs = [
   "body": "  Can you describe how the right-hand rule relates to the motion and rotation of screws?  What is the thread pitch and friction angle for a screw?  Contrast the different types of screw motion, with and against applied loads, and match the motion cases to their corresponding equation.  Why does a screw and a nut move in relatively opposite directions?   "
 },
 {
-  "id": "p-1986",
+  "id": "p-1988",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1986",
+  "url": "Chapter_09-screw-friction.html#p-1988",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "lead "
 },
 {
-  "id": "p-1987",
+  "id": "p-1989",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1987",
+  "url": "Chapter_09-screw-friction.html#p-1989",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -3979,9 +3979,9 @@ var ptx_lunr_docs = [
   "body": " Screw Thread Handedness    Right Hand Threads    William Haynes    Image of two screw threads. Right hand threads are higher on the right side, and left hand threads are higher on the left side.     Left Hand Threads     "
 },
 {
-  "id": "p-1994",
+  "id": "p-1996",
   "level": "2",
-  "url": "Chapter_09-screw-friction.html#p-1994",
+  "url": "Chapter_09-screw-friction.html#p-1996",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4204,9 +4204,9 @@ var ptx_lunr_docs = [
   "body": " This orbital sander rotates a circular sanding disc against a stationary surface. The disc friction between the sanding disc and the surface exert a moment on both the surface and the sander.    Hedwig Storch  CC-BY-SA   Photo of orbital sander.   "
 },
 {
-  "id": "p-2089",
+  "id": "p-2091",
   "level": "2",
-  "url": "Chapter_09-disc-friction.html#p-2089",
+  "url": "Chapter_09-disc-friction.html#p-2091",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4276,9 +4276,9 @@ var ptx_lunr_docs = [
   "body": "   Why does the area moment of inertia integral equation include a distance squared term?    When performing a single integral, either or , what is your differential element shape?    "
 },
 {
-  "id": "p-2115",
+  "id": "p-2117",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2115",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2117",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4294,36 +4294,36 @@ var ptx_lunr_docs = [
   "body": " Definitions for area properties     "
 },
 {
-  "id": "p-2130",
-  "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2130",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "area "
-},
-{
   "id": "p-2132",
   "level": "2",
   "url": "Chapter_10-integral-properties-of-shapes.html#p-2132",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
+  "body": "area "
+},
+{
+  "id": "p-2134",
+  "level": "2",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2134",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
   "body": "first moment of area "
 },
 {
-  "id": "p-2135",
+  "id": "p-2137",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2135",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2137",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "area moment of inertia "
 },
 {
-  "id": "p-2136",
+  "id": "p-2138",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2136",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2138",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4339,9 +4339,9 @@ var ptx_lunr_docs = [
   "body": "  These three triangles are all the same size. Rank them from largest to largest smallest moment of inertia with respect to the axis.   Right triangle with right angle on bottom right corner. The y-axis is shown in three locations: 1)on the right, 2) in the middle, 3) on the left.     From smallest to largest: .    Although the areas of all three triangles are the same, triangle has the area on both sides of the axis and relatively close to it, and so has the smallest , while triangle has the most of its area far from the axis which makes its moment of inertia largest. We will be able to show later that the .   "
 },
 {
-  "id": "p-2143",
+  "id": "p-2145",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2143",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2145",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4357,9 +4357,9 @@ var ptx_lunr_docs = [
   "body": " Beam bending  To get a feel for how moment of inertia affects engineering design, find a ruler, a yardstick, or something similar: long with a rectangular cross section.  Try to bend the ruler both when it's flat and also when it's turned on edge. You will find that bending the ruler around the axis while it's flat is easy compared to bending it the other way, around the axis. Why is it easier to bend the ruler one way than the other? It's the same object, made of the same material either way.  The answer has to due with the moment of inertia, and how it relates to the bending axis.    Bending a ruler.    Dan Baker  CC-BY-SA     As engineers we are not satisfied with merely knowing that it's harder to bend a ruler one way than the other, we'd like to know how much harder ?  For a thick ruler that is tall, the bending resistance about the axis is over 20 times more than the bending resistance the other way, about the axis.  To further see how the moment of inertia comes into play, consider the curvature caused by applying opposing moments to the ends of a beam such as your ruler. You will cause it to bend into an arc of a circle of some radius. A curious engineer would like to know how the curvature of the beam is related to the applied moment, the geometry, and the physical properties of the beam.   Beam of length which is being bent by opposing couple-moments to an arc with angle .    Dan Baker  CC-BY-SA      You will learn in Mechanics of Materials that the relationship is: where:  is a material property called Young's Modulus or the modulus of elasticity which characterizes the stiffness of a material.  is the length of the beam, and  is the moment of inertia of the cross-section of the beam about the bending axis.  is the moment applied to the ends of the beam, and  is the curvature of the beam.  Since and are in the numerator and is in the denominator, a longer beam is more flexible and larger values of or make the beam stiffer. With those properties fixed, angle is directly proportional to the moment .  The sag, or deflection , of a beam when supporting a load is also related to these factors, and the placement of the load as well. For example, if a beam is loaded with a concentrated force at its center its maximum deflection will occur at the midpoint, with   "
 },
 {
-  "id": "p-2158",
+  "id": "p-2160",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2158",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2160",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4375,9 +4375,9 @@ var ptx_lunr_docs = [
   "body": " Why don't we call the polar moment of inertia ?  The squared distance in the polar moment of inertia formula is the distance from the axis, so it would seem reasonable to name the polar moment to be consistent with and which use distances from the and axes.  Instead engineers use the letter to represent this quantity. Why?   In-plane and out-of-plane rotation of element about the , and axes.    If areas only existed in the - plane, this would be fine, but the real world is three-dimensional, so must be reserved to use with areas in the - or - plane.  As shown in the interactive, the rectangular moment of inertia involves rotating element about out-of-plane around an in-plain axis, and the polar moment involves rotating the element in-plane around a perpendicular axis. The two quantities represent fundamentally different things.  "
 },
 {
-  "id": "p-2165",
+  "id": "p-2167",
   "level": "2",
-  "url": "Chapter_10-integral-properties-of-shapes.html#p-2165",
+  "url": "Chapter_10-integral-properties-of-shapes.html#p-2167",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4699,18 +4699,18 @@ var ptx_lunr_docs = [
   "body": "  Why do we need to quantify the product of inertia for beams?  Why is the product of inertia of a symmetrical cross section zero?   "
 },
 {
-  "id": "p-2413",
+  "id": "p-2415",
   "level": "2",
-  "url": "products-of-inertia.html#p-2413",
+  "url": "products-of-inertia.html#p-2415",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "product of inertia "
 },
 {
-  "id": "p-2415",
+  "id": "p-2417",
   "level": "2",
-  "url": "products-of-inertia.html#p-2415",
+  "url": "products-of-inertia.html#p-2417",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4726,9 +4726,9 @@ var ptx_lunr_docs = [
   "body": " Mass Moment of Inertia  You may recall from physics the relationship . This formula is the rotational analog of Newton's second law . Here, the represents the mass moment of inertia, which is the three-dimensional measure of a rigid body's resistance to rotation around an axis. Mass moment of inertia plays the same role for angular motion as mass does for linear motion.  Mass moment of inertia is defined by an integral equation identical to , except that the differential area is replaced with a differential element of mass, . The integration is conducted over a three dimensional physical object instead of a two dimensional massless area.  The units of mass moment of inertia are , in contrast to area moment of inertia's units of .  Mass moments of inertia are covered in more detail and used extensively in the study of rigid body kinetics in Engineering Dynamics .  "
 },
 {
-  "id": "p-2417",
+  "id": "p-2419",
   "level": "2",
-  "url": "Chapter_10-mass-moment-of-inertia.html#p-2417",
+  "url": "Chapter_10-mass-moment-of-inertia.html#p-2419",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4780,36 +4780,36 @@ var ptx_lunr_docs = [
   "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.  , and are functions of an angle and their values are unitless ratios of lengths.  The inverse trig functions are functions of unitless ratios and their results are angles.  The sine of an angle equals the cosine of its complement and vice-versa.  The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.  The sine, cosine, and tangent of angles between 0 and 90° are always positive.  The inverse trig functions of positive numbers will always yield angles between 0 and 90°  The legs of a right triangle are always shorter than the hypotenuse.  Only right triangles have a hypotenuse.      Hints  Here are some useful tips for angle calculations  Take care that your calculator is set in degrees mode for this course.  Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.  Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.     "
 },
 {
-  "id": "p-2451",
-  "level": "2",
-  "url": "soh-coh-toa.html#p-2451",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "right triangle "
-},
-{
-  "id": "p-2452",
-  "level": "2",
-  "url": "soh-coh-toa.html#p-2452",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "hypotenuse "
-},
-{
   "id": "p-2453",
   "level": "2",
   "url": "soh-coh-toa.html#p-2453",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "complementary angles "
+  "body": "right triangle "
 },
 {
   "id": "p-2454",
   "level": "2",
   "url": "soh-coh-toa.html#p-2454",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "hypotenuse "
+},
+{
+  "id": "p-2455",
+  "level": "2",
+  "url": "soh-coh-toa.html#p-2455",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "complementary angles "
+},
+{
+  "id": "p-2456",
+  "level": "2",
+  "url": "soh-coh-toa.html#p-2456",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -4825,18 +4825,18 @@ var ptx_lunr_docs = [
   "body": " Oblique Triangle Trigonometry   An oblique triangle is any triangle which does not contain a right angle. As such, the rules of do not apply!   For an oblique triangle labeled as shown, the relations between the sides and angles are given by the Law of Sines and the Law of Cosines .      Law of Sines     The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.  Take care in the (SSA) situation. This is known as the ambiguous case , and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find it may return the supplement of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.  If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the .    Law of Cosines     The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.  If one of the angles is the Law of Cosines simplifies to the Pythagorean Theorem since .   "
 },
 {
-  "id": "p-2461",
+  "id": "p-2463",
   "level": "2",
-  "url": "los-loc.html#p-2461",
+  "url": "los-loc.html#p-2463",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "Law of Sines Law of Cosines "
 },
 {
-  "id": "p-2464",
+  "id": "p-2466",
   "level": "2",
-  "url": "los-loc.html#p-2464",
+  "url": "los-loc.html#p-2466",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
