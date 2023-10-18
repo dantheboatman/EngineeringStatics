@@ -1,79 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    This file provides the overall configuration for your PreTeXt
-    project. To edit the content of your document, open `source/main.ptx`
-    (default location).
--->
-<project>
+
+<!-- (delete the above line to manage this file manually) -->
+<!-- This file, the project manifest, provides the overall configuration for your PreTeXt project. To edit the content of your document, open `source/main.ptx`. See https://pretextbook.org/doc/guide/html/processing-CLI.html#cli-project-manifest. -->
+<project ptx-version="2" source="source/ptx" xsl="source/xsl/">
   <targets>
-    <!-- To build this target, run `pretext build web` -->
-    <target name="web">
-      <format>html</format>
-      <source>source/ptx/main.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>output/web</output-dir>
-      <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xsl>source/xsl/weh-custom-html.xsl</xsl>
+    <target name="web" format="html" xsl="weh-custom-html.xsl" deploy-dir=".">
+      <stringparams html.css.extra="external/css/statics.css"/>
     </target>
-    <target name="print" pdf-method="xelatex">
-      <format>pdf</format>
-      <source>source/ptx/main.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>output/print</output-dir>
-    </target>
-    <target name="print-latex">
-      <format>latex</format>
-      <source>source/ptx/main.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>output/print-latex</output-dir>
-    </target>
-    <target name="subset">
-      <!-- Usage: to build starting at XMLID, -->
-      <!-- pretext build subset -x XMLID      -->
-      <!-- or use <xml-root>XMLID</xml-root>  -->
-      <format>html</format>
-      <source>source/ptx/main.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>output/subset</output-dir>
-      <stringparam key="debug.skip-knowls" value="yes"/>
-      <xsl>source/xsl/weh-custom-html.xsl</xsl>
-      <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xmlid-root>Chapter_10</xmlid-root>
-    </target>
-    
-    <target name="mamp">
-      <format>html</format>
-      <source>src/ptx/begin_here.ptx</source>
-      <publication>publication/publication.ptx</publication>
-      <output-dir>../../Sites/localhost/statics</output-dir>
-      <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <xsl>source/xsl/weh-custom-html.xsl</xsl>
-    </target>
-    
-    <target name="interactives">
-      <format>html</format>
-      <source>source/ptx/interactives.ptx</source>
-      <publication>publication/publication-interactives.ptx</publication>
-      <output-dir>output/interactives</output-dir>
-      <stringparam key="debug.skip-knowls" value="yes"/>
-      <xsl>source/xsl/weh-custom-html.xsl</xsl>
-      <stringparam key="html.css.extra" value="external/css/statics.css"/>
-      <!-- edit this to change the section/chapter/etc. to include
-           in your subset build -->
-      <xmlid-root>interactives</xmlid-root>
+    <target name="print" format="pdf" output-filename="statics.pdf" deploy-dir="pdf"  />
+    <target name="print-latex" format="latex"/>
+    <target 
+        name="interactives" 
+        format="html" 
+        source="interactives.ptx"
+        xsl="weh-custom-html.xsl"
+        publication="interactives.ptx"
+        output-dir="interactives">
+      <stringparams html.css.extra="external/css/statics.css"/>
     </target>
   </targets>
-  
-  <executables>
-    <latex>latex</latex>
-    <pdflatex>pdflatex</pdflatex>
-    <xelatex>xelatex</xelatex>
-    <pdfsvg>pdf2svg</pdfsvg>
-    <asy>asy</asy>
-    <sage>sage</sage>
-    <pdfpng>convert</pdfpng>
-    <pdfeps>pdftops</pdfeps>
-    <node>node</node>
-    <liblouis>file2brl</liblouis>
-  </executables>
 </project>

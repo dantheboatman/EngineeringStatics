@@ -1,9 +1,6 @@
 var listeners = function(ggb) {
 
-
-    var nodes = []
-    nodes.push(document.getElementById("ggb_2__15_u"));
-    nodes.push(document.getElementById("ggb_2__15_v"));
+    var info = document.getElementById("info");
    
 
     var updateSlate = function() {
@@ -21,40 +18,28 @@ var listeners = function(ggb) {
 
             `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{A}} \\amp = \\frac{\\vec{A}}{|\\vec{A}|} = ${val.Ahat} \\amp
-             \\vec{u}  \\amp = \\proj_AB = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
+             \\vec{u}  \\amp = \\proj_{\\vec{A}}\\vec{B} = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
              \\end{align*}`,
 
             `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{B}} \\amp = \\frac{\\vec{B}}{|\\vec{B}|} = ${val.Bhat} \\amp
-             \\vec{v}  \\amp = \\proj_BA = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
+             \\vec{v}  \\amp = \\proj_{\\vec{B}}\\vec{A} = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
              \\end{align*}`
         ];
         
-        for (let i = 0; i < 2; i++) {
-            nodes[i].innerHTML = `\\( { ${latex[i]} } \\)`;
+       if (ggb.getValue('show') == 1) {
+           info.innerHTML = `\\( { ${latex[0]} } \\)`;
+        } else {
+           info.innerHTML = `\\( { ${latex[1]} } \\)`;      
         };
         if (window.MathJax) {
-            MathJax.typesetPromise([nodes]).then(() => {});
+            MathJax.typesetPromise([info]).then(() => {});
         }
     };
 
-    var toggleVisibility = function() {
-
-        if (ggb.getValue('show') == 1) {
-            nodes[1].style.display = 'none';
-            nodes[0].style.display = 'block';
-        } else {
-            nodes[1].style.display = 'block';
-            nodes[0].style.display = 'none';
-        
-        };
-    }
-
-
     ggb.registerObjectUpdateListener("a", updateSlate);
     ggb.registerObjectUpdateListener("b", updateSlate);
-    ggb.registerObjectUpdateListener("show", toggleVisibility);
-    toggleVisibility();
+    ggb.registerObjectUpdateListener("show", updateSlate);
     updateSlate();
 
 
