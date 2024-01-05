@@ -8,10 +8,6 @@
    <xsl:import href="./core/pretext-latex.xsl"/>
   <xsl:output method="text"/>
 
-	<xsl:template match="//figure/sidebyside[interactive]" mode="repair">
-		<p>Repair</p>
-		<xsl:apply-templates select="node()|@*" mode="repair"/>
-</xsl:template>
 
 	<xsl:template match="&GOAL-LIKE;|&EXAMPLE-LIKE;|&REMARK-LIKE;" mode="tcb-style">
 		<xsl:text>colframe=CornflowerBlue!90, colback=CornflowerBlue!10,&#xa;</xsl:text>
