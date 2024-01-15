@@ -13,4 +13,5 @@
 		<xsl:text>colframe=CornflowerBlue!90, colback=CornflowerBlue!10,&#xa;</xsl:text>
 	</xsl:template>
  
+<xsl:template match="example/answer"/>
 </xsl:stylesheet>
