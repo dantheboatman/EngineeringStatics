@@ -743,7 +743,7 @@
 				<p>The interactive below compares horizontal and vertical strips for a shape bounded by the parabola <m>y^2 = x</m> and the diagonal line <m>y = x-2</m>. Horizontal strips are a better choice in this case, because the left and right boundaries are easy to express as functions of <m>y</m>. If vertical strips are chosen, the parabola must be expressed as two different functions of <m>x</m>, and two integrals are needed to cover the area, the first from <m>x=0</m> to <m>x=1</m>, and the second from <m>x=1</m> to <m>x=4</m>.</p>
 				<figure xml:id="integrate_2_curves-ggb">
 					<caption>Function demonstrating good and bad choices of differential elements.</caption>
-						<xi:include href="interactives.ptx" xpointer="integrate_2_curves_interactive"/>
+					<xi:include href="interactives.ptx" xpointer="integrate_2_curves_interactive"/>
 				</figure>
 			</insight>
 		</subsection>
@@ -1506,24 +1506,43 @@
 			<example xml:id="Chapter_07-example-mud-on-concrete-wall">
 				<title>Mud on Concrete Wall</title>
 				<statement>
-					<sidebyside widths="70% 25%" valign="middle">
+					<sidebyside widths="65% 30%" margins="0%" valign="middle">
 						<stack>
-							<p>Find the depth <m>h</m> of mud for which the <m>\m{3}</m> tall concrete retaining wall will be on the verge of tipping over. </p>
+							<p> A concrete retaining wall <m>\m{3}</m> tall and <m>\m{0.8}</m> thick encloses wet clay mud.</p>
+							<p>Find the maximum depth <m>h</m> of mud that can be retained without tipping the wall. </p>
 							<p>Assume the density of mud is <m>\kgqm{1760}</m> and the density of concrete is <m>\kgqm{2400}</m>.</p>
 						</stack>
-						<image width="25%" source="images/mud-dam">
+						<image source="images/mud-dam">
 							<description>Retaining wall is 3 m high and 0.8 m wide. The mud is shown to the right of the wall at height of h.</description>
 						</image>
 					</sidebyside>
-					<p/>
 				</statement>
 				<answer>
 					<p>
 						<me>h = \m{1.99}</me> </p>
 				</answer>
 				<solution>
-					<video xml:id="anna-mud" youtube="xfO0CKPpnMQ"/>
-					<!--todo need to write up a solution for this -->
+					<p>Begin by drawing free-body diagram of the wall, showing the forces acting on it: the weight of the concrete <m>W_c</m>, acting at the center of gravity of the rectangular wall, the horizontal force <m>F</m> due to the mud, and the reaction components at <m>A</m>. Define symbol <m>D_z</m> for the unspecified length of the wall into the page.</p>
+					<image source="images/mud-dam-fbd" width="30%"/>
+					<p>The weight of the concrete is found by multiplying the weight density of concrete <m>\lambda_c =\rho_c\ g</m> by the volume of the rectangular wall.
+						<md>
+						<mrow>W_c \amp= \lambda_c\ V</mrow>
+						<mrow> \amp= (\rho_c\ g)\ (D_x D_y D_z)</mrow>
+						</md></p>
+					<p>The horizontal force is caused by the hydraulic pressure of the mud on the submerged face of the wall. The pressure is a distributed load that increases linearly from zero at the surface to <m>P_\max = \rho_m\ g\ h</m> at depth <m>h</m>. Since the loading is triangular, the average pressure is one-half the maximum pressure, and the resulting force is:
+						<md>
+						<mrow>F \amp= P_\text{ave} A = \frac{1}{2} P_\text{max} A</mrow>
+						<mrow>\amp = \frac{1}{2}(\rho_m\ g\ h) (h D_z)</mrow>
+						</md></p>
+					<p>The wall will tip if the counter-clockwise moment due to <m>F</m> is greater than the clockwise moment caused by the concrete's weight. By taking moments about point <m>A</m>, we can find the maximum allowable height of the mud, <m>h</m>. Note that the length of the dam and <m>g</m> appear on both sides and cancel out.
+						<md>
+						<mrow>\Sigma M_A \amp= 0</mrow>
+						<mrow>(W_c) \left(\frac{D_x}{2}\right) \amp = F \left(\frac{h}{3}\right)</mrow>
+						<mrow>(\rho_c\ \cancel{g} D_x D_y \cancel{D_z}) \left(\frac{D_x}{\cancel{2}}\right) \amp = \left(\frac{1}{\cancel{2}}\rho_m\ \cancel{g}\ h^2 \cancel{D_z}\right)\left(\frac{h}{3}\right)</mrow>
+						<mrow>h^3 \amp= 3 \frac{\rho_c}{\rho_m} D_x^2 D_y</mrow>
+							<mrow> h^3 \amp= 3 \frac{2400}{1760}\!\cancel{\frac{\kgqm{}}{\kgqm{}}} (\m{0.8})^2(\m{3.0})</mrow>
+						<mrow>  h \amp=\m{1.98}</mrow>
+						</md> </p>
 				</solution>
 			</example>
 			<example xml:id="Chapter_07-example-sea-gate">
@@ -1546,7 +1565,7 @@
 						<me>d \ge \m{1.50}</me> </p>
 				</answer>
 				<solution>
-					<p>For the gate to tip, the force of the water must act at or above A. That happens when the centroid of the load intensity diagram from the water has its equivalent point force at or above A, so
+					<p>For the gate to tip, the equivalent force of the water must act at or above <m>A</m>. That happens when the centroid of the load intensity diagram of the water is at or above <m>A</m>, so
 						<md>
 						<mrow>\frac{d}{3} \amp \ge \mm{500} </mrow>
 						<mrow>d \amp \ge \mm{1500}</mrow>
@@ -1561,7 +1580,7 @@
 				<statement>
 					<sidebyside widths="60% 30%" margins="0%" valign="middle">
 						<stack>
-							<p>A gate at the end of a freshwater channel is fabricated from three <m>\kg{125}</m>, <m>\m{0.6}\times \m{1}</m> rectangular steel plates. The gate is hinged at <m>A</m> and rests against a frictionless support at <m>D</m>. The depth of the water <m>d = \m{0.75}</m>.</p>
+							<p>A gate at the end of a freshwater channel is fabricated from three <m>\kg{125}</m>, <m>\m{0.6}\times \m{1}</m> rectangular steel plates. The gate is hinged at <m>A</m> and rests against a frictionless support at <m>D</m>. The depth of the water <m>d</m> is <m> \m{0.75}</m>.</p>
 							<p>Draw the free-body diagram and determine the reactions at <m>A</m> and <m>D</m>.</p>
 						</stack>
 						<image source="images/gate"/>
@@ -1571,9 +1590,9 @@
 				<answer>
 					<p>
 						<md>
-						<mrow>D_x \amp= \N{124} \text{ right}</mrow>
-						<mrow>A_x \amp = \N{2636} \text{ left} </mrow>
-						<mrow>A_y \amp = \N{2795} \text{ up}</mrow>
+						<mrow>D_x \amp= \N{124} \rightarrow</mrow>
+						<mrow>A_x \amp = \N{2636} \leftarrow </mrow>
+						<mrow>A_y \amp = \N{2795} \uparrow</mrow>
 						</md> </p>
 				</answer>
 				<solution>
@@ -1608,9 +1627,9 @@
 						</md>.</p>
 					<p>From here solve the equilibrium equations to find the reactions. You should complete this for practice.
 						<md>
-						<mrow>\Sigma M_A \amp = 0 \amp \amp \rightarrow \amp D_x \amp = \N{239} \text{ right}</mrow>
-						<mrow>\Sigma F_x \amp = 0 \amp \amp \rightarrow \amp A_x \amp = \N{2998} \text{ left} </mrow>
-						<mrow>\Sigma F_y \amp = 0 \amp \amp \rightarrow \amp A_y \amp = \N{2795} \text{ up}</mrow>
+						<mrow>\Sigma M_A \amp = 0 \amp \amp \implies \amp D_x \amp = \N{239} \rightarrow</mrow>
+						<mrow>\Sigma F_x \amp = 0 \amp \amp \implies \amp A_x \amp = \N{2998} \leftarrow </mrow>
+						<mrow>\Sigma F_y \amp = 0 \amp \amp \implies \amp A_y \amp = \N{2795} \uparrow </mrow>
 						</md> </p>
 				</solution>
 			</example>
