@@ -5,7 +5,7 @@ include "../../../mathbook/schema/pretext-dev.rnc"
 
 wellformed-html =
   (
-  text | element  html:div | html:span | html:input | html:button { attribute * {text}*, wellformed-html  }
+  text | element  html:p | html:div | html:span | html:input | html:button { attribute * {text}*, wellformed-html  }
    )*
  
 
@@ -59,10 +59,30 @@ Interactive |=
                     attribute iframe { text }?,
                     attribute source { text }?,
                     attribute version { text }?,
-                    attribute xml:base {text}?,   #weh, not sure why I need this, something to do with xinclude?
-                    (Slate | SideBySideNoCaption | SideBySideGroupNoCaption | Remix_info )*,  #weh remix_info added
+                    attribute xml:base {text}?,   #weh, something to do with xinclude.
+                    (Slate | SideBySideNoCaption | SideBySideGroupNoCaption)*, 
+                    Remix_info?,  #weh remix_info added
                     element instructions { BlockText* | text }?
                 }
+
+SideBySideNoCaption |=
+                element sidebyside {
+                    SidebySideAttributes,
+                    (
+                        Poem |
+                        Tabular |
+                        Image |
+                        Video |
+                        Program |
+                        Console |
+                        Paragraph |
+                        Preformatted |
+                        List |
+                        Stack |
+                        Slate  # weh added slates to sidebysides
+                    )+
+                }
+
 
 # in addition to standard ptx, minimal html is allowed: 
 Slate |=
