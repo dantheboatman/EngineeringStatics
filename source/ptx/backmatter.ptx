@@ -1,3974 +1,4194 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- See this for info about xi:include xpointer failure in vscode -->
+<!-- https://stackoverflow.com/questions/50294372/trying-to-use-xinclude-with-java-and-resolving-the-fragment-with-xmlid --> 
+<!-- https://stackoverflow.com/questions/57324659/how-to-resolve-xinclude-instructions-in-a-xml-file-from-command-line-with-xslt-3-->
 <backmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="backmatter">
-	<appendix xml:id="notation">
-		<title>Notation</title>
-		<p>Notation refers to the symbols we use to represent physical quantities and variables in mathematical expressions. Notation is a tool for communication and the symbols themselves carry meaning. You will find it easier to understand the contents of engineering textbooks if you are familiar with the notation used, and can pronounce the symbols to yourself when studying the equations.</p>
-		<!--TODO  this does not compile to latex - need to find solution -->
-		<!-- todo  I think this information rightly belongs in a table, not a series of sidebysides, but multiline elations in table cells are disallowed and don't compile as latex, thus the workaround. -->
-		<figure xml:id="notations">
-			<title>tile of figure?</title>
-			<caption>Notation used in this book</caption>
-			<sbsgroup valign="middle" widths="35% 65%">
-				<sidebyside>
-					<p>
-						<me>\text{Symbol} </me> </p>
-					<p>
-						<me>\text{Notes}</me> </p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>\vec{F}, \text{ or } \vecarrow{F}</me> </p>
-					<p>Vectors are written in a bold serif font. For handwritten vectors, a superimposed arrow is used.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>F</me> </p>
-					<p> Magnitudes and other scalar values are rendered in an regular italic serif font. <m>F</m> is the magnitude of <m>\vec{F}</m>.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>| \vec{F} |</me> </p>
-					<p> Vertical bars indicate <em>absolute value</em>. The absolute value of a vector is its magnitude.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>\vec{F}_x, \vec{F}_y </me> </p>
-					<p>Vector component of <m>\vec{F}</m> in the <m>x</m> and <m>y</m> directions. Subscripts are used to distinguish different related values. </p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me> F_x, F_y </me> </p>
-					<p>Scalar components of vector <m>\vec{F}</m> in the <m>x</m> and <m>y</m> directions. These are signed numbers, not vectors. Together, the sign and subscript define a vector component.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>\left \langle F_x, F_y \right \rangle</me> </p>
-					<p>An ordered pair of scalar components enclosed in angle brackets defines a vector.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>(F; \theta)</me> </p>
-					<p>An ordered pair of magnitude and direction separated with a semicolon defines a vector.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>\ihat, \jhat, \khat</me> </p>
-					<p>Unit vectors in the <m>x</m>, <m>y</m>, and <m>z</m> directions. Pronounced <sq>i hat</sq>, <sq>j hat</sq>, <etc/> </p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<me>\hat{\vec{A}}, \hat{\vec{\lambda}}</me> </p>
-					<p> A hat indicates a unit vector in the vector's direction.</p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<md>
-						<mrow>\vec{F}_x \amp = F_x\, \ihat</mrow>
-						<mrow>\vec{F}_y \amp = F_y\, \jhat</mrow>
-						</md> </p>
-					<p>Scalar components multiplied by unit vectors are vector components. </p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<md>
-						<mrow>\vec{F} \amp = \vec{F}_x + \vec{F}_y</mrow>
-						<mrow>\amp = F_x\, \ihat + F_y\, \jhat</mrow>
-						</md> </p>
-					<p> A vector is the sum of its vector components. </p>
-				</sidebyside>
-				<sidebyside>
-					<p>
-						<md>
-						<mrow>\vec{F} \amp = \left \langle F_x, F_y \right \rangle</mrow>
-						<mrow>\amp = \vec{F}_x + \vec{F}_y</mrow>
-						<mrow>\amp = F_x\, \ihat + F_y\, \jhat</mrow>
-						<mrow>\amp = (F \cos \theta)\, \ihat + (F \sin \theta)\, \jhat </mrow>
-						<mrow>\amp = F \left (\ihat\, \cos \theta + \jhat\, \sin \theta \right ) </mrow>
-						<mrow>\amp =|\vec{F}| \langle \cos \theta,\ \sin \theta \rangle</mrow>
-						</md> </p>
-					<p>These are all equivalent representation of vector <m>\vec{F}</m>.</p>
-				</sidebyside>
-			</sbsgroup>
-		</figure>
-	</appendix>
-	<appendix xml:id="useful-mathematics">
-		<title>Useful Mathematics</title>
-		<section xml:id="distance-formula">
-			<title>Distance Formula</title>
-			<p>The distance formula is used for finding the distance between two points. In two dimensions it is simply an application of the Pythagorean theorem.</p>
-			<image width="40%" source="images/useful-distance-formula"/>
-			<p>Given two points <m>(x_1,y_1)</m> and <m>(x_2, y_2)</m> the distance between them is:
-				<men xml:id="distance_formula"> d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}</men> .</p>
-			<p>Extension of the distance formula to three dimensions is straightforward.
-				<men xml:id="distance_formula_3d">d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}</men> </p>
-		</section>
-		<section xml:id="soh-coh-toa">
-			<title>Right Triangle Trigonometry</title>
-			<p>A <term>right triangle</term> is a triangle containing a 90° angle. </p>
-			<p>The side opposite to the right angle is called the <term>hypotenuse</term>. </p>
-			<p>The other two angles add to 90° and are called <term>complementary angles</term>.</p>
-			<sidebyside widths="40% 60%">
-				<image source="images/useful-right-triangle"/>
-				<image source="images/useful-trig-functions"/>
-			</sidebyside>
-			<p>The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic <term>SOH-COH-TOA</term>.</p>
-			<p>
-				<md>
-				<mrow>\sin\theta \amp= \frac{\textrm{opposite}}{\textrm{hypotenuse}} \amp \cos\theta \amp= \frac{\textrm{adjacent}}{\textrm{hypotenuse}} \amp \tan\theta \amp= \frac{\textrm{opposite}}{\textrm{adjacent}}</mrow>
-				</md> </p>
-			<p>and their inverses,</p>
-			<p>
-				<md>
-				<mrow>\theta \amp = \sin^{-1} \left(\frac{\textrm{opposite}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \cos^{-1} \left(\frac{\textrm{adjacent}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \tan^{-1} \left(\frac{\textrm{opposite}}{\textrm{adjacent}}\right)</mrow>
-				</md> </p>
-			<paragraphs>
-				<title>Facts</title>
-				<p>The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.
-					<ul>
-					<li><m>\sin</m>, <m>\cos</m> and <m>\tan</m> are functions of an angle and their values are unitless ratios of lengths.</li>
-					<li>The inverse trig functions are functions of unitless ratios and their results are angles.</li>
-					<li>The sine of an angle equals the cosine of its complement and vice-versa.</li>
-					<li>The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.</li>
-					<li>The sine, cosine, and tangent of angles between 0 and 90° are always positive.</li>
-					<li>The inverse trig functions of positive numbers will always yield angles between 0 and 90°</li>
-					<li>The legs of a right triangle are always shorter than the hypotenuse.</li>
-					<li>Only right triangles have a hypotenuse.</li>
-					</ul> </p>
-			</paragraphs>
-			<paragraphs>
-				<title>Hints</title>
-				<p>Here are some useful tips for angle calculations
-					<ul>
-					<li>Take care that your calculator is set in <em>degrees mode</em> for this course.</li>
-					<li>Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.</li>
-					<li>Following this advice will avoid unwanted signs and incorrect directions caused because <m>\dfrac{-a}{b} = \dfrac{a}{-b}</m>, and <m>\dfrac{a}{b} = \dfrac{-a}{-b}</m> and the calculator can't distinguish between them.</li>
-					</ul> </p>
-			</paragraphs>
-		</section>
-		<section xml:id="los-loc">
-			<title>Oblique Triangle Trigonometry</title>
-			<introduction>
-				<p>An oblique triangle is any triangle which does not contain a right angle. As such, the rules of <xref ref="soh-coh-toa" text="title"/> do not apply!</p>
-				<sidebyside widths="50% 40%" margins="0%">
-					<p>For an oblique triangle labeled as shown, the relations between the sides and angles are given by the <term>Law of Sines</term> and the <term>Law of Cosines</term>.</p>
-					<image source="images/useful-oblique-triangle"/>
-				</sidebyside>
-			</introduction>
-			<subsection xml:id="los">
-				<title>Law of Sines</title>
-				<p>
-					<men> \frac{\sin a}{A} = \frac{\sin b}{B} =\frac{\sin c}{C} </men> </p>
-				<p>The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines. </p>
-				<p>Take care in the (SSA) situation. This is known as the <term>ambiguous case</term>, and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find <m>\sin^{-1}(x)</m> it may return the <term>supplement</term> of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.</p>
-				<p>If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the <m>\sin(90°) = 1</m>.</p>
-			</subsection>
-			<subsection xml:id="loc">
-				<title>Law of Cosines</title>
-				<p>
-					<mdn>
-					<mrow>A^2 \amp= B^2 + C^2 - 2 B C \cos a</mrow>
-					<mrow>B^2 \amp= A^2 + C^2 - 2 A C \cos b</mrow>
-					<mrow>C^2 \amp= A^2 + B^2 - 2 A B \cos c</mrow>
-					</mdn> </p>
-				<p>The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.</p>
-				<p>If one of the angles is <m>\ang{90}</m> the Law of Cosines simplifies to the Pythagorean Theorem since <m>\cos (90°) = 0</m>.</p>
-			</subsection>
-		</section>
-	</appendix>
-	<appendix xml:id="centroids-moi-tables">
-		<title>Properties of Shapes</title>
-		<!--	
-    Duplicate IDs. I can't make this work.  Needs more research. weh
-		For info, see: 
-		https://www.oxygenxml.com/doc/versions/25.1/ug-editor/topics/including-document-parts-with-XInclude.html
-		https://www.w3.org/TR/xinclude-11/#attribute-copying
-		https://www.w3.org/TR/xinclude-11/#att-copy-example
-	-->
-		<section>
-			<title>Centroids of Common Shapes</title>
-			<!--	should work, but doesn't		<xi:include href="Chapter_07.ptx" xpointer="element(centroid-table)" set-xml-id="centroid-table-A"/>-->
-			<xi:include href="Chapter_07.ptx" xpointer="xpointer(//*[@xml:id='centroid-table']/table)"/>
-		</section>
-		<section>
-			<title>Moment of Inertia of Common Shapes</title>
-			<!--	should work, but doesn't		<xi:include href="Chapter_10.ptx" xpointer="element(MOI-table)" set-xml-id="moi-table-A"/>-->
-			<xi:include href="Chapter_10.ptx" xpointer="xpointer(//*[@xml:id='MOI-table']/table)"/>
-		</section>
-	</appendix>
-	<appendix xml:id="AISC-properties">
-		<title>Properties of Steel Sections</title>
-		<!--todo redraw steel section diagrams in affinity design -->
-		<section xml:id="AISC-angles">
-			<title>Angles</title>
-			<subsection xml:id="angles-us">
-				<title>Angle Section-US</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/L_section"/>
-					<tabular>
-						<row>
-							<cell halign="center"> <line>Description</line> <line> <m>d \times \,b \times \,t</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line>lb/ft</line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>b</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>t</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>\bar{y}</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>1</cell>
-							<cell>37.4</cell>
-							<cell>11</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>1</cell>
-							<cell>1.86</cell>
-							<cell>1.86</cell>
-							<cell>35.4</cell>
-							<cell>35.4</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>7/8</cell>
-							<cell>33.1</cell>
-							<cell>9.75</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.875</cell>
-							<cell>1.81</cell>
-							<cell>1.81</cell>
-							<cell>31.9</cell>
-							<cell>31.9</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>3/4</cell>
-							<cell>28.7</cell>
-							<cell>8.46</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.75</cell>
-							<cell>1.77</cell>
-							<cell>1.77</cell>
-							<cell>28.1</cell>
-							<cell>28.1</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>5/8</cell>
-							<cell>24.2</cell>
-							<cell>7.13</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.625</cell>
-							<cell>1.72</cell>
-							<cell>1.72</cell>
-							<cell>24.1</cell>
-							<cell>24.1</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>9/16</cell>
-							<cell>21.9</cell>
-							<cell>6.45</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.563</cell>
-							<cell>1.7</cell>
-							<cell>1.7</cell>
-							<cell>22</cell>
-							<cell>22</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>1/2</cell>
-							<cell>19.6</cell>
-							<cell>5.77</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.5</cell>
-							<cell>1.67</cell>
-							<cell>1.67</cell>
-							<cell>19.9</cell>
-							<cell>19.9</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>7/16</cell>
-							<cell>17.2</cell>
-							<cell>5.08</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.438</cell>
-							<cell>1.65</cell>
-							<cell>1.65</cell>
-							<cell>17.6</cell>
-							<cell>17.6</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>3/8</cell>
-							<cell>14.9</cell>
-							<cell>4.38</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.375</cell>
-							<cell>1.62</cell>
-							<cell>1.62</cell>
-							<cell>15.4</cell>
-							<cell>15.4</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>6<m>\times</m>5/16</cell>
-							<cell>12.4</cell>
-							<cell>3.67</cell>
-							<cell>6</cell>
-							<cell>6</cell>
-							<cell>0.313</cell>
-							<cell>1.6</cell>
-							<cell>1.6</cell>
-							<cell>13</cell>
-							<cell>13</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>7/8</cell>
-							<cell>27.2</cell>
-							<cell>8</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.875</cell>
-							<cell>1.12</cell>
-							<cell>2.12</cell>
-							<cell>27.7</cell>
-							<cell>9.7</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>3/4</cell>
-							<cell>23.6</cell>
-							<cell>6.94</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.75</cell>
-							<cell>1.07</cell>
-							<cell>2.07</cell>
-							<cell>24.5</cell>
-							<cell>8.63</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>5/8</cell>
-							<cell>20</cell>
-							<cell>5.86</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.625</cell>
-							<cell>1.03</cell>
-							<cell>2.03</cell>
-							<cell>21</cell>
-							<cell>7.48</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>9/16</cell>
-							<cell>18.1</cell>
-							<cell>5.31</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.563</cell>
-							<cell>1</cell>
-							<cell>2</cell>
-							<cell>19.2</cell>
-							<cell>6.86</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>1/2</cell>
-							<cell>16.2</cell>
-							<cell>4.75</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.5</cell>
-							<cell>0.981</cell>
-							<cell>1.98</cell>
-							<cell>17.3</cell>
-							<cell>6.22</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>7/16</cell>
-							<cell>14.3</cell>
-							<cell>4.18</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.438</cell>
-							<cell>0.957</cell>
-							<cell>1.95</cell>
-							<cell>15.4</cell>
-							<cell>5.56</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>3/8</cell>
-							<cell>12.3</cell>
-							<cell>3.61</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.375</cell>
-							<cell>0.933</cell>
-							<cell>1.93</cell>
-							<cell>13.4</cell>
-							<cell>4.86</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>4<m>\times</m>5/16</cell>
-							<cell>10.3</cell>
-							<cell>3.03</cell>
-							<cell>6</cell>
-							<cell>4</cell>
-							<cell>0.313</cell>
-							<cell>0.908</cell>
-							<cell>1.9</cell>
-							<cell>11.4</cell>
-							<cell>4.13</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>3-1/2<m>\times</m>1/2</cell>
-							<cell>15.3</cell>
-							<cell>4.5</cell>
-							<cell>6</cell>
-							<cell>3.5</cell>
-							<cell>0.5</cell>
-							<cell>0.829</cell>
-							<cell>2.07</cell>
-							<cell>16.6</cell>
-							<cell>4.24</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>3-1/2<m>\times</m>3/8</cell>
-							<cell>11.7</cell>
-							<cell>3.44</cell>
-							<cell>6</cell>
-							<cell>3.5</cell>
-							<cell>0.375</cell>
-							<cell>0.781</cell>
-							<cell>2.02</cell>
-							<cell>12.9</cell>
-							<cell>3.33</cell>
-						</row>
-						<row>
-							<cell>L6<m>\times</m>3-1/2<m>\times</m>5/16</cell>
-							<cell>9.8</cell>
-							<cell>2.89</cell>
-							<cell>6</cell>
-							<cell>3.5</cell>
-							<cell>0.313</cell>
-							<cell>0.756</cell>
-							<cell>2</cell>
-							<cell>10.9</cell>
-							<cell>2.84</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>7/8</cell>
-							<cell>27.2</cell>
-							<cell>8</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.875</cell>
-							<cell>1.56</cell>
-							<cell>1.56</cell>
-							<cell>17.8</cell>
-							<cell>17.8</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>3/4</cell>
-							<cell>23.6</cell>
-							<cell>6.98</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.75</cell>
-							<cell>1.52</cell>
-							<cell>1.52</cell>
-							<cell>15.7</cell>
-							<cell>15.7</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>5/8</cell>
-							<cell>20</cell>
-							<cell>5.9</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.625</cell>
-							<cell>1.47</cell>
-							<cell>1.47</cell>
-							<cell>13.6</cell>
-							<cell>13.6</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>1/2</cell>
-							<cell>16.2</cell>
-							<cell>4.79</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.5</cell>
-							<cell>1.42</cell>
-							<cell>1.42</cell>
-							<cell>11.3</cell>
-							<cell>11.3</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>7/16</cell>
-							<cell>14.3</cell>
-							<cell>4.22</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.438</cell>
-							<cell>1.4</cell>
-							<cell>1.4</cell>
-							<cell>10</cell>
-							<cell>10</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>3/8</cell>
-							<cell>12.3</cell>
-							<cell>3.65</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.375</cell>
-							<cell>1.37</cell>
-							<cell>1.37</cell>
-							<cell>8.76</cell>
-							<cell>8.76</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>5<m>\times</m>5/16</cell>
-							<cell>10.3</cell>
-							<cell>3.07</cell>
-							<cell>5</cell>
-							<cell>5</cell>
-							<cell>0.313</cell>
-							<cell>1.35</cell>
-							<cell>1.35</cell>
-							<cell>7.44</cell>
-							<cell>7.44</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>3/4</cell>
-							<cell>19.8</cell>
-							<cell>5.85</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.75</cell>
-							<cell>0.993</cell>
-							<cell>1.74</cell>
-							<cell>13.9</cell>
-							<cell>5.52</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>5/8</cell>
-							<cell>16.8</cell>
-							<cell>4.93</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.625</cell>
-							<cell>0.947</cell>
-							<cell>1.69</cell>
-							<cell>12</cell>
-							<cell>4.8</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>1/2</cell>
-							<cell>13.6</cell>
-							<cell>4</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.5</cell>
-							<cell>0.901</cell>
-							<cell>1.65</cell>
-							<cell>10</cell>
-							<cell>4.02</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>3/8</cell>
-							<cell>10.4</cell>
-							<cell>3.05</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.375</cell>
-							<cell>0.854</cell>
-							<cell>1.6</cell>
-							<cell>7.75</cell>
-							<cell>3.15</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>5/16</cell>
-							<cell>8.7</cell>
-							<cell>2.56</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.313</cell>
-							<cell>0.829</cell>
-							<cell>1.57</cell>
-							<cell>6.58</cell>
-							<cell>2.69</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3-1/2<m>\times</m>1/4</cell>
-							<cell>7</cell>
-							<cell>2.07</cell>
-							<cell>5</cell>
-							<cell>3.5</cell>
-							<cell>0.25</cell>
-							<cell>0.804</cell>
-							<cell>1.55</cell>
-							<cell>5.36</cell>
-							<cell>2.2</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3<m>\times</m>1/2</cell>
-							<cell>12.8</cell>
-							<cell>3.75</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.5</cell>
-							<cell>0.746</cell>
-							<cell>1.74</cell>
-							<cell>9.43</cell>
-							<cell>2.55</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3<m>\times</m>7/16</cell>
-							<cell>11.3</cell>
-							<cell>3.31</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.438</cell>
-							<cell>0.722</cell>
-							<cell>1.72</cell>
-							<cell>8.41</cell>
-							<cell>2.29</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3<m>\times</m>3/8</cell>
-							<cell>9.8</cell>
-							<cell>2.86</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.375</cell>
-							<cell>0.698</cell>
-							<cell>1.69</cell>
-							<cell>7.35</cell>
-							<cell>2.01</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3<m>\times</m>5/16</cell>
-							<cell>8.2</cell>
-							<cell>2.41</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.313</cell>
-							<cell>0.673</cell>
-							<cell>1.67</cell>
-							<cell>6.24</cell>
-							<cell>1.72</cell>
-						</row>
-						<row>
-							<cell>L5<m>\times</m>3<m>\times</m>1/4</cell>
-							<cell>6.6</cell>
-							<cell>1.94</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.25</cell>
-							<cell>0.648</cell>
-							<cell>1.64</cell>
-							<cell>5.09</cell>
-							<cell>1.41</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>3/4</cell>
-							<cell>18.5</cell>
-							<cell>5.44</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.75</cell>
-							<cell>1.27</cell>
-							<cell>1.27</cell>
-							<cell>7.62</cell>
-							<cell>7.62</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>5/8</cell>
-							<cell>15.7</cell>
-							<cell>4.61</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.625</cell>
-							<cell>1.22</cell>
-							<cell>1.22</cell>
-							<cell>6.62</cell>
-							<cell>6.62</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>1/2</cell>
-							<cell>12.8</cell>
-							<cell>3.75</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.5</cell>
-							<cell>1.18</cell>
-							<cell>1.18</cell>
-							<cell>5.52</cell>
-							<cell>5.52</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>7/16</cell>
-							<cell>11.3</cell>
-							<cell>3.3</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.438</cell>
-							<cell>1.15</cell>
-							<cell>1.15</cell>
-							<cell>4.93</cell>
-							<cell>4.93</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>3/8</cell>
-							<cell>9.8</cell>
-							<cell>2.86</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.375</cell>
-							<cell>1.13</cell>
-							<cell>1.13</cell>
-							<cell>4.32</cell>
-							<cell>4.32</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>5/16</cell>
-							<cell>8.2</cell>
-							<cell>2.4</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.313</cell>
-							<cell>1.11</cell>
-							<cell>1.11</cell>
-							<cell>3.67</cell>
-							<cell>3.67</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>4<m>\times</m>1/4</cell>
-							<cell>6.6</cell>
-							<cell>1.93</cell>
-							<cell>4</cell>
-							<cell>4</cell>
-							<cell>0.25</cell>
-							<cell>1.08</cell>
-							<cell>1.08</cell>
-							<cell>3</cell>
-							<cell>3</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>3-1/2<m>\times</m>1/2</cell>
-							<cell>11.9</cell>
-							<cell>3.5</cell>
-							<cell>4</cell>
-							<cell>3.5</cell>
-							<cell>0.5</cell>
-							<cell>0.994</cell>
-							<cell>1.24</cell>
-							<cell>5.3</cell>
-							<cell>3.76</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>3-1/2<m>\times</m>3/8</cell>
-							<cell>9.1</cell>
-							<cell>2.68</cell>
-							<cell>4</cell>
-							<cell>3.5</cell>
-							<cell>0.375</cell>
-							<cell>0.947</cell>
-							<cell>1.2</cell>
-							<cell>4.15</cell>
-							<cell>2.96</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>3-1/2<m>\times</m>5/16</cell>
-							<cell>7.7</cell>
-							<cell>2.25</cell>
-							<cell>4</cell>
-							<cell>3.5</cell>
-							<cell>0.313</cell>
-							<cell>0.923</cell>
-							<cell>1.17</cell>
-							<cell>3.53</cell>
-							<cell>2.52</cell>
-						</row>
-						<row>
-							<cell>L4<m>\times</m>3-1/2<m>\times</m>1/4</cell>
-							<cell>6.2</cell>
-							<cell>1.82</cell>
-							<cell>4</cell>
-							<cell>3.5</cell>
-							<cell>0.25</cell>
-							<cell>0.897</cell>
-							<cell>1.14</cell>
-							<cell>2.89</cell>
-							<cell>2.07</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-			<subsection xml:id="angles-si">
-				<title>Angle Section-SI</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/L_section"/>
-					<tabular>
-						<row>
-							<cell halign="center"> <line>Description</line> <line> <m>d \times \,b \times \,t</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line>kg/m</line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>b</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>t</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>\bar{y}</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>22.2</cell>
-							<cell>49.3</cell>
-							<cell>6290</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>22.2</cell>
-							<cell>46</cell>
-							<cell>46</cell>
-							<cell>13.3</cell>
-							<cell>13.3</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>19</cell>
-							<cell>42.7</cell>
-							<cell>5460</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>19.1</cell>
-							<cell>45</cell>
-							<cell>45</cell>
-							<cell>11.7</cell>
-							<cell>11.7</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>15.9</cell>
-							<cell>36</cell>
-							<cell>4600</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>15.9</cell>
-							<cell>43.7</cell>
-							<cell>43.7</cell>
-							<cell>10</cell>
-							<cell>10</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>14.3</cell>
-							<cell>32.6</cell>
-							<cell>4160</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>14.3</cell>
-							<cell>43.2</cell>
-							<cell>43.2</cell>
-							<cell>9.16</cell>
-							<cell>9.16</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>12.7</cell>
-							<cell>29.2</cell>
-							<cell>3720</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>12.7</cell>
-							<cell>42.4</cell>
-							<cell>42.4</cell>
-							<cell>8.28</cell>
-							<cell>8.28</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>11.1</cell>
-							<cell>25.6</cell>
-							<cell>3280</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>11.1</cell>
-							<cell>41.9</cell>
-							<cell>41.9</cell>
-							<cell>7.33</cell>
-							<cell>7.33</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>9.5</cell>
-							<cell>22.2</cell>
-							<cell>2830</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>9.53</cell>
-							<cell>41.1</cell>
-							<cell>41.1</cell>
-							<cell>6.41</cell>
-							<cell>6.41</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>152<m>\times</m>7.9</cell>
-							<cell>18.5</cell>
-							<cell>2370</cell>
-							<cell>152</cell>
-							<cell>152</cell>
-							<cell>7.94</cell>
-							<cell>40.6</cell>
-							<cell>40.6</cell>
-							<cell>5.41</cell>
-							<cell>5.41</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>22.2</cell>
-							<cell>40.3</cell>
-							<cell>5160</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>22.2</cell>
-							<cell>28.4</cell>
-							<cell>53.8</cell>
-							<cell>11.5</cell>
-							<cell>4.04</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>19</cell>
-							<cell>35</cell>
-							<cell>4480</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>19.1</cell>
-							<cell>27.2</cell>
-							<cell>52.6</cell>
-							<cell>10.2</cell>
-							<cell>3.59</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>15.9</cell>
-							<cell>29.6</cell>
-							<cell>3780</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>15.9</cell>
-							<cell>26.2</cell>
-							<cell>51.6</cell>
-							<cell>8.74</cell>
-							<cell>3.11</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>14.3</cell>
-							<cell>26.9</cell>
-							<cell>3430</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>14.3</cell>
-							<cell>25.4</cell>
-							<cell>50.8</cell>
-							<cell>7.99</cell>
-							<cell>2.86</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>12.7</cell>
-							<cell>24</cell>
-							<cell>3060</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>12.7</cell>
-							<cell>24.9</cell>
-							<cell>50.3</cell>
-							<cell>7.2</cell>
-							<cell>2.59</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>11.1</cell>
-							<cell>21.2</cell>
-							<cell>2700</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>11.1</cell>
-							<cell>24.3</cell>
-							<cell>49.5</cell>
-							<cell>6.41</cell>
-							<cell>2.31</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>9.5</cell>
-							<cell>18.2</cell>
-							<cell>2330</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>9.53</cell>
-							<cell>23.7</cell>
-							<cell>49</cell>
-							<cell>5.58</cell>
-							<cell>2.02</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>102<m>\times</m>7.9</cell>
-							<cell>15.3</cell>
-							<cell>1950</cell>
-							<cell>152</cell>
-							<cell>102</cell>
-							<cell>7.94</cell>
-							<cell>23.1</cell>
-							<cell>48.3</cell>
-							<cell>4.75</cell>
-							<cell>1.72</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>89<m>\times</m>12.7</cell>
-							<cell>22.7</cell>
-							<cell>2900</cell>
-							<cell>152</cell>
-							<cell>88.9</cell>
-							<cell>12.7</cell>
-							<cell>21.1</cell>
-							<cell>52.6</cell>
-							<cell>6.91</cell>
-							<cell>1.76</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>89<m>\times</m>9.5</cell>
-							<cell>17.3</cell>
-							<cell>2220</cell>
-							<cell>152</cell>
-							<cell>88.9</cell>
-							<cell>9.53</cell>
-							<cell>19.8</cell>
-							<cell>51.3</cell>
-							<cell>5.37</cell>
-							<cell>1.39</cell>
-						</row>
-						<row>
-							<cell>L152<m>\times</m>89<m>\times</m>7.9</cell>
-							<cell>14.5</cell>
-							<cell>1860</cell>
-							<cell>152</cell>
-							<cell>88.9</cell>
-							<cell>7.94</cell>
-							<cell>19.2</cell>
-							<cell>50.8</cell>
-							<cell>4.54</cell>
-							<cell>1.18</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>22.2</cell>
-							<cell>40.5</cell>
-							<cell>5160</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>22.2</cell>
-							<cell>39.6</cell>
-							<cell>39.6</cell>
-							<cell>7.41</cell>
-							<cell>7.41</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>19</cell>
-							<cell>35.1</cell>
-							<cell>4500</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>19.1</cell>
-							<cell>38.6</cell>
-							<cell>38.6</cell>
-							<cell>6.53</cell>
-							<cell>6.53</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>15.9</cell>
-							<cell>29.8</cell>
-							<cell>3810</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>15.9</cell>
-							<cell>37.3</cell>
-							<cell>37.3</cell>
-							<cell>5.66</cell>
-							<cell>5.66</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>12.7</cell>
-							<cell>24.1</cell>
-							<cell>3090</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>12.7</cell>
-							<cell>36.1</cell>
-							<cell>36.1</cell>
-							<cell>4.7</cell>
-							<cell>4.7</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>11.1</cell>
-							<cell>21.3</cell>
-							<cell>2720</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>11.1</cell>
-							<cell>35.6</cell>
-							<cell>35.6</cell>
-							<cell>4.16</cell>
-							<cell>4.16</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>9.5</cell>
-							<cell>18.3</cell>
-							<cell>2350</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>9.53</cell>
-							<cell>34.8</cell>
-							<cell>34.8</cell>
-							<cell>3.65</cell>
-							<cell>3.65</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>127<m>\times</m>7.9</cell>
-							<cell>15.3</cell>
-							<cell>1980</cell>
-							<cell>127</cell>
-							<cell>127</cell>
-							<cell>7.94</cell>
-							<cell>34.3</cell>
-							<cell>34.3</cell>
-							<cell>3.1</cell>
-							<cell>3.1</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>19</cell>
-							<cell>29.3</cell>
-							<cell>3770</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>19.1</cell>
-							<cell>25.2</cell>
-							<cell>44.2</cell>
-							<cell>5.79</cell>
-							<cell>2.3</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>15.9</cell>
-							<cell>24.9</cell>
-							<cell>3180</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>15.9</cell>
-							<cell>24.1</cell>
-							<cell>42.9</cell>
-							<cell>4.99</cell>
-							<cell>2</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>12.7</cell>
-							<cell>20.2</cell>
-							<cell>2580</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>12.7</cell>
-							<cell>22.9</cell>
-							<cell>41.9</cell>
-							<cell>4.16</cell>
-							<cell>1.67</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>9.5</cell>
-							<cell>15.4</cell>
-							<cell>1970</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>9.53</cell>
-							<cell>21.7</cell>
-							<cell>40.6</cell>
-							<cell>3.23</cell>
-							<cell>1.31</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>7.9</cell>
-							<cell>12.9</cell>
-							<cell>1650</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>7.94</cell>
-							<cell>21.1</cell>
-							<cell>39.9</cell>
-							<cell>2.74</cell>
-							<cell>1.12</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>89<m>\times</m>6.4</cell>
-							<cell>10.4</cell>
-							<cell>1340</cell>
-							<cell>127</cell>
-							<cell>88.9</cell>
-							<cell>6.35</cell>
-							<cell>20.4</cell>
-							<cell>39.4</cell>
-							<cell>2.23</cell>
-							<cell>0.916</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>76<m>\times</m>12.7</cell>
-							<cell>19</cell>
-							<cell>2420</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>12.7</cell>
-							<cell>18.9</cell>
-							<cell>44.2</cell>
-							<cell>3.93</cell>
-							<cell>1.06</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>76<m>\times</m>11.1</cell>
-							<cell>16.7</cell>
-							<cell>2140</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>11.1</cell>
-							<cell>18.3</cell>
-							<cell>43.7</cell>
-							<cell>3.5</cell>
-							<cell>0.953</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>76<m>\times</m>9.5</cell>
-							<cell>14.5</cell>
-							<cell>1850</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>9.53</cell>
-							<cell>17.7</cell>
-							<cell>42.9</cell>
-							<cell>3.06</cell>
-							<cell>0.837</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>76<m>\times</m>7.9</cell>
-							<cell>12.1</cell>
-							<cell>1550</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>7.94</cell>
-							<cell>17.1</cell>
-							<cell>42.4</cell>
-							<cell>2.6</cell>
-							<cell>0.716</cell>
-						</row>
-						<row>
-							<cell>L127<m>\times</m>76<m>\times</m>6.4</cell>
-							<cell>9.8</cell>
-							<cell>1250</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>6.35</cell>
-							<cell>16.5</cell>
-							<cell>41.7</cell>
-							<cell>2.12</cell>
-							<cell>0.587</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>19</cell>
-							<cell>27.5</cell>
-							<cell>3510</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>19.1</cell>
-							<cell>32.3</cell>
-							<cell>32.3</cell>
-							<cell>3.17</cell>
-							<cell>3.17</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>15.9</cell>
-							<cell>23.4</cell>
-							<cell>2970</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>15.9</cell>
-							<cell>31</cell>
-							<cell>31</cell>
-							<cell>2.76</cell>
-							<cell>2.76</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>12.7</cell>
-							<cell>19</cell>
-							<cell>2420</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>12.7</cell>
-							<cell>30</cell>
-							<cell>30</cell>
-							<cell>2.3</cell>
-							<cell>2.3</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>11.1</cell>
-							<cell>16.8</cell>
-							<cell>2130</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>11.1</cell>
-							<cell>29.2</cell>
-							<cell>29.2</cell>
-							<cell>2.05</cell>
-							<cell>2.05</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>9.5</cell>
-							<cell>14.6</cell>
-							<cell>1850</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>9.53</cell>
-							<cell>28.7</cell>
-							<cell>28.7</cell>
-							<cell>1.8</cell>
-							<cell>1.8</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>7.9</cell>
-							<cell>12.2</cell>
-							<cell>1550</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>7.94</cell>
-							<cell>28.2</cell>
-							<cell>28.2</cell>
-							<cell>1.53</cell>
-							<cell>1.53</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>102<m>\times</m>6.4</cell>
-							<cell>9.8</cell>
-							<cell>1250</cell>
-							<cell>102</cell>
-							<cell>102</cell>
-							<cell>6.35</cell>
-							<cell>27.4</cell>
-							<cell>27.4</cell>
-							<cell>1.25</cell>
-							<cell>1.25</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>89<m>\times</m>12.7</cell>
-							<cell>17.6</cell>
-							<cell>2260</cell>
-							<cell>102</cell>
-							<cell>88.9</cell>
-							<cell>12.7</cell>
-							<cell>25.2</cell>
-							<cell>31.5</cell>
-							<cell>2.21</cell>
-							<cell>1.57</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>89<m>\times</m>9.5</cell>
-							<cell>13.5</cell>
-							<cell>1730</cell>
-							<cell>102</cell>
-							<cell>88.9</cell>
-							<cell>9.53</cell>
-							<cell>24.1</cell>
-							<cell>30.5</cell>
-							<cell>1.73</cell>
-							<cell>1.23</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>89<m>\times</m>7.9</cell>
-							<cell>11.4</cell>
-							<cell>1450</cell>
-							<cell>102</cell>
-							<cell>88.9</cell>
-							<cell>7.94</cell>
-							<cell>23.4</cell>
-							<cell>29.7</cell>
-							<cell>1.47</cell>
-							<cell>1.05</cell>
-						</row>
-						<row>
-							<cell>L102<m>\times</m>89<m>\times</m>6.4</cell>
-							<cell>9.2</cell>
-							<cell>1170</cell>
-							<cell>102</cell>
-							<cell>88.9</cell>
-							<cell>6.35</cell>
-							<cell>22.8</cell>
-							<cell>29</cell>
-							<cell>1.2</cell>
-							<cell>0.862</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-		</section>
-		<section xml:id="AISC-channels">
-			<title>Channels</title>
-			<subsection xml:id="channels-us">
-				<title>Channel Section-US</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/C_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>d \times \,W</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line>lb/ft</line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>in</line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>C15<m>\times</m>50</cell>
-							<cell>50</cell>
-							<cell>14.7</cell>
-							<cell>15</cell>
-							<cell>3.72</cell>
-							<cell>0.716</cell>
-							<cell>0.65</cell>
-							<cell>0.799</cell>
-							<cell>404</cell>
-							<cell>11</cell>
-						</row>
-						<row>
-							<cell>C15<m>\times</m>40</cell>
-							<cell>40</cell>
-							<cell>11.8</cell>
-							<cell>15</cell>
-							<cell>3.52</cell>
-							<cell>0.52</cell>
-							<cell>0.65</cell>
-							<cell>0.778</cell>
-							<cell>348</cell>
-							<cell>9.17</cell>
-						</row>
-						<row>
-							<cell>C15<m>\times</m>33.9</cell>
-							<cell>33.9</cell>
-							<cell>10</cell>
-							<cell>15</cell>
-							<cell>3.4</cell>
-							<cell>0.4</cell>
-							<cell>0.65</cell>
-							<cell>0.788</cell>
-							<cell>315</cell>
-							<cell>8.07</cell>
-						</row>
-						<row>
-							<cell>C12<m>\times</m>30</cell>
-							<cell>30</cell>
-							<cell>8.81</cell>
-							<cell>12</cell>
-							<cell>3.17</cell>
-							<cell>0.51</cell>
-							<cell>0.501</cell>
-							<cell>0.674</cell>
-							<cell>162</cell>
-							<cell>5.12</cell>
-						</row>
-						<row>
-							<cell>C12<m>\times</m>25</cell>
-							<cell>25</cell>
-							<cell>7.34</cell>
-							<cell>12</cell>
-							<cell>3.05</cell>
-							<cell>0.387</cell>
-							<cell>0.501</cell>
-							<cell>0.674</cell>
-							<cell>144</cell>
-							<cell>4.45</cell>
-						</row>
-						<row>
-							<cell>C12<m>\times</m>20.7</cell>
-							<cell>20.7</cell>
-							<cell>6.08</cell>
-							<cell>12</cell>
-							<cell>2.94</cell>
-							<cell>0.282</cell>
-							<cell>0.501</cell>
-							<cell>0.698</cell>
-							<cell>129</cell>
-							<cell>3.86</cell>
-						</row>
-						<row>
-							<cell>C10<m>\times</m>30</cell>
-							<cell>30</cell>
-							<cell>8.81</cell>
-							<cell>10</cell>
-							<cell>3.03</cell>
-							<cell>0.673</cell>
-							<cell>0.436</cell>
-							<cell>0.649</cell>
-							<cell>103</cell>
-							<cell>3.93</cell>
-						</row>
-						<row>
-							<cell>C10<m>\times</m>25</cell>
-							<cell>25</cell>
-							<cell>7.35</cell>
-							<cell>10</cell>
-							<cell>2.89</cell>
-							<cell>0.526</cell>
-							<cell>0.436</cell>
-							<cell>0.617</cell>
-							<cell>91.1</cell>
-							<cell>3.34</cell>
-						</row>
-						<row>
-							<cell>C10<m>\times</m>20</cell>
-							<cell>20</cell>
-							<cell>5.87</cell>
-							<cell>10</cell>
-							<cell>2.74</cell>
-							<cell>0.379</cell>
-							<cell>0.436</cell>
-							<cell>0.606</cell>
-							<cell>78.9</cell>
-							<cell>2.8</cell>
-						</row>
-						<row>
-							<cell>C10<m>\times</m>15.3</cell>
-							<cell>15.3</cell>
-							<cell>4.48</cell>
-							<cell>10</cell>
-							<cell>2.6</cell>
-							<cell>0.24</cell>
-							<cell>0.436</cell>
-							<cell>0.634</cell>
-							<cell>67.3</cell>
-							<cell>2.27</cell>
-						</row>
-						<row>
-							<cell>C9<m>\times</m>20</cell>
-							<cell>20</cell>
-							<cell>5.87</cell>
-							<cell>9</cell>
-							<cell>2.65</cell>
-							<cell>0.448</cell>
-							<cell>0.413</cell>
-							<cell>0.583</cell>
-							<cell>60.9</cell>
-							<cell>2.41</cell>
-						</row>
-						<row>
-							<cell>C9<m>\times</m>15</cell>
-							<cell>15</cell>
-							<cell>4.4</cell>
-							<cell>9</cell>
-							<cell>2.49</cell>
-							<cell>0.285</cell>
-							<cell>0.413</cell>
-							<cell>0.586</cell>
-							<cell>51</cell>
-							<cell>1.91</cell>
-						</row>
-						<row>
-							<cell>C9<m>\times</m>13.4</cell>
-							<cell>13.4</cell>
-							<cell>3.94</cell>
-							<cell>9</cell>
-							<cell>2.43</cell>
-							<cell>0.233</cell>
-							<cell>0.413</cell>
-							<cell>0.601</cell>
-							<cell>47.8</cell>
-							<cell>1.75</cell>
-						</row>
-						<row>
-							<cell>C8<m>\times</m>18.75</cell>
-							<cell>18.75</cell>
-							<cell>5.51</cell>
-							<cell>8</cell>
-							<cell>2.53</cell>
-							<cell>0.487</cell>
-							<cell>0.39</cell>
-							<cell>0.565</cell>
-							<cell>43.9</cell>
-							<cell>1.97</cell>
-						</row>
-						<row>
-							<cell>C8<m>\times</m>13.75</cell>
-							<cell>13.75</cell>
-							<cell>4.03</cell>
-							<cell>8</cell>
-							<cell>2.34</cell>
-							<cell>0.303</cell>
-							<cell>0.39</cell>
-							<cell>0.554</cell>
-							<cell>36.1</cell>
-							<cell>1.52</cell>
-						</row>
-						<row>
-							<cell>C8<m>\times</m>11.5</cell>
-							<cell>11.5</cell>
-							<cell>3.37</cell>
-							<cell>8</cell>
-							<cell>2.26</cell>
-							<cell>0.22</cell>
-							<cell>0.39</cell>
-							<cell>0.572</cell>
-							<cell>32.5</cell>
-							<cell>1.31</cell>
-						</row>
-						<row>
-							<cell>C7<m>\times</m>14.75</cell>
-							<cell>14.75</cell>
-							<cell>4.33</cell>
-							<cell>7</cell>
-							<cell>2.3</cell>
-							<cell>0.419</cell>
-							<cell>0.366</cell>
-							<cell>0.532</cell>
-							<cell>27.2</cell>
-							<cell>1.37</cell>
-						</row>
-						<row>
-							<cell>C7<m>\times</m>12.25</cell>
-							<cell>12.25</cell>
-							<cell>3.59</cell>
-							<cell>7</cell>
-							<cell>2.19</cell>
-							<cell>0.314</cell>
-							<cell>0.366</cell>
-							<cell>0.525</cell>
-							<cell>24.2</cell>
-							<cell>1.16</cell>
-						</row>
-						<row>
-							<cell>C7<m>\times</m>9.8</cell>
-							<cell>9.8</cell>
-							<cell>2.87</cell>
-							<cell>7</cell>
-							<cell>2.09</cell>
-							<cell>0.21</cell>
-							<cell>0.366</cell>
-							<cell>0.541</cell>
-							<cell>21.2</cell>
-							<cell>0.957</cell>
-						</row>
-						<row>
-							<cell>C6<m>\times</m>13</cell>
-							<cell>13</cell>
-							<cell>3.82</cell>
-							<cell>6</cell>
-							<cell>2.16</cell>
-							<cell>0.437</cell>
-							<cell>0.343</cell>
-							<cell>0.514</cell>
-							<cell>17.3</cell>
-							<cell>1.05</cell>
-						</row>
-						<row>
-							<cell>C6<m>\times</m>10.5</cell>
-							<cell>10.5</cell>
-							<cell>3.07</cell>
-							<cell>6</cell>
-							<cell>2.03</cell>
-							<cell>0.314</cell>
-							<cell>0.343</cell>
-							<cell>0.5</cell>
-							<cell>15.1</cell>
-							<cell>0.86</cell>
-						</row>
-						<row>
-							<cell>C6<m>\times</m>8.2</cell>
-							<cell>8.2</cell>
-							<cell>2.39</cell>
-							<cell>6</cell>
-							<cell>1.92</cell>
-							<cell>0.2</cell>
-							<cell>0.343</cell>
-							<cell>0.512</cell>
-							<cell>13.1</cell>
-							<cell>0.687</cell>
-						</row>
-						<row>
-							<cell>C5<m>\times</m>9</cell>
-							<cell>9</cell>
-							<cell>2.64</cell>
-							<cell>5</cell>
-							<cell>1.89</cell>
-							<cell>0.325</cell>
-							<cell>0.32</cell>
-							<cell>0.478</cell>
-							<cell>8.89</cell>
-							<cell>0.624</cell>
-						</row>
-						<row>
-							<cell>C5<m>\times</m>6.7</cell>
-							<cell>6.7</cell>
-							<cell>1.97</cell>
-							<cell>5</cell>
-							<cell>1.75</cell>
-							<cell>0.19</cell>
-							<cell>0.32</cell>
-							<cell>0.484</cell>
-							<cell>7.48</cell>
-							<cell>0.47</cell>
-						</row>
-						<row>
-							<cell>C4<m>\times</m>7.25</cell>
-							<cell>7.25</cell>
-							<cell>2.13</cell>
-							<cell>4</cell>
-							<cell>1.72</cell>
-							<cell>0.321</cell>
-							<cell>0.296</cell>
-							<cell>0.459</cell>
-							<cell>4.58</cell>
-							<cell>0.425</cell>
-						</row>
-						<row>
-							<cell>C4<m>\times</m>6.25</cell>
-							<cell>6.25</cell>
-							<cell>1.84</cell>
-							<cell>4</cell>
-							<cell>1.65</cell>
-							<cell>0.247</cell>
-							<cell>0.296</cell>
-							<cell>0.453</cell>
-							<cell>4.19</cell>
-							<cell>0.374</cell>
-						</row>
-						<row>
-							<cell>C4<m>\times</m>5.4</cell>
-							<cell>5.4</cell>
-							<cell>1.58</cell>
-							<cell>4</cell>
-							<cell>1.58</cell>
-							<cell>0.184</cell>
-							<cell>0.296</cell>
-							<cell>0.457</cell>
-							<cell>3.85</cell>
-							<cell>0.312</cell>
-						</row>
-						<row>
-							<cell>C4<m>\times</m>4.5</cell>
-							<cell>4.5</cell>
-							<cell>1.34</cell>
-							<cell>4</cell>
-							<cell>1.52</cell>
-							<cell>0.125</cell>
-							<cell>0.296</cell>
-							<cell>0.473</cell>
-							<cell>3.53</cell>
-							<cell>0.265</cell>
-						</row>
-						<row>
-							<cell>C3<m>\times</m>6</cell>
-							<cell>6</cell>
-							<cell>1.76</cell>
-							<cell>3</cell>
-							<cell>1.6</cell>
-							<cell>0.356</cell>
-							<cell>0.273</cell>
-							<cell>0.455</cell>
-							<cell>2.07</cell>
-							<cell>0.3</cell>
-						</row>
-						<row>
-							<cell>C3<m>\times</m>5</cell>
-							<cell>5</cell>
-							<cell>1.47</cell>
-							<cell>3</cell>
-							<cell>1.5</cell>
-							<cell>0.258</cell>
-							<cell>0.273</cell>
-							<cell>0.439</cell>
-							<cell>1.85</cell>
-							<cell>0.241</cell>
-						</row>
-						<row>
-							<cell>C3<m>\times</m>4.1</cell>
-							<cell>4.1</cell>
-							<cell>1.2</cell>
-							<cell>3</cell>
-							<cell>1.41</cell>
-							<cell>0.17</cell>
-							<cell>0.273</cell>
-							<cell>0.437</cell>
-							<cell>1.65</cell>
-							<cell>0.191</cell>
-						</row>
-						<row>
-							<cell>C3<m>\times</m>3.5</cell>
-							<cell>3.5</cell>
-							<cell>1.09</cell>
-							<cell>3</cell>
-							<cell>1.37</cell>
-							<cell>0.132</cell>
-							<cell>0.273</cell>
-							<cell>0.443</cell>
-							<cell>1.57</cell>
-							<cell>0.169</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-			<subsection xml:id="channels-si">
-				<title>Channel Section-SI</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/C_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>d\times \,W</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line>kg/m</line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>mm</line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>C380<m>\times</m>74</cell>
-							<cell>74</cell>
-							<cell>9480</cell>
-							<cell>381</cell>
-							<cell>94.5</cell>
-							<cell>18.2</cell>
-							<cell>16.5</cell>
-							<cell>20.3</cell>
-							<cell>168</cell>
-							<cell>4.58</cell>
-						</row>
-						<row>
-							<cell>C380<m>\times</m>60</cell>
-							<cell>60</cell>
-							<cell>7610</cell>
-							<cell>381</cell>
-							<cell>89.4</cell>
-							<cell>13.2</cell>
-							<cell>16.5</cell>
-							<cell>19.8</cell>
-							<cell>145</cell>
-							<cell>3.82</cell>
-						</row>
-						<row>
-							<cell>C380<m>\times</m>50.4</cell>
-							<cell>50.4</cell>
-							<cell>6450</cell>
-							<cell>381</cell>
-							<cell>86.4</cell>
-							<cell>10.2</cell>
-							<cell>16.5</cell>
-							<cell>20</cell>
-							<cell>131</cell>
-							<cell>3.36</cell>
-						</row>
-						<row>
-							<cell>C310<m>\times</m>45</cell>
-							<cell>45</cell>
-							<cell>5680</cell>
-							<cell>305</cell>
-							<cell>80.5</cell>
-							<cell>13</cell>
-							<cell>12.7</cell>
-							<cell>17.1</cell>
-							<cell>67.4</cell>
-							<cell>2.13</cell>
-						</row>
-						<row>
-							<cell>C310<m>\times</m>37</cell>
-							<cell>37</cell>
-							<cell>4740</cell>
-							<cell>305</cell>
-							<cell>77.5</cell>
-							<cell>9.83</cell>
-							<cell>12.7</cell>
-							<cell>17.1</cell>
-							<cell>59.9</cell>
-							<cell>1.85</cell>
-						</row>
-						<row>
-							<cell>C310<m>\times</m>30.8</cell>
-							<cell>30.8</cell>
-							<cell>3920</cell>
-							<cell>305</cell>
-							<cell>74.7</cell>
-							<cell>7.16</cell>
-							<cell>12.7</cell>
-							<cell>17.7</cell>
-							<cell>53.7</cell>
-							<cell>1.61</cell>
-						</row>
-						<row>
-							<cell>C250<m>\times</m>45</cell>
-							<cell>45</cell>
-							<cell>5680</cell>
-							<cell>254</cell>
-							<cell>77</cell>
-							<cell>17.1</cell>
-							<cell>11.1</cell>
-							<cell>16.5</cell>
-							<cell>42.9</cell>
-							<cell>1.64</cell>
-						</row>
-						<row>
-							<cell>C250<m>\times</m>37</cell>
-							<cell>37</cell>
-							<cell>4740</cell>
-							<cell>254</cell>
-							<cell>73.4</cell>
-							<cell>13.4</cell>
-							<cell>11.1</cell>
-							<cell>15.7</cell>
-							<cell>37.9</cell>
-							<cell>1.39</cell>
-						</row>
-						<row>
-							<cell>C250<m>\times</m>30</cell>
-							<cell>30</cell>
-							<cell>3790</cell>
-							<cell>254</cell>
-							<cell>69.6</cell>
-							<cell>9.63</cell>
-							<cell>11.1</cell>
-							<cell>15.4</cell>
-							<cell>32.8</cell>
-							<cell>1.17</cell>
-						</row>
-						<row>
-							<cell>C250<m>\times</m>22.8</cell>
-							<cell>22.8</cell>
-							<cell>2890</cell>
-							<cell>254</cell>
-							<cell>66</cell>
-							<cell>6.1</cell>
-							<cell>11.1</cell>
-							<cell>16.1</cell>
-							<cell>28</cell>
-							<cell>0.945</cell>
-						</row>
-						<row>
-							<cell>C230<m>\times</m>30</cell>
-							<cell>30</cell>
-							<cell>3790</cell>
-							<cell>229</cell>
-							<cell>67.3</cell>
-							<cell>11.4</cell>
-							<cell>10.5</cell>
-							<cell>14.8</cell>
-							<cell>25.3</cell>
-							<cell>1</cell>
-						</row>
-						<row>
-							<cell>C230<m>\times</m>22</cell>
-							<cell>22</cell>
-							<cell>2840</cell>
-							<cell>229</cell>
-							<cell>63.2</cell>
-							<cell>7.24</cell>
-							<cell>10.5</cell>
-							<cell>14.9</cell>
-							<cell>21.2</cell>
-							<cell>0.795</cell>
-						</row>
-						<row>
-							<cell>C230<m>\times</m>19.9</cell>
-							<cell>19.9</cell>
-							<cell>2540</cell>
-							<cell>229</cell>
-							<cell>61.7</cell>
-							<cell>5.92</cell>
-							<cell>10.5</cell>
-							<cell>15.3</cell>
-							<cell>19.9</cell>
-							<cell>0.728</cell>
-						</row>
-						<row>
-							<cell>C200<m>\times</m>27.9</cell>
-							<cell>27.9</cell>
-							<cell>3550</cell>
-							<cell>203</cell>
-							<cell>64.3</cell>
-							<cell>12.4</cell>
-							<cell>9.91</cell>
-							<cell>14.4</cell>
-							<cell>18.3</cell>
-							<cell>0.82</cell>
-						</row>
-						<row>
-							<cell>C200<m>\times</m>20.5</cell>
-							<cell>20.5</cell>
-							<cell>2600</cell>
-							<cell>203</cell>
-							<cell>59.4</cell>
-							<cell>7.7</cell>
-							<cell>9.91</cell>
-							<cell>14.1</cell>
-							<cell>15</cell>
-							<cell>0.633</cell>
-						</row>
-						<row>
-							<cell>C200<m>\times</m>17.1</cell>
-							<cell>17.1</cell>
-							<cell>2170</cell>
-							<cell>203</cell>
-							<cell>57.4</cell>
-							<cell>5.59</cell>
-							<cell>9.91</cell>
-							<cell>14.5</cell>
-							<cell>13.5</cell>
-							<cell>0.545</cell>
-						</row>
-						<row>
-							<cell>C180<m>\times</m>22</cell>
-							<cell>22</cell>
-							<cell>2790</cell>
-							<cell>178</cell>
-							<cell>58.4</cell>
-							<cell>10.6</cell>
-							<cell>9.3</cell>
-							<cell>13.5</cell>
-							<cell>11.3</cell>
-							<cell>0.57</cell>
-						</row>
-						<row>
-							<cell>C180<m>\times</m>18.2</cell>
-							<cell>18.2</cell>
-							<cell>2320</cell>
-							<cell>178</cell>
-							<cell>55.6</cell>
-							<cell>7.98</cell>
-							<cell>9.3</cell>
-							<cell>13.3</cell>
-							<cell>10.1</cell>
-							<cell>0.483</cell>
-						</row>
-						<row>
-							<cell>C180<m>\times</m>14.6</cell>
-							<cell>14.6</cell>
-							<cell>1850</cell>
-							<cell>178</cell>
-							<cell>53.1</cell>
-							<cell>5.33</cell>
-							<cell>9.3</cell>
-							<cell>13.7</cell>
-							<cell>8.82</cell>
-							<cell>0.398</cell>
-						</row>
-						<row>
-							<cell>C150<m>\times</m>19.3</cell>
-							<cell>19.3</cell>
-							<cell>2460</cell>
-							<cell>152</cell>
-							<cell>54.9</cell>
-							<cell>11.1</cell>
-							<cell>8.71</cell>
-							<cell>13.1</cell>
-							<cell>7.2</cell>
-							<cell>0.437</cell>
-						</row>
-						<row>
-							<cell>C150<m>\times</m>15.6</cell>
-							<cell>15.6</cell>
-							<cell>1980</cell>
-							<cell>152</cell>
-							<cell>51.6</cell>
-							<cell>7.98</cell>
-							<cell>8.71</cell>
-							<cell>12.7</cell>
-							<cell>6.29</cell>
-							<cell>0.358</cell>
-						</row>
-						<row>
-							<cell>C150<m>\times</m>12.2</cell>
-							<cell>12.2</cell>
-							<cell>1540</cell>
-							<cell>152</cell>
-							<cell>48.8</cell>
-							<cell>5.08</cell>
-							<cell>8.71</cell>
-							<cell>13</cell>
-							<cell>5.45</cell>
-							<cell>0.286</cell>
-						</row>
-						<row>
-							<cell>C130<m>\times</m>13</cell>
-							<cell>13</cell>
-							<cell>1700</cell>
-							<cell>127</cell>
-							<cell>48</cell>
-							<cell>8.26</cell>
-							<cell>8.13</cell>
-							<cell>12.1</cell>
-							<cell>3.7</cell>
-							<cell>0.26</cell>
-						</row>
-						<row>
-							<cell>C130<m>\times</m>10.4</cell>
-							<cell>10.4</cell>
-							<cell>1270</cell>
-							<cell>127</cell>
-							<cell>44.5</cell>
-							<cell>4.83</cell>
-							<cell>8.13</cell>
-							<cell>12.3</cell>
-							<cell>3.11</cell>
-							<cell>0.196</cell>
-						</row>
-						<row>
-							<cell>C100<m>\times</m>10.8</cell>
-							<cell>10.8</cell>
-							<cell>1370</cell>
-							<cell>102</cell>
-							<cell>43.7</cell>
-							<cell>8.15</cell>
-							<cell>7.52</cell>
-							<cell>11.7</cell>
-							<cell>1.91</cell>
-							<cell>0.177</cell>
-						</row>
-						<row>
-							<cell>C100<m>\times</m>9.3</cell>
-							<cell>9.3</cell>
-							<cell>1190</cell>
-							<cell>102</cell>
-							<cell>41.9</cell>
-							<cell>6.27</cell>
-							<cell>7.52</cell>
-							<cell>11.5</cell>
-							<cell>1.74</cell>
-							<cell>0.156</cell>
-						</row>
-						<row>
-							<cell>C100<m>\times</m>8</cell>
-							<cell>8</cell>
-							<cell>1020</cell>
-							<cell>102</cell>
-							<cell>40.1</cell>
-							<cell>4.67</cell>
-							<cell>7.52</cell>
-							<cell>11.6</cell>
-							<cell>1.6</cell>
-							<cell>0.13</cell>
-						</row>
-						<row>
-							<cell>C100<m>\times</m>6.7</cell>
-							<cell>6.7</cell>
-							<cell>865</cell>
-							<cell>102</cell>
-							<cell>38.6</cell>
-							<cell>3.18</cell>
-							<cell>7.52</cell>
-							<cell>12</cell>
-							<cell>1.47</cell>
-							<cell>0.11</cell>
-						</row>
-						<row>
-							<cell>C75<m>\times</m>8.9</cell>
-							<cell>8.9</cell>
-							<cell>1140</cell>
-							<cell>76.2</cell>
-							<cell>40.6</cell>
-							<cell>9.04</cell>
-							<cell>6.93</cell>
-							<cell>11.6</cell>
-							<cell>0.862</cell>
-							<cell>0.125</cell>
-						</row>
-						<row>
-							<cell>C75<m>\times</m>7.4</cell>
-							<cell>7.4</cell>
-							<cell>948</cell>
-							<cell>76.2</cell>
-							<cell>38.1</cell>
-							<cell>6.55</cell>
-							<cell>6.93</cell>
-							<cell>11.2</cell>
-							<cell>0.77</cell>
-							<cell>0.1</cell>
-						</row>
-						<row>
-							<cell>C75<m>\times</m>6.1</cell>
-							<cell>6.1</cell>
-							<cell>774</cell>
-							<cell>76.2</cell>
-							<cell>35.8</cell>
-							<cell>4.32</cell>
-							<cell>6.93</cell>
-							<cell>11.1</cell>
-							<cell>0.687</cell>
-							<cell>0.0795</cell>
-						</row>
-						<row>
-							<cell>C75<m>\times</m>5.2</cell>
-							<cell>5.2</cell>
-							<cell>703</cell>
-							<cell>76.2</cell>
-							<cell>34.8</cell>
-							<cell>3.35</cell>
-							<cell>6.93</cell>
-							<cell>11.3</cell>
-							<cell>0.653</cell>
-							<cell>0.0703</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-		</section>
-		<section xml:id="AISC-standard-sections">
-			<title>Standard Sections</title>
-			<subsection xml:id="standards-us">
-				<title>Standard Section-US</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/I_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{lb/ft}</m> </line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>S24<m>\times</m>121</cell>
-							<cell>121</cell>
-							<cell>35.5</cell>
-							<cell>24.5</cell>
-							<cell>8.05</cell>
-							<cell>0.8</cell>
-							<cell>1.09</cell>
-							<cell>3160</cell>
-							<cell>83</cell>
-						</row>
-						<row>
-							<cell>S24<m>\times</m>106</cell>
-							<cell>106</cell>
-							<cell>31.1</cell>
-							<cell>24.5</cell>
-							<cell>7.87</cell>
-							<cell>0.62</cell>
-							<cell>1.09</cell>
-							<cell>2940</cell>
-							<cell>76.8</cell>
-						</row>
-						<row>
-							<cell>S24<m>\times</m>100</cell>
-							<cell>100</cell>
-							<cell>29.3</cell>
-							<cell>24</cell>
-							<cell>7.25</cell>
-							<cell>0.745</cell>
-							<cell>0.87</cell>
-							<cell>2380</cell>
-							<cell>47.4</cell>
-						</row>
-						<row>
-							<cell>S24<m>\times</m>90</cell>
-							<cell>90</cell>
-							<cell>26.5</cell>
-							<cell>24</cell>
-							<cell>7.13</cell>
-							<cell>0.625</cell>
-							<cell>0.87</cell>
-							<cell>2250</cell>
-							<cell>44.7</cell>
-						</row>
-						<row>
-							<cell>S24<m>\times</m>80</cell>
-							<cell>80</cell>
-							<cell>23.5</cell>
-							<cell>24</cell>
-							<cell>7</cell>
-							<cell>0.5</cell>
-							<cell>0.87</cell>
-							<cell>2100</cell>
-							<cell>42</cell>
-						</row>
-						<row>
-							<cell>S20<m>\times</m>96</cell>
-							<cell>96</cell>
-							<cell>28.2</cell>
-							<cell>20.3</cell>
-							<cell>7.2</cell>
-							<cell>0.8</cell>
-							<cell>0.92</cell>
-							<cell>1670</cell>
-							<cell>49.9</cell>
-						</row>
-						<row>
-							<cell>S20<m>\times</m>86</cell>
-							<cell>86</cell>
-							<cell>25.3</cell>
-							<cell>20.3</cell>
-							<cell>7.06</cell>
-							<cell>0.66</cell>
-							<cell>0.92</cell>
-							<cell>1570</cell>
-							<cell>46.6</cell>
-						</row>
-						<row>
-							<cell>S20<m>\times</m>75</cell>
-							<cell>75</cell>
-							<cell>22</cell>
-							<cell>20</cell>
-							<cell>6.39</cell>
-							<cell>0.635</cell>
-							<cell>0.795</cell>
-							<cell>1280</cell>
-							<cell>29.5</cell>
-						</row>
-						<row>
-							<cell>S20<m>\times</m>66</cell>
-							<cell>66</cell>
-							<cell>19.4</cell>
-							<cell>20</cell>
-							<cell>6.26</cell>
-							<cell>0.505</cell>
-							<cell>0.795</cell>
-							<cell>1190</cell>
-							<cell>27.5</cell>
-						</row>
-						<row>
-							<cell>S18<m>\times</m>70</cell>
-							<cell>70</cell>
-							<cell>20.5</cell>
-							<cell>18</cell>
-							<cell>6.25</cell>
-							<cell>0.711</cell>
-							<cell>0.691</cell>
-							<cell>923</cell>
-							<cell>24</cell>
-						</row>
-						<row>
-							<cell>S18<m>\times</m>54.7</cell>
-							<cell>54.7</cell>
-							<cell>16</cell>
-							<cell>18</cell>
-							<cell>6</cell>
-							<cell>0.461</cell>
-							<cell>0.691</cell>
-							<cell>801</cell>
-							<cell>20.7</cell>
-						</row>
-						<row>
-							<cell>S15<m>\times</m>50</cell>
-							<cell>50</cell>
-							<cell>14.7</cell>
-							<cell>15</cell>
-							<cell>5.64</cell>
-							<cell>0.55</cell>
-							<cell>0.622</cell>
-							<cell>485</cell>
-							<cell>15.6</cell>
-						</row>
-						<row>
-							<cell>S15<m>\times</m>42.9</cell>
-							<cell>42.9</cell>
-							<cell>12.6</cell>
-							<cell>15</cell>
-							<cell>5.5</cell>
-							<cell>0.411</cell>
-							<cell>0.622</cell>
-							<cell>446</cell>
-							<cell>14.3</cell>
-						</row>
-						<row>
-							<cell>S12<m>\times</m>50</cell>
-							<cell>50</cell>
-							<cell>14.7</cell>
-							<cell>12</cell>
-							<cell>5.48</cell>
-							<cell>0.687</cell>
-							<cell>0.659</cell>
-							<cell>303</cell>
-							<cell>15.6</cell>
-						</row>
-						<row>
-							<cell>S12<m>\times</m>40.8</cell>
-							<cell>40.8</cell>
-							<cell>11.9</cell>
-							<cell>12</cell>
-							<cell>5.25</cell>
-							<cell>0.462</cell>
-							<cell>0.659</cell>
-							<cell>270</cell>
-							<cell>13.5</cell>
-						</row>
-						<row>
-							<cell>S12<m>\times</m>35</cell>
-							<cell>35</cell>
-							<cell>10.2</cell>
-							<cell>12</cell>
-							<cell>5.08</cell>
-							<cell>0.428</cell>
-							<cell>0.544</cell>
-							<cell>228</cell>
-							<cell>9.84</cell>
-						</row>
-						<row>
-							<cell>S12<m>\times</m>31.8</cell>
-							<cell>31.8</cell>
-							<cell>9.31</cell>
-							<cell>12</cell>
-							<cell>5</cell>
-							<cell>0.35</cell>
-							<cell>0.544</cell>
-							<cell>217</cell>
-							<cell>9.33</cell>
-						</row>
-						<row>
-							<cell>S10<m>\times</m>35</cell>
-							<cell>35</cell>
-							<cell>10.3</cell>
-							<cell>10</cell>
-							<cell>4.94</cell>
-							<cell>0.594</cell>
-							<cell>0.491</cell>
-							<cell>147</cell>
-							<cell>8.3</cell>
-						</row>
-						<row>
-							<cell>S10<m>\times</m>25.4</cell>
-							<cell>25.4</cell>
-							<cell>7.45</cell>
-							<cell>10</cell>
-							<cell>4.66</cell>
-							<cell>0.311</cell>
-							<cell>0.491</cell>
-							<cell>123</cell>
-							<cell>6.73</cell>
-						</row>
-						<row>
-							<cell>S8<m>\times</m>23</cell>
-							<cell>23</cell>
-							<cell>6.76</cell>
-							<cell>8</cell>
-							<cell>4.17</cell>
-							<cell>0.441</cell>
-							<cell>0.425</cell>
-							<cell>64.7</cell>
-							<cell>4.27</cell>
-						</row>
-						<row>
-							<cell>S8<m>\times</m>18.4</cell>
-							<cell>18.4</cell>
-							<cell>5.4</cell>
-							<cell>8</cell>
-							<cell>4</cell>
-							<cell>0.271</cell>
-							<cell>0.425</cell>
-							<cell>57.5</cell>
-							<cell>3.69</cell>
-						</row>
-						<row>
-							<cell>S6<m>\times</m>17.25</cell>
-							<cell>17.25</cell>
-							<cell>5.05</cell>
-							<cell>6</cell>
-							<cell>3.57</cell>
-							<cell>0.465</cell>
-							<cell>0.359</cell>
-							<cell>26.2</cell>
-							<cell>2.29</cell>
-						</row>
-						<row>
-							<cell>S6<m>\times</m>12.5</cell>
-							<cell>12.5</cell>
-							<cell>3.66</cell>
-							<cell>6</cell>
-							<cell>3.33</cell>
-							<cell>0.232</cell>
-							<cell>0.359</cell>
-							<cell>22</cell>
-							<cell>1.8</cell>
-						</row>
-						<row>
-							<cell>S5<m>\times</m>10</cell>
-							<cell>10</cell>
-							<cell>2.93</cell>
-							<cell>5</cell>
-							<cell>3</cell>
-							<cell>0.214</cell>
-							<cell>0.326</cell>
-							<cell>12.3</cell>
-							<cell>1.19</cell>
-						</row>
-						<row>
-							<cell>S4<m>\times</m>9.5</cell>
-							<cell>9.5</cell>
-							<cell>2.79</cell>
-							<cell>4</cell>
-							<cell>2.8</cell>
-							<cell>0.326</cell>
-							<cell>0.293</cell>
-							<cell>6.76</cell>
-							<cell>0.887</cell>
-						</row>
-						<row>
-							<cell>S4<m>\times</m>7.7</cell>
-							<cell>7.7</cell>
-							<cell>2.26</cell>
-							<cell>4</cell>
-							<cell>2.66</cell>
-							<cell>0.193</cell>
-							<cell>0.293</cell>
-							<cell>6.05</cell>
-							<cell>0.748</cell>
-						</row>
-						<row>
-							<cell>S3<m>\times</m>7.5</cell>
-							<cell>7.5</cell>
-							<cell>2.2</cell>
-							<cell>3</cell>
-							<cell>2.51</cell>
-							<cell>0.349</cell>
-							<cell>0.26</cell>
-							<cell>2.91</cell>
-							<cell>0.578</cell>
-						</row>
-						<row>
-							<cell>S3<m>\times</m>5.7</cell>
-							<cell>5.7</cell>
-							<cell>1.66</cell>
-							<cell>3</cell>
-							<cell>2.33</cell>
-							<cell>0.17</cell>
-							<cell>0.26</cell>
-							<cell>2.5</cell>
-							<cell>0.447</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-			<subsection xml:id="standards-si">
-				<title>Standard Section-SI</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/I_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{kg/m}</m> </line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>S610<m>\times</m>180</cell>
-							<cell>180</cell>
-							<cell>22900</cell>
-							<cell>622</cell>
-							<cell>204</cell>
-							<cell>20.3</cell>
-							<cell>27.7</cell>
-							<cell>1320</cell>
-							<cell>34.5</cell>
-						</row>
-						<row>
-							<cell>S610<m>\times</m>158</cell>
-							<cell>158</cell>
-							<cell>20100</cell>
-							<cell>622</cell>
-							<cell>200</cell>
-							<cell>15.7</cell>
-							<cell>27.7</cell>
-							<cell>1220</cell>
-							<cell>32</cell>
-						</row>
-						<row>
-							<cell>S610<m>\times</m>149</cell>
-							<cell>149</cell>
-							<cell>18900</cell>
-							<cell>610</cell>
-							<cell>184</cell>
-							<cell>18.9</cell>
-							<cell>22.1</cell>
-							<cell>991</cell>
-							<cell>19.7</cell>
-						</row>
-						<row>
-							<cell>S610<m>\times</m>134</cell>
-							<cell>134</cell>
-							<cell>17100</cell>
-							<cell>610</cell>
-							<cell>181</cell>
-							<cell>15.9</cell>
-							<cell>22.1</cell>
-							<cell>937</cell>
-							<cell>18.6</cell>
-						</row>
-						<row>
-							<cell>S610<m>\times</m>119</cell>
-							<cell>119</cell>
-							<cell>15200</cell>
-							<cell>610</cell>
-							<cell>178</cell>
-							<cell>12.7</cell>
-							<cell>22.1</cell>
-							<cell>874</cell>
-							<cell>17.5</cell>
-						</row>
-						<row>
-							<cell>S510<m>\times</m>143</cell>
-							<cell>143</cell>
-							<cell>18200</cell>
-							<cell>516</cell>
-							<cell>183</cell>
-							<cell>20.3</cell>
-							<cell>23.4</cell>
-							<cell>695</cell>
-							<cell>20.8</cell>
-						</row>
-						<row>
-							<cell>S510<m>\times</m>128</cell>
-							<cell>128</cell>
-							<cell>16300</cell>
-							<cell>516</cell>
-							<cell>179</cell>
-							<cell>16.8</cell>
-							<cell>23.4</cell>
-							<cell>653</cell>
-							<cell>19.4</cell>
-						</row>
-						<row>
-							<cell>S510<m>\times</m>112</cell>
-							<cell>112</cell>
-							<cell>14200</cell>
-							<cell>508</cell>
-							<cell>162</cell>
-							<cell>16.1</cell>
-							<cell>20.2</cell>
-							<cell>533</cell>
-							<cell>12.3</cell>
-						</row>
-						<row>
-							<cell>S510<m>\times</m>98.2</cell>
-							<cell>98.2</cell>
-							<cell>12500</cell>
-							<cell>508</cell>
-							<cell>159</cell>
-							<cell>12.8</cell>
-							<cell>20.2</cell>
-							<cell>495</cell>
-							<cell>11.4</cell>
-						</row>
-						<row>
-							<cell>S460<m>\times</m>104</cell>
-							<cell>104</cell>
-							<cell>13200</cell>
-							<cell>457</cell>
-							<cell>159</cell>
-							<cell>18.1</cell>
-							<cell>17.6</cell>
-							<cell>384</cell>
-							<cell>9.99</cell>
-						</row>
-						<row>
-							<cell>S460<m>\times</m>81.4</cell>
-							<cell>81.4</cell>
-							<cell>10300</cell>
-							<cell>457</cell>
-							<cell>152</cell>
-							<cell>11.7</cell>
-							<cell>17.6</cell>
-							<cell>333</cell>
-							<cell>8.62</cell>
-						</row>
-						<row>
-							<cell>S380<m>\times</m>74</cell>
-							<cell>74</cell>
-							<cell>9480</cell>
-							<cell>381</cell>
-							<cell>143</cell>
-							<cell>14</cell>
-							<cell>15.8</cell>
-							<cell>202</cell>
-							<cell>6.49</cell>
-						</row>
-						<row>
-							<cell>S380<m>\times</m>64</cell>
-							<cell>64</cell>
-							<cell>8130</cell>
-							<cell>381</cell>
-							<cell>140</cell>
-							<cell>10.4</cell>
-							<cell>15.8</cell>
-							<cell>186</cell>
-							<cell>5.95</cell>
-						</row>
-						<row>
-							<cell>S310<m>\times</m>74</cell>
-							<cell>74</cell>
-							<cell>9480</cell>
-							<cell>305</cell>
-							<cell>139</cell>
-							<cell>17.4</cell>
-							<cell>16.7</cell>
-							<cell>126</cell>
-							<cell>6.49</cell>
-						</row>
-						<row>
-							<cell>S310<m>\times</m>60.7</cell>
-							<cell>60.7</cell>
-							<cell>7680</cell>
-							<cell>305</cell>
-							<cell>133</cell>
-							<cell>11.7</cell>
-							<cell>16.7</cell>
-							<cell>112</cell>
-							<cell>5.62</cell>
-						</row>
-						<row>
-							<cell>S310<m>\times</m>52</cell>
-							<cell>52</cell>
-							<cell>6580</cell>
-							<cell>305</cell>
-							<cell>129</cell>
-							<cell>10.9</cell>
-							<cell>13.8</cell>
-							<cell>94.9</cell>
-							<cell>4.1</cell>
-						</row>
-						<row>
-							<cell>S310<m>\times</m>47.3</cell>
-							<cell>47.3</cell>
-							<cell>6010</cell>
-							<cell>305</cell>
-							<cell>127</cell>
-							<cell>8.89</cell>
-							<cell>13.8</cell>
-							<cell>90.3</cell>
-							<cell>3.88</cell>
-						</row>
-						<row>
-							<cell>S250<m>\times</m>52</cell>
-							<cell>52</cell>
-							<cell>6650</cell>
-							<cell>254</cell>
-							<cell>125</cell>
-							<cell>15.1</cell>
-							<cell>12.5</cell>
-							<cell>61.2</cell>
-							<cell>3.45</cell>
-						</row>
-						<row>
-							<cell>S250<m>\times</m>37.8</cell>
-							<cell>37.8</cell>
-							<cell>4810</cell>
-							<cell>254</cell>
-							<cell>118</cell>
-							<cell>7.9</cell>
-							<cell>12.5</cell>
-							<cell>51.2</cell>
-							<cell>2.8</cell>
-						</row>
-						<row>
-							<cell>S200<m>\times</m>34</cell>
-							<cell>34</cell>
-							<cell>4360</cell>
-							<cell>203</cell>
-							<cell>106</cell>
-							<cell>11.2</cell>
-							<cell>10.8</cell>
-							<cell>26.9</cell>
-							<cell>1.78</cell>
-						</row>
-						<row>
-							<cell>S200<m>\times</m>27.4</cell>
-							<cell>27.4</cell>
-							<cell>3480</cell>
-							<cell>203</cell>
-							<cell>102</cell>
-							<cell>6.88</cell>
-							<cell>10.8</cell>
-							<cell>23.9</cell>
-							<cell>1.54</cell>
-						</row>
-						<row>
-							<cell>S150<m>\times</m>25.7</cell>
-							<cell>25.7</cell>
-							<cell>3260</cell>
-							<cell>152</cell>
-							<cell>90.7</cell>
-							<cell>11.8</cell>
-							<cell>9.12</cell>
-							<cell>10.9</cell>
-							<cell>0.953</cell>
-						</row>
-						<row>
-							<cell>S150<m>\times</m>18.6</cell>
-							<cell>18.6</cell>
-							<cell>2360</cell>
-							<cell>152</cell>
-							<cell>84.6</cell>
-							<cell>5.89</cell>
-							<cell>9.12</cell>
-							<cell>9.16</cell>
-							<cell>0.749</cell>
-						</row>
-						<row>
-							<cell>S130<m>\times</m>15</cell>
-							<cell>15</cell>
-							<cell>1890</cell>
-							<cell>127</cell>
-							<cell>76.2</cell>
-							<cell>5.44</cell>
-							<cell>8.28</cell>
-							<cell>5.12</cell>
-							<cell>0.495</cell>
-						</row>
-						<row>
-							<cell>S100<m>\times</m>14.1</cell>
-							<cell>14.1</cell>
-							<cell>1800</cell>
-							<cell>102</cell>
-							<cell>71.1</cell>
-							<cell>8.28</cell>
-							<cell>7.44</cell>
-							<cell>2.81</cell>
-							<cell>0.369</cell>
-						</row>
-						<row>
-							<cell>S100<m>\times</m>11.5</cell>
-							<cell>11.5</cell>
-							<cell>1460</cell>
-							<cell>102</cell>
-							<cell>67.6</cell>
-							<cell>4.9</cell>
-							<cell>7.44</cell>
-							<cell>2.52</cell>
-							<cell>0.311</cell>
-						</row>
-						<row>
-							<cell>S75<m>\times</m>11.2</cell>
-							<cell>11.2</cell>
-							<cell>1420</cell>
-							<cell>76.2</cell>
-							<cell>63.8</cell>
-							<cell>8.86</cell>
-							<cell>6.6</cell>
-							<cell>1.21</cell>
-							<cell>0.241</cell>
-						</row>
-						<row>
-							<cell>S75<m>\times</m>8.5</cell>
-							<cell>8.5</cell>
-							<cell>1070</cell>
-							<cell>76.2</cell>
-							<cell>59.2</cell>
-							<cell>4.32</cell>
-							<cell>6.6</cell>
-							<cell>1.04</cell>
-							<cell>0.186</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-		</section>
-		<section xml:id="AISC-wide-flange">
-			<title>Wide Flange Sections</title>
-			<subsection xml:id="wf-us">
-				<title>Wide Flange Section-US</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/W_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{lb/ft}</m> </line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>W44<m>\times</m>335</cell>
-							<cell>335</cell>
-							<cell>98.5</cell>
-							<cell>44</cell>
-							<cell>15.9</cell>
-							<cell>1.03</cell>
-							<cell>1.77</cell>
-							<cell>31100</cell>
-							<cell>1200</cell>
-						</row>
-						<row>
-							<cell>W44<m>\times</m>290</cell>
-							<cell>290</cell>
-							<cell>85.4</cell>
-							<cell>43.6</cell>
-							<cell>15.8</cell>
-							<cell>0.865</cell>
-							<cell>1.58</cell>
-							<cell>27000</cell>
-							<cell>1040</cell>
-						</row>
-						<row>
-							<cell>W44<m>\times</m>262</cell>
-							<cell>262</cell>
-							<cell>77.2</cell>
-							<cell>43.3</cell>
-							<cell>15.8</cell>
-							<cell>0.785</cell>
-							<cell>1.42</cell>
-							<cell>24100</cell>
-							<cell>923</cell>
-						</row>
-						<row>
-							<cell>W44<m>\times</m>230</cell>
-							<cell>230</cell>
-							<cell>67.8</cell>
-							<cell>42.9</cell>
-							<cell>15.8</cell>
-							<cell>0.71</cell>
-							<cell>1.22</cell>
-							<cell>20800</cell>
-							<cell>796</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>655</cell>
-							<cell>655</cell>
-							<cell>193</cell>
-							<cell>43.6</cell>
-							<cell>16.9</cell>
-							<cell>1.97</cell>
-							<cell>3.54</cell>
-							<cell>56500</cell>
-							<cell>2870</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>593</cell>
-							<cell>593</cell>
-							<cell>174</cell>
-							<cell>43</cell>
-							<cell>16.7</cell>
-							<cell>1.79</cell>
-							<cell>3.23</cell>
-							<cell>50400</cell>
-							<cell>2520</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>503</cell>
-							<cell>503</cell>
-							<cell>148</cell>
-							<cell>42.1</cell>
-							<cell>16.4</cell>
-							<cell>1.54</cell>
-							<cell>2.76</cell>
-							<cell>41600</cell>
-							<cell>2040</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>431</cell>
-							<cell>431</cell>
-							<cell>127</cell>
-							<cell>41.3</cell>
-							<cell>16.2</cell>
-							<cell>1.34</cell>
-							<cell>2.36</cell>
-							<cell>34800</cell>
-							<cell>1690</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>397</cell>
-							<cell>397</cell>
-							<cell>117</cell>
-							<cell>41</cell>
-							<cell>16.1</cell>
-							<cell>1.22</cell>
-							<cell>2.2</cell>
-							<cell>32000</cell>
-							<cell>1540</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>372</cell>
-							<cell>372</cell>
-							<cell>110</cell>
-							<cell>40.6</cell>
-							<cell>16.1</cell>
-							<cell>1.16</cell>
-							<cell>2.05</cell>
-							<cell>29600</cell>
-							<cell>1420</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>362</cell>
-							<cell>362</cell>
-							<cell>106</cell>
-							<cell>40.6</cell>
-							<cell>16</cell>
-							<cell>1.12</cell>
-							<cell>2.01</cell>
-							<cell>28900</cell>
-							<cell>1380</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>324</cell>
-							<cell>324</cell>
-							<cell>95.3</cell>
-							<cell>40.2</cell>
-							<cell>15.9</cell>
-							<cell>1</cell>
-							<cell>1.81</cell>
-							<cell>25600</cell>
-							<cell>1220</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>297</cell>
-							<cell>297</cell>
-							<cell>87.3</cell>
-							<cell>39.8</cell>
-							<cell>15.8</cell>
-							<cell>0.93</cell>
-							<cell>1.65</cell>
-							<cell>23200</cell>
-							<cell>1090</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>277</cell>
-							<cell>277</cell>
-							<cell>81.5</cell>
-							<cell>39.7</cell>
-							<cell>15.8</cell>
-							<cell>0.83</cell>
-							<cell>1.58</cell>
-							<cell>21900</cell>
-							<cell>1040</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>249</cell>
-							<cell>249</cell>
-							<cell>73.5</cell>
-							<cell>39.4</cell>
-							<cell>15.8</cell>
-							<cell>0.75</cell>
-							<cell>1.42</cell>
-							<cell>19600</cell>
-							<cell>926</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>215</cell>
-							<cell>215</cell>
-							<cell>63.5</cell>
-							<cell>39</cell>
-							<cell>15.8</cell>
-							<cell>0.65</cell>
-							<cell>1.22</cell>
-							<cell>16700</cell>
-							<cell>803</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>199</cell>
-							<cell>199</cell>
-							<cell>58.8</cell>
-							<cell>38.7</cell>
-							<cell>15.8</cell>
-							<cell>0.65</cell>
-							<cell>1.07</cell>
-							<cell>14900</cell>
-							<cell>695</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>392</cell>
-							<cell>392</cell>
-							<cell>116</cell>
-							<cell>41.6</cell>
-							<cell>12.4</cell>
-							<cell>1.42</cell>
-							<cell>2.52</cell>
-							<cell>29900</cell>
-							<cell>803</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>331</cell>
-							<cell>331</cell>
-							<cell>97.7</cell>
-							<cell>40.8</cell>
-							<cell>12.2</cell>
-							<cell>1.22</cell>
-							<cell>2.13</cell>
-							<cell>24700</cell>
-							<cell>644</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>327</cell>
-							<cell>327</cell>
-							<cell>95.9</cell>
-							<cell>40.8</cell>
-							<cell>12.1</cell>
-							<cell>1.18</cell>
-							<cell>2.13</cell>
-							<cell>24500</cell>
-							<cell>640</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>294</cell>
-							<cell>294</cell>
-							<cell>86.2</cell>
-							<cell>40.4</cell>
-							<cell>12</cell>
-							<cell>1.06</cell>
-							<cell>1.93</cell>
-							<cell>21900</cell>
-							<cell>562</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>278</cell>
-							<cell>278</cell>
-							<cell>82.3</cell>
-							<cell>40.2</cell>
-							<cell>12</cell>
-							<cell>1.03</cell>
-							<cell>1.81</cell>
-							<cell>20500</cell>
-							<cell>521</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>264</cell>
-							<cell>264</cell>
-							<cell>77.4</cell>
-							<cell>40</cell>
-							<cell>11.9</cell>
-							<cell>0.96</cell>
-							<cell>1.73</cell>
-							<cell>19400</cell>
-							<cell>493</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>235</cell>
-							<cell>235</cell>
-							<cell>69.1</cell>
-							<cell>39.7</cell>
-							<cell>11.9</cell>
-							<cell>0.83</cell>
-							<cell>1.58</cell>
-							<cell>17400</cell>
-							<cell>444</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>211</cell>
-							<cell>211</cell>
-							<cell>62.1</cell>
-							<cell>39.4</cell>
-							<cell>11.8</cell>
-							<cell>0.75</cell>
-							<cell>1.42</cell>
-							<cell>15500</cell>
-							<cell>390</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>183</cell>
-							<cell>183</cell>
-							<cell>53.3</cell>
-							<cell>39</cell>
-							<cell>11.8</cell>
-							<cell>0.65</cell>
-							<cell>1.2</cell>
-							<cell>13200</cell>
-							<cell>331</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>167</cell>
-							<cell>167</cell>
-							<cell>49.3</cell>
-							<cell>38.6</cell>
-							<cell>11.8</cell>
-							<cell>0.65</cell>
-							<cell>1.03</cell>
-							<cell>11600</cell>
-							<cell>283</cell>
-						</row>
-						<row>
-							<cell>W40<m>\times</m>149</cell>
-							<cell>149</cell>
-							<cell>43.8</cell>
-							<cell>38.2</cell>
-							<cell>11.8</cell>
-							<cell>0.63</cell>
-							<cell>0.83</cell>
-							<cell>9800</cell>
-							<cell>229</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>925</cell>
-							<cell>925</cell>
-							<cell>272</cell>
-							<cell>43.1</cell>
-							<cell>18.6</cell>
-							<cell>3.02</cell>
-							<cell>4.53</cell>
-							<cell>73000</cell>
-							<cell>4940</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>853</cell>
-							<cell>853</cell>
-							<cell>251</cell>
-							<cell>43.1</cell>
-							<cell>18.2</cell>
-							<cell>2.52</cell>
-							<cell>4.53</cell>
-							<cell>70000</cell>
-							<cell>4600</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>802</cell>
-							<cell>802</cell>
-							<cell>236</cell>
-							<cell>42.6</cell>
-							<cell>18</cell>
-							<cell>2.38</cell>
-							<cell>4.29</cell>
-							<cell>64800</cell>
-							<cell>4210</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>723</cell>
-							<cell>723</cell>
-							<cell>213</cell>
-							<cell>41.8</cell>
-							<cell>17.8</cell>
-							<cell>2.17</cell>
-							<cell>3.9</cell>
-							<cell>57300</cell>
-							<cell>3700</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>652</cell>
-							<cell>652</cell>
-							<cell>192</cell>
-							<cell>41.1</cell>
-							<cell>17.6</cell>
-							<cell>1.97</cell>
-							<cell>3.54</cell>
-							<cell>50600</cell>
-							<cell>3230</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>529</cell>
-							<cell>529</cell>
-							<cell>156</cell>
-							<cell>39.8</cell>
-							<cell>17.2</cell>
-							<cell>1.61</cell>
-							<cell>2.91</cell>
-							<cell>39600</cell>
-							<cell>2490</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>487</cell>
-							<cell>487</cell>
-							<cell>143</cell>
-							<cell>39.3</cell>
-							<cell>17.1</cell>
-							<cell>1.5</cell>
-							<cell>2.68</cell>
-							<cell>36000</cell>
-							<cell>2250</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>441</cell>
-							<cell>441</cell>
-							<cell>130</cell>
-							<cell>38.9</cell>
-							<cell>17</cell>
-							<cell>1.36</cell>
-							<cell>2.44</cell>
-							<cell>32100</cell>
-							<cell>1990</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>395</cell>
-							<cell>395</cell>
-							<cell>116</cell>
-							<cell>38.4</cell>
-							<cell>16.8</cell>
-							<cell>1.22</cell>
-							<cell>2.2</cell>
-							<cell>28500</cell>
-							<cell>1750</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>361</cell>
-							<cell>361</cell>
-							<cell>106</cell>
-							<cell>38</cell>
-							<cell>16.7</cell>
-							<cell>1.12</cell>
-							<cell>2.01</cell>
-							<cell>25700</cell>
-							<cell>1570</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>330</cell>
-							<cell>330</cell>
-							<cell>96.9</cell>
-							<cell>37.7</cell>
-							<cell>16.6</cell>
-							<cell>1.02</cell>
-							<cell>1.85</cell>
-							<cell>23300</cell>
-							<cell>1420</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>302</cell>
-							<cell>302</cell>
-							<cell>89</cell>
-							<cell>37.3</cell>
-							<cell>16.7</cell>
-							<cell>0.945</cell>
-							<cell>1.68</cell>
-							<cell>21100</cell>
-							<cell>1300</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>282</cell>
-							<cell>282</cell>
-							<cell>82.9</cell>
-							<cell>37.1</cell>
-							<cell>16.6</cell>
-							<cell>0.885</cell>
-							<cell>1.57</cell>
-							<cell>19600</cell>
-							<cell>1200</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>262</cell>
-							<cell>262</cell>
-							<cell>77.2</cell>
-							<cell>36.9</cell>
-							<cell>16.6</cell>
-							<cell>0.84</cell>
-							<cell>1.44</cell>
-							<cell>17900</cell>
-							<cell>1090</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>247</cell>
-							<cell>247</cell>
-							<cell>72.5</cell>
-							<cell>36.7</cell>
-							<cell>16.5</cell>
-							<cell>0.8</cell>
-							<cell>1.35</cell>
-							<cell>16700</cell>
-							<cell>1010</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>231</cell>
-							<cell>231</cell>
-							<cell>68.2</cell>
-							<cell>36.5</cell>
-							<cell>16.5</cell>
-							<cell>0.76</cell>
-							<cell>1.26</cell>
-							<cell>15600</cell>
-							<cell>940</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>256</cell>
-							<cell>256</cell>
-							<cell>75.3</cell>
-							<cell>37.4</cell>
-							<cell>12.2</cell>
-							<cell>0.96</cell>
-							<cell>1.73</cell>
-							<cell>16800</cell>
-							<cell>528</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>232</cell>
-							<cell>232</cell>
-							<cell>68</cell>
-							<cell>37.1</cell>
-							<cell>12.1</cell>
-							<cell>0.87</cell>
-							<cell>1.57</cell>
-							<cell>15000</cell>
-							<cell>468</cell>
-						</row>
-						<row>
-							<cell>W36<m>\times</m>210</cell>
-							<cell>210</cell>
-							<cell>61.9</cell>
-							<cell>36.7</cell>
-							<cell>12.2</cell>
-							<cell>0.83</cell>
-							<cell>1.36</cell>
-							<cell>13200</cell>
-							<cell>411</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-			<subsection xml:id="wf-si">
-				<title>Wide Flange Section-SI</title>
-				<sidebyside widths="20% 80%">
-					<image source="images/W_section"/>
-					<tabular>
-						<row bottom="medium">
-							<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
-							<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{kg/m}</m> </line> </cell>
-							<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
-							<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
-							<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
-						</row>
-						<row>
-							<cell>W1100<m>\times</m>499</cell>
-							<cell>499</cell>
-							<cell>63500</cell>
-							<cell>1120</cell>
-							<cell>404</cell>
-							<cell>26.2</cell>
-							<cell>45</cell>
-							<cell>12900</cell>
-							<cell>499</cell>
-						</row>
-						<row>
-							<cell>W1100<m>\times</m>433</cell>
-							<cell>433</cell>
-							<cell>55100</cell>
-							<cell>1110</cell>
-							<cell>401</cell>
-							<cell>22</cell>
-							<cell>40.1</cell>
-							<cell>11200</cell>
-							<cell>433</cell>
-						</row>
-						<row>
-							<cell>W1100<m>\times</m>390</cell>
-							<cell>390</cell>
-							<cell>49800</cell>
-							<cell>1100</cell>
-							<cell>401</cell>
-							<cell>19.9</cell>
-							<cell>36.1</cell>
-							<cell>10000</cell>
-							<cell>384</cell>
-						</row>
-						<row>
-							<cell>W1100<m>\times</m>343</cell>
-							<cell>343</cell>
-							<cell>43700</cell>
-							<cell>1090</cell>
-							<cell>401</cell>
-							<cell>18</cell>
-							<cell>31</cell>
-							<cell>8660</cell>
-							<cell>331</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>976</cell>
-							<cell>975</cell>
-							<cell>125000</cell>
-							<cell>1110</cell>
-							<cell>429</cell>
-							<cell>50</cell>
-							<cell>89.9</cell>
-							<cell>23500</cell>
-							<cell>1190</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>883</cell>
-							<cell>883</cell>
-							<cell>112000</cell>
-							<cell>1090</cell>
-							<cell>424</cell>
-							<cell>45.5</cell>
-							<cell>82</cell>
-							<cell>21000</cell>
-							<cell>1050</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>748</cell>
-							<cell>748</cell>
-							<cell>95500</cell>
-							<cell>1070</cell>
-							<cell>417</cell>
-							<cell>39.1</cell>
-							<cell>70.1</cell>
-							<cell>17300</cell>
-							<cell>849</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>642</cell>
-							<cell>642</cell>
-							<cell>81900</cell>
-							<cell>1050</cell>
-							<cell>411</cell>
-							<cell>34</cell>
-							<cell>59.9</cell>
-							<cell>14500</cell>
-							<cell>703</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>591</cell>
-							<cell>591</cell>
-							<cell>75500</cell>
-							<cell>1040</cell>
-							<cell>409</cell>
-							<cell>31</cell>
-							<cell>55.9</cell>
-							<cell>13300</cell>
-							<cell>641</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>554</cell>
-							<cell>554</cell>
-							<cell>71000</cell>
-							<cell>1030</cell>
-							<cell>409</cell>
-							<cell>29.5</cell>
-							<cell>52.1</cell>
-							<cell>12300</cell>
-							<cell>591</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>539</cell>
-							<cell>539</cell>
-							<cell>68400</cell>
-							<cell>1030</cell>
-							<cell>406</cell>
-							<cell>28.4</cell>
-							<cell>51.1</cell>
-							<cell>12000</cell>
-							<cell>574</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>483</cell>
-							<cell>483</cell>
-							<cell>61500</cell>
-							<cell>1020</cell>
-							<cell>404</cell>
-							<cell>25.4</cell>
-							<cell>46</cell>
-							<cell>10700</cell>
-							<cell>508</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>443</cell>
-							<cell>443</cell>
-							<cell>56300</cell>
-							<cell>1010</cell>
-							<cell>401</cell>
-							<cell>23.6</cell>
-							<cell>41.9</cell>
-							<cell>9660</cell>
-							<cell>454</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>412</cell>
-							<cell>412</cell>
-							<cell>52600</cell>
-							<cell>1010</cell>
-							<cell>401</cell>
-							<cell>21.1</cell>
-							<cell>40.1</cell>
-							<cell>9120</cell>
-							<cell>433</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>371</cell>
-							<cell>371</cell>
-							<cell>47400</cell>
-							<cell>1000</cell>
-							<cell>401</cell>
-							<cell>19.1</cell>
-							<cell>36.1</cell>
-							<cell>8160</cell>
-							<cell>385</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>321</cell>
-							<cell>321</cell>
-							<cell>41000</cell>
-							<cell>991</cell>
-							<cell>401</cell>
-							<cell>16.5</cell>
-							<cell>31</cell>
-							<cell>6950</cell>
-							<cell>334</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>296</cell>
-							<cell>296</cell>
-							<cell>37900</cell>
-							<cell>983</cell>
-							<cell>401</cell>
-							<cell>16.5</cell>
-							<cell>27.2</cell>
-							<cell>6200</cell>
-							<cell>289</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>584</cell>
-							<cell>584</cell>
-							<cell>74800</cell>
-							<cell>1060</cell>
-							<cell>315</cell>
-							<cell>36.1</cell>
-							<cell>64</cell>
-							<cell>12400</cell>
-							<cell>334</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>494</cell>
-							<cell>494</cell>
-							<cell>63000</cell>
-							<cell>1040</cell>
-							<cell>310</cell>
-							<cell>31</cell>
-							<cell>54.1</cell>
-							<cell>10300</cell>
-							<cell>268</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>486</cell>
-							<cell>486</cell>
-							<cell>61900</cell>
-							<cell>1040</cell>
-							<cell>307</cell>
-							<cell>30</cell>
-							<cell>54.1</cell>
-							<cell>10200</cell>
-							<cell>266</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>438</cell>
-							<cell>438</cell>
-							<cell>55600</cell>
-							<cell>1030</cell>
-							<cell>305</cell>
-							<cell>26.9</cell>
-							<cell>49</cell>
-							<cell>9120</cell>
-							<cell>234</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>415</cell>
-							<cell>415</cell>
-							<cell>53100</cell>
-							<cell>1020</cell>
-							<cell>305</cell>
-							<cell>26.2</cell>
-							<cell>46</cell>
-							<cell>8530</cell>
-							<cell>217</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>393</cell>
-							<cell>393</cell>
-							<cell>49900</cell>
-							<cell>1020</cell>
-							<cell>302</cell>
-							<cell>24.4</cell>
-							<cell>43.9</cell>
-							<cell>8070</cell>
-							<cell>205</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>350</cell>
-							<cell>350</cell>
-							<cell>44600</cell>
-							<cell>1010</cell>
-							<cell>302</cell>
-							<cell>21.1</cell>
-							<cell>40.1</cell>
-							<cell>7240</cell>
-							<cell>185</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>314</cell>
-							<cell>314</cell>
-							<cell>40100</cell>
-							<cell>1000</cell>
-							<cell>300</cell>
-							<cell>19.1</cell>
-							<cell>36.1</cell>
-							<cell>6450</cell>
-							<cell>162</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>272</cell>
-							<cell>272</cell>
-							<cell>34400</cell>
-							<cell>991</cell>
-							<cell>300</cell>
-							<cell>16.5</cell>
-							<cell>30.5</cell>
-							<cell>5490</cell>
-							<cell>138</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>249</cell>
-							<cell>249</cell>
-							<cell>31800</cell>
-							<cell>980</cell>
-							<cell>300</cell>
-							<cell>16.5</cell>
-							<cell>26.2</cell>
-							<cell>4830</cell>
-							<cell>118</cell>
-						</row>
-						<row>
-							<cell>W1000<m>\times</m>222</cell>
-							<cell>222</cell>
-							<cell>28300</cell>
-							<cell>970</cell>
-							<cell>300</cell>
-							<cell>16</cell>
-							<cell>21.1</cell>
-							<cell>4080</cell>
-							<cell>95.3</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>1377</cell>
-							<cell>1380</cell>
-							<cell>175000</cell>
-							<cell>1090</cell>
-							<cell>472</cell>
-							<cell>76.7</cell>
-							<cell>115</cell>
-							<cell>30400</cell>
-							<cell>2060</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>1269</cell>
-							<cell>1270</cell>
-							<cell>162000</cell>
-							<cell>1090</cell>
-							<cell>462</cell>
-							<cell>64</cell>
-							<cell>115</cell>
-							<cell>29100</cell>
-							<cell>1910</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>1194</cell>
-							<cell>1190</cell>
-							<cell>152000</cell>
-							<cell>1080</cell>
-							<cell>457</cell>
-							<cell>60.5</cell>
-							<cell>109</cell>
-							<cell>27000</cell>
-							<cell>1750</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>1077</cell>
-							<cell>1080</cell>
-							<cell>137000</cell>
-							<cell>1060</cell>
-							<cell>452</cell>
-							<cell>55.1</cell>
-							<cell>99.1</cell>
-							<cell>23800</cell>
-							<cell>1540</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>970</cell>
-							<cell>970</cell>
-							<cell>124000</cell>
-							<cell>1040</cell>
-							<cell>447</cell>
-							<cell>50</cell>
-							<cell>89.9</cell>
-							<cell>21100</cell>
-							<cell>1340</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>787</cell>
-							<cell>787</cell>
-							<cell>101000</cell>
-							<cell>1010</cell>
-							<cell>437</cell>
-							<cell>40.9</cell>
-							<cell>73.9</cell>
-							<cell>16500</cell>
-							<cell>1040</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>725</cell>
-							<cell>725</cell>
-							<cell>92300</cell>
-							<cell>998</cell>
-							<cell>434</cell>
-							<cell>38.1</cell>
-							<cell>68.1</cell>
-							<cell>15000</cell>
-							<cell>937</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>656</cell>
-							<cell>656</cell>
-							<cell>83900</cell>
-							<cell>988</cell>
-							<cell>432</cell>
-							<cell>34.5</cell>
-							<cell>62</cell>
-							<cell>13400</cell>
-							<cell>828</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>588</cell>
-							<cell>588</cell>
-							<cell>74800</cell>
-							<cell>975</cell>
-							<cell>427</cell>
-							<cell>31</cell>
-							<cell>55.9</cell>
-							<cell>11900</cell>
-							<cell>728</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>537</cell>
-							<cell>537</cell>
-							<cell>68400</cell>
-							<cell>965</cell>
-							<cell>424</cell>
-							<cell>28.4</cell>
-							<cell>51.1</cell>
-							<cell>10700</cell>
-							<cell>653</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>491</cell>
-							<cell>491</cell>
-							<cell>62500</cell>
-							<cell>958</cell>
-							<cell>422</cell>
-							<cell>25.9</cell>
-							<cell>47</cell>
-							<cell>9700</cell>
-							<cell>591</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>449</cell>
-							<cell>449</cell>
-							<cell>57400</cell>
-							<cell>947</cell>
-							<cell>424</cell>
-							<cell>24</cell>
-							<cell>42.7</cell>
-							<cell>8780</cell>
-							<cell>541</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>420</cell>
-							<cell>420</cell>
-							<cell>53500</cell>
-							<cell>942</cell>
-							<cell>422</cell>
-							<cell>22.5</cell>
-							<cell>39.9</cell>
-							<cell>8160</cell>
-							<cell>499</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>390</cell>
-							<cell>390</cell>
-							<cell>49800</cell>
-							<cell>937</cell>
-							<cell>422</cell>
-							<cell>21.3</cell>
-							<cell>36.6</cell>
-							<cell>7450</cell>
-							<cell>454</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>368</cell>
-							<cell>368</cell>
-							<cell>46800</cell>
-							<cell>932</cell>
-							<cell>419</cell>
-							<cell>20.3</cell>
-							<cell>34.3</cell>
-							<cell>6950</cell>
-							<cell>420</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>344</cell>
-							<cell>344</cell>
-							<cell>44000</cell>
-							<cell>927</cell>
-							<cell>419</cell>
-							<cell>19.3</cell>
-							<cell>32</cell>
-							<cell>6490</cell>
-							<cell>391</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>381</cell>
-							<cell>381</cell>
-							<cell>48600</cell>
-							<cell>951</cell>
-							<cell>310</cell>
-							<cell>24.4</cell>
-							<cell>43.9</cell>
-							<cell>6990</cell>
-							<cell>220</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>345</cell>
-							<cell>345</cell>
-							<cell>43900</cell>
-							<cell>943</cell>
-							<cell>307</cell>
-							<cell>22.1</cell>
-							<cell>39.9</cell>
-							<cell>6240</cell>
-							<cell>195</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>313</cell>
-							<cell>313</cell>
-							<cell>39900</cell>
-							<cell>932</cell>
-							<cell>310</cell>
-							<cell>21.1</cell>
-							<cell>34.5</cell>
-							<cell>5490</cell>
-							<cell>171</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>289</cell>
-							<cell>289</cell>
-							<cell>36800</cell>
-							<cell>927</cell>
-							<cell>307</cell>
-							<cell>19.4</cell>
-							<cell>32</cell>
-							<cell>5040</cell>
-							<cell>156</cell>
-						</row>
-						<row>
-							<cell>W920<m>\times</m>271</cell>
-							<cell>271</cell>
-							<cell>34600</cell>
-							<cell>922</cell>
-							<cell>307</cell>
-							<cell>18.4</cell>
-							<cell>30</cell>
-							<cell>4700</cell>
-							<cell>144</cell>
-						</row>
-					</tabular>
-				</sidebyside>
-			</subsection>
-		</section>
-	</appendix>
+<appendix xml:id="notation">
+<title>Notation</title>
+<p>
+Notation refers to the symbols we use to represent physical quantities and variables in mathematical expressions. Notation is a tool for communication and the symbols themselves carry meaning. You will find it easier to understand the contents of engineering textbooks if you are familiar with the notation used, and can pronounce the symbols to yourself when studying the equations.
+</p>
+<!--TODO  this does not compile to latex - need to find solution -->
+<!-- todo  I think this information rightly belongs in a table, not a series of sidebysides, but multiline elations in table cells are disallowed and don't compile as latex, thus the workaround. -->
+<figure xml:id="notations">
+<title>tile of figure?</title>
+<caption>Notation used in this book</caption>
+<sbsgroup valign="middle" widths="35% 65%">
+<sidebyside>
+<p>
+<me>
+\text{Symbol}
+</me>
+</p>
+
+<p>
+<me>
+\text{Notes}
+</me>
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+\vec{F}, \text{ or } \vecarrow{F}
+</me>
+</p>
+
+<p>
+Vectors are written in a bold serif font. For handwritten vectors, a superimposed arrow is used.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+F
+</me>
+</p>
+
+<p>
+Magnitudes and other scalar values are rendered in an regular italic serif font. <m>F</m> is the magnitude of <m>\vec{F}</m>.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+| \vec{F} |
+</me>
+</p>
+
+<p>
+Vertical bars indicate <em>absolute value</em>. The absolute value of a vector is its magnitude.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+\vec{F}_x, \vec{F}_y
+</me>
+</p>
+
+<p>
+Vector component of <m>\vec{F}</m> in the <m>x</m> and <m>y</m> directions. Subscripts are used to distinguish different related values.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+F_x, F_y
+</me>
+</p>
+
+<p>
+Scalar components of vector <m>\vec{F}</m> in the <m>x</m> and <m>y</m> directions. These are signed numbers, not vectors. Together, the sign and subscript define a vector component.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+\left \langle F_x, F_y \right \rangle
+</me>
+</p>
+
+<p>
+An ordered pair of scalar components enclosed in angle brackets defines a vector.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+(F; \theta)
+</me>
+</p>
+
+<p>
+An ordered pair of magnitude and direction separated with a semicolon defines a vector.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+\ihat, \jhat, \khat
+</me>
+</p>
+
+<p>
+Unit vectors in the <m>x</m>, <m>y</m>, and <m>z</m> directions. Pronounced <sq>i hat</sq>, <sq>j hat</sq>, <etc/>
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<me>
+\hat{\vec{A}}, \hat{\vec{\lambda}}
+</me>
+</p>
+
+<p>
+A hat indicates a unit vector in the vector's direction.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<md>
+<mrow>\vec{F}_x \amp = F_x\, \ihat</mrow>
+<mrow>\vec{F}_y \amp = F_y\, \jhat</mrow>
+</md>
+</p>
+
+<p>
+Scalar components multiplied by unit vectors are vector components.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<md>
+<mrow>\vec{F} \amp = \vec{F}_x + \vec{F}_y</mrow>
+<mrow>\amp = F_x\, \ihat + F_y\, \jhat</mrow>
+</md>
+</p>
+
+<p>
+A vector is the sum of its vector components.
+</p>
+</sidebyside>
+
+<sidebyside>
+<p>
+<md>
+<mrow>\vec{F} \amp = \left \langle F_x, F_y \right \rangle</mrow>
+<mrow>\amp = \vec{F}_x + \vec{F}_y</mrow>
+<mrow>\amp = F_x\, \ihat + F_y\, \jhat</mrow>
+<mrow>\amp = (F \cos \theta)\, \ihat + (F \sin \theta)\, \jhat </mrow>
+<mrow>\amp = F \left (\ihat\, \cos \theta + \jhat\, \sin \theta \right ) </mrow>
+<mrow>\amp =|\vec{F}| \langle \cos \theta,\ \sin \theta \rangle</mrow>
+</md>
+</p>
+
+<p>
+These are all equivalent representation of vector <m>\vec{F}</m>.
+</p>
+</sidebyside>
+</sbsgroup>
+</figure>
+</appendix>
+
+<appendix xml:id="useful-mathematics">
+<title>Useful Mathematics</title>
+<section xml:id="distance-formula">
+<title>Distance Formula</title>
+<p>
+The distance formula is used for finding the distance between two points. In two dimensions it is simply an application of the Pythagorean theorem.
+</p>
+
+<image width="40%" source="images/useful-distance-formula">
+
+</image>
+<p>
+Given two points <m>(x_1,y_1)</m> and <m>(x_2, y_2)</m> the distance between them is:
+<men xml:id="distance_formula"> d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}
+</men>
+.
+</p>
+
+<p>
+Extension of the distance formula to three dimensions is straightforward.
+<men xml:id="distance_formula_3d">d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}
+</men>
+</p>
+</section>
+
+<section xml:id="soh-coh-toa">
+<title>Right Triangle Trigonometry</title>
+<p>
+A <term>right triangle</term> is a triangle containing a 90° angle.
+</p>
+
+<p>
+The side opposite to the right angle is called the <term>hypotenuse</term>.
+</p>
+
+<p>
+The other two angles add to 90° and are called <term>complementary angles</term>.
+</p>
+
+<sidebyside widths="40% 60%">
+<image source="images/useful-right-triangle">
+
+</image>
+<image source="images/useful-trig-functions">
+
+</image>
+</sidebyside>
+
+<p>
+The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic <term>SOH-COH-TOA</term>.
+</p>
+
+<p>
+<md>
+<mrow>\sin\theta \amp= \frac{\textrm{opposite}}{\textrm{hypotenuse}} \amp \cos\theta \amp= \frac{\textrm{adjacent}}{\textrm{hypotenuse}} \amp \tan\theta \amp= \frac{\textrm{opposite}}{\textrm{adjacent}}</mrow>
+</md>
+</p>
+
+<p>
+and their inverses,
+</p>
+
+<p>
+<md>
+<mrow>\theta \amp = \sin^{-1} \left(\frac{\textrm{opposite}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \cos^{-1} \left(\frac{\textrm{adjacent}}{\textrm{hypotenuse}}\right) \amp \theta \amp = \tan^{-1} \left(\frac{\textrm{opposite}}{\textrm{adjacent}}\right)</mrow>
+</md>
+</p>
+
+
+<paragraphs>
+<title>Facts</title>
+<p>
+The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.
+<ul>
+<li>
+<m>\sin</m>, <m>\cos</m> and <m>\tan</m> are functions of an angle and their values are unitless ratios of lengths.
+</li>
+
+<li>
+The inverse trig functions are functions of unitless ratios and their results are angles.
+</li>
+
+<li>
+The sine of an angle equals the cosine of its complement and vice-versa.
+</li>
+
+<li>
+The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.
+</li>
+
+<li>
+The sine, cosine, and tangent of angles between 0 and 90° are always positive.
+</li>
+
+<li>
+The inverse trig functions of positive numbers will always yield angles between 0 and 90°
+</li>
+
+<li>
+The legs of a right triangle are always shorter than the hypotenuse.
+</li>
+
+<li>
+Only right triangles have a hypotenuse.
+</li>
+</ul>
+</p>
+</paragraphs>
+
+
+<paragraphs>
+<title>Hints</title>
+<p>
+Here are some useful tips for angle calculations
+<ul>
+<li>
+Take care that your calculator is set in <em>degrees mode</em> for this course.
+</li>
+
+<li>
+Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.
+</li>
+
+<li>
+Following this advice will avoid unwanted signs and incorrect directions caused because <m>\dfrac{-a}{b} = \dfrac{a}{-b}</m>, and <m>\dfrac{a}{b} = \dfrac{-a}{-b}</m> and the calculator can't distinguish between them.
+</li>
+</ul>
+</p>
+</paragraphs>
+</section>
+
+<section xml:id="los-loc">
+<title>Oblique Triangle Trigonometry</title>
+<introduction>
+<p>
+An oblique triangle is any triangle which does not contain a right angle. As such, the rules of <xref ref="soh-coh-toa" text="title"/> do not apply!
+</p>
+
+<sidebyside widths="50% 40%" margins="0%">
+<p>
+For an oblique triangle labeled as shown, the relations between the sides and angles are given by the <term>Law of Sines</term> and the <term>Law of Cosines</term>.
+</p>
+
+<image source="images/useful-oblique-triangle">
+
+</image>
+</sidebyside>
+</introduction>
+
+<subsection xml:id="los">
+<title>Law of Sines</title>
+<p>
+<men>
+\frac{\sin a}{A} = \frac{\sin b}{B} =\frac{\sin c}{C}
+</men>
+</p>
+
+<p>
+The law of Sines is used when you know the length of one side, the angle opposite it, and one additional angle (SAA) or side (SSA). If this is not the case use the Law of Cosines.
+</p>
+
+<p>
+Take care in the (SSA) situation. This is known as the <term>ambiguous case</term>, and you must be alert for it. It occurs because there are two angles between 0 and 180° with the same sine. When you use your calculator to find <m>\sin^{-1}(x)</m> it may return the <term>supplement</term> of the angle you want. In fact, there may be two possible solutions to the problem, or one or both solutions may be physically impossible and must be discarded.
+</p>
+
+<p>
+If one of the angles is 90°, then the Law of Sines simplifies to the definitions of sine and cosine since the <m>\sin(90°) = 1</m>.
+</p>
+</subsection>
+
+<subsection xml:id="loc">
+<title>Law of Cosines</title>
+<p>
+<mdn>
+<mrow>A^2 \amp= B^2 + C^2 - 2 B C \cos a</mrow>
+<mrow>B^2 \amp= A^2 + C^2 - 2 A C \cos b</mrow>
+<mrow>C^2 \amp= A^2 + B^2 - 2 A B \cos c</mrow>
+</mdn>
+</p>
+
+<p>
+The Law of Cosines is used when you know two sides and the included angle (SAS), or when you know all three sides but no angles (SSS). In any other situation, use the Law of Sines.
+</p>
+
+<p>
+If one of the angles is <m>\ang{90}</m> the Law of Cosines simplifies to the Pythagorean Theorem since <m>\cos (90°) = 0</m>.
+</p>
+</subsection>
+</section>
+</appendix>
+
+<appendix xml:id="centroids-moi-tables">
+<title>Properties of Shapes</title>
+<!--
+Xerces in Java only supports xpointer="element(...)" pointers.
+https://xerces.apache.org/xerces2-j/faq-xinclude.html
+This is defined at https://www.w3.org/TR/2003/REC-xptr-element-20030325/
+-->
+<section>
+<title>Centroids of Common Shapes</title>
+<!-- This will break if the table is not the third element of the section. -->
+<xi:include href="Chapter_07.ptx" xpointer="element(centroid-table/3)"/>
+</section>
+
+<section>
+<title>Moment of Inertia of Common Shapes</title>
+<xi:include href="Chapter_10.ptx" xpointer="element(MOI-table/3)"/>
+</section>
+</appendix>
+
+<appendix xml:id="AISC-properties">
+<title>Properties of Steel Sections</title>
+<!--todo redraw steel section diagrams in affinity design -->
+<section xml:id="AISC-angles">
+<title>Angles</title>
+<subsection xml:id="angles-us">
+<title>Angle Section-US</title>
+<sidebyside widths="20% 80%">
+<image source="images/L_section">
+
+</image>
+<tabular>
+<row>
+<cell halign="center"> <line>Description</line> <line> <m>d \times \,b \times \,t</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line>lb/ft</line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>b</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>t</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>\bar{y}</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>1</cell>
+<cell>37.4</cell>
+<cell>11</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>1</cell>
+<cell>1.86</cell>
+<cell>1.86</cell>
+<cell>35.4</cell>
+<cell>35.4</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>7/8</cell>
+<cell>33.1</cell>
+<cell>9.75</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.875</cell>
+<cell>1.81</cell>
+<cell>1.81</cell>
+<cell>31.9</cell>
+<cell>31.9</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>3/4</cell>
+<cell>28.7</cell>
+<cell>8.46</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.75</cell>
+<cell>1.77</cell>
+<cell>1.77</cell>
+<cell>28.1</cell>
+<cell>28.1</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>5/8</cell>
+<cell>24.2</cell>
+<cell>7.13</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.625</cell>
+<cell>1.72</cell>
+<cell>1.72</cell>
+<cell>24.1</cell>
+<cell>24.1</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>9/16</cell>
+<cell>21.9</cell>
+<cell>6.45</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.563</cell>
+<cell>1.7</cell>
+<cell>1.7</cell>
+<cell>22</cell>
+<cell>22</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>1/2</cell>
+<cell>19.6</cell>
+<cell>5.77</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.5</cell>
+<cell>1.67</cell>
+<cell>1.67</cell>
+<cell>19.9</cell>
+<cell>19.9</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>7/16</cell>
+<cell>17.2</cell>
+<cell>5.08</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.438</cell>
+<cell>1.65</cell>
+<cell>1.65</cell>
+<cell>17.6</cell>
+<cell>17.6</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>3/8</cell>
+<cell>14.9</cell>
+<cell>4.38</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.375</cell>
+<cell>1.62</cell>
+<cell>1.62</cell>
+<cell>15.4</cell>
+<cell>15.4</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>6<m>\times</m>5/16</cell>
+<cell>12.4</cell>
+<cell>3.67</cell>
+<cell>6</cell>
+<cell>6</cell>
+<cell>0.313</cell>
+<cell>1.6</cell>
+<cell>1.6</cell>
+<cell>13</cell>
+<cell>13</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>7/8</cell>
+<cell>27.2</cell>
+<cell>8</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.875</cell>
+<cell>1.12</cell>
+<cell>2.12</cell>
+<cell>27.7</cell>
+<cell>9.7</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>3/4</cell>
+<cell>23.6</cell>
+<cell>6.94</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.75</cell>
+<cell>1.07</cell>
+<cell>2.07</cell>
+<cell>24.5</cell>
+<cell>8.63</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>5/8</cell>
+<cell>20</cell>
+<cell>5.86</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.625</cell>
+<cell>1.03</cell>
+<cell>2.03</cell>
+<cell>21</cell>
+<cell>7.48</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>9/16</cell>
+<cell>18.1</cell>
+<cell>5.31</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.563</cell>
+<cell>1</cell>
+<cell>2</cell>
+<cell>19.2</cell>
+<cell>6.86</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>1/2</cell>
+<cell>16.2</cell>
+<cell>4.75</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.5</cell>
+<cell>0.981</cell>
+<cell>1.98</cell>
+<cell>17.3</cell>
+<cell>6.22</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>7/16</cell>
+<cell>14.3</cell>
+<cell>4.18</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.438</cell>
+<cell>0.957</cell>
+<cell>1.95</cell>
+<cell>15.4</cell>
+<cell>5.56</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>3/8</cell>
+<cell>12.3</cell>
+<cell>3.61</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.375</cell>
+<cell>0.933</cell>
+<cell>1.93</cell>
+<cell>13.4</cell>
+<cell>4.86</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>4<m>\times</m>5/16</cell>
+<cell>10.3</cell>
+<cell>3.03</cell>
+<cell>6</cell>
+<cell>4</cell>
+<cell>0.313</cell>
+<cell>0.908</cell>
+<cell>1.9</cell>
+<cell>11.4</cell>
+<cell>4.13</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>3-1/2<m>\times</m>1/2</cell>
+<cell>15.3</cell>
+<cell>4.5</cell>
+<cell>6</cell>
+<cell>3.5</cell>
+<cell>0.5</cell>
+<cell>0.829</cell>
+<cell>2.07</cell>
+<cell>16.6</cell>
+<cell>4.24</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>3-1/2<m>\times</m>3/8</cell>
+<cell>11.7</cell>
+<cell>3.44</cell>
+<cell>6</cell>
+<cell>3.5</cell>
+<cell>0.375</cell>
+<cell>0.781</cell>
+<cell>2.02</cell>
+<cell>12.9</cell>
+<cell>3.33</cell>
+</row>
+<row>
+<cell>L6<m>\times</m>3-1/2<m>\times</m>5/16</cell>
+<cell>9.8</cell>
+<cell>2.89</cell>
+<cell>6</cell>
+<cell>3.5</cell>
+<cell>0.313</cell>
+<cell>0.756</cell>
+<cell>2</cell>
+<cell>10.9</cell>
+<cell>2.84</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>7/8</cell>
+<cell>27.2</cell>
+<cell>8</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.875</cell>
+<cell>1.56</cell>
+<cell>1.56</cell>
+<cell>17.8</cell>
+<cell>17.8</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>3/4</cell>
+<cell>23.6</cell>
+<cell>6.98</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.75</cell>
+<cell>1.52</cell>
+<cell>1.52</cell>
+<cell>15.7</cell>
+<cell>15.7</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>5/8</cell>
+<cell>20</cell>
+<cell>5.9</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.625</cell>
+<cell>1.47</cell>
+<cell>1.47</cell>
+<cell>13.6</cell>
+<cell>13.6</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>1/2</cell>
+<cell>16.2</cell>
+<cell>4.79</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.5</cell>
+<cell>1.42</cell>
+<cell>1.42</cell>
+<cell>11.3</cell>
+<cell>11.3</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>7/16</cell>
+<cell>14.3</cell>
+<cell>4.22</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.438</cell>
+<cell>1.4</cell>
+<cell>1.4</cell>
+<cell>10</cell>
+<cell>10</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>3/8</cell>
+<cell>12.3</cell>
+<cell>3.65</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.375</cell>
+<cell>1.37</cell>
+<cell>1.37</cell>
+<cell>8.76</cell>
+<cell>8.76</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>5<m>\times</m>5/16</cell>
+<cell>10.3</cell>
+<cell>3.07</cell>
+<cell>5</cell>
+<cell>5</cell>
+<cell>0.313</cell>
+<cell>1.35</cell>
+<cell>1.35</cell>
+<cell>7.44</cell>
+<cell>7.44</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>3/4</cell>
+<cell>19.8</cell>
+<cell>5.85</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.75</cell>
+<cell>0.993</cell>
+<cell>1.74</cell>
+<cell>13.9</cell>
+<cell>5.52</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>5/8</cell>
+<cell>16.8</cell>
+<cell>4.93</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.625</cell>
+<cell>0.947</cell>
+<cell>1.69</cell>
+<cell>12</cell>
+<cell>4.8</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>1/2</cell>
+<cell>13.6</cell>
+<cell>4</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.5</cell>
+<cell>0.901</cell>
+<cell>1.65</cell>
+<cell>10</cell>
+<cell>4.02</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>3/8</cell>
+<cell>10.4</cell>
+<cell>3.05</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.375</cell>
+<cell>0.854</cell>
+<cell>1.6</cell>
+<cell>7.75</cell>
+<cell>3.15</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>5/16</cell>
+<cell>8.7</cell>
+<cell>2.56</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.313</cell>
+<cell>0.829</cell>
+<cell>1.57</cell>
+<cell>6.58</cell>
+<cell>2.69</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3-1/2<m>\times</m>1/4</cell>
+<cell>7</cell>
+<cell>2.07</cell>
+<cell>5</cell>
+<cell>3.5</cell>
+<cell>0.25</cell>
+<cell>0.804</cell>
+<cell>1.55</cell>
+<cell>5.36</cell>
+<cell>2.2</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3<m>\times</m>1/2</cell>
+<cell>12.8</cell>
+<cell>3.75</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.5</cell>
+<cell>0.746</cell>
+<cell>1.74</cell>
+<cell>9.43</cell>
+<cell>2.55</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3<m>\times</m>7/16</cell>
+<cell>11.3</cell>
+<cell>3.31</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.438</cell>
+<cell>0.722</cell>
+<cell>1.72</cell>
+<cell>8.41</cell>
+<cell>2.29</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3<m>\times</m>3/8</cell>
+<cell>9.8</cell>
+<cell>2.86</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.375</cell>
+<cell>0.698</cell>
+<cell>1.69</cell>
+<cell>7.35</cell>
+<cell>2.01</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3<m>\times</m>5/16</cell>
+<cell>8.2</cell>
+<cell>2.41</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.313</cell>
+<cell>0.673</cell>
+<cell>1.67</cell>
+<cell>6.24</cell>
+<cell>1.72</cell>
+</row>
+<row>
+<cell>L5<m>\times</m>3<m>\times</m>1/4</cell>
+<cell>6.6</cell>
+<cell>1.94</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.25</cell>
+<cell>0.648</cell>
+<cell>1.64</cell>
+<cell>5.09</cell>
+<cell>1.41</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>3/4</cell>
+<cell>18.5</cell>
+<cell>5.44</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.75</cell>
+<cell>1.27</cell>
+<cell>1.27</cell>
+<cell>7.62</cell>
+<cell>7.62</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>5/8</cell>
+<cell>15.7</cell>
+<cell>4.61</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.625</cell>
+<cell>1.22</cell>
+<cell>1.22</cell>
+<cell>6.62</cell>
+<cell>6.62</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>1/2</cell>
+<cell>12.8</cell>
+<cell>3.75</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.5</cell>
+<cell>1.18</cell>
+<cell>1.18</cell>
+<cell>5.52</cell>
+<cell>5.52</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>7/16</cell>
+<cell>11.3</cell>
+<cell>3.3</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.438</cell>
+<cell>1.15</cell>
+<cell>1.15</cell>
+<cell>4.93</cell>
+<cell>4.93</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>3/8</cell>
+<cell>9.8</cell>
+<cell>2.86</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.375</cell>
+<cell>1.13</cell>
+<cell>1.13</cell>
+<cell>4.32</cell>
+<cell>4.32</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>5/16</cell>
+<cell>8.2</cell>
+<cell>2.4</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.313</cell>
+<cell>1.11</cell>
+<cell>1.11</cell>
+<cell>3.67</cell>
+<cell>3.67</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>4<m>\times</m>1/4</cell>
+<cell>6.6</cell>
+<cell>1.93</cell>
+<cell>4</cell>
+<cell>4</cell>
+<cell>0.25</cell>
+<cell>1.08</cell>
+<cell>1.08</cell>
+<cell>3</cell>
+<cell>3</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>3-1/2<m>\times</m>1/2</cell>
+<cell>11.9</cell>
+<cell>3.5</cell>
+<cell>4</cell>
+<cell>3.5</cell>
+<cell>0.5</cell>
+<cell>0.994</cell>
+<cell>1.24</cell>
+<cell>5.3</cell>
+<cell>3.76</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>3-1/2<m>\times</m>3/8</cell>
+<cell>9.1</cell>
+<cell>2.68</cell>
+<cell>4</cell>
+<cell>3.5</cell>
+<cell>0.375</cell>
+<cell>0.947</cell>
+<cell>1.2</cell>
+<cell>4.15</cell>
+<cell>2.96</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>3-1/2<m>\times</m>5/16</cell>
+<cell>7.7</cell>
+<cell>2.25</cell>
+<cell>4</cell>
+<cell>3.5</cell>
+<cell>0.313</cell>
+<cell>0.923</cell>
+<cell>1.17</cell>
+<cell>3.53</cell>
+<cell>2.52</cell>
+</row>
+<row>
+<cell>L4<m>\times</m>3-1/2<m>\times</m>1/4</cell>
+<cell>6.2</cell>
+<cell>1.82</cell>
+<cell>4</cell>
+<cell>3.5</cell>
+<cell>0.25</cell>
+<cell>0.897</cell>
+<cell>1.14</cell>
+<cell>2.89</cell>
+<cell>2.07</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+
+<subsection xml:id="angles-si">
+<title>Angle Section-SI</title>
+<sidebyside widths="20% 80%">
+<image source="images/L_section">
+
+</image>
+<tabular>
+<row>
+<cell halign="center"> <line>Description</line> <line> <m>d \times \,b \times \,t</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line>kg/m</line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>b</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>t</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>\bar{y}</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>22.2</cell>
+<cell>49.3</cell>
+<cell>6290</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>22.2</cell>
+<cell>46</cell>
+<cell>46</cell>
+<cell>13.3</cell>
+<cell>13.3</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>19</cell>
+<cell>42.7</cell>
+<cell>5460</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>19.1</cell>
+<cell>45</cell>
+<cell>45</cell>
+<cell>11.7</cell>
+<cell>11.7</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>15.9</cell>
+<cell>36</cell>
+<cell>4600</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>15.9</cell>
+<cell>43.7</cell>
+<cell>43.7</cell>
+<cell>10</cell>
+<cell>10</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>14.3</cell>
+<cell>32.6</cell>
+<cell>4160</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>14.3</cell>
+<cell>43.2</cell>
+<cell>43.2</cell>
+<cell>9.16</cell>
+<cell>9.16</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>12.7</cell>
+<cell>29.2</cell>
+<cell>3720</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>12.7</cell>
+<cell>42.4</cell>
+<cell>42.4</cell>
+<cell>8.28</cell>
+<cell>8.28</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>11.1</cell>
+<cell>25.6</cell>
+<cell>3280</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>11.1</cell>
+<cell>41.9</cell>
+<cell>41.9</cell>
+<cell>7.33</cell>
+<cell>7.33</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>9.5</cell>
+<cell>22.2</cell>
+<cell>2830</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>9.53</cell>
+<cell>41.1</cell>
+<cell>41.1</cell>
+<cell>6.41</cell>
+<cell>6.41</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>152<m>\times</m>7.9</cell>
+<cell>18.5</cell>
+<cell>2370</cell>
+<cell>152</cell>
+<cell>152</cell>
+<cell>7.94</cell>
+<cell>40.6</cell>
+<cell>40.6</cell>
+<cell>5.41</cell>
+<cell>5.41</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>22.2</cell>
+<cell>40.3</cell>
+<cell>5160</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>22.2</cell>
+<cell>28.4</cell>
+<cell>53.8</cell>
+<cell>11.5</cell>
+<cell>4.04</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>19</cell>
+<cell>35</cell>
+<cell>4480</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>19.1</cell>
+<cell>27.2</cell>
+<cell>52.6</cell>
+<cell>10.2</cell>
+<cell>3.59</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>15.9</cell>
+<cell>29.6</cell>
+<cell>3780</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>15.9</cell>
+<cell>26.2</cell>
+<cell>51.6</cell>
+<cell>8.74</cell>
+<cell>3.11</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>14.3</cell>
+<cell>26.9</cell>
+<cell>3430</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>14.3</cell>
+<cell>25.4</cell>
+<cell>50.8</cell>
+<cell>7.99</cell>
+<cell>2.86</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>12.7</cell>
+<cell>24</cell>
+<cell>3060</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>12.7</cell>
+<cell>24.9</cell>
+<cell>50.3</cell>
+<cell>7.2</cell>
+<cell>2.59</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>11.1</cell>
+<cell>21.2</cell>
+<cell>2700</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>11.1</cell>
+<cell>24.3</cell>
+<cell>49.5</cell>
+<cell>6.41</cell>
+<cell>2.31</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>9.5</cell>
+<cell>18.2</cell>
+<cell>2330</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>9.53</cell>
+<cell>23.7</cell>
+<cell>49</cell>
+<cell>5.58</cell>
+<cell>2.02</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>102<m>\times</m>7.9</cell>
+<cell>15.3</cell>
+<cell>1950</cell>
+<cell>152</cell>
+<cell>102</cell>
+<cell>7.94</cell>
+<cell>23.1</cell>
+<cell>48.3</cell>
+<cell>4.75</cell>
+<cell>1.72</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>89<m>\times</m>12.7</cell>
+<cell>22.7</cell>
+<cell>2900</cell>
+<cell>152</cell>
+<cell>88.9</cell>
+<cell>12.7</cell>
+<cell>21.1</cell>
+<cell>52.6</cell>
+<cell>6.91</cell>
+<cell>1.76</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>89<m>\times</m>9.5</cell>
+<cell>17.3</cell>
+<cell>2220</cell>
+<cell>152</cell>
+<cell>88.9</cell>
+<cell>9.53</cell>
+<cell>19.8</cell>
+<cell>51.3</cell>
+<cell>5.37</cell>
+<cell>1.39</cell>
+</row>
+<row>
+<cell>L152<m>\times</m>89<m>\times</m>7.9</cell>
+<cell>14.5</cell>
+<cell>1860</cell>
+<cell>152</cell>
+<cell>88.9</cell>
+<cell>7.94</cell>
+<cell>19.2</cell>
+<cell>50.8</cell>
+<cell>4.54</cell>
+<cell>1.18</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>22.2</cell>
+<cell>40.5</cell>
+<cell>5160</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>22.2</cell>
+<cell>39.6</cell>
+<cell>39.6</cell>
+<cell>7.41</cell>
+<cell>7.41</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>19</cell>
+<cell>35.1</cell>
+<cell>4500</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>19.1</cell>
+<cell>38.6</cell>
+<cell>38.6</cell>
+<cell>6.53</cell>
+<cell>6.53</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>15.9</cell>
+<cell>29.8</cell>
+<cell>3810</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>15.9</cell>
+<cell>37.3</cell>
+<cell>37.3</cell>
+<cell>5.66</cell>
+<cell>5.66</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>12.7</cell>
+<cell>24.1</cell>
+<cell>3090</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>12.7</cell>
+<cell>36.1</cell>
+<cell>36.1</cell>
+<cell>4.7</cell>
+<cell>4.7</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>11.1</cell>
+<cell>21.3</cell>
+<cell>2720</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>11.1</cell>
+<cell>35.6</cell>
+<cell>35.6</cell>
+<cell>4.16</cell>
+<cell>4.16</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>9.5</cell>
+<cell>18.3</cell>
+<cell>2350</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>9.53</cell>
+<cell>34.8</cell>
+<cell>34.8</cell>
+<cell>3.65</cell>
+<cell>3.65</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>127<m>\times</m>7.9</cell>
+<cell>15.3</cell>
+<cell>1980</cell>
+<cell>127</cell>
+<cell>127</cell>
+<cell>7.94</cell>
+<cell>34.3</cell>
+<cell>34.3</cell>
+<cell>3.1</cell>
+<cell>3.1</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>19</cell>
+<cell>29.3</cell>
+<cell>3770</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>19.1</cell>
+<cell>25.2</cell>
+<cell>44.2</cell>
+<cell>5.79</cell>
+<cell>2.3</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>15.9</cell>
+<cell>24.9</cell>
+<cell>3180</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>15.9</cell>
+<cell>24.1</cell>
+<cell>42.9</cell>
+<cell>4.99</cell>
+<cell>2</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>12.7</cell>
+<cell>20.2</cell>
+<cell>2580</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>12.7</cell>
+<cell>22.9</cell>
+<cell>41.9</cell>
+<cell>4.16</cell>
+<cell>1.67</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>9.5</cell>
+<cell>15.4</cell>
+<cell>1970</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>9.53</cell>
+<cell>21.7</cell>
+<cell>40.6</cell>
+<cell>3.23</cell>
+<cell>1.31</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>7.9</cell>
+<cell>12.9</cell>
+<cell>1650</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>7.94</cell>
+<cell>21.1</cell>
+<cell>39.9</cell>
+<cell>2.74</cell>
+<cell>1.12</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>89<m>\times</m>6.4</cell>
+<cell>10.4</cell>
+<cell>1340</cell>
+<cell>127</cell>
+<cell>88.9</cell>
+<cell>6.35</cell>
+<cell>20.4</cell>
+<cell>39.4</cell>
+<cell>2.23</cell>
+<cell>0.916</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>76<m>\times</m>12.7</cell>
+<cell>19</cell>
+<cell>2420</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>12.7</cell>
+<cell>18.9</cell>
+<cell>44.2</cell>
+<cell>3.93</cell>
+<cell>1.06</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>76<m>\times</m>11.1</cell>
+<cell>16.7</cell>
+<cell>2140</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>11.1</cell>
+<cell>18.3</cell>
+<cell>43.7</cell>
+<cell>3.5</cell>
+<cell>0.953</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>76<m>\times</m>9.5</cell>
+<cell>14.5</cell>
+<cell>1850</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>9.53</cell>
+<cell>17.7</cell>
+<cell>42.9</cell>
+<cell>3.06</cell>
+<cell>0.837</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>76<m>\times</m>7.9</cell>
+<cell>12.1</cell>
+<cell>1550</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>7.94</cell>
+<cell>17.1</cell>
+<cell>42.4</cell>
+<cell>2.6</cell>
+<cell>0.716</cell>
+</row>
+<row>
+<cell>L127<m>\times</m>76<m>\times</m>6.4</cell>
+<cell>9.8</cell>
+<cell>1250</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>6.35</cell>
+<cell>16.5</cell>
+<cell>41.7</cell>
+<cell>2.12</cell>
+<cell>0.587</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>19</cell>
+<cell>27.5</cell>
+<cell>3510</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>19.1</cell>
+<cell>32.3</cell>
+<cell>32.3</cell>
+<cell>3.17</cell>
+<cell>3.17</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>15.9</cell>
+<cell>23.4</cell>
+<cell>2970</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>15.9</cell>
+<cell>31</cell>
+<cell>31</cell>
+<cell>2.76</cell>
+<cell>2.76</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>12.7</cell>
+<cell>19</cell>
+<cell>2420</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>12.7</cell>
+<cell>30</cell>
+<cell>30</cell>
+<cell>2.3</cell>
+<cell>2.3</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>11.1</cell>
+<cell>16.8</cell>
+<cell>2130</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>11.1</cell>
+<cell>29.2</cell>
+<cell>29.2</cell>
+<cell>2.05</cell>
+<cell>2.05</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>9.5</cell>
+<cell>14.6</cell>
+<cell>1850</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>9.53</cell>
+<cell>28.7</cell>
+<cell>28.7</cell>
+<cell>1.8</cell>
+<cell>1.8</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>7.9</cell>
+<cell>12.2</cell>
+<cell>1550</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>7.94</cell>
+<cell>28.2</cell>
+<cell>28.2</cell>
+<cell>1.53</cell>
+<cell>1.53</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>102<m>\times</m>6.4</cell>
+<cell>9.8</cell>
+<cell>1250</cell>
+<cell>102</cell>
+<cell>102</cell>
+<cell>6.35</cell>
+<cell>27.4</cell>
+<cell>27.4</cell>
+<cell>1.25</cell>
+<cell>1.25</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>89<m>\times</m>12.7</cell>
+<cell>17.6</cell>
+<cell>2260</cell>
+<cell>102</cell>
+<cell>88.9</cell>
+<cell>12.7</cell>
+<cell>25.2</cell>
+<cell>31.5</cell>
+<cell>2.21</cell>
+<cell>1.57</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>89<m>\times</m>9.5</cell>
+<cell>13.5</cell>
+<cell>1730</cell>
+<cell>102</cell>
+<cell>88.9</cell>
+<cell>9.53</cell>
+<cell>24.1</cell>
+<cell>30.5</cell>
+<cell>1.73</cell>
+<cell>1.23</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>89<m>\times</m>7.9</cell>
+<cell>11.4</cell>
+<cell>1450</cell>
+<cell>102</cell>
+<cell>88.9</cell>
+<cell>7.94</cell>
+<cell>23.4</cell>
+<cell>29.7</cell>
+<cell>1.47</cell>
+<cell>1.05</cell>
+</row>
+<row>
+<cell>L102<m>\times</m>89<m>\times</m>6.4</cell>
+<cell>9.2</cell>
+<cell>1170</cell>
+<cell>102</cell>
+<cell>88.9</cell>
+<cell>6.35</cell>
+<cell>22.8</cell>
+<cell>29</cell>
+<cell>1.2</cell>
+<cell>0.862</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+</section>
+
+<section xml:id="AISC-channels">
+<title>Channels</title>
+<subsection xml:id="channels-us">
+<title>Channel Section-US</title>
+<sidebyside widths="20% 80%">
+<image source="images/C_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>d \times \,W</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line>lb/ft</line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>in</line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+</row>
+<row>
+<cell>C15<m>\times</m>50</cell>
+<cell>50</cell>
+<cell>14.7</cell>
+<cell>15</cell>
+<cell>3.72</cell>
+<cell>0.716</cell>
+<cell>0.65</cell>
+<cell>0.799</cell>
+<cell>404</cell>
+<cell>11</cell>
+</row>
+<row>
+<cell>C15<m>\times</m>40</cell>
+<cell>40</cell>
+<cell>11.8</cell>
+<cell>15</cell>
+<cell>3.52</cell>
+<cell>0.52</cell>
+<cell>0.65</cell>
+<cell>0.778</cell>
+<cell>348</cell>
+<cell>9.17</cell>
+</row>
+<row>
+<cell>C15<m>\times</m>33.9</cell>
+<cell>33.9</cell>
+<cell>10</cell>
+<cell>15</cell>
+<cell>3.4</cell>
+<cell>0.4</cell>
+<cell>0.65</cell>
+<cell>0.788</cell>
+<cell>315</cell>
+<cell>8.07</cell>
+</row>
+<row>
+<cell>C12<m>\times</m>30</cell>
+<cell>30</cell>
+<cell>8.81</cell>
+<cell>12</cell>
+<cell>3.17</cell>
+<cell>0.51</cell>
+<cell>0.501</cell>
+<cell>0.674</cell>
+<cell>162</cell>
+<cell>5.12</cell>
+</row>
+<row>
+<cell>C12<m>\times</m>25</cell>
+<cell>25</cell>
+<cell>7.34</cell>
+<cell>12</cell>
+<cell>3.05</cell>
+<cell>0.387</cell>
+<cell>0.501</cell>
+<cell>0.674</cell>
+<cell>144</cell>
+<cell>4.45</cell>
+</row>
+<row>
+<cell>C12<m>\times</m>20.7</cell>
+<cell>20.7</cell>
+<cell>6.08</cell>
+<cell>12</cell>
+<cell>2.94</cell>
+<cell>0.282</cell>
+<cell>0.501</cell>
+<cell>0.698</cell>
+<cell>129</cell>
+<cell>3.86</cell>
+</row>
+<row>
+<cell>C10<m>\times</m>30</cell>
+<cell>30</cell>
+<cell>8.81</cell>
+<cell>10</cell>
+<cell>3.03</cell>
+<cell>0.673</cell>
+<cell>0.436</cell>
+<cell>0.649</cell>
+<cell>103</cell>
+<cell>3.93</cell>
+</row>
+<row>
+<cell>C10<m>\times</m>25</cell>
+<cell>25</cell>
+<cell>7.35</cell>
+<cell>10</cell>
+<cell>2.89</cell>
+<cell>0.526</cell>
+<cell>0.436</cell>
+<cell>0.617</cell>
+<cell>91.1</cell>
+<cell>3.34</cell>
+</row>
+<row>
+<cell>C10<m>\times</m>20</cell>
+<cell>20</cell>
+<cell>5.87</cell>
+<cell>10</cell>
+<cell>2.74</cell>
+<cell>0.379</cell>
+<cell>0.436</cell>
+<cell>0.606</cell>
+<cell>78.9</cell>
+<cell>2.8</cell>
+</row>
+<row>
+<cell>C10<m>\times</m>15.3</cell>
+<cell>15.3</cell>
+<cell>4.48</cell>
+<cell>10</cell>
+<cell>2.6</cell>
+<cell>0.24</cell>
+<cell>0.436</cell>
+<cell>0.634</cell>
+<cell>67.3</cell>
+<cell>2.27</cell>
+</row>
+<row>
+<cell>C9<m>\times</m>20</cell>
+<cell>20</cell>
+<cell>5.87</cell>
+<cell>9</cell>
+<cell>2.65</cell>
+<cell>0.448</cell>
+<cell>0.413</cell>
+<cell>0.583</cell>
+<cell>60.9</cell>
+<cell>2.41</cell>
+</row>
+<row>
+<cell>C9<m>\times</m>15</cell>
+<cell>15</cell>
+<cell>4.4</cell>
+<cell>9</cell>
+<cell>2.49</cell>
+<cell>0.285</cell>
+<cell>0.413</cell>
+<cell>0.586</cell>
+<cell>51</cell>
+<cell>1.91</cell>
+</row>
+<row>
+<cell>C9<m>\times</m>13.4</cell>
+<cell>13.4</cell>
+<cell>3.94</cell>
+<cell>9</cell>
+<cell>2.43</cell>
+<cell>0.233</cell>
+<cell>0.413</cell>
+<cell>0.601</cell>
+<cell>47.8</cell>
+<cell>1.75</cell>
+</row>
+<row>
+<cell>C8<m>\times</m>18.75</cell>
+<cell>18.75</cell>
+<cell>5.51</cell>
+<cell>8</cell>
+<cell>2.53</cell>
+<cell>0.487</cell>
+<cell>0.39</cell>
+<cell>0.565</cell>
+<cell>43.9</cell>
+<cell>1.97</cell>
+</row>
+<row>
+<cell>C8<m>\times</m>13.75</cell>
+<cell>13.75</cell>
+<cell>4.03</cell>
+<cell>8</cell>
+<cell>2.34</cell>
+<cell>0.303</cell>
+<cell>0.39</cell>
+<cell>0.554</cell>
+<cell>36.1</cell>
+<cell>1.52</cell>
+</row>
+<row>
+<cell>C8<m>\times</m>11.5</cell>
+<cell>11.5</cell>
+<cell>3.37</cell>
+<cell>8</cell>
+<cell>2.26</cell>
+<cell>0.22</cell>
+<cell>0.39</cell>
+<cell>0.572</cell>
+<cell>32.5</cell>
+<cell>1.31</cell>
+</row>
+<row>
+<cell>C7<m>\times</m>14.75</cell>
+<cell>14.75</cell>
+<cell>4.33</cell>
+<cell>7</cell>
+<cell>2.3</cell>
+<cell>0.419</cell>
+<cell>0.366</cell>
+<cell>0.532</cell>
+<cell>27.2</cell>
+<cell>1.37</cell>
+</row>
+<row>
+<cell>C7<m>\times</m>12.25</cell>
+<cell>12.25</cell>
+<cell>3.59</cell>
+<cell>7</cell>
+<cell>2.19</cell>
+<cell>0.314</cell>
+<cell>0.366</cell>
+<cell>0.525</cell>
+<cell>24.2</cell>
+<cell>1.16</cell>
+</row>
+<row>
+<cell>C7<m>\times</m>9.8</cell>
+<cell>9.8</cell>
+<cell>2.87</cell>
+<cell>7</cell>
+<cell>2.09</cell>
+<cell>0.21</cell>
+<cell>0.366</cell>
+<cell>0.541</cell>
+<cell>21.2</cell>
+<cell>0.957</cell>
+</row>
+<row>
+<cell>C6<m>\times</m>13</cell>
+<cell>13</cell>
+<cell>3.82</cell>
+<cell>6</cell>
+<cell>2.16</cell>
+<cell>0.437</cell>
+<cell>0.343</cell>
+<cell>0.514</cell>
+<cell>17.3</cell>
+<cell>1.05</cell>
+</row>
+<row>
+<cell>C6<m>\times</m>10.5</cell>
+<cell>10.5</cell>
+<cell>3.07</cell>
+<cell>6</cell>
+<cell>2.03</cell>
+<cell>0.314</cell>
+<cell>0.343</cell>
+<cell>0.5</cell>
+<cell>15.1</cell>
+<cell>0.86</cell>
+</row>
+<row>
+<cell>C6<m>\times</m>8.2</cell>
+<cell>8.2</cell>
+<cell>2.39</cell>
+<cell>6</cell>
+<cell>1.92</cell>
+<cell>0.2</cell>
+<cell>0.343</cell>
+<cell>0.512</cell>
+<cell>13.1</cell>
+<cell>0.687</cell>
+</row>
+<row>
+<cell>C5<m>\times</m>9</cell>
+<cell>9</cell>
+<cell>2.64</cell>
+<cell>5</cell>
+<cell>1.89</cell>
+<cell>0.325</cell>
+<cell>0.32</cell>
+<cell>0.478</cell>
+<cell>8.89</cell>
+<cell>0.624</cell>
+</row>
+<row>
+<cell>C5<m>\times</m>6.7</cell>
+<cell>6.7</cell>
+<cell>1.97</cell>
+<cell>5</cell>
+<cell>1.75</cell>
+<cell>0.19</cell>
+<cell>0.32</cell>
+<cell>0.484</cell>
+<cell>7.48</cell>
+<cell>0.47</cell>
+</row>
+<row>
+<cell>C4<m>\times</m>7.25</cell>
+<cell>7.25</cell>
+<cell>2.13</cell>
+<cell>4</cell>
+<cell>1.72</cell>
+<cell>0.321</cell>
+<cell>0.296</cell>
+<cell>0.459</cell>
+<cell>4.58</cell>
+<cell>0.425</cell>
+</row>
+<row>
+<cell>C4<m>\times</m>6.25</cell>
+<cell>6.25</cell>
+<cell>1.84</cell>
+<cell>4</cell>
+<cell>1.65</cell>
+<cell>0.247</cell>
+<cell>0.296</cell>
+<cell>0.453</cell>
+<cell>4.19</cell>
+<cell>0.374</cell>
+</row>
+<row>
+<cell>C4<m>\times</m>5.4</cell>
+<cell>5.4</cell>
+<cell>1.58</cell>
+<cell>4</cell>
+<cell>1.58</cell>
+<cell>0.184</cell>
+<cell>0.296</cell>
+<cell>0.457</cell>
+<cell>3.85</cell>
+<cell>0.312</cell>
+</row>
+<row>
+<cell>C4<m>\times</m>4.5</cell>
+<cell>4.5</cell>
+<cell>1.34</cell>
+<cell>4</cell>
+<cell>1.52</cell>
+<cell>0.125</cell>
+<cell>0.296</cell>
+<cell>0.473</cell>
+<cell>3.53</cell>
+<cell>0.265</cell>
+</row>
+<row>
+<cell>C3<m>\times</m>6</cell>
+<cell>6</cell>
+<cell>1.76</cell>
+<cell>3</cell>
+<cell>1.6</cell>
+<cell>0.356</cell>
+<cell>0.273</cell>
+<cell>0.455</cell>
+<cell>2.07</cell>
+<cell>0.3</cell>
+</row>
+<row>
+<cell>C3<m>\times</m>5</cell>
+<cell>5</cell>
+<cell>1.47</cell>
+<cell>3</cell>
+<cell>1.5</cell>
+<cell>0.258</cell>
+<cell>0.273</cell>
+<cell>0.439</cell>
+<cell>1.85</cell>
+<cell>0.241</cell>
+</row>
+<row>
+<cell>C3<m>\times</m>4.1</cell>
+<cell>4.1</cell>
+<cell>1.2</cell>
+<cell>3</cell>
+<cell>1.41</cell>
+<cell>0.17</cell>
+<cell>0.273</cell>
+<cell>0.437</cell>
+<cell>1.65</cell>
+<cell>0.191</cell>
+</row>
+<row>
+<cell>C3<m>\times</m>3.5</cell>
+<cell>3.5</cell>
+<cell>1.09</cell>
+<cell>3</cell>
+<cell>1.37</cell>
+<cell>0.132</cell>
+<cell>0.273</cell>
+<cell>0.443</cell>
+<cell>1.57</cell>
+<cell>0.169</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+
+<subsection xml:id="channels-si">
+<title>Channel Section-SI</title>
+<sidebyside widths="20% 80%">
+<image source="images/C_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>d\times \,W</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line>kg/m</line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>\bar{x}</m> </line> <line>mm</line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6 \text{ mm}^4</m> </line> </cell>
+</row>
+<row>
+<cell>C380<m>\times</m>74</cell>
+<cell>74</cell>
+<cell>9480</cell>
+<cell>381</cell>
+<cell>94.5</cell>
+<cell>18.2</cell>
+<cell>16.5</cell>
+<cell>20.3</cell>
+<cell>168</cell>
+<cell>4.58</cell>
+</row>
+<row>
+<cell>C380<m>\times</m>60</cell>
+<cell>60</cell>
+<cell>7610</cell>
+<cell>381</cell>
+<cell>89.4</cell>
+<cell>13.2</cell>
+<cell>16.5</cell>
+<cell>19.8</cell>
+<cell>145</cell>
+<cell>3.82</cell>
+</row>
+<row>
+<cell>C380<m>\times</m>50.4</cell>
+<cell>50.4</cell>
+<cell>6450</cell>
+<cell>381</cell>
+<cell>86.4</cell>
+<cell>10.2</cell>
+<cell>16.5</cell>
+<cell>20</cell>
+<cell>131</cell>
+<cell>3.36</cell>
+</row>
+<row>
+<cell>C310<m>\times</m>45</cell>
+<cell>45</cell>
+<cell>5680</cell>
+<cell>305</cell>
+<cell>80.5</cell>
+<cell>13</cell>
+<cell>12.7</cell>
+<cell>17.1</cell>
+<cell>67.4</cell>
+<cell>2.13</cell>
+</row>
+<row>
+<cell>C310<m>\times</m>37</cell>
+<cell>37</cell>
+<cell>4740</cell>
+<cell>305</cell>
+<cell>77.5</cell>
+<cell>9.83</cell>
+<cell>12.7</cell>
+<cell>17.1</cell>
+<cell>59.9</cell>
+<cell>1.85</cell>
+</row>
+<row>
+<cell>C310<m>\times</m>30.8</cell>
+<cell>30.8</cell>
+<cell>3920</cell>
+<cell>305</cell>
+<cell>74.7</cell>
+<cell>7.16</cell>
+<cell>12.7</cell>
+<cell>17.7</cell>
+<cell>53.7</cell>
+<cell>1.61</cell>
+</row>
+<row>
+<cell>C250<m>\times</m>45</cell>
+<cell>45</cell>
+<cell>5680</cell>
+<cell>254</cell>
+<cell>77</cell>
+<cell>17.1</cell>
+<cell>11.1</cell>
+<cell>16.5</cell>
+<cell>42.9</cell>
+<cell>1.64</cell>
+</row>
+<row>
+<cell>C250<m>\times</m>37</cell>
+<cell>37</cell>
+<cell>4740</cell>
+<cell>254</cell>
+<cell>73.4</cell>
+<cell>13.4</cell>
+<cell>11.1</cell>
+<cell>15.7</cell>
+<cell>37.9</cell>
+<cell>1.39</cell>
+</row>
+<row>
+<cell>C250<m>\times</m>30</cell>
+<cell>30</cell>
+<cell>3790</cell>
+<cell>254</cell>
+<cell>69.6</cell>
+<cell>9.63</cell>
+<cell>11.1</cell>
+<cell>15.4</cell>
+<cell>32.8</cell>
+<cell>1.17</cell>
+</row>
+<row>
+<cell>C250<m>\times</m>22.8</cell>
+<cell>22.8</cell>
+<cell>2890</cell>
+<cell>254</cell>
+<cell>66</cell>
+<cell>6.1</cell>
+<cell>11.1</cell>
+<cell>16.1</cell>
+<cell>28</cell>
+<cell>0.945</cell>
+</row>
+<row>
+<cell>C230<m>\times</m>30</cell>
+<cell>30</cell>
+<cell>3790</cell>
+<cell>229</cell>
+<cell>67.3</cell>
+<cell>11.4</cell>
+<cell>10.5</cell>
+<cell>14.8</cell>
+<cell>25.3</cell>
+<cell>1</cell>
+</row>
+<row>
+<cell>C230<m>\times</m>22</cell>
+<cell>22</cell>
+<cell>2840</cell>
+<cell>229</cell>
+<cell>63.2</cell>
+<cell>7.24</cell>
+<cell>10.5</cell>
+<cell>14.9</cell>
+<cell>21.2</cell>
+<cell>0.795</cell>
+</row>
+<row>
+<cell>C230<m>\times</m>19.9</cell>
+<cell>19.9</cell>
+<cell>2540</cell>
+<cell>229</cell>
+<cell>61.7</cell>
+<cell>5.92</cell>
+<cell>10.5</cell>
+<cell>15.3</cell>
+<cell>19.9</cell>
+<cell>0.728</cell>
+</row>
+<row>
+<cell>C200<m>\times</m>27.9</cell>
+<cell>27.9</cell>
+<cell>3550</cell>
+<cell>203</cell>
+<cell>64.3</cell>
+<cell>12.4</cell>
+<cell>9.91</cell>
+<cell>14.4</cell>
+<cell>18.3</cell>
+<cell>0.82</cell>
+</row>
+<row>
+<cell>C200<m>\times</m>20.5</cell>
+<cell>20.5</cell>
+<cell>2600</cell>
+<cell>203</cell>
+<cell>59.4</cell>
+<cell>7.7</cell>
+<cell>9.91</cell>
+<cell>14.1</cell>
+<cell>15</cell>
+<cell>0.633</cell>
+</row>
+<row>
+<cell>C200<m>\times</m>17.1</cell>
+<cell>17.1</cell>
+<cell>2170</cell>
+<cell>203</cell>
+<cell>57.4</cell>
+<cell>5.59</cell>
+<cell>9.91</cell>
+<cell>14.5</cell>
+<cell>13.5</cell>
+<cell>0.545</cell>
+</row>
+<row>
+<cell>C180<m>\times</m>22</cell>
+<cell>22</cell>
+<cell>2790</cell>
+<cell>178</cell>
+<cell>58.4</cell>
+<cell>10.6</cell>
+<cell>9.3</cell>
+<cell>13.5</cell>
+<cell>11.3</cell>
+<cell>0.57</cell>
+</row>
+<row>
+<cell>C180<m>\times</m>18.2</cell>
+<cell>18.2</cell>
+<cell>2320</cell>
+<cell>178</cell>
+<cell>55.6</cell>
+<cell>7.98</cell>
+<cell>9.3</cell>
+<cell>13.3</cell>
+<cell>10.1</cell>
+<cell>0.483</cell>
+</row>
+<row>
+<cell>C180<m>\times</m>14.6</cell>
+<cell>14.6</cell>
+<cell>1850</cell>
+<cell>178</cell>
+<cell>53.1</cell>
+<cell>5.33</cell>
+<cell>9.3</cell>
+<cell>13.7</cell>
+<cell>8.82</cell>
+<cell>0.398</cell>
+</row>
+<row>
+<cell>C150<m>\times</m>19.3</cell>
+<cell>19.3</cell>
+<cell>2460</cell>
+<cell>152</cell>
+<cell>54.9</cell>
+<cell>11.1</cell>
+<cell>8.71</cell>
+<cell>13.1</cell>
+<cell>7.2</cell>
+<cell>0.437</cell>
+</row>
+<row>
+<cell>C150<m>\times</m>15.6</cell>
+<cell>15.6</cell>
+<cell>1980</cell>
+<cell>152</cell>
+<cell>51.6</cell>
+<cell>7.98</cell>
+<cell>8.71</cell>
+<cell>12.7</cell>
+<cell>6.29</cell>
+<cell>0.358</cell>
+</row>
+<row>
+<cell>C150<m>\times</m>12.2</cell>
+<cell>12.2</cell>
+<cell>1540</cell>
+<cell>152</cell>
+<cell>48.8</cell>
+<cell>5.08</cell>
+<cell>8.71</cell>
+<cell>13</cell>
+<cell>5.45</cell>
+<cell>0.286</cell>
+</row>
+<row>
+<cell>C130<m>\times</m>13</cell>
+<cell>13</cell>
+<cell>1700</cell>
+<cell>127</cell>
+<cell>48</cell>
+<cell>8.26</cell>
+<cell>8.13</cell>
+<cell>12.1</cell>
+<cell>3.7</cell>
+<cell>0.26</cell>
+</row>
+<row>
+<cell>C130<m>\times</m>10.4</cell>
+<cell>10.4</cell>
+<cell>1270</cell>
+<cell>127</cell>
+<cell>44.5</cell>
+<cell>4.83</cell>
+<cell>8.13</cell>
+<cell>12.3</cell>
+<cell>3.11</cell>
+<cell>0.196</cell>
+</row>
+<row>
+<cell>C100<m>\times</m>10.8</cell>
+<cell>10.8</cell>
+<cell>1370</cell>
+<cell>102</cell>
+<cell>43.7</cell>
+<cell>8.15</cell>
+<cell>7.52</cell>
+<cell>11.7</cell>
+<cell>1.91</cell>
+<cell>0.177</cell>
+</row>
+<row>
+<cell>C100<m>\times</m>9.3</cell>
+<cell>9.3</cell>
+<cell>1190</cell>
+<cell>102</cell>
+<cell>41.9</cell>
+<cell>6.27</cell>
+<cell>7.52</cell>
+<cell>11.5</cell>
+<cell>1.74</cell>
+<cell>0.156</cell>
+</row>
+<row>
+<cell>C100<m>\times</m>8</cell>
+<cell>8</cell>
+<cell>1020</cell>
+<cell>102</cell>
+<cell>40.1</cell>
+<cell>4.67</cell>
+<cell>7.52</cell>
+<cell>11.6</cell>
+<cell>1.6</cell>
+<cell>0.13</cell>
+</row>
+<row>
+<cell>C100<m>\times</m>6.7</cell>
+<cell>6.7</cell>
+<cell>865</cell>
+<cell>102</cell>
+<cell>38.6</cell>
+<cell>3.18</cell>
+<cell>7.52</cell>
+<cell>12</cell>
+<cell>1.47</cell>
+<cell>0.11</cell>
+</row>
+<row>
+<cell>C75<m>\times</m>8.9</cell>
+<cell>8.9</cell>
+<cell>1140</cell>
+<cell>76.2</cell>
+<cell>40.6</cell>
+<cell>9.04</cell>
+<cell>6.93</cell>
+<cell>11.6</cell>
+<cell>0.862</cell>
+<cell>0.125</cell>
+</row>
+<row>
+<cell>C75<m>\times</m>7.4</cell>
+<cell>7.4</cell>
+<cell>948</cell>
+<cell>76.2</cell>
+<cell>38.1</cell>
+<cell>6.55</cell>
+<cell>6.93</cell>
+<cell>11.2</cell>
+<cell>0.77</cell>
+<cell>0.1</cell>
+</row>
+<row>
+<cell>C75<m>\times</m>6.1</cell>
+<cell>6.1</cell>
+<cell>774</cell>
+<cell>76.2</cell>
+<cell>35.8</cell>
+<cell>4.32</cell>
+<cell>6.93</cell>
+<cell>11.1</cell>
+<cell>0.687</cell>
+<cell>0.0795</cell>
+</row>
+<row>
+<cell>C75<m>\times</m>5.2</cell>
+<cell>5.2</cell>
+<cell>703</cell>
+<cell>76.2</cell>
+<cell>34.8</cell>
+<cell>3.35</cell>
+<cell>6.93</cell>
+<cell>11.3</cell>
+<cell>0.653</cell>
+<cell>0.0703</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+</section>
+
+<section xml:id="AISC-standard-sections">
+<title>Standard Sections</title>
+<subsection xml:id="standards-us">
+<title>Standard Section-US</title>
+<sidebyside widths="20% 80%">
+<image source="images/I_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{lb/ft}</m> </line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+</row>
+<row>
+<cell>S24<m>\times</m>121</cell>
+<cell>121</cell>
+<cell>35.5</cell>
+<cell>24.5</cell>
+<cell>8.05</cell>
+<cell>0.8</cell>
+<cell>1.09</cell>
+<cell>3160</cell>
+<cell>83</cell>
+</row>
+<row>
+<cell>S24<m>\times</m>106</cell>
+<cell>106</cell>
+<cell>31.1</cell>
+<cell>24.5</cell>
+<cell>7.87</cell>
+<cell>0.62</cell>
+<cell>1.09</cell>
+<cell>2940</cell>
+<cell>76.8</cell>
+</row>
+<row>
+<cell>S24<m>\times</m>100</cell>
+<cell>100</cell>
+<cell>29.3</cell>
+<cell>24</cell>
+<cell>7.25</cell>
+<cell>0.745</cell>
+<cell>0.87</cell>
+<cell>2380</cell>
+<cell>47.4</cell>
+</row>
+<row>
+<cell>S24<m>\times</m>90</cell>
+<cell>90</cell>
+<cell>26.5</cell>
+<cell>24</cell>
+<cell>7.13</cell>
+<cell>0.625</cell>
+<cell>0.87</cell>
+<cell>2250</cell>
+<cell>44.7</cell>
+</row>
+<row>
+<cell>S24<m>\times</m>80</cell>
+<cell>80</cell>
+<cell>23.5</cell>
+<cell>24</cell>
+<cell>7</cell>
+<cell>0.5</cell>
+<cell>0.87</cell>
+<cell>2100</cell>
+<cell>42</cell>
+</row>
+<row>
+<cell>S20<m>\times</m>96</cell>
+<cell>96</cell>
+<cell>28.2</cell>
+<cell>20.3</cell>
+<cell>7.2</cell>
+<cell>0.8</cell>
+<cell>0.92</cell>
+<cell>1670</cell>
+<cell>49.9</cell>
+</row>
+<row>
+<cell>S20<m>\times</m>86</cell>
+<cell>86</cell>
+<cell>25.3</cell>
+<cell>20.3</cell>
+<cell>7.06</cell>
+<cell>0.66</cell>
+<cell>0.92</cell>
+<cell>1570</cell>
+<cell>46.6</cell>
+</row>
+<row>
+<cell>S20<m>\times</m>75</cell>
+<cell>75</cell>
+<cell>22</cell>
+<cell>20</cell>
+<cell>6.39</cell>
+<cell>0.635</cell>
+<cell>0.795</cell>
+<cell>1280</cell>
+<cell>29.5</cell>
+</row>
+<row>
+<cell>S20<m>\times</m>66</cell>
+<cell>66</cell>
+<cell>19.4</cell>
+<cell>20</cell>
+<cell>6.26</cell>
+<cell>0.505</cell>
+<cell>0.795</cell>
+<cell>1190</cell>
+<cell>27.5</cell>
+</row>
+<row>
+<cell>S18<m>\times</m>70</cell>
+<cell>70</cell>
+<cell>20.5</cell>
+<cell>18</cell>
+<cell>6.25</cell>
+<cell>0.711</cell>
+<cell>0.691</cell>
+<cell>923</cell>
+<cell>24</cell>
+</row>
+<row>
+<cell>S18<m>\times</m>54.7</cell>
+<cell>54.7</cell>
+<cell>16</cell>
+<cell>18</cell>
+<cell>6</cell>
+<cell>0.461</cell>
+<cell>0.691</cell>
+<cell>801</cell>
+<cell>20.7</cell>
+</row>
+<row>
+<cell>S15<m>\times</m>50</cell>
+<cell>50</cell>
+<cell>14.7</cell>
+<cell>15</cell>
+<cell>5.64</cell>
+<cell>0.55</cell>
+<cell>0.622</cell>
+<cell>485</cell>
+<cell>15.6</cell>
+</row>
+<row>
+<cell>S15<m>\times</m>42.9</cell>
+<cell>42.9</cell>
+<cell>12.6</cell>
+<cell>15</cell>
+<cell>5.5</cell>
+<cell>0.411</cell>
+<cell>0.622</cell>
+<cell>446</cell>
+<cell>14.3</cell>
+</row>
+<row>
+<cell>S12<m>\times</m>50</cell>
+<cell>50</cell>
+<cell>14.7</cell>
+<cell>12</cell>
+<cell>5.48</cell>
+<cell>0.687</cell>
+<cell>0.659</cell>
+<cell>303</cell>
+<cell>15.6</cell>
+</row>
+<row>
+<cell>S12<m>\times</m>40.8</cell>
+<cell>40.8</cell>
+<cell>11.9</cell>
+<cell>12</cell>
+<cell>5.25</cell>
+<cell>0.462</cell>
+<cell>0.659</cell>
+<cell>270</cell>
+<cell>13.5</cell>
+</row>
+<row>
+<cell>S12<m>\times</m>35</cell>
+<cell>35</cell>
+<cell>10.2</cell>
+<cell>12</cell>
+<cell>5.08</cell>
+<cell>0.428</cell>
+<cell>0.544</cell>
+<cell>228</cell>
+<cell>9.84</cell>
+</row>
+<row>
+<cell>S12<m>\times</m>31.8</cell>
+<cell>31.8</cell>
+<cell>9.31</cell>
+<cell>12</cell>
+<cell>5</cell>
+<cell>0.35</cell>
+<cell>0.544</cell>
+<cell>217</cell>
+<cell>9.33</cell>
+</row>
+<row>
+<cell>S10<m>\times</m>35</cell>
+<cell>35</cell>
+<cell>10.3</cell>
+<cell>10</cell>
+<cell>4.94</cell>
+<cell>0.594</cell>
+<cell>0.491</cell>
+<cell>147</cell>
+<cell>8.3</cell>
+</row>
+<row>
+<cell>S10<m>\times</m>25.4</cell>
+<cell>25.4</cell>
+<cell>7.45</cell>
+<cell>10</cell>
+<cell>4.66</cell>
+<cell>0.311</cell>
+<cell>0.491</cell>
+<cell>123</cell>
+<cell>6.73</cell>
+</row>
+<row>
+<cell>S8<m>\times</m>23</cell>
+<cell>23</cell>
+<cell>6.76</cell>
+<cell>8</cell>
+<cell>4.17</cell>
+<cell>0.441</cell>
+<cell>0.425</cell>
+<cell>64.7</cell>
+<cell>4.27</cell>
+</row>
+<row>
+<cell>S8<m>\times</m>18.4</cell>
+<cell>18.4</cell>
+<cell>5.4</cell>
+<cell>8</cell>
+<cell>4</cell>
+<cell>0.271</cell>
+<cell>0.425</cell>
+<cell>57.5</cell>
+<cell>3.69</cell>
+</row>
+<row>
+<cell>S6<m>\times</m>17.25</cell>
+<cell>17.25</cell>
+<cell>5.05</cell>
+<cell>6</cell>
+<cell>3.57</cell>
+<cell>0.465</cell>
+<cell>0.359</cell>
+<cell>26.2</cell>
+<cell>2.29</cell>
+</row>
+<row>
+<cell>S6<m>\times</m>12.5</cell>
+<cell>12.5</cell>
+<cell>3.66</cell>
+<cell>6</cell>
+<cell>3.33</cell>
+<cell>0.232</cell>
+<cell>0.359</cell>
+<cell>22</cell>
+<cell>1.8</cell>
+</row>
+<row>
+<cell>S5<m>\times</m>10</cell>
+<cell>10</cell>
+<cell>2.93</cell>
+<cell>5</cell>
+<cell>3</cell>
+<cell>0.214</cell>
+<cell>0.326</cell>
+<cell>12.3</cell>
+<cell>1.19</cell>
+</row>
+<row>
+<cell>S4<m>\times</m>9.5</cell>
+<cell>9.5</cell>
+<cell>2.79</cell>
+<cell>4</cell>
+<cell>2.8</cell>
+<cell>0.326</cell>
+<cell>0.293</cell>
+<cell>6.76</cell>
+<cell>0.887</cell>
+</row>
+<row>
+<cell>S4<m>\times</m>7.7</cell>
+<cell>7.7</cell>
+<cell>2.26</cell>
+<cell>4</cell>
+<cell>2.66</cell>
+<cell>0.193</cell>
+<cell>0.293</cell>
+<cell>6.05</cell>
+<cell>0.748</cell>
+</row>
+<row>
+<cell>S3<m>\times</m>7.5</cell>
+<cell>7.5</cell>
+<cell>2.2</cell>
+<cell>3</cell>
+<cell>2.51</cell>
+<cell>0.349</cell>
+<cell>0.26</cell>
+<cell>2.91</cell>
+<cell>0.578</cell>
+</row>
+<row>
+<cell>S3<m>\times</m>5.7</cell>
+<cell>5.7</cell>
+<cell>1.66</cell>
+<cell>3</cell>
+<cell>2.33</cell>
+<cell>0.17</cell>
+<cell>0.26</cell>
+<cell>2.5</cell>
+<cell>0.447</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+
+<subsection xml:id="standards-si">
+<title>Standard Section-SI</title>
+<sidebyside widths="20% 80%">
+<image source="images/I_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{kg/m}</m> </line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
+</row>
+<row>
+<cell>S610<m>\times</m>180</cell>
+<cell>180</cell>
+<cell>22900</cell>
+<cell>622</cell>
+<cell>204</cell>
+<cell>20.3</cell>
+<cell>27.7</cell>
+<cell>1320</cell>
+<cell>34.5</cell>
+</row>
+<row>
+<cell>S610<m>\times</m>158</cell>
+<cell>158</cell>
+<cell>20100</cell>
+<cell>622</cell>
+<cell>200</cell>
+<cell>15.7</cell>
+<cell>27.7</cell>
+<cell>1220</cell>
+<cell>32</cell>
+</row>
+<row>
+<cell>S610<m>\times</m>149</cell>
+<cell>149</cell>
+<cell>18900</cell>
+<cell>610</cell>
+<cell>184</cell>
+<cell>18.9</cell>
+<cell>22.1</cell>
+<cell>991</cell>
+<cell>19.7</cell>
+</row>
+<row>
+<cell>S610<m>\times</m>134</cell>
+<cell>134</cell>
+<cell>17100</cell>
+<cell>610</cell>
+<cell>181</cell>
+<cell>15.9</cell>
+<cell>22.1</cell>
+<cell>937</cell>
+<cell>18.6</cell>
+</row>
+<row>
+<cell>S610<m>\times</m>119</cell>
+<cell>119</cell>
+<cell>15200</cell>
+<cell>610</cell>
+<cell>178</cell>
+<cell>12.7</cell>
+<cell>22.1</cell>
+<cell>874</cell>
+<cell>17.5</cell>
+</row>
+<row>
+<cell>S510<m>\times</m>143</cell>
+<cell>143</cell>
+<cell>18200</cell>
+<cell>516</cell>
+<cell>183</cell>
+<cell>20.3</cell>
+<cell>23.4</cell>
+<cell>695</cell>
+<cell>20.8</cell>
+</row>
+<row>
+<cell>S510<m>\times</m>128</cell>
+<cell>128</cell>
+<cell>16300</cell>
+<cell>516</cell>
+<cell>179</cell>
+<cell>16.8</cell>
+<cell>23.4</cell>
+<cell>653</cell>
+<cell>19.4</cell>
+</row>
+<row>
+<cell>S510<m>\times</m>112</cell>
+<cell>112</cell>
+<cell>14200</cell>
+<cell>508</cell>
+<cell>162</cell>
+<cell>16.1</cell>
+<cell>20.2</cell>
+<cell>533</cell>
+<cell>12.3</cell>
+</row>
+<row>
+<cell>S510<m>\times</m>98.2</cell>
+<cell>98.2</cell>
+<cell>12500</cell>
+<cell>508</cell>
+<cell>159</cell>
+<cell>12.8</cell>
+<cell>20.2</cell>
+<cell>495</cell>
+<cell>11.4</cell>
+</row>
+<row>
+<cell>S460<m>\times</m>104</cell>
+<cell>104</cell>
+<cell>13200</cell>
+<cell>457</cell>
+<cell>159</cell>
+<cell>18.1</cell>
+<cell>17.6</cell>
+<cell>384</cell>
+<cell>9.99</cell>
+</row>
+<row>
+<cell>S460<m>\times</m>81.4</cell>
+<cell>81.4</cell>
+<cell>10300</cell>
+<cell>457</cell>
+<cell>152</cell>
+<cell>11.7</cell>
+<cell>17.6</cell>
+<cell>333</cell>
+<cell>8.62</cell>
+</row>
+<row>
+<cell>S380<m>\times</m>74</cell>
+<cell>74</cell>
+<cell>9480</cell>
+<cell>381</cell>
+<cell>143</cell>
+<cell>14</cell>
+<cell>15.8</cell>
+<cell>202</cell>
+<cell>6.49</cell>
+</row>
+<row>
+<cell>S380<m>\times</m>64</cell>
+<cell>64</cell>
+<cell>8130</cell>
+<cell>381</cell>
+<cell>140</cell>
+<cell>10.4</cell>
+<cell>15.8</cell>
+<cell>186</cell>
+<cell>5.95</cell>
+</row>
+<row>
+<cell>S310<m>\times</m>74</cell>
+<cell>74</cell>
+<cell>9480</cell>
+<cell>305</cell>
+<cell>139</cell>
+<cell>17.4</cell>
+<cell>16.7</cell>
+<cell>126</cell>
+<cell>6.49</cell>
+</row>
+<row>
+<cell>S310<m>\times</m>60.7</cell>
+<cell>60.7</cell>
+<cell>7680</cell>
+<cell>305</cell>
+<cell>133</cell>
+<cell>11.7</cell>
+<cell>16.7</cell>
+<cell>112</cell>
+<cell>5.62</cell>
+</row>
+<row>
+<cell>S310<m>\times</m>52</cell>
+<cell>52</cell>
+<cell>6580</cell>
+<cell>305</cell>
+<cell>129</cell>
+<cell>10.9</cell>
+<cell>13.8</cell>
+<cell>94.9</cell>
+<cell>4.1</cell>
+</row>
+<row>
+<cell>S310<m>\times</m>47.3</cell>
+<cell>47.3</cell>
+<cell>6010</cell>
+<cell>305</cell>
+<cell>127</cell>
+<cell>8.89</cell>
+<cell>13.8</cell>
+<cell>90.3</cell>
+<cell>3.88</cell>
+</row>
+<row>
+<cell>S250<m>\times</m>52</cell>
+<cell>52</cell>
+<cell>6650</cell>
+<cell>254</cell>
+<cell>125</cell>
+<cell>15.1</cell>
+<cell>12.5</cell>
+<cell>61.2</cell>
+<cell>3.45</cell>
+</row>
+<row>
+<cell>S250<m>\times</m>37.8</cell>
+<cell>37.8</cell>
+<cell>4810</cell>
+<cell>254</cell>
+<cell>118</cell>
+<cell>7.9</cell>
+<cell>12.5</cell>
+<cell>51.2</cell>
+<cell>2.8</cell>
+</row>
+<row>
+<cell>S200<m>\times</m>34</cell>
+<cell>34</cell>
+<cell>4360</cell>
+<cell>203</cell>
+<cell>106</cell>
+<cell>11.2</cell>
+<cell>10.8</cell>
+<cell>26.9</cell>
+<cell>1.78</cell>
+</row>
+<row>
+<cell>S200<m>\times</m>27.4</cell>
+<cell>27.4</cell>
+<cell>3480</cell>
+<cell>203</cell>
+<cell>102</cell>
+<cell>6.88</cell>
+<cell>10.8</cell>
+<cell>23.9</cell>
+<cell>1.54</cell>
+</row>
+<row>
+<cell>S150<m>\times</m>25.7</cell>
+<cell>25.7</cell>
+<cell>3260</cell>
+<cell>152</cell>
+<cell>90.7</cell>
+<cell>11.8</cell>
+<cell>9.12</cell>
+<cell>10.9</cell>
+<cell>0.953</cell>
+</row>
+<row>
+<cell>S150<m>\times</m>18.6</cell>
+<cell>18.6</cell>
+<cell>2360</cell>
+<cell>152</cell>
+<cell>84.6</cell>
+<cell>5.89</cell>
+<cell>9.12</cell>
+<cell>9.16</cell>
+<cell>0.749</cell>
+</row>
+<row>
+<cell>S130<m>\times</m>15</cell>
+<cell>15</cell>
+<cell>1890</cell>
+<cell>127</cell>
+<cell>76.2</cell>
+<cell>5.44</cell>
+<cell>8.28</cell>
+<cell>5.12</cell>
+<cell>0.495</cell>
+</row>
+<row>
+<cell>S100<m>\times</m>14.1</cell>
+<cell>14.1</cell>
+<cell>1800</cell>
+<cell>102</cell>
+<cell>71.1</cell>
+<cell>8.28</cell>
+<cell>7.44</cell>
+<cell>2.81</cell>
+<cell>0.369</cell>
+</row>
+<row>
+<cell>S100<m>\times</m>11.5</cell>
+<cell>11.5</cell>
+<cell>1460</cell>
+<cell>102</cell>
+<cell>67.6</cell>
+<cell>4.9</cell>
+<cell>7.44</cell>
+<cell>2.52</cell>
+<cell>0.311</cell>
+</row>
+<row>
+<cell>S75<m>\times</m>11.2</cell>
+<cell>11.2</cell>
+<cell>1420</cell>
+<cell>76.2</cell>
+<cell>63.8</cell>
+<cell>8.86</cell>
+<cell>6.6</cell>
+<cell>1.21</cell>
+<cell>0.241</cell>
+</row>
+<row>
+<cell>S75<m>\times</m>8.5</cell>
+<cell>8.5</cell>
+<cell>1070</cell>
+<cell>76.2</cell>
+<cell>59.2</cell>
+<cell>4.32</cell>
+<cell>6.6</cell>
+<cell>1.04</cell>
+<cell>0.186</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+</section>
+
+<section xml:id="AISC-wide-flange">
+<title>Wide Flange Sections</title>
+<subsection xml:id="wf-us">
+<title>Wide Flange Section-US</title>
+<sidebyside widths="20% 80%">
+<image source="images/W_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{lb/ft}</m> </line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{in}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{in}</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>\text{in}^4</m> </line> </cell>
+</row>
+<row>
+<cell>W44<m>\times</m>335</cell>
+<cell>335</cell>
+<cell>98.5</cell>
+<cell>44</cell>
+<cell>15.9</cell>
+<cell>1.03</cell>
+<cell>1.77</cell>
+<cell>31100</cell>
+<cell>1200</cell>
+</row>
+<row>
+<cell>W44<m>\times</m>290</cell>
+<cell>290</cell>
+<cell>85.4</cell>
+<cell>43.6</cell>
+<cell>15.8</cell>
+<cell>0.865</cell>
+<cell>1.58</cell>
+<cell>27000</cell>
+<cell>1040</cell>
+</row>
+<row>
+<cell>W44<m>\times</m>262</cell>
+<cell>262</cell>
+<cell>77.2</cell>
+<cell>43.3</cell>
+<cell>15.8</cell>
+<cell>0.785</cell>
+<cell>1.42</cell>
+<cell>24100</cell>
+<cell>923</cell>
+</row>
+<row>
+<cell>W44<m>\times</m>230</cell>
+<cell>230</cell>
+<cell>67.8</cell>
+<cell>42.9</cell>
+<cell>15.8</cell>
+<cell>0.71</cell>
+<cell>1.22</cell>
+<cell>20800</cell>
+<cell>796</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>655</cell>
+<cell>655</cell>
+<cell>193</cell>
+<cell>43.6</cell>
+<cell>16.9</cell>
+<cell>1.97</cell>
+<cell>3.54</cell>
+<cell>56500</cell>
+<cell>2870</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>593</cell>
+<cell>593</cell>
+<cell>174</cell>
+<cell>43</cell>
+<cell>16.7</cell>
+<cell>1.79</cell>
+<cell>3.23</cell>
+<cell>50400</cell>
+<cell>2520</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>503</cell>
+<cell>503</cell>
+<cell>148</cell>
+<cell>42.1</cell>
+<cell>16.4</cell>
+<cell>1.54</cell>
+<cell>2.76</cell>
+<cell>41600</cell>
+<cell>2040</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>431</cell>
+<cell>431</cell>
+<cell>127</cell>
+<cell>41.3</cell>
+<cell>16.2</cell>
+<cell>1.34</cell>
+<cell>2.36</cell>
+<cell>34800</cell>
+<cell>1690</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>397</cell>
+<cell>397</cell>
+<cell>117</cell>
+<cell>41</cell>
+<cell>16.1</cell>
+<cell>1.22</cell>
+<cell>2.2</cell>
+<cell>32000</cell>
+<cell>1540</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>372</cell>
+<cell>372</cell>
+<cell>110</cell>
+<cell>40.6</cell>
+<cell>16.1</cell>
+<cell>1.16</cell>
+<cell>2.05</cell>
+<cell>29600</cell>
+<cell>1420</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>362</cell>
+<cell>362</cell>
+<cell>106</cell>
+<cell>40.6</cell>
+<cell>16</cell>
+<cell>1.12</cell>
+<cell>2.01</cell>
+<cell>28900</cell>
+<cell>1380</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>324</cell>
+<cell>324</cell>
+<cell>95.3</cell>
+<cell>40.2</cell>
+<cell>15.9</cell>
+<cell>1</cell>
+<cell>1.81</cell>
+<cell>25600</cell>
+<cell>1220</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>297</cell>
+<cell>297</cell>
+<cell>87.3</cell>
+<cell>39.8</cell>
+<cell>15.8</cell>
+<cell>0.93</cell>
+<cell>1.65</cell>
+<cell>23200</cell>
+<cell>1090</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>277</cell>
+<cell>277</cell>
+<cell>81.5</cell>
+<cell>39.7</cell>
+<cell>15.8</cell>
+<cell>0.83</cell>
+<cell>1.58</cell>
+<cell>21900</cell>
+<cell>1040</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>249</cell>
+<cell>249</cell>
+<cell>73.5</cell>
+<cell>39.4</cell>
+<cell>15.8</cell>
+<cell>0.75</cell>
+<cell>1.42</cell>
+<cell>19600</cell>
+<cell>926</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>215</cell>
+<cell>215</cell>
+<cell>63.5</cell>
+<cell>39</cell>
+<cell>15.8</cell>
+<cell>0.65</cell>
+<cell>1.22</cell>
+<cell>16700</cell>
+<cell>803</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>199</cell>
+<cell>199</cell>
+<cell>58.8</cell>
+<cell>38.7</cell>
+<cell>15.8</cell>
+<cell>0.65</cell>
+<cell>1.07</cell>
+<cell>14900</cell>
+<cell>695</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>392</cell>
+<cell>392</cell>
+<cell>116</cell>
+<cell>41.6</cell>
+<cell>12.4</cell>
+<cell>1.42</cell>
+<cell>2.52</cell>
+<cell>29900</cell>
+<cell>803</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>331</cell>
+<cell>331</cell>
+<cell>97.7</cell>
+<cell>40.8</cell>
+<cell>12.2</cell>
+<cell>1.22</cell>
+<cell>2.13</cell>
+<cell>24700</cell>
+<cell>644</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>327</cell>
+<cell>327</cell>
+<cell>95.9</cell>
+<cell>40.8</cell>
+<cell>12.1</cell>
+<cell>1.18</cell>
+<cell>2.13</cell>
+<cell>24500</cell>
+<cell>640</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>294</cell>
+<cell>294</cell>
+<cell>86.2</cell>
+<cell>40.4</cell>
+<cell>12</cell>
+<cell>1.06</cell>
+<cell>1.93</cell>
+<cell>21900</cell>
+<cell>562</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>278</cell>
+<cell>278</cell>
+<cell>82.3</cell>
+<cell>40.2</cell>
+<cell>12</cell>
+<cell>1.03</cell>
+<cell>1.81</cell>
+<cell>20500</cell>
+<cell>521</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>264</cell>
+<cell>264</cell>
+<cell>77.4</cell>
+<cell>40</cell>
+<cell>11.9</cell>
+<cell>0.96</cell>
+<cell>1.73</cell>
+<cell>19400</cell>
+<cell>493</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>235</cell>
+<cell>235</cell>
+<cell>69.1</cell>
+<cell>39.7</cell>
+<cell>11.9</cell>
+<cell>0.83</cell>
+<cell>1.58</cell>
+<cell>17400</cell>
+<cell>444</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>211</cell>
+<cell>211</cell>
+<cell>62.1</cell>
+<cell>39.4</cell>
+<cell>11.8</cell>
+<cell>0.75</cell>
+<cell>1.42</cell>
+<cell>15500</cell>
+<cell>390</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>183</cell>
+<cell>183</cell>
+<cell>53.3</cell>
+<cell>39</cell>
+<cell>11.8</cell>
+<cell>0.65</cell>
+<cell>1.2</cell>
+<cell>13200</cell>
+<cell>331</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>167</cell>
+<cell>167</cell>
+<cell>49.3</cell>
+<cell>38.6</cell>
+<cell>11.8</cell>
+<cell>0.65</cell>
+<cell>1.03</cell>
+<cell>11600</cell>
+<cell>283</cell>
+</row>
+<row>
+<cell>W40<m>\times</m>149</cell>
+<cell>149</cell>
+<cell>43.8</cell>
+<cell>38.2</cell>
+<cell>11.8</cell>
+<cell>0.63</cell>
+<cell>0.83</cell>
+<cell>9800</cell>
+<cell>229</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>925</cell>
+<cell>925</cell>
+<cell>272</cell>
+<cell>43.1</cell>
+<cell>18.6</cell>
+<cell>3.02</cell>
+<cell>4.53</cell>
+<cell>73000</cell>
+<cell>4940</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>853</cell>
+<cell>853</cell>
+<cell>251</cell>
+<cell>43.1</cell>
+<cell>18.2</cell>
+<cell>2.52</cell>
+<cell>4.53</cell>
+<cell>70000</cell>
+<cell>4600</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>802</cell>
+<cell>802</cell>
+<cell>236</cell>
+<cell>42.6</cell>
+<cell>18</cell>
+<cell>2.38</cell>
+<cell>4.29</cell>
+<cell>64800</cell>
+<cell>4210</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>723</cell>
+<cell>723</cell>
+<cell>213</cell>
+<cell>41.8</cell>
+<cell>17.8</cell>
+<cell>2.17</cell>
+<cell>3.9</cell>
+<cell>57300</cell>
+<cell>3700</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>652</cell>
+<cell>652</cell>
+<cell>192</cell>
+<cell>41.1</cell>
+<cell>17.6</cell>
+<cell>1.97</cell>
+<cell>3.54</cell>
+<cell>50600</cell>
+<cell>3230</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>529</cell>
+<cell>529</cell>
+<cell>156</cell>
+<cell>39.8</cell>
+<cell>17.2</cell>
+<cell>1.61</cell>
+<cell>2.91</cell>
+<cell>39600</cell>
+<cell>2490</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>487</cell>
+<cell>487</cell>
+<cell>143</cell>
+<cell>39.3</cell>
+<cell>17.1</cell>
+<cell>1.5</cell>
+<cell>2.68</cell>
+<cell>36000</cell>
+<cell>2250</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>441</cell>
+<cell>441</cell>
+<cell>130</cell>
+<cell>38.9</cell>
+<cell>17</cell>
+<cell>1.36</cell>
+<cell>2.44</cell>
+<cell>32100</cell>
+<cell>1990</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>395</cell>
+<cell>395</cell>
+<cell>116</cell>
+<cell>38.4</cell>
+<cell>16.8</cell>
+<cell>1.22</cell>
+<cell>2.2</cell>
+<cell>28500</cell>
+<cell>1750</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>361</cell>
+<cell>361</cell>
+<cell>106</cell>
+<cell>38</cell>
+<cell>16.7</cell>
+<cell>1.12</cell>
+<cell>2.01</cell>
+<cell>25700</cell>
+<cell>1570</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>330</cell>
+<cell>330</cell>
+<cell>96.9</cell>
+<cell>37.7</cell>
+<cell>16.6</cell>
+<cell>1.02</cell>
+<cell>1.85</cell>
+<cell>23300</cell>
+<cell>1420</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>302</cell>
+<cell>302</cell>
+<cell>89</cell>
+<cell>37.3</cell>
+<cell>16.7</cell>
+<cell>0.945</cell>
+<cell>1.68</cell>
+<cell>21100</cell>
+<cell>1300</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>282</cell>
+<cell>282</cell>
+<cell>82.9</cell>
+<cell>37.1</cell>
+<cell>16.6</cell>
+<cell>0.885</cell>
+<cell>1.57</cell>
+<cell>19600</cell>
+<cell>1200</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>262</cell>
+<cell>262</cell>
+<cell>77.2</cell>
+<cell>36.9</cell>
+<cell>16.6</cell>
+<cell>0.84</cell>
+<cell>1.44</cell>
+<cell>17900</cell>
+<cell>1090</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>247</cell>
+<cell>247</cell>
+<cell>72.5</cell>
+<cell>36.7</cell>
+<cell>16.5</cell>
+<cell>0.8</cell>
+<cell>1.35</cell>
+<cell>16700</cell>
+<cell>1010</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>231</cell>
+<cell>231</cell>
+<cell>68.2</cell>
+<cell>36.5</cell>
+<cell>16.5</cell>
+<cell>0.76</cell>
+<cell>1.26</cell>
+<cell>15600</cell>
+<cell>940</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>256</cell>
+<cell>256</cell>
+<cell>75.3</cell>
+<cell>37.4</cell>
+<cell>12.2</cell>
+<cell>0.96</cell>
+<cell>1.73</cell>
+<cell>16800</cell>
+<cell>528</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>232</cell>
+<cell>232</cell>
+<cell>68</cell>
+<cell>37.1</cell>
+<cell>12.1</cell>
+<cell>0.87</cell>
+<cell>1.57</cell>
+<cell>15000</cell>
+<cell>468</cell>
+</row>
+<row>
+<cell>W36<m>\times</m>210</cell>
+<cell>210</cell>
+<cell>61.9</cell>
+<cell>36.7</cell>
+<cell>12.2</cell>
+<cell>0.83</cell>
+<cell>1.36</cell>
+<cell>13200</cell>
+<cell>411</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+
+<subsection xml:id="wf-si">
+<title>Wide Flange Section-SI</title>
+<sidebyside widths="20% 80%">
+<image source="images/W_section">
+
+</image>
+<tabular>
+<row bottom="medium">
+<cell halign="center"> <line>Description</line> <line> <m>{d} \times \, {W}</m> </line> </cell>
+<cell halign="center"> <line> <m>W</m> </line> <line> <m>\text{kg/m}</m> </line> </cell>
+<cell halign="center"> <line> <m>A</m> </line> <line> <m>\text{mm}^2</m> </line> </cell>
+<cell halign="center"> <line> <m>d</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>b_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_w</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>t_f</m> </line> <line> <m>\text{mm}</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{xx}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
+<cell halign="center"> <line> <m>\bar{I}_{yy}</m> </line> <line> <m>10^6\text{ mm}^4</m> </line> </cell>
+</row>
+<row>
+<cell>W1100<m>\times</m>499</cell>
+<cell>499</cell>
+<cell>63500</cell>
+<cell>1120</cell>
+<cell>404</cell>
+<cell>26.2</cell>
+<cell>45</cell>
+<cell>12900</cell>
+<cell>499</cell>
+</row>
+<row>
+<cell>W1100<m>\times</m>433</cell>
+<cell>433</cell>
+<cell>55100</cell>
+<cell>1110</cell>
+<cell>401</cell>
+<cell>22</cell>
+<cell>40.1</cell>
+<cell>11200</cell>
+<cell>433</cell>
+</row>
+<row>
+<cell>W1100<m>\times</m>390</cell>
+<cell>390</cell>
+<cell>49800</cell>
+<cell>1100</cell>
+<cell>401</cell>
+<cell>19.9</cell>
+<cell>36.1</cell>
+<cell>10000</cell>
+<cell>384</cell>
+</row>
+<row>
+<cell>W1100<m>\times</m>343</cell>
+<cell>343</cell>
+<cell>43700</cell>
+<cell>1090</cell>
+<cell>401</cell>
+<cell>18</cell>
+<cell>31</cell>
+<cell>8660</cell>
+<cell>331</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>976</cell>
+<cell>975</cell>
+<cell>125000</cell>
+<cell>1110</cell>
+<cell>429</cell>
+<cell>50</cell>
+<cell>89.9</cell>
+<cell>23500</cell>
+<cell>1190</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>883</cell>
+<cell>883</cell>
+<cell>112000</cell>
+<cell>1090</cell>
+<cell>424</cell>
+<cell>45.5</cell>
+<cell>82</cell>
+<cell>21000</cell>
+<cell>1050</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>748</cell>
+<cell>748</cell>
+<cell>95500</cell>
+<cell>1070</cell>
+<cell>417</cell>
+<cell>39.1</cell>
+<cell>70.1</cell>
+<cell>17300</cell>
+<cell>849</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>642</cell>
+<cell>642</cell>
+<cell>81900</cell>
+<cell>1050</cell>
+<cell>411</cell>
+<cell>34</cell>
+<cell>59.9</cell>
+<cell>14500</cell>
+<cell>703</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>591</cell>
+<cell>591</cell>
+<cell>75500</cell>
+<cell>1040</cell>
+<cell>409</cell>
+<cell>31</cell>
+<cell>55.9</cell>
+<cell>13300</cell>
+<cell>641</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>554</cell>
+<cell>554</cell>
+<cell>71000</cell>
+<cell>1030</cell>
+<cell>409</cell>
+<cell>29.5</cell>
+<cell>52.1</cell>
+<cell>12300</cell>
+<cell>591</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>539</cell>
+<cell>539</cell>
+<cell>68400</cell>
+<cell>1030</cell>
+<cell>406</cell>
+<cell>28.4</cell>
+<cell>51.1</cell>
+<cell>12000</cell>
+<cell>574</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>483</cell>
+<cell>483</cell>
+<cell>61500</cell>
+<cell>1020</cell>
+<cell>404</cell>
+<cell>25.4</cell>
+<cell>46</cell>
+<cell>10700</cell>
+<cell>508</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>443</cell>
+<cell>443</cell>
+<cell>56300</cell>
+<cell>1010</cell>
+<cell>401</cell>
+<cell>23.6</cell>
+<cell>41.9</cell>
+<cell>9660</cell>
+<cell>454</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>412</cell>
+<cell>412</cell>
+<cell>52600</cell>
+<cell>1010</cell>
+<cell>401</cell>
+<cell>21.1</cell>
+<cell>40.1</cell>
+<cell>9120</cell>
+<cell>433</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>371</cell>
+<cell>371</cell>
+<cell>47400</cell>
+<cell>1000</cell>
+<cell>401</cell>
+<cell>19.1</cell>
+<cell>36.1</cell>
+<cell>8160</cell>
+<cell>385</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>321</cell>
+<cell>321</cell>
+<cell>41000</cell>
+<cell>991</cell>
+<cell>401</cell>
+<cell>16.5</cell>
+<cell>31</cell>
+<cell>6950</cell>
+<cell>334</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>296</cell>
+<cell>296</cell>
+<cell>37900</cell>
+<cell>983</cell>
+<cell>401</cell>
+<cell>16.5</cell>
+<cell>27.2</cell>
+<cell>6200</cell>
+<cell>289</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>584</cell>
+<cell>584</cell>
+<cell>74800</cell>
+<cell>1060</cell>
+<cell>315</cell>
+<cell>36.1</cell>
+<cell>64</cell>
+<cell>12400</cell>
+<cell>334</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>494</cell>
+<cell>494</cell>
+<cell>63000</cell>
+<cell>1040</cell>
+<cell>310</cell>
+<cell>31</cell>
+<cell>54.1</cell>
+<cell>10300</cell>
+<cell>268</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>486</cell>
+<cell>486</cell>
+<cell>61900</cell>
+<cell>1040</cell>
+<cell>307</cell>
+<cell>30</cell>
+<cell>54.1</cell>
+<cell>10200</cell>
+<cell>266</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>438</cell>
+<cell>438</cell>
+<cell>55600</cell>
+<cell>1030</cell>
+<cell>305</cell>
+<cell>26.9</cell>
+<cell>49</cell>
+<cell>9120</cell>
+<cell>234</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>415</cell>
+<cell>415</cell>
+<cell>53100</cell>
+<cell>1020</cell>
+<cell>305</cell>
+<cell>26.2</cell>
+<cell>46</cell>
+<cell>8530</cell>
+<cell>217</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>393</cell>
+<cell>393</cell>
+<cell>49900</cell>
+<cell>1020</cell>
+<cell>302</cell>
+<cell>24.4</cell>
+<cell>43.9</cell>
+<cell>8070</cell>
+<cell>205</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>350</cell>
+<cell>350</cell>
+<cell>44600</cell>
+<cell>1010</cell>
+<cell>302</cell>
+<cell>21.1</cell>
+<cell>40.1</cell>
+<cell>7240</cell>
+<cell>185</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>314</cell>
+<cell>314</cell>
+<cell>40100</cell>
+<cell>1000</cell>
+<cell>300</cell>
+<cell>19.1</cell>
+<cell>36.1</cell>
+<cell>6450</cell>
+<cell>162</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>272</cell>
+<cell>272</cell>
+<cell>34400</cell>
+<cell>991</cell>
+<cell>300</cell>
+<cell>16.5</cell>
+<cell>30.5</cell>
+<cell>5490</cell>
+<cell>138</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>249</cell>
+<cell>249</cell>
+<cell>31800</cell>
+<cell>980</cell>
+<cell>300</cell>
+<cell>16.5</cell>
+<cell>26.2</cell>
+<cell>4830</cell>
+<cell>118</cell>
+</row>
+<row>
+<cell>W1000<m>\times</m>222</cell>
+<cell>222</cell>
+<cell>28300</cell>
+<cell>970</cell>
+<cell>300</cell>
+<cell>16</cell>
+<cell>21.1</cell>
+<cell>4080</cell>
+<cell>95.3</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>1377</cell>
+<cell>1380</cell>
+<cell>175000</cell>
+<cell>1090</cell>
+<cell>472</cell>
+<cell>76.7</cell>
+<cell>115</cell>
+<cell>30400</cell>
+<cell>2060</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>1269</cell>
+<cell>1270</cell>
+<cell>162000</cell>
+<cell>1090</cell>
+<cell>462</cell>
+<cell>64</cell>
+<cell>115</cell>
+<cell>29100</cell>
+<cell>1910</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>1194</cell>
+<cell>1190</cell>
+<cell>152000</cell>
+<cell>1080</cell>
+<cell>457</cell>
+<cell>60.5</cell>
+<cell>109</cell>
+<cell>27000</cell>
+<cell>1750</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>1077</cell>
+<cell>1080</cell>
+<cell>137000</cell>
+<cell>1060</cell>
+<cell>452</cell>
+<cell>55.1</cell>
+<cell>99.1</cell>
+<cell>23800</cell>
+<cell>1540</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>970</cell>
+<cell>970</cell>
+<cell>124000</cell>
+<cell>1040</cell>
+<cell>447</cell>
+<cell>50</cell>
+<cell>89.9</cell>
+<cell>21100</cell>
+<cell>1340</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>787</cell>
+<cell>787</cell>
+<cell>101000</cell>
+<cell>1010</cell>
+<cell>437</cell>
+<cell>40.9</cell>
+<cell>73.9</cell>
+<cell>16500</cell>
+<cell>1040</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>725</cell>
+<cell>725</cell>
+<cell>92300</cell>
+<cell>998</cell>
+<cell>434</cell>
+<cell>38.1</cell>
+<cell>68.1</cell>
+<cell>15000</cell>
+<cell>937</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>656</cell>
+<cell>656</cell>
+<cell>83900</cell>
+<cell>988</cell>
+<cell>432</cell>
+<cell>34.5</cell>
+<cell>62</cell>
+<cell>13400</cell>
+<cell>828</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>588</cell>
+<cell>588</cell>
+<cell>74800</cell>
+<cell>975</cell>
+<cell>427</cell>
+<cell>31</cell>
+<cell>55.9</cell>
+<cell>11900</cell>
+<cell>728</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>537</cell>
+<cell>537</cell>
+<cell>68400</cell>
+<cell>965</cell>
+<cell>424</cell>
+<cell>28.4</cell>
+<cell>51.1</cell>
+<cell>10700</cell>
+<cell>653</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>491</cell>
+<cell>491</cell>
+<cell>62500</cell>
+<cell>958</cell>
+<cell>422</cell>
+<cell>25.9</cell>
+<cell>47</cell>
+<cell>9700</cell>
+<cell>591</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>449</cell>
+<cell>449</cell>
+<cell>57400</cell>
+<cell>947</cell>
+<cell>424</cell>
+<cell>24</cell>
+<cell>42.7</cell>
+<cell>8780</cell>
+<cell>541</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>420</cell>
+<cell>420</cell>
+<cell>53500</cell>
+<cell>942</cell>
+<cell>422</cell>
+<cell>22.5</cell>
+<cell>39.9</cell>
+<cell>8160</cell>
+<cell>499</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>390</cell>
+<cell>390</cell>
+<cell>49800</cell>
+<cell>937</cell>
+<cell>422</cell>
+<cell>21.3</cell>
+<cell>36.6</cell>
+<cell>7450</cell>
+<cell>454</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>368</cell>
+<cell>368</cell>
+<cell>46800</cell>
+<cell>932</cell>
+<cell>419</cell>
+<cell>20.3</cell>
+<cell>34.3</cell>
+<cell>6950</cell>
+<cell>420</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>344</cell>
+<cell>344</cell>
+<cell>44000</cell>
+<cell>927</cell>
+<cell>419</cell>
+<cell>19.3</cell>
+<cell>32</cell>
+<cell>6490</cell>
+<cell>391</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>381</cell>
+<cell>381</cell>
+<cell>48600</cell>
+<cell>951</cell>
+<cell>310</cell>
+<cell>24.4</cell>
+<cell>43.9</cell>
+<cell>6990</cell>
+<cell>220</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>345</cell>
+<cell>345</cell>
+<cell>43900</cell>
+<cell>943</cell>
+<cell>307</cell>
+<cell>22.1</cell>
+<cell>39.9</cell>
+<cell>6240</cell>
+<cell>195</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>313</cell>
+<cell>313</cell>
+<cell>39900</cell>
+<cell>932</cell>
+<cell>310</cell>
+<cell>21.1</cell>
+<cell>34.5</cell>
+<cell>5490</cell>
+<cell>171</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>289</cell>
+<cell>289</cell>
+<cell>36800</cell>
+<cell>927</cell>
+<cell>307</cell>
+<cell>19.4</cell>
+<cell>32</cell>
+<cell>5040</cell>
+<cell>156</cell>
+</row>
+<row>
+<cell>W920<m>\times</m>271</cell>
+<cell>271</cell>
+<cell>34600</cell>
+<cell>922</cell>
+<cell>307</cell>
+<cell>18.4</cell>
+<cell>30</cell>
+<cell>4700</cell>
+<cell>144</cell>
+</row>
+</tabular>
+</sidebyside>
+</subsection>
+</section>
+</appendix>
 </backmatter>

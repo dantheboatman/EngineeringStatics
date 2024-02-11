@@ -27,11 +27,11 @@ var updateSlate = function (){
   // GGB booleans decide what to show, only one allowed at a time.;
   info = document.getElementById('info');
    if (ggb.getValue('showAB')==true) {
-        info.innerHTML = "\\[{ "  +  ggb.getValueString('textAB') + " \\qquad" + ggb.getValueString('textABhat') + "}\\]";
+        info.innerHTML = "\\["  +  ggb.getValueString('textAB') + "\\] \\["  +  ggb.getValueString('textABhat') + "\\]" ;
   }
   
   if (ggb.getValue('showBA')==true) {
-       info.innerHTML =  "\\[{ " +  ggb.getValueString('textBA') + " \\qquad" + ggb.getValueString('textBAhat') + "}\\]";
+       info.innerHTML =  "\\[ " +  ggb.getValueString('textBA') +  "\\] \\["  +  ggb.getValueString('textBAhat') + "\\]";
   }
   
   if (window.MathJax) {

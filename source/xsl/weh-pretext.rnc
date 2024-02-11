@@ -1,91 +1,91 @@
-namespace html="http://www.w3.org/1999/xhtml"
+namespace html = "http://www.w3.org/1999/xhtml"
+
 include "../../../mathbook/schema/pretext-dev.rnc"
-
-
-
-wellformed-html =
-  (
-  text | element  html:div | html:span | html:input | html:button { attribute * {text}*, wellformed-html  }
-   )*
- 
-
-       
-Configuration |= 
-    element html { element favicon {text}}
-
-# permit images to have Remix_info
-ImageRaster |=
-  element image {
-   PermanentID?,
-   attribute width { text }?,
-   attribute archive { text }?,   
-   attribute source { text },
-   Remix_info?,
-   element description { TextShort }?
-  }
-  
+# favicon is not in schema, but is in sample article
+Configuration |=
+	element html {
+		element favicon { text }
+	}
+# permits Images in table cells,  This is not supported by the xslt or in Latex. 4/23/22
+TableCell |=
+	element cell {
+		AlignmentHorizontal?,
+		BorderBottom?,
+		BorderRight?,
+		attribute colspan { text }?,
+		(TextLong
+			| LongLine+
+			| element p { UniqueID?, PermanentID?, Image }+)
+	}
 # create attribution element for License Info
 Remix_info =
- element remix {
-  (element title { text }
-   | element creator {
-      attribute href { text }?,
-      text?
-     }
-   | element source {
-      attribute href { text }?,
-      text?
-     }
-   | element license {
-      attribute href { text }?,
-      text?
-     }
-   | element note { text })*
- }
- 
-
-# add remix element to interactives. weh 
-# Interactive and slates are not in the schema as of 4/10/22
-# Based on definition from pretext-dev.rnc as of 6/6/23.
-
+	element remix {
+		(element title { text }
+			| element creator {
+						attribute href { text }?,
+						text?
+					}
+			| element source {
+						attribute href { text }?,
+						text?
+					}
+			| element license {
+						attribute href { text }?,
+						text?
+					}
+			| element note { text })*
+	}
+# allows remix_info in images and interactives
+ImageRaster |=
+	element image {
+		UniqueID?,
+		PermanentID?,
+		attribute width { text }?,
+		attribute margins { text }?,
+		attribute rotate { text }?,
+		attribute archive { text }?,
+		attribute source { text },
+		(attribute decorative { "yes" | "no" }?
+			| (element shortdescription { text },
+						element description { (Paragraph | Tabular)+ }?))?,
+		Remix_info?
+	}
 Interactive |=
-                element interactive {
-                    UniqueID?,
-                    PermanentID?,
-                    attribute aspect { text }?,
-                    attribute width { text }?,
-                    attribute platform { text }?,
-                    attribute preview { text }?,
-                    attribute iframe { text }?,
-                    attribute source { text }?,
-                    attribute version { text }?,
-                    attribute xml:base {text}?,   #weh, not sure why I need this, something to do with xinclude?
-                    (Slate | SideBySideNoCaption | SideBySideGroupNoCaption | Remix_info )*,  #weh remix_info added
-                    element instructions { BlockText* | text }?
-                }
-
-# in addition to standard ptx, minimal html is allowed: 
+	element interactive {
+		(UniqueID?,
+			PermanentID?,
+			attribute aspect { text }?,
+			attribute width { text }?,
+			attribute platform { text }?,
+			attribute preview { text }?,
+			attribute iframe { text }?,
+			attribute source { text }?,
+			attribute version { text }?,
+			(Slate | SideBySideNoCaption | SideBySideGroupNoCaption)*,
+			element instructions { BlockText* | text }?,
+			attribute xml:base { text }?,
+			# weh, something to do with xinclude.
+			Remix_info?)
+		# weh remix_info added
+		
+	}
+# in addition to standard ptx, minimal html is allowed in slates
+# wellformed-html permits text, which are the ggb commands
+wellformed-html =
+	(text
+		| element html:p | html:div | html:span | html:input | html:button {
+					attribute * { text }*,
+					wellformed-html
+				})*
 Slate |=
-                element slate {
-                    UniqueID?,
-                    attribute surface { text },
-                    (attribute source { text } | attribute material { text })?,
-                    attribute aspect { text }?,
-                    (Paragraph | Tabular | SideBySideNoCaption | wellformed-html)*  # weh add wellformed-html
-                }
+	element slate {
+		UniqueID?,
+		attribute surface { text },
+		(attribute source { text }
+			| attribute material { text })?,
+		attribute aspect { text }?,
+		(Paragraph | Tabular | SideBySideNoCaption | wellformed-html)*
+	}
 
-
-# permit Images in tables,  This is not supported by the xslt or in Latex. 4/23/22
-
-Paragraph |=
-                element p {
-                    UniqueID?,
-                    PermanentID?,
-                    Image
-                }
-                
-
-                
-# permit some html in these ptx elements for interactive 'ptx' slate
-TableCell |= element cell { wellformed-html }
-Paragraph |= element p { wellformed-html }
+# I have one interactive which uses a sidebyside containing a tabular and a slate.
+SideBySideNoCaption |= element sidebyside { SidebySideAttributes, (Tabular | Image | Slate)+ }

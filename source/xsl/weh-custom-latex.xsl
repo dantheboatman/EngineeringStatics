@@ -8,8 +8,10 @@
    <xsl:import href="./core/pretext-latex.xsl"/>
   <xsl:output method="text"/>
 
+
 	<xsl:template match="&GOAL-LIKE;|&EXAMPLE-LIKE;|&REMARK-LIKE;" mode="tcb-style">
 		<xsl:text>colframe=CornflowerBlue!90, colback=CornflowerBlue!10,&#xa;</xsl:text>
 	</xsl:template>
  
+<xsl:template match="example/answer"/>
 </xsl:stylesheet>
