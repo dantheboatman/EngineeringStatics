@@ -34,6 +34,37 @@
 				<caption>Definition of the moment, <m>M = F d_\perp</m>.</caption>
 				<xi:include href="interactives.ptx" xpointer="ggb_dan-wrench-2_interactive"/>
 			</figure>
+			<example>
+				<statement>
+					<p>The boom pendant <m>AB</m> of the mobile crane is used to raise <m>\ft{40}</m> long boom <m>AC</m>.</p>
+					<p> Use the definition of the moment <xref ref="moment-definition"/> to find the tension <m>T</m> in the boom pendant that will produce a <m>\ftlb{600}</m> moment about point <m>C</m> for the position shown.</p>
+					<image source="images/mobile_crane" width="60%"/>
+				</statement>
+				<answer>
+					<p>
+						<me>T = \lb{45.9}</me></p>
+				</answer>
+				<solution>
+					<p>
+						<ol>
+						<li><p>Draw and label a right triangle with the perpendicular distance as one leg, and a known distance as the hypotenuse.</p> <image source="images/mobile_crane_diagram" width="75%"/></li>
+						<li><p>Find an angle in the triangle.</p> <p>
+							<md>
+							<mrow>\alpha \amp = \tan^{-1} \frac{2}{1} = \ang{63.4}</mrow>
+							<mrow>\theta \amp = ( \ang{90} - \alpha - \ang{7.5} )= \ang{19.1}</mrow>
+							</md></p> </li>
+						<li><p> Use trigonometry to find the perpendicular distance.
+							<me> d_\perp =\ft{40} \sin \theta = \ft{13.06}</me></p></li>
+						<li><p> Apply the definition of the moment <xref ref="moment-definition"/>, and solve for <m>T</m>.
+							<md>
+							<mrow>M_C \amp = T d_\perp</mrow>
+							<mrow>T \amp = \frac{M_C}{d_\perp} = \frac{\ftlb{600}}{\ft{13.06}} = \lb{45.9}</mrow>
+							</md></p></li>
+						</ol>
+					</p>
+					<p>This force produces a counterclockwise rotation of the boom, so this is a positive scalar moment in two dimensions, or points in the <m>+\khat</m> direction in three.</p>
+				</solution>
+			</example>
 		</subsection>
 		<subsection xml:id="Chapter_04-direction-of-a-moment">
 			<title>Direction of a Moment</title>
@@ -141,17 +172,17 @@
 		</subsection>
 		<subsection>
 			<title>Addition of Moments</title>
-			<p>Scalar components are most useful for finding the resultant of several moments. When expressed in terms of scalar components, vector addition can reduced to algebraic addition of the scalar components. </p>
+			<p>Scalar components are most useful for adding and finding the resultant of several moments. When moments are expressed in terms of scalar components, vector addition can reduced to algebraic addition of the scalar components. </p>
 			<p>To add several moment in a plane using scalar components, simply append a positive sign to the magnitude for counter-clockwise moments or a negative sign for clockwise moments to create a scalar component, then add the scalar components normally. </p>
 			<p> The resulting algebraic sum of the scalar components will be either positive, negative, or zero, and this sign indicates the direction of the resultant moment. If the result is positive the resultant acts in the direction of the unit vector, and in the opposite direction if it is negative.</p>
 			<example xml:id="scalar-components-moments-example">
 				<title>Scalar addition</title>
 				<statement>
-					<p> Find the resultant magnitude of the following three scalar moments: </p>
+					<p> Find the resultant of the following three moments: </p>
 					<p><m>\vec{M_1} = \kNm{25} \circlearrowright</m>, <m>\vec{M_2} =\kNm{40} \circlearrowleft</m>, and <m>\vec{M_3} = \kNm{30} \circlearrowright</m></p>
 				</statement>
 				<answer>
-					<p> <m>|\vec{M}| = \kNm{15}</m> </p>
+					<p> <m>\vec{M} = \kNm{15}</m> Clockwise </p>
 				</answer>
 				<solution>
 					<p>Manually attaching the signs according to the standard sign convention (CCW = + from the right-hand rule) gives the scalar moments:
@@ -174,259 +205,261 @@
 			</example>
 		</subsection>
 	</section>
-	<section xml:id="moments-in-2D">
-		<title>2D Moments</title>
+	<section xml:id="varignons-theorem">
+		<title>Varignon's Theorem</title>
 		<introduction>
-			<p>In this section we will look at several alternitive methods to find the moment of a force about a point in two dimensions. </p>
-			<p> While all of these methods will produce the same result, frequently you will find that one method is computationally simpler to apply than another. The simplest method generally depends on what is know and unknown in a given situation, so it is beneficial be famialar with all these methods.</p>
+			<p>Varignon's Theorem is a method to calculate moments developed in 1687 by French mathematician Pierre Varignon (1654 <ndash/> 1722). It states that </p>
+			<blockquote>
+				<p>The sum of the moments of several concurrent forces about a point is equal to the moment of the resultant of those forces, or alternately, the moment of a force about a point equals the sum of the moments of its components.</p>
+			</blockquote>
+			<p>This means you can find the moment of a force by first breaking it into components, evaluating the moments of the individual components, and finally summing them to find the net moment about the point.</p>
+			<p>This may sound like more work than just finding the moment of the original force, but in practice, it is often easier. </p>
+			<p>When applyling Varignon's Theorem, you are free to select components in any direction, but the two most convenient choices are discussed below.</p>
 		</introduction>
-		<subsection>
-			<title>Definition of the Moment</title>
-<p/>
+		<subsection xml:id="perpendicular-component">
+			<title>Parallel and Perpendicular Components</title>
+			<p>The first common way to apply Verignon's Theorem is to break the force creating the moment into two components, one parallel with the line segment connecting the moment center with the point of application of the force, and the other perpendicular to it.</p>
+			<p>Consider the wrench in the interactive diagram below. Assume that the length of the handle is <m>d</m>, the magnitude of the force is <m>F</m> and the angle between the force and the handle is <m>\theta</m>. The components parallel to the wrench handle and perpendicular to it are
+				<md>
+				<mrow>F_\| \amp= F \cos \theta \amp F_\perp \amp= F \sin \theta</mrow>
+				</md>. By Verignon's theorem and the definition of the moment, <xref ref="moment-definition"/>, the sum of the moments of the components simplifies to:
+				<men xml:id="moment-fperp"> M = F_\perp d </men>, because the contribution of the parallel component is zero since its line of action passes through the moment center <m>A</m>. </p>
+			<figure>
+				<caption>Varignon's Theorem: Perpendicular Component </caption>
+				<xi:include href="interactives.ptx" xpointer="ggb_dan-wrench-3_interactive"/>
+			</figure>
+			<p>This result agrees with our intuitive understanding of how a wrench works; the greatest torque is developed when the force is applied at a right angle to the handle.</p>
+			<p>Equations <xref ref="moment-definition"/> and <xref ref="moment-fperp"/> not only produce the same result, but they are also completely identical. If the length of the handle is <m>d</m> and the angle between the force <m>\vec{F}</m> and the handle is <m>\theta</m>, then <m>d_\perp = d \sin \theta</m>, and <m>F_\perp = F \sin \theta</m>. Using either equation to calculate the moment gives
+				<men xml:id="moment-general">M = F\ d_\perp = F_\|\ d = F\ d\ \sin \theta</men>.</p>
 		</subsection>
-		<subsection xml:id="varignons-theorem">
-			<title>Varignon's Theorem</title>
-
-				<p>Varignon's Theorem is a method to calculate moments developed in 1687 by French mathematician Pierre Varignon (1654 <ndash/> 1722). It states that sum of the moments of several concurrent forces about a point is equal to the moment of the resultant of those forces, or alternately, the moment of a force about a point equals the sum of the moments of its components.</p>
-				<p>This means you can find the moment of a force by first breaking it into components, evaluating the scalar moments of the individual components, and finally summing them to find the net moment about the point. The scalar moment of a component is the magnitude of the component times the perpendicular distance to the moment center by the <xref ref="moment-definition" text="custom"> definition of a moment</xref>, with a positive or negative sign assigned to indicate its direction.</p>
-				<p>This may sound like more work than just finding the moment of the original force, but in practice, it is often easier. Consider the interactive to the right. If we break the force into components along the wrench handle and perpendicular to it, the sum of the moments is
-					<men xml:id="moment-fperp"> M = F_\perp d </men>, where <m>d</m> is the length of the handle, and <m>F_\perp</m> is the component of <m>F</m> perpendicular to the handle. Here, the contribution of the parallel component to the sum is zero, since its line of action passes through the moment center <m>A</m>. </p>
-				<figure>
-					<caption>Varignon's Theorem: <m> M = F_\perp d</m> </caption>
-					<xi:include href="interactives.ptx" xpointer="ggb_dan-wrench-3_interactive"/>
-				</figure>
-				<p>This result agrees with our intuitive understanding of how a wrench works; the greatest torque is developed when the force is applied at a right angle to the handle.</p>
-				<p>Equations <xref ref="moment-definition"/> and <xref ref="moment-fperp"/> not only produce the same result, but they are also completely identical. If the length of the handle is <m>d</m> and the angle between the force <m>\vec{F}</m> and the handle is <m>\theta</m>, then <m>d_\perp = d \sin \theta</m>, and <m>F_\perp = F \sin \theta</m>. Using either equation to calculate the moment gives
-					<men xml:id="moment-general">M = F\ d\ \sin \theta</men>.</p>
+		<subsection xml:id="Chapter_04-rectangular-components">
+			<title>Horizontal and Vertical Components</title>
+			<p>Varignon's theorem is particularly convenient in situations where horizontal and vertical dimensions are provided, as is often the case. If you decompose the forces into horizontal and vertical components you can find the moments of the components without difficulty. The resultant moment is the sum of the moments of the components. </p>
+			<p>Verignon's Equation is <xref ref="varignon"/> and <xref ref="verignon-diagram"/> is the corresponding diagram for the moment of force <m>F</m> about point <m>A</m>. Notice that the horizontal component is multiplied by the vertical distance, and the vertical component is multiplied by the horizontal distance since these are the perpendiculars, and that the signs on the terms can be either positive or negative, depending on the direction of the component moments.
+				<men xml:id="varignon">M = \pm (F_x\ d_y) \pm (F_y\ d_x)</men> </p>
+			<figure xml:id="verignon-diagram">
+				<caption>Verignon's Theorem Horizontal and Vertical Components</caption>
+				<image source="images/CH04-moment-fxdy-fydx" width="50%">
+					<shortdescription>Point A is shown as an origin, with a distance dx indicated in the horizontal direction and distance dy indicated in the vertical direction. At coordinates (dx, dy), a Force F originates acting up and to the right with components of Fx in the horizontal direction and Fy in the vertical direction.</shortdescription>
+				</image>
+			</figure>
+			<p>When applying Verignon's Theorem <xref ref="varignon"/>, take care to assign the correct sign to the individual moment terms; counterclockwise moments are positive, and clockwise negative are negative according to the right-hand rule, regardless of whether <m>F_x</m> acts left or right, or whether <m>F_y</m> acts up or down. </p>
+			<example xml:id="Chapter_04-example-varignon-s-theorem">
+				<title>Varignon's Theorem</title>
+				<statement>
+					<sidebyside widths="60% 40%" margins="0%" valign="middle">
+						<p>A <m>\lb{750}</m> force is applied to the frame as shown. Determine the moment this force makes about point <m>A</m>.</p>
+						<image source="images/CH04-moment-example"> </image>
+					</sidebyside>
+				</statement>
+				<answer>
+					<p>
+						<me>\vec{M}_A = \ftlb{174} \text{ Clockwise}</me>. </p>
+				</answer>
+				<solution>
+					<p>Force <m>\vec{F}</m> acts <m>\ang{60}</m> from the vertical with a <m>\lb{750}</m> magnitude, so its horizontal and vertical components are
+						<md>
+						<mrow>F_x \amp = F \sin \ang{60} = \lb{649.5} </mrow>
+						<mrow> F_y \amp = F \cos \ang{60} = \lb{375.0}</mrow>
+						</md> </p>
+					<p>For component <m>F_x</m>, the perpendicular distance from point <m>A</m> is <m>\ft{2}</m> so the moment of this component is
+						<me>M_1 = 2 F_x = \ftlb{1299} \text{ Clockwise}</me>.</p>
+					<p>For component <m>F_x</m>, the perpendicular distance from point <m>A</m> is <m>\ft{3}</m> so the moment of this component is
+						<me>M_2 = 3 F_y = \ftlb{1125} \text{ Counter-clockwise}</me>.</p>
+					<p>Assigning a negative sign to <m>M_1</m> and a positive sign to <m>M_2</m> to account for their directions and summing, gives the moment of <m>\vec{F}</m> about <m>A</m>.
+						<md>
+						<mrow>M_A \amp = - M_1 + M_2</mrow>
+						<mrow>\amp = - 1299 + 1125</mrow>
+						<mrow>\amp = -\ftlb{174}</mrow>
+						</md> </p>
+					<p>The negative sign indicates that the resultant moment is clockwise, with a magnitude of <m>\ftlb{174}</m>.</p>
+					<p>
+						<me>\vec{M}_A = \ftlb{174} \text{ Clockwise}</me>. </p>
+				</solution>
+			</example>
 		</subsection>
-			<subsection xml:id="Chapter_04-rectangular-components">
-				<title>Rectangular Components</title>
-				<p>Varignon's theorem is particularly convenient to use because the diagram provides horizontal and vertical dimensions, which is often the case. If you decompose forces into horizontal and vertical components you can find the scalar moments of the components without difficulty.</p>
-				<sidebyside widths="48% 50%" margins="0%">
-					<p> The moment of a force is the sum of the moments of the components.
-						<men xml:id="varignon">M = \pm F_x d_y \pm F_y d_x</men> Take care to assign the correct sign to the individual moment terms to indicate direction; positive moments tend to rotate the object counter-clockwise and negative moments tend to rotate it clockwise according to the standard right-hand rule convention. </p>
-					<figure>
-						<caption>Sum of moments of components. <m>M = \pm F_x d_y \pm F_y d_x</m> </caption>
-						<image source="images/CH04-moment-fxdy-fydx">
-							<shortdescription>Point A is shown as an origin, with a distance dx indicated in the horizontal direction and distance dy indicated in the vertical direction. At coordinates (dx, dy), a Force F originates acting up and to the right with components of Fx in the horizontal direction and Fy in the vertical direction.</shortdescription>
+		<conclusion>
+			<p>We have discussed several different approaches for finding the moment of a force about a point in the preceding sections. While all of these methods produce the same result, frequently you will find that one method is computationally simpler to apply than another. The simplest method generally depends on what is know and unknown in a given situation, so we recommend that you become familiar with all these methods.</p>
+			<p>The interactive diagram below will help you visualize the different approaches for finding moments that were covered.</p>
+			<figure xml:id="ggb_cgjzpe7k">
+				<caption>Three equivalent approaches to finding a moment about a point.</caption>
+				<xi:include href="interactives.ptx" xpointer="moments-3-ways_interactive"/>
+			</figure>
+			<example xml:id="Chapter_03-2d-moments-4ways">
+				<title>2D Moments - Four Ways</title>
+				<introduction>
+					<sidebyside widths="50%  50%" valign="middle">
+						<image source="images/2d-moment-prob">
+							<shortdescription>A 500-pound-force vector pulls from point D located at (0,2) feet and we want to find the moment of this force around point A at (-4,-3) feet. A position vector r connects point A with point D</shortdescription>
 						</image>
-					</figure>
-				</sidebyside>
-				<example xml:id="Chapter_04-example-varignon-s-theorem">
-					<title>Varignon's Theorem</title>
+						<stack>
+							<p>Force <m>\vec{F}</m> has a magnitude of <m>\lbf{500}</m> and acts on point <m>D</m> in the direction shown.</p>
+							<p>Find the moment caused by force <m>\vec{F}</m> around point <m>A=\ft{(-4,-3)}</m> using different methods and verify that they give the same result.</p>
+						</stack>
+					</sidebyside>
+					<p>This problem demonstrates four different ways you can solve the problem. The first two methods use vector algebra; the second two take a scalar approach that uses geometry and right-triangle trigonometry. All four methods are mathematically identical.</p>
+				</introduction>
+				<task>
 					<statement>
-						<sidebyside widths="60% 40%" margins="0%" valign="middle">
-							<p>A <m>\lb{750}</m> force is applied to the frame as shown. Determine the moment this force makes about point <m>A</m>.</p>
-							<image source="images/CH04-moment-example"> </image>
-						</sidebyside>
+						<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> using Varignon's Theorem,
+							<me>\vec{M}_A = \left(\vec{r}_x \times \vec{F}_y\right) + \left(\vec{r}_y \times \vec{F}_x\right)</me>.</p>
 					</statement>
 					<answer>
-						<p>
-							<me>\vec{M}_A = \ftlb{174} \text{ Clockwise}</me>. </p>
+						<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
 					</answer>
 					<solution>
-						<p>Force <m>\vec{F}</m> acts <m>\ang{60}</m> from the vertical with a <m>\lb{750}</m> magnitude, so its horizontal and vertical components are
-							<md>
-							<mrow>F_x \amp = F \sin \ang{60} = \lb{649.5} </mrow>
-							<mrow> F_y \amp = F \cos \ang{60} = \lb{375.0}</mrow>
-							</md> </p>
-						<p>For component <m>F_x</m>, the perpendicular distance from point <m>A</m> is <m>\ft{2}</m> so the moment of this component is
-							<me>M_1 = 2 F_x = \ftlb{1299} \text{ Clockwise}</me>.</p>
-						<p>For component <m>F_x</m>, the perpendicular distance from point <m>A</m> is <m>\ft{3}</m> so the moment of this component is
-							<me>M_2 = 3 F_y = \ftlb{1125} \text{ Counter-clockwise}</me>.</p>
-						<p>Assigning a negative sign to <m>M_1</m> and a positive sign to <m>M_2</m> to account for their directions and summing, gives the moment of <m>\vec{F}</m> about <m>A</m>.
-							<md>
-							<mrow>M_A \amp = - M_1 + M_2</mrow>
-							<mrow>\amp = - 1299 + 1125</mrow>
-							<mrow>\amp = -\ftlb{174}</mrow>
-							</md> </p>
-						<p>The negative sign indicates that the resultant moment is clockwise, with a magnitude of <m>\ftlb{174}</m>.</p>
-						<p>
-							<me>\vec{M}_A = \ftlb{174} \text{ Clockwise}</me>. </p>
-					</solution>
-				</example>
-				<p>The interactive diagram below will help you visualize the different approaches for finding moments covered in this section.</p>
-				<p/>
-				<figure xml:id="ggb_cgjzpe7k">
-					<caption>Three equivalent approaches to finding a moment about a point.</caption>
-					<xi:include href="interactives.ptx" xpointer="moments-3-ways_interactive"/>
-				</figure>
-				<example xml:id="Chapter_03-2d-moments-4ways">
-					<title>2D Moments - Four Ways</title>
-					<introduction>
-						<sidebyside widths="50%  50%" valign="middle">
-							<image source="images/2d-moment-prob">
-								<shortdescription>A 500-pound-force vector pulls from point D located at (0,2) feet and we want to find the moment of this force around point A at (-4,-3) feet. A position vector r connects point A with point D</shortdescription>
+						<p><xref ref="varignons-theorem" text="custom">Varignon's Theorem </xref> states that the moment of a force is the sum of the moments of its components. In this example we will determine the vertical and horizontal components of <m>\vec{r}</m> and <m>\vec{F}</m>, then add the cross products of the two perpendicular pairs.</p>
+						<sidebyside width="50%" margins="auto">
+							<image source="images/2d-moment-varignons">
+								<shortdescription>TBD</shortdescription>
 							</image>
-							<stack>
-								<p>Force <m>\vec{F}</m> has a magnitude of <m>\lbf{500}</m> and acts on point <m>D</m> in the direction shown.</p>
-								<p>Find the moment caused by force <m>\vec{F}</m> around point <m>A=\ft{(-4,-3)}</m> using different methods and verify that they give the same result.</p>
-							</stack>
 						</sidebyside>
-						<p>This problem demonstrates four different ways you can solve the problem. The first two methods use vector algebra; the second two take a scalar approach that uses geometry and right-triangle trigonometry. All four methods are mathematically identical.</p>
-					</introduction>
-					<task>
-						<statement>
-							<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> using Varignon's Theorem,
-								<me>\vec{M}_A = \left(\vec{r}_x \times \vec{F}_y\right) + \left(\vec{r}_y \times \vec{F}_x\right)</me>.</p>
-						</statement>
-						<answer>
-							<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+khat\right)</m></p>
-						</answer>
-						<solution>
-							<p><xref ref="varignons-theorem" text="custom">Varignon's Theorem </xref> states that the moment of a force is the sum of the moments of its components. In this example we will determine the vertical and horizontal components of <m>\vec{r}</m> and <m>\vec{F}</m>, then add the cross products of the two perpendicular pairs.</p>
-							<sidebyside width="50%" margins="auto">
-								<image source="images/2d-moment-varignons">
-									<shortdescription>TBD</shortdescription>
-								</image>
-							</sidebyside>
-							<p>The 3:2 slope of <m>\vec{F}</m> can be expressed as an angle.
-								<me>\theta = \tan^{-1}\ \frac{3}{2} = \ang{56.3}</me> </p>
-							<p>Find the components of <m>\vec{r}</m> and <m>\vec{F}</m>.
+						<p>The 3:2 slope of <m>\vec{F}</m> can be expressed as an angle.
+							<me>\theta = \tan^{-1}\ \frac{3}{2} = \ang{56.3}</me> </p>
+						<p>Find the components of <m>\vec{r}</m> and <m>\vec{F}</m>.
+							<md>
+							<mrow>\vec{F} \amp = \lbf{500} \langle \cos \ang{56.3}, \sin \ang{56.3} \rangle</mrow>
+							<mrow> \amp = \lbf{\langle 277.35, 416.025 \rangle}</mrow>
+							<mrow>\vec{r} \amp = \ft{\langle 6,3 \rangle}</mrow>
+							</md> </p>
+						<p>Finally, following Varignon's Theorem, add the cross products of the perpendicular component pairs.
+							<md>
+							<mrow>\vec{M}_A \amp = \left(\vec{r}_x \times \vec{F}_y\right) + \left(\vec{r}_y \times \vec{F}_x\right)</mrow>
+							<mrow>\amp = \ft{6} \cdot \lbf{416.025} \left(\khat\right) + \ft{3}\cdot \lbf{277.35}\left(-\khat\right)</mrow>
+							<mrow>\amp = \ftlbf{1664.1}\left(+\khat\right)</mrow>
+							</md> </p>
+						<p>Notes:
+							<ul>
+							<li><p>When finding the moment of two-dimensional vectors in component form, this is often the preferred method, as it is quick and most find the process intuitive.</p></li>
+							<li><p>The first cross product, <m>\vec{r}_x \times \vec{F}_y</m>, has a <em>positive value</em> because <m>\ihat\times\jhat=+\khat</m>, <em>not</em> because you are simply multiplying two positive components.</p></li>
+							<li><p>The second cross product, <m>\vec{r_y} \times \vec{F_x}</m>, results in a <em>negative value</em> because <m>\jhat\times\ihat=-\khat</m>.</p></li>
+							<li><p>All moments have units of force times distance, in this case [ft <m>\cdot</m> lbf].</p></li>
+							<li><p>The overall sign of <m>\vec{M_A}</m> determines the final direction. A positive value corresponds to a counterclockwise moment <ndash/> right thumb out of the page <ndash/> and a negative value indicates a clockwise moment. See <xref ref="rhr4"/> for the hand diagram. </p></li>
+							</ul></p>
+					</solution>
+				</task>
+				<task>
+					<statement>
+						<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> using a vector cross product,
+							<me> \vec{M}_A = \vec{r} \times \vec{F}</me>.</p>
+					</statement>
+					<answer>
+						<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
+					</answer>
+					<solution>
+						<sidebyside widths="50%  50%" valign="middle">
+							<image source="images/2d-moment-varignons">
+								<shortdescription>A diagram with both position vector r and force vector F broken into x and y components.</shortdescription>
+							</image>
+							<p>We can also solve for the moment <m>\vec{M}_A</m> using the vector determinant method of <xref ref="vector-cross-products"/>. We can use the values of <m>\theta</m>, <m>\vec{r}</m>, and <m>\vec{F}</m> computed in part (a) above. Jumping straight into the vector determinant, we find:</p>
+						</sidebyside>
+						<p>
+							<md>
+							<mrow>\vec{M}_A \amp = \vec{r} \times \vec{F}</mrow>
+							<mrow>\amp = \begin{vmatrix} \ihat \amp \jhat \amp \khat \\ r_x \amp r_y \amp 0 \\ F_x \amp F_y \amp 0 \end{vmatrix}</mrow>
+							<mrow>\amp = \begin{vmatrix} \ihat \amp \jhat \amp \khat \\ 6 \amp 3 \amp 0 \\ 277.35 \amp 416.025 \amp 0 \end{vmatrix}</mrow>
+							<mrow>\amp = \ft{6}\left(\lbf{416.025}\right)\left(\khat\right)+\ft{3}\left(\lbf{277.35}\right)\left(-\khat\right)</mrow>
+							<mrow>\amp = \ftlbf{1664.1}\left(+\khat\right)</mrow>
+							</md> </p>
+						<p>Notes:
+							<ul>
+							<li><p>Determinants are a robust way to compute two-dimensional cross products but take a bit more effort than Varignon's Theorem. The math is <em>exactly the same</em> either way, which means that Varignon's Theorem is just a shortcut to working through a two-dimensional vector determinant.</p></li>
+							<li><p>The signs on the cross-product terms <m>\vec{r}_x \times \vec{F}_y</m> and <m>\vec{r}_y \times \vec{F}_x</m> still come from the right-hand rule, and conveniently the process of multiplying diagonals in the determinant takes care of the signs. </p></li>
+							<li><p>Recognize that the reason we multiply diagonals in a determinant is that we only want to multiply the <em>perpendicular</em> components.</p></li>
+							</ul></p>
+					</solution>
+				</task>
+				<task>
+					<statement>
+						<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> by finding the perpendicular distance <m>d_\perp</m>,
+							<me>M_A=F\ d_{\perp}</me>.</p>
+					</statement>
+					<answer>
+						<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
+					</answer>
+					<solution>
+						<sidebyside widths="50%  50%" valign="middle">
+							<image source="images/2d-moment-dperp-cross-F">
+								<shortdescription>A diagram where the line-of-action of F is extended down past A and a perpendicular distance is drawn between point A and this line-of-action.</shortdescription>
+							</image>
+							<p>This solution requires you to find the perpendicular distance <m>d_{\perp}</m> between the point <m>A</m> and line-of-action of <m>\vec{F}</m>. One way to find this distance is shown below.</p>
+						</sidebyside>
+						<p>
+							<ol>
+							<li><p> Draw a moderately large and accurate diagram. Too much confusion has been created by small, inaccurately-drawn diagrams. </p></li>
+							<li><p> Start with the angle <m>\theta</m> that you found in Part (a) of this example. The angle opposite <m>\theta_1</m> is <m>\theta_2</m>. </p></li>
+							<li><p> Next, using the corresponding angles of parallel lines, transfer <m>\theta_2</m> from the force triangle to triangle <m>ABC</m> as <m>\theta_3</m>. </p></li>
+							<li><p> Finally, find <m>d_{\perp}</m> using the sine function.</p> <p>
 								<md>
-								<mrow>\vec{F} \amp = \lbf{500} \langle \cos \ang{56.3}, \sin \ang{56.3} \rangle</mrow>
-								<mrow> \amp = \lbf{\langle 277.35, 416.025 \rangle}</mrow>
-								<mrow>\vec{r} \amp = \ft{\langle 6,3 \rangle}</mrow>
-								</md> </p>
-							<p>Finally, following Varignon's Theorem, add the cross products of the perpendicular component pairs.
+								<mrow>\sin \theta_3 \amp = \frac{d_{\perp}}{AC}</mrow>
+								<mrow> d_{\perp} \amp = AC\left(\sin \theta_3\right)</mrow>
+								<mrow> \amp = 4\left(\sin \ang{56.3}\right)</mrow>
+								<mrow> \amp = \ft{3.328}</mrow>
+								</md> </p></li>
+							<li><p> Finally, compute the moment about <m>A</m>.
 								<md>
-								<mrow>\vec{M}_A \amp = \left(\vec{r}_x \times \vec{F}_y\right) + \left(\vec{r}_y \times \vec{F}_x\right)</mrow>
-								<mrow>\amp = \ft{6} \cdot \lbf{416.025} \left(\khat\right) + \ft{3}\cdot \lbf{277.35}\left(-\khat\right)</mrow>
-								<mrow>\amp = \ftlbf{1664.1}\left(+\khat\right)</mrow>
-								</md> </p>
-							<p>Notes:
-								<ul>
-								<li><p>When finding the moment of two-dimensional vectors in component form, this is often the preferred method, as it is quick and most find the process intuitive.</p></li>
-								<li><p>The first cross product, <m>\vec{r}_x \times \vec{F}_y</m>, has a <em>positive value</em> because <m>\ihat\times\jhat=+\khat</m>, <em>not</em> because you are simply multiplying two positive components.</p></li>
-								<li><p>The second cross product, <m>\vec{r_y} \times \vec{F_x}</m>, results in a <em>negative value</em> because <m>\jhat\times\ihat=-\khat</m>.</p></li>
-								<li><p>All moments have units of force times distance, in this case [ft <m>\cdot</m> lbf].</p></li>
-								<li><p>The overall sign of <m>\vec{M_A}</m> determines the final direction. A positive value corresponds to a counterclockwise moment <ndash/> right thumb out of the page <ndash/> and a negative value indicates a clockwise moment. See <xref ref="rhr4"/> for the hand diagram. </p></li>
-								</ul></p>
-						</solution>
-					</task>
-					<task>
-						<statement>
-							<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> using a vector cross product,
-								<me> \vec{M}_A = \vec{r} \times \vec{F}</me>.</p>
-						</statement>
-						<answer>
-							<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
-						</answer>
-						<solution>
-							<sidebyside widths="50%  50%" valign="middle">
-								<image source="images/2d-moment-varignons">
-									<shortdescription>A diagram with both position vector r and force vector F broken into x and y components.</shortdescription>
-								</image>
-								<p>We can also solve for the moment <m>\vec{M}_A</m> using the vector determinant method of <xref ref="vector-cross-products"/>. We can use the values of <m>\theta</m>, <m>\vec{r}</m>, and <m>\vec{F}</m> computed in part (a) above. Jumping straight into the vector determinant, we find:</p>
-							</sidebyside>
-							<p>
+								<mrow> M_A \amp=F\ d_{\perp}</mrow>
+								<mrow>\amp =\ft{3.328}\left(\lbf{500}\right)</mrow>
+								<mrow>\amp = \ftlbf{1664.10}</mrow>
+								<mrow>\vec{M}_A \amp =\ftlbf{1664.10}\left(+\khat\right)</mrow>
+								</md> The <m>\left(+\khat\right)</m> direction of <m>\vec{M}_A</m> comes from the observation of the right-hand rule, as scalar moment computations are not directional. </p></li>
+							</ol>
+						</p>
+					</solution>
+				</task>
+				<task>
+					<statement>
+						<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> by finding the perpendicular component of <m>\vec{F}</m>,
+							<me>M_A =F_{\perp}\ d</me>.</p>
+					</statement>
+					<answer>
+						<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
+					</answer>
+					<solution>
+						<sidebyside widths="50%  50%" valign="middle">
+							<image source="images/2d-moment-d-cross-Fperp">
+								<shortdescription>A diagram where the portion of force F perpendicular to the moment arm r is shown.</shortdescription>
+							</image>
+							<p>This solution requires you to find the portion of force <m>F</m> perpendicular to the moment arm <m>d</m>. One approach to finding <m>F_{\perp}</m> is shown below.</p>
+						</sidebyside>
+						<p>
+							<ol>
+							<li><p> Draw a large and accurate diagram to assist in finding the distances and angles in this problem. </p></li>
+							<li><p> The next three steps focus on finding the angle <m>\beta_2+\alpha</m> to help find <m>\vec{F_{\perp}}</m>. Using triangle <m>ADG</m>, compute the angle <m>\beta_1</m>.
+								<me>\beta_1=\tan^{-1} \left( \frac{3}{6} \right) = \ang{26.565}</me> </p></li>
+							<li><p> Next, recognizing that <m>\beta_1</m> is measured from horizontal and <m>F_{\perp}</m> is perpendicular to segment <m>d</m>, then the angle between vertical and <m>F_{\perp}</m> must also be <m>\beta</m>, which we'll label <m>\beta_2</m>. This geometric rule for horizontal: vertical angles of perpendicular lines is also supported by the fact that <m>\beta_1</m> and <m>\beta_2</m> are both complementary to <m>\gamma</m>. </p></li>
+							<li><p> The last angle needed is <m>\alpha</m>, which is complimentary to <m>\theta</m>.
+								<me>\alpha=\ang{90}-\theta= \ang{90}-\ang{56.31}=\ang{33.69}</me> </p></li>
+							<li><p> Find <m>\vec{F_{\perp}}</m> using right triangle <m>DEH</m>.
 								<md>
-								<mrow>\vec{M}_A \amp = \vec{r} \times \vec{F}</mrow>
-								<mrow>\amp = \begin{vmatrix} \ihat \amp \jhat \amp \khat \\ r_x \amp r_y \amp 0 \\ F_x \amp F_y \amp 0 \end{vmatrix}</mrow>
-								<mrow>\amp = \begin{vmatrix} \ihat \amp \jhat \amp \khat \\ 6 \amp 3 \amp 0 \\ 277.35 \amp 416.025 \amp 0 \end{vmatrix}</mrow>
-								<mrow>\amp = \ft{6}\left(\lbf{416.025}\right)\left(\khat\right)+\ft{3}\left(\lbf{277.35}\right)\left(-\khat\right)</mrow>
-								<mrow>\amp = \ftlbf{1664.1}\left(+\khat\right)</mrow>
-								</md> </p>
-							<p>Notes:
-								<ul>
-								<li><p>Determinants are a robust way to compute two-dimensional cross products but take a bit more effort than Varignon's Theorem. The math is <em>exactly the same</em> either way, which means that Varignon's Theorem is just a two-dimensional shortcut to working through a vector determinant.</p></li>
-								<li><p>The signs on the cross-product terms <m>\vec{r}_x \times \vec{F}_y</m> and <m>\vec{r}_y \times \vec{F}_x</m> still come from the right-hand rule, and conveniently the process of multiplying diagonals in the determinant takes care of the signs. </p></li>
-								<li><p>Recognize that the reason we multiply diagonals in a determinant is that we only want to multiply the <em>perpendicular</em> components.</p></li>
-								</ul></p>
-						</solution>
-					</task>
-					<task>
-						<statement>
-							<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> by finding the perpendicular distance <m>d_\perp</m>,
-								<me>M_A=F\ d_{\perp}</me>.</p>
-						</statement>
-						<answer>
-							<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
-						</answer>
-						<solution>
-							<sidebyside widths="50%  50%" valign="middle">
-								<image source="images/2d-moment-dperp-cross-F">
-									<shortdescription>A diagram where the line-of-action of F is extended down past A and a perpendicular distance is drawn between point A and this line-of-action.</shortdescription>
-								</image>
-								<p>This solution requires you to find the perpendicular distance <m>d_{\perp}</m> between the point <m>A</m> and line-of-action of <m>\vec{F}</m>. One way to find this distance is shown below.</p>
-							</sidebyside>
-							<p>
-								<ol>
-								<li><p> Draw a moderately large and accurate diagram. Too much confusion has been created by small, inaccurately-drawn diagrams. </p></li>
-								<li><p> Start with the angle <m>\theta</m> that you found in Part (a) of this example. The angle opposite <m>\theta_1</m> is <m>\theta_2</m>. </p></li>
-								<li><p> Next, using the corresponding angles of parallel lines, transfer <m>\theta_2</m> from the force triangle to triangle <m>ABC</m> as <m>\theta_3</m>. </p></li>
-								<li><p> Finally, find <m>d_{\perp}</m> using the sine function.</p> <p>
-									<md>
-									<mrow>\sin \theta_3 \amp = \frac{d_{\perp}}{AC}</mrow>
-									<mrow> d_{\perp} \amp = AC\left(\sin \theta_3\right)</mrow>
-									<mrow> \amp = 4\left(\sin \ang{56.3}\right)</mrow>
-									<mrow> \amp = \ft{3.328}</mrow>
-									</md> </p></li>
-								<li><p> Finally, compute the moment about <m>A</m>.
-									<md>
-									<mrow> M_A \amp=F\ d_{\perp}</mrow>
-									<mrow>\amp =\ft{3.328}\left(\lbf{500}\right)</mrow>
-									<mrow>\amp = \ftlbf{1664.10}</mrow>
-									<mrow>\vec{M}_A \amp =\ftlbf{1664.10}\left(+\khat\right)</mrow>
-									</md> The <m>\left(+\khat\right)</m> direction of <m>\vec{M}_A</m> comes from the observation of the right-hand rule, as scalar moment computations are not directional. </p></li>
-								</ol>
-							</p>
-						</solution>
-					</task>
-					<task>
-						<statement>
-							<p>Find the moment of <m>\vec{F}</m> about point <m>A</m> by finding the perpendicular component of <m>\vec{F}</m>,
-								<me>M_A =F_{\perp}\ d</me>.</p>
-						</statement>
-						<answer>
-							<p><m>\vec{M_A}=\ftlbf{1664.10}\left(+\khat\right)</m></p>
-						</answer>
-						<solution>
-							<sidebyside widths="50%  50%" valign="middle">
-								<image source="images/2d-moment-d-cross-Fperp">
-									<shortdescription>A diagram where the portion of force F perpendicular to the moment arm r is shown.</shortdescription>
-								</image>
-								<p>This solution requires you to find the portion of force <m>F</m> perpendicular to the moment arm <m>d</m>. One approach to finding <m>F_{\perp}</m> is shown below.</p>
-							</sidebyside>
-							<p>
-								<ol>
-								<li><p> Draw a large and accurate diagram to assist in finding the distances and angles in this problem. </p></li>
-								<li><p> The next three steps focus on finding the angle <m>\beta_2+\alpha</m> to help find <m>\vec{F_{\perp}}</m>. Using triangle <m>ADG</m>, compute the angle <m>\beta_1</m>.
-									<me>\beta_1=\tan^{-1} \left( \frac{3}{6} \right) = \ang{26.565}</me> </p></li>
-								<li><p> Next, recognizing that <m>\beta_1</m> is measured from horizontal and <m>F_{\perp}</m> is perpendicular to segment <m>d</m>, then the angle between vertical and <m>F_{\perp}</m> must also be <m>\beta</m>, which we'll label <m>\beta_2</m>. This geometric rule for horizontal: vertical angles of perpendicular lines is also supported by the fact that <m>\beta_1</m> and <m>\beta_2</m> are both complementary to <m>\gamma</m>. </p></li>
-								<li><p> The last angle needed is <m>\alpha</m>, which is complimentary to <m>\theta</m>.
-									<me>\alpha=\ang{90}-\theta= \ang{90}-\ang{56.31}=\ang{33.69}</me> </p></li>
-								<li><p> Find <m>\vec{F_{\perp}}</m> using right triangle <m>DEH</m>.
-									<md>
-									<mrow> \cos \left( \beta_2+\alpha \right) \amp = \frac{F_{\perp}}{\lbf{500}}</mrow>
-									<mrow>F_{\perp} \amp = \lbf{500}(\cos (\ang{26.565}+\ang{33.69}))</mrow>
-									<mrow>F_{\perp} \amp = \lbf{248.07}</mrow>
-									</md> </p></li>
-								<li><p> Find the length <m>d</m> using the Pythagorean Theorem.
-									<me>d=\sqrt{6^2+3^2}=\ft{6.708}</me> </p></li>
-								<li><p> Finally, compute the magnitude <m> M_A</m> and the vector <m>\vec{M_A}</m>.
-									<md>
-									<mrow>M_A \amp = F_{\perp} d </mrow>
-									<mrow>\amp =\lbf{248.07} \cdot \ft{6.708} </mrow>
-									<mrow>\vec{M_A} \amp =\ftlbf{1664.10}\left(+\khat\right)</mrow>
-									</md> The counterclockwise direction <m>\left(+\khat\right)</m> comes from the right-hand rule, since scalar moment computations are not directional. </p></li>
-								</ol>
-							</p>
-						</solution>
-					</task>
-				</example>
-			</subsection>
-
-		<subsection label="moment-cross-products">
-			<title>Moment Cross Products</title>
-			<p>Moments are created by the offset of a force from the point of interest. We measure the force's offset from a point using a <term>moment arm</term> <m>\vec{r}</m> pointing <em>from</em> the point of interest (the axis of rotation) <em>to</em> a point along the force's line-of-action. This moment arm is simply a position vector used to compute moments. To help remember that a moment arm goes from the point of interest to the force and not the other way around, just be a Jedi Knight and always go to the Force.</p>
-			<figure xml:id="dan-wrench-4">
-				<caption>A moment <m>\vec{M}_A</m> is created about point <m>A</m> by force <m>\vec{F}</m>. The moment arm <m>\vec{r}</m> goes from point A to the line of action of force <m>\vec{F}</m>.</caption>
-				<sidebyside width="60%">
-					<xi:include href="interactives.ptx" xpointer="ggb_dan-wrench-4_interactive"/>
-				</sidebyside>
-			</figure>
-		</subsection>
+								<mrow> \cos \left( \beta_2+\alpha \right) \amp = \frac{F_{\perp}}{\lbf{500}}</mrow>
+								<mrow>F_{\perp} \amp = \lbf{500}(\cos (\ang{26.565}+\ang{33.69}))</mrow>
+								<mrow>F_{\perp} \amp = \lbf{248.07}</mrow>
+								</md> </p></li>
+							<li><p> Find the length <m>d</m> using the Pythagorean Theorem.
+								<me>d=\sqrt{6^2+3^2}=\ft{6.708}</me> </p></li>
+							<li><p> Finally, compute the magnitude <m> M_A</m> and the vector <m>\vec{M_A}</m>.
+								<md>
+								<mrow>M_A \amp = F_{\perp} d </mrow>
+								<mrow>\amp =\lbf{248.07} \cdot \ft{6.708} </mrow>
+								<mrow>\vec{M_A} \amp =\ftlbf{1664.10}\left(+\khat\right)</mrow>
+								</md> The counterclockwise direction <m>\left(+\khat\right)</m> comes from the right-hand rule, since scalar moment computations are not directional. </p></li>
+							</ol>
+						</p>
+					</solution>
+				</task>
+			</example>
+		</conclusion>
+	</section>
+	<section label="moment-cross-products">
+		<title>Moment Cross Products</title>
+		<p>Moments are created by the offset of a force from the point of interest. We measure the force's offset from a point using a <term>moment arm</term> <m>\vec{r}</m> pointing <em>from</em> the point of interest (the axis of rotation) <em>to</em> a point along the force's line-of-action. This moment arm is simply a position vector used to compute moments. To help remember that a moment arm goes from the point of interest to the force and not the other way around, just be a Jedi Knight and always go to the Force.</p>
+		<figure xml:id="dan-wrench-4">
+			<caption>A moment <m>\vec{M}_A</m> is created about point <m>A</m> by force <m>\vec{F}</m>. The moment arm <m>\vec{r}</m> goes from point A to the line of action of force <m>\vec{F}</m>.</caption>
+			<sidebyside width="60%">
+				<xi:include href="interactives.ptx" xpointer="ggb_dan-wrench-4_interactive"/>
+			</sidebyside>
+		</figure>
 	</section>
 	<section xml:id="Chapter_04-moments-in-three-dimensions">
 		<title>3D Moments</title>
