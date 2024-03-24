@@ -1,1776 +1,2027 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="../../meta/OxygenXML/frameworks/pretext/oxygen-ptx.css"?>
-
 <chapter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="Chapter_06">
-<title>Equilibrium of Structures</title>
-<introduction>
-<p>
-In this chapter you will conduct static analysis of multi-body structures. Broadly defined, a structure is any set of interconnected rigid bodies designed to serve a purpose. The parts of the structure may move relative to one another, like the blades of scissors, or they may be fixed relative to one another, like the structural members of bridge.
-</p>
-
-<p>
-Analysis of structures involves determining all forces acting on and between individual members of the structure. Fundamentally there is nothing new here; the techniques you have already learned apply, however structures tend to have more unknown forces, and so are more involved and provide more opportunities for error than the problems you have previously encountered. Correct free-body diagrams and careful work are required, as always.
-</p>
-</introduction>
-
-<section xml:id="Chapter_06-structures">
-<title>Structures</title>
-<p>
-Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.
-</p>
-
-<p>
-A <term>truss</term> is a multi-body structure made up of long slender members connected at their ends in triangular subunits. Truss members carry axial forces only. Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example. They are also used for crane booms, radio towers and the like. Trusses are lightweight and relatively strong. Over the years many unique truss designs have been developed and are often named after the original designer.
-</p>
-
-<p>
-A <term>frame</term> is a multi-part, rigid, stationary structure primarily designed to support some type of load. A frame contains at least one multi-force member, which a truss never has. This means that, unlike trusses, frame members must support bending moments as well shear and normal forces. Many common items can be considered frames. Some examples: building structure, bike frames, ladders, scaffolding, and more.
-</p>
-
-<p>
-A <term>machine</term> is very similar to a frame, except that it includes some moving parts. The purpose of a machine is usually to provide a mechanical advantage and multiply forces. Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.
-</p>
-
-<p/>
-<figure xml:id="scissors">
-<caption> Scissors and bridges are examples of engineering structures. Scissors are a machine with three interconnected parts. The bridge is a truss. </caption>
-<sidebyside widths="48%  48%" margins="0%">
-<image source="images/scissors.png">
-<shortdescription>Scissors</shortdescription>
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<image source="images/bridge-505_1280.jpg">
-<shortdescription>A truss bridge</shortdescription>
-<remix>
-<creator>Simon (pixabay.com)</creator>
-<license href="https://creativecommons.org/choose/zero/">CC-0</license>
-<source href="https://www.needpix.com/photo/download/473/bridge-usa-gorge-arizona-free-pictures-free-photos-free-images-royalty-free-free-illustrations"/>
-</remix></image>
-</sidebyside>
-</figure>
-
-<p>
-<term>Solving</term> a structure means determining all forces acting on all of its parts. The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part. The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.
-</p>
-
-
-<paragraphs>
-<title>Two-force Members</title>
-<p>
-Many structures contain at least one two-force member, and trusses consist of two-force members exclusively. Recall from <xref ref="two-force-bodies"/> that a two-force body is an object subjected to exactly two forces. Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.
-</p>
-
-<p>
-Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces. In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied. Since these points are known, the direction of the line-of-action is readily found.
-</p>
-
-<p>
-The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression. If the two forces tend to stretch the object we say it is in <em>tension</em>; if they act the other way and squash the object, it is in <em>compression</em>. The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly. If the analysis shows that the forces are negative then they actually act with the opposite sense, <ie/> compression.
-</p>
-
-<figure>
-<caption>Two-force members in tension and compression.</caption>
-<image width="80%" source="images/tension-compression">
-<shortdescription>A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).</shortdescription>
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</paragraphs>
-</section>
-
-<section xml:id="Chapter_06-interactions-between-members">
-<title>Interactions between members</title>
-<introduction>
-<p>
-When analyzing structures we are dealing with multi-body systems, and need to recall <xref ref="newtons-third-law" text="title"/>, <q>For every action, there is an equal and opposite reaction.</q>
-</p>
-
-<p>
-This law applies to multi-body systems wherever one body connects to another. At any interaction point, forces are transferred from one body to the interacting body as equal and opposite action-reaction pairs. These forces cancel out and are invisible when the structure is intact. Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose the interaction forces. When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently. You may assume either direction for one, but the other <em>must</em> be equal and opposite.
-</p>
-
-<p>
-For example, look at the members and joints in the truss below. Diagram (a) shows the truss members held together by pins at <m>A</m>, <m>B</m>, and <m>C</m>. The forces holding the parts together cancel and are not shown. In the <sq>exploded</sq> view (b), the parts have been separated and the action-reaction pairs are exposed. Member <m>AB</m> is in tension, and the forces acting on it, also called <m>AB</m>, oppose each other and tend to stretch the member. These stretching forces are accompanied by equal and opposite forces, also called <m>AB</m> acting on pins <m>A</m> and <m>B</m>. Tensile forces <m>BC</m> and compressive forces <m>CA</m> behave similarly.
-</p>
-
-<figure xml:id="joints-members">
-<caption> External load and global reactions in red. Internal action-reaction pairs in blue. </caption>
-<sidebyside widths="30% 50%">
-<figure>
-<caption>Whole Truss</caption>
-<image source="images/joints-members-whole">
-<shortdescription>A three member truss with loads shown at the pins.</shortdescription>
-</image>
-</figure>
-
-<figure>
-<caption>Exploded</caption>
-<image source="images/joints-members-exploded">
-<shortdescription>A three member truss separated at the pins with external loads shown acting only on the pins.</shortdescription>
-</image>
-</figure>
-</sidebyside>
-</figure>
-
-<insight>
-<title>Multi-body systems</title>
-<p>
-When a multipart structure is in equilibrium, each part of the structure is also in equilibrium. For example in the truss below, each member of the truss, each joint, and each portion of the truss is also in equilibrium. This continues all the way down to the atoms of the structure. This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts.
-</p>
-
-<p/>
-<figure>
-<caption>Possible free-body diagrams</caption>
-<sbsgroup>
-<sidebyside widths="42% 36%">
-<figure>
-<caption>Complete Truss</caption>
-<image source="images/truss-fbds-whole">
-
-</image>
-</figure>
-
-<figure>
-<caption>Member <m>AD</m> </caption>
-<image source="images/truss-fbds-member">
-
-</image>
-</figure>
-</sidebyside>
-
-<sidebyside widths="42% 36%">
-<figure>
-<caption>Truss joints</caption>
-<image source="images/truss-fbds-pins">
-
-</image>
-</figure>
-
-<figure>
-<caption>Section</caption>
-<image source="images/truss-fbds-section">
-
-</image>
-</figure>
-</sidebyside>
-</sbsgroup>
-</figure>
-
-<p>
-You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns.
-</p>
-</insight>
-</introduction>
-
-<subsection xml:id="Chapter_06-load-paths">
-<title>Load Paths</title>
-<p>
-Load paths can help you think about structural systems. Load paths show how applied forces like the floor load in the image below pass through the interconnected members of the structure until they end up at the fixed support reactions. All structural systems, whether non-moving frames or moving machines have some sort of load path. When analyzing all structures, you computationally move from known values through the interconnected bodies of the system, following the load path, solving for unknowns as you go.
-</p>
-
-<figure xml:id="load_paths">
-<caption> Load paths </caption>
-<image width="75%" source="images/load_paths">
-<shortdescription>Load on a floor shown pointing down at the center. The load is directed through the floor and down into the columns and footings supporting the load.</shortdescription>
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</subsection>
-</section>
-
-<section xml:id="Chapter_06-trusses">
-<title>Trusses</title>
-<objectives>
-<ul>
-<li>
-What are simple trusses and how do they differ from other structural systems?
-</li>
-
-<li>
-What are the benefits and dangers of simple trusses?
-</li>
-
-<li>
-How can we determine the forces acting within simple truss systems?
-</li>
-
-<li>
-For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?
-</li>
-
-<li>
-How do we identify zero-force members in a truss and use their presence to simplify the analysis?
-</li>
-</ul>
-</objectives>
-
-<subsection xml:id="intro-trusses">
-<title>Introduction</title>
-<p>
-A <term>truss</term> is a rigid engineering structure made up of long, slender members connected at their ends. Trusses are commonly used to span large distances with a strong, lightweight structure. Some familiar applications of trusses are bridges, roof structures, and pylons. <term>Planar trusses</term> are two-dimension trusses built out of triangular subunits, while <term>space trusses</term> are three-dimensional, and the basic unit is a tetrahedron.
-</p>
-
-<p>
-In this section we will analyze a simplified approximation of a planar truss, called a <term>simple truss</term> and determine the forces the members individually support when the truss supports a load. Two different approaches will be presented: the <term>method of sections</term>, and the <term>method of joints</term>.
-</p>
-</subsection>
-
-<subsection xml:id="simple-trusses">
-<title>Simple Trusses</title>
-<p>
-Truss members are connected to each other rigidly, by welding or joining the ends with a gusset plate. This makes the connecting joints rigid, but also make the truss difficult to analyze. To reduce the mathematical complexity in this text we will only consider <term>simple trusses</term>, which are a simplification appropriate for preliminary analysis.
-</p>
-
-<figure>
-<caption>Truss with riveted gusset plates.</caption>
-<image width="50%" source="images/gusset-plates.png">
-<shortdescription>Truss bridge with riveted gusset plates.</shortdescription>
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-<source>Own work</source>
-<note>
-Cape Cod Canal Railroad Bridge
-</note>
-</remix></image>
-</figure>
-
-<p>
-Simple trusses are made of all two-force members and all joints are modeled as frictionless pins. All applied and reaction forces are applied only to these joints. Simple trusses, by their nature, are statically determinate, having a sufficient number of equations to solve for all unknowns values. While the members of real-life trusses stretch and compress under load, we will continue to assume that all bodies we encounter are rigid.
-</p>
-
-<p>
-Simple trusses are made of triangles, which makes them rigid when removed from supports. Simple trusses are determinate, having a balance of equations and unknowns, following the equation:
-<me>
-\underbrace{2\times (\text{number of joints})}_{\text{system equations}} = \underbrace{(\text{number of reaction forces}) + (\text{number of members})}_{\text{system unknowns}}
-</me>
-</p>
-
-<p/>
-<p>
-Commonly, rigid trusses have only three reaction forces, resulting in the equation:
-<me>
-2\times (\text{number of joints})=3 + (\text{number of members})
-</me>
-</p>
-
-<p>
-Unstable trusses lack the structural members to maintain their rigidity when removed from their supports. They can also be recognized using the equation above having more system equations on the left side of the equation above then system unknowns on the right.
-</p>
-
-<p>
-Truss systems with redundant members have fewer system equations on the left side of the equation above than the system unknowns on the right. While they are indeterminate in statics, in later courses you will learn to solve these trusses too, by taking into account the deformations of the truss members.
-</p>
-
-<insight>
-<title>The Danger of Simple Trusses</title>
-<p>
-Simple trusses have no structural redundancy, which makes them easy to solve using the techniques of this chapter, however this simplicity also has a dark side.
-</p>
-
-<image width="75%" source="images/1024px-NTSBSkagitRiverBridgeCollapse.jpg">
-
-<remix>
-<creator>US Department of Transportation NSTB</creator>
-<source href="https://commons.wikimedia.org/wiki/File:NTSBSkagitRiverBridgeCollapse.jpg"/>
-<license href="https://creativecommons.org/choose/zero/">CC-0</license>
-</remix></image>
-
-<p>
-These trusses are sometimes called <em>fracture critical trusses</em> because the failure of a single component can lead to catastrophic failure of the entire structure. With no redundancy, there is no alternative load path for the forces that normally would be supported by that member. You can visualize the fracture critical nature of simple trusses by thinking about a triangle with pinned corners. If one side of a triangle fails, the other two sides lose their support and will collapse. In a full truss made of only triangles, the collapse of one triangle starts a chain reaction which causes others to collapse as well.
-</p>
-
-<p>
-While fracture critical bridges are being replaced by more robust designs, there are still thousands in service across the United States. To read more about two specific fracture critical collapses search the internet for the <em>Silver Bridge</em> collapse, or the <em>I-5 Skagit River Bridge</em> collapse.
-</p>
-</insight>
-</subsection>
-
-<subsection xml:id="Chapter_06-solving-trusses">
-<title>Solving Trusses</title>
-<p>
-<q>Solving</q> a truss means identifying and determining the unknown forces carried by the members of the truss when supporting the assumed load. Because trusses contains only two-force members, these internal forces are all purely axial. Internal forces in frames and machines will additionally include traverse forces and bending moments, as you will see in <xref ref="Chapter_08"/>.
-</p>
-
-<p>
-Determining the internal forces is only the first step of a thorough analysis of a truss structure. Later steps would include refining the initial analysis by considering other load conditions, accounting for the weight of the members, relaxing the requirement that the members be connected with frictionless pins, and ultimately determining the stresses in the structural members and the dimensions required in order to prevent failure.
-</p>
-
-<p>
-Two strategies to solve trusses will be covered in the following sections: the <xref ref="method-of-joints" text="title"/> and the <xref ref="method-of-sections" text="title"/>. Either method may be used, but the Method of Joints is usually easier when finding the forces in all the members, while the Method of Sections is a more efficient way to solve for specific members without solving the entire truss. It's also possible to mix and match methods.
-</p>
-
-<p>
-The initial steps to solve a truss are the same for both methods. First, ensure that the structure can be modeled as a simple truss, then draw and label a sketch of the entire truss. Each joint should be labeled with a letter, and the members will be identified by their endpoints, so member <m>AB</m> is the member between joints <m>A</m> and <m>B</m>. This will help you keep everything organized and consistent in later analysis. Then, treat the entire truss as a rigid body and solve for the external reactions using the methods of <xref ref="Chapter_05"/>. If the truss is cantilevered and unsupported at one end you may not actually need the reaction forces and may skip this step. The reaction forces can be used later to check your work.
-</p>
-
-<sidebyside>
-<figure xml:id="joint-labels">
-<caption> Truss Labels. </caption>
-<image source="images/simple_truss_labels">
-<shortdescription>A five-member truss with pin and roller connection. Pins labeled as single letters and members labeled as the two pin letters.</shortdescription>
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-
-<figure xml:id="truss_reactions">
-<caption> Free body diagram. </caption>
-<image source="images/simple_truss_fbd">
-<shortdescription>The same five-member truss free-body diagram. Truss is shown detached from its external connections with forces representing those reactions. Additional external force shown on top pin.</shortdescription>
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</sidebyside>
-</subsection>
-
-<subsection xml:id="zero-force-members">
-<title>Zero-Force Members</title>
-<p>
-Sometimes a truss will contain one or more zero-force members. As the name implies, zero-force members carry no force and thus support no load. Zero-force members will be found when you apply equilibrium equations to the joints, but you can save some work if you can spot and eliminate them before you begin. Fortunately, zero-force members can easily be identified by inspection with two rules.
-<ul>
-<li>
-Rule 1: If <em>two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.
-</li>
-
-<li>
-Rule 2: If <em>three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.
-</li>
-</ul>
-</p>
-
-<sidebyside widths="33%  50%">
-<image source="images/ZFM-truss">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<stack>
-<p>
-Consider the truss to the left. Assume that the dimensions, angles and the magnitude of force <m>C</m> are given. At joint <m>B</m>, there are two vertical collinear members as well as a third member which is horizontal, so Rule 2 should apply.
-</p>
-
-<p>
-What does Rule 2 say about member <m>BD</m>? Can it tell us anything about member <m>DA</m>?
-</p>
-</stack>
-</sidebyside>
-
-<sidebyside widths="75%  25%">
-<stack>
-<p>
-Cutting the members at the dotted boundary line exposes internal forces <m>BC</m>, <m>BD</m> and <m>BA</m>. These forces act along the axis of the corresponding members by the nature of two-force members, and for convenience have been assumed in tension although that may turn out to be incorrect.
-</p>
-
-<p>
-Rule 2 applies here since <m>BA</m> and <m>BC</m> are collinear and <m>BD</m> is not.
-</p>
-</stack>
-
-<image source="images/ZFM_joint_B">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<sidebyside widths="75% 25%">
-<stack>
-<p>
-The free-body diagram of joint <m>B</m> may be drawn by eliminating the cut members and only showing the forces themselves.
-</p>
-
-<p>
-The situation is simple enough to apply the equilibrium equations in your head.
-</p>
-</stack>
-
-<image source="images/ZFM_joint_B_fbd">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<p>
-Vertically, forces <m>BC</m> and <m>BA</m> must be equal, and horizontally, force <m>BD</m> must be zero to satisfy <m>\Sigma F_x = 0</m>. We learn that member <m>BD</m> is a zero-force member.
-</p>
-
-<p>
-While it is probably easiest to think about Rule 2 when the third member is perpendicular to the collinear pair, it doesn't have to be. Any perpendicular component must be zero which implies that the corresponding member is zero-force.
-</p>
-
-<sidebyside widths="75%  25%">
-<stack>
-<p>
-Finding zero-force members is an iterative process. If you determine that a member is zero-force, eliminate it and you may find others. Continuing the analysis at joint <m>D</m> draw its free-body diagram. Keep in mind that if one end of a member is zero-force the whole member is zero-force. Since member <m>BD</m> is zero-force, horizontal force <m>BD</m> acting on joint <m>D</m> is zero and need not be included on the free-body diagram, and the remaining three forces match the conditions to apply Rule 2.
-</p>
-</stack>
-
-<image source="images/ZFM_joint_D_fbd">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<p>
-Analyzing the joint as before, but with a coordinate system aligned with the collinear pair,
-<md>
-<mrow>\Sigma F_y \amp = 0</mrow>
-<mrow>DA \sin \theta \amp = 0</mrow>
-</md>
-</p>
-
-<p>
-This equation will be satisfied if <m>DA = 0</m> or if <m>\sin \theta = 0</m> but the second condition is only true when <m>\theta = \ang{0}</m> or <m>\theta =\ang{180}</m>, which is not the case here. Therefore, force <m>DA</m> must be zero, and we can conclude that member <m>DA</m> is a zero-force member as well.
-</p>
-
-<sidebyside widths="75%  25%">
-<stack>
-<p>
-Finally consider joint <m>C</m> and draw its free-body diagram. Does either Rule apply to this joint? No. You will need to solve two equilibrium equations with this free-body diagram to find the magnitudes of forces <m>CD</m> and <m>CB</m>.
-</p>
-
-<p>
-On the other hand, if the horizontal load <m>C</m> was not present or if either <m>BC</m> or <m>DC</m> was zero-force, then Rule 1 <em>would</em> apply and the remaining members would also be zero-force.
-</p>
-</stack>
-
-<image source="images/ZFM_joint_C_fbd">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<sidebyside widths="33%  50%">
-<image source="images/ZFM-truss-after">
-
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<stack>
-<p>
-The final truss after eliminating the zero-force members is shown to the left. Forces <m>BC=BA</m> and <m>DC = DE</m> and the members may be replaced with longer members <m>AC</m> and <m>CE</m>.
-</p>
-
-<p>
-The original truss has been reduced to a simpler triangular structure with only three internal forces to be found. Once you are able to spot zero force members, this simplification can be made without drawing any diagrams or performing any calculations.
-</p>
-</stack>
-</sidebyside>
-
-<insight>
-<title>Why include Zero-Force Members?</title>
-<p>
-You may be wondering what is the point of including a member in a truss if it supports no load. In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:
-<ul>
-<li>
-We have assumed that all members have negligible weight or if not, applied half the weight to each pin. The <em>actual</em> weight of <em>real</em> members invalidates the two-force body assumption and leads to errors. Consider a vertical member -- the internal forces must at least support the member's weight.
-</li>
-
-<li>
-Truss members are not actually rigid, and long slender members under compression will <em>buckle</em> and collapse. The so-called zero-force member will be engaged to prevent this buckling. In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin <m>D</m> if they were not replaced with a single member <m>CE</m> with sufficient rigidity.
-</li>
-
-<li>
-Trusses are often used over a wide array of loading conditions. While a member may be zero-force for one loading condition, it will likely be engaged under a different condition <mdash/> think about how the load on a bridge shifts as a heavy truck drives across.
-</li>
-</ul>
-</p>
-
-<p>
-So finding a zero-force member in a determinate truss does not mean you can discard the member. Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing. After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles. If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or <sq>floating</sq> forces that have no load path to the foundation.
-</p>
-</insight>
-
-<example xml:id="Chapter_06-example-zero-force-member-example-">
-<title>Zero-Force Member Example </title>
-<statement>
-<sidebyside widths="40% 60%" margins="0%">
-<p>
-Given the truss shown, eliminate all the zero-force members, and draw the remaining truss.
-</p>
-
-<image source="images/zero-force-members">
-
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<p/>
-</statement>
-
-<answer>
-<p>
-There are seven zero-force members: <m>GH</m>, <m>FG</m>, <m>BF</m>, <m>EI</m>, <m>DE</m>, <m>EC</m> and <m>CD</m>.
-</p>
-</answer>
-
-<solution>
-<p>
-Rule 1:
-<ul>
-<li>
-Due to two members meeting at unloaded joint <m>G</m>, both members <m>GH</m> and <m>FG</m> are zero-force members
-</li>
-
-<li>
-Due to two members meeting at unloaded joint <m>D</m>, both members <m>DE</m> and <m>CD</m> are zero-force members
-</li>
-</ul>
-</p>
-
-<p>
-Rule 2:
-<ul>
-<li>
-Due to three forces meeting at joining <m>B</m>, with two being collinear (internal forces in <m>AB</m> and <m>BC</m>) then <m>BF</m> is a zero-force member.
-</li>
-
-<li>
-Due to three forces meeting at joint <m>I</m>, with two being collinear (internal forces in <m>IF</m> and <m>CI</m>), then <m>EI</m> is a zero-force member. Note that member <m>EI</m> does not need to be perpendicular to the collinear members to be a zero force.
-</li>
-
-<li>
-After removing zero-force members <m>EI</m> and <m>DE</m>, three forces reamain at <m>E</m>, with two being collinear (internal force in <m>EF</m> and external load <m>F_E</m>), making  <m>EC</m> a zero-force member.
-</li>
-</ul>
-</p>
-
-<sidebyside widths="40% 60%" margins="0%">
-<p>
-The remaining truss is shown. Note that once <m>EI</m> and <m>BF</m> are eliminated, you can effectively eliminate the joints <m>B</m> and <m>I</m> as the member forces in the collinear members will be equal. Also notice that the truss is still formed of triangles which fully support all of the applied forces.
-</p>
-
-<image source="images/zero-force-members-gone">
-
-<remix>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</sidebyside>
-
-<p/>
-</solution>
-</example>
-
-<p>
-Try to find all the zero-force members in the truss in the interactive diagram below, once you believe you have found all of them, check out the step-by-step solution in the interactive.
-</p>
-
-<figure xml:id="ggb_bf6c5jmx">
-<caption> Identify zero-force members. </caption>
-<xi:include href="interactives.ptx" xpointer="ggb_zero-force-members_interactive"/>
-</figure>
-</subsection>
-</section>
-
-<section xml:id="method-of-joints">
-<title>Method of Joints</title>
-<objectives>
-<ul>
-<li>
-What are the important components to include on a free-body diagram of a joint in a truss?
-</li>
-
-<li>
-How are the solutions found at one joint used to create an accurate free-body diagram of another joint?
-</li>
-
-<li>
-How do we ensure that tension or compression in a member is properly represented?
-</li>
-</ul>
-</objectives>
-
-<introduction>
-<p>
-The <term>method of joints</term> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.
-</p>
-
-<p>
-The joints are treated as particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <m>\Sigma \vec{F} = 0</m> can be applied, but the <m>\Sigma M=0</m> equation provides no information.
-</p>
-
-<p>
-For planar trusses, each joint yields two scalar equations, <m>\Sigma F_x=0</m> and <m>\Sigma F_y=0</m>, and so two unknowns can be found. Therefore, a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.
-</p>
-
-<p>
-Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.
-</p>
-</introduction>
-
-<subsection xml:id="joints-procedure">
-<title>Procedure</title>
-<p>
-The procedure is straightforward application of rigid body and particle equilibrium
-<ol>
-<li>
-<p>
-Determine if the structure is a truss and if it is determinate. See <xref ref="simple-trusses"/>
-</p>
-</li>
-
-<li>
-<p>
-Identify and remove all zero-force members. This is not required, but will eliminate unnecessary computations. See <xref ref="zero-force-members"/>.
-</p>
-</li>
-
-<li>
-<p>
-Determine if you need to find the external reactions. If you can identify a solvable joint immediately, then you do not need to find the external reactions.
-</p>
-
-<p>
-A solvable joint includes one or more known forces and no more than two unknown forces. If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.
-</p>
-</li>
-
-<li>
-<p>
-Identify a solvable joint and solve it using the methods of <xref ref="Chapter_03"/>. When drawing free-body diagrams of joints you should
-<ul>
-<li>
-Represent the joint as a dot.
-</li>
-
-<li>
-Draw all known forces in their known directions with arrowheads indicating their sense. Known forces are the given loads, and forces determined from previously solved joints.
-</li>
-
-<li>
-Assume the sense of unknown forces. A common practice is to assume that all unknown forces are in tension, <ie/> pulling away from the free-body diagram of the pin, and label them based on the member they represent.
-</li>
-</ul>
-</p>
-
-<p>
-Finally, write out and solve the force equilibrium equations for the joint. If you assumed that all forces were tensile earlier, negative answers indicate compression.
-</p>
-</li>
-
-<li>
-<p>
-Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved. Take care when transferring forces to adjoining joints to maintain their sense <mdash/> either tension or compression.
-</p>
-</li>
-
-<li>
-<p>
-If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint. The extra equations can be used to check your work.
-</p>
-</li>
-</ol>
-</p>
-
-<p>
-Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.
-</p>
-
-<p>
-The interactive below shows a triangular truss supported by a pin at <m>A</m> and a roller at <m>B</m>, and loaded at joint <m>C</m>. You can see how the reactions and internal forces adjust as you vary the load at <m>C</m>. You can solve it by starting at joint <m>C</m> and solving for <m>BC</m> and <m>CD</m>, then moving to joint <m>B</m> and solving for <m>AB</m> Joint <m>A</m> can be used to check your work.
-</p>
-
-<figure xml:id="ggb_fvuugvb4">
-<caption> Internal and external forces of a simple truss. </caption>
-<xi:include href="interactives.ptx" xpointer="ggb_method-of-joints_interactive"/>
-</figure>
-</subsection>
-</section>
-
-<section xml:id="method-of-sections">
-<title>Method of Sections</title>
-<objectives>
-<ul>
-<li>
-How do we determine an appropriate section to cut through a truss?
-</li>
-
-<li>
-How are equilibrium equations applied to a section?
-</li>
-</ul>
-</objectives>
-
-<introduction>
-<p>
-The <term>method of sections</term> is used to solve for the unknown forces within specific members of a truss without solving for them all. The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body. The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.
-</p>
-</introduction>
-
-<subsection xml:id="sections-procedure">
-<title>Procedure</title>
-<p>
-The procedure to solve for unknown forces using the method of sections is
-<ol>
-<li>
-<p>
-Determine if a truss can be modeled as a <xref ref="simple-trusses" text="custom">simple truss</xref>.
-</p>
-</li>
-
-<li>
-<p>
-Identify and eliminate all <xref ref="zero-force-members" text="custom">zero-force members</xref>. Removing zero-force members is not required but may eliminate unnecessary computations.
-</p>
-</li>
-
-<li>
-<p>
-Solve for the external reactions, if necessary. Reactions will be necessary if the reaction forces act on the section of the truss you choose to solve below.
-</p>
-</li>
-
-<li>
-<p>
-Use your imaginary chain saw to cut the truss into two pieces by cutting through some or all of the members you are interested in. The cut does not need to be a straight line.
-</p>
-
-<p>
-Every cut member exposes an unknown internal force, so if you cut three members you'll expose three unknowns. Exposing more than three members is not advised because you create more unknowns than available equilibrium equations.
-</p>
-</li>
-
-<li>
-<p>
-Select the easier of the two halves of the truss and draw its free-body diagram.
-<ul>
-<li>
-<p>
-Include all applied and reaction forces acting on the section, and show known forces acting in their known directions.
-</p>
-</li>
-
-<li>
-<p>
-Draw unknown forces in assumed directions and label them. A common practice is to assume that all unknown forces are in tension and label them based on the endpoints of the member they represent.
-</p>
-</li>
-</ul>
-</p>
-</li>
-
-<li>
-<p>
-Write out and solve the equilibrium equations for your chosen section. If you assumed that unknown forces were tensile, negative answers indicate compression.
-</p>
-</li>
-
-<li>
-<p>
-If you have not found all the required forces with one section cut, repeat the process using another imaginary cut or proceed with the method of joints if it is more convenient.
-</p>
-</li>
-</ol>
-</p>
-
-<p>
-The interactive below demonstrates the method of sections. The internal forces in the truss members are exposed by cutting through the truss at three locations. The known loads are shown in red, and the unknown reactions <m>F_x</m>, <m>A_x</m> and <m>A_y</m>, and unknown member forces are shown in blue. All members are assumed to be in tension. In this situation, it is not necessary to find the reactions if the section to the right of the cut is selected.
-</p>
-
-<sidebyside width="100%">
-<figure xml:id="ggb_wxh9nsbc">
-<caption>Method of sections demonstration.</caption>
-<xi:include href="interactives.ptx" xpointer="ggb_method-of-sections_interactive"/>
-</figure>
-</sidebyside>
-</subsection>
-</section>
-
-<section xml:id="frames-and-machines">
-<title>Frames and Machines</title>
-<objectives>
-<ul>
-<li>
-How are frames and machines different from trusses?
-</li>
-
-<li>
-Why can the method of joints and method of sections not be used for frames and machines?
-</li>
-
-<li>
-How do we identify if a structure is independently rigid?
-</li>
-
-<li>
-How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?
-</li>
-</ul>
-</objectives>
-
-<introduction>
-<p>
-Frame and machines are engineering structures that contain at least one multi-force member. As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members. Note that all bodies we investigated in <xref ref="Chapter_05"/> were all multi-force bodies.
-</p>
-
-<p>
-<term>Frames</term> are rigid, stationary structures designed to support loads and must include at least one multi-force member.
-</p>
-
-<p>
-<term>Machines</term> are non-rigid structures where the parts can move relative to one another. Generally they have an input and an output force and are designed produce a mechanical advantage. Note that all machines in this text are in static equilibrium by their interacting and applied forces.
-</p>
-
-<p>
-Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.
-</p>
-
-<sidebyside widths="45% 45%">
-<figure xml:id="stool">
-<caption> Frames are rigid objects containing multi-force members. </caption>
-<image source="images/TabouretAFDB.png">
-<shortdescription>A kitchen stool is an example of a frame.</shortdescription>
-<remix>
-<source href="https://upload.wikimedia.org/wikipedia/commons/5/56/TabouretAFDB.jpg?uselang=fr"/>
-<license href="https://creativecommons.org/licenses/by-sa/2.5/">BY-SA</license>
-<creator>Sebastien Rivory</creator>
-</remix></image>
-</figure>
-
-<figure xml:id="vice-grips-photo">
-<caption> Machines contain multi-force members that can move relative to one another. </caption>
-<image source="images/Locking_pliers.png">
-<shortdescription>A set of locking pliers is example of a machine.</shortdescription>
-<remix>
-<source href="https://commons.wikimedia.org/wiki/File:Locking_pliers.jpg/"/>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</sidebyside>
-</introduction>
-
-<subsection xml:id="frames-procedure">
-<title>Analyzing Frames and Machines</title>
-<introduction>
-<p>
-Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.
-</p>
-
-<p>
-Multi-part structures are analyzed by mentally taking them apart and analyzing the entire structure and each part separately. Each component is analyzed as an separate rigid body using the techniques we have already seen.
-</p>
-
-<p>
-Although we can separate the structure into parts, the parts are not independent since, by Newton's Third Law, every interaction is half of a complementary pair. For every force or moment of body <m>A</m> on <m>B</m> there is an equal-and-opposite force or moment of body <m>B</m> on body <m>A</m> and the free-body diagrams must reflect this. Incorrect representation of these interacting pairs on free-body diagrams is a common source of student errors.
-</p>
-
-<p>
-Once the frame or machine is disassembled and free-body diagrams have been drawn, the structure is analyzed by applying equations of equilibrium to free-body diagrams, exactly as you have done before <mdash/>there's nothing new here.
-</p>
-
-<p>
-The difficulty arises first in selecting objects and drawing correct free-body diagrams and second, in identifying an efficient solution strategy since you usually won't be able to completely solve a diagram without first finding the value of an unknown force from another diagram.
-</p>
-
-<p>
-In <xref ref="Chapter_05"/> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations. By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values. Here's a few more details on the number of equations that come from each type of two-dimensional free-body diagram:
-<ul>
-<li>
-<title>Two-force members</title>
-<p>
-One equation. Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins. The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.
-</p>
-</li>
-
-<li>
-<title>Objects with concurrent forces and no couple-moments</title>
-<p>
-Two equations. These are the problems you solved in <xref ref="Chapter_03"/>. There are two equations available <m>\Sigma F_x = 0</m> and <m>\Sigma F_y = 0</m>.
-</p>
-</li>
-
-<li>
-<title>Multi-force rigid body with non-concurrent forces and/or couples</title>
-<p>
-Three equations. These are the most general body types. Use <m>\Sigma F_x = 0</m>, <m>\Sigma F_y = 0</m>, and<m> \Sigma M = 0</m> to solve for three unknowns.
-</p>
-</li>
-</ul>
-</p>
-</introduction>
-
-<subsubsection xml:id="Chapter_06-procedure">
-<title>Procedure</title>
-<p>
-The process used to analyze frames and machines is outlined below
-<ol>
-<li>
-<p>
-Determine if the entire structure is independently rigid. An independently rigid structure will hold it shape even when separated from its supports. Look for triangles formed among the members, as triangles are inherently rigid. If it is not independently rigid, the structure will collapse when the supports are removed.
-</p>
-
-<p>
-If the structure is not independently rigid, skip to the next step. Otherwise, model it as a single rigid body and determine the external reaction forces.
-</p>
-</li>
-
-<li>
-<p>
-Draw a free-body diagram for each of the members in the structure. You must represent all forces acting on each member, including:
-<ul>
-<li>
-Applied forces and couples and the weights of the components if non-negligible.
-</li>
-
-<li>
-Interaction forces due to two-force members. There will be force of unknown magnitude but the known direction at points connected to two-force members. The forces will act along the line between the two connection points.
-</li>
-
-<li>
-All reaction forces and moments at the connection points between members. Forces with an unknown magnitude and direction are usually represented by unknown <m>x</m> and <m>y</m> components, but can also be represented as a force with unknown magnitude acting in an unknown direction.
-</li>
-</ul>
-</p>
-
-<p>
-All interaction forces and moments between connected bodies <em>must</em> be shown as equal-and-opposite action-reaction pairs.
-</p><sidebyside widths="40% 53%" margins="0%">
-<figure xml:id="frame-example-fbd">
-<caption>Free-body diagram of a rigid frame with pin at <m>A</m>, roller at <m>E</m>, and load at <m>F</m>.</caption>
-<image source="images/Example-frame">
-<shortdescription>A frame of three members shaped like capital letter A. Pin A is bottom left, and continuing clockwise are pins B, C, D and E.</shortdescription>
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-
-<figure xml:id="frame-example-exploded">
-<caption> Free body diagrams of the individual components. External forces are red, exposed action-reaction pairs in blue. </caption>
-<image source="images/Example-frame-exploded">
-<shortdescription>Members of the frame are shown separated. Separated pin connections are shown with equal and opposite forces acting on the previously connected members.</shortdescription>
-<remix>
-<creator href="https://weh.maritime.edu">William Haynes</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</sidebyside>
-</li>
-
-<li>
-<p>
-Write out the equilibrium equations for each free-body diagram.
-</p>
-</li>
-
-<li>
-<p>
-Solve the equilibrium equations for the unknowns. You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once. Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.
-</p>
-</li>
-</ol>
-</p>
-
-<p>
-In the following example, we'll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free-body diagrams, and identify a good solution strategy.
-</p>
-</subsubsection>
-
-<subsubsection xml:id="Chapter_06-free-body-diagram-of-structures">
-<title>Free-body diagram of structures</title>
-<p>
-Drawing free-body diagrams of complex frames and machines can be tricky. In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.
-</p>
-
-<p>
-The toggle clamp shown in <xref ref="toggle-clamp-01"/> is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints. The component parts are shown and named in <xref ref="toggle-clamp-02"/>.
-</p>
-
-<sidebyside widths="30% 37.5%" margins="0%">
-<figure xml:id="toggle-clamp-01">
-<caption>Original diagram</caption>
-<image source="images/toggle-clamp-01">
-<shortdescription>Illustrated image of a toggle clamp.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-
-<figure xml:id="toggle-clamp-02">
-<caption> Component parts. </caption>
-<image source="images/toggle-clamp-02">
-<shortdescription>Component parts are shown separated from each other.</shortdescription>
-<remix>
-<creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</sidebyside>
-
-<p>
-This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated. The only force shown is <m>F,</m> which is supplied by some external agent, presumably the machine operator. We must assume that the wall and floor are still attached to the world and held fixed.
-</p>
-
-<p>
-To perform an equilibrium analysis, we need to develop one or more free-body diagrams and apply the equations of equilibrium to them. Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts. Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need. In any event, a clear decision must always be made about what is part of the free-body and what is not.
-</p>
-
-<p>
-When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation. These forces and moments must be represented on the free-body diagrams consistently as halves of equal-and-opposite action-reaction pairs.
-</p>
-
-<p>
-For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains. In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams. In an actual situation you will not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.
-</p>
-
-<p>
-It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams. In planar problems a free-body diagram with three or fewer unknowns may be solved immediately. When there are more than three unknowns, you must incorporate information from other diagrams to complete the solution.
-</p>
-
-
-<paragraphs>
-<title>Exclude the floor</title>
-<p>
-To begin, we can remove the floor from the system. Everything except the floor is now included as our body; only the floor is excluded. The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall.
-</p>
-
-<p>
-Since we don't know how the wall and the floor are connected we will assume they were fixed together. We also have to model how the wall is attached to the rest of the world. The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <m>V_x</m> and <m>V_y</m>, and a concentrated moment <m>M_v</m>.
-</p>
-
-<p/>
-<figure xml:id="toggle-clamp-03">
-<caption> Free-body Diagram 1 </caption>
-<sidebyside valign="middle" widths="30% 65%">
-<image source="images/toggle-clamp-03">
-<shortdescription>Toggle clamp is shown separated from the floor, with the external force applied to the handle, and the reaction force of the floor on the base of the assembly.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Wall, Bearing <m>A</m>
-</p>
-</cell>
-<cell>
-<p>
-Floor
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-
-<p>
-The effect of the floor on the block is represented by a single vertical force <m>G</m> which holds the block the same way the floor was previously supporting it; the loads you add must constrain your object the same way they were constrained in the real world. This representation is really a simplification of the actual situation since the force of the floor is really distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we represent the weight of an object as a single force acting at its center of gravity.
-</p>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-Include friction if it's given or obvious.
-</li>
-
-<li>
-Internal forces in rigid bodies should be modeled as a fixed support.
-</li>
-
-<li>
-If you need info which you don't have, select a variable to act as its name.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Exclude the wall</title>
-<p>
-If you next remove the wall, forces <m>G</m> and <m>F</m> remain from before, but we now expose four loads from where the wall was connected to what is now our body; a normal force <m>N</m> at the roller and three loads from the fixed support between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>.
-</p>
-
-<figure>
-<caption> Free-body diagram 2</caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-04">
-<shortdescription>Toggle clamp assembly is now separated from the wall, with external forces from the wall shown acting on the assembly.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Bearing <m>A</m>
-</p>
-</cell>
-<cell>
-<p>
-Floor, Wall
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-
-<p>
-Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table. Only loads that cross from included to excluded produce a load on the free-body diagram.
-</p>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-Every force needs a point of application and a clear arrowhead.
-</li>
-
-<li>
-Indicate any distances and angles needed and not available on the original diagram.
-</li>
-
-<li>
-Define the direction of forces which are not vertical or horizontal with an angle from a reference direction.
-</li>
-
-<li>
-Define a coordinate system unless you are using the standard <m>x</m>-<m>y</m> axes.
-</li>
-
-<li>
-Do not add forces that don't act on your body.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Exclude the bearing at <m>A</m> </title>
-<p>
-We are not interested in the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m> and further, the free-body diagram still includes too many unknowns to solve.
-</p>
-
-<p>
-After removing the bearing we reduce the unknowns at <m>A</m> to two because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support. The loads <m>W_x</m>, <m>W_y</m>, and <m>M</m> and <m>V_x</m>, <m>V_y</m>, and <m>M_v</m> are not included on this free-body diagram because they don't act on this object.
-</p>
-
-<figure>
-<caption> Free-body diagram 3</caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-05">
-<shortdescription>The bearing is removed since it has equal and opposite forces on the top member.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>,
-</p>
-</cell>
-<cell>
-<p>
-Floor, Wall, Bearing <m>A</m>
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-
-<p>
-The load from the short link at <m>B</m> is does not appear on this free-body diagram because it is internal. Internal loads connect two parts of the body together. They should not be included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.
-</p>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-Look for free-body diagrams which include only three unknowns in two dimensions or six unknowns in three.
-</li>
-
-<li>
-Don't include internal loads on your free-body diagrams.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Examine the wooden block</title>
-<figure>
-<caption> Free-body diagram 4 (block)</caption>
-<sidebyside valign="middle" widths="15% 80%">
-<image source="images/toggle-clamp-07">
-<shortdescription>FBD of the block at the base of the clamp.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<stack>
-<p>
-A free-body diagram of the block shows the clamping force Q, which we are seeking.
-</p>
-
-<p>
-Note that <m>Q \ne G</m>. These forces are given different names since they may have different magnitudes. If the weight of the block is small<fn>(less than about 0.1%)</fn> in comparison to the other forces acting on the object it may be neglected, in which case <m>Q = G</m> and they could be given the same name.
-</p>
-</stack>
-</sidebyside>
-</figure>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-If the two forces are not the same don't identify them by the same name.
-</li>
-
-<li>
-Make as few assumptions as you possibly can. Make a note of any assumptions you make.
-</li>
-
-<li>
-In textbook problems, if the weight of an object is not mentioned it may be neglected.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Exclude the wooden block</title>
-<p>
-We can further simplify the diagram by removing the wooden block, leaving only the roller, short link and lever.
-</p>
-
-<figure xml:id="toggle-clamp-06">
-<caption> Free-body diagram 5 (lever and link)</caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-06">
-<shortdescription>FBD of the toggle clamp with wooden block removed.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>, Short Link <m>BD</m>, Roller <m>D</m>
-</p>
-</cell>
-<cell>
-<p>
-Floor, Wall, Bearing <m>A</m>, Wooden Block
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-</paragraphs>
-
-
-<paragraphs>
-<title>Examine the short link <m>BD</m> </title>
-<p>
-The short link <m>BD</m> is a two-force body and as discussed in <xref ref="two-force-bodies"/> can only be in equilibrium if the forces at <m>B</m> and <m>D</m> are equal-and-opposite and act along a line passing through these two points. This means that the 24:7 slope of the link determines the direction of force <m>BD</m>.
-</p>
-
-<figure>
-<caption>Free-body diagram 6 (short link)</caption>
-<sidebyside valign="middle" widths="15% 80%">
-<image source="images/toggle-clamp-11">
-<shortdescription>The short link of toggle clamp (a two-force member).</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<p>
-When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <m>x</m> and <m>y</m> components are not independent but are actually related by the direction of the force.
-</p>
-</sidebyside>
-</figure>
-
-<p>
-Here we have assumed that the forces acting on the link are compressive. If the equilibrium equations produce a positive value for <m>BD</m> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in tension.
-</p>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-A short-link is a two-force body.
-</li>
-
-<li>
-Recognize two-force bodies because they give you information about direction.
-</li>
-
-<li>
-Represent the force of a two-force bodies as a force with unknown magnitude acting along a known line of action, not as <m>x</m> and <m>y</m> components.
-</li>
-
-<li>
-If you don't know the sense of a force along its line of action, assume one. If you guess wrong, the analysis will give you a negative value.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Examine the roller at <m>D</m> </title>
-<figure>
-<caption> Free-body diagram 7 (roller)</caption>
-<sidebyside valign="middle" widths="15% 80%">
-<image source="images/toggle-clamp-09">
-<shortdescription>FBD of the roller.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<p>
-Note that the force <m>BD</m> acting on the roller is shown pointing down and to the left. This is the opposite to the force acting on the link at <m>D</m>, which acts up and to the right. These two must act in opposite directions because they are an action-reaction pair.
-</p>
-</sidebyside>
-</figure>
-
-<p>
-The roller is a three-force body, so the lines of action of <m>N</m>, <m>Q</m>, and <m>BD</m> are coincident and it may be treated as a particle. Equilibrium analysis shows that <m>N</m> and <m>Q</m> must oppose the horizontal and vertical components of force <m>BD</m>.
-</p>
-
-<p>
-The clamping force <m>Q</m> produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.
-</p>
-
-<assemblage>
-<title>Tips</title>
-<p>
-<ul>
-<li>
-Recognize three-force bodies and use their special properties to your advantage.
-</li>
-
-<li>
-Use the same name for the exposed forces on interacting bodies since they are equal-and-opposite halves of an action-reaction pair.
-</li>
-</ul>
-</p>
-</assemblage>
-</paragraphs>
-
-
-<paragraphs>
-<title>Exclude the roller</title>
-<p>
-We can further simplify the free-body diagram by removing the roller. The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action <mdash/> the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint.
-</p>
-
-<figure>
-<caption> Free-body diagram 8</caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-08">
-<shortdescription>FBD of toggle clamp without the roller.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>, Short Link <m>BD</m>
-</p>
-</cell>
-<cell>
-<p>
-Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-</paragraphs>
-
-
-<paragraphs>
-<title>Exclude the short link</title>
-<p>
-The previous free-body diagram has three unknowns and can be solved but the free-body diagram of the lever by itself is also correct, and this is the free-body diagram that most people begin with.
-</p>
-
-<figure>
-<caption> Free-body diagram 9 (lever) </caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-10">
-<shortdescription>FBD of the single remaining member of the toggle clamp assembly.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<tabular bottom="minor" valign="top">
-<col width="33%" halign="left"/>
-<col width="66%" halign="left"/>
-<row header="yes" bottom="medium">
-<cell> Included </cell>
-<cell> Excluded </cell>
-</row>
-<row>
-<cell>
-<p>
-Lever <m>ABC</m>
-</p>
-</cell>
-<cell>
-<p>
-Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>, Short Link <m>BD</m>
-</p>
-</cell>
-</row>
-</tabular>
-</sidebyside>
-</figure>
-
-<p>
-The load <m>BD</m> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <m>D</m>, so this can be thought of as sliding a force along its line of action <mdash/> an equivalent transformation.
-</p>
-
-<p>
-The following loads are not shown here because they act between two objects which are not part of the body:
-<ul>
-<li>
-the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>,
-</li>
-
-<li>
-the loads between the floor and the wall <m>V_x</m>, <m>V_y</m>, and <m>M_v</m>,
-</li>
-
-<li>
-the load between the block and the floor <m>G</m>, and
-</li>
-
-<li>
-the load between the roller and the wall <m>N</m>.
-</li>
-</ul>
-</p>
-</paragraphs>
-
-<p>
-All of the free-body diagrams we have drawn are correct, though not all are necessary. Generally we only draw the free-body diagrams needed for the solution. These diagrams form a chain which connect the known input forces to the desired output forces. When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which free-body diagrams you will need. Taking a few moments to consider what unknowns you'd have at each step can help you optimize your problem-solving effort.
-</p>
-
-<p>
-You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results. Consider the diagram below.
-</p>
-
-<figure>
-<caption>Free-body diagram 10 (Subtly incorrect)</caption>
-<sidebyside valign="middle" widths="23% 72%">
-<image source="images/toggle-clamp-12" width="30%">
-<shortdescription>A FBD that is incorrect because it does not include the correct reaction at the bottom pin.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-
-<p>
-This diagram doesn't accurately represent what is happening at pin <m>D</m>.
-</p>
-</sidebyside>
-</figure>
-
-<p>
-Forces <m>N</m> and <m>Q</m> do not actually act on the short link at <m>D</m>. Force <m>N</m> acts between the roller and the wall and clearly this diagram doesn't include the roller. Similarly <m>Q</m> acts between the block and the roller. These forces don't belong on the free-body diagram even though they are equal to the <m>x</m> and <m>y</m> components of force <m>BD</m>. Only forces which cross the imaginary boundary between the object and the rest of the world belong on the free-body diagram.
-</p>
-
-<p>
-Students are inclined argue that this free-body diagram is statically equivalent to <xref ref="toggle-clamp-06 "/> and it produces the correct answer so it must be OK. It isn't correct because it reflects a misunderstanding about what you are modeling and what you aren't. Other engineers using your FBDs need to know what you are modeling. The FBD is the key to your analysis of the real world.
-</p>
-
-<example xml:id="Chapter_06-example-toggle-clamp">
-<title>Toggle Clamp</title>
-<statement>
-<p>
-Knowing that angle <m>\theta= 60°</m>, find the vertical clamping force acting on the piece at <m>D</m> and the magnitude of the force exerted on member <m>ABC</m> at pin <m>B</m> in terms of force <m>F</m> applied to the clamp arm at <m>C</m>.
-</p>
-
-<image source="images/toggle-clamp-01" width="30%">
-
-</image>
-</statement>
-
-<answer>
-<p>
-<md>
-<mrow> BD = 2.52 F </mrow>
-<mrow> Q = 2.42 F</mrow>
-</md>
-</p>
-</answer>
-
-<solution>
-<p>
-For this problem, we need two free-body diagrams. The first links the input force <m>F</m> to the link force <m>BD,</m> and the second links <m>BD</m> to the clamping force <m>Q</m>.
-</p>
-
-<figure>
-<caption/>
-<sidebyside widths="23% 23%">
-<figure>
-<caption>FBD I</caption>
-<image source="images/toggle-clamp-10">
-<shortdescription>FBD of the multi-force member of the toggle clam;.</shortdescription>
-<remix>
-<creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-
-<figure>
-<caption>FBD II</caption>
-<image source="images/toggle-clamp-13">
-<shortdescription>FBD of the roller from the toggle clamp assembly.</shortdescription>
-<remix>
-<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
-<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
-</remix></image>
-</figure>
-</sidebyside>
-</figure>
-
-<p>
-We will assume the two-force member <m>BD</m> is in compression based on the physical situation. The forces acting on the link, lever and roller are all directed along a line-of-action defined by a 7-24-25 triangle. Similar triangles gives
-<md>
-<mrow>BD_x = \left(\frac{7}{25} \right) BD</mrow>
-<mrow>BD_y = \left(\frac{24}{25} \right) BD</mrow>
-</md>.
-</p>
-
-<p>
-Applying <m>\sum M= 0</m> at <m>A</m> to the free-body diagram of the lever gives <m>BD</m> in terms of <m>F</m>.
-<md>
-<mrow> \text{FBD I:}\quad \Sigma M_A \amp = 0 </mrow>
-<mrow> BD_x(24) + BD_y(7) - F_x (40) - F_y ( 16) \amp= 0 </mrow>
-<mrow>\left(\frac{7}{25} BD\right) (24) + \left(\frac{24}{25} BD \right) (7) \amp= (F \cos \ang{60}) ( 40) + (F \sin \ang{60}) (16) </mrow>
-<mrow>13.44 BD \amp = 33.86 F</mrow>
-<mrow>BD \amp = 2.52 F</mrow>
-</md>
-</p>
-
-<p>
-The positive sign on the answer reveals that our assumption that member <m>BD</m> was in compression was correct.
-</p>
-
-<p>
-Applying <m>\sum F_y=0</m> to the free-body diagram of the roller will give <m>Q</m> in terms of <m>F</m>.
-<md>
-<mrow> \text{FBD II:}\quad \Sigma F_y \amp = 0 </mrow>
-<mrow> Q - BD_y \amp= 0 </mrow>
-<mrow> Q \amp= \frac{24}{25} BD</mrow>
-<mrow> \amp = \frac{24}{25} (2.52 F)</mrow>
-<mrow> \amp = 2.42 F</mrow>
-</md>
-</p>
-
-<p>
-While you could certainly find <m>A_x</m>, <m>A_y</m> and <m>N</m> using other equilibrium equations they weren't asked for and we don't bother to find them.
-</p>
-</solution>
-</example>
-
-<insight>
-<title>Why does the Method of Joints work on trusses but not on Frames or Machines?</title>
-<p>
-We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies. Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action. The force acts along the axis of the member, and causes no bending if the member is straight. Cutting a truss member exposes <em>one</em> unknown.
-</p>
-
-<p>
-Frames and machines are made of multi-force members and cutting these, in general, exposes:
-<ul>
-<li>
-A force with an unknown magnitude acting in an unknown direction, and
-</li>
-
-<li>
-A bending moment at the plane of the cut.
-</li>
-</ul>
-</p>
-
-<p>
-Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body. The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.
-</p>
-
-<p>
-Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.
-</p>
-</insight>
-</subsubsection>
-</subsection>
+	<title>Equilibrium of Structures</title>
+	<introduction>
+		<p>
+			In this chapter you will conduct static analysis of multi-body structures.
+			Broadly defined, a structure is any set of interconnected rigid bodies designed to serve a purpose.
+			The parts of the structure may move relative to one another, like the blades of scissors, or they may be fixed relative to one another, like the structural members of bridge.
+		</p>
+
+		<p>
+			Analysis of structures involves determining all forces acting on and between individual members of the structure.
+			Fundamentally there is nothing new here; the techniques you have already learned apply, however structures tend to have more unknown forces, and so are more involved and provide more opportunities for error than the problems you have previously encountered.
+			Correct free-body diagrams and careful work are required, as always.
+		</p>
+	</introduction>
+
+	<section xml:id="Chapter_06-structures">
+		<title>Structures</title>
+		<p>
+			Structures fall into three broad categories: trusses, frames, and machines, and you should be able to identify which is which.
+		</p>
+
+		<p>
+			A <term>truss</term> is a multi-body structure made up of long slender members connected at their ends in triangular subunits.
+			Truss members carry axial forces only.
+			Trusses are commonly used for spanning large distances without interruption: bridges, roof systems, stadiums, aircraft hangers, auditoriums for example.
+			They are also used for crane booms, radio towers and the like.
+			Trusses are lightweight and relatively strong.
+			Over the years many unique truss designs have been developed and are often named after the original designer.
+		</p>
+
+		<p>
+			A <term>frame</term> is a multi-part, rigid, stationary structure primarily designed to support some type of load.
+			A frame contains at least one multi-force member, which a truss never has.
+			This means that, unlike trusses, frame members must support bending moments as well shear and normal forces.
+			Many common items can be considered frames.
+			Some examples: building structure, bike frames, ladders, scaffolding, and more.
+		</p>
+
+		<p>
+			A <term>machine</term> is very similar to a frame, except that it includes some moving parts.
+			The purpose of a machine is usually to provide a mechanical advantage and multiply forces.
+			Pliers, scissors jacks, automobile suspensions, construction equipment are all examples of machines.
+		</p>
+
+		<p/>
+		<figure xml:id="scissors">
+			<caption> Scissors and bridges are examples of engineering structures.
+			Scissors are a machine with three interconnected parts.
+			The bridge is a truss.
+			</caption>
+			<sidebyside widths="48%  48%" margins="0%">
+				<image source="images/scissors.png">
+					<shortdescription>Scissors</shortdescription>
+					<remix>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+
+				<image source="images/bridge-505_1280.jpg">
+					<shortdescription>A truss bridge</shortdescription>
+					<remix>
+					<creator>Simon (pixabay.com)</creator>
+					<license href="https://creativecommons.org/choose/zero/">CC-0</license>
+					<source href="https://www.needpix.com/photo/download/473/bridge-usa-gorge-arizona-free-pictures-free-photos-free-images-royalty-free-free-illustrations"/>
+					</remix>
+				</image>
+			</sidebyside>
+		</figure>
+
+		<p>
+			<term>Solving</term> a structure means determining all forces acting on all of its parts.
+			The solution typically begins by determining the global equilibrium of the entire structure, then breaking it into parts and analyzing each separate part.
+			The specific process will depend on the type of structure, but will always follow the principles covered in the previous chapters.
+		</p>
+
+
+		<paragraphs>
+			<title>Two-force Members</title>
+			<p>
+				Many structures contain at least one two-force member, and trusses consist of two-force members exclusively.
+				Recall from <xref ref="two-force-bodies"/> that a two-force body is an object subjected to exactly two forces.
+				Two-force members are not required to be slender or straight, but can be recognized because they connect to other bodies or supports at exactly two points, and have no other loading unless it is also applied at those points.
+			</p>
+
+			<p>
+				Identifying two-force members is helpful when solving structures because they automatically establish the line of action of the two forces.
+				In order for a two-force body to be in equilibrium, the forces acting on it must be equal in magnitude, opposite in direction, and have a line-of-action passing through the point where the two forces are applied.
+				Since these points are known, the direction of the line-of-action is readily found.
+			</p>
+
+			<p>
+				The common way to express the force of a two-force member is with a magnitude and a sense, where the sense is either tension or compression.
+				If the two forces tend to stretch the object we say it is in <em>tension</em>; if they act the other way and squash the object, it is in <em>compression</em>.
+				The usual approach is to assume that a two-force member is in tension, then draw the free-body diagram and write the equilibrium equations accordingly.
+				If the analysis shows that the forces are negative then they actually act with the opposite sense, <ie/> compression.
+			</p>
+
+			<figure>
+				<caption>Two-force members in tension and compression.</caption>
+				<image width="80%" source="images/tension-compression">
+					<shortdescription>A horizontal two-force member with forces pointing away from each other (tension) and a second with forces pointing towards each other (compression).</shortdescription>
+					<remix>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</figure>
+		</paragraphs>
+	</section>
+
+	<section xml:id="Chapter_06-interactions-between-members">
+		<title>Interactions between members</title>
+		<introduction>
+			<p>
+				When analyzing structures we are dealing with multi-body systems, and need to recall <xref ref="newtons-third-law" text="title"/>, <q>For every action, there is an equal and opposite reaction.</q>
+			</p>
+
+			<p>
+				This law applies to multi-body systems wherever one body connects to another.
+				At any interaction point, forces are transferred from one body to the interacting body as equal and opposite action-reaction pairs.
+				These forces cancel out and are invisible when the structure is intact.
+				Only when we cut through a member or joint in the isolation step of creating a free-body diagram, do we expose the interaction forces.
+				When drawing free-body diagrams of the components of structures, it is critically important to represent these action-reaction pairs consistently.
+				You may assume either direction for one, but the other <em>must</em> be equal and opposite.
+			</p>
+
+			<p>
+				For example, look at the members and joints in the truss below.
+				Diagram (a) shows the truss members held together by pins at <m>A</m>, <m>B</m>, and <m>C</m>.
+				The forces holding the parts together cancel and are not shown.
+				In the <sq>exploded</sq> view (b), the parts have been separated and the action-reaction pairs are exposed.
+				Member <m>AB</m> is in tension, and the forces acting on it, also called <m>AB</m>, oppose each other and tend to stretch the member.
+				These stretching forces are accompanied by equal and opposite forces, also called <m>AB</m> acting on pins <m>A</m> and <m>B</m>.
+				Tensile forces <m>BC</m> and compressive forces <m>CA</m> behave similarly.
+			</p>
+
+			<figure xml:id="joints-members">
+				<caption> External load and global reactions in red.
+				Internal action-reaction pairs in blue.
+				</caption>
+				<sidebyside widths="30% 50%">
+					<figure>
+						<caption>Whole Truss</caption>
+						<image source="images/joints-members-whole">
+							<shortdescription>A three member truss with loads shown at the pins.</shortdescription>
+						</image>
+					</figure>
+
+					<figure>
+						<caption>Exploded</caption>
+						<image source="images/joints-members-exploded">
+							<shortdescription>A three member truss separated at the pins with external loads shown acting only on the pins.</shortdescription>
+						</image>
+					</figure>
+				</sidebyside>
+			</figure>
+
+			<insight>
+				<title>Multi-body systems</title>
+				<p>
+					When a multipart structure is in equilibrium, each part of the structure is also in equilibrium.
+					For example in the truss below, each member of the truss, each joint, and each portion of the truss is also in equilibrium.
+					This continues all the way down to the atoms of the structure.
+					This universal equilibrium across spatial scales is one of the governing principles which allows us to break multi-body systems into smaller solvable parts.
+				</p>
+
+				<p/>
+				<figure>
+					<caption>Possible free-body diagrams</caption>
+					<sbsgroup>
+						<sidebyside widths="42% 36%">
+							<figure>
+								<caption>Complete Truss</caption>
+								<image source="images/truss-fbds-whole">
+								</image>
+							</figure>
+
+							<figure>
+								<caption>Member <m>AD</m> </caption>
+								<image source="images/truss-fbds-member">
+								</image>
+							</figure>
+						</sidebyside>
+
+						<sidebyside widths="42% 36%">
+							<figure>
+								<caption>Truss joints</caption>
+								<image source="images/truss-fbds-pins">
+								</image>
+							</figure>
+
+							<figure>
+								<caption>Section</caption>
+								<image source="images/truss-fbds-section">
+								</image>
+							</figure>
+						</sidebyside>
+					</sbsgroup>
+				</figure>
+
+				<p>
+					You will see in this chapter that we have the freedom to isolate free-body diagrams at any scale to expose our target unknowns.
+				</p>
+			</insight>
+		</introduction>
+
+		<subsection xml:id="Chapter_06-load-paths">
+			<title>Load Paths</title>
+			<p>
+				Load paths can help you think about structural systems.
+				Load paths show how applied forces like the floor load in the image below pass through the interconnected members of the structure until they end up at the fixed support reactions.
+				All structural systems, whether non-moving frames or moving machines have some sort of load path.
+				When analyzing all structures, you computationally move from known values through the interconnected bodies of the system, following the load path, solving for unknowns as you go.
+			</p>
+
+			<figure xml:id="load_paths">
+				<caption> Load paths </caption>
+				<image width="75%" source="images/load_paths">
+					<shortdescription>Load on a floor shown pointing down at the center.
+					The load is directed through the floor and down into the columns and footings supporting the load.</shortdescription>
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</figure>
+		</subsection>
+	</section>
+
+	<section xml:id="Chapter_06-trusses">
+		<title>Trusses</title>
+		<objectives>
+			<ul>
+				<li>
+					What are simple trusses and how do they differ from other structural systems?
+				</li>
+
+				<li>
+					What are the benefits and dangers of simple trusses?
+				</li>
+
+				<li>
+					How can we determine the forces acting within simple truss systems?
+				</li>
+
+				<li>
+					For a truss in equilibrium, why is every individual member, joint, and section cut from the truss also in equilibrium?
+				</li>
+
+				<li>
+					How do we identify zero-force members in a truss and use their presence to simplify the analysis?
+				</li>
+			</ul>
+		</objectives>
+
+		<subsection xml:id="intro-trusses">
+			<title>Introduction</title>
+			<p>
+				A <term>truss</term> is a rigid engineering structure made up of long, slender members connected at their ends.
+				Trusses are commonly used to span large distances with a strong, lightweight structure.
+				Some familiar applications of trusses are bridges, roof structures, and pylons.
+				<term>Planar trusses</term> are two-dimension trusses built out of triangular subunits, while <term>space trusses</term> are three-dimensional, and the basic unit is a tetrahedron.
+			</p>
+
+			<p>
+				In this section we will analyze a simplified approximation of a planar truss, called a <term>simple truss</term> and determine the forces the members individually support when the truss supports a load.
+				Two different approaches will be presented: the <term>method of sections</term>, and the <term>method of joints</term>.
+			</p>
+		</subsection>
+
+		<subsection xml:id="simple-trusses">
+			<title>Simple Trusses</title>
+			<p>
+				Truss members are connected to each other rigidly, by welding or joining the ends with a gusset plate.
+				This makes the connecting joints rigid, but also make the truss difficult to analyze.
+				To reduce the mathematical complexity in this text we will only consider <term>simple trusses</term>, which are a simplification appropriate for preliminary analysis.
+			</p>
+
+			<figure>
+				<caption>Truss with riveted gusset plates.</caption>
+				<image width="50%" source="images/gusset-plates.png">
+					<shortdescription>Truss bridge with riveted gusset plates.</shortdescription>
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					<source>Own work</source>
+					<note>
+						Cape Cod Canal Railroad Bridge
+					</note>
+					</remix>
+				</image>
+			</figure>
+
+			<p>
+				Simple trusses are made of all two-force members and all joints are modeled as frictionless pins.
+				All applied and reaction forces are applied only to these joints.
+				Simple trusses, by their nature, are statically determinate, having a sufficient number of equations to solve for all unknowns values.
+				While the members of real-life trusses stretch and compress under load, we will continue to assume that all bodies we encounter are rigid.
+			</p>
+
+			<p>
+				Simple trusses are made of triangles, which makes them rigid when removed from supports.
+				Simple trusses are determinate, having a balance of equations and unknowns, following the equation:
+				<me>
+					\underbrace{2\times (\text{number of joints})}_{\text{system equations}} = \underbrace{(\text{number of reaction forces}) + (\text{number of members})}_{\text{system unknowns}}
+				</me>
+			</p>
+
+			<p/>
+			<p>
+				Commonly, rigid trusses have only three reaction forces, resulting in the equation:
+				<me>
+					2\times (\text{number of joints})=3 + (\text{number of members})
+				</me>
+			</p>
+
+			<p>
+				Unstable trusses lack the structural members to maintain their rigidity when removed from their supports.
+				They can also be recognized using the equation above having more system equations on the left side of the equation above then system unknowns on the right.
+			</p>
+
+			<p>
+				Truss systems with redundant members have fewer system equations on the left side of the equation above than the system unknowns on the right.
+				While they are indeterminate in statics, in later courses you will learn to solve these trusses too, by taking into account the deformations of the truss members.
+			</p>
+
+			<insight>
+				<title>The Danger of Simple Trusses</title>
+				<p>
+					Simple trusses have no structural redundancy, which makes them easy to solve using the techniques of this chapter, however this simplicity also has a dark side.
+				</p>
+
+				<image width="75%" source="images/1024px-NTSBSkagitRiverBridgeCollapse.jpg">
+					<remix>
+					<creator>US Department of Transportation NSTB</creator>
+					<source href="https://commons.wikimedia.org/wiki/File:NTSBSkagitRiverBridgeCollapse.jpg"/>
+					<license href="https://creativecommons.org/choose/zero/">CC-0</license>
+					</remix>
+				</image>
+
+				<p>
+					These trusses are sometimes called <em>fracture critical trusses</em> because the failure of a single component can lead to catastrophic failure of the entire structure.
+					With no redundancy, there is no alternative load path for the forces that normally would be supported by that member.
+					You can visualize the fracture critical nature of simple trusses by thinking about a triangle with pinned corners.
+					If one side of a triangle fails, the other two sides lose their support and will collapse.
+					In a full truss made of only triangles, the collapse of one triangle starts a chain reaction which causes others to collapse as well.
+				</p>
+
+				<p>
+					While fracture critical bridges are being replaced by more robust designs, there are still thousands in service across the United States.
+					To read more about two specific fracture critical collapses search the internet for the <em>Silver Bridge</em> collapse, or the <em>I-5 Skagit River Bridge</em> collapse.
+				</p>
+			</insight>
+		</subsection>
+
+		<subsection xml:id="Chapter_06-solving-trusses">
+			<title>Solving Trusses</title>
+			<p>
+				<q>Solving</q> a truss means identifying and determining the unknown forces carried by the members of the truss when supporting the assumed load.
+				Because trusses contains only two-force members, these internal forces are all purely axial.
+				Internal forces in frames and machines will additionally include traverse forces and bending moments, as you will see in <xref ref="Chapter_08"/>.
+			</p>
+
+			<p>
+				Determining the internal forces is only the first step of a thorough analysis of a truss structure.
+				Later steps would include refining the initial analysis by considering other load conditions, accounting for the weight of the members, relaxing the requirement that the members be connected with frictionless pins, and ultimately determining the stresses in the structural members and the dimensions required in order to prevent failure.
+			</p>
+
+			<p>
+				Two strategies to solve trusses will be covered in the following sections: the <xref ref="method-of-joints" text="title"/> and the <xref ref="method-of-sections" text="title"/>.
+				Either method may be used, but the Method of Joints is usually easier when finding the forces in all the members, while the Method of Sections is a more efficient way to solve for specific members without solving the entire truss.
+				It's also possible to mix and match methods.
+			</p>
+
+			<p>
+				The initial steps to solve a truss are the same for both methods.
+				First, ensure that the structure can be modeled as a simple truss, then draw and label a sketch of the entire truss.
+				Each joint should be labeled with a letter, and the members will be identified by their endpoints, so member <m>AB</m> is the member between joints <m>A</m> and <m>B</m>.
+				This will help you keep everything organized and consistent in later analysis.
+				Then, treat the entire truss as a rigid body and solve for the external reactions using the methods of <xref ref="Chapter_05"/>.
+				If the truss is cantilevered and unsupported at one end you may not actually need the reaction forces and may skip this step.
+				The reaction forces can be used later to check your work.
+			</p>
+
+			<sidebyside>
+				<figure xml:id="joint-labels">
+					<caption> Truss Labels.
+					</caption>
+					<image source="images/simple_truss_labels">
+						<shortdescription>A five-member truss with pin and roller connection.
+						Pins labeled as single letters and members labeled as the two pin letters.</shortdescription>
+						<remix>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+				</figure>
+
+				<figure xml:id="truss_reactions">
+					<caption> Free body diagram.
+					</caption>
+					<image source="images/simple_truss_fbd">
+						<shortdescription>The same five-member truss free-body diagram.
+						Truss is shown detached from its external connections with forces representing those reactions.
+						Additional external force shown on top pin.</shortdescription>
+						<remix>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+				</figure>
+			</sidebyside>
+		</subsection>
+
+		<subsection xml:id="zero-force-members">
+			<title>Zero-Force Members</title>
+			<p>
+				Sometimes a truss will contain one or more zero-force members.
+				As the name implies, zero-force members carry no force and thus support no load.
+				Zero-force members will be found when you apply equilibrium equations to the joints, but you can save some work if you can spot and eliminate them before you begin.
+				Fortunately, zero-force members can easily be identified by inspection with two rules.
+				<ul>
+					<li>
+						Rule 1: If <em>two</em> non-collinear members meet at an unloaded joint, then both are zero-force members.
+					</li>
+
+					<li>
+						Rule 2: If <em>three</em> forces (interaction, reaction, or applied forces) meet at a joint and two are collinear, then the third is a zero-force member.
+					</li>
+				</ul>
+			</p>
+
+			<sidebyside widths="33%  50%">
+				<image source="images/ZFM-truss">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+
+				<stack>
+					<p>
+						Consider the truss to the left.
+						Assume that the dimensions, angles and the magnitude of force <m>C</m> are given.
+						At joint <m>B</m>, there are two vertical collinear members as well as a third member which is horizontal, so Rule 2 should apply.
+					</p>
+
+					<p>
+						What does Rule 2 say about member <m>BD</m>? Can it tell us anything about member <m>DA</m>?
+					</p>
+				</stack>
+			</sidebyside>
+
+			<sidebyside widths="75%  25%">
+				<stack>
+					<p>
+						Cutting the members at the dotted boundary line exposes internal forces <m>BC</m>, <m>BD</m> and <m>BA</m>.
+						These forces act along the axis of the corresponding members by the nature of two-force members, and for convenience have been assumed in tension although that may turn out to be incorrect.
+					</p>
+
+					<p>
+						Rule 2 applies here since <m>BA</m> and <m>BC</m> are collinear and <m>BD</m> is not.
+					</p>
+				</stack>
+
+				<image source="images/ZFM_joint_B">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</sidebyside>
+
+			<sidebyside widths="75% 25%">
+				<stack>
+					<p>
+						The free-body diagram of joint <m>B</m> may be drawn by eliminating the cut members and only showing the forces themselves.
+					</p>
+
+					<p>
+						The situation is simple enough to apply the equilibrium equations in your head.
+					</p>
+				</stack>
+
+				<image source="images/ZFM_joint_B_fbd">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</sidebyside>
+
+			<p>
+				Vertically, forces <m>BC</m> and <m>BA</m> must be equal, and horizontally, force <m>BD</m> must be zero to satisfy <m>\Sigma F_x = 0</m>.
+				We learn that member <m>BD</m> is a zero-force member.
+			</p>
+
+			<p>
+				While it is probably easiest to think about Rule 2 when the third member is perpendicular to the collinear pair, it doesn't have to be.
+				Any perpendicular component must be zero which implies that the corresponding member is zero-force.
+			</p>
+
+			<sidebyside widths="75%  25%">
+				<stack>
+					<p>
+						Finding zero-force members is an iterative process.
+						If you determine that a member is zero-force, eliminate it and you may find others.
+						Continuing the analysis at joint <m>D</m> draw its free-body diagram.
+						Keep in mind that if one end of a member is zero-force the whole member is zero-force.
+						Since member <m>BD</m> is zero-force, horizontal force <m>BD</m> acting on joint <m>D</m> is zero and need not be included on the free-body diagram, and the remaining three forces match the conditions to apply Rule 2.
+					</p>
+				</stack>
+
+				<image source="images/ZFM_joint_D_fbd">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</sidebyside>
+
+			<p>
+				Analyzing the joint as before, but with a coordinate system aligned with the collinear pair,
+				<md>
+					<mrow>\Sigma F_y \amp = 0</mrow>
+					<mrow>DA \sin \theta \amp = 0</mrow>
+				</md>
+			</p>
+
+			<p>
+				This equation will be satisfied if <m>DA = 0</m> or if <m>\sin \theta = 0</m> but the second condition is only true when <m>\theta = \ang{0}</m> or <m>\theta =\ang{180}</m>, which is not the case here.
+				Therefore, force <m>DA</m> must be zero, and we can conclude that member <m>DA</m> is a zero-force member as well.
+			</p>
+
+			<sidebyside widths="75%  25%">
+				<stack>
+					<p>
+						Finally consider joint <m>C</m> and draw its free-body diagram.
+						Does either Rule apply to this joint? No.
+						You will need to solve two equilibrium equations with this free-body diagram to find the magnitudes of forces <m>CD</m> and <m>CB</m>.
+					</p>
+
+					<p>
+						On the other hand, if the horizontal load <m>C</m> was not present or if either <m>BC</m> or <m>DC</m> was zero-force, then Rule 1 <em>would</em> apply and the remaining members would also be zero-force.
+					</p>
+				</stack>
+
+				<image source="images/ZFM_joint_C_fbd">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+			</sidebyside>
+
+			<sidebyside widths="33%  50%">
+				<image source="images/ZFM-truss-after">
+					<remix>
+					<creator href="https://weh.maritime.edu">William Haynes</creator>
+					<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+					</remix>
+				</image>
+
+				<stack>
+					<p>
+						The final truss after eliminating the zero-force members is shown to the left.
+						Forces <m>BC=BA</m> and <m>DC = DE</m> and the members may be replaced with longer members <m>AC</m> and <m>CE</m>.
+					</p>
+
+					<p>
+						The original truss has been reduced to a simpler triangular structure with only three internal forces to be found.
+						Once you are able to spot zero force members, this simplification can be made without drawing any diagrams or performing any calculations.
+					</p>
+				</stack>
+			</sidebyside>
+
+			<insight>
+				<title>Why include Zero-Force Members?</title>
+				<p>
+					You may be wondering what is the point of including a member in a truss if it supports no load.
+					In our simplified example problems, they really are unnecessary, but in the real world, zero-force members are important for several reasons:
+					<ul>
+						<li>
+							We have assumed that all members have negligible weight or if not, applied half the weight to each pin.
+							The <em>actual</em> weight of <em>real</em> members invalidates the two-force body assumption and leads to errors.
+							Consider a vertical member -- the internal forces must at least support the member's weight.
+						</li>
+
+						<li>
+							Truss members are not actually rigid, and long slender members under compression will <em>buckle</em> and collapse.
+							The so-called zero-force member will be engaged to prevent this buckling.
+							In the previous example, members CD and DE are under compression and form an unstable equilibrium and would definitely buckle at pin <m>D</m> if they were not replaced with a single member <m>CE</m> with sufficient rigidity.
+						</li>
+
+						<li>
+							Trusses are often used over a wide array of loading conditions.
+							While a member may be zero-force for one loading condition, it will likely be engaged under a different condition <mdash/> think about how the load on a bridge shifts as a heavy truck drives across.
+						</li>
+					</ul>
+				</p>
+
+				<p>
+					So finding a zero-force member in a determinate truss does not mean you can discard the member.
+					Zero-force members can be thought of as removed from the analysis, but only for the loading you are currently analyzing.
+					After removing zero-force members, you are left with the simplest truss which connects the reaction and applied forces with triangles.
+					If you misinterpret the rules you may over-eliminate members and be left with missing legs of triangles or <sq>floating</sq> forces that have no load path to the foundation.
+				</p>
+			</insight>
+
+			<example xml:id="Chapter_06-example-zero-force-member-example-">
+				<title>Zero-Force Member Example </title>
+				<statement>
+					<sidebyside widths="40% 60%" margins="0%">
+						<p>
+							Given the truss shown, eliminate all the zero-force members, and draw the remaining truss.
+						</p>
+
+						<image source="images/zero-force-members">
+							<remix>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+					</sidebyside>
+
+					<p/>
+				</statement>
+
+				<answer>
+					<p>
+						There are seven zero-force members: <m>GH</m>, <m>FG</m>, <m>BF</m>, <m>EI</m>, <m>DE</m>, <m>EC</m> and <m>CD</m>.
+					</p>
+				</answer>
+
+				<solution>
+					<p>
+						Rule 1:
+						<ul>
+							<li>
+								Due to two members meeting at unloaded joint <m>G</m>, both members <m>GH</m> and <m>FG</m> are zero-force members
+							</li>
+
+							<li>
+								Due to two members meeting at unloaded joint <m>D</m>, both members <m>DE</m> and <m>CD</m> are zero-force members
+							</li>
+						</ul>
+					</p>
+
+					<p>
+						Rule 2:
+						<ul>
+							<li>
+								Due to three forces meeting at joining <m>B</m>, with two being collinear (internal forces in <m>AB</m> and <m>BC</m>) then <m>BF</m> is a zero-force member.
+							</li>
+
+							<li>
+								Due to three forces meeting at joint <m>I</m>, with two being collinear (internal forces in <m>IF</m> and <m>CI</m>), then <m>EI</m> is a zero-force member.
+								Note that member <m>EI</m> does not need to be perpendicular to the collinear members to be a zero force.
+							</li>
+
+							<li>
+								After removing zero-force members <m>EI</m> and <m>DE</m>, three forces reamain at <m>E</m>, with two being collinear (internal force in <m>EF</m> and external load <m>F_E</m>), making  <m>EC</m> a zero-force member.
+							</li>
+						</ul>
+					</p>
+
+					<sidebyside widths="40% 60%" margins="0%">
+						<p>
+							The remaining truss is shown.
+							Note that once <m>EI</m> and <m>BF</m> are eliminated, you can effectively eliminate the joints <m>B</m> and <m>I</m> as the member forces in the collinear members will be equal.
+							Also notice that the truss is still formed of triangles which fully support all of the applied forces.
+						</p>
+
+						<image source="images/zero-force-members-gone">
+							<remix>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+					</sidebyside>
+
+					<p/>
+				</solution>
+			</example>
+
+			<p>
+				Try to find all the zero-force members in the truss in the interactive diagram below, once you believe you have found all of them, check out the step-by-step solution in the interactive.
+			</p>
+
+			<figure xml:id="ggb_bf6c5jmx">
+				<caption> Identify zero-force members.
+				</caption>
+				<xi:include href="interactives.ptx" xpointer="ggb_zero-force-members_interactive"/>
+			</figure>
+		</subsection>
+	</section>
+
+	<section xml:id="method-of-joints">
+		<title>Method of Joints</title>
+		<objectives>
+			<ul>
+				<li>
+					What are the important components to include on a free-body diagram of a joint in a truss?
+				</li>
+
+				<li>
+					How are the solutions found at one joint used to create an accurate free-body diagram of another joint?
+				</li>
+
+				<li>
+					How do we ensure that tension or compression in a member is properly represented?
+				</li>
+			</ul>
+		</objectives>
+
+		<introduction>
+			<p>
+				The <term>method of joints</term> is a process used to solve for the unknown forces acting on members of a truss.
+				The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.
+			</p>
+
+			<p>
+				The joints are treated as particles subjected to force by the connected members and any applied loads.
+				As the joints are in equilibrium and the forces are concurrent, <m>\Sigma \vec{F} = 0</m> can be applied, but the <m>\Sigma M=0</m> equation provides no information.
+			</p>
+
+			<p>
+				For planar trusses, each joint yields two scalar equations, <m>\Sigma F_x=0</m> and <m>\Sigma F_y=0</m>, and so two unknowns can be found.
+				Therefore, a joint can be solved when there are one or two unknowns forces and at least one known force acting on it.
+			</p>
+
+			<p>
+				Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.
+			</p>
+		</introduction>
+
+		<subsection xml:id="joints-procedure">
+			<title>Procedure</title>
+			<p>
+				The procedure is straightforward application of rigid body and particle equilibrium
+				<ol>
+					<li>
+						<p>
+							Determine if the structure is a truss and if it is determinate.
+							See <xref ref="simple-trusses"/>
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Identify and remove all zero-force members.
+							This is not required, but will eliminate unnecessary computations.
+							See <xref ref="zero-force-members"/>.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Determine if you need to find the external reactions.
+							If you can identify a solvable joint immediately, then you do not need to find the external reactions.
+						</p>
+
+						<p>
+							A solvable joint includes one or more known forces and no more than two unknown forces.
+							If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Identify a solvable joint and solve it using the methods of <xref ref="Chapter_03"/>.
+							When drawing free-body diagrams of joints you should
+							<ul>
+								<li>
+									Represent the joint as a dot.
+								</li>
+
+								<li>
+									Draw all known forces in their known directions with arrowheads indicating their sense.
+									Known forces are the given loads, and forces determined from previously solved joints.
+								</li>
+
+								<li>
+									Assume the sense of unknown forces.
+									A common practice is to assume that all unknown forces are in tension, <ie/> pulling away from the free-body diagram of the pin, and label them based on the member they represent.
+								</li>
+							</ul>
+						</p>
+
+						<p>
+							Finally, write out and solve the force equilibrium equations for the joint.
+							If you assumed that all forces were tensile earlier, negative answers indicate compression.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved.
+							Take care when transferring forces to adjoining joints to maintain their sense <mdash/> either tension or compression.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint.
+							The extra equations can be used to check your work.
+						</p>
+					</li>
+				</ol>
+			</p>
+
+			<p>
+				Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.
+			</p>
+
+			<p>
+				The interactive below shows a triangular truss supported by a pin at <m>A</m> and a roller at <m>B</m>, and loaded at joint <m>C</m>.
+				You can see how the reactions and internal forces adjust as you vary the load at <m>C</m>.
+				You can solve it by starting at joint <m>C</m> and solving for <m>BC</m> and <m>CD</m>, then moving to joint <m>B</m> and solving for <m>AB</m> Joint <m>A</m> can be used to check your work.
+			</p>
+
+			<figure xml:id="ggb_fvuugvb4">
+				<caption> Internal and external forces of a simple truss.
+				</caption>
+				<xi:include href="interactives.ptx" xpointer="ggb_method-of-joints_interactive"/>
+			</figure>
+		</subsection>
+	</section>
+
+	<section xml:id="method-of-sections">
+		<title>Method of Sections</title>
+		<objectives>
+			<ul>
+				<li>
+					How do we determine an appropriate section to cut through a truss?
+				</li>
+
+				<li>
+					How are equilibrium equations applied to a section?
+				</li>
+			</ul>
+		</objectives>
+
+		<introduction>
+			<p>
+				The <term>method of sections</term> is used to solve for the unknown forces within specific members of a truss without solving for them all.
+				The method involves dividing the truss into sections by cutting through the selected members and analyzing the section as a rigid body.
+				The advantage of the Method of Sections is that the only internal member forces exposed are those which you have cut through, the remaining internal forces are not exposed and thus ignored.
+			</p>
+		</introduction>
+
+		<subsection xml:id="sections-procedure">
+			<title>Procedure</title>
+			<p>
+				The procedure to solve for unknown forces using the method of sections is
+				<ol>
+					<li>
+						<p>
+							Determine if a truss can be modeled as a <xref ref="simple-trusses" text="custom">simple truss</xref>.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Identify and eliminate all <xref ref="zero-force-members" text="custom">zero-force members</xref>.
+							Removing zero-force members is not required but may eliminate unnecessary computations.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Solve for the external reactions, if necessary.
+							Reactions will be necessary if the reaction forces act on the section of the truss you choose to solve below.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Use your imaginary chain saw to cut the truss into two pieces by cutting through some or all of the members you are interested in.
+							The cut does not need to be a straight line.
+						</p>
+
+						<p>
+							Every cut member exposes an unknown internal force, so if you cut three members you'll expose three unknowns.
+							Exposing more than three members is not advised because you create more unknowns than available equilibrium equations.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Select the easier of the two halves of the truss and draw its free-body diagram.
+							<ul>
+								<li>
+									<p>
+										Include all applied and reaction forces acting on the section, and show known forces acting in their known directions.
+									</p>
+								</li>
+
+								<li>
+									<p>
+										Draw unknown forces in assumed directions and label them.
+										A common practice is to assume that all unknown forces are in tension and label them based on the endpoints of the member they represent.
+									</p>
+								</li>
+							</ul>
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Write out and solve the equilibrium equations for your chosen section.
+							If you assumed that unknown forces were tensile, negative answers indicate compression.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							If you have not found all the required forces with one section cut, repeat the process using another imaginary cut or proceed with the method of joints if it is more convenient.
+						</p>
+					</li>
+				</ol>
+			</p>
+
+			<p>
+				The interactive below demonstrates the method of sections.
+				The internal forces in the truss members are exposed by cutting through the truss at three locations.
+				The known loads are shown in red, and the unknown reactions <m>F_x</m>, <m>A_x</m> and <m>A_y</m>, and unknown member forces are shown in blue.
+				All members are assumed to be in tension.
+				In this situation, it is not necessary to find the reactions if the section to the right of the cut is selected.
+			</p>
+
+			<sidebyside width="100%">
+				<figure xml:id="ggb_wxh9nsbc">
+					<caption>Method of sections demonstration.</caption>
+					<xi:include href="interactives.ptx" xpointer="ggb_method-of-sections_interactive"/>
+				</figure>
+			</sidebyside>
+		</subsection>
+	</section>
+
+	<section xml:id="frames-and-machines">
+		<title>Frames and Machines</title>
+		<objectives>
+			<ul>
+				<li>
+					How are frames and machines different from trusses?
+				</li>
+
+				<li>
+					Why can the method of joints and method of sections not be used for frames and machines?
+				</li>
+
+				<li>
+					How do we identify if a structure is independently rigid?
+				</li>
+
+				<li>
+					How do we apply equilibrium equations to each member of the structure, and ensure that the sense of a force appearing on multiple free-body diagrams is consistent?
+				</li>
+			</ul>
+		</objectives>
+
+		<introduction>
+			<p>
+				Frame and machines are engineering structures that contain at least one multi-force member.
+				As their name implies, multi-force members have more than two concentrated loads, distributed loads, and/or couples applied to them and therefore are not two-force members.
+				Note that all bodies we investigated in <xref ref="Chapter_05"/> were all multi-force bodies.
+			</p>
+
+			<p>
+				<term>Frames</term> are rigid, stationary structures designed to support loads and must include at least one multi-force member.
+			</p>
+
+			<p>
+				<term>Machines</term> are non-rigid structures where the parts can move relative to one another.
+				Generally they have an input and an output force and are designed produce a mechanical advantage.
+				Note that all machines in this text are in static equilibrium by their interacting and applied forces.
+			</p>
+
+			<p>
+				Though there is a design difference between frames and machines they are grouped together because they can both be analyzed using the same process, which is the subject of this section.
+			</p>
+
+			<sidebyside widths="45% 45%">
+				<figure xml:id="stool">
+					<caption> Frames are rigid objects containing multi-force members.
+					</caption>
+					<image source="images/TabouretAFDB.png">
+						<shortdescription>A kitchen stool is an example of a frame.</shortdescription>
+						<remix>
+						<source href="https://upload.wikimedia.org/wikipedia/commons/5/56/TabouretAFDB.jpg?uselang=fr"/>
+						<license href="https://creativecommons.org/licenses/by-sa/2.5/">BY-SA</license>
+						<creator>Sebastien Rivory</creator>
+						</remix>
+					</image>
+				</figure>
+
+				<figure xml:id="vice-grips-photo">
+					<caption> Machines contain multi-force members that can move relative to one another.
+					</caption>
+					<image source="images/Locking_pliers.png">
+						<shortdescription>A set of locking pliers is example of a machine.</shortdescription>
+						<remix>
+						<source href="https://commons.wikimedia.org/wiki/File:Locking_pliers.jpg/"/>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+				</figure>
+			</sidebyside>
+		</introduction>
+
+		<subsection xml:id="frames-procedure">
+			<title>Analyzing Frames and Machines</title>
+			<introduction>
+				<p>
+					Analyzing a frame or machine means determining all applied, reaction, and internal forces and couples acting on the structure and all of its parts.
+				</p>
+
+				<p>
+					Multi-part structures are analyzed by mentally taking them apart and analyzing the entire structure and each part separately.
+					Each component is analyzed as an separate rigid body using the techniques we have already seen.
+				</p>
+
+				<p>
+					Although we can separate the structure into parts, the parts are not independent since, by Newton's Third Law, every interaction is half of a complementary pair.
+					For every force or moment of body <m>A</m> on <m>B</m> there is an equal-and-opposite force or moment of body <m>B</m> on body <m>A</m> and the free-body diagrams must reflect this.
+					Incorrect representation of these interacting pairs on free-body diagrams is a common source of student errors.
+				</p>
+
+				<p>
+					Once the frame or machine is disassembled and free-body diagrams have been drawn, the structure is analyzed by applying equations of equilibrium to free-body diagrams, exactly as you have done before <mdash/>there's nothing new here.
+				</p>
+
+				<p>
+					The difficulty arises first in selecting objects and drawing correct free-body diagrams and second, in identifying an efficient solution strategy since you usually won't be able to completely solve a diagram without first finding the value of an unknown force from another diagram.
+				</p>
+
+				<p>
+					In <xref ref="Chapter_05"/> we saw that each two-dimensional free-body diagram results in up to three linearly independent equations.
+					By disassembling the structure we now have more free-body diagrams available, and can use them to find more unknown values.
+					Here's a few more details on the number of equations that come from each type of two-dimensional free-body diagram:
+					<ul>
+						<li>
+							<title>Two-force members</title>
+							<p>
+								One equation.
+								Two-force members can be recognized as either a cable or a weightless link with all forces coming from two frictionless pins.
+								The force at one pin is equal and opposite to the force on the other placing the body in tension or compression.
+							</p>
+						</li>
+
+						<li>
+							<title>Objects with concurrent forces and no couple-moments</title>
+							<p>
+								Two equations.
+								These are the problems you solved in <xref ref="Chapter_03"/>.
+								There are two equations available <m>\Sigma F_x = 0</m> and <m>\Sigma F_y = 0</m>.
+							</p>
+						</li>
+
+						<li>
+							<title>Multi-force rigid body with non-concurrent forces and/or couples</title>
+							<p>
+								Three equations.
+								These are the most general body types.
+								Use <m>\Sigma F_x = 0</m>, <m>\Sigma F_y = 0</m>, and<m> \Sigma M = 0</m> to solve for three unknowns.
+							</p>
+						</li>
+					</ul>
+				</p>
+			</introduction>
+
+			<subsubsection xml:id="Chapter_06-procedure">
+				<title>Procedure</title>
+				<p>
+					The process used to analyze frames and machines is outlined below
+					<ol>
+						<li>
+							<p>
+								Determine if the entire structure is independently rigid.
+								An independently rigid structure will hold it shape even when separated from its supports.
+								Look for triangles formed among the members, as triangles are inherently rigid.
+								If it is not independently rigid, the structure will collapse when the supports are removed.
+							</p>
+
+							<p>
+								If the structure is not independently rigid, skip to the next step.
+								Otherwise, model it as a single rigid body and determine the external reaction forces.
+							</p>
+						</li>
+
+						<li>
+							<p>
+								Draw a free-body diagram for each of the members in the structure.
+								You must represent all forces acting on each member, including:
+								<ul>
+									<li>
+										Applied forces and couples and the weights of the components if non-negligible.
+									</li>
+
+									<li>
+										Interaction forces due to two-force members.
+										There will be force of unknown magnitude but the known direction at points connected to two-force members.
+										The forces will act along the line between the two connection points.
+									</li>
+
+									<li>
+										All reaction forces and moments at the connection points between members.
+										Forces with an unknown magnitude and direction are usually represented by unknown <m>x</m> and <m>y</m> components, but can also be represented as a force with unknown magnitude acting in an unknown direction.
+									</li>
+								</ul>
+							</p>
+
+							<p>
+								All interaction forces and moments between connected bodies <em>must</em> be shown as equal-and-opposite action-reaction pairs.
+							</p>
+							<sidebyside widths="40% 53%" margins="0%">
+							<figure xml:id="frame-example-fbd">
+								<caption>Free-body diagram of a rigid frame with pin at <m>A</m>, roller at <m>E</m>, and load at <m>F</m>.</caption>
+								<image source="images/Example-frame">
+									<shortdescription>A frame of three members shaped like capital letter A.
+									Pin A is bottom left, and continuing clockwise are pins B, C, D and E.</shortdescription>
+									<remix>
+									<creator href="https://weh.maritime.edu">William Haynes</creator>
+									<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+									</remix>
+								</image>
+							</figure>
+
+							<figure xml:id="frame-example-exploded">
+								<caption> Free body diagrams of the individual components.
+								External forces are red, exposed action-reaction pairs in blue.
+								</caption>
+								<image source="images/Example-frame-exploded">
+									<shortdescription>Members of the frame are shown separated.
+									Separated pin connections are shown with equal and opposite forces acting on the previously connected members.</shortdescription>
+									<remix>
+									<creator href="https://weh.maritime.edu">William Haynes</creator>
+									<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+									</remix>
+								</image>
+							</figure>
+						</sidebyside>
+					</li>
+
+					<li>
+						<p>
+							Write out the equilibrium equations for each free-body diagram.
+						</p>
+					</li>
+
+					<li>
+						<p>
+							Solve the equilibrium equations for the unknowns.
+							You can do this algebraically, solving for one variable at a time, or you can use matrix equations to solve for everything at once.
+							Negative magnitudes indicate that the assumed direction of that term was incorrect, and the actual force/moment is opposite the assumed direction.
+						</p>
+					</li>
+				</ol>
+			</p>
+
+			<p>
+				In the following example, we'll discuss how to select objects, distinguish external and internal loads, draw consistent and correct free-body diagrams, and identify a good solution strategy.
+			</p>
+		</subsubsection>
+
+		<subsubsection xml:id="Chapter_06-free-body-diagram-of-structures">
+			<title>Free-body diagram of structures</title>
+			<p>
+				Drawing free-body diagrams of complex frames and machines can be tricky.
+				In this section we will walk through the process of selecting appropriate objects and drawing consistent and correct free-body diagrams in order to solve a typical machine problem.
+			</p>
+
+			<p>
+				The toggle clamp shown in <xref ref="toggle-clamp-01"/> is used to quickly secure wooden furniture parts to the bedplate of a CNC router in order to cut mortise and tenon joints.
+				The component parts are shown and named in <xref ref="toggle-clamp-02"/>.
+			</p>
+
+			<sidebyside widths="30% 37.5%" margins="0%">
+				<figure xml:id="toggle-clamp-01">
+					<caption>Original diagram</caption>
+					<image source="images/toggle-clamp-01">
+						<shortdescription>Illustrated image of a toggle clamp.</shortdescription>
+						<remix>
+						<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+				</figure>
+
+				<figure xml:id="toggle-clamp-02">
+					<caption> Component parts.
+					</caption>
+					<image source="images/toggle-clamp-02">
+						<shortdescription>Component parts are shown separated from each other.</shortdescription>
+						<remix>
+						<creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+				</figure>
+			</sidebyside>
+
+			<p>
+				This original diagram is not a free-body diagram because all the forces necessary to hold the objects in equilibrium are not indicated.
+				The only force shown is <m>F,</m> which is supplied by some external agent, presumably the machine operator.
+				We must assume that the wall and floor are still attached to the world and held fixed.
+			</p>
+
+			<p>
+				To perform an equilibrium analysis, we need to develop one or more free-body diagrams and apply the equations of equilibrium to them.
+				Free-body diagrams can be drawn for the entire structure, each individual part, and for any combination of connected parts.
+				Not all these diagrams will be needed however, and part of the challenge of solving these problems is selecting and drawing only the ones you need.
+				In any event, a clear decision must always be made about what is part of the free-body and what is not.
+			</p>
+
+			<p>
+				When we separate one body from another loads will appear on both bodies which act to constrain them as they were constrained before the separation.
+				These forces and moments must be represented on the free-body diagrams consistently as halves of equal-and-opposite action-reaction pairs.
+			</p>
+
+			<p>
+				For this discussion we will progressively exclude parts from the original structure and draw the free-body diagram of what remains.
+				In so doing we will clarify the difference between internal and external forces, recognize and take advantage of two-force bodies, and provide some tips for drawing correct free-body diagrams.
+				In an actual situation you will not need to draw all these diagrams, instead you should think through the situation and draw only the diagrams you will need for a solution.
+			</p>
+
+			<p>
+				It is helpful to consider which loads are known and which are unknown as you prepare free-body diagrams.
+				In planar problems a free-body diagram with three or fewer unknowns may be solved immediately.
+				When there are more than three unknowns, you must incorporate information from other diagrams to complete the solution.
+			</p>
+
+
+			<paragraphs>
+				<title>Exclude the floor</title>
+				<p>
+					To begin, we can remove the floor from the system.
+					Everything except the floor is now included as our body; only the floor is excluded.
+					The floor was in contact with the other objects at the ground and also at the connection between the floor and the wall.
+				</p>
+
+				<p>
+					Since we don't know how the wall and the floor are connected we will assume they were fixed together.
+					We also have to model how the wall is attached to the rest of the world.
+					The fixed support from wall-to-world and wall-to-floor can be combined to be a single set of three loads which we represent as horizontal and vertical forces <m>V_x</m> and <m>V_y</m>, and a concentrated moment <m>M_v</m>.
+				</p>
+
+				<p/>
+				<figure xml:id="toggle-clamp-03">
+					<caption> Free-body Diagram 1 </caption>
+					<sidebyside valign="middle" widths="30% 65%">
+						<image source="images/toggle-clamp-03">
+							<shortdescription>Toggle clamp is shown separated from the floor, with the external force applied to the handle, and the reaction force of the floor on the base of the assembly.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Wall, Bearing <m>A</m>
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+
+				<p>
+					The effect of the floor on the block is represented by a single vertical force <m>G</m> which holds the block the same way the floor was previously supporting it; the loads you add must constrain your object the same way they were constrained in the real world.
+					This representation is really a simplification of the actual situation since the force of the floor is really distributed over the bottom surface of the block; however, this simplification is justified in much the same way as we represent the weight of an object as a single force acting at its center of gravity.
+				</p>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								Include friction if it's given or obvious.
+							</li>
+
+							<li>
+								Internal forces in rigid bodies should be modeled as a fixed support.
+							</li>
+
+							<li>
+								If you need info which you don't have, select a variable to act as its name.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Exclude the wall</title>
+				<p>
+					If you next remove the wall, forces <m>G</m> and <m>F</m> remain from before, but we now expose four loads from where the wall was connected to what is now our body; a normal force <m>N</m> at the roller and three loads from the fixed support between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>.
+				</p>
+
+				<figure>
+					<caption> Free-body diagram 2</caption>
+					<sidebyside valign="middle" widths="23% 72%">
+						<image source="images/toggle-clamp-04">
+							<shortdescription>Toggle clamp assembly is now separated from the wall, with external forces from the wall shown acting on the assembly.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>, Bearing <m>A</m>
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor, Wall
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+
+				<p>
+					Note that the reactions between the wall and the floor are no longer included in the free-body diagram because they are both on the same side of the included-excluded table.
+					Only loads that cross from included to excluded produce a load on the free-body diagram.
+				</p>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								Every force needs a point of application and a clear arrowhead.
+							</li>
+
+							<li>
+								Indicate any distances and angles needed and not available on the original diagram.
+							</li>
+
+							<li>
+								Define the direction of forces which are not vertical or horizontal with an angle from a reference direction.
+							</li>
+
+							<li>
+								Define a coordinate system unless you are using the standard <m>x</m>-<m>y</m> axes.
+							</li>
+
+							<li>
+								Do not add forces that don't act on your body.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Exclude the bearing at <m>A</m> </title>
+				<p>
+					We are not interested in the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m> and further, the free-body diagram still includes too many unknowns to solve.
+				</p>
+
+				<p>
+					After removing the bearing we reduce the unknowns at <m>A</m> to two because the bearing block and the lever are connected with a pin while the bearing block and wall were connected with a fixed support.
+					The loads <m>W_x</m>, <m>W_y</m>, and <m>M</m> and <m>V_x</m>, <m>V_y</m>, and <m>M_v</m> are not included on this free-body diagram because they don't act on this object.
+				</p>
+
+				<figure>
+					<caption> Free-body diagram 3</caption>
+					<sidebyside valign="middle" widths="23% 72%">
+						<image source="images/toggle-clamp-05">
+							<shortdescription>The bearing is removed since it has equal and opposite forces on the top member.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>, Short Link <m>BD</m>, Wooden Block, Roller <m>D</m>,
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor, Wall, Bearing <m>A</m>
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+
+				<p>
+					The load from the short link at <m>B</m> is does not appear on this free-body diagram because it is internal.
+					Internal loads connect two parts of the body together.
+					They should not be included in the free-body diagram because they always occur in equal and opposite pairs which cancel each other out.
+				</p>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								Look for free-body diagrams which include only three unknowns in two dimensions or six unknowns in three.
+							</li>
+
+							<li>
+								Don't include internal loads on your free-body diagrams.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Examine the wooden block</title>
+				<figure>
+					<caption> Free-body diagram 4 (block)</caption>
+					<sidebyside valign="middle" widths="15% 80%">
+						<image source="images/toggle-clamp-07">
+							<shortdescription>FBD of the block at the base of the clamp.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<stack>
+							<p>
+								A free-body diagram of the block shows the clamping force Q, which we are seeking.
+							</p>
+
+							<p>
+								Note that <m>Q \ne G</m>.
+								These forces are given different names since they may have different magnitudes.
+								If the weight of the block is small<fn>(less than about 0.1%)</fn> in comparison to the other forces acting on the object it may be neglected, in which case <m>Q = G</m> and they could be given the same name.
+							</p>
+						</stack>
+					</sidebyside>
+				</figure>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								If the two forces are not the same don't identify them by the same name.
+							</li>
+
+							<li>
+								Make as few assumptions as you possibly can.
+								Make a note of any assumptions you make.
+							</li>
+
+							<li>
+								In textbook problems, if the weight of an object is not mentioned it may be neglected.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Exclude the wooden block</title>
+				<p>
+					We can further simplify the diagram by removing the wooden block, leaving only the roller, short link and lever.
+				</p>
+
+				<figure xml:id="toggle-clamp-06">
+					<caption> Free-body diagram 5 (lever and link)</caption>
+					<sidebyside valign="middle" widths="23% 72%">
+						<image source="images/toggle-clamp-06">
+							<shortdescription>FBD of the toggle clamp with wooden block removed.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>, Short Link <m>BD</m>, Roller <m>D</m>
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor, Wall, Bearing <m>A</m>, Wooden Block
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Examine the short link <m>BD</m> </title>
+				<p>
+					The short link <m>BD</m> is a two-force body and as discussed in <xref ref="two-force-bodies"/> can only be in equilibrium if the forces at <m>B</m> and <m>D</m> are equal-and-opposite and act along a line passing through these two points.
+					This means that the 24:7 slope of the link determines the direction of force <m>BD</m>.
+				</p>
+
+				<figure>
+					<caption>Free-body diagram 6 (short link)</caption>
+					<sidebyside valign="middle" widths="15% 80%">
+						<image source="images/toggle-clamp-11">
+							<shortdescription>The short link of toggle clamp (a two-force member).</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<p>
+							When drawing free-body diagrams, forces with known directions should be drawn pointing in that direction rather than breaking them into components, otherwise you may lose track of the fact that the <m>x</m> and <m>y</m> components are not independent but are actually related by the direction of the force.
+						</p>
+					</sidebyside>
+				</figure>
+
+				<p>
+					Here we have assumed that the forces acting on the link are compressive.
+					If the equilibrium equations produce a positive value for <m>BD</m> our assumption is proved correct, while a negative result indicates that we were wrong and the link is actually in tension.
+				</p>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								A short-link is a two-force body.
+							</li>
+
+							<li>
+								Recognize two-force bodies because they give you information about direction.
+							</li>
+
+							<li>
+								Represent the force of a two-force bodies as a force with unknown magnitude acting along a known line of action, not as <m>x</m> and <m>y</m> components.
+							</li>
+
+							<li>
+								If you don't know the sense of a force along its line of action, assume one.
+								If you guess wrong, the analysis will give you a negative value.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Examine the roller at <m>D</m> </title>
+				<figure>
+					<caption> Free-body diagram 7 (roller)</caption>
+					<sidebyside valign="middle" widths="15% 80%">
+						<image source="images/toggle-clamp-09">
+							<shortdescription>FBD of the roller.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<p>
+							Note that the force <m>BD</m> acting on the roller is shown pointing down and to the left.
+							This is the opposite to the force acting on the link at <m>D</m>, which acts up and to the right.
+							These two must act in opposite directions because they are an action-reaction pair.
+						</p>
+					</sidebyside>
+				</figure>
+
+				<p>
+					The roller is a three-force body, so the lines of action of <m>N</m>, <m>Q</m>, and <m>BD</m> are coincident and it may be treated as a particle.
+					Equilibrium analysis shows that <m>N</m> and <m>Q</m> must oppose the horizontal and vertical components of force <m>BD</m>.
+				</p>
+
+				<p>
+					The clamping force <m>Q</m> produced by the toggle clamp appears on this free-body diagram so it will be important later for the solution.
+				</p>
+
+				<assemblage>
+					<title>Tips</title>
+					<p>
+						<ul>
+							<li>
+								Recognize three-force bodies and use their special properties to your advantage.
+							</li>
+
+							<li>
+								Use the same name for the exposed forces on interacting bodies since they are equal-and-opposite halves of an action-reaction pair.
+							</li>
+						</ul>
+					</p>
+				</assemblage>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Exclude the roller</title>
+				<p>
+					We can further simplify the free-body diagram by removing the roller.
+					The roller and short link are connected with a pin but, for equilibrium, the forces acting on a short link (or any two-force body) must share the same line of action <mdash/> the line connecting its endpoints; otherwise, components perpendicular to this line would produce an unbalanced moment about the other endpoint.
+				</p>
+
+				<figure>
+					<caption> Free-body diagram 8</caption>
+					<sidebyside valign="middle" widths="23% 72%">
+						<image source="images/toggle-clamp-08">
+							<shortdescription>FBD of toggle clamp without the roller.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>, Short Link <m>BD</m>
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+			</paragraphs>
+
+
+			<paragraphs>
+				<title>Exclude the short link</title>
+				<p>
+					The previous free-body diagram has three unknowns and can be solved but the free-body diagram of the lever by itself is also correct, and this is the free-body diagram that most people begin with.
+				</p>
+
+				<figure>
+					<caption> Free-body diagram 9 (lever) </caption>
+					<sidebyside valign="middle" widths="23% 72%">
+						<image source="images/toggle-clamp-10">
+							<shortdescription>FBD of the single remaining member of the toggle clamp assembly.</shortdescription>
+							<remix>
+							<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+							<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+							</remix>
+						</image>
+
+						<tabular bottom="minor" valign="top">
+							<col width="33%" halign="left"/>
+							<col width="66%" halign="left"/>
+							<row header="yes" bottom="medium">
+							<cell> Included </cell>
+							<cell> Excluded </cell>
+							</row>
+							<row>
+							<cell>
+							<p>
+								Lever <m>ABC</m>
+							</p>
+							</cell>
+							<cell>
+							<p>
+								Floor, Wall, Bearing <m>A</m>, Wooden Block, Roller <m>D</m>, Short Link <m>BD</m>
+							</p>
+							</cell>
+							</row>
+						</tabular>
+					</sidebyside>
+				</figure>
+
+				<p>
+					The load <m>BD</m> acting on the lever in this diagram has the same magnitude, direction, and line of action as the load acting on the short link at <m>D</m>, so this can be thought of as sliding a force along its line of action <mdash/> an equivalent transformation.
+				</p>
+
+				<p>
+					The following loads are not shown here because they act between two objects which are not part of the body:
+					<ul>
+						<li>
+							the loads between the bearing block and the wall <m>W_x</m>, <m>W_y</m>, and <m>M</m>,
+						</li>
+
+						<li>
+							the loads between the floor and the wall <m>V_x</m>, <m>V_y</m>, and <m>M_v</m>,
+						</li>
+
+						<li>
+							the load between the block and the floor <m>G</m>, and
+						</li>
+
+						<li>
+							the load between the roller and the wall <m>N</m>.
+						</li>
+					</ul>
+				</p>
+			</paragraphs>
+
+			<p>
+				All of the free-body diagrams we have drawn are correct, though not all are necessary.
+				Generally we only draw the free-body diagrams needed for the solution.
+				These diagrams form a chain which connect the known input forces to the desired output forces.
+				When solving frames and machines, think carefully about what you know and what you need to solve for: that determines which free-body diagrams you will need.
+				Taking a few moments to consider what unknowns you'd have at each step can help you optimize your problem-solving effort.
+			</p>
+
+			<p>
+				You should recognize that it is possible to draw incorrect free-body diagrams which produce correct results.
+				Consider the diagram below.
+			</p>
+
+			<figure>
+				<caption>Free-body diagram 10 (Subtly incorrect)</caption>
+				<sidebyside valign="middle" widths="23% 72%">
+					<image source="images/toggle-clamp-12" width="30%">
+						<shortdescription>A FBD that is incorrect because it does not include the correct reaction at the bottom pin.</shortdescription>
+						<remix>
+						<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+						<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+						</remix>
+					</image>
+
+					<p>
+						This diagram doesn't accurately represent what is happening at pin <m>D</m>.
+					</p>
+				</sidebyside>
+			</figure>
+
+			<p>
+				Forces <m>N</m> and <m>Q</m> do not actually act on the short link at <m>D</m>.
+				Force <m>N</m> acts between the roller and the wall and clearly this diagram doesn't include the roller.
+				Similarly <m>Q</m> acts between the block and the roller.
+				These forces don't belong on the free-body diagram even though they are equal to the <m>x</m> and <m>y</m> components of force <m>BD</m>.
+				Only forces which cross the imaginary boundary between the object and the rest of the world belong on the free-body diagram.
+			</p>
+
+			<p>
+				Students are inclined argue that this free-body diagram is statically equivalent to <xref ref="toggle-clamp-06 "/> and it produces the correct answer so it must be OK.
+				It isn't correct because it reflects a misunderstanding about what you are modeling and what you aren't.
+				Other engineers using your FBDs need to know what you are modeling.
+				The FBD is the key to your analysis of the real world.
+			</p>
+
+			<example xml:id="Chapter_06-example-toggle-clamp">
+				<title>Toggle Clamp</title>
+				<statement>
+					<p>
+						Knowing that angle <m>\theta= 60°</m>, find the vertical clamping force acting on the piece at <m>D</m> and the magnitude of the force exerted on member <m>ABC</m> at pin <m>B</m> in terms of force <m>F</m> applied to the clamp arm at <m>C</m>.
+					</p>
+
+					<image source="images/toggle-clamp-01" width="30%">
+					</image>
+				</statement>
+
+				<answer>
+					<p>
+						<md>
+							<mrow> BD = 2.52 F </mrow>
+							<mrow> Q = 2.42 F</mrow>
+						</md>
+					</p>
+				</answer>
+
+				<solution>
+					<p>
+						For this problem, we need two free-body diagrams.
+						The first links the input force <m>F</m> to the link force <m>BD,</m> and the second links <m>BD</m> to the clamping force <m>Q</m>.
+					</p>
+
+					<figure>
+						<caption/>
+						<sidebyside widths="23% 23%">
+							<figure>
+								<caption>FBD I</caption>
+								<image source="images/toggle-clamp-10">
+									<shortdescription>FBD of the multi-force member of the toggle clam;.</shortdescription>
+									<remix>
+									<creator href="mailto:dan.baker@colostate.edu">Dan Baker</creator>
+									<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+									</remix>
+								</image>
+							</figure>
+
+							<figure>
+								<caption>FBD II</caption>
+								<image source="images/toggle-clamp-13">
+									<shortdescription>FBD of the roller from the toggle clamp assembly.</shortdescription>
+									<remix>
+									<creator href="mailto:annahoward@annahoward.com">Anna Howard</creator>
+									<license href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</license>
+									</remix>
+								</image>
+							</figure>
+						</sidebyside>
+					</figure>
+
+					<p>
+						We will assume the two-force member <m>BD</m> is in compression based on the physical situation.
+						The forces acting on the link, lever and roller are all directed along a line-of-action defined by a 7-24-25 triangle.
+						Similar triangles gives
+						<md>
+							<mrow>BD_x = \left(\frac{7}{25} \right) BD</mrow>
+							<mrow>BD_y = \left(\frac{24}{25} \right) BD</mrow>
+						</md>.
+					</p>
+
+					<p>
+						Applying <m>\sum M= 0</m> at <m>A</m> to the free-body diagram of the lever gives <m>BD</m> in terms of <m>F</m>.
+						<md>
+							<mrow> \text{FBD I:}\quad \Sigma M_A \amp = 0 </mrow>
+							<mrow> BD_x(24) + BD_y(7) - F_x (40) - F_y ( 16) \amp= 0 </mrow>
+							<mrow>\left(\frac{7}{25} BD\right) (24) + \left(\frac{24}{25} BD \right) (7) \amp= (F \cos \ang{60}) ( 40) + (F \sin \ang{60}) (16) </mrow>
+							<mrow>13.44 BD \amp = 33.86 F</mrow>
+							<mrow>BD \amp = 2.52 F</mrow>
+						</md>
+					</p>
+
+					<p>
+						The positive sign on the answer reveals that our assumption that member <m>BD</m> was in compression was correct.
+					</p>
+
+					<p>
+						Applying <m>\sum F_y=0</m> to the free-body diagram of the roller will give <m>Q</m> in terms of <m>F</m>.
+						<md>
+							<mrow> \text{FBD II:}\quad \Sigma F_y \amp = 0 </mrow>
+							<mrow> Q - BD_y \amp= 0 </mrow>
+							<mrow> Q \amp= \frac{24}{25} BD</mrow>
+							<mrow> \amp = \frac{24}{25} (2.52 F)</mrow>
+							<mrow> \amp = 2.42 F</mrow>
+						</md>
+					</p>
+
+					<p>
+						While you could certainly find <m>A_x</m>, <m>A_y</m> and <m>N</m> using other equilibrium equations they weren't asked for and we don't bother to find them.
+					</p>
+				</solution>
+			</example>
+
+			<insight>
+				<title>Why does the Method of Joints work on trusses but not on Frames or Machines?</title>
+				<p>
+					We can solve trusses using the methods of joints and method of sections because all members of a simple truss are two-force bodies.
+					Cutting a truss member exposes an internal force which has an unknown scalar magnitude, but a known line of action.
+					The force acts along the axis of the member, and causes no bending if the member is straight.
+					Cutting a truss member exposes <em>one</em> unknown.
+				</p>
+
+				<p>
+					Frames and machines are made of multi-force members and cutting these, in general, exposes:
+					<ul>
+						<li>
+							A force with an unknown magnitude acting in an unknown direction, and
+						</li>
+
+						<li>
+							A bending moment at the plane of the cut.
+						</li>
+					</ul>
+				</p>
+
+				<p>
+					Cutting a two-dimensional multi-force member exposes <em>three</em> unknowns, and <em>six</em> are exposed for a three-dimensional body.
+					The number of unknowns quickly eclipses the available equations rendering the problem impossible to solve.
+				</p>
+
+				<p>
+					Bottom line: use method of sections and joints <em>only</em> for trusses made of two-force straight members; for all other multi-force rigid body systems draw and analyze free-body diagrams of the components.
+				</p>
+			</insight>
+		</subsubsection>
+	</subsection>
 </section>
 
 <section xml:id="Chapter_06-summary">
-<title>Summary</title>
-<p>
-The various equilibrium topics we have covered and the associated problem solving techniques are summarized below.
-</p>
+	<title>Summary</title>
+	<p>
+		The various equilibrium topics we have covered and the associated problem solving techniques are summarized below.
+	</p>
 
-<p>
-You should be able to recognize these situations, draw the associated free-body diagrams and solve for the unknowns of each case.
-</p>
-
-
-<paragraphs>
-<title>Particle Equilibrium </title>
-<p>
-An object may be treated as a particle when the forces acting on it are coincident, that is, all of their lines of action intersect at a common point. In this case, they produce no moment to rotate the object, and <m>\Sigma \vec{M} = 0</m> is not helpful. The applicable equation is
-<me>
-\Sigma \vec{F} = 0
-</me>,
-which produces two scalar equations in two dimensions and three scalar equations in three dimensions.
-</p>
-</paragraphs>
+	<p>
+		You should be able to recognize these situations, draw the associated free-body diagrams and solve for the unknowns of each case.
+	</p>
 
 
-<paragraphs>
-<title>Rigid Body Equilibrium </title>
-<p>
-A rigid body can rotate and translate so both force and moment equilibrium must be considered.
-<md>
-<mrow>\Sigma \vec{F} \amp = 0</mrow>
-<mrow>\Sigma \vec{M} \amp = 0</mrow>
-</md>
-</p>
-
-<p>
-In two dimensions, these equations produce in two scalar force equations and one scalar moment equation. Up to three unknowns can be determined.
-</p>
-
-<p>
-In three dimension, they produce three scalar force equations and scalar three moment equations. Up to six unknowns can be determined.
-</p>
-</paragraphs>
+	<paragraphs>
+		<title>Particle Equilibrium </title>
+		<p>
+			An object may be treated as a particle when the forces acting on it are coincident, that is, all of their lines of action intersect at a common point.
+			In this case, they produce no moment to rotate the object, and <m>\Sigma \vec{M} = 0</m> is not helpful.
+			The applicable equation is
+			<me>
+				\Sigma \vec{F} = 0
+			</me>,
+			which produces two scalar equations in two dimensions and three scalar equations in three dimensions.
+		</p>
+	</paragraphs>
 
 
-<paragraphs>
-<title>Trusses</title>
-<p>
-A truss is a structure which consists entirely of two-force members and only carries forces at the joints connecting members. Two-force members and loading at joints allows free-body diagram of the joints to expose the axial loads in members.
-</p>
+	<paragraphs>
+		<title>Rigid Body Equilibrium </title>
+		<p>
+			A rigid body can rotate and translate so both force and moment equilibrium must be considered.
+			<md>
+				<mrow>\Sigma \vec{F} \amp = 0</mrow>
+				<mrow>\Sigma \vec{M} \amp = 0</mrow>
+			</md>
+		</p>
 
-<p>
-In addition to the equations provided by treating the entire truss as a rigid body, each joint provides two additional equations for two-dimensional trusses, and three for non-planar trusses.
-</p>
-</paragraphs>
+		<p>
+			In two dimensions, these equations produce in two scalar force equations and one scalar moment equation.
+			Up to three unknowns can be determined.
+		</p>
+
+		<p>
+			In three dimension, they produce three scalar force equations and scalar three moment equations.
+			Up to six unknowns can be determined.
+		</p>
+	</paragraphs>
 
 
-<paragraphs>
-<title>Frames and Machines</title>
-<p>
-Frames and machines are structures which contain multiple rigid body systems. Frames don't move and are designed to support loads. Machines are generally designed to multiply forces, and usually have moving parts. Both frames and machines can be solved using the same methods.
-</p>
+	<paragraphs>
+		<title>Trusses</title>
+		<p>
+			A truss is a structure which consists entirely of two-force members and only carries forces at the joints connecting members.
+			Two-force members and loading at joints allows free-body diagram of the joints to expose the axial loads in members.
+		</p>
 
-<p>
-All interactions between bodies are equal and opposite action-reaction pairs.
-</p>
+		<p>
+			In addition to the equations provided by treating the entire truss as a rigid body, each joint provides two additional equations for two-dimensional trusses, and three for non-planar trusses.
+		</p>
+	</paragraphs>
 
-<p>
-When solving frames and machines
-<ul>
-<li>
-Two-force members provide one useful equilibrium equation, and can determine one unknown.
-</li>
 
-<li>
-In two dimensions, rigid bodies result in two scalar force equations and one scalar moment equation. Up to three unknowns can be determined.
-</li>
+	<paragraphs>
+		<title>Frames and Machines</title>
+		<p>
+			Frames and machines are structures which contain multiple rigid body systems.
+			Frames don't move and are designed to support loads.
+			Machines are generally designed to multiply forces, and usually have moving parts.
+			Both frames and machines can be solved using the same methods.
+		</p>
 
-<li>
-In three dimensions, rigid bodies produce three scalar force equations and scalar three moment equations. Up to six unknowns can be determined.
-</li>
-</ul>
-</p>
-</paragraphs>
+		<p>
+			All interactions between bodies are equal and opposite action-reaction pairs.
+		</p>
+
+		<p>
+			When solving frames and machines
+			<ul>
+				<li>
+					Two-force members provide one useful equilibrium equation, and can determine one unknown.
+				</li>
+
+				<li>
+					In two dimensions, rigid bodies result in two scalar force equations and one scalar moment equation.
+					Up to three unknowns can be determined.
+				</li>
+
+				<li>
+					In three dimensions, rigid bodies produce three scalar force equations and scalar three moment equations.
+					Up to six unknowns can be determined.
+				</li>
+			</ul>
+		</p>
+	</paragraphs>
 </section>
 
 <exercises>
-<title>Exercises (Ch. 6)</title>
+<title>Exercises (Ch.
+6)</title>
 <interactive xml:id="numbas-chapter-6" iframe="numbas/exam-109899-chapter-6-exercises" width="133%" aspect="1:8">
-
 </interactive>
 </exercises>
 </chapter>
