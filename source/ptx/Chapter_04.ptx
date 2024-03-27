@@ -1536,52 +1536,60 @@
 									</p>
 
 									<p>
-										With these vectors known, calculating the moment combines skills you already have learned:
+										Using these three vectors, we can compute the magnitude of the moment about a line in two related, but unique ways.
+									</p>
+
+									<p>
+										<term>Two-Step Method</term>: Separates the cross and dot products into two distinct steps.
 										<ul>
 											<li>
-												finding the moment of a force about a point using the cross product, <xref ref="rxf"/>.
+												First, compute the moment of a the force about any point on the line of interest using the cross product, <xref ref="rxf"/>.
 												<me>
 													\vec{M} = (\vec{r} \times \vec{F})
-												</me>.
+												</me>
 											</li>
 
 											<li>
-												<p>
-													finding the scalar projection of one vector onto another vector using the dot product, <xref ref="projection2"/>
-													<me>
-														\|\proj_{\vec{u}} \vec{M}\| = \hat{\vec{u}} \cdot \vec{M}
-													</me>
-												</p>
-
-												<p>
-													This combined dot and cross product is a signed scalar value called the <term>scalar triple product</term>.
-													A positive sign indicates that the moment vector points in the positive <m>\hat{\vec{u}}</m> direction.
-												</p>
-											</li>
-
-											<li>
-												and multiplying a scalar projection by a unit vector to find the vector projection, <xref ref="projection3"/>
-												<men xml:id="moment-projection">\vec{M}_{\hat{\vec{u}}} = \|\proj_{\vec{u}} \vec{M}\|\ \hat{\vec{u}}
-												</men>.
+												Next, find the scalar projection of the moment onto the line of interest using a dot product, <xref ref="projection2"/>.
+												<me>
+													M_{line}=\|\proj_{\vec{u}} \vec{M}\| = \vec{M} \cdot \hat{\vec{u}}
+												</me>
 											</li>
 										</ul>
 									</p>
 
 									<p>
-										Carrying these three operations out produces a vector <m>\vec{M}_{\hat{\vec{u}}}</m> that is the component of moment <m>\vec{M}</m> along a line in the <m>\hat{\vec{u}}</m> direction.
+										<term>Scalar Triple Product</term>: Combines the cross and dot product into the determinant of a  3 <m>\times</m> 3 matrix formed from the three vectors above.
+										<ul>
+											<li>
+												The scalar triple product consists of taking the determinant of a matrix consisting of the components of the line's unit vector <m>\hat{\vec{u}}</m> in the top row, the components of a position vector <m>\vec{r}</m> in the middle row, and the components of the <m>\vec{F}</m> in the bottom row.
+												The determiant can be computed in multiple ways, but we suggest using the augmented determinant method <xref ref="augmented-determinant"/> or computing it directly in a calculator which allows 3 <m>\times</m> 3 matrix computations.
+											</li>
+
+											<li>
+												Here are the computations:
+												<md>
+													<mrow> M_{line}=\| \proj_u \vec{M} \| \amp = \hat{\vec{u}} \cdot ( \vec{r}\ \times \vec{F}) </mrow>
+													<mrow> \amp = \begin{vmatrix} u_x \amp u_y \amp u_z\\ r_x \amp r_y \amp r_z\\ F_x \amp F_y \amp F_z \end{vmatrix}</mrow>
+													<mrow>\amp = (r_y F_z - r_z F_y)\ u_x + (r_z F_x - r_x F_z)\ u_y + (r_x F_y - r_y F_x)\ u_z</mrow>
+												</md>
+											</li>
+
+											<li>
+												Note that the above determinant does <em>not</em> contain any unit vectors, like the <m>\ihat,\ \jhat</m>, and <m>\khat</m> vectors that show up in the top of cross-product determinants.
+												Therefore, you are just multiplying the <em>numbers</em> in the diagonals and adding them up to a scalar value.
+											</li>
+										</ul>
 									</p>
 
 									<p>
-										The scalar triple product can be calculated efficiently in a single step by evaluating a 3 <m>\times</m> 3 determinant consisting of the components of <m>\hat{\vec{u}}</m> in the top row, the components of a position vector <m>\vec{r}</m> in the middle row, and the components of the <m>\vec{F}</m> in the bottom row using the augmented determinant method <xref ref="augmented-determinant"/>.
-										<md>
-											<mrow> \| \proj_u \vec{M} \| \amp = \hat{\vec{u}} \cdot ( \vec{r}\ \times \vec{F}) </mrow>
-											<mrow> \amp = \begin{vmatrix} u_x \amp u_y \amp u_z\\ r_x \amp r_y \amp r_z\\ F_x \amp F_y \amp F_z \end{vmatrix}</mrow>
-											<mrow>\amp = (r_y F_z - r_z F_y)\ u_x + (r_z F_x - r_x F_z)\ u_y + (r_x F_y - r_y F_x)\ u_z</mrow>
-										</md>
+										A positive value indicates that the moment vector points in the <m>\hat{\vec{u}}</m> direction, while a negative value indicate the moment points in the opposite direction.
 									</p>
 
 									<p>
-										To find the vector projection along the selected axis, multiply this value by the unit vector for the axis, equation <xref ref="moment-projection"/>.
+										Finally if you need to find the vector components of this moment about a line, multiplying the scalar projection by the line's unit vector will add direction to your scalar moment value, <xref ref="projection3"/>
+										<men xml:id="moment-projection">\vec{M_{line}}=\vec{M}_{\hat{\vec{u}}} = \|\proj_{\vec{u}} \vec{M}\|\ \hat{\vec{u}}
+										</men>.
 									</p>
 
 									<example xml:id="Chapter_04-3d-moment-about-line">
@@ -1589,6 +1597,7 @@
 										<introduction>
 											<sidebyside widths="40%  55%" margins="0%" valign="middle">
 												<image source="images/3d-moment-about-line-simple-prob">
+													<shortdescription>alt text</shortdescription>
 												</image>
 
 												<stack>
@@ -1608,7 +1617,7 @@
 										<task>
 											<statement>
 												<p>
-													Find the magnitude of the moment caused by force <m>\vec{P_1}</m> about pipe (or line) <m>\vec{BG}</m>.
+													Find the magnitude of the moment caused by force <m>\vec{P_1}</m> about line <m>\vec{BG}</m>.
 												</p>
 											</statement>
 
@@ -1620,9 +1629,9 @@
 
 											<solution>
 												<p>
-													The key observation to find the moment of <m>\vec{P_1}</m> about line <m>\vec{BG}</m> is that the line of action of <m>\vec{P_1}</m> goes <em>directly</em> through line <m>\vec{BG}</m>, thus there is no moment arm to develop a moment from force <m>\vec{P_1}</m>.
+													The key observation to find the moment of <m>\vec{P_1}</m> about line <m>\vec{BG}</m> is that the line of action of <m>\vec{P_1}</m> goes <em>directly</em> through line <m>\vec{BG}</m>, thus force <m>\vec{P_1}</m> produces no moment about line <m>\vec{BG}</m>.
 													Force <m>\vec{P_1}</m> still pulls on the box and line <m>\vec{BG}</m>, but causes no rotation <em>about</em> line <m>\vec{BG}</m>.
-													While you could set up a two-step or mixed triple to compute this moment, the simplest moment arm from line <m>\vec{BG}</m> to force <m>\vec{P_1}</m> would be <m>\vec{r}=\ft{\left\langle 0,0,0 \right\rangle}</m> which would result in a <m>M_{P_1} \text{ about } BG=\ftlbf{0}</m>.
+													While you could set up a two-step or mixed triple to compute this moment, the simplest moment arm from line <m>\vec{BG}</m> to force <m>\vec{P_1}</m> would be <m>\vec{r}=\ft{\left\langle 0,0,0 \right\rangle}</m> which results in a <m>M_{P_1} \text{ about } BG=\ftlbf{0}</m>.
 												</p>
 											</solution>
 										</task>
@@ -1631,7 +1640,7 @@
 										<task>
 											<statement>
 												<p>
-													Find the magnitude of the moment caused by force <m>\vec{P_2}</m> about pipe (or line) <m>\vec{BG}</m>.
+													Find the magnitude of the moment caused by force <m>\vec{P_2}</m> about line <m>\vec{BG}</m>.
 												</p>
 											</statement>
 
@@ -1643,9 +1652,49 @@
 
 											<solution>
 												<p>
-													The top vector in the scalar triple product is the unit vector for the line of interest <m>\vec{BG}</m>.
+													Keep in mind that to compute the magnitude of a moment about a line, we need to compute a vector moment about a point on the line and then dot this vector moment onto the line's unit vector.
+													There are two options for this computatons:
+												</p>
+
+												<p>
+													Option 1: The Two-Step Method separates the cross and dot products into two distinct steps.
+													<ul>
+														<li>
+															Compute the vector moment of <m>\vec{P_1}</m> about any point on line <m>\vec{BG}</m>, including <m>\vec{M_G}</m> or <m>\vec{M_B}</m>, then
+														</li>
+
+														<li>
+															Dot <m>\vec{M}</m> onto the unit vector <m>\widehat{BG}</m>
+														</li>
+													</ul>
+												</p>
+
+												<p>
+													Option 2: The Scalar Triple Product combines the cross and dot product into a single matrix determinant including the following vectors:
+													<ul>
+														<li>
+															Top row: Unit vector for the line of interest <m>\widehat{BG}</m>
+														</li>
+
+														<li>
+															Middle row: Moment arm from line of interest to force vector.
+															We'll use <m>\vec{r}_{HG}</m> as it has the most zeros, which will simplify the algebra when computing the determinant.
+														</li>
+
+														<li>
+															Bottom row: Components of force vector <m>\vec{P_2}.</m>
+														</li>
+													</ul>
+												</p>
+
+												<p>
+													Let's set up the vectors for the scalar triple product starting with the unit vector <m>\widehat{BG}</m>.
+												</p>
+
+												<p>
+													The unit vector <m>\widehat{BG}</m> is found by dividing the positon vector <m>\vec{BG}</m> by its own magnitude.
 													<md>
-														<mrow> \widehat{BG} = \frac{\vec{BG}}{BG}=\frac{\ft{\langle -2.0, 0.0, 2.0 \rangle}}{\ft{\sqrt{8}}} = {\langle -0.707, 0.0, 0.707 \rangle} </mrow>
+														<mrow> \widehat{BG} = \frac{\vec{BG}}{BG}=\frac{\ft{\langle -2.0, 0.0, 2.0 \rangle}}{\ft{\sqrt{(-2)^2+0^2+2^2}}} = {\langle -0.707, 0.0, 0.707 \rangle} </mrow>
 													</md>
 												</p>
 
@@ -1659,6 +1708,7 @@
 															<mrow> \vec{r}_{BH} \amp= \ft{\langle -2.0, -2.0, 2.0 \rangle} </mrow>
 															<mrow> \vec{r}_{BD} \amp= \ft{\langle 0.0, -2.0, 2.0 \rangle} </mrow>
 														</md>
+														We'll use <m>\vec{r}_{GH}</m> going forward as it is a one-dimensional vector and the zeros will simplify the determinant.
 													</p>
 
 													<image source="images/3d-moment-about-line-simple-moment-arms">
@@ -1668,36 +1718,28 @@
 
 												<p>
 													Finally, the bottom row of the scalar triple product are the force vector components.
+													<md>
+														<mrow> \vec{P_2} = \lbf{\langle 25, 0, 0 \rangle} </mrow>
+													</md>
 												</p>
 
 												<p>
-													Now, set up the vector determinant of the scalar triple product to find the moment of <m>\vec{P_2}</m> about <m>\vec{BG}</m>.
-													Recall that a scalar triple product includes:
-													<ul>
-														<li>
-															Top line: Unit vector for the line of interest <m>\widehat{BG}</m>
-														</li>
-
-														<li>
-															Middle line: Moment arm from line of interest to force vector.
-															We'll use <m>\vec{r}_{HG}</m> as it has the most zeros, which will simplify the algebra when computing the determinant.
-														</li>
-
-														<li>
-															Bottom line: Components of force vector <m>\vec{P_2}.</m>
-														</li>
-													</ul>
+													Now, combining the three vectors, here is the triple scalar product matrix:
 												</p>
 
 												<p>
 													<md>
-														<mrow> M_{P_2} \text{ about } BG = \begin{vmatrix} {-0.707} \amp {0} \amp {0.707} \\ \ft{0.0} \amp \ft{-2.0} \amp \ft{0.0} \\ \lbf{25} \amp \lbf{0} \amp \lbf{0} \end{vmatrix} =\ftlbf{35.355}</mrow>
+														<mrow> M_{P_2} \text{ about } BG = \begin{vmatrix}
+														{-0.707} \amp {0} \amp {0.707} \\
+														\ft{0.0} \amp \ft{-2.0} \amp \ft{0.0} \\
+														\lbf{25} \amp \lbf{0} \amp \lbf{0}
+														\end{vmatrix} =\ftlbf{35.355}</mrow>
 													</md>
 												</p>
 
 												<sidebyside widths="55%  40%" margins="0%" valign="middle">
 													<p>
-														Hence, the magnitude of the moment caused by force <m>\vec{P_2}</m> about pipe (or line) <m>\vec{BG}</m> is <m>\ftlbf{35.355}</m>.
+														Hence, the magnitude of the moment caused by force <m>\vec{P_2}</m> about line <m>\vec{BG}</m> is <m>\ftlbf{35.355}</m>.
 														As we found a positive answer, this confirms that the rotation caused by <m>\vec{P_2}</m> is in the same direction as the vector <m>\vec{BG}</m>, this is reinforced by the right-hand rule thumb direction in the diagram.
 													</p>
 
@@ -1705,6 +1747,26 @@
 														<shortdescription>Solution line drawing showing the moment around r_GH, the force P_2, and the resulting moment M_BG.</shortdescription>
 													</image>
 												</sidebyside>
+
+												<p>
+													Validating the answer with the 2-step approach, we could first sum the moment of <m>\vec{P_2}</m> about point G.
+													<md>
+														<mrow>\vec{M_G}=(\ft{2})(\lbf{25})\ \hat{k} </mrow>
+													</md>
+												</p>
+
+												<p>
+													Given that the <m>\vec{M_G}\ \hat{k}</m> moment and line <m>\vec{BG}</m> lie in a 2-D plane, you could even use a \ang{45} right triangle instead of a dot product to find the amount of <m>\vec{M_G}</m> which lies along line <m>\vec{BG}</m>.
+													<md>
+														<mrow>M_BG \amp = M_G (\cos\ \ang{45})</mrow>
+														<mrow>M_BG \amp = \ftlbf{50}(0.707)</mrow>
+														<mrow>M_BG \amp = \ftlbf{35.355}</mrow>
+													</md>
+												</p>
+
+												<p>
+													Not all problems have simple geometry where you can form a right triangle to perform a dot product, but this process demonstrates the two-step combination of a cross and a dot product to find a moment about a line.
+												</p>
 											</solution>
 										</task>
 									</example>
