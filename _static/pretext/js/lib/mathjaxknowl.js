@@ -38,6 +38,7 @@ MathJax.Extension.Knowl = {
              "<div class='knowl-content' id='"+oid+"'>" +
                "loading '"+url+"'" +
              "</div>" +
+             "<div class='knowl-footer'>" + url + "</div>" +
           "</div>" +
         "</div>";
 
