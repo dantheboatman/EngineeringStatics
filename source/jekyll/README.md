@@ -1,4 +1,15 @@
-# Creative Theme for Jekyll
+# Engineering Statics Landing page.
+
+The source for the landing page Jekyll source is in this folder.  The landing page is built using jekyll.
+
+Render the source into html and place it into /statics/site with the command `bundle exec jekyll build`
+
+Use `pretext deploy` to combine the landing page files, the book files, and the pdf version into output/stage, and then automatically push them  in the gh-pages branch to update the engineeringstatics.org site.
+
+Use `pretext deploy --stage-only` to see the results without uploading them to github pages.
+
+
+# Instructions for the Creative Theme for Jekyll
 
 A Jekyll implementation of the [Creative Theme](http://startbootstrap.com/template-overviews/creative/) template by [Start Bootstrap](http://startbootstrap.com).
 

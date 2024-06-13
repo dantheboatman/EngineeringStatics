@@ -4,7 +4,7 @@ The source for the landing page Jekyll source is in this folder.  The landing pa
 
 Render the source into html and place it into /statics/site with the command `bundle exec jekyll build`
 
-Use `pretext deploy` to combine the landing page files, the book files, and the pdf version into output/stage, and then deploy them github pages, in the gh-pages branch.
+Use `pretext deploy` to combine the landing page files, the book files, and the pdf version into output/stage, and then automatically push them  in the gh-pages branch to update the engineeringstatics.org site.
 
 Use `pretext deploy --stage-only` to see the results without uploading them to github pages.
 
