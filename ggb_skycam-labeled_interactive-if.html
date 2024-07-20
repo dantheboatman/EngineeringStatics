@@ -95,34 +95,22 @@ window.MathJax = {
 <script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="ptx-content ignore-math"><div style="width:600px; height:330px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
-<script xmlns:html="http://www.w3.org/1999/xhtml">var skycam__ggb_onload = function(ggb) {
-ggb.evalCommand("ZoomIn(.5)");
-ggb.enableRightClick(false);
-};
+<script xmlns:html="http://www.w3.org/1999/xhtml">var skycam__ggb_onload = function(skycam__ggb_applet) {
+skycam__ggb_applet.evalCommand("ZoomIn(.5)");
+skycam__ggb_applet.enableRightClick(false);
+listeners(skycam__ggb_applet)};
 var skycam__ggb_params = {
-id:"skycam__ggb",
 filename:"external/images/skycam-labeled.ggb",
 width:600,
 height:300,
-appletOnLoad: function(ggb) {
-skycam__ggb_onload(ggb);
-console.log("Loading skycam__ggb" , ggb);
-listeners(ggb);
-}
-}
-
-var load_ggb = new Promise(function(resolve, reject) {
+appletOnLoad:skycam__ggb_onload};
+new Promise((resolve, reject) => {
 var skycam__ggb = new GGBApplet(skycam__ggb_params, true);
-resolve(skycam__ggb);
-}).then(
-function(skycam__ggb) {;
-window.onload = function() { skycam__ggb.inject('skycam-ggb-container');
-};},
-function(error) {
-console.log('GGB load applet error.', error);
-});
-</script>
-
-<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="skycam-ggb-container" style="width:600px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
+resolve(skycam__ggb);})
+.then((skycam__ggb) => {
+window.onload = function() { skycam__ggb.inject('skycam-ggb-container'); }
+},
+(error) => {console.log('GGB applet load failure.', error)});
+</script><div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="skycam-ggb-container" style="width:600px; height:300px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
 </div></body>
 </html>

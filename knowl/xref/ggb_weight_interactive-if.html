@@ -95,36 +95,24 @@ window.MathJax = {
 <script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
 <body class="ptx-content ignore-math"><div style="width:300px; height:270px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;">
-<script xmlns:html="http://www.w3.org/1999/xhtml">var weightfbd_onload = function(ggb) {
-ggb.enableShiftDragZoom(false);
-ggb.setValue("view",1);
-ggb.execCommand("ZoomIn(1,TOP)");
-ggb.enableRightClick(false);
-};
+<script xmlns:html="http://www.w3.org/1999/xhtml">var weightfbd_onload = function(weightfbd_applet) {
+weightfbd_applet.enableShiftDragZoom(false);
+weightfbd_applet.setValue("view",1);
+weightfbd_applet.execCommand("ZoomIn(1,TOP)");
+weightfbd_applet.enableRightClick(false);
+listeners(weightfbd_applet)};
 var weightfbd_params = {
-id:"weightfbd",
 filename:"external/images/weight.ggb",
 width:270,
 height:216,
-appletOnLoad: function(ggb) {
-weightfbd_onload(ggb);
-console.log("Loading weightfbd" , ggb);
-listeners(ggb);
-}
-}
-
-var load_ggb = new Promise(function(resolve, reject) {
+appletOnLoad:weightfbd_onload};
+new Promise((resolve, reject) => {
 var weightfbd = new GGBApplet(weightfbd_params, true);
-resolve(weightfbd);
-}).then(
-function(weightfbd) {;
-window.onload = function() { weightfbd.inject('weightfbd-container');
-};},
-function(error) {
-console.log('GGB load applet error.', error);
-});
-</script>
-
-<div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="weightfbd-container" style="width:270px; height:216px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
+resolve(weightfbd);})
+.then((weightfbd) => {
+window.onload = function() { weightfbd.inject('weightfbd-container'); }
+},
+(error) => {console.log('GGB applet load failure.', error)});
+</script><div xmlns:html="http://www.w3.org/1999/xhtml" class="geogebra-applet" id="weightfbd-container" style="width:270px; height:216px; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;"></div>
 </div></body>
 </html>
