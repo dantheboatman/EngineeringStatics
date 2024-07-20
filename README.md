@@ -31,6 +31,9 @@ To build HTML and PDF versions of the book using the CLI after managing assets
 pretext build web --clean
 pretext build print --clean
 ```
+To update the landing page,
+1. `cd` to` /statics/source/jekyll` and edit
+2. run `bundle exec jekyll build` to render the content into `/statics/site`.  
 
 ### Deploying
 
