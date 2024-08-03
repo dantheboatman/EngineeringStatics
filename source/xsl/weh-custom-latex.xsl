@@ -1,5 +1,5 @@
 <!DOCTYPE xsl:stylesheet [
-    <!ENTITY % entities SYSTEM "entities.ent">
+    <!ENTITY % entities SYSTEM "./core/entities.ent">
     %entities;
 ]>
 <xsl:stylesheet 
