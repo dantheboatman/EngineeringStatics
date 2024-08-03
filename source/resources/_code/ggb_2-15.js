@@ -1,6 +1,6 @@
 var listeners = function(ggb) {
 
-    var info = document.getElementById("info");
+    var info = document.getElementById("info-2-15");
    
 
     var updateSlate = function() {

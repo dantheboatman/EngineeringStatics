@@ -1,9 +1,9 @@
 var listeners = function(ggb) {
 
     var updateSlate = function() {
-      node = document.getElementById('info');
-      latex = "\\[{ " + ggb.getValueString('latex') + "}\\]";
-      node.innerHTML =  latex ;
+      // identify first node whose @id starts with "info"
+      node = document.querySelectorAll('[id^="info"]')[0];
+      node.innerHTML =  "\\[{ " + ggb.getValueString('latex') + "}\\]";
       if (window.MathJax) {
          MathJax.typesetPromise([node]).then(() => {});
       }
