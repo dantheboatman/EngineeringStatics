@@ -10,16 +10,16 @@ var listeners = function(ggb) {
         node1.innerHTML = latex;
 
         // GGB booleans decide what to show, only one allowed at a time.;
-        var node2 = document.getElementById('info');
+        var node2 = document.getElementById('info-2-16');
         node2.innerHTML = '';
         if (ggb.getValue('AonB') == true) {
-            info.innerHTML = "\\[{\\proj_BA = " + xyz('ProjAB', 3) + "}\\]"
+            node2.innerHTML = "\\[{\\proj_BA = " + xyz('ProjAB', 3) + "}\\]"
         };
         if (ggb.getValue('BonA') == true) {
-            info.innerHTML = "\\[{\\proj_AB = " + xyz('ProjBA', 3) + "}\\]"
+            node2.innerHTML = "\\[{\\proj_AB = " + xyz('ProjBA', 3) + "}\\]"
         };
         if (ggb.getValue('showθ') == true) {
-            info.innerHTML = "\\[{\\theta = " + ggb.getValue('θ/°').toFixed(1) + "°}\\]"
+            node2.innerHTML = "\\[{\\theta = " + ggb.getValue('θ/°').toFixed(1) + "°}\\]"
         };
 
         if (window.MathJax) {

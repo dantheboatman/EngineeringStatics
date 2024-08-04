@@ -1,7 +1,7 @@
 var listeners = function(ggb) {
     
 const t1 = document.getElementById('ggb_2__13_table1').getElementsByTagName('tbody')[0];
-const vecR = document.getElementById('info');
+const vecR = document.getElementById('info-2-13');
 
 
 

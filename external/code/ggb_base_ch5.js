@@ -1,6 +1,7 @@
 var listeners = function(ggb) {
-    const nodeL1 = document.getElementById('L1');
-    const nodeR1 = document.getElementById('R1');
+    // identify first node with @id that starts with L1/R1 
+    const nodeL1 = document.querySelectorAll('[id^="L1"]')[0];
+    const nodeR1 = document.querySelectorAll('[id^="R1"]')[0];    
 
     function toggleVisibility() {
         var show = ggb.getValue('show');
@@ -23,6 +24,5 @@ var listeners = function(ggb) {
     ggb.registerUpdateListener(updateSlate);
     updateSlate();
         
-    nodeR1.style.display = "none"
-
+    nodeR1.style.display = "none";
 }

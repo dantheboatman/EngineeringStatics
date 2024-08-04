@@ -25,7 +25,7 @@ var updateSlate = function (){
       }   
       
   // GGB booleans decide what to show, only one allowed at a time.;
-  info = document.getElementById('info');
+  info = document.getElementById('info-2-17');
    if (ggb.getValue('showAB')==true) {
         info.innerHTML = "\\["  +  ggb.getValueString('textAB') + "\\] \\["  +  ggb.getValueString('textABhat') + "\\]" ;
   }
