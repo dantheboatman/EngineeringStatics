@@ -63,7 +63,7 @@ geogebra_applet('https://www.geogebra.org/m/jJ3zQ29z',[A: vector(ax,ay), B: vect
 Loads the given worksheet, and moves points A,B and C to the given positions.
 
 ```
-geogebra_applet(800,500,[A: ["definition": vector(1,0), "color": red"]], [["A","p0"]])
+geogebra_applet(800,500,[A: ["definition": vector(1,0), "color": "red"]], [["A","p0"]])
 ```
 
 Creates a blank worksheet with size 800 by 500 pixels, adds an object A at (1,0) and links the position of A with the answer to the first part in the question.
