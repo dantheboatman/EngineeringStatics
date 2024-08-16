@@ -32,7 +32,7 @@ Copyright 2011-16 Newcastle University
         display: none;
     }
 </style>
-<link rel="stylesheet" type="text/css" href="styles.css" />
+<link rel="stylesheet" type="text/css" href="styles.css?build_time=1723832368.690246" />
     <!-- mathjax stuff -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -56,7 +56,7 @@ Copyright 2011-16 Newcastle University
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
 
 <!-- numbas stuff -->
-<script charset="UTF-8" type="text/javascript" src="scripts.js" charset="utf-8"></script>
+<script charset="UTF-8" type="text/javascript" src="scripts.js?build_time=1723832368.690246" charset="utf-8"></script>
 
 <script>
     Numbas.queueScript('go',['start-exam'],function() {
@@ -158,7 +158,9 @@ Copyright 2011-16 Newcastle University
                         <div class="col-sm-6" id="text-size-preview" data-localise="modal.style.text size preview"></div>
                     </div>
                 </form>
+
                 
+                <hr/>
                 <p class="help-block"><a href="https://docs.numbas.org.uk/en/latest/accessibility/exam.html" target="_blank" data-localise="accessibility statement"></a></p>
                 
             </div>
@@ -218,11 +220,21 @@ Copyright 2011-16 Newcastle University
 
     <div id="navMenu-wrapper">
 
-        <div class="navmenu-header clearfix">
+        <div class="navmenu-header">
             <div class="navmenu-brand">
                 <img class="logo center-block" src="resources/Engineering_statics_logo_numbas.svg" alt="Engineering Statics"/>
             </div>
             <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
+            <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+            </button>
+            <!--
+            <button class="btn btn-default" id="hide-nav-menu" data-bind="click: hideNavMenu">
+                <span aria-hidden="true">x</span>
+                <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+            </button>
+            -->
         </div>
 
         <!-- ko if: numQuestions() > 1 -->
@@ -289,13 +301,6 @@ Copyright 2011-16 Newcastle University
 
 <!-- top menu shown on narrow screens -->
 <div id="topNav" class="hamburger navbar navbar-default question-nav">
-    <button type="button" class="navbar-toggle" data-toggle="navMenu">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
-    </button>
-
     <ul class="nav">
         <!-- ko if: numQuestions() > 1 -->
         <li class="prev"><button type="button" class="btn navbar-btn btn-primary" data-bind="click: reverse, attr: {disabled: !canReverse()}"><span class="sr-only" data-localise="control.previous"></span>&larr;</button></li>
@@ -312,6 +317,13 @@ Copyright 2011-16 Newcastle University
             <span class="time" data-bind="text: displayTime"></span>
         </li>
     </ul>
+
+    <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+    </button>
 </div>
 <!-- /ko -->
 
@@ -390,7 +402,7 @@ Copyright 2011-16 Newcastle University
                 <main class="mainDisplay" role="main" data-bind="attr: {'aria-labelledby': main_labelledby}">
                     <div id="infoDisplay" class="container" data-bind="visible: infoPage">
     <div id="frontpage" class="row" data-bind="visible: infoPage()=='frontpage', if: infoPage()=='frontpage'">
-        <h1 id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
+        <h1 class="break-words" id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
 <table class="col-sm-6 col-sm-offset-3" class="summary">
     <tbody>
     <!-- ko if: exam.settings.navigateMode != 'diagnostic' -->
@@ -441,7 +453,9 @@ Copyright 2011-16 Newcastle University
     </div>
     <div id="menu" class="row" data-bind="visible: infoPage()=='menu', if: infoPage()=='menu'">
         <h1 id="infopage-menu-header" data-bind="html: exam.settings.name"></h1>
+
 <div class="intro" class="alert col-sm-6 col-sm-offset-3" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
 <nav id="question-chooser">
     <table class="table table-hover questionSelector">
         <colgroup>
@@ -505,7 +519,7 @@ Copyright 2011-16 Newcastle University
 <button class="btn btn-primary" id="resumeBtn" data-bind="click: Numbas.controls.resumeExam" data-localise="suspend.resume"></button>
     </div>
     <div id="end-name" class="container-fluid" data-bind="visible: infoPage()=='result'">
-        <h1 id="infopage-result-header" class="text-center" data-bind="latex: exam.settings.name"></h1>
+        <h1 id="infopage-result-header" class="text-center break-words" data-bind="latex: exam.settings.name"></h1>
     </div>
     <div id="results" class="container-fluid" data-bind="visible: infoPage()=='result', if: infoPage()=='result'">
         <!-- ko if: exam.settings.navigateMode=='diagnostic' -->
@@ -608,32 +622,32 @@ Copyright 2011-16 Newcastle University
 <!-- /ko -->
 
 <div class="row" id="performance-summary">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-md-6 col-md-offset-3">
         <h2 data-localise="result.performance summary"></h2>
         <table class="summary">
             <tr>
                 <th data-localise="exam.exam name"></th>
-                <td data-bind="html: exam.settings.name"></td>
+                <td class="break-words" data-bind="html: exam.settings.name"></td>
             </tr>
             <tr>
                 <th data-localise="exam.random seed"></th>
-                <td data-bind="html: exam.seed"></td>
+                <td class="break-words" data-bind="html: exam.seed"></td>
             </tr>
             <tr data-bind="visible: exam.settings.showStudentName && exam.student_name">
                 <th data-localise="exam.student name"></th>
-                <td><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+                <td class="break-words"><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
             </tr>
             <tr>
                 <th data-localise="result.exam start"></th>
-                <td><time data-bind="text: startTime, attr: {datetime: startTimeISO}"></time></td>
+                <td class="break-words"><time data-bind="text: startTime, attr: {datetime: startTimeISO}"></time></td>
             </tr>
             <tr>
                 <th data-localise="result.exam stop"></th>
-                <td><time data-bind="text: endTime, attr: {datetime: endTimeISO}"></time></td>
+                <td class="break-words"><time data-bind="text: endTime, attr: {datetime: endTimeISO}"></time></td>
             </tr>
             <tr>
                 <th data-localise="result.time spent"></th>
-                <td><time data-bind="text: timeSpent"></time></td>
+                <td class="break-words"><time data-bind="text: timeSpent"></time></td>
             </tr>
         </table>
     </div>
@@ -652,67 +666,11 @@ Copyright 2011-16 Newcastle University
 
                     <div id="questionContainer" class="container-fluid print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
     <div class="contentArea ">
-        <div class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
+        <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
 
         <div id="questionDisplay" data-bind="foreach: questions">
             <div data-bind="promise: html_promise">
             </div>
-        </div>
-        <div data-bind="with: currentQuestion">
-            <!-- bottom nav bar - prv/nxt, plus submit/advice/reveal buttons -->
-<nav class="question-nav question-bottom-nav navbar navbar-default" data-bind="jmescope: question.scope, attr: {'aria-label': R('question.nav.label')}">
-
-    <div class="nav navbar-nav">
-        <button class="btn btn-primary navbar-btn" id="submitBtn" data-localise="control.submit all parts" data-bind="visible: $root.exam().mode()=='normal' && question.partsMode=='all' && !revealed() && question.parts.length, click: Numbas.controls.submitQuestion, text: submitMessage"></button>
-        <p class="marks navbar-text" data-bind="visible: !showScoreBreakdown()">
-            <span class="score" data-bind="html: scoreFeedback.message, pulse: scoreFeedback.update"></span>
-            <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr, pulse: scoreFeedback.update" aria-hidden="true"></span>
-            <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
-        </p>
-
-        <div id="explore-breakdown" data-bind="visible: showScoreBreakdown()">
-            <table>
-                <tbody>
-                    <!-- ko foreach: objectives -->
-                    <!-- ko if: visible -->
-                    <tr>
-                        <td class="name" data-bind="latex: name"></td>
-                        <td class="message"><span data-bind="text: feedback.plainMessage, pulse: feedback.update"></span></td>
-                        <td>
-                            <span class="feedback-icon" data-bind="css: feedback.iconClass, attr: feedback.iconAttr, pulse: feedback.update"></span>
-                        </td>
-                    </tr>
-                    <!-- /ko -->
-                    <!-- /ko -->
-
-                    <!-- ko foreach: penalties -->
-                    <!-- ko if: visible -->
-                    <tr>
-                        <td class="name" data-bind="latex: name"></td>
-                        <td class="message"><span data-bind="text: scoreDisplay"></span></td>
-                        <td></td>
-                    </tr>
-                    <!-- /ko -->
-                    <!-- /ko -->
-                    <tr class="total">
-                        <th data-localise="control.total"></th>
-                        <td>
-                            <span class="score" data-bind="html: scoreFeedback.plainMessage, pulse: scoreFeedback.update"></span>
-                        </td>
-                        <td>
-                            <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr, pulse: scoreFeedback.update"></span>
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-        <button type="button" class="btn btn-primary navbar-btn" id="nextQuestionBtn" data-bind="visible: $root.exam().mode()=='normal' && $root.exam().exam.settings.navigateMode=='diagnostic', click: Numbas.controls.nextQuestion, attr: {disabled: !$parent.canAdvance()}" data-localise="control.move to next question"></button>
-        <button class="btn btn-primary navbar-btn" id="regenBtn" data-localise="control.regen" data-bind="visible: $root.exam().mode()=='normal' && $root.exam().exam.settings.allowRegen, click: Numbas.controls.regenQuestion"></button>
-        <button class="btn btn-primary navbar-btn" id="revealBtn" data-localise="control.reveal" data-bind="visible: question.parts.length && canReveal, click: Numbas.controls.revealAnswer"></button>
-    </div>
-</nav>
         </div>
     </div>
 </div>

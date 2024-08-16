@@ -1,13 +1,15 @@
 # Statistics extension for [Numbas](https://www.numbas.org.uk/)
 
-This extension provides a load of statistical functions, wrapping the [jStat](https://github.com/jstat/jstat) library.
+This extension provides a load of statistical functions, wrapping the [jStat](https://github.com/jstat/jstat) library, as well as some extra functions not in jStat.
 
-There's [documentation at docs.numbas.org.uk](https://docs.numbas.org.uk/en/latest/extensions/stats.html).
+The data binning functions were written by Janet Cheung.
 
 ## Functions
 
 This list of functions contains descriptions copied from the jStat documentation.
 Click on the function name to see the original documentation.
+
+There are also some extra functions not in jStat.
 
 ### Descriptive statistics of a list of numbers
 
@@ -806,3 +808,17 @@ Returns a normal deviate (mean 0 and standard deviation 1).
 #### [`randg(shape, n, m)`](http://jstat.github.io/all.html#randg)
 
 Returns a Gamma deviate by the method of Marsaglia and Tsang.
+
+### Data binning
+
+#### `bin(data, num_bins, [range])`
+
+Put the list of numbers `data` into bins of equal size.
+The number of bins is given by `num_bins`.
+If `range` is given, then the bins span that range; otherwise they span the same range as the given data, with the first bin starting at the minimum value and the last bin ending at the maximum.
+
+**Examples:**
+
+* `bin([1,2,3,4,5,6,7], 3)` → `[ [1,2], [3,4], [5,6,7] ]`
+* `bin([1,2,3,4,5,6,7], 3, 1..10)` → `[ [1,2,3], [4,5,6], [7] ]`
+* `bin([1,7,9], 3)` → `[ [1], [], [7,9] ]`
