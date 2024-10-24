@@ -32,7 +32,7 @@ Copyright 2011-16 Newcastle University
         display: none;
     }
 </style>
-<link rel="stylesheet" type="text/css" href="styles.css?build_time=1723832406.568124" />
+<link rel="stylesheet" type="text/css" href="styles.css?build_time=1729797303.378042" />
     <!-- mathjax stuff -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -56,7 +56,7 @@ Copyright 2011-16 Newcastle University
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
 
 <!-- numbas stuff -->
-<script charset="UTF-8" type="text/javascript" src="scripts.js?build_time=1723832406.568124" charset="utf-8"></script>
+<script charset="UTF-8" type="text/javascript" src="scripts.js?build_time=1729797303.378042" charset="utf-8"></script>
 
 <script>
     Numbas.queueScript('go',['start-exam'],function() {
@@ -213,7 +213,7 @@ Copyright 2011-16 Newcastle University
 </div>
 
             <div id="everything" style="display:none">
-                <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionDisplay'}" data-localise="page.skip to content"></a>
+                <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionContainer'}" data-localise="page.skip to content"></a>
                 <!-- ko if: exam.settings.navigateMode=='sequence' -->
     <!-- side menu, slides out on narrow screens -->
 <nav id="navMenu" class="navmenu navmenu-default question-nav" role="navigation">
@@ -275,7 +275,7 @@ Copyright 2011-16 Newcastle University
                 <!-- /ko -->
             <!-- /ko -->
             <!-- total exam score display -->
-            <li class="examScore fake-nav-link" data-bind="visible: showActualMark">
+            <li class="examScore fake-nav-link" data-bind="visible: scoreFeedback.showActualMark">
                 <a class="clearfix">
                     <span class="pull-left" data-localise="control.total"></span> 
                     <span class="pull-right" id="examScore" data-bind="html: examScoreDisplay"></span>
@@ -342,59 +342,73 @@ Copyright 2011-16 Newcastle University
 
 <!-- ko if: exam.settings.navigateMode=='diagnostic' -->
     <nav id="navMenu" class="navmenu navmenu-default question-nav" role="navigation">
-    <div class="navmenu-header clearfix">
-        <a class="navmenu-brand">
-            <img class="logo center-block" src="resources/Engineering_statics_logo_numbas.svg" alt="Engineering Statics"/>
-        </a>
-        <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
+
+    <div id="navMenu-wrapper">
+
+        <div class="navmenu-header">
+            <div class="navmenu-brand">
+                <img class="logo center-block" src="resources/Engineering_statics_logo_numbas.svg" alt="Engineering Statics"/>
+            </div>
+            <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
+            <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+            </button>
+        </div>
+
+        <ul id="learning-objective-list" class="nav navemnu-nav">
+            <!-- ko foreach: diagnostic_progress -->
+            <li class="learning-objective">
+                <span class="name" data-bind="latex: name"></span>
+                <span data-bind="text: Math.floor(100*progress)+'%'"></span>
+            </li>
+            <!-- /ko -->
+        </ul>
+        <ul class="nav navmenu-nav">
+
+                <!-- stopwatch and timing controls -->
+                <li id="stopWatch" class="fake-nav-link" data-bind="visible: displayTime">
+                    <a class="clearfix">
+                        <span class="pull-left" data-localise="timing.time remaining"></span>
+                        <span class="pull-right" data-bind="text: displayTime"></span>
+                    </a>
+                </li>
+
+                <div class="menuButtons">
+                    <li><button class="btn btn-primary navbar-btn center-block" id="hideNavMenuBtn" data-bind="click: hideNavMenu" data-localise="control.return to question"></button>
+
+                    <li><button class="btn btn-primary navbar-btn center-block" id="pauseBtn" data-localise="control.pause" data-bind="click: Numbas.controls.pauseExam, visible: allowPause && mode()=='normal'"></button></li>
+                    <li><button class="btn btn-danger navbar-btn center-block" id="endBtn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal'"></button></li>
+                    <li><button class="btn btn-primary navbar-btn center-block" data-localise="control.back to results" data-bind="click: Numbas.controls.backToResults, visible: mode()=='review'"></button></li>
+                </div>
+        </ul>
+
     </div>
 
-    <ul id="learning-objective-list" class="nav navemnu-nav">
-        <!-- ko foreach: diagnostic_progress -->
-        <li class="learning-objective">
-            <span class="name" data-bind="latex: name"></span>
-            <span data-bind="text: Math.floor(100*progress)+'%'"></span>
-        </li>
-        <!-- /ko -->
-    </ul>
-    <ul class="nav navmenu-nav">
-
-            <!-- stopwatch and timing controls -->
-            <li id="stopWatch" class="fake-nav-link" data-bind="visible: displayTime">
-                <a class="clearfix">
-                    <span class="pull-left" data-localise="timing.time remaining"></span>
-                    <span class="pull-right" data-bind="text: displayTime"></span>
-                </a>
-            </li>
-
-            <div class="menuButtons">
-                <li><button class="btn btn-primary navbar-btn center-block" id="hideNavMenuBtn" data-bind="click: hideNavMenu" data-localise="control.return to question"></button>
-
-                <li><button class="btn btn-primary navbar-btn center-block" id="pauseBtn" data-localise="control.pause" data-bind="click: Numbas.controls.pauseExam, visible: allowPause && mode()=='normal'"></button></li>
-                <li><button class="btn btn-danger navbar-btn center-block" id="endBtn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal'"></button></li>
-                <li><button class="btn btn-primary navbar-btn center-block" data-localise="control.back to results" data-bind="click: Numbas.controls.backToResults, visible: mode()=='review'"></button></li>
-            </div>
-        </ul>
 </nav>
 
 <!-- top menu shown on narrow screens -->
 <div id="topNav" class="hamburger navbar navbar-default question-nav">
-    <button type="button" class="navbar-toggle" data-toggle="navMenu">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
-    </button>
-
     <ul class="nav">
-        <li><button class="btn btn-danger navbar-btn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal' && !canAdvance()"></button></li>
         <li>	
             <div class="titleBits" data-bind="with: currentQuestion">
                 <span class="review-header" data-bind="visible: $root.exam().mode()=='review'" data-localise="exam.review header"></span>
                 <span id="questionNameDisplay" data-bind="text: displayName"></span>
             </div>
         </li>
+
+        <li class="stopWatch" data-bind="visible: displayTime">
+            <span class="" data-localise="timing.time remaining"></span>
+            <span class="time" data-bind="text: displayTime"></span>
+        </li>
     </ul>
+
+    <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+    </button>
 </div>
 <!-- /ko -->
 
@@ -567,10 +581,8 @@ Copyright 2011-16 Newcastle University
             <!-- ko if: exam.settings.navigateMode=='menu' -->
                 <th data-localise="question"></th>
             <!-- /ko -->
-            <!-- ko if: showActualMark -->
-            <th colspan="3" data-localise="result.question score"></th>
-            <!-- /ko -->
-            <th></th>
+            <th data-bind="text: resultsScoreColumnHeader"></th>
+            <th data-localise="result.question review"></th>
             </tr>
         </thead>
         <tbody>
@@ -584,27 +596,20 @@ Copyright 2011-16 Newcastle University
                 <!-- ko foreach: questions -->
                 <tr class="question" data-bind="click: review, attr: {title: R('result.question review title')}">
                     <td data-bind="latex: displayName"></td>
-                    <!-- ko if: scoreFeedback.revealed -->
-                    <td data-bind="niceNumber: score"></td>
-                    <td>/</td>
-                    <td data-bind="niceNumber: marks"></td>
-                    <!-- /ko -->
-                    <!-- ko if: !scoreFeedback.revealed() -->
-                    <td colspan="3"></td>
-                    <!-- /ko -->
+                    <td class="score-cell" data-bind="html: scoreFeedback.plainMessage"></td>
                     <td><button type="button" class="btn btn-link review" data-localise="result.question review"></button></td>
                 </tr>
                 <!-- /ko -->
             <!-- /ko -->
-            <!-- ko if: showActualMark -->
-            <tr>
-                <th data-localise="Total"></th>
-                <th data-bind="niceNumber: score"></th>
-                <th>/</th>
-                <th colspan="2">
-                    <span data-bind="niceNumber: marks"></span>
-                    (<span data-bind="text: percentScore"></span>%)
-                </th>
+            <!-- ko if: scoreFeedback.showActualMark() || scoreFeedback.showTotalMark() -->
+            <tr class="total">
+                <th scope="row" data-localise="Total"></th>
+                <td class="score-cell">
+                    <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                </td>
+                <td>
+                    <!-- ko if: scoreFeedback.showActualMark() && scoreFeedback.showTotalMark() -->(<span data-bind="text: percentScore"></span>%)<!-- /ko -->
+                </td>
             </tr>
             <!-- /ko -->
         </tbody>
@@ -615,7 +620,7 @@ Copyright 2011-16 Newcastle University
 
 <div id="end-message" class="alert col-sm-6 col-sm-offset-3" data-bind="visible: exam.has_end_message, latex: exam.end_message" localise-data-jme-context-description="exam.end_message"></div>
 
-<!-- ko if: showActualMark -->
+<!-- ko if: scoreFeedback.showActualMark -->
 <div class="row">
     <div id="feedback" class="alert results-feedback col-sm-6 col-sm-offset-3" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
 </div>
@@ -669,7 +674,7 @@ Copyright 2011-16 Newcastle University
         <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
 
         <div id="questionDisplay" data-bind="foreach: questions">
-            <div data-bind="promise: html_promise">
+            <div id="question-wrapper" class="print-visible" data-bind="promise: html_promise, visible: isCurrentQuestion">
             </div>
         </div>
     </div>
@@ -677,7 +682,7 @@ Copyright 2011-16 Newcastle University
 
                     <footer>
     <div class="copyright-footer">
-        Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a>, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.
+        Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a>, developed by <a target="_blank" href="https://www.newcastle.ac.uk">Newcastle University</a>.
     </div>
 </footer>
                 </main>
