@@ -10,6 +10,15 @@ direct any comments, suggestions or errors to this group, or directly to [Willia
 If you would like to contribute content to the textbook, contact the project coordinator and lead author, [Dr. Dan Baker](mailto:dan.baker@colostate.edu).  We are particularly interested in adding more example problems to all chapters.  
 
 ## Authoring and deployment instructions
+### Whitespace
+
+This project uses [pretext-formatter](https://github.com/skiadas/ptx-formatter)  to maintain whitespace consistency in the PreTeXt source.  After making changes to any  .ptx files, issue the command command below from the  `statics/source/ptx` directory to normalize the whitespace and make changes easier to identify.  
+
+`ptx-format -c statics-format.cfg -pr .`
+
+
+
+This command will format all the ptx files found in the source directory, the  `-c` means use the specified config file to set the formatting options.  `-p` tells the script to make the changes in place, i.e. overwrite the PreTeXt files, and  the `-r` means recursive, i.e. format all ptx files in the directory.
 
 ### Asset management
 
@@ -52,3 +61,4 @@ To deploy updates to `engineeringstatics.org`:
 rm -rf output/stage # to remove cached files
 pretext deploy
 ```
+
