@@ -6,7 +6,7 @@ import shutil
 images = ['*.pdf', '*.png', '*.jpg', '*.svg', '*.ggb']
 # these command line arguments are set by the makefile
 resource_dir = "source/resources"  #(RESOURCES)
-external_dir = "assets"  #(EXTERNAL)
+external_dir = "output/assets"  #(EXTERNAL)
 
 def flatten(match_patterns, source, dest):
     print(f"\tFlattening {match_patterns} in {source} to {dest}.")
