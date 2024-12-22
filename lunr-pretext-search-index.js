@@ -4759,7 +4759,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "10.6",
   "title": "Radius of Gyration",
-  "body": " Radius of Gyration  The radius of gyration is an alternate way of expressing the distribution of area away from an axis which combines the effects of the moments of inertia and cross sectional area.  The radius of gyration can be thought of as the radial distance to a thin strip which has the same area and the same moment of inertia around a specific axis as the original shape. Compared to the moment of inertia, the radius of gyration is easier to visualize since it's a distance, rather than a distance to the fourth power.   The radius of gyration, and the corresponding moment of inertia are related, and both must refer to the same axis. If one is known, the other is easily found.  The radius of gyration with respect to the and axes and the origin are given by these formulas .  In engineering design, the radius of gyration is used to determine the stiffness of structural columns and estimate the critical load which will initiate column buckling.    How are , , and related to each other?       Start with       "
+  "body": " Radius of Gyration  The radius of gyration is an alternate way of expressing the distribution of area away from an axis which combines the effects of the moments of inertia and cross sectional area.  The radius of gyration can be thought of as the radial distance to a thin strip which has the same area and the same moment of inertia around a specific axis as the original shape. Compared to the moment of inertia, the radius of gyration is easier to visualize since it's a distance, rather than a distance to the fourth power.   The radius of gyration, and the corresponding moment of inertia are related, and both must refer to the same axis. If one is known, the other is easily found.  The radius of gyration with respect to the and axes and the origin are given by these formulas .  In engineering design, the radius of gyration is used to determine the stiffness of structural columns and estimate the critical load which will initiate column buckling.    How are , , and related to each other?       Start with         Determine the polar moment of inertia and the radius of gyration of the shaded area. Give answer in terms of , to three signficant digits.         The shape is consists of a quarter circle of radius with a triangle removed. For the triangle, .     "
 },
 {
   "id": "radius-of-gyration-sec-7",
@@ -4769,6 +4769,15 @@ var ptx_lunr_docs = [
   "number": "10.6.1",
   "title": "",
   "body": "  How are , , and related to each other?       Start with     "
+},
+{
+  "id": "radius-of-gyration-sec-8",
+  "level": "2",
+  "url": "radius-of-gyration-sec.html#radius-of-gyration-sec-8",
+  "type": "Example",
+  "number": "10.6.2",
+  "title": "",
+  "body": "   Determine the polar moment of inertia and the radius of gyration of the shaded area. Give answer in terms of , to three signficant digits.         The shape is consists of a quarter circle of radius with a triangle removed. For the triangle, .    "
 },
 {
   "id": "products-of-inertia",
