@@ -32,15 +32,25 @@ def flatten(match_patterns, source, dest):
             shutil.copy2(this_file, target)
 
 def copy_and_overwrite(source, dest):
-    print(f"\tCopying {source} to {dest}.")
-    if os.path.exists(dest):
-        shutil.rmtree(dest)
-    shutil.copytree(source, dest)
+    if not os.path.exists(source):
+      print(f"\t***Resource Missing*** Can't find '{source}'.")
+    else:
+      print(f"\tCopying {source} to {dest}.")
+      if os.path.exists(dest):
+          shutil.rmtree(dest)
+      shutil.copytree(source, dest)
+      
+def copy_and_preserve(source, dest):
+    if not os.path.exists(source):
+      print(f"\t***Resource Missing*** Can't find '{source}'.")
+    else:
+      print(f"\tCopying {source} to {dest}.")
+      shutil.copytree(source, dest, dirs_exist_ok=True)
 
 print("update_assets.py")
 print()
 print(f"\tWorking dir: {os.getcwd()}")
-print(f"\tResource Directory {resource_dir}")
+print(f"\tResource Directory: {resource_dir}")
 print(f"\tExternal Directory: {external_dir}")
 print()
 
