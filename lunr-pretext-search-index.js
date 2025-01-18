@@ -232,7 +232,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "1.3",
   "title": "Forces",
-  "body": " Forces    What are some of the fundamental types of forces used in statics?  Why do we often simplify distributed forces with equivalent point forces?    Statics is a course about forces and we will have a lot to say about them. At its simplest, a force is a push or pull, but forces come from a variety of sources and occur in many different situations. As such we need a specialized vocabulary to talk about them. We are also interested in forces that cause rotation, and we have special terms to describe these too.  Some terms used to describe forces are given below; others will be defined as needed later in the book.  Point Forces , also called concentrated forces , are forces that act at a single point. Examples are the push you give to open a door, the thrust of a rocket engine, or the pull a the chain suspending a wrecking ball. Point forces are actually an idealization, because real forces always act over an area and not at a mathematical point. However, point forces are the easiest type to deal with computationally so we will usually represent other types of forces as equivalent concentrated forces.  Distributed forces are forces that are spread out over a line, area or volume. Steam pressure in a boiler and the weight of snow on a roof are examples of forces distributed over an area. Distributed forces are represented graphically by an array of force vectors.  Body forces are distributed forces acting over the volume of a body. The most common body force is the body's weight, but there are others including buoyancy and forces caused by electric and magnetic fields. Weight and buoyancy will be the only body forces we consider in this book.  In many situations, body forces are small in comparison to the other forces acting on the object, and as such may be neglected. In practice, the decision to neglect forces must be made on the basis of sound engineering judgment; however, in this course you should consider the weight in your analysis if the problem statement provides enough information to determine it, otherwise you may ignore it.  Loads are the forces which an object must support in order to perform its function. Loads can be either static or dynamic, however only static loads will be considered here. Forces which hold a loaded object in equilibrium or hold parts of an object together are not considered loads.  Reaction forces or simply reactions are the forces and moments which hold or constrain an object or mechanical system in equilibrium. They are called the reactions because they react when other forces on the system change. If the load on a system increases, the reaction forces will automatically increase in response to maintain equilibrium. Reaction forces are introduced in and reaction moments are introduced in .  Internal forces are forces which hold the parts an object or system together. Internal forces will be discussed in .  As an example of the various types of forces, consider a heavy crate being pulled by a rope across a rough surface.   Forces on a crate being pulled across a rough surface.     Pull - Concentrated force   A crate is shown with a point force pulling it toward the reader. It is on a rough surface.     Weight - Body force   The crate is shown with its weight represented as an array of downward force vectors distributed throughout.       Friction - Distributed force   The crate is shown with an array of horizontal force vectors acting on its lower surface to oppose the pull.     Normal Force - Distributed force   The crate is shown with an array of upward pointing force vectors acting on its lower surface to oppose the weight.       The pull of the rope and the weight of the crate are loads . The rope applies a force at a single point, so is a concentrated force . The force of the ground holding the crate in equilibrium is a reaction force . This force can be divided into two components: a tangential friction component which acts parallel to the ground and resists the pull of the cable, and a normal component which acts perpendicular to the bottom surface and supports the crate's weight. The normal and tangential components are distributed forces since they act over the bottom surface area. The weight is also a distributed force, but one that acts over the entire crate so it's considered a body force . For computational simplicity we usually model all these distributed forces as equivalent concentrated forces. This process is discussed in .  "
+  "body": " Forces    What are some of the fundamental types of forces used in statics?  Why do we often simplify distributed forces with equivalent point forces?    A force is simply a linear push or pull, yet forces come from a variety of sources and occur in many different situations. As such we need a specialized vocabulary to talk about them. We are also interested in forces that cause rotation, and we have special terms to describe these too.  Some terms used to describe forces are given below; others will be defined as needed later in the book.  Point Forces , also called concentrated forces , are forces that act at a single point. Examples are the push you give to open a door, the thrust of a rocket engine, or the pull a the chain suspending a wrecking ball. Point forces are actually an idealization, because real forces always act over an area and not at a mathematical point. However, point forces are the easiest type to deal with computationally so we will usually represent other types of forces as equivalent concentrated forces.  Distributed forces are forces that are spread out over a line, area or volume. Water pressure on the side of a swimming pool and the weight of snow on a roof are examples of forces distributed over an area. Distributed forces are represented graphically by an array of force vectors.  Body forces are distributed forces acting over the volume of a body. The most common body force is the body's weight, but there are others including buoyancy and forces caused by electric and magnetic fields. Weight and buoyancy will be the only body forces we consider in this book.  In many situations, body forces are small in comparison to the other forces acting on the object, and as such may be neglected. In practice, the decision to neglect forces must be made on the basis of sound engineering judgment; however, in this course you should consider the weight in your analysis if the problem statement provides enough information to determine it, otherwise you may ignore it.  Loads are the forces which an object must support in order to perform its function. Loads can be either static or dynamic, however only static loads will be considered here. Forces which hold a loaded object in equilibrium or hold parts of an object together are not considered loads.  Reaction forces or simply reactions are the forces and moments which hold or constrain an object or mechanical system in equilibrium. They are called the reactions because they react when other forces on the system change. If the load on a system increases, the reaction forces will automatically increase in response to maintain equilibrium. Reaction forces are introduced in and reaction moments are introduced in .  Interaction forces are forces that exist between rigid bodies. They are defined by Newton’s 3nd Law as being equal and opposite. Interaction forces become important in when working with multi-body structures.  Internal forces are forces and moments that exist within the material of a rigid body that resist the external loads to keep the rigid body from breaking. We model these internal loads as an axial force, a shear force, and a bending moment. Internal forces will be discussed in .  The figure below illustrates multiple of these force types using a heavy crate being pulled by a rope across a rough surface.   Forces on a crate being pulled across a rough surface.     Pull - Concentrated force   A crate is shown with a point force pulling it toward the reader. It is on a rough surface.     Weight - Body force   The crate is shown with its weight represented as an array of downward force vectors distributed throughout.       Friction - Distributed force   The crate is shown with an array of horizontal force vectors acting on its lower surface to oppose the pull.     Normal Force - Distributed force   The crate is shown with an array of upward pointing force vectors acting on its lower surface to oppose the weight.       The pull of the rope and the weight of the crate are loads . The rope applies a force at a single point, so is a concentrated force . The force of the ground holding the crate in equilibrium is a reaction force . This force can be divided into two components: a tangential friction component which acts parallel to the ground and resists the pull of the cable, and a normal component which acts perpendicular to the bottom surface and supports the crate's weight. The normal and tangential components are distributed forces since they act over the bottom surface area. The weight is also a distributed force, but one that acts over the entire crate so it's considered a body force . For computational simplicity we usually model all these distributed forces as equivalent concentrated forces. This process is discussed in .  "
 },
 {
   "id": "Chapter_01-forces-2",
@@ -295,21 +295,30 @@ var ptx_lunr_docs = [
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
+  "body": "Interaction forces "
+},
+{
+  "id": "Chapter_01-forces-12",
+  "level": "2",
+  "url": "Chapter_01-forces.html#Chapter_01-forces-12",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
   "body": "Internal forces "
 },
 {
-  "id": "Chapter_01-forces-13",
+  "id": "Chapter_01-forces-14",
   "level": "2",
-  "url": "Chapter_01-forces.html#Chapter_01-forces-13",
+  "url": "Chapter_01-forces.html#Chapter_01-forces-14",
   "type": "Figure",
   "number": "1.3.1",
   "title": "",
   "body": " Forces on a crate being pulled across a rough surface.     Pull - Concentrated force   A crate is shown with a point force pulling it toward the reader. It is on a rough surface.     Weight - Body force   The crate is shown with its weight represented as an array of downward force vectors distributed throughout.       Friction - Distributed force   The crate is shown with an array of horizontal force vectors acting on its lower surface to oppose the pull.     Normal Force - Distributed force   The crate is shown with an array of upward pointing force vectors acting on its lower surface to oppose the weight.      "
 },
 {
-  "id": "Chapter_01-forces-14",
+  "id": "Chapter_01-forces-15",
   "level": "2",
-  "url": "Chapter_01-forces.html#Chapter_01-forces-14",
+  "url": "Chapter_01-forces.html#Chapter_01-forces-15",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -322,7 +331,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "1.4",
   "title": "Problem Solving",
-  "body": " Problem Solving    What are some strategies to practice selecting a tool from your problem-solving toolbox?  What is the basic problem-solving process for equilibrium?    Statics may be the first course you take where you are required to decide on your own how to approach a problem. Unlike your previous Physics courses, you can't just memorize a formula and plug-and-chug to get an answer; there are often multiple ways to solve a problem, not all of them equally easy, so before you begin you need a plan or strategy. This seems to cause a lot of students difficulty.  The ways to think about forces, moments and equilibrium, and the mathematics used to manipulate them are like tools in your toolbox. Solving statics problems requires acquiring, choosing, and using these tools. Some problems can be solved with a single tool, while others require multiple tools. Sometimes one tool is a better choice, sometimes another. You need familiarity and practice to get skilled using your tools. As your skills and understanding improve, it gets easier to recognize the most efficient way to get a job done.  Struggling statics students often say things like:   I don't know where to start the problem.  It looks so easy when you do it.  If I only knew which equation to apply, I could solve the problem.   These statements indicate that the students think they know how to use their tools, but are skipping the planning step. They jump right to writing equations and solving for things without making much progress towards the answer, or they start solving the problem using a reasonable approach but abandon it in mid-stream to try something else. They get lost, confused and give up.  Choosing a strategy gets easier with experience. Unfortunately, the way you get that experience is to solve problems. It seems like a chicken and egg problem and it is, but there are ways around it. Here are some suggestions which will help you become a better problem-solver.  Get fluent with the math skills from algebra and trigonometry.  Do lots of problems, starting with simple ones to build your skills.  Study worked out solutions, however don't assume that just because you understand how someone else solved a problem that you can do it yourself without help.  Solve problems using multiple approaches. Confirm that alternate approaches produce the same results, and try to understand why one method was easier than the other.  Draw neat, clear, labeled diagrams.  Familiarize yourself with the application, assumptions, and terminology of the methods covered in class and the textbook.  When confused, identify what is confusing you and ask questions.    The majority of the topics in this book focus on equilibrium. The remaining topics are either preparing you for solving equilibrium problems or setting you up with skills that you will use in later classes. For equilibrium problems, the problem-solving steps are:  Read and understand the problem.  Identify what you are asked to find and what is given.  Stop, think, and decide on an strategy.  Draw a free-body diagram and define variables.  Apply the strategy to solve for unknowns and check solutions.     Write equations of equilibrium based on the free-body diagram.  Check if the number of equations equals the number of unknowns. If it doesn't, you are missing something. You may need additional free-body diagrams or other relationships.  Solve for unknowns.     Conceptually check solutions.    Using these steps does not guarantee that you will get the right solution, but it will help you be critical and conscious of your chosen strategies. This reflection will help you learn more quickly and increase the odds that you choose the right tool for the job.  "
+  "body": " Problem Solving    What are some strategies to practice selecting a tool from your problem-solving toolbox?  What is the basic problem-solving process for equilibrium?    Statics may be the first course you take where you are required to decide on your own how to approach a problem. Unlike your previous Physics courses, you can't just memorize a formula and plug-and-chug to get an answer; there are often multiple ways to solve a problem, not all of them equally easy, so before you begin you need a plan or strategy. This seems to cause a lot of students difficulty.  The ways to think about forces, moments and equilibrium, and the mathematics used to manipulate them are like tools in your toolbox. Solving statics problems requires acquiring, choosing, and using these tools. Some problems can be solved with a single tool, while others require multiple tools. Sometimes one tool is a better choice, sometimes another. You need familiarity and practice to get skilled using your tools. As your skills and understanding improve, it gets easier to recognize the most efficient way to get a job done.  Struggling statics students often say things like:   I don't know where to start the problem.  It looks so easy when you do it.  If I only knew which equation to apply, I could solve the problem.   These statements indicate that the students think they know how to use their tools, but are skipping the planning step. They jump right to writing equations and solving for things without making much progress towards the answer, or they start solving the problem using a reasonable approach but abandon it in mid-stream to try something else. They get lost, confused and give up.  Choosing a strategy gets easier with experience. Unfortunately, the way you get that experience is to solve problems. If you think that this is a chicken and egg problem, you are correct. Here are some suggestions which will help you become a better problem-solver.  Hone your math skills, in the areas of algebra, trigonometry, and calculus. These are complimentary tools to solve engineering problems, but only help after you get the problem set up.  Build your understanding of the terminology. If you do not understand the words in the problem statement, then you will have difficulty setting up your equations to solve the problem.  Every engineering equation comes with assumptions. Learn these assumptions so you can decide whether a specific equation is valid within the context of a problem.  Work through, or at least set up, lots of problems. Start with simple ones to build your skills.  Start by viewing examples or videos, but progress to working problems on your own. Seeing someone else’s solution will make you overconfident that you can do the same thing. The only way you’ll know is to try on your own.  Solve problems using multiple approaches. Confirm that alternate approaches produce the same results and try to understand why one method was easier than the other.  Draw neat, clear, labeled diagrams.  When you get frustrated, you have just found something new to learn. Don’t get stuck for more than 15-20 minutes. Work to identify what is confusing you and find informative resources or ask questions.    The majority of the topics in this book focus on equilibrium. The remaining topics are either preparing you for solving equilibrium problems or setting you up with skills that you will use in later classes. For equilibrium problems, the problem-solving steps are:  Read and understand the problem.  Identify what you are asked to find and what is given.  Stop, think, and decide on an strategy.  Draw a free-body diagram with all the required elements:  An isolated body or group of bodies  All applied loads  All reactions from supports  An axis system  Labeled vectors    Write equations of equilibrium based on the free-body diagram.  Check if the number of equations equals the number of unknowns. If it doesn't, you are missing something. You may need additional free-body diagrams or other relationships.  Solve for unknowns, then evaluate the reasonableness of your answer(s) magnitude, units, and sign\/direction.    Using these steps does not guarantee that you will get the right solution, but it will help you be critical and conscious of your chosen strategies. This reflection will help you learn more quickly and increase the odds that you choose the right tool for the job.  "
 },
 {
   "id": "Chapter_01-problem-solving-2",
@@ -340,7 +349,7 @@ var ptx_lunr_docs = [
   "type": "Section",
   "number": "2.1",
   "title": "Vectors",
-  "body": " Vectors    How is a vector different than a scalar?  How do you identify the tip, tail, line of action, direction, and magnitude of any drawn vector?  What are the standard notations for vectors and scalars in this textbook?  What is the difference between the sense and orientation of a vector?     You can visualize a vector as an arrow pointing in a particular direction. The tip is the pointed end and the tail the trailing end. The tip and tail of a vector define a line of action . A line of action can be thought of as an invisible string along which a vector can slide. Sliding a vector along its line of action does not change its magnitude or its direction. Sliding a vector can be a handy way to simplify vector problems.   Vector Definitions     The standard notation for a vector uses the vector's name in bold font, or an arrow or bar above the vector's name. All three of these notations mean the same thing. Most printed works including this book will use the bold symbol to indicate vectors, but for handwritten work, you and your instructor will use the bar or arrow notation.  Force vectors acting on physical objects have a point of application , which is the point where the force is applied. Other vectors, such as moment vectors, are free vectors , which means that the point of application is not significant. Free vectors can be moved freely to any location as long as the magnitude and direction are maintained.  The vector's magnitude is a positive real number including units which describes the strength or intensity of the vector. Graphically a vector's magnitude is represented by the length of its vector arrow, and symbolically by enclosing the vector's symbol with vertical bars. This is the same notation as for the absolute value of a number. The absolute value of a number and the magnitude of a vector can both be thought of as a distance from the origin, so the notation is appropriate. By convention the magnitude of a vector is also indicated by the same letter as the vector, but in non-bold font.  By itself, a vector's magnitude is a scalar quantity, but it makes no sense to speak of a vector with a negative magnitude so vector magnitudes are always positive or zero. Multiplying a vector by -1 produces a vector with the same magnitude but pointing in the opposite direction.  Vector directions are described with respect to a coordinate system . A coordinate system is an arbitrary reference system used to establish the origin and the primary directions. Distances are usually measured from the origin, and directions from a primary or reference direction . You are probably familiar with the Cartesian coordinate system with mutually perpendicular , and axes and the origin at their intersection point.  Another way of describing a vector's direction is to specify its orientation and sense . Orientation is the angle the vector's line of action makes with a specified reference direction, and sense defines the direction the vector points along its line of action. A vector with a positive sense points towards the positive end of the reference axis and vice-versa. A vector representing an object's weight has a vertical reference direction and a downward sense or negative sense, for example.  A third way to represent a vector is with a unit vector multiplied by a scalar component . Unit vectors are vectors with a magnitude of one (unitless), and scalar components are signed values with units. Together, they fully define a vector quantity; the unit vector specifies the direction of its line of action, and the scalar component specifies its magnitude and sense. The scalar component scales the unit vector.  Be careful not to confuse scalar components, which can be positive or negative, with vector magnitudes, which are always positive.  Vectors are either constant or vary as a function of time, position, or something else. For example, if a force varies with time according to the function , where is the time in seconds, then the force will be at and increase by each second thereafter.  "
+  "body": " Vectors    What differentiates a vector from a scalar?  What are the standard notations for vectors and scalars in this textbook?  How do you identify the tip, tail, line of action, direction, and magnitude of a vector?  What is the difference between the sense and orientation of a vector?    Before you can solve statics problems, you will need to understand the basic physical quantities used in Statics: scalars and vectors.  Scalars are physical quantities that have no associated direction and can be described by a positive or negative number, or even zero. Scalar quantities follow the usual laws of algebra, and most scalar quantities have units. Mass, time, temperature, and length are all scalars.  Vectors represent physical quantities that have magnitude and direction. Vectors are identified by a symbolic name which will be typeset in bold like or to indicate its vector nature. The primary vector quantity you will encounter in statics will be force , but moment and position are also important vectors. Computations involving vectors must always consider the directionality of each term and follow the rules of vector algebra as described in this chapter.   You can visualize a vector as an arrow pointing in a particular direction. The tip is the pointed end and the tail the trailing end. The tip and tail of a vector define a line of action . A line of action can be thought of as an invisible string along which a vector can slide. Sliding a vector along its line of action does not change its magnitude or its direction. Sliding a vector can be a handy way to simplify vector problems.   Vector Definitions     The standard notation for a vector uses the vector's name in bold font, or an arrow or bar above the vector's name. All three of these notations mean the same thing. Most printed works including this book will use the bold symbol to indicate vectors, but for handwritten work, you and your instructor will use the bar or arrow notation.  Force vectors acting on physical objects have a point of application , which is the point where the force is applied. Other vectors, such as moment vectors, are free vectors , which means that the point of application is not significant. Free vectors can be moved freely to any location as long as the magnitude and direction are maintained.  The vector's magnitude is a positive real number including units which describes the strength or intensity of the vector. Graphically a vector's magnitude is represented by the length of its vector arrow, and symbolically by enclosing the vector's symbol with vertical bars. This is the same notation as for the absolute value of a number. The absolute value of a number and the magnitude of a vector can both be thought of as a distance from the origin, so the notation is appropriate. By convention the magnitude of a vector is also indicated by the same letter as the vector, but in non-bold font.  By itself, a vector's magnitude is a scalar quantity, but it makes no sense to speak of a vector with a negative magnitude so vector magnitudes are always positive or zero. Multiplying a vector by -1 produces a vector with the same magnitude but pointing in the opposite direction.  Vector directions are described with respect to a coordinate system . A coordinate system is an arbitrary reference system used to establish the origin and the primary directions. Distances are usually measured from the origin, and directions from a primary or reference direction . You are probably familiar with the Cartesian coordinate system with mutually perpendicular , and axes and the origin at their intersection point.  Another way of describing a vector's direction is to specify its orientation and sense . Orientation is the angle the vector's line of action makes with a specified reference direction, and sense defines the direction the vector points along its line of action. A vector with a positive sense points towards the positive end of the reference axis and vice-versa. A vector representing an object's weight has a vertical reference direction and a downward sense or negative sense, for example.  A third way to represent a vector is with a unit vector multiplied by a scalar component . Unit vectors are vectors with a magnitude of one (unitless), and scalar components are signed values with units. Together, they fully define a vector quantity; the unit vector specifies the direction of its line of action, and the scalar component specifies its magnitude and sense. The scalar component scales the unit vector.  Be careful not to confuse scalar components, which can be positive or negative, with vector magnitudes, which are always positive.  Vectors are either constant or vary as a function of time, position, or something else. For example, if a force varies with time according to the function , where is the time in seconds, then the force will be at and increase by each second thereafter.  "
 },
 {
   "id": "Chapter_02-vectors-2",
@@ -349,12 +358,30 @@ var ptx_lunr_docs = [
   "type": "Key Questions",
   "number": "2.1",
   "title": "",
-  "body": "  How is a vector different than a scalar?  How do you identify the tip, tail, line of action, direction, and magnitude of any drawn vector?  What are the standard notations for vectors and scalars in this textbook?  What is the difference between the sense and orientation of a vector?   "
+  "body": "  What differentiates a vector from a scalar?  What are the standard notations for vectors and scalars in this textbook?  How do you identify the tip, tail, line of action, direction, and magnitude of a vector?  What is the difference between the sense and orientation of a vector?   "
 },
 {
-  "id": "Chapter_02-vectors-3-1",
+  "id": "Chapter_02-vectors-4",
   "level": "2",
-  "url": "Chapter_02-vectors.html#Chapter_02-vectors-3-1",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-4",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "Scalars "
+},
+{
+  "id": "Chapter_02-vectors-5",
+  "level": "2",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-5",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "Vectors force moment position "
+},
+{
+  "id": "Chapter_02-vectors-6-1",
+  "level": "2",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-6-1",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
@@ -370,31 +397,13 @@ var ptx_lunr_docs = [
   "body": " Vector Definitions   "
 },
 {
-  "id": "Chapter_02-vectors-5",
-  "level": "2",
-  "url": "Chapter_02-vectors.html#Chapter_02-vectors-5",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "point of application free vectors "
-},
-{
-  "id": "Chapter_02-vectors-6",
-  "level": "2",
-  "url": "Chapter_02-vectors.html#Chapter_02-vectors-6",
-  "type": "Paragraph (with a defined term)",
-  "number": "",
-  "title": "",
-  "body": "magnitude "
-},
-{
   "id": "Chapter_02-vectors-8",
   "level": "2",
   "url": "Chapter_02-vectors.html#Chapter_02-vectors-8",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "coordinate system origin reference direction "
+  "body": "point of application free vectors "
 },
 {
   "id": "Chapter_02-vectors-9",
@@ -403,12 +412,30 @@ var ptx_lunr_docs = [
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
+  "body": "magnitude "
+},
+{
+  "id": "Chapter_02-vectors-11",
+  "level": "2",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-11",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
+  "body": "coordinate system origin reference direction "
+},
+{
+  "id": "Chapter_02-vectors-12",
+  "level": "2",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-12",
+  "type": "Paragraph (with a defined term)",
+  "number": "",
+  "title": "",
   "body": "orientation sense "
 },
 {
-  "id": "Chapter_02-vectors-10",
+  "id": "Chapter_02-vectors-13",
   "level": "2",
-  "url": "Chapter_02-vectors.html#Chapter_02-vectors-10",
+  "url": "Chapter_02-vectors.html#Chapter_02-vectors-13",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
