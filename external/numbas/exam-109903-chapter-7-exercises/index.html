@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<!--
+Copyright 2011-16 Newcastle University
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html lang="en-GB">
+    <head>
+        
+    <title>Chapter 7 Exercises - Numbas</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="resources/numbas-icon.png"/>
+
+    <!-- CSS -->
+<style>
+    /* This rule will be overriden in styles.css, so the page content is only shown when the stylesheet has loaded
+    */
+    body > #with-stylesheet {
+        display: none;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="styles.css?build_time=1723832423.772984" />
+    <!-- mathjax stuff -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+            extensions: ['begingroup.js']
+        },
+        tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['\\[','\\]'], ['$$','$$']],
+            processEscapes: true
+        },
+        "HTML-CSS": {
+            mtextFontInherit: true
+        },
+        skipStartupTypeset: true,
+        displayAlign: "center",
+        displayIndent: "0.1em"
+    });
+    MathJax.Hub.processSectionDelay = 0;
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
+
+<!-- numbas stuff -->
+<script charset="UTF-8" type="text/javascript" src="scripts.js?build_time=1723832423.772984" charset="utf-8"></script>
+
+<script>
+    Numbas.queueScript('go',['start-exam'],function() {
+        Numbas.init();
+    });
+    $(function() {
+        Numbas.checkAllScriptsLoaded();
+    });
+</script>
+
+
+	</head>
+	
+    <body data-bind="with: exam, css: css">
+        <div id="no-stylesheet">
+            <p data-localise="page.no stylesheet loaded"></p>
+        </div>
+
+        <div id="with-stylesheet">
+            <!-- modal dialog boxes -->
+<div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="alert-modal-title" aria-describedby="alert-modal-body">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="alert-modal-title" data-localise="modal.confirm"></h4>
+            </div>
+            <div class="modal-body" id="alert-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="ok btn btn-primary" data-dismiss="modal" data-localise="modal.ok"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="confirm-modal-title" aria-describedby="confirm-modal-body">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="confirm-modal-title" data-localise="modal.confirm"></h4>
+            </div>
+            <div class="modal-body" id="confirm-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel btn btn-default" data-dismiss="modal" data-localise="modal.cancel"></button>
+                <button type="button" class="ok btn btn-primary" data-dismiss="modal" data-localise="modal.ok"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm-end-exam-modal" tabindex="-1" role="dialog" aria-hidden="true"
+    aria-labelledby="confirm-end-exam-modal-title" aria-describedby="confirm-end-exam-modal-body">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="confirm-end-exam-modal-title" data-localise="modal.confirm"></h4>
+            </div>
+            <div class="modal-body" id="confirm-end-exam-modal-body" data-bind="with: $root.exam">
+                <p id="confirm-end-exam-modal-message"></p>
+                <form class="form-inline" data-bind="submit: $root.modal.ok">
+                    <label for="confirm-end-text-input" id="confirm-end-exam-modal-input-message"></label>
+                    <input class="form-control" id="confirm-end-text-input" type="text" data-bind="textInput: confirmEndHandler.value, autosize: confirmEndHandler.value">
+                    <span class="password-feedback feedback-icon" data-bind="css: confirmEndHandler.feedback().iconClass, attr: {title: confirmEndHandler.feedback().title}"></span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel btn btn-default" data-dismiss="modal" data-localise="modal.cancel"></button>
+                <button type="button" class="ok btn btn-primary" data-dismiss="modal" data-bind="disable: !confirmEndHandler.valid(), css: confirmEndHandler.feedback().buttonClass" data-localise="modal.end exam button"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="style-modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="style-modal-title" aria-describedby="style-modal-explanation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="style-modal-title" data-localise="control.style options"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="help-block" id="style-modal-explanation" data-localise="modal.style.explanation"></p>
+                <form data-bind="submit: function(){}, with: $root.style">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="background-colour-picker" data-localise="modal.style.background colour"></label>
+                            <input class="form-control" id="background-colour-picker" type="color" data-bind="value: backgroundColour">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="text-colour-picker" data-localise="modal.style.text colour"></label>
+                            <input class="form-control" id="text-colour-picker" type="color" data-bind="value: textColour">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="text-size-picker" data-localise="modal.style.text size"></label>
+                            <input class="form-control" id="text-size-picker" type="number" step="0.1" min="0.1" data-bind="value: $root.staged_style.textSize">
+                        </div>
+                        <div class="col-sm-6" id="text-size-preview" data-localise="modal.style.text size preview"></div>
+                    </div>
+                </form>
+
+                
+                <hr/>
+                <p class="help-block"><a href="https://docs.numbas.org.uk/en/latest/accessibility/exam.html" target="_blank" data-localise="accessibility statement"></a></p>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm pull-left" data-localise="modal.style.reset to defaults" data-bind="click: $root.resetStyle"></button>
+                <button type="button" class="cancel btn btn-default" data-dismiss="modal" data-localise="modal.cancel"></button>
+                <button type="button" class="ok btn btn-primary" data-dismiss="modal" data-localise="modal.ok"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="next-actions-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" aria-labelledby="next-actions-modal-title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="next-actions-modal-title" data-localise="diagnostic.make a choice"></h4>
+            </div>
+            <div class="modal-body" data-bind="with: diagnostic_next_actions">
+                <div data-bind="latex: feedback"></div>
+
+                <ul data-bind="foreach: actions" class="list-unstyled actions">
+                    <li>
+                        <button type="button" data-bind="click: go, css: {blog: true}"><span data-bind="latex: label"></span></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="lightbox" tabindex="-1" role="dialog" aria-hidden="true">
+</div>
+            <div id="die">
+    <h1 data-localise="die.numbas failed">Numbas failed</h1>
+    <p data-localise="die.sorry"></p>
+    <div class="error" tabindex="1">
+        <div class="message"></div>
+        <div class="stack"></div>
+    </div>
+</div>
+            <div id="loading">
+    <div class="progress">
+        <div class="progress-bar" role="progressbar"><span data-localise="page.loading">Loading...</span></div>
+    </div>
+</div>
+
+<div id="saving" data-bind="visible: saving" style="display:none">
+    <div class="text" data-localise="page.saving"></div>
+</div>
+
+            <div id="everything" style="display:none">
+                <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionDisplay'}" data-localise="page.skip to content"></a>
+                <!-- ko if: exam.settings.navigateMode=='sequence' -->
+    <!-- side menu, slides out on narrow screens -->
+<nav id="navMenu" class="navmenu navmenu-default question-nav" role="navigation">
+
+    <div id="navMenu-wrapper">
+
+        <div class="navmenu-header">
+            <div class="navmenu-brand">
+                <img class="logo center-block" src="resources/Engineering_statics_logo_numbas.svg" alt="Engineering Statics"/>
+            </div>
+            <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
+            <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+            </button>
+            <!--
+            <button class="btn btn-default" id="hide-nav-menu" data-bind="click: hideNavMenu">
+                <span aria-hidden="true">x</span>
+                <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+            </button>
+            -->
+        </div>
+
+        <!-- ko if: numQuestions() > 1 -->
+        <label class="sr-only" for="exam-progress" data-localise="exam.progress"></label>
+        <progress id="exam-progress" data-bind="attr: {max: numQuestions(), value: questionsAttempted(), title: questionsAttemptedDisplay}, text: questionsAttemptedDisplay"></progress>
+        <!-- /ko -->
+
+        <ul id="questionList" class="nav navmenu-nav">
+            <li class="introduction" data-bind="visible: exam.hasIntro, css: {active: $root.exam().infoPage()=='introduction'}">
+                <a href="#" class="clearfix" role="button" tabindex="0" data-bind="click: Numbas.controls.showIntroduction, attr: {'aria-current': $root.exam().infoPage()=='introduction' ? 'step' : false}" data-localise="control.show introduction"></a>
+           </li>
+            <!-- ko foreach: question_groups -->
+                <!-- ko if: $root.exam().showQuestionGroupNames -->
+                <li class="question-group-header" data-bind="visible: show_name">
+                    <h2 data-bind="text: name, typeset: name"></h2>
+                </li>
+                <!-- /ko -->
+                <!-- ko foreach: questions -->
+                <li class="questionSelector" data-bind="visible: visible, css: {active: $root.exam().currentQuestion()==$data}">
+                    <a href="#" class="clearfix" role="button" tabindex="0" data-bind="click: Numbas.controls.makeQuestionJumper(question.number), attr: {'aria-current': $root.exam().currentQuestion()==$data ? 'step' : false}">
+                        <div class="info">
+                            <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr" aria-hidden="true"></span>
+                            <span class="name" data-bind="text: displayName"></span>
+                            <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
+                            <span class="score" data-bind="html: scoreFeedback.message"></span>
+                        </div>
+                        <div class="messages">
+                            <div class="answered-state" data-bind="">
+                                <span data-bind="text: scoreFeedback.answeredString"></span>
+                            </div>
+                            <div data-bind="visible: isDirty" class="dirty-message">
+                                <span class="warning-icon icon-exclamation-sign"></span>
+                                <span data-localise="question.selector.unsubmitted changes"></span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- total exam score display -->
+            <li class="examScore fake-nav-link" data-bind="visible: showActualMark">
+                <a class="clearfix">
+                    <span class="pull-left" data-localise="control.total"></span> 
+                    <span class="pull-right" id="examScore" data-bind="html: examScoreDisplay"></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="stopWatch" data-bind="visible: displayTime">
+            <span class="" data-localise="timing.time remaining"></span>
+            <time class="time" data-bind="text: displayTime"></time>
+        </div>
+
+        <ul class="nav navmenu-nav menuButtons">
+            <li><button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button></li>
+            <li data-bind="visible: allowPause && mode()=='normal'"><button class="btn btn-primary navbar-btn center-block thin-button" id="pauseBtn" data-localise="control.pause" data-bind="click: Numbas.controls.pauseExam"></button></li>
+            <li data-bind="visible: mode()=='normal'"><button class="btn btn-danger navbar-btn center-block" id="endBtn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam"></button></li>
+            <li data-bind="visible: mode()=='review'"><button class="btn btn-primary navbar-btn center-block" data-localise="control.back to results" data-bind="click: Numbas.controls.backToResults"></button></li>
+        </ul>
+
+    </div>
+
+</nav>
+
+<!-- top menu shown on narrow screens -->
+<div id="topNav" class="hamburger navbar navbar-default question-nav">
+    <ul class="nav">
+        <!-- ko if: numQuestions() > 1 -->
+        <li class="prev"><button type="button" class="btn navbar-btn btn-primary" data-bind="click: reverse, attr: {disabled: !canReverse()}"><span class="sr-only" data-localise="control.previous"></span>&larr;</button></li>
+        <li class="next"><button type="button" class="btn navbar-btn btn-primary" data-bind="click: advance, attr: {disabled: !canAdvance()}"><span class="sr-only" data-localise="control.next"></span>&rarr;</span></button></li>
+        <!-- /ko -->
+        <li class="end"><button class="btn btn-danger navbar-btn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal' && !canAdvance()"></button></li>
+        <li class="titleBits" data-bind="with: currentQuestion">
+            <span class="review-header" data-bind="visible: $root.exam().mode()=='review'" data-localise="exam.review header"></span>
+            <span id="questionNameDisplay" data-bind="text: displayName"></span>
+        </li>
+
+        <li class="stopWatch" data-bind="visible: displayTime">
+            <span class="" data-localise="timing.time remaining"></span>
+            <span class="time" data-bind="text: displayTime"></span>
+        </li>
+    </ul>
+
+    <button type="button" class="navbar-toggle btn btn-default" data-toggle="navMenu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+    </button>
+</div>
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='menu' -->
+    <div id="topNav" class="hamburger navbar navbar-default question-nav">
+    <ul class="nav">
+        <li class="back-to-menu"><button type="button" class="btn navbar-btn btn-primary" data-bind="click: Numbas.controls.backToMenu">&larr; <span data-localise="control.back to menu"></span></button></li>
+        <li class="titleBits" data-bind="with: currentQuestion">
+            <span class="review-header" data-bind="visible: $root.exam().mode()=='review'" data-localise="exam.review header"></span>
+            <span id="questionNameDisplay" data-bind="latex: displayName"></span>
+        </li>
+        <li class="display-options"><button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button></li>
+    </ul>
+</div>
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='diagnostic' -->
+    <nav id="navMenu" class="navmenu navmenu-default question-nav" role="navigation">
+    <div class="navmenu-header clearfix">
+        <a class="navmenu-brand">
+            <img class="logo center-block" src="resources/Engineering_statics_logo_numbas.svg" alt="Engineering Statics"/>
+        </a>
+        <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
+    </div>
+
+    <ul id="learning-objective-list" class="nav navemnu-nav">
+        <!-- ko foreach: diagnostic_progress -->
+        <li class="learning-objective">
+            <span class="name" data-bind="latex: name"></span>
+            <span data-bind="text: Math.floor(100*progress)+'%'"></span>
+        </li>
+        <!-- /ko -->
+    </ul>
+    <ul class="nav navmenu-nav">
+
+            <!-- stopwatch and timing controls -->
+            <li id="stopWatch" class="fake-nav-link" data-bind="visible: displayTime">
+                <a class="clearfix">
+                    <span class="pull-left" data-localise="timing.time remaining"></span>
+                    <span class="pull-right" data-bind="text: displayTime"></span>
+                </a>
+            </li>
+
+            <div class="menuButtons">
+                <li><button class="btn btn-primary navbar-btn center-block" id="hideNavMenuBtn" data-bind="click: hideNavMenu" data-localise="control.return to question"></button>
+
+                <li><button class="btn btn-primary navbar-btn center-block" id="pauseBtn" data-localise="control.pause" data-bind="click: Numbas.controls.pauseExam, visible: allowPause && mode()=='normal'"></button></li>
+                <li><button class="btn btn-danger navbar-btn center-block" id="endBtn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal'"></button></li>
+                <li><button class="btn btn-primary navbar-btn center-block" data-localise="control.back to results" data-bind="click: Numbas.controls.backToResults, visible: mode()=='review'"></button></li>
+            </div>
+        </ul>
+</nav>
+
+<!-- top menu shown on narrow screens -->
+<div id="topNav" class="hamburger navbar navbar-default question-nav">
+    <button type="button" class="navbar-toggle" data-toggle="navMenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="sr-only" data-localise="control.toggle navigation menu"></span>
+    </button>
+
+    <ul class="nav">
+        <li><button class="btn btn-danger navbar-btn" data-localise="control.end exam" data-bind="click: Numbas.controls.endExam, visible: mode()=='normal' && !canAdvance()"></button></li>
+        <li>	
+            <div class="titleBits" data-bind="with: currentQuestion">
+                <span class="review-header" data-bind="visible: $root.exam().mode()=='review'" data-localise="exam.review header"></span>
+                <span id="questionNameDisplay" data-bind="text: displayName"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- /ko -->
+
+                <!-- main content area - info pages or questions go in here -->
+                <main class="mainDisplay" role="main" data-bind="attr: {'aria-labelledby': main_labelledby}">
+                    <div id="infoDisplay" class="container" data-bind="visible: infoPage">
+    <div id="frontpage" class="row" data-bind="visible: infoPage()=='frontpage', if: infoPage()=='frontpage'">
+        <h1 class="break-words" id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
+<table class="col-sm-6 col-sm-offset-3" class="summary">
+    <tbody>
+    <!-- ko if: exam.settings.navigateMode != 'diagnostic' -->
+    <tr>
+        <th data-localise="exam.number of questions"></th>
+        <td class="rtd" data-bind="html: numAssessedQuestions"></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showTotalMark">
+        <th data-localise="exam.marks available"></th>
+        <td class="rtd" data-bind="niceNumber: marks"></td>
+    </tr>
+    <!-- /ko -->
+    <tr data-bind="visible: exam.settings.percentPass>0">
+        <th data-localise="exam.pass percentage"></th>
+        <td class="rtd" data-bind="text: percentPass"></td>
+    </tr>
+    <tr data-bind="visible: duration()>0">
+        <th data-localise="exam.time allowed"></th>
+        <td class="rtd"><time data-bind="html: displayDuration"></time></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showStudentName && exam.student_name && !needsStudentName">
+        <th data-localise="exam.student name"></th>
+        <td><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="intro" class="alert col-sm-6 col-sm-offset-3" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<div class="alert alert-danger col-sm-6 col-sm-offset-3" data-bind="visible: showAttemptDownloadSecurityWarning">
+    <p data-localise="exam.attempt download security warning"></p>
+</div>
+<div id="standalone-warning" class="alert alert-info col-sm-6 col-sm-offset-3" data-bind="visible: !Numbas.storage.lmsConnected && !allowAttemptDownload" data-localise="frontpage.scorm.lms not connected"></div>
+
+<form data-bind="submit: beginExam" class="info-buttons col-sm-6 col-sm-offset-3">
+    <button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button>
+    <div class="student-name" data-bind="visible: needsStudentName">
+        <label for="begin-exam-student-name" data-localise="exam.enter your name"></label>
+        <input id="begin-exam-student-name" name="begin-exam-student-name" type="text" class="form-control" data-bind="textInput: student_name, autosize: student_name"/>
+    </div>
+    <div class="password" data-bind="visible: needsPassword, css: {'has-error': passwordHandler.value().length && !passwordHandler.valid(), 'has-success': passwordHandler.valid()}">
+        <label for="begin-exam-password" data-localise="exam.enter password"></label>
+        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" class="form-control" data-bind="textInput: passwordHandler.value, autosize: passwordHandler.value"/>
+        <span class="password-feedback feedback-icon" data-bind="css: passwordHandler.feedback().iconClass, attr: {title: passwordHandler.feedback().title}"></span>
+    </div>
+    <button class="btn" id="startBtn" type="submit" data-bind="disable: !canBegin(), css: passwordHandler.feedback().buttonClass" data-localise="frontpage.start"></button>
+</form>
+    </div>
+    <div id="menu" class="row" data-bind="visible: infoPage()=='menu', if: infoPage()=='menu'">
+        <h1 id="infopage-menu-header" data-bind="html: exam.settings.name"></h1>
+
+<div class="intro" class="alert col-sm-6 col-sm-offset-3" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<nav id="question-chooser">
+    <table class="table table-hover questionSelector">
+        <colgroup>
+            <col class="question">
+            <col class="score">
+            <col class="icon">
+        </colgroup>
+        <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $parent.showQuestionGroupNames -->
+            <tr>
+                <th data-bind="visible: $parent.question_groups.length>1">
+                    <span data-bind="latex: name"></span>
+                </th>
+                <th class="messages">
+                    <span class="score" data-bind="html: feedback.plainMessage"></span>
+                </th>
+                <th class="icon">
+                    <span class="feedback-icon" data-bind="css: feedback.iconClass, attr: feedback.iconAttr" aria-hidden="true"></span>
+                </th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="" role="button" data-bind="click: Numbas.controls.makeQuestionJumper(question.number), attr: {'aria-labelledby': question.path+'-menu-name'}">
+                <td class="info">
+                    <button class="btn btn-link" type="button" class="name" data-bind="latex: displayName, attr: {id: question.path+'-menu-name'}"></button>
+                </td>
+                <td class="messages">
+                    <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
+                    <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                    <div class="answered-state" data-bind="">
+                        <span data-bind="text: scoreFeedback.attemptedString"></span>
+                    </div>
+                    <div data-bind="visible: isDirty" class="dirty-message">
+                        <span class="warning-icon icon-exclamation-sign"></span>
+                        <span data-localise="question.selector.unsubmitted changes"></span>
+                    </div>
+                </td>
+                <td class="icon">
+                    <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr" aria-hidden="true"></span>
+                </td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        </tbody>
+    </table>
+</nav>
+<button class="btn btn-default navbar-btn center-block thin-button" type="button" data-bind="click: Numbas.display.showStyleModal" data-localise="control.style options"></button>
+    </div>
+    <div id="introduction" data-bind="visible: infoPage()=='introduction', if: infoPage()=='introduction'">
+        <h1 id="infopage-introduction-header" data-localise="exam.introduction"></h1>
+<div class="alert" data-bind="latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+    </div>
+    <div id="suspend" data-bind="visible: infoPage()=='paused' || infoPage()=='resumed', if: infoPage()=='paused' || infoPage()=='resumed'">
+        <h1 id="infopage-suspend-header">
+    <span data-bind="visible: infoPage()=='paused'" data-localise="suspend.paused header" ></span>
+    <span data-bind="visible: infoPage()=='resumed'" data-localise="suspend.resumed header" ></span>
+</h1>
+<p data-localise="suspend.exam suspended"></p>
+<p data-localise="suspend.you can resume"></p>
+<button class="btn btn-primary" id="resumeBtn" data-bind="click: Numbas.controls.resumeExam" data-localise="suspend.resume"></button>
+    </div>
+    <div id="end-name" class="container-fluid" data-bind="visible: infoPage()=='result'">
+        <h1 id="infopage-result-header" class="text-center break-words" data-bind="latex: exam.settings.name"></h1>
+    </div>
+    <div id="results" class="container-fluid" data-bind="visible: infoPage()=='result', if: infoPage()=='result'">
+        <!-- ko if: exam.settings.navigateMode=='diagnostic' -->
+    <div class="row">
+    <table id="diagnostic-breakdown" class="col-sm-6 col-sm-offset-3">
+        <colgroup>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+            <th data-localise="result.learning objective"></th>
+            <!-- ko if: showActualMark -->
+            <th data-localise="result.question score"></th>
+            <!-- /ko -->
+        </thead>
+        <tbody>
+            <!-- ko foreach: diagnostic_progress -->
+                <tr data-bind="css: {total: $index()==$parent.diagnostic_progress().length-1}">
+                    <td class="name" data-bind="latex: name"></td>
+                    <!-- ko if: $parent.showActualMark -->
+                    <td class="score" data-bind="text: Math.floor(100*credit)+'%'"></td>
+                    <!-- /ko -->
+                </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='sequence' || exam.settings.navigateMode=='menu' -->
+<p class="col-sm-6 col-sm-offset-3" data-localise="result.click a question to review"></p>
+<div class="row">
+    <table id="question-breakdown" class="col-sm-6 col-sm-offset-3">
+        <colgroup>
+            <col>
+            <col span="3" class="score">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+            <!-- ko if: exam.settings.navigateMode=='sequence' -->
+                <th data-localise="result.question number"></th>
+            <!-- /ko -->
+            <!-- ko if: exam.settings.navigateMode=='menu' -->
+                <th data-localise="question"></th>
+            <!-- /ko -->
+            <!-- ko if: showActualMark -->
+            <th colspan="3" data-localise="result.question score"></th>
+            <!-- /ko -->
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: question_groups -->
+                <!-- ko if: $root.exam().showQuestionGroupNames -->
+                <tr class="question-group-header" data-bind="visible: show_name">
+                    <th data-bind="text: name, typeset: name"></th>
+                    <th colspan="4"></th>
+                </tr>
+                <!-- /ko -->
+                <!-- ko foreach: questions -->
+                <tr class="question" data-bind="click: review, attr: {title: R('result.question review title')}">
+                    <td data-bind="latex: displayName"></td>
+                    <!-- ko if: scoreFeedback.revealed -->
+                    <td data-bind="niceNumber: score"></td>
+                    <td>/</td>
+                    <td data-bind="niceNumber: marks"></td>
+                    <!-- /ko -->
+                    <!-- ko if: !scoreFeedback.revealed() -->
+                    <td colspan="3"></td>
+                    <!-- /ko -->
+                    <td><button type="button" class="btn btn-link review" data-localise="result.question review"></button></td>
+                </tr>
+                <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: showActualMark -->
+            <tr>
+                <th data-localise="Total"></th>
+                <th data-bind="niceNumber: score"></th>
+                <th>/</th>
+                <th colspan="2">
+                    <span data-bind="niceNumber: marks"></span>
+                    (<span data-bind="text: percentScore"></span>%)
+                </th>
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+
+<!-- /ko -->
+
+<div id="end-message" class="alert col-sm-6 col-sm-offset-3" data-bind="visible: exam.has_end_message, latex: exam.end_message" localise-data-jme-context-description="exam.end_message"></div>
+
+<!-- ko if: showActualMark -->
+<div class="row">
+    <div id="feedback" class="alert results-feedback col-sm-6 col-sm-offset-3" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
+</div>
+<!-- /ko -->
+
+<div class="row" id="performance-summary">
+    <div class="col-md-6 col-md-offset-3">
+        <h2 data-localise="result.performance summary"></h2>
+        <table class="summary">
+            <tr>
+                <th data-localise="exam.exam name"></th>
+                <td class="break-words" data-bind="html: exam.settings.name"></td>
+            </tr>
+            <tr>
+                <th data-localise="exam.random seed"></th>
+                <td class="break-words" data-bind="html: exam.seed"></td>
+            </tr>
+            <tr data-bind="visible: exam.settings.showStudentName && exam.student_name">
+                <th data-localise="exam.student name"></th>
+                <td class="break-words"><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+            </tr>
+            <tr>
+                <th data-localise="result.exam start"></th>
+                <td class="break-words"><time data-bind="text: startTime, attr: {datetime: startTimeISO}"></time></td>
+            </tr>
+            <tr>
+                <th data-localise="result.exam stop"></th>
+                <td class="break-words"><time data-bind="text: endTime, attr: {datetime: endTimeISO}"></time></td>
+            </tr>
+            <tr>
+                <th data-localise="result.time spent"></th>
+                <td class="break-words"><time data-bind="text: timeSpent"></time></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="info-buttons">
+    <button class="btn btn-info" data-bind="click: function(){ window.print(); }, text: printLabel"></button>
+    <button class="btn btn-info" data-bind="visible: allowAttemptDownload, click: download_attempt_data" data-localise="result.download exam object"></button>
+</div>
+
+<p id="finished-text" class="text-center" data-bind="end.exam has finished"></p>
+    </div>
+</div>
+
+                    <div id="questionContainer" class="container-fluid print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
+    <div class="contentArea ">
+        <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
+
+        <div id="questionDisplay" data-bind="foreach: questions">
+            <div data-bind="promise: html_promise">
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <footer>
+    <div class="copyright-footer">
+        Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a>, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.
+    </div>
+</footer>
+                </main>
+            </div>
+        </div>
+	</body>
+</html>
