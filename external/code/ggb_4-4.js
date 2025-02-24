@@ -5,7 +5,7 @@ const t1 = document.getElementById('ggb_4__4_table').getElementsByTagName('tbody
 
 // update html (slate) when diagram changes
 function coordinates(){
-    return ['heading', xyz('A'), xyz('B'),  xyz("M")] 
+    return ['heading', xyz('A'), xyz('B'),  xyz("m")] 
 }
 
 function cell(r,c) {
