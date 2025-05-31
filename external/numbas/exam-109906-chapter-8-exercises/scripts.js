@@ -476,9 +476,8 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
             var element = document.createElement('div');
             container.appendChild(element);
             options.id = 'numbasGGBApplet'+(window.geogebraIdAcc++);
-            options.appletOnLoad = function() {
-                var app = applet.getAppletObject();
-                resolve({app: app, element: element, id:options.id});
+            options.appletOnLoad = function(api) {
+                resolve({app: api, element: element, id:options.id});
             };
             applet = new GGBApplet(options, true);
             applet.inject(element, 'preferHTML5');
@@ -10133,6 +10132,9 @@ Numbas.queueScript('diagnostic',['util','jme','localisation','jme-variables'], f
                     topic[x[0]] = x[1];
                 });
                 var group = dc.exam.question_groups.find(function(g) { return g.settings.name==topic_name; })
+                if(!group) {
+                    return;
+                }
                 topic.questions = [];
                 for(var i=0;i<group.numQuestions;i++) {
                     topic.questions.push({
@@ -11635,7 +11637,7 @@ Numbas.queueScript('exam-display',['display-util', 'display-base','math','util',
          * @member {observable|string} percentPass
          * @memberof Numbas.display.ExamDisplay
          */
-        this.percentPass = Knockout.observable(e.settings.percentPass*100+'%');
+        this.percentPass = Knockout.observable(Numbas.math.niceNumber(e.settings.percentPass*100)+'%');
         /** String displaying the student's current score, and the total marks available, if allowed.
          *
          * @member {observable|string} examScoreDisplay
@@ -12850,17 +12852,20 @@ Exam.prototype = /** @lends Numbas.Exam.prototype */ {
     {
         var exam = this;
         if(exam.store) {
-            job(exam.store.init,exam.store,exam);        //initialise storage
-            job(exam.set_exam_variables, exam);
+            exam.store.init(exam);        //initialise storage
+            exam.set_exam_variables();
         }
+
         job(exam.chooseQuestionSubset,exam);            //choose questions to use
         job(exam.makeQuestionList,exam);                //create question objects
+
         exam.signals.on('question list initialised', function() {
             if(exam.store) {
-                job(exam.store.init_questions,exam.store,exam); //initialise question storage
-                job(exam.store.save,exam.store);            //make sure data get saved to LMS
+                exam.store.init_questions();  //initialise question storage
+                exam.store.save();            //make sure data get saved to LMS
             }
         });
+
         var ready_signals = ['question list initialised'];
         if(exam.settings.navigateMode=='diagnostic') {
             ready_signals.push('diagnostic controller initialised');
@@ -13800,15 +13805,18 @@ QuestionGroup.prototype = {
         var exam = this.exam;
         var question;
         if(this.xml) {
-            question = Numbas.createQuestionFromXML(this.questionNodes[n], exam.questionAcc++, exam, this, exam.scope, exam.store);
+            question = Numbas.createQuestionFromXML(this.questionNodes[n], exam.questionAcc++, exam, this, exam.scope, exam.store, loading);
         } else if(this.json) {
-            question = Numbas.createQuestionFromJSON(this.json.questions[n], exam.questionAcc++, exam, this, exam.scope, exam.store);
+            question = Numbas.createQuestionFromJSON(this.json.questions[n], exam.questionAcc++, exam, this, exam.scope, exam.store, loading);
         }
         question.number_in_group = n;
         if(loading) {
             question.resume();
         } else {
             question.generateVariables();
+            question.signals.on('finalisedLoad', function() {
+                question.signals.trigger('ready');
+            });
         }
         exam.questionList.push(question);
         this.questionList.push(question);
@@ -17162,7 +17170,7 @@ jme.display = /** @lends Numbas.jme.display */ {
             }
             if(tree.args) {
                 var args = tree.args.map(replace_subvars);
-                return {tok: tree.tok, args: args};
+                return {tok: tree.tok, args: args, bracketed: tree.bracketed};
             }
             return tree;
         }
@@ -21584,10 +21592,10 @@ var simplificationRules = jme.rules.simplificationRules = {
         ['(`! `+- $n);x * (real:$n/real:$n`?);n','asg','n*x']
     ],
     sqrtProduct: [
-        ['sqrt(?;x)*sqrt(?;y)','','sqrt(x*y)']
+        ['sqrt(?;x)*sqrt(?;y)','agc','sqrt(x*y)']
     ],
     sqrtDivision: [
-        ['sqrt(?;x)/sqrt(?;y)','','sqrt(x/y)']
+        ['sqrt(?;x)/sqrt(?;y)','agc','sqrt(x/y)']
     ],
     sqrtSquare: [
         ['sqrt(?;x^2)','','x'],
@@ -26030,7 +26038,7 @@ var THTML = types.THTML = function(html) {
 }
 THTML.prototype = {
     isInteractive: function() {
-        return this.value.some(e => e.getAttribute('data-interactive') !== 'false');
+        return this.value.some(e => e.nodeType == e.ELEMENT_NODE && e.getAttribute('data-interactive') !== 'false');
     }
 }
 jme.registerType(THTML,'html');
@@ -26923,7 +26931,7 @@ var checkingFunctions = jme.checkingFunctions =
         if(math.isComplexDecimal(r1) || math.isComplexDecimal(r2)) {
             r1 = math.ensure_decimal(r1);
             r2 = math.ensure_decimal(r2);
-            return r1.minus(r2).absoluteValue().re.lessThan(r2.re.times(tolerance));
+            return r1.minus(r2).absoluteValue().re.lessThan(r2.re.times(tolerance).absoluteValue());
         }
 
         if(r1===Infinity || r1===-Infinity)
@@ -28462,389 +28470,6 @@ Numbas.queueScript('jquery',[],function(module) {
     module.exports = {'$': module.exports, 'jQuery': module.exports};
 });
 ;
-Numbas.queueScript('jquery.xslTransform',['jquery','sarissa'],function(module) {
-/**
- * xslTransform
- * Tools for XSLT transformations; jQuery wrapper for Sarissa <http://sarissa.sourceforge.net/>.
- * See jQuery.fn.log below for documentation on $.log().
- * See jQuery.fn.getTransform below for documention on the $.getTransform().
- * See var DEBUG below for turning debugging/logging on and off.
- *
- * @version   20071214
- * @since     2006-07-05
- * @copyright Copyright (c) 2006 Glyphix Studio, Inc. http://www.glyphix.com
- * @author    Brad Brizendine <brizbane@gmail.com>, Matt Antone <antone@glyphix.com>
- * @license   MIT http://www.opensource.org/licenses/mit-license.php
- * @requires  >= jQuery 1.0.3			http://jquery.com/
- * @requires  jquery.debug.js			http://jquery.glyphix.com/
- * @requires  >= sarissa.js 0.9.7.6		http://sarissa.sourceforge.net/
- *
- * @example
- * var r = $.xsl.transform('path-to-xsl.xsl','path-to-xml.xml');
- * @desc Perform a transformation and place the results in var r
- *
- * @example
- * var r = $.xsl.transform('path-to-xsl.xsl','path-to-xml.xml');
- * var str = $.xsl.serialize( r );
- * @desc Perform a transformation, then turn the result into a string
- *
- * @example
- * var doc = $.xsl.load('path-to-xml.xml');
- * @desc Load an xml file and return a parsed xml object
- *
- * @example
- * var xml = '<xmldoc><foo>bar</foo></xmldoc>';
- * var doc = $.xsl.load(xml);
- * @desc Load an xml string and return a parsed xml object
- */
-(function($){
-    /*
-     * JQuery XSLT transformation plugin.
-     * Replaces all matched elements with the results of an XSLT transformation.
-     * See xslTransform above for more documentation.
-     *
-     * @example
-     * @desc See the xslTransform-example/index.html
-     *
-     * @param xsl String the url to the xsl file
-     * @param xml String the url to the xml file
-     * @param options Object various switches you can send to this function
-     * 		+ params: an object of key/value pairs to be sent to xsl as parameters
-     * 		+ xpath: defines the root node within the provided xml file
-     * 		+ eval: if true, will attempt to eval javascript found in the transformed result
-     *		+ callback: if a Function, evaluate it when transformation is complete
-     * @returns
-     */
-    $.fn.getTransform = function( xsl, xml, options ){
-        var settings = {
-            params: {},        // object of key/value pairs ... parameters to send to the XSL stylesheet
-            xpath: '',        // xpath, used to send only a portion of the XML file to the XSL stylesheet
-            eval: false,        // evaluate <script> blocks found in the transformed result
-            callback: ''    // callback function, to be run on completion of the transformation
-        };
-        // initialize options hash; override the defaults with supplied options
-        $.extend( settings, options );
-        //$.log( 'getTransform: ' + xsl + '::' + xml + '::' + settings.toString() );
-        // must have both xsl and xml
-        if( !xsl || !xml ){
-            $.log( 'getTransform: missing xsl or xml' );
-            return;
-        }
-        // run the jquery magic on all matched elements
-        return this.each( function(){
-            // perform the transformation
-            var trans = $.xsl.transform( xsl, xml, settings );
-            // make sure we have something
-            if( !trans.string ){
-                $.log('Received nothing from the transformation');
-                return false;
-            }
-            // ie can fail if there's an xml declaration line in the returned result
-            var re = trans.string.match(/<\?xml.*?\?>/);
-            if( re ){
-                trans.string = trans.string.replace( re, '' );
-                $.log( 'getTransform(): found an xml declaration and removed it' );
-            }
-            // place the result in the element
-            // 20070202: jquery 1.1.1 can get a "a.appendChild is not a function" error using html() sometimes ...
-            //		no idea why yet, so adding a fallback to innerHTML
-            //		::warning:: ie6 has trouble with javascript events such as onclick assigned statically within the html when using innerHTML
-            try{
-                //$(this).html( trans.string );
-                $(this)[0].innerHTML = trans.string;
-            }catch(e){
-                $.log( 'getTransform: error placing results of transform into element, falling back to innerHTML: ' + e.toString() );
-                $(this)[0].innerHTML = trans.string;
-            }
-            // there might not be a scripts property
-            if( settings.eval && trans.scripts ){
-                if( trans.scripts.length > 0 ){
-                    $.log( 'Found text/javascript in transformed result' );
-                    // use jquery's globaleval to avoid security issues in adobe air
-                    $.globalEval( trans.scripts );
-                }
-            }
-            // run the callback if it's a native function
-            if( settings.callback && $.isFunction(settings.callback) ){
-                settings.callback.apply();
-            }
-        });
-    };
-    // xsl scope
-    $.xsl = {
-        // version
-        version: 20071214,
-        // init ... test for requirements
-        init: function(){
-            // check for v1.0.4 / v1.1 or later of jQuery
-            try{
-                parseFloat($.fn.jquery) >= 1;
-            }catch(e){
-                alert('xslTransform requires jQuery 1.0.4 or greater ... please load it prior to xslTransform');
-            }
-            // check for Sarissa
-            try{
-                Sarissa;
-            }catch(e){
-                alert('Missing Sarissa ... please load it prior to xslTransform');
-            }
-            // if no log function, create a blank one
-            if( !$.log ){
-                $.log = function(){};
-                $.fn.debug = function(){};
-            }
-            // log the version
-            $.log( 'xslTransform:init(): version ' + this.version );
-        },
-        // initialize Sarissa's serializer
-        XMLSerializer: new XMLSerializer(),
-        /*
-         * serialize
-         * Turns the provided object into a string and returns it.
-         *
-         * @param data Mixed
-         * @returns String
-         */
-        serialize: function( data ){
-            $.log( 'serialize(): received ' + typeof(data) );
-            // if it's already a string, no further processing required
-            if( typeof(data) == 'string' ){
-                $.log( 'data is already a string: ' + data );
-                return data;
-            }
-            return this.XMLSerializer.serializeToString( data );
-        },
-        /*
-         * xmlize
-         * Turns the provided javascript object into an xml document and returns it.
-         *
-         * @param data Mixed
-         * @returns String
-         */
-        xmlize: function( data, root ){
-            $.log( 'xmlize(): received ' + typeof(data) );
-            root = root || 'root';
-            return Sarissa.xmlize(data,root);
-        },
-        /*
-         * load
-         * Attempts to load xml data by automatically sensing the type of the provided data.
-         *
-         * @param xml Mixed the xml data
-         * @returns Object
-         */
-        load: function( xml ){
-            $.log( 'load(): received ' + typeof(xml) );
-            // the result
-            var r;
-            // if it's an object, assume it's already an XML object, so just return it
-            if( typeof(xml) == 'object' ){
-                return xml;
-            }
-            // if it's a string, determine if it's xml data or a path
-            // assume that the first character is an opening caret if it's XML data
-            if( xml.substring(0,1) == '<' ){
-                r = this.loadString( xml );
-            }else{
-                r = this.loadFile( xml );
-            }
-            if( r ){
-                // the following two lines are needed to get IE (msxml3) to run xpath ... set it on all xml data
-                r.setProperty( 'SelectionNamespaces', 'xmlns:xsl="http://www.w3.org/1999/XSL/Transform"' );
-                r.setProperty( 'SelectionLanguage', 'XPath' );
-                return r;
-            }else{
-                $.log( 'Unable to load ' + xml );
-                return false;
-            }
-        },
-        /*
-         * loadString
-         * Parses an XML string and returns the result.
-         *
-         * @param str String the xml string to turn into a parsed XML object
-         * @returns Object
-         */
-        loadString: function( str ){
-            //$.log( 'loadString(): ' + str + '::' + typeof(str) );
-            // use Sarissa to generate an XML doc
-            var p = new DOMParser();
-            var xml = p.parseFromString( str, 'text/xml' );
-            if( !xml ){
-                $.log( 'loadString(): parseFromString() failed' );
-                return false;
-            }
-            return xml;
-        },
-        /*
-         * loadFile
-         * Attempts to retrieve the requested path, specified by url.
-         * If url is an object, it's assumed it's already loaded, and just returns it.
-         *
-         * @param url Mixed
-         * @returns Object
-         */
-        loadFile: function( url ){
-            //$.log( 'loadFile(): ' + url + '::' + typeof(url) );
-            if( !url ){
-                $.log( 'ERROR: loadFile() missing url' );
-                return false;
-            }
-            // variable to hold ajax results
-            var doc;
-            /* ajax functionality provided by jQuery is commented, since it can't handle file:///
-            // function to receive data on successful download ... semicolon after brace is necessary for packing
-            this.xhrsuccess = function(data,str){
-                $.log( 'loadFile() completed successfully (' + str + ')' );
-                doc = data;
-                return true;
-            };
-            // function to handle downloading error ... semicolon after brace is necessary for packing
-            this.xhrerror = function(xhr,err){
-                // set debugging to true in order to force the display of this error
-                window.DEBUG = true;
-                $.log( 'loadFile() failed to load the requested file: (' + err + ') - xml: ' + xhr.responseXML + ' - text: ' + xhr.responseText );
-                doc = null;
-                return false;
-            };
-            // make asynchronous ajax call and call functions defined above on success/error
-            $.ajax({
-                type:		'GET',
-                url:		url,
-                async:		false,
-                success:	this.xhrsuccess,
-                error:		this.xhrerror
-            });
-            */
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open('GET', url, false);
-            xmlhttp.send('');
-            doc = xmlhttp.responseXML;
-            // check for total failure
-            if( !doc ){
-                $.log( 'ERROR: document ' + url + ' not found (404), or unable to load' );
-                return false;
-            }
-            // check for success but no data
-            if( doc.length == 0 ){
-                $.log( 'ERROR: document ' + url + ' loaded in loadFile() has no data' );
-                return false;
-            }
-            return doc;
-        },
-        /*
-         * transform
-         * Central transformation function: takes an xml doc and an xsl doc.
-         *
-         * @param xsl Mixed the xsl transformation document
-         * @param xml Mixed the xml document to be transformed
-         * @param options Object various switches you can send to this function
-         * 		+ params: an object of key/value pairs to be sent to xsl as parameters
-         * 		+ xpath: defines the root node within the provided xml file
-         * @returns Object the results of the transformation
-         * 		+ xsl: the raw xsl doc
-         * 		+ doc: the raw results of the transform
-         * 		+ string: the serialized doc
-         */
-        transform: function( xsl, xml, options ){
-            //$.log( 'transform(): ' + xsl + '::' + xml + '::' + (options ? options.toString() : 'no options provided') );
-            // set up request and result
-            var request = {
-                // the source and loaded object for xml
-                xsl: {
-                    source: xsl,
-                    doc: null
-                },
-                // the source and loaded object for xsl
-                xml: {
-                    source: xml,
-                    doc: null
-                },
-                // the options
-                options: options || {},
-                // the result doc and string
-                result: {
-                    doc: null,
-                    string: '',
-                    scripts: null,
-                    error: ''
-                }
-            }
-            // set up error handler
-            var err = function( what ){
-                var docerr = '', srcerr = '';
-                // build the src error string
-                srcerr = (typeof(request[what].source) == 'string') ? ' (' + what + ' loaded from provided path)' : ' (' + what + ' loaded from provided object)';
-                // build the text error string
-                docerr = (typeof(request[what].doc) == 'object') ? '[success]' : '[failure]';
-                // include the root node if we have a doc object and it's xml
-                if( what == 'xml' && typeof(request[what].doc) == 'object'  && request[what].doc.getElementsByTagName('*')[0]){
-                    docerr += ' root node of "' + request[what].doc.getElementsByTagName('*')[0].nodeName + '"';
-                }
-                return docerr + ' ' + srcerr;
-            }
-            // load the files
-            try{
-                request.xsl.doc = this.load(xsl);
-                request.xml.doc = this.load(xml);
-            }catch(e){
-                $.log('Unable to load either xsl [' + err('xsl') + '] or xml [' + err('xml') + ']');
-                throw( err('xsl') + '::' + err('xml') );
-                return false;
-            }
-            // if we have an xpath, replace xml.doc with the results of running it
-            // as of 2007-12-03, IE throws a "msxml6: the parameter is incorrect" error, so removing this
-            if( request.options.xpath && request.xml.doc && !jQuery.browser.msie ){
-                // run the xpath
-                request.xml.doc = request.xml.doc.selectSingleNode( request.options.xpath.toString() );
-                //$.log( 'transform(): xpath has been run...resulting doc: ' + (this.serialize(request.xml.doc)) );
-            }
-            // attach the processor
-            var processor = new XSLTProcessor();
-            // stylesheet must be imported before parameters can be added
-            processor.importStylesheet( request.xsl.doc );
-            // add parameters to the processor
-            if( request.options.params && processor){
-                //$.log( 'transform(): received xsl params: ' + request.options.params.toString() );
-                for( key in request.options.params ){
-                    // name and value must be strings; first parameter is namespace
-                    var p = request.options.params[key] ? request.options.params[key].toString() : request.options.params[key];
-                    try{
-                        processor.setParameter( null, key.toString(), p );
-                    }catch(e){
-                        $.log('Unable to set parameter "' + key + '"');
-                        return false;
-                    }
-                    //$.log( 'set parameter "' + key.toString() + '" to "' + p + '"' );
-                }
-            }
-            // perform the transformation
-            try{
-                request.result.doc = processor.transformToDocument( request.xml.doc );
-                // handle transform error
-                request.result.error = Sarissa.getParseErrorText( request.result.doc );
-                if( request.result.error != Sarissa.PARSED_OK ){
-                    // throw the error text
-                    request.result.error = 'transform(): error in transformation: ' + request.result.error + ' :: using xsl: ' + err('xsl') + ' => xml: ' + err('xml');
-                    $.log(request.result.error);
-                }
-            }catch(e){
-                request.result.error = 'Unable to perform transformation :: using xsl: ' + err('xsl') + ' => xml: ' + err('xml');
-                $.log(request.result.error);
-                throw(request.result.error);
-                return request.result;
-            }
-            // if we made it this far, the transformation was successful
-            request.result.string = this.serialize( request.result.doc );
-            // store reference to all scripts found in the doc (not result.string)
-            request.result.scripts = jQuery('script',request.result.doc).text();
-            return request.result;
-        }
-    };
-    // initialize the $.xsl object
-    $.xsl.init();
-})(jQuery);
-});;
 /** @file Stuff to do with loading from JSON objects. Provides {@link Numbas.json}. */
 Numbas.queueScript('json',['base'],function() {
 /** @namespace Numbas.json */
@@ -29845,6 +29470,17 @@ Numbas.queueScript('marking',['util', 'jme','localisation','jme-variables','math
                 }
             } else {
                 var part_result = part.mark_answer(answer, part.getScope());
+            }
+            if(part_result.waiting_for_pre_submit) {
+                return jme.wrapValue({
+                    marks: part.availableMarks(),
+                    credit: 0,
+                    feedback: [],
+                    valid: false,
+                    states: {},
+                    state_valid: {},
+                    values: {}
+                });
             }
             var result = marking.finalise_state(part_result.states.mark);
             return jme.wrapValue({
@@ -34413,8 +34049,10 @@ Numbas.queueScript('part-display',['display-util', 'display-base','util','jme'],
             if(!pd.html || !pd.warningsShown.peek()) {
                 return;
             }
-            var warnings_box = pd.html.querySelector('.warnings');
-            var answer = pd.html.querySelector('.student-answer');
+            var margin = 10;
+
+            var warnings_box = pd.html.querySelector(':scope > .student-answer .warnings');
+            var answer = pd.html.querySelector(':scope > .student-answer');
             var offsetTop = 0;
             var offsetLeft = 0;
             var el = answer;
@@ -34427,19 +34065,22 @@ Numbas.queueScript('part-display',['display-util', 'display-base','util','jme'],
             var answer_width = answer.getBoundingClientRect().width;
 
             var wtop = offsetTop + (p.isGap ? 0 : answer_height);
-            var wleft = (offsetLeft + (p.isGap ? answer_width : 0));
+            var wleft = (offsetLeft + (p.isGap ? margin + answer_width : 0));
 
             warnings_box.style.top = wtop + 'px';
             warnings_box.style.left = wleft + 'px';
 
             var box = warnings_box.getBoundingClientRect();
-            var docWidth = document.documentElement.clientWidth;
-            var margin = 10;
-            var dr = box.right - docWidth + document.documentElement.clientLeft + margin;
+            const question_html = pd.part.question.display.html;
+            var question_box = question_html.getBoundingClientRect();
+            var docWidth = question_box.width;
+            var dr = box.right - question_box.left - docWidth + margin;
+            warnings_box.classList.remove('shifted-down');
             if(dr > 0) {
                 wleft -= dr;
                 if(p.isGap) {
                     wtop += answer_height;
+                    warnings_box.classList.add('shifted-down');
                 }
                 warnings_box.style.left = wleft + 'px';
                 warnings_box.style.top = wtop + 'px';
@@ -34891,7 +34532,6 @@ Numbas.queueScript('part-display',['display-util', 'display-base','util','jme'],
         warning: function(warning)
         {
             this.warnings.push({message:warning+''});
-            this.showWarnings();
         },
         /** Set the list of warnings.
          *
@@ -34900,9 +34540,6 @@ Numbas.queueScript('part-display',['display-util', 'display-base','util','jme'],
          */
         setWarnings: function(warnings) {
             this.warnings(warnings.map(function(warning){return {message: warning+''}}));
-            if(warnings.length) {
-                this.showWarnings();
-            }
         },
         /** Remove all previously displayed warnings.
          *
@@ -36107,6 +35744,7 @@ if(res) { \
         this.stagedAnswer = answer;
         this.setDirty(true);
         this.removeWarnings();
+        this.display && this.display.showWarnings();
 
         if(!dontStore) {
             if(!this.question || !this.question.exam || !this.question.exam.loading) {
@@ -38664,6 +38302,16 @@ JMEPart.prototype = /** @lends Numbas.JMEPart.prototype */
         var settings = this.settings;
         var answerSimplification = Numbas.jme.collectRuleset(settings.answerSimplificationString,scope.allRulesets());
         var tree = jme.display.subvars(settings.correctAnswerString, scope);
+        tree = scope.expandJuxtapositions(
+            tree, 
+            {
+                singleLetterVariables: settings.singleLetterVariables,
+                noUnknownFunctions: !settings.allowUnknownFunctions,
+                implicitFunctionComposition: settings.implicitFunctionComposition,
+                normaliseSubscripts: true
+            }
+        );
+
         if(!tree && this.marks>0) {
             this.error('part.jme.answer missing');
         }
@@ -41473,13 +41121,14 @@ var math = Numbas.math;
  * @param {Numbas.QuestionGroup} [group] - The group this question belongs to.
  * @param {Numbas.jme.Scope} [scope] - The global JME scope.
  * @param {Numbas.storage.BlankStorage} [store] - The storage engine to use.
+ * @param {boolean} loading - Is this question being resumed?
  * @returns {Numbas.Question}
  */
-var createQuestionFromXML = Numbas.createQuestionFromXML = function(xml, number, exam, group, scope, store) {
+var createQuestionFromXML = Numbas.createQuestionFromXML = function(xml, number, exam, group, scope, store, loading) {
     try {
         var q = new Question(number, exam, group, scope, store);
         q.loadFromXML(xml);
-        q.finaliseLoad();
+        q.finaliseLoad(loading);
     } catch(e) {
         throw(new Numbas.Error('question.error creating question',{number: number+1, message: e.message}));
     }
@@ -41494,13 +41143,14 @@ var createQuestionFromXML = Numbas.createQuestionFromXML = function(xml, number,
  * @param {Numbas.QuestionGroup} [group] - The group this question belongs to.
  * @param {Numbas.jme.Scope} [scope] - The global JME scope.
  * @param {Numbas.storage.BlankStorage} [store] - The storage engine to use.
+ * @param {boolean} loading - Is this question being resumed?
  * @returns {Numbas.Question}
  */
-var createQuestionFromJSON = Numbas.createQuestionFromJSON = function(data, number, exam, group, scope, store) {
+var createQuestionFromJSON = Numbas.createQuestionFromJSON = function(data, number, exam, group, scope, store, loading) {
     try {
         var q = new Question(number, exam, group, scope, store);
         q.loadFromJSON(data);
-        q.finaliseLoad();
+        q.finaliseLoad(loading);
     } catch(e) {
         throw(new Numbas.Error('question.error creating question',{number: number+1, message: e.message},e));
     }
@@ -41845,9 +41495,7 @@ Question.prototype = /** @lends Numbas.Question.prototype */
         tryGetAttribute(q.variablesTest,q.xml,'variables',['condition','maxRuns'],[]);
         q.signals.trigger('variableDefinitionsLoaded');
         q.signals.on('variablesGenerated',function() {
-            var doc = Sarissa.getDomDocument();
-            doc.appendChild(q.originalXML.cloneNode(true));    //get a fresh copy of the original XML, to sub variables into
-            q.xml = doc.selectSingleNode('question');
+            q.xml = q.originalXML.cloneNode(true);    //get a fresh copy of the original XML, to sub variables into
             q.xml.setAttribute('number',q.number);
         });
         q.signals.on(['variablesGenerated', 'rulesetsMade'], function() {
@@ -42188,6 +41836,8 @@ Question.prototype = /** @lends Numbas.Question.prototype */
 
     /** Perform any tidying up or processing that needs to happen once the question's definition has been loaded.
      *
+     * @param {boolean} loading - Is this question being resumed?
+     *
      * @fires Numbas.Question#functionsMade
      * @fires Numbas.Question#constantsMade
      * @fires Numbas.Question#rulesetsMade
@@ -42210,7 +41860,7 @@ Question.prototype = /** @lends Numbas.Question.prototype */
      * @listens Numbas.Question#ready
      * @listens Numbas.Question#HTMLAttached
      */
-    finaliseLoad: function() {
+    finaliseLoad: function(loading) {
         var q = this;
 
         q.displayNumber = q.exam ? q.exam.questionList.filter(function(q2) { return q2.number<q.number && !q2.hasCustomName; }).length : 0;
@@ -42336,8 +41986,13 @@ Question.prototype = /** @lends Numbas.Question.prototype */
             q.display && q.display.makeHTML();
         });
         q.signals.on(['variablesGenerated','partsGenerated'], function() {
-            q.signals.trigger('ready');
+            q.signals.trigger('finalisedLoad');
         });
+        if(!loading) {
+            q.signals.on('finalisedLoad', function() {
+                q.signals.trigger('ready');
+            });
+        }
         q.signals.on('ready',function() {
             q.updateScore();
         });
@@ -42447,7 +42102,7 @@ Question.prototype = /** @lends Numbas.Question.prototype */
                     }
                 }
 
-                q.signals.on('ready',function() {
+                q.signals.on('finalisedLoad',function() {
                     q.parts.forEach(function(part) {
                         part.steps.forEach(submit_part);
                         submit_part(part);
@@ -42456,6 +42111,10 @@ Question.prototype = /** @lends Numbas.Question.prototype */
                     Promise.all(promises_to_wait_for).then(function() {
                         q.signals.trigger('partsResumed');
                     });
+                });
+
+                q.signals.on('partsResumed', function() {
+                    q.signals.trigger('ready');
                 });
             });
             q.signals.on('partsResumed',function() {
@@ -42874,1259 +42533,6 @@ Question.prototype = /** @lends Numbas.Question.prototype */
 };
 });
 ;
-Numbas.queueScript('sarissa',[],function(module) {
-/*
- * ====================================================================
- * About Sarissa: http://dev.abiss.gr/sarissa
- * ====================================================================
- * Sarissa is an ECMAScript library acting as a cross-browser wrapper for native XML APIs.
- * The library supports Gecko based browsers like Mozilla and Firefox,
- * Internet Explorer (5.5+ with MSXML3.0+), Konqueror, Safari and Opera
- * @version 0.9.9.5
- * @author: Copyright 2004-2008 Emmanouil Batsis, mailto: mbatsis at users full stop sourceforge full stop net
- * ====================================================================
- * Licence
- * ====================================================================
- * Sarissa is free software distributed under the GNU GPL version 2 (see <a href="gpl.txt">gpl.txt</a>) or higher,
- * GNU LGPL version 2.1 (see <a href="lgpl.txt">lgpl.txt</a>) or higher and Apache Software License 2.0 or higher
- * (see <a href="asl.txt">asl.txt</a>). This means you can choose one of the three and use that if you like. If
- * you make modifications under the ASL, i would appreciate it if you submitted those.
- * In case your copy of Sarissa does not include the license texts, you may find
- * them online in various formats at <a href="http://www.gnu.org">http://www.gnu.org</a> and
- * <a href="http://www.apache.org">http://www.apache.org</a>.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
- * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- * WARRANTIES OF MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE
- * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-/**
- * <p>Sarissa is a utility class. Provides "static" methods for DOMDocument,
- * DOM Node serialization to XML strings and other utility goodies.</p>
- * @constructor
- * @static
- */
-function Sarissa(){}
-Sarissa.VERSION = "0.9.9.5";
-Sarissa.PARSED_OK = "Document contains no parsing errors";
-Sarissa.PARSED_EMPTY = "Document is empty";
-Sarissa.PARSED_UNKNOWN_ERROR = "Not well-formed or other error";
-Sarissa.IS_ENABLED_TRANSFORM_NODE = false;
-Sarissa.REMOTE_CALL_FLAG = "gr.abiss.sarissa.REMOTE_CALL_FLAG";
-/** @private */
-Sarissa._lastUniqueSuffix = 0;
-/** @private */
-Sarissa._getUniqueSuffix = function(){
-    return Sarissa._lastUniqueSuffix++;
-};
-/** @private */
-Sarissa._SARISSA_IEPREFIX4XSLPARAM = "";
-/** @private */
-Sarissa._SARISSA_HAS_DOM_IMPLEMENTATION = document.implementation && true;
-/** @private */
-Sarissa._SARISSA_HAS_DOM_CREATE_DOCUMENT = Sarissa._SARISSA_HAS_DOM_IMPLEMENTATION && document.implementation.createDocument;
-/** @private */
-Sarissa._SARISSA_HAS_DOM_FEATURE = Sarissa._SARISSA_HAS_DOM_IMPLEMENTATION && document.implementation.hasFeature;
-/** @private */
-Sarissa._SARISSA_IS_MOZ = Sarissa._SARISSA_HAS_DOM_CREATE_DOCUMENT && Sarissa._SARISSA_HAS_DOM_FEATURE;
-/** @private */
-Sarissa._SARISSA_IS_SAFARI = navigator.userAgent.toLowerCase().indexOf("safari") != -1 || navigator.userAgent.toLowerCase().indexOf("konqueror") != -1;
-/** @private */
-Sarissa._SARISSA_IS_SAFARI_OLD = Sarissa._SARISSA_IS_SAFARI && (parseInt((navigator.userAgent.match(/AppleWebKit\/(\d+)/)||{})[1], 10) < 420);
-/** @private */
-Sarissa._SARISSA_IS_IE = (document.all && window.ActiveXObject && navigator.userAgent.toLowerCase().indexOf("msie") > -1  && navigator.userAgent.toLowerCase().indexOf("opera") == -1) || (!window.ActiveXObject && "ActiveXObject" in window);
-/** @private */
-Sarissa._SARISSA_IS_OPERA = navigator.userAgent.toLowerCase().indexOf("opera") != -1;
-if(!window.Node || !Node.ELEMENT_NODE){
-    Node = {ELEMENT_NODE: 1, ATTRIBUTE_NODE: 2, TEXT_NODE: 3, CDATA_SECTION_NODE: 4, ENTITY_REFERENCE_NODE: 5,  ENTITY_NODE: 6, PROCESSING_INSTRUCTION_NODE: 7, COMMENT_NODE: 8, DOCUMENT_NODE: 9, DOCUMENT_TYPE_NODE: 10, DOCUMENT_FRAGMENT_NODE: 11, NOTATION_NODE: 12};
-}
-//This breaks for(x in o) loops in the old Safari
-if(Sarissa._SARISSA_IS_SAFARI_OLD){
-    HTMLHtmlElement = document.createElement("html").constructor;
-    Node = HTMLElement = {};
-    HTMLElement.prototype = HTMLHtmlElement.__proto__.__proto__;
-    HTMLDocument = Document = document.constructor;
-    var x = new DOMParser();
-    XMLDocument = x.constructor;
-    Element = x.parseFromString("<Single />", "text/xml").documentElement.constructor;
-    x = null;
-}
-if(typeof XMLDocument == "undefined" && typeof Document !="undefined"){ XMLDocument = Document; }
-// IE initialization
-if(Sarissa._SARISSA_IS_IE){
-    // for XSLT parameter names, prefix needed by IE
-    Sarissa._SARISSA_IEPREFIX4XSLPARAM = "xsl:";
-    // used to store the most recent ProgID available out of the above
-    var _SARISSA_DOM_PROGID = "";
-    var _SARISSA_XMLHTTP_PROGID = "";
-    var _SARISSA_DOM_XMLWRITER = "";
-    /**
-     * Called when the sarissa.js file is parsed, to pick most recent
-     * ProgIDs for IE, then gets destroyed.
-     * @memberOf Sarissa
-     * @private
-     * @param idList an array of MSXML PROGIDs from which the most recent will be picked for a given object
-     * @param enabledList an array of arrays where each array has two items; the index of the PROGID for which a certain feature is enabled
-     */
-    Sarissa.pickRecentProgID = function (idList){
-        // found progID flag
-        var bFound = false, e;
-        var o2Store;
-        for(var i=0; i < idList.length && !bFound; i++){
-            try{
-                var oDoc = new ActiveXObject(idList[i]);
-                o2Store = idList[i];
-                bFound = true;
-            }catch (objException){
-                // trap; try next progID
-                e = objException;
-            }
-        }
-        if (!bFound) {
-            throw "Could not retrieve a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
-        }
-        idList = null;
-        return o2Store;
-    };
-    // pick best available MSXML progIDs
-    _SARISSA_DOM_PROGID = null;
-    _SARISSA_THREADEDDOM_PROGID = null;
-    _SARISSA_XSLTEMPLATE_PROGID = null;
-    _SARISSA_XMLHTTP_PROGID = null;
-    // commenting the condition out; we need to redefine XMLHttpRequest
-    // anyway as IE7 hardcodes it to MSXML3.0 causing version problems
-    // between different activex controls
-    //if(!window.XMLHttpRequest){
-    /**
-     * Emulate XMLHttpRequest
-     * @constructor
-     */
-    XMLHttpRequest = function() {
-        if(!_SARISSA_XMLHTTP_PROGID){
-            _SARISSA_XMLHTTP_PROGID = Sarissa.pickRecentProgID(["Msxml2.XMLHTTP.6.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
-        }
-        return new ActiveXObject(_SARISSA_XMLHTTP_PROGID);
-    };
-    //}
-    // we dont need this anymore
-    //============================================
-    // Factory methods (IE)
-    //============================================
-    // see non-IE version
-    Sarissa.getDomDocument = function(sUri, sName){
-        if(!_SARISSA_DOM_PROGID){
-    try{
-        _SARISSA_DOM_PROGID = Sarissa.pickRecentProgID(["Msxml2.DOMDocument.6.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"]);
-    }catch(e){
-        _SARISSA_DOM_PROGID = "noActiveX";
-    }
-        }
-        // Not sure how far IE can carry this but try to do something useful when ActiveX is disabled
-        var oDoc = _SARISSA_DOM_PROGID == "noActiveX" ? document.createElement("xml") : new ActiveXObject(_SARISSA_DOM_PROGID);
-        // set validation off, make sure older IEs dont choke (no time or IEs to test ;-)
-        try{
-    oDoc.validateOnParse = false;
-    oDoc.resolveExternals = "false";
-    oDoc.setProperty("ProhibitDTD", false);
-        }catch(e){}
-        // if a root tag name was provided, we need to load it in the DOM object
-        if (sName){
-            // create an artifical namespace prefix
-            // or reuse existing prefix if applicable
-            var prefix = "";
-            if(sUri){
-                if(sName.indexOf(":") > 1){
-                    prefix = sName.substring(0, sName.indexOf(":"));
-                    sName = sName.substring(sName.indexOf(":")+1);
-                }else{
-                    prefix = "a" + Sarissa._getUniqueSuffix();
-                }
-            }
-            // use namespaces if a namespace URI exists
-            if(sUri){
-                oDoc.loadXML('<' + prefix+':'+sName + " xmlns:" + prefix + "=\"" + sUri + "\"" + " />");
-            } else {
-                oDoc.loadXML('<' + sName + " />");
-            }
-        }
-        return oDoc;
-    };
-    // see non-IE version
-    Sarissa.getParseErrorText = function (oDoc) {
-        var parseErrorText = Sarissa.PARSED_OK;
-        if(oDoc && oDoc.parseError && oDoc.parseError.errorCode && oDoc.parseError.errorCode != 0){
-            parseErrorText = "XML Parsing Error: " + oDoc.parseError.reason +
-                "\nLocation: " + oDoc.parseError.url +
-                "\nLine Number " + oDoc.parseError.line + ", Column " +
-                oDoc.parseError.linepos +
-                ":\n" + oDoc.parseError.srcText +
-                "\n";
-            for(var i = 0;  i < oDoc.parseError.linepos;i++){
-                parseErrorText += "-";
-            }
-            parseErrorText +=  "^\n";
-        }
-        else if(oDoc.documentElement === null){
-            parseErrorText = Sarissa.PARSED_EMPTY;
-        }
-        return parseErrorText;
-    };
-    // see non-IE version
-    Sarissa.setXpathNamespaces = function(oDoc, sNsSet) {
-        oDoc.setProperty("SelectionLanguage", "XPath");
-        oDoc.setProperty("SelectionNamespaces", sNsSet);
-    };
-    /**
-     * A class that reuses the same XSLT stylesheet for multiple transforms.
-     * @constructor
-     */
-    XSLTProcessor = function(){
-        if(!_SARISSA_XSLTEMPLATE_PROGID){
-            _SARISSA_XSLTEMPLATE_PROGID = Sarissa.pickRecentProgID(["Msxml2.XSLTemplate.6.0", "MSXML2.XSLTemplate.3.0"]);
-        }
-        this.template = new ActiveXObject(_SARISSA_XSLTEMPLATE_PROGID);
-        this.processor = null;
-    };
-    /**
-     * Imports the given XSLT DOM and compiles it to a reusable transform
-     * <b>Note:</b> If the stylesheet was loaded from a URL and contains xsl:import or xsl:include elements,it will be reloaded to resolve those
-     * @param {DOMDocument} xslDoc The XSLT DOMDocument to import
-     */
-    XSLTProcessor.prototype.importStylesheet = function(xslDoc){
-        if(!_SARISSA_THREADEDDOM_PROGID){
-            _SARISSA_THREADEDDOM_PROGID = Sarissa.pickRecentProgID(["MSXML2.FreeThreadedDOMDocument.6.0", "MSXML2.FreeThreadedDOMDocument.3.0"]);
-        }
-        xslDoc.setProperty("SelectionLanguage", "XPath");
-        xslDoc.setProperty("SelectionNamespaces", "xmlns:xsl='http://www.w3.org/1999/XSL/Transform'");
-        // convert stylesheet to free threaded
-        var converted = new ActiveXObject(_SARISSA_THREADEDDOM_PROGID);
-        // make included/imported stylesheets work if exist and xsl was originally loaded from url
-        try{
-            converted.resolveExternals = true;
-            converted.setProperty("AllowDocumentFunction", true);
-            converted.setProperty("AllowXsltScript", true);
-        }
-        catch(e){
-            // Ignore. "AllowDocumentFunction" and "AllowXsltScript" is only supported in MSXML 3.0 SP4+ and 3.0 SP8+ respectively.
-        }
-        if(xslDoc.url && xslDoc.selectSingleNode("//xsl:*[local-name() = 'import' or local-name() = 'include']") != null){
-            converted.async = false;
-            converted.load(xslDoc.url);
-        }
-        else {
-            converted.loadXML(xslDoc.xml);
-        }
-        converted.setProperty("SelectionNamespaces", "xmlns:xsl='http://www.w3.org/1999/XSL/Transform'");
-        var output = converted.selectSingleNode("//xsl:output");
-        //this.outputMethod = output ? output.getAttribute("method") : "html";
-        if(output) {
-            this.outputMethod = output.getAttribute("method");
-        }
-        else {
-            delete this.outputMethod;
-        }
-        this.template.stylesheet = converted;
-        this.processor = this.template.createProcessor();
-        // for getParameter and clearParameters
-        this.paramsSet = [];
-    };
-    /**
-     * Transform the given XML DOM and return the transformation result as a new DOM document
-     * @param {DOMDocument} sourceDoc The XML DOMDocument to transform
-     * @return {DOMDocument} The transformation result as a DOM Document
-     */
-    XSLTProcessor.prototype.transformToDocument = function(sourceDoc){
-        // fix for bug 1549749
-        var outDoc;
-        if(_SARISSA_THREADEDDOM_PROGID){
-            this.processor.input=sourceDoc;
-            outDoc=new ActiveXObject(_SARISSA_DOM_PROGID);
-            this.processor.output=outDoc;
-            this.processor.transform();
-            return outDoc;
-        }
-        else{
-            if(!_SARISSA_DOM_XMLWRITER){
-                _SARISSA_DOM_XMLWRITER = Sarissa.pickRecentProgID(["Msxml2.MXXMLWriter.6.0", "Msxml2.MXXMLWriter.3.0", "MSXML2.MXXMLWriter", "MSXML.MXXMLWriter", "Microsoft.XMLDOM"]);
-            }
-            this.processor.input = sourceDoc;
-            outDoc = new ActiveXObject(_SARISSA_DOM_XMLWRITER);
-            this.processor.output = outDoc;
-            this.processor.transform();
-            var oDoc = new ActiveXObject(_SARISSA_DOM_PROGID);
-            oDoc.loadXML(outDoc.output+"");
-            return oDoc;
-        }
-    };
-    /**
-     * Transform the given XML DOM and return the transformation result as a new DOM fragment.
-     * <b>Note</b>: The xsl:output method must match the nature of the owner document (XML/HTML).
-     * @param {DOMDocument} sourceDoc The XML DOMDocument to transform
-     * @param {DOMDocument} ownerDoc The owner of the result fragment
-     * @return {DOMDocument} The transformation result as a DOM Document
-     */
-    XSLTProcessor.prototype.transformToFragment = function (sourceDoc, ownerDoc) {
-        this.processor.input = sourceDoc;
-        this.processor.transform();
-        var s = this.processor.output;
-        var f = ownerDoc.createDocumentFragment();
-        var container;
-        if (this.outputMethod == 'text') {
-            f.appendChild(ownerDoc.createTextNode(s));
-        } else if (ownerDoc.body && ownerDoc.body.innerHTML) {
-            container = ownerDoc.createElement('div');
-            container.innerHTML = s;
-            while (container.hasChildNodes()) {
-                f.appendChild(container.firstChild);
-            }
-        }
-        else {
-            var oDoc = new ActiveXObject(_SARISSA_DOM_PROGID);
-            if (s.substring(0, 5) == '<?xml') {
-                s = s.substring(s.indexOf('?>') + 2);
-            }
-            var xml = ''.concat('<my>', s, '</my>');
-            oDoc.loadXML(xml);
-            container = oDoc.documentElement;
-            while (container.hasChildNodes()) {
-                f.appendChild(container.firstChild);
-            }
-        }
-        return f;
-    };
-    /**
-     * Set global XSLT parameter of the imported stylesheet. This method should
-     * only be used <strong>after</strong> the importStylesheet method for the
-     * context XSLTProcessor instance.
-     * @param {String} nsURI The parameter namespace URI
-     * @param {String} name The parameter base name
-     * @param {String} value The new parameter value
-     */
-     XSLTProcessor.prototype.setParameter = function(nsURI, name, value){
-         // make value a zero length string if null to allow clearing
-         value = value ? value : "";
-         // nsURI is optional but cannot be null
-         if(nsURI){
-             this.processor.addParameter(name, value, nsURI);
-         }else{
-             this.processor.addParameter(name, value);
-         }
-         // update updated params for getParameter
-         nsURI = "" + (nsURI || "");
-         if(!this.paramsSet[nsURI]){
-             this.paramsSet[nsURI] = [];
-         }
-         this.paramsSet[nsURI][name] = value;
-     };
-    /**
-     * Gets a parameter if previously set by setParameter. Returns null
-     * otherwise
-     * @param {String} name The parameter base name
-     * @param {String} value The new parameter value
-     * @return {String} The parameter value if reviously set by setParameter, null otherwise
-     */
-    XSLTProcessor.prototype.getParameter = function(nsURI, name){
-        nsURI = "" + (nsURI || "");
-        if(this.paramsSet[nsURI] && this.paramsSet[nsURI][name]){
-            return this.paramsSet[nsURI][name];
-        }else{
-            return null;
-        }
-    };
-    /**
-     * Clear parameters (set them to default values as defined in the stylesheet itself)
-     */
-    XSLTProcessor.prototype.clearParameters = function(){
-        for(var nsURI in this.paramsSet){
-            for(var name in this.paramsSet[nsURI]){
-                if(nsURI!=""){
-                    this.processor.addParameter(name, "", nsURI);
-                }else{
-                    this.processor.addParameter(name, "");
-                }
-            }
-        }
-        this.paramsSet = [];
-    };
-}else{ /* end IE initialization, try to deal with real browsers now ;-) */
-    if(Sarissa._SARISSA_HAS_DOM_CREATE_DOCUMENT){
-        /**
-         * <p>Ensures the document was loaded correctly, otherwise sets the
-         * parseError to -1 to indicate something went wrong. Internal use</p>
-         * @private
-         */
-        Sarissa.__handleLoad__ = function(oDoc){
-            Sarissa.__setReadyState__(oDoc, 4);
-        };
-        /**
-        * <p>Attached by an event handler to the load event. Internal use.</p>
-        * @private
-        */
-        _sarissa_XMLDocument_onload = function(){
-            Sarissa.__handleLoad__(this);
-        };
-        /**
-         * <p>Sets the readyState property of the given DOM Document object.
-         * Internal use.</p>
-         * @memberOf Sarissa
-         * @private
-         * @param oDoc the DOM Document object to fire the
-         *          readystatechange event
-         * @param iReadyState the number to change the readystate property to
-         */
-        Sarissa.__setReadyState__ = function(oDoc, iReadyState){
-            oDoc.readyState = iReadyState;
-            oDoc.readystate = iReadyState;
-            if (oDoc.onreadystatechange != null && typeof oDoc.onreadystatechange == "function") {
-                oDoc.onreadystatechange();
-            }
-        };
-        Sarissa.getDomDocument = function(sUri, sName){
-            var oDoc = document.implementation.createDocument(sUri?sUri:null, sName?sName:null, null);
-            if(!oDoc.onreadystatechange){
-                /**
-                * <p>Emulate IE's onreadystatechange attribute</p>
-                */
-                oDoc.onreadystatechange = null;
-            }
-            if(!oDoc.readyState){
-                /**
-                * <p>Emulates IE's readyState property, which always gives an integer from 0 to 4:</p>
-                * <ul><li>1 == LOADING,</li>
-                * <li>2 == LOADED,</li>
-                * <li>3 == INTERACTIVE,</li>
-                * <li>4 == COMPLETED</li></ul>
-                */
-                oDoc.readyState = 0;
-            }
-            oDoc.addEventListener("load", _sarissa_XMLDocument_onload, false);
-            return oDoc;
-        };
-        if(window.XMLDocument){
-            // do nothing
-        }// TODO: check if the new document has content before trying to copynodes, check  for error handling in DOM 3 LS
-        else if(Sarissa._SARISSA_HAS_DOM_FEATURE && window.Document && !Document.prototype.load && document.implementation.hasFeature('LS', '3.0')){
-        //Opera 9 may get the XPath branch which gives creates XMLDocument, therefore it doesn't reach here which is good
-            /**
-            * <p>Factory method to obtain a new DOM Document object</p>
-            * @memberOf Sarissa
-            * @param {String} sUri the namespace of the root node (if any)
-            * @param {String} sUri the local name of the root node (if any)
-            * @returns {DOMDOcument} a new DOM Document
-            */
-            Sarissa.getDomDocument = function(sUri, sName){
-                var oDoc = document.implementation.createDocument(sUri?sUri:null, sName?sName:null, null);
-                return oDoc;
-            };
-        }
-        else {
-            Sarissa.getDomDocument = function(sUri, sName){
-                var oDoc = document.implementation.createDocument(sUri?sUri:null, sName?sName:null, null);
-                // looks like safari does not create the root element for some unknown reason
-                if(oDoc && (sUri || sName) && !oDoc.documentElement){
-                    oDoc.appendChild(oDoc.createElementNS(sUri, sName));
-                }
-                return oDoc;
-            };
-        }
-    }//if(Sarissa._SARISSA_HAS_DOM_CREATE_DOCUMENT)
-}
-//==========================================
-// Common stuff
-//==========================================
-if(Sarissa._SARISSA_IS_IE || !window.DOMParser){
-    if(Sarissa._SARISSA_IS_SAFARI){
-        /**
-         * DOMParser is a utility class, used to construct DOMDocuments from XML strings
-         * @constructor
-         */
-        DOMParser = function() { };
-        /**
-        * Construct a new DOM Document from the given XMLstring
-        * @param {String} sXml the given XML string
-        * @param {String} contentType the content type of the document the given string represents (one of text/xml, application/xml, application/xhtml+xml).
-        * @return {DOMDocument} a new DOM Document from the given XML string
-        */
-        DOMParser.prototype.parseFromString = function(sXml, contentType){
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "data:text/xml;charset=utf-8," + encodeURIComponent(sXml), false);
-            xmlhttp.send(null);
-            return xmlhttp.responseXML;
-        };
-    }else if(Sarissa.getDomDocument && Sarissa.getDomDocument() && Sarissa.getDomDocument(null, "bar").xml){
-        DOMParser = function() { };
-        DOMParser.prototype.parseFromString = function(sXml, contentType){
-            var doc = Sarissa.getDomDocument();
-            try{
-    doc.validateOnParse = false;
-    doc.setProperty("ProhibitDTD", false);
-            }catch(e){}
-            doc.loadXML(sXml);
-            return doc;
-        };
-    }
-}
-if((typeof(document.importNode) == "undefined") && Sarissa._SARISSA_IS_IE){
-    try{
-        /**
-        * Implementation of importNode for the context window document in IE.
-        * If <code>oNode</code> is a TextNode, <code>bChildren</code> is ignored.
-        * @param {DOMNode} oNode the Node to import
-        * @param {boolean} bChildren whether to include the children of oNode
-        * @returns the imported node for further use
-        */
-        document.importNode = function(oNode, bChildren){
-            var tmp;
-            if (oNode.nodeName=='#text') {
-                return document.createTextNode(oNode.data);
-            }
-            else {
-                if(oNode.nodeName == "tbody" || oNode.nodeName == "tr"){
-                    tmp = document.createElement("table");
-                }
-                else if(oNode.nodeName == "td"){
-                    tmp = document.createElement("tr");
-                }
-                else if(oNode.nodeName == "option"){
-                    tmp = document.createElement("select");
-                }
-                else{
-                    tmp = document.createElement("div");
-                }
-                if(bChildren){
-                    tmp.innerHTML = oNode.xml ? oNode.xml : oNode.outerHTML;
-                }else{
-                    tmp.innerHTML = oNode.xml ? oNode.cloneNode(false).xml : oNode.cloneNode(false).outerHTML;
-                }
-                return tmp.getElementsByTagName("*")[0];
-            }
-        };
-    }catch(e){ }
-}
-if(!Sarissa.getParseErrorText){
-    /**
-     * <p>Returns a human readable description of the parsing error. Usefull
-     * for debugging. Tip: append the returned error string in a &lt;pre&gt;
-     * element if you want to render it.</p>
-     * <p>Many thanks to Christian Stocker for the initial patch.</p>
-     * @memberOf Sarissa
-     * @param {DOMDocument} oDoc The target DOM document
-     * @returns {String} The parsing error description of the target Document in
-     *          human readable form (preformated text)
-     */
-    Sarissa.getParseErrorText = function (oDoc){
-        var parseErrorText = Sarissa.PARSED_OK;
-        if((!oDoc) || (!oDoc.documentElement)){
-            parseErrorText = Sarissa.PARSED_EMPTY;
-        } else if(oDoc.documentElement.tagName == "parsererror"){
-            parseErrorText = oDoc.documentElement.firstChild.data;
-            parseErrorText += "\n" +  oDoc.documentElement.firstChild.nextSibling.firstChild.data;
-        } else if(oDoc.getElementsByTagName("parsererror").length > 0){
-            var parsererror = oDoc.getElementsByTagName("parsererror")[0];
-            parseErrorText = Sarissa.getText(parsererror, true)+"\n";
-        } else if(oDoc.parseError && oDoc.parseError.errorCode != 0){
-            parseErrorText = Sarissa.PARSED_UNKNOWN_ERROR;
-        }
-        return parseErrorText;
-    };
-}
-/**
- * Get a string with the concatenated values of all string nodes under the given node
- * @param {DOMNode} oNode the given DOM node
- * @param {boolean} deep whether to recursively scan the children nodes of the given node for text as well. Default is <code>false</code>
- * @memberOf Sarissa
- */
-Sarissa.getText = function(oNode, deep){
-    var s = "";
-    var nodes = oNode.childNodes;
-    // opera fix, finds no child text node for attributes so we use .value
-    if (oNode.nodeType == Node.ATTRIBUTE_NODE && nodes.length == 0) {
-        return oNode.value;
-    }
-    // END opera fix
-    for(var i=0; i < nodes.length; i++){
-        var node = nodes[i];
-        var nodeType = node.nodeType;
-        if(nodeType == Node.TEXT_NODE || nodeType == Node.CDATA_SECTION_NODE){
-            s += node.data;
-        } else if(deep === true && (nodeType == Node.ELEMENT_NODE || nodeType == Node.DOCUMENT_NODE || nodeType == Node.DOCUMENT_FRAGMENT_NODE)){
-            s += Sarissa.getText(node, true);
-        }
-    }
-    return s;
-};
-if(Sarissa._SARISSA_IS_IE || !window.XMLSerializer && Sarissa.getDomDocument && Sarissa.getDomDocument("","foo", null).xml){
-    /**
-     * Utility class to serialize DOM Node objects to XML strings
-     * @constructor
-     */
-    XMLSerializer = function(){};
-    /**
-     * Serialize the given DOM Node to an XML string
-     * @param {DOMNode} oNode the DOM Node to serialize
-     */
-    XMLSerializer.prototype.serializeToString = function(oNode) {
-        return oNode.xml;
-    };
-}
-/**
- * Strips tags from the given markup string. If the given string is
- * <code>undefined</code>, <code>null</code> or empty, it is returned as is.
- * @memberOf Sarissa
- * @param {String} s the string to strip the tags from
- */
-Sarissa.stripTags = function (s) {
-    return s?s.replace(/<[^>]+>/g,""):s;
-};
-/**
- * <p>Deletes all child nodes of the given node</p>
- * @memberOf Sarissa
- * @param {DOMNode} oNode the Node to empty
- */
-Sarissa.clearChildNodes = function(oNode) {
-    // need to check for firstChild due to opera 8 bug with hasChildNodes
-    while(oNode.firstChild) {
-        oNode.removeChild(oNode.firstChild);
-    }
-};
-/**
- * <p> Copies the childNodes of nodeFrom to nodeTo</p>
- * <p> <b>Note:</b> The second object's original content is deleted before
- * the copy operation, unless you supply a true third parameter</p>
- * @memberOf Sarissa
- * @param {DOMNode} nodeFrom the Node to copy the childNodes from
- * @param {DOMNode} nodeTo the Node to copy the childNodes to
- * @param {boolean} bPreserveExisting whether to preserve the original content of nodeTo, default is false
- */
-Sarissa.copyChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
-    if(Sarissa._SARISSA_IS_SAFARI && nodeTo.nodeType == Node.DOCUMENT_NODE){ // SAFARI_OLD ??
-    nodeTo = nodeTo.documentElement; //Apparently there's a bug in safari where you can't appendChild to a document node
-    }
-    if((!nodeFrom) || (!nodeTo)){
-        throw "Both source and destination nodes must be provided";
-    }
-    if(!bPreserveExisting){
-        Sarissa.clearChildNodes(nodeTo);
-    }
-    var ownerDoc = nodeTo.nodeType == Node.DOCUMENT_NODE ? nodeTo : nodeTo.ownerDocument;
-    var nodes = nodeFrom.childNodes;
-    var i;
-    if(typeof(ownerDoc.importNode) != "undefined")  {
-        for(i=0;i < nodes.length;i++) {
-            nodeTo.appendChild(ownerDoc.importNode(nodes[i], true));
-        }
-    } else {
-        for(i=0;i < nodes.length;i++) {
-            nodeTo.appendChild(nodes[i].cloneNode(true));
-        }
-    }
-};
-/**
- * <p> Moves the childNodes of nodeFrom to nodeTo</p>
- * <p> <b>Note:</b> The second object's original content is deleted before
- * the move operation, unless you supply a true third parameter</p>
- * @memberOf Sarissa
- * @param {DOMNode} nodeFrom the Node to copy the childNodes from
- * @param {DOMNode} nodeTo the Node to copy the childNodes to
- * @param {boolean} bPreserveExisting whether to preserve the original content of nodeTo, default is
- */
-Sarissa.moveChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
-    if((!nodeFrom) || (!nodeTo)){
-        throw "Both source and destination nodes must be provided";
-    }
-    if(!bPreserveExisting){
-        Sarissa.clearChildNodes(nodeTo);
-    }
-    var nodes = nodeFrom.childNodes;
-    // if within the same doc, just move, else copy and delete
-    if(nodeFrom.ownerDocument == nodeTo.ownerDocument){
-        while(nodeFrom.firstChild){
-            nodeTo.appendChild(nodeFrom.firstChild);
-        }
-    } else {
-        var ownerDoc = nodeTo.nodeType == Node.DOCUMENT_NODE ? nodeTo : nodeTo.ownerDocument;
-        var i;
-        if(typeof(ownerDoc.importNode) != "undefined") {
-           for(i=0;i < nodes.length;i++) {
-               nodeTo.appendChild(ownerDoc.importNode(nodes[i], true));
-           }
-        }else{
-           for(i=0;i < nodes.length;i++) {
-               nodeTo.appendChild(nodes[i].cloneNode(true));
-           }
-        }
-        Sarissa.clearChildNodes(nodeFrom);
-    }
-};
-/**
- * <p>Serialize any <strong>non</strong> DOM object to an XML string. All properties are serialized using the property name
- * as the XML element name. Array elements are rendered as <code>array-item</code> elements,
- * using their index/key as the value of the <code>key</code> attribute.</p>
- * @memberOf Sarissa
- * @param {Object} anyObject the object to serialize
- * @param {String} objectName a name for that object, to be used as the root element name
- * @param {String} indentSpace Optional, the indentation space to use, default is an empty
- *        string. A single space character is added in any recursive call.
- * @param {noolean} skipEscape Optional, whether to skip escaping characters that map to the
- *        five predefined XML entities. Default is <code>false</code>.
- * @return {String} the XML serialization of the given object as a string
- */
-Sarissa.xmlize = function(anyObject, objectName, indentSpace, skipEscape){
-    indentSpace = indentSpace?indentSpace:'';
-    var s = indentSpace  + '<' + objectName + '>';
-    var isLeaf = false;
-    if(!(anyObject instanceof Object) || anyObject instanceof Number || anyObject instanceof String || anyObject instanceof Boolean || anyObject instanceof Date){
-        s += (skipEscape ? Sarissa.escape(anyObject) : anyObject);
-        isLeaf = true;
-    }else{
-        s += "\n";
-        var isArrayItem = anyObject instanceof Array;
-        for(var name in anyObject){
-    // do not xmlize functions
-    if (anyObject[name] instanceof Function){
-        continue;
-    }
-            s += Sarissa.xmlize(anyObject[name], (isArrayItem?"array-item key=\""+name+"\"":name), indentSpace + " ");
-        }
-        s += indentSpace;
-    }
-    return (s += (objectName.indexOf(' ')!=-1?"</array-item>\n":"</" + objectName + ">\n"));
-};
-/**
- * Escape the given string chacters that correspond to the five predefined XML entities
- * @memberOf Sarissa
- * @param {String} sXml the string to escape
- */
-Sarissa.escape = function(sXml){
-    return sXml.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
-};
-/**
- * Unescape the given string. This turns the occurences of the predefined XML
- * entities to become the characters they represent correspond to the five predefined XML entities
- * @memberOf Sarissa
- * @param  {String}sXml the string to unescape
- */
-Sarissa.unescape = function(sXml){
-    return sXml.replace(/&apos;/g,"'").replace(/&quot;/g,"\"").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&amp;/g,"&");
-};
-/** @private */
-Sarissa.updateCursor = function(oTargetElement, sValue) {
-    if(oTargetElement && oTargetElement.style && oTargetElement.style.cursor != undefined ){
-        oTargetElement.style.cursor = sValue;
-    }
-};
-/**
- * Asynchronously update an element with response of a GET request on the given URL.  Passing a configured XSLT
- * processor will result in transforming and updating oNode before using it to update oTargetElement.
- * You can also pass a callback function to be executed when the update is finished. The function will be called as
- * <code>functionName(oNode, oTargetElement);</code>
- * @memberOf Sarissa
- * @param {String} sFromUrl the URL to make the request to
- * @param {DOMElement} oTargetElement the element to update
- * @param {XSLTProcessor} xsltproc (optional) the transformer to use on the returned
- *                  content before updating the target element with it
- * @param {Function} callback (optional) a Function object to execute once the update is finished successfuly, called as <code>callback(sFromUrl, oTargetElement)</code>.
- *        In case an exception is thrown during execution, the callback is called as called as <code>callback(sFromUrl, oTargetElement, oException)</code>
- * @param {boolean} skipCache (optional) whether to skip any cache
- */
-Sarissa.updateContentFromURI = function(sFromUrl, oTargetElement, xsltproc, callback, skipCache) {
-    try{
-        Sarissa.updateCursor(oTargetElement, "wait");
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", sFromUrl, true);
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4) {
-    try{
-        var oDomDoc = xmlhttp.responseXML;
-    if(oDomDoc && Sarissa.getParseErrorText(oDomDoc) == Sarissa.PARSED_OK){
-                        Sarissa.updateContentFromNode(xmlhttp.responseXML, oTargetElement, xsltproc);
-                if(callback){
-    callback(sFromUrl, oTargetElement);
-                        }
-    }
-    else{
-        throw Sarissa.getParseErrorText(oDomDoc);
-    }
-    }
-    catch(e){
-        if(callback){
-    callback(sFromUrl, oTargetElement, e);
-                    }
-                    else{
-    throw e;
-                    }
-    }
-            }
-        };
-        if (skipCache) {
-             var oldage = "Sat, 1 Jan 2000 00:00:00 GMT";
-             xmlhttp.setRequestHeader("If-Modified-Since", oldage);
-        }
-        xmlhttp.send("");
-    }
-    catch(e){
-        Sarissa.updateCursor(oTargetElement, "auto");
-        if(callback){
-    callback(sFromUrl, oTargetElement, e);
-        }
-        else{
-    throw e;
-        }
-    }
-};
-/**
- * Update an element's content with the given DOM node. Passing a configured XSLT
- * processor will result in transforming and updating oNode before using it to update oTargetElement.
- * You can also pass a callback function to be executed when the update is finished. The function will be called as
- * <code>functionName(oNode, oTargetElement);</code>
- * @memberOf Sarissa
- * @param {DOMNode} oNode the URL to make the request to
- * @param {DOMElement} oTargetElement the element to update
- * @param {XSLTProcessor} xsltproc (optional) the transformer to use on the given
- *                  DOM node before updating the target element with it
- */
-Sarissa.updateContentFromNode = function(oNode, oTargetElement, xsltproc) {
-    try {
-        Sarissa.updateCursor(oTargetElement, "wait");
-        Sarissa.clearChildNodes(oTargetElement);
-        // check for parsing errors
-        var ownerDoc = oNode.nodeType == Node.DOCUMENT_NODE?oNode:oNode.ownerDocument;
-        if(ownerDoc.parseError && ownerDoc.parseError.errorCode != 0) {
-            var pre = document.createElement("pre");
-            pre.appendChild(document.createTextNode(Sarissa.getParseErrorText(ownerDoc)));
-            oTargetElement.appendChild(pre);
-        }
-        else {
-            // transform if appropriate
-            if(xsltproc) {
-                oNode = xsltproc.transformToDocument(oNode);
-            }
-            // be smart, maybe the user wants to display the source instead
-            if(oTargetElement.tagName.toLowerCase() == "textarea" || oTargetElement.tagName.toLowerCase() == "input") {
-                oTargetElement.value = new XMLSerializer().serializeToString(oNode);
-            }
-            else {
-                // ok that was not smart; it was paranoid. Keep up the good work by trying to use DOM instead of innerHTML
-                try{
-                    oTargetElement.appendChild(oTargetElement.ownerDocument.importNode(oNode, true));
-                }
-                catch(e){
-                    oTargetElement.innerHTML = new XMLSerializer().serializeToString(oNode);
-                }
-            }
-        }
-    }
-    catch(e) {
-    throw e;
-    }
-    finally{
-        Sarissa.updateCursor(oTargetElement, "auto");
-    }
-};
-/**
- * Creates an HTTP URL query string from the given HTML form data
- * @memberOf Sarissa
- * @param {HTMLFormElement} oForm the form to construct the query string from
- */
-Sarissa.formToQueryString = function(oForm){
-    var qs = "";
-    for(var i = 0;i < oForm.elements.length;i++) {
-        var oField = oForm.elements[i];
-        var sFieldName = oField.getAttribute("name") ? oField.getAttribute("name") : oField.getAttribute("id");
-        // ensure we got a proper name/id and that the field is not disabled
-        if(sFieldName &&
-            ((!oField.disabled) || oField.type == "hidden")) {
-            switch(oField.type) {
-                case "hidden":
-                case "text":
-                case "textarea":
-                case "password":
-                    qs += sFieldName + "=" + encodeURIComponent(oField.value) + "&";
-                    break;
-                case "select-one":
-                    qs += sFieldName + "=" + encodeURIComponent(oField.options[oField.selectedIndex].value) + "&";
-                    break;
-                case "select-multiple":
-                    for (var j = 0; j < oField.length; j++) {
-                        var optElem = oField.options[j];
-                        if (optElem.selected === true) {
-                            qs += sFieldName + "[]" + "=" + encodeURIComponent(optElem.value) + "&";
-                        }
-                     }
-                     break;
-                case "checkbox":
-                case "radio":
-                    if(oField.checked) {
-                        qs += sFieldName + "=" + encodeURIComponent(oField.value) + "&";
-                    }
-                    break;
-            }
-        }
-    }
-    // return after removing last '&'
-    return qs.substr(0, qs.length - 1);
-};
-/**
- * Asynchronously update an element with response of an XMLHttpRequest-based emulation of a form submission. <p>The form <code>action</code> and
- * <code>method</code> attributess will be followed. Passing a configured XSLT processor will result in
- * transforming and updating the server response before using it to update the target element.
- * You can also pass a callback function to be executed when the update is finished. The function will be called as
- * <code>functionName(oNode, oTargetElement);</code></p>
- * <p>Here is an example of using this in a form element:</p>
- * <pre name="code" class="xml">
- * &lt;div id="targetId"&gt; this content will be updated&lt;/div&gt;
- * &lt;form action="/my/form/handler" method="post"
- *     onbeforesubmit="return Sarissa.updateContentFromForm(this, document.getElementById('targetId'));"&gt;<pre>
- * <p>If JavaScript is supported, the form will not be submitted. Instead, Sarissa will
- * scan the form and make an appropriate AJAX request, also adding a parameter
- * to signal to the server that this is an AJAX call. The parameter is
- * constructed as <code>Sarissa.REMOTE_CALL_FLAG = "=true"</code> so you can change the name in your webpage
- * simply by assigning another value to Sarissa.REMOTE_CALL_FLAG. If JavaScript is not supported
- * the form will be submitted normally.
- * @memberOf Sarissa
- * @param {HTMLFormElement} oForm the form submition to emulate
- * @param {DOMElement} oTargetElement the element to update
- * @param {XSLTProcessor} xsltproc (optional) the transformer to use on the returned
- *                  content before updating the target element with it
- * @param {Function} callback (optional) a Function object to execute once the update is finished successfuly, called as <code>callback(oNode, oTargetElement)</code>.
- *        In case an exception occurs during excecution and a callback function was provided, the exception is cought and the callback is called as
- *        <code>callback(oForm, oTargetElement, exception)</code>
- */
-Sarissa.updateContentFromForm = function(oForm, oTargetElement, xsltproc, callback) {
-    try{
-    Sarissa.updateCursor(oTargetElement, "wait");
-        // build parameters from form fields
-        var params = Sarissa.formToQueryString(oForm) + "&" + Sarissa.REMOTE_CALL_FLAG + "=true";
-        var xmlhttp = new XMLHttpRequest();
-        var bUseGet = oForm.getAttribute("method") && oForm.getAttribute("method").toLowerCase() == "get";
-        if(bUseGet) {
-            xmlhttp.open("GET", oForm.getAttribute("action")+"?"+params, true);
-        }
-        else{
-            xmlhttp.open('POST', oForm.getAttribute("action"), true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.setRequestHeader("Content-length", params.length);
-            xmlhttp.setRequestHeader("Connection", "close");
-        }
-        xmlhttp.onreadystatechange = function() {
-    try{
-                if (xmlhttp.readyState == 4) {
-    var oDomDoc = xmlhttp.responseXML;
-    if(oDomDoc && Sarissa.getParseErrorText(oDomDoc) == Sarissa.PARSED_OK){
-                        Sarissa.updateContentFromNode(xmlhttp.responseXML, oTargetElement, xsltproc);
-                if(callback){
-    callback(oForm, oTargetElement);
-                        }
-    }
-    else{
-        throw Sarissa.getParseErrorText(oDomDoc);
-    }
-                }
-    }
-    catch(e){
-        if(callback){
-            callback(oForm, oTargetElement, e);
-        }
-        else{
-            throw e;
-        }
-    }
-        };
-        xmlhttp.send(bUseGet?"":params);
-    }
-    catch(e){
-        Sarissa.updateCursor(oTargetElement, "auto");
-        if(callback){
-    callback(oForm, oTargetElement, e);
-        }
-        else{
-    throw e;
-        }
-    }
-    return false;
-};
-/**
- * Get the name of a function created like:
- * <pre>function functionName(){}</pre>
- * If a name is not found, attach the function to
- * the window object with a new name and return that
- * @param {Function} oFunc the function object
- */
-Sarissa.getFunctionName = function(oFunc){
-    if(!oFunc || (typeof oFunc != 'function' )){
-        throw "The value of parameter 'oFunc' must be a function";
-    }
-    if(oFunc.name) {
-        return oFunc.name;
-    }
-    // try to parse the function name from the defintion
-    var sFunc = oFunc.toString();
-    alert("sFunc: "+sFunc);
-    var name = sFunc.substring(sFunc.indexOf('function') + 8 , sFunc.indexOf('('));
-    if(!name || name.length == 0 || name == " "){
-        // attach to window object under a new name
-        name = "SarissaAnonymous" + Sarissa._getUniqueSuffix();
-        window[name] = oFunc;
-    }
-    return name;
-};
-/**
- *
- */
-Sarissa.setRemoteJsonCallback = function(url, callback, callbackParam) {
-    if(!callbackParam){
-        callbackParam = "callback";
-    }
-    var callbackFunctionName = Sarissa.getFunctionName(callback);
-    //alert("callbackFunctionName: '" + callbackFunctionName+"', length: "+callbackFunctionName.length);
-    var id = "sarissa_json_script_id_" + Sarissa._getUniqueSuffix();
-    var oHead = document.getElementsByTagName("head")[0];
-    var scriptTag = document.createElement('script');
-    scriptTag.type = 'text/javascript';
-    scriptTag.id = id;
-    scriptTag.onload = function(){
-        // cleanUp
-        // document.removeChild(scriptTag);
-    };
-    if(url.indexOf("?") != -1){
-        url += ("&" + callbackParam + "=" + callbackFunctionName);
-    }
-    else{
-        url += ("?" + callbackParam + "=" + callbackFunctionName);
-    }
-    scriptTag.src = url;
-    oHead.appendChild(scriptTag);
-    return id;
-};
-//   EOF
-module.exports.Sarissa = Sarissa;
-});;
-Numbas.queueScript('sarissa_ieemu_xpath',['sarissa'],function() {
-/**
- * ====================================================================
- * About
- * ====================================================================
- * Sarissa cross browser XML library - IE XPath Emulation
- * @version 0.9.9.5
- * @author: Copyright 2004-2007 Emmanouil Batsis, mailto: mbatsis at users full stop sourceforge full stop net
- *
- * This script emulates Internet Explorer's selectNodes and selectSingleNode
- * for Mozilla. Associating namespace prefixes with URIs for your XPath queries
- * is easy with IE's setProperty.
- * USers may also map a namespace prefix to a default (unprefixed) namespace in the
- * source document with Sarissa.setXpathNamespaces
- *
- * ====================================================================
- * Licence
- * ====================================================================
- * Sarissa is free software distributed under the GNU GPL version 2 (see <a href="gpl.txt">gpl.txt</a>) or higher,
- * GNU LGPL version 2.1 (see <a href="lgpl.txt">lgpl.txt</a>) or higher and Apache Software License 2.0 or higher
- * (see <a href="asl.txt">asl.txt</a>). This means you can choose one of the three and use that if you like. If
- * you make modifications under the ASL, i would appreciate it if you submitted those.
- * In case your copy of Sarissa does not include the license texts, you may find
- * them online in various formats at <a href="http://www.gnu.org">http://www.gnu.org</a> and
- * <a href="http://www.apache.org">http://www.apache.org</a>.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
- * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- * WARRANTIES OF MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE
- * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-if(Sarissa._SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0")){
-    /**
-     * <p>SarissaNodeList behaves as a NodeList but is only used as a result to <code>selectNodes</code>,
-     * so it also has some properties IEs proprietery object features.</p>
-     * @private
-     * @constructor
-     * @argument i the (initial) list size
-     */
-    SarissaNodeList = function (i){
-        this.length = i;
-    };
-    /**
-     * <p>Set an Array as the prototype object</p>
-     * @private
-     */
-    SarissaNodeList.prototype = [];
-    /**
-     * <p>Inherit the Array constructor </p>
-     * @private
-     */
-    SarissaNodeList.prototype.constructor = Array;
-    /**
-     * <p>Returns the node at the specified index or null if the given index
-     * is greater than the list size or less than zero </p>
-     * <p><b>Note</b> that in ECMAScript you can also use the square-bracket
-     * array notation instead of calling <code>item</code>
-     * @argument i the index of the member to return
-     * @returns the member corresponding to the given index
-     * @private
-     */
-    SarissaNodeList.prototype.item = function(i) {
-        return (i < 0 || i >= this.length)?null:this[i];
-    };
-    /**
-     * <p>Emulate IE's expr property
-     * (Here the SarissaNodeList object is given as the result of selectNodes).</p>
-     * @returns the XPath expression passed to selectNodes that resulted in
-     *          this SarissaNodeList
-     * @private
-     */
-    SarissaNodeList.prototype.expr = "";
-    /** dummy, used to accept IE's stuff without throwing errors */
-    if(window.XMLDocument && (!XMLDocument.prototype.setProperty)){
-        XMLDocument.prototype.setProperty  = function(x,y){};
-    }
-    /**
-    * <p>Programmatically control namespace URI/prefix mappings for XPath
-    * queries.</p>
-    * <p>This method comes especially handy when used to apply XPath queries
-    * on XML documents with a default namespace, as there is no other way
-    * of mapping that to a prefix.</p>
-    * <p>Using no namespace prefix in DOM Level 3 XPath queries, implies you
-    * are looking for elements in the null namespace. If you need to look
-    * for nodes in the default namespace, you need to map a prefix to it
-    * first like:</p>
-    * <pre>Sarissa.setXpathNamespaces(oDoc, "xmlns:myprefix'http://mynsURI'");</pre>
-    * <p><b>Note 1 </b>: Use this method only if the source document features
-    * a default namespace (without a prefix), otherwise just use IE's setProperty
-    * (moz will rezolve non-default namespaces by itself). You will need to map that
-    * namespace to a prefix for queries to work.</p>
-    * <p><b>Note 2 </b>: This method calls IE's setProperty method to set the
-    * appropriate namespace-prefix mappings, so you dont have to do that.</p>
-    * @param oDoc The target XMLDocument to set the namespace mappings for.
-    * @param sNsSet A whilespace-seperated list of namespace declarations as
-    *            those would appear in an XML document. E.g.:
-    *            <code>&quot;xmlns:xhtml=&apos;http://www.w3.org/1999/xhtml&apos;
-    * xmlns:&apos;http://www.w3.org/1999/XSL/Transform&apos;&quot;</code>
-    * @throws An error if the format of the given namespace declarations is bad.
-    */
-    Sarissa.setXpathNamespaces = function(oDoc, sNsSet) {
-        //oDoc._sarissa_setXpathNamespaces(sNsSet);
-        oDoc._sarissa_useCustomResolver = true;
-        var namespaces = sNsSet.indexOf(" ")>-1?sNsSet.split(" "):[sNsSet];
-        oDoc._sarissa_xpathNamespaces = [];
-        for(var i=0;i < namespaces.length;i++){
-            var ns = namespaces[i];
-            var colonPos = ns.indexOf(":");
-            var assignPos = ns.indexOf("=");
-            if(colonPos > 0 && assignPos > colonPos+1){
-                var prefix = ns.substring(colonPos+1, assignPos);
-                var uri = ns.substring(assignPos+2, ns.length-1);
-                oDoc._sarissa_xpathNamespaces[prefix] = uri;
-            }else{
-                throw "Bad format on namespace declaration(s) given";
-            }
-        }
-    };
-    /**
-    * @private Flag to control whether a custom namespace resolver should
-    *          be used, set to true by Sarissa.setXpathNamespaces
-    */
-    XMLDocument.prototype._sarissa_useCustomResolver = false;
-    /** @private */
-    XMLDocument.prototype._sarissa_xpathNamespaces = [];
-    /**
-    * <p>Extends the XMLDocument to emulate IE's selectNodes.</p>
-    * @argument sExpr the XPath expression to use
-    * @argument contextNode this is for internal use only by the same
-    *           method when called on Elements
-    * @returns the result of the XPath search as a SarissaNodeList
-    * @throws An error if no namespace URI is found for the given prefix.
-    */
-    XMLDocument.prototype.selectNodes = function(sExpr, contextNode, returnSingle){
-        var nsDoc = this;
-        var nsresolver;
-        if(this._sarissa_useCustomResolver){
-            nsresolver = function(prefix){
-                var s = nsDoc._sarissa_xpathNamespaces[prefix];
-                if(s){
-                    return s;
-                }
-                else {
-                    throw "No namespace URI found for prefix: '" + prefix+"'";
-                }
-            };
-        }
-        else{
-            nsresolver = this.createNSResolver(this.documentElement);
-        }
-        var result = null;
-        if(!returnSingle){
-            var oResult = this.evaluate(sExpr,
-                (contextNode?contextNode:this),
-                nsresolver,
-                XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-            var nodeList = new SarissaNodeList(oResult.snapshotLength);
-            nodeList.expr = sExpr;
-            for(var i=0;i<nodeList.length;i++){
-                nodeList[i] = oResult.snapshotItem(i);
-            }
-            result = nodeList;
-        }
-        else {
-            result = this.evaluate(sExpr,
-                (contextNode?contextNode:this),
-                nsresolver,
-                XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-        }
-        return result;
-    };
-    /**
-    * <p>Extends the Element to emulate IE's selectNodes</p>
-    * @argument sExpr the XPath expression to use
-    * @returns the result of the XPath search as an (Sarissa)NodeList
-    * @throws An
-    *             error if invoked on an HTML Element as this is only be
-    *             available to XML Elements.
-    */
-    Element.prototype.selectNodes = function(sExpr){
-        var doc = this.ownerDocument;
-        if(doc.selectNodes){
-            return doc.selectNodes(sExpr, this);
-        }
-        else{
-            throw "Method selectNodes is only supported by XML Elements";
-        }
-    };
-    /**
-    * <p>Extends the XMLDocument to emulate IE's selectSingleNode.</p>
-    * @argument sExpr the XPath expression to use
-    * @argument contextNode this is for internal use only by the same
-    *           method when called on Elements
-    * @returns the result of the XPath search as an (Sarissa)NodeList
-    */
-    XMLDocument.prototype.selectSingleNode = function(sExpr, contextNode){
-        var ctx = contextNode?contextNode:null;
-        return this.selectNodes(sExpr, ctx, true);
-    };
-    /**
-    * <p>Extends the Element to emulate IE's selectSingleNode.</p>
-    * @argument sExpr the XPath expression to use
-    * @returns the result of the XPath search as an (Sarissa)NodeList
-    * @throws An error if invoked on an HTML Element as this is only be
-    *             available to XML Elements.
-    */
-    Element.prototype.selectSingleNode = function(sExpr){
-        var doc = this.ownerDocument;
-        if(doc.selectSingleNode){
-            return doc.selectSingleNode(sExpr, this);
-        }
-        else{
-            throw "Method selectNodes is only supported by XML Elements";
-        }
-    };
-    Sarissa.IS_ENABLED_SELECT_NODES = true;
-}
-});;
 /*
 Copyright 2011-14 Newcastle University
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -44671,7 +43077,6 @@ SCORMStorage.prototype = /** @lends Numbas.storage.SCORMStorage.prototype */ {
         this.set('cmi.score.scaled',0);
         this.set('cmi.score.raw',0);
         this.set('cmi.score.min',0);
-        this.set('cmi.score.max',exam.mark);
         this.questionIndices = {};
         this.partIndices = {};
     },
@@ -44681,6 +43086,7 @@ SCORMStorage.prototype = /** @lends Numbas.storage.SCORMStorage.prototype */ {
             this.initQuestion(this.exam.questionList[i]);
         }
         this.setSuspendData();
+        this.set('cmi.score.max', this.exam.mark);
     },
 
     /** Initialise a question - make an objective for it, and initialise all its parts.
@@ -45426,7 +43832,7 @@ Copyright 2011-14 Newcastle University
 */
 /** @file Start the exam */
 // 'base' gives the third-party libraries on which Numbas depends
-Numbas.queueScript('base',['jquery','localisation','seedrandom','knockout','sarissa'],function() {
+Numbas.queueScript('base',['jquery','localisation','seedrandom','knockout'],function() {
 });
 Numbas.queueScript('start-exam',['base','util', 'exam','settings'],function() {
     for(var name in Numbas.custom_part_types) {
@@ -48397,7 +46803,7 @@ if (!Date.prototype.toISOString) {
 });
 ;
 /*
-Copyright 2011-14 Newcastle University
+Copyright 2011-25 Newcastle University
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -48432,6 +46838,69 @@ Numbas.queueScript('xml',['base','jme'],function() {
  * @type {Object<XMLDocument>}
  */
 
+
+if(window.XMLDocument) {
+/**
+* Extends the XMLDocument to emulate IE's selectNodes.
+*
+* @param {string} xpath_selector - The XPath expression to use.
+* @param {Node} contextNode - The top node to match against.
+* @returns {Array.<Node>} - The nodes matching the XPath expression.
+*/
+window.XMLDocument.prototype.selectNodes = function(xpath_selector, contextNode){
+    var oResult = this.evaluate(
+        xpath_selector,
+        contextNode || this,
+        this.documentElement,
+        XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, 
+        null
+    );
+    var nodeList = new Array(oResult.snapshotLength);
+    for(var i=0; i<nodeList.length; i++){
+        nodeList[i] = oResult.snapshotItem(i);
+    }
+    return nodeList;
+}
+
+/**
+* Extends the XMLDocument to emulate IE's `selectSingleNode`.
+*
+* @param {string} xpath_selector - The XPath expression to use.
+* @param {Node} contextNode - this is for internal use only by the same method when called on Elements.
+* @returns {Node} - The first node matching the XPath expression.
+*/
+window.XMLDocument.prototype.selectSingleNode = function(xpath_selector, contextNode) {
+    return this.evaluate(
+        xpath_selector,
+        contextNode || this,
+        this.documentElement,
+        XPathResult.FIRST_ORDERED_NODE_TYPE, 
+        null
+    ).singleNodeValue;
+};
+
+
+/**
+* Extends the Element to emulate IE's selectNodes.
+* @param {string} xpath_selector - The XPath expression to use.
+* @returns {Array.<Node>} - The result of the XPath search.
+*/
+window.Element.prototype.selectNodes = function(xpath_selector){
+    return this.ownerDocument.selectNodes(xpath_selector, this);
+};
+
+
+/**
+* Extends the Element to emulate IE's `selectSingleNode`.
+*
+* @param {string} xpath_selector - The XPath expression to use.
+* @returns {Node} - The first node matching the XPath expression.
+*/
+window.Element.prototype.selectSingleNode = function(xpath_selector){
+    return this.ownerDocument.selectSingleNode(xpath_selector, this);
+};
+}
+
 /** @namespace Numbas.xml */
 var xml = Numbas.xml = {
     /** DOM parser to use to parse XML.
@@ -48458,14 +46927,13 @@ var xml = Numbas.xml = {
     loadXML: function(xmlstring)
     {
         //parse the XML document
-        var doc = xml.dp.parseFromString(xmlstring,'text/xml');
+        const parser = new DOMParser();
+        var doc = parser.parseFromString(xmlstring,'text/xml');
         //check for errors
-        if(Sarissa.getParseErrorText(doc) != Sarissa.PARSED_OK)
-        {
-            throw(new Numbas.Error('xml.could not load',{message: Numbas.util.escapeHTML(Sarissa.getParseErrorText(doc))}));
+        const errorNode = doc.querySelector("parsererror");
+        if (errorNode) {
+            throw(new Numbas.Error('xml.could not load',{message: Numbas.util.escapeHTML(errorNode.textContent)}));
         }
-        //allow XPath to be used to select nodes
-        doc.setProperty('SelectionLanguage','XPath');
         //convert all the attribute names to lower case
         var es = doc.selectNodes('descendant::*');
         for(var i=0; i<es.length; i++)
@@ -48673,33 +47141,26 @@ var xml = Numbas.xml = {
             $(this).replaceWith(localString);
         });
         return template;
-     },
-     /** Transform an XML node using the given XSL template, returning a string representation of the transformed XML.
-      *
-      * @param {Element} template
-      * @param {Element} xml
-      * @returns {string}
-      */
-     transform: function(template,xml) {
-         /** Is the browser Internet Explorer?
-          *
-          * @returns {boolean}
-          */
-         function isIE() {
-             var ua = window.navigator.userAgent; //Check the userAgent property of the window.navigator object
-             var msie = ua.indexOf('MSIE '); // IE 10 or older
-             var trident = ua.indexOf('Trident/'); //IE 11
- 
-             return (msie > 0 || trident > 0);
-         }
-         var r;
-         if(!isIE()) {
-             r = $.xsl.transform(template,xml);
-         } else {
-             var s = xml.transformNode(template);
-             r = {string: s, error: ''};
-         }
-         return r.string;
+    },
+    /** Transform an XML node using the given XSL template, returning a string representation of the transformed XML.
+     *
+     * @param {Element} template
+     * @param {Element} xml
+     * @returns {string}
+     */
+    transform: function(template,xml) {
+        const container = xml.ownerDocument.createElement('container');
+        xml = xml.cloneNode(true);
+        container.append(xml);
+
+        const processor = new XSLTProcessor();
+        processor.importStylesheet(template);
+        const doc = processor.transformToDocument(container);
+        const serializer = new XMLSerializer();
+
+        const string = serializer.serializeToString(doc);
+
+        return string;
     },
     /** Is the given node empty? True if it has no children.
      *
@@ -48723,6 +47184,6 @@ Numbas.queueScript('settings',['extensions/geogebra/geogebra.js', 'extensions/li
 		part: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\nCopyright 2011-16 Newcastle University\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n       http://www.apache.org/licenses/LICENSE-2.0\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n-->\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n    <xsl:output method=\"html\" version=\"5.0\" encoding=\"UTF-8\" standalone=\"yes\" indent=\"yes\" media-type=\"text/html\" omit-xml-declaration=\"yes\"/>\n    <xsl:strip-space elements=\"p\"/>\n    <xsl:template match=\"content\">\n        <xsl:apply-templates select=\"*\" mode=\"content\" />\n    </xsl:template>\n\n    <xsl:template match=\"@*|node()\" mode=\"content\">\n        <xsl:copy>\n            <xsl:apply-templates select=\"@*|node()\" mode=\"content\" />\n        </xsl:copy>\n    </xsl:template>\n\n    <xsl:template match=\"no-paragraph\">\n        <xsl:apply-templates select=\"*\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <!-- the `no-paragraph` mode strips block-level tags which would be invalid, such as inside a <span> or <option> tag. -->\n\n    <xsl:template match=\"content\" mode=\"no-paragraph\">\n        <xsl:apply-templates select=\"*\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <!-- block-level tags; list from https://www.w3.org/TR/html4/sgml/dtd.html#block -->\n    <xsl:template match=\"p|div|h1|h2|h3|h4|h5|h6|pre|dl|blockquote|form|hr|table|fieldset|address\" mode=\"no-paragraph\">\n        <xsl:apply-templates select=\"@*|node()\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <xsl:template match=\"@*|node()\" mode=\"no-paragraph\">\n        <xsl:copy>\n            <xsl:apply-templates select=\"@*|node()\" mode=\"no-paragraph\" />\n        </xsl:copy>\n    </xsl:template>\n\n    \n<xsl:template match=\"steps\">\n    <div class=\"steps well clearfix\" data-bind=\"visible: stepsOpen\">\n        <xsl:apply-templates select=\"part\"/>\n    </div>\n    <div class=\"stepsBtn\">\n        <button class=\"btn btn-primary\" data-bind=\"visible: !stepsOpen(), click: controls.showSteps\"><localise>question.show steps</localise></button>\n        <button class=\"btn btn-primary\" data-bind=\"visible: stepsOpen(), click: controls.hideSteps\"><localise>question.hide steps</localise></button>\n        <span class=\"help-block hint penaltyMessage\">(<span data-bind=\"html: stepsPenaltyMessage\"></span>)</span>\n    </div>\n</xsl:template>\n\n    \n<xsl:template match=\"prompt\">\n    <span class=\"prompt content-area\" localise-data-jme-context-description=\"part.prompt\">\n        <xsl:apply-templates />\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part\">\n    <xsl:variable name=\"inline\">\n        <xsl:choose>\n            <xsl:when test=\"@isgap='true' and @type='1_n_2' and choices/@displaytype='dropdownlist'\"><xsl:text>true</xsl:text></xsl:when>\n            <xsl:when test=\"@isgap='true' and not (choices)\"><xsl:text>true</xsl:text></xsl:when>\n            <xsl:otherwise><xsl:text>false</xsl:text></xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"tag\">\n        <xsl:choose>\n            <xsl:when test=\"$inline='true'\">span</xsl:when>\n            <xsl:otherwise>section</xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"clear\">\n        <xsl:choose>\n            <xsl:when test=\"@isgap='true'\"></xsl:when>\n            <xsl:otherwise><xsl:text>clearfix</xsl:text></xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"block\">\n        <xsl:choose>\n        <xsl:when test=\"@type='m_n_2' or @type='m_n_x'\"><xsl:text> block</xsl:text></xsl:when>\n            <xsl:when test=\"@type='1_n_2' and @displaytype='radiogroup'\"><xsl:text> block</xsl:text></xsl:when>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:element name=\"{$tag}\">\n        <xsl:attribute name=\"class\">part <xsl:value-of select=\"$clear\"/> type-<xsl:value-of select=\"@type\"/> <xsl:value-of select=\"$block\"/><xsl:if test=\"parent::steps\"> step</xsl:if><xsl:if test=\"parent::gaps\"> gap</xsl:if></xsl:attribute>\n        <xsl:attribute name=\"data-bind\">with: question.display.getPart('<xsl:value-of select=\"@path\" />'), visible: question.display.getPart('<xsl:value-of select=\"@path\" />').visible, css: {dirty: question.display.getPart('<xsl:value-of select=\"@path\" />').isDirty, 'has-name': question.display.getPart('<xsl:value-of select=\"@path\" />').showName(), answered: answered(), dirty: isDirty(), 'has-feedback-messages': hasFeedbackMessages()}, event: event_handlers</xsl:attribute>\n        <xsl:attribute name=\"data-part-path\"><xsl:value-of select=\"@path\" /></xsl:attribute>\n        <xsl:attribute name=\"data-jme-context-description\"><xsl:value-of select=\"@jme-context-description\" /></xsl:attribute>\n        <xsl:if test=\"$inline='false'\"><h3 class=\"partheader\" data-bind=\"visible: showName(), latex: name\"></h3></xsl:if>\n        <xsl:if test=\"not(ancestor::gaps)\">\n            <xsl:apply-templates select=\"prompt\" />\n        </xsl:if>\n        <xsl:if test=\"count(steps/part)>0\">\n            <xsl:apply-templates select=\"steps\"/>\n        </xsl:if>\n        <span class=\"student-answer\">\n            <xsl:attribute name=\"data-bind\">css: {answered: scoreFeedback.answered, 'has-warnings': hasWarnings}, attr: {\"feedback-state\": scoreFeedback.state}</xsl:attribute>\n            <xsl:apply-templates select=\".\" mode=\"typespecific\"/>\n            <span class=\"warnings alert alert-warning\" aria-live=\"assertive\" role=\"alert\" data-bind=\"visible: warningsShown, css: {{shown: warningsShown}}, attr: {{id: part.full_path+'-warnings'}}\">\n                <xsl:comment>ko foreach: warnings</xsl:comment>\n                <span class=\"warning\" data-bind=\"latex: message\"></span>\n                <xsl:comment>/ko</xsl:comment>\n            </span>\n        </span>\n        <xsl:apply-templates select=\".\" mode=\"correctanswer\"/>\n        <xsl:if test=\"not(ancestor::gaps)\">\n            <div class=\"submit-and-feedback\" data-bind=\"visible: doesMarking, css: {{changed: changedFeedback()}}\">\n                <button class=\"btn btn-primary submitPart\" data-bind=\"visible: showSubmitPart, click: controls.submit, text: isDirty() || !scoreFeedback.answered() ? R('question.submit part') : R('question.answer saved')\"><localise>question.submit part</localise></button>\n                <div class=\"partFeedback\" data-bind=\"visible: showFeedbackBox()\">\n                    <div class=\"marks\" data-bind=\"pulse: scoreFeedback.update, visible: showMarks()\">\n                        <span class=\"score\" data-bind=\"html: scoreFeedback.message\"></span>\n                        <span class=\"feedback-icon\" data-bind=\"visible: scoreFeedback.iconClass, css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n                    </div>\n                </div>\n                <details class=\"feedbackMessages\" role=\"log\" aria-live=\"polite\" data-bind=\"pulse: scoreFeedback.update, open: feedbackShown, css: {{changed: changedFeedback()}}\" localise-data-jme-context-description=\"part.feedback\">\n                    <summary data-bind=\"visible: isNotOnlyPart\">\n                        <p class=\"sr-only\" data-bind=\"visible: isNotOnlyPart, text: feedback_title\"></p>\n                        <span data-bind=\"text: feedbackToggleText\"></span><span class=\"sr-only\">.</span>\n                        <span class=\"sr-only\" data-bind=\"visible: changedFeedback\"><localise>part.there is new feedback</localise></span>\n                    </summary>\n                    <p class=\"out-of-date-message\" data-bind=\"visible: isDirty\"><localise>part.feedback out of date</localise></p>\n                    <ol data-bind=\"visible: shownFeedbackMessages().length, foreach: shownFeedbackMessages\">\n                        <li class=\"feedbackMessage\" data-bind=\"attr: {{'data-credit-change': credit_change}}\">\n                            <span data-bind=\"visible: $parent.showFeedbackIcon, css: 'feedback-icon '+icon\" aria-hidden=\"true\"></span> \n\n                            <span class=\"message\">\n                                <xsl:comment>ko if: format=='html'</xsl:comment>\n                                    <span data-bind=\"dom: message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n\n                                <xsl:comment>ko if: format=='string'</xsl:comment>\n                                    <span data-bind=\"latex: message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n\n                                <xsl:comment>ko if: $parent.scoreFeedback.showActualMark() &amp;&amp; credit_message</xsl:comment>\n                                    <xsl:text> </xsl:text>\n                                    <span data-bind=\"dom: credit_message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n                            </span>\n                        </li>\n                    </ol>\n                </details>\n            </div>\n            <div class=\"next-parts\" data-bind=\"visible: showNextParts\">\n                <p>\n                    <span class=\"what-next\" data-bind=\"text: whatNextMessage\"></span>\n                </p>\n                <button class=\"btn btn-link\" type=\"button\" data-bind=\"visible: part.settings.suggestGoingBack, click: question.display.goToPreviousPart\">⤺ <localise>question.back to previous part</localise></button>\n                <ul data-bind=\"foreach: nextParts\">\n                    <li class=\"next-part\">\n                        <button class=\"btn btn-primary next-part-option\" type=\"button\" data-bind=\"click: select, css: {{made: made}}, disable: $parent.isDirty\">\n                            <span data-bind=\"latex: label\"></span>\n                            <span class=\"hint\" data-bind=\"visible: lockAfterLeaving\"> <localise>part.choose next part.will be locked</localise></span>\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            <div class=\"dead-end\" data-bind=\"visible: reachedDeadEnd\">\n                <p><localise>part.reached dead end</localise></p>\n            </div>\n        </xsl:if>\n    </xsl:element>\n</xsl:template>\n<xsl:template match=\"part\" mode=\"typespecific\">\n    <localise>question.unsupported part type</localise> <xsl:text> </xsl:text> <xsl:value-of select=\"@type\"/>\n</xsl:template>\n<xsl:template match=\"part\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='1_n_2']\" mode=\"typespecific\">\n    <xsl:apply-templates select=\"choices\" mode=\"one\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='1_n_2']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <xsl:apply-templates select=\"choices\" mode=\"correctanswer\"/>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='m_n_2']\" mode=\"typespecific\">\n    <xsl:apply-templates select=\"choices\" mode=\"one\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='m_n_2']\" mode=\"correctanswer\">\n    <div class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <xsl:apply-templates select=\"choices\" mode=\"correctanswer\"/>\n    </div>\n</xsl:template>\n\n    \n<xsl:template match=\"choices\" mode=\"one\">\n    <xsl:variable name=\"displaytype\"><xsl:value-of select=\"@displaytype\"/></xsl:variable>\n    <span localise-data-jme-context-description=\"part.mcq.choices\">\n    <xsl:choose>\n        <xsl:when test=\"@displaytype='radiogroup'\">\n            <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <ul class=\"multiplechoice radiogroup\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}, css: {{'show-cell-answer-state': showCellAnswerState, 'columns': displayColumns}}\">\n                    <xsl:variable name=\"cols\" select=\"@displaycolumns\"/>\n                    <xsl:if test=\"$cols>0\"> \n                        <xsl:attribute name=\"style\">grid-template-columns: repeat(<xsl:number value=\"$cols\"/>,auto);</xsl:attribute>\n                    </xsl:if>\n                    <xsl:apply-templates select=\"choice\" mode=\"radiogroup\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='checkbox'\">\n            <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <ul class=\"multiplechoice checkbox\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}, css: {{'show-cell-answer-state': showCellAnswerState, 'columns': displayColumns}}\">\n                    <xsl:variable name=\"cols\" select=\"@displaycolumns\"/>\n                    <xsl:if test=\"$cols>0\"> \n                        <xsl:attribute name=\"style\">grid-template-columns: repeat(<xsl:number value=\"$cols\"/>,auto);</xsl:attribute>\n                    </xsl:if>\n                    <xsl:apply-templates select=\"choice\" mode=\"checkbox\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='dropdownlist'\">\n            <select class=\"multiplechoice dropdownlist screen-only\" data-bind=\"event: inputEvents, value: studentAnswer, disable: disabled, reorder_list: {{order: part.shuffleAnswers, leaders: 1}}, css: {{'show-cell-answer-state': showCellAnswerState}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\">\n                <option value=\"\"></option>\n                <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-screen\"/>\n            </select>\n            <span class=\"multiplechoice dropdownlist print-only\" data-bind=\"value: studentAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 0}}, css: {{'show-cell-answer-state': showCellAnswerState}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\">\n                <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-print\"/>\n            </span>\n        </xsl:when>\n    </xsl:choose>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choices\" mode=\"correctanswer\">\n    <xsl:variable name=\"displaytype\"><xsl:value-of select=\"@displaytype\"/></xsl:variable>\n    <span>\n    <xsl:choose>\n        <xsl:when test=\"@displaytype='radiogroup'\">\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\">\n                <legend><localise>part.correct answer</localise></legend>\n                <ul class=\"multiplechoice radiogroup\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}\">\n                    <xsl:apply-templates select=\"choice\" mode=\"radiogroup-correctanswer\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='checkbox'\">\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\">\n                <legend><localise>part.correct answer</localise></legend>\n                <ul class=\"multiplechoice checkbox\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}\">\n                    <xsl:apply-templates select=\"choice\" mode=\"checkbox-correctanswer\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='dropdownlist'\">\n            <label>\n                <localise>part.correct answer</localise>\n                <select class=\"multiplechoice screen-only\" data-bind=\"value: correctAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 1}}, attr: {{id: part.full_path+'-expected-input'}}\" disabled=\"true\">\n                    <option value=\"\"></option>\n                    <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-correctanswer-screen\"/>\n                </select>\n                <span class=\"multiplechoice dropdownlist print-only\" data-bind=\"value: correctAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 0}}, attr: {{id: part.full_path+'-expected-input'}}\" disabled=\"true\">\n                    <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-correctanswer-print\"/>\n                </span>\n            </label>\n        </xsl:when>\n    </xsl:choose>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"radiogroup\">\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <xsl:attribute name=\"data-bind\">css: {checked: studentAnswer()==<xsl:value-of select=\"$choicenum\"/>, correct: studentAnswer()==<xsl:value-of select=\"$choicenum\"/> &amp;&amp; correctAnswer()==<xsl:value-of select=\"$choicenum\"/>}</xsl:attribute>\n        <label>\n            <input type=\"radio\" class=\"choice\" data-bind=\"event: inputEvents, checked: studentAnswer, disable: disabled, attr: {{name: part.path+'-choice'}}\" value=\"{$choicenum}\"/>\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"radiogroup-correctanswer\">\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <label>\n            <input type=\"radio\" class=\"choice\" data-bind=\"checked: correctAnswer()+'', attr: {{name: part.path+'-correctanswer'}}\" disabled=\"true\" value=\"{$choicenum}\"/>\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"checkbox\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <xsl:attribute name=\"data-bind\">css: {checked: ticks[<xsl:value-of select=\"$choicenum\"/>], correct: ticks[<xsl:value-of select=\"$choicenum\"/>] &amp;&amp; correctTicks()[<xsl:value-of select=\"$choicenum\"/>]}</xsl:attribute>\n        <label>\n            <input type=\"checkbox\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$choicenum}], disable: disabled, attr: {{name: part.path+'-choice'}}\" />\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"checkbox-correctanswer\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <label>\n            <input type=\"checkbox\" class=\"choice\" name=\"choice\" data-bind=\"checked: correctTicks()[{$choicenum}], attr: {{name: part.path+'-correctanswer'}}\" disabled=\"true\" />\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-screen\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <option value=\"{$choicenum}\">\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\" />\n    </option>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-correctanswer-screen\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <option value=\"{$choicenum}\">\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\" />\n    </option>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-print\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <span class=\"dropdownlist-option\" value=\"{$choicenum}\">\n        <xsl:attribute name=\"data-bind\">css: {'checked': studentAnswer()===\"<xsl:value-of select=\"$choicenum\"/>\"}</xsl:attribute>\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\"/>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-correctanswer-print\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <span class=\"dropdownlist-option\" value=\"{$choicenum}\">\n        <xsl:attribute name=\"data-bind\">css: {'checked': correctAnswer()===\"<xsl:value-of select=\"$choicenum\"/>\"}</xsl:attribute>\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\"/>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"distractor\">\n    <span><xsl:apply-templates /></span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='m_n_x']\" mode=\"typespecific\">\n    <xsl:variable name=\"displaytype\" select=\"choices/@displaytype\"/>\n    <form autocomplete=\"off\">\n        <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n            <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n            <table class=\"choices-grid\" data-bind=\"reorder_table: {{rows: part.shuffleChoices, columns: part.shuffleAnswers, leaders: 1}}, css: {{'show-cell-answer-state': showCellAnswerState}}\">\n                <thead localise-data-jme-context-description=\"part.mcq.answers\">\n                    <td/>\n                    <xsl:for-each select=\"answers/answer\">\n                        <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n                        <th data-bind=\"attr: {{id: part.full_path+'-answer-{$answernum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n                    </xsl:for-each>\n                </thead>\n                <tbody>\n                    <xsl:for-each select=\"choices/choice\">\n                        <xsl:apply-templates select=\".\" mode=\"m_n_x\">\n                            <xsl:with-param name=\"displaytype\" select=\"$displaytype\"/>\n                        </xsl:apply-templates>\n                    </xsl:for-each>\n                </tbody>\n            </table>\n        </fieldset>\n    </form>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='m_n_x']\" mode=\"correctanswer\">\n    <xsl:variable name=\"displaytype\" select=\"choices/@displaytype\"/>\n    <div class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <form autocomplete=\"off\">\n            <legend><localise>part.correct answer</localise></legend>\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-correct-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <table class=\"choices-grid\" data-bind=\"reorder_table: {{rows: part.shuffleChoices, columns: part.shuffleAnswers, leaders: 1}}\">\n                    <thead>\n                        <td/>\n                        <xsl:for-each select=\"answers/answer\">\n                            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n                            <th data-bind=\"attr: {{id: part.full_path+'-expected-answer-{$answernum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n                        </xsl:for-each>\n                    </thead>\n                    <tbody>\n                        <xsl:for-each select=\"choices/choice\">\n                            <xsl:apply-templates select=\".\" mode=\"m_n_x-correctanswer\">\n                                <xsl:with-param name=\"displaytype\" select=\"$displaytype\"/>\n                            </xsl:apply-templates>\n                        </xsl:for-each>\n                    </tbody>\n                </table>\n            </fieldset>\n        </form>\n    </div>\n</xsl:template>\n<xsl:template match=\"choice\" mode=\"m_n_x\">\n    <xsl:param name=\"displaytype\"/>\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"answers\" select=\"../../answers\"/>\n    <xsl:variable name=\"choicenum\" select=\"count(preceding-sibling::choice)\"/>\n    <tr>\n        <th class=\"choice\" data-bind=\"attr: {{id: part.full_path+'-choice-{$choicenum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n        <xsl:for-each select=\"$answers/answer\">\n            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n            <td class=\"option\">\n                <xsl:attribute name=\"data-bind\">css: tickFeedback()[<xsl:value-of select=\"$answernum\"/>][<xsl:value-of select=\"$choicenum\"/>]</xsl:attribute>\n                <label>\n                <xsl:choose>\n                    <xsl:when test=\"$displaytype='checkbox'\">\n                        <input type=\"checkbox\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$answernum}][{$choicenum}], disable: disabled, visible: layout[{$answernum}][{$choicenum}], attr: {{name: part.full_path+'-choice-{$choicenum}', 'aria-labelledby': part.full_path+'-choice-{$choicenum} '+part.full_path+'-answer-{$answernum}'}}\" />\n                    </xsl:when>\n                    <xsl:when test=\"$displaytype='radiogroup'\">\n                        <input type=\"radio\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$choicenum}], disable: disabled, visible: layout[{$answernum}][{$choicenum}], attr: {{name: part.path+'-choice-'+{$choicenum}, 'aria-labelledby': part.full_path+'-choice-{$choicenum} '+part.full_path+'-answer-{$answernum}'}}\" value=\"{$answernum}\"/>\n                    </xsl:when>\n                </xsl:choose>\n                </label>\n            </td>\n        </xsl:for-each>\n    </tr>\n</xsl:template>\n<xsl:template match=\"choice\" mode=\"m_n_x-correctanswer\">\n    <xsl:param name=\"displaytype\"/>\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"answers\" select=\"../../answers\"/>\n    <xsl:variable name=\"choicenum\" select=\"count(preceding-sibling::choice)\"/>\n    <tr>\n        <th class=\"choice\" data-bind=\"attr: {{id: part.full_path+'-expected-choice-{$choicenum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n        <xsl:for-each select=\"$answers/answer\">\n            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n            <td class=\"option\">\n                <xsl:choose>\n                    <xsl:when test=\"$displaytype='checkbox'\">\n                        <input type=\"checkbox\" class=\"choice\" data-bind=\"checked: correctTicks()[{$answernum}][{$choicenum}], visible: layout[{$answernum}][{$choicenum}], disable: true, attr: {{name: part.path+'-choice-{$choicenum}-correctanswer', 'aria-labelledby': part.full_path+'-expected-choice-{$choicenum} '+part.full_path+'-expected-answer-{$answernum}'}}\" disabled=\"true\"/>\n                    </xsl:when>\n                    <xsl:when test=\"$displaytype='radiogroup'\">\n                        <input type=\"radio\" class=\"choice\" data-bind=\"checked: correctTicks()[{$choicenum}]+'', visible: layout[{$answernum}][{$choicenum}], disable: true, attr: {{name: part.path+'-choice-'+{$choicenum}+'-correctanswer', 'aria-labelledby': part.full_path+'-expected-choice-{$choicenum} '+part.full_path+'-expected-answer-{$answernum}'}}\" disabled=\"true\" value=\"{$answernum}\"/>\n                    </xsl:when>\n                </xsl:choose>\n            </td>\n        </xsl:for-each>\n    </tr>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='patternmatch']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" class=\"patternmatch\" size=\"12.5\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='patternmatch']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"patternmatch\" data-bind=\"value: displayAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='gapfill']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='gapfill']\" mode=\"correctanswer\">\n</xsl:template>\n<xsl:template match=\"gapfill\" mode=\"content\">\n    <xsl:variable name=\"n\"><xsl:value-of select=\"@reference\"/></xsl:variable>\n    <xsl:apply-templates select=\"ancestor::part[1]/gaps/part[$n+1]\" />\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='jme']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" class=\"jme\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n    <span class=\"jme-preview\" data-bind=\"visible: showPreview &amp;&amp; studentAnswerLaTeX()\">\n        <span class=\"sr-only\"><localise>jme.interpreted as</localise></span>\n        <output aria-live=\"polite\" data-bind=\"attr: {{for: part.full_path+'-input'}}, maths: showPreview ? '\\\\displaystyle{{'+studentAnswerLaTeX()+'}}' : '', click: focusInput\"></output>\n    </span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='jme']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"jme\" data-bind=\"value: correctAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n            <span class=\"jme-preview\">\n                <span class=\"sr-only\"><localise>jme.interpreted as</localise></span>\n                <output aria-live=\"polite\" data-bind=\"attr: {{for: part.full_path+'-correct-input'}}, maths: '\\\\displaystyle{{'+correctAnswerLaTeX()+'}}'\"></output>\n            </span>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='numberentry']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" step=\"{answer/inputstep/@value}\" class=\"numberentry\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, css: {{'has-error': warningsShown}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n    <span class=\"preview\" data-bind=\"visible: showPreview &amp;&amp; studentAnswerLaTeX(), maths: showPreview ? studentAnswerLaTeX() : '', click: focusInput\"></span>\n    <span class=\"help-block hint precision-hint\" data-bind=\"visible: showInputHint, html: inputHint\"></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='numberentry']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"jme\" data-bind=\"value: correctAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='matrix']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <span><matrix-input data-bind=\"attr: {{id: part.full_path+'-input'}}\" params=\"rows: studentAnswerRows, columns: studentAnswerColumns, prefilledCells: prefilledCells, value: studentAnswer, allowResize: allowResize, minColumns: minColumns, maxColumns: maxColumns, minRows: minRows, maxRows: maxRows, disable: disabled, events: inputEvents, title: input_title\"></matrix-input></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='matrix']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <span><matrix-input data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\" params=\"rows: correctAnswerRows, columns: correctAnswerColumns, prefilledCells: prefilledCells, value: correctAnswer, allowResize: false, disable: true\"></matrix-input></span>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='information']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='information']\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='extension']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='extension']\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@custom='true']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <span data-bind=\"event: inputEvents, component: {{name: 'answer-widget', params: {{answer: studentAnswer, widget: input_widget, widget_options: input_options, part: part, disable: disabled, events: part.display.inputEvents, title: input_title, id: part.full_path}}}}\"></span>\n    <span class=\"help-block hint\" data-bind=\"visible: input_options.hint, html: input_options.hint, typeset: input_options.hint\"></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@custom='true']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <span data-bind=\"component: {{name: 'answer-widget', params: {{answer: correctAnswer, widget: input_widget, widget_options: input_options, part: part, disable: true, id: part.full_path+'-expected'}}}}\"></span>\n        </label>\n    </span>\n</xsl:template>\n\n</xsl:stylesheet>"
         },
 
-        examXML: "<exam name=\"Chapter 8 Exercises\" percentPass=\"0%\" allowPrinting=\"True\"><settings><navigation allowregen=\"True\" navigatemode=\"menu\" reverse=\"True\" browse=\"True\" allowsteps=\"True\" showfrontpage=\"False\" preventleave=\"False\" typeendtoleave=\"False\" startpassword=\"\" allowAttemptDownload=\"False\" downloadEncryptionKey=\"\" autoSubmit=\"True\"><event type=\"onleave\" action=\"none\"><content><span /></content></event></navigation><timing duration=\"0\" allowPause=\"True\"><event type=\"timeout\" action=\"none\"><content><span /></content></event><event type=\"timedwarning\" action=\"none\"><content><span /></content></event></timing><feedback enterreviewmodeimmediately=\"True\" showactualmarkwhen=\"always\" showtotalmarkwhen=\"always\" showanswerstatewhen=\"always\" showpartfeedbackmessageswhen=\"always\" allowrevealanswer=\"True\" showstudentname=\"True\" showexpectedanswerswhen=\"inreview\" showadvicewhen=\"inreview\"><intro><content><span /></content></intro><end_message><content><span /></content></end_message><results_options printquestions=\"True\" printadvice=\"True\" /><feedbackmessages /></feedback><rulesets /><diagnostic><algorithm script=\"diagnosys\" /></diagnostic></settings><functions /><variables /><question_groups showQuestionGroupNames=\"True\" shuffleQuestionGroups=\"False\"><question_group name=\"Internal Forces\" pickingStrategy=\"all-ordered\" pickQuestions=\"1\"><questions><question name=\"Internal force: overhanging beam\" customName=\"Distributed Load\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>{applet(500,215,false)}</p>\n<p style=\"padding: 3px;\">The beam shown supports a<span data-jme-visible=\"Wa=Wb\"> uniformly distributed load of $w$ = {Wa}.</span><span data-jme-visible=\"Wa&lt;&gt;Wb\"> load that varies uniformly from {Wa} at the left end to {Wb} at the right end.</span> </p>\n<p style=\"padding-left: 30px;\">The lengths of the beam segments are $d_1$ = {display(d_1)}, $d_2$ = {display(d_2)}, and $d_3$ = {display(d_3)}.</p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the reactions at pin $A$ and roller $C$.  Let positive values indicate upward forces.</p>\n<p>$A$ = <gapfill reference=\"0\" /> <span data-jme-visible=\"debug\">{display(FA)}</span></p>\n<p>$C$ = <gapfill reference=\"1\" /> <span data-jme-visible=\"debug\">{display(FC)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$F_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FA&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_C$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FC&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Internal Load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the internal shear and bending moment at a section passing through point $D$. Use the standard convention for the meaning of positive shears and bending moments. </p>\n<p>$V_D$  = <gapfill reference=\"0\" /> <span data-jme-visible=\"debug\">{display(FV)}</span></p>\n<p>$M_D$ = <gapfill reference=\"1\" /> <span data-jme-visible=\"debug\">{display(M_D)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V$\" type=\"engineering-answer\" marks=\"15.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FV&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_D$\" type=\"engineering-answer\" marks=\"15.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;M_D&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p><strong>1.</strong> <strong>Draw a FBD of the entire beam and find reactions at <em>A</em> and <em>C</em>.</strong></p>\n<p style=\"padding-left: 30px;\">{applet(500,566,true)}</p>\n<p style=\"padding-left: 30px;\"><strong>a.  Replace distributed load with an equivalent concentrated load.</strong></p>\n<p style=\"padding-left: 30px;\">$W$ = {W_t},     $d$ = {display(dw)}</p>\n<p style=\"padding-left: 30px;\"><strong>b.  Apply equilibrium equations.</strong></p>\n<p style=\"padding-left: 30px;\">$\\begin{align} \\Sigma M_A &amp;= 0 &amp;  \\Sigma F_y &amp;=0 \\\\C \\cdot\\var{if(C[0]&lt;D[0],latex('d_1'),latex('(d_1+d_2)'))} &amp;=  W \\cdot d  &amp;  \\simplify{{if(scalar(FA)&lt;0,-1,1)} A} + C  &amp;= W = \\var{W_t}\\\\ C &amp;= \\var{display(FC)} \\uparrow &amp; A &amp;= \\var{display(abs(FA))}  \\var{if(F_A[1]&gt;0,latex('\\\\uparrow'),latex('\\\\downarrow'))}\\end{align}$</p>\n<p><strong>2. Draw a FBD of the portion of the beam between <em>A</em> and <em>D</em> and find the shear and bending moment.</strong></p>\n<p style=\"padding-left: 30px;\"><strong>a.  Determine the distributed load above point D.</strong></p>\n<p style=\"padding-left: 60px;\">Let $w_A$, $w_B$, and $w_D$ be the magnitude of the distributed load at points $A$, $B$, and $D$ respectively, and $L$ the length of the beam.</p>\n<p style=\"padding-left: 60px;\">Given: $w_A = \\var{wA},\\qquad w_B = \\var{wB}\\qquad L = (d_1 + d_2 + d_3) = \\var{L}$  </p>\n<p style=\"padding-left: 60px;\" data-jme-visible=\"wa=wb\">$w_D = \\var{display(wD)}$</p>\n<p style=\"padding-left: 60px;\" data-jme-visible=\"wa&lt;&gt;wb\">Using similar triangles:  $w_D = w_A + \\dfrac{\\var{if(C[0]&gt;D[0],latex('d_1'),latex('(d_1+d_2)'))}}{L} \\left( w_B - w_A \\right) = \\var{display(wD)}$</p>\n<p style=\"padding-left: 30px;\"><strong>b. Replace distributed load with an equivalent concentrated load.</strong></p>\n<p style=\"padding-left: 60px;\">$W'$ = {display(W_p)},     $d'$ = {display(dw')}</p>\n<p style=\"padding-left: 30px;\"><strong>c. Apply equilibrium equations.</strong></p>\n<p style=\"padding-left: 60px;\">Let $\\ell =  \\var{if(C[0]&gt;D[0],latex('d_1'),latex('d_1+d_2'))} = \\var{display(Dx)}\\text{, and} \\qquad d_\\perp = (\\ell - d') = \\var{display(Dx - dw')}$</p>\n<p style=\"padding-left: 60px;\">$\\begin{align} \\Sigma M_D &amp;= 0 &amp; \\Sigma F_y &amp;=0 \\\\ \\simplify{{if(scalar(FA)&lt;0,1,-1)} A} \\ell + W' d_\\perp \\var{if(Cx &lt; Dx, latex('+C d_2'),'')} + M_D&amp;= 0 &amp; \\simplify{{if(scalar(FA)&lt;0,-1,1)} A} \\var{if(Cx &lt; Dx, latex('+ C'),'')} - W' - V &amp;=0 \\\\ M_D &amp;= \\simplify{{if(scalar(FA)&gt;0,1,-1)} A} \\ell - W' d_\\perp \\var{if(Cx &lt; Dx, latex('C d_2'),'')} &amp; V &amp;= \\simplify{{if(scalar(FA)&lt;0,-1,1) }A} \\var{if(Cx &lt; Dx, latex('+ C'),'')} - W' \\\\ &amp;= \\var{display(M_D)} &amp; V &amp;= \\var{display(FV)} \\end{align}$</p>\n<p style=\"padding-left: 60px;\" />\n<p>=</p></span></content></advice><notes /><constants><builtin /><custom /></constants><variables condition=\"abs(C[0]-D[0])&gt;1 and  // not too close to each other&#10;w_a+w_b &lt;&gt; 0 and // must not both be zero = no load&#10;D[0] &gt; 2 // not too close to end\" maxRuns=\"100\"><variable name=\"F_Wt\"><value>vector(0,-scalar(W_t))</value></variable><variable name=\"L\"><value>qty(random(6,8,12,16,20,24),units[1])</value></variable><variable name=\"d_2\"><value>abs(Dx-Cx)</value></variable><variable name=\"units\"><value>random(['N','m'],['lb','ft'])</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"A\"><value>Vector(0,0)\n</value></variable><variable name=\"F_V\"><value>(F_A + F_Wp + if(C[0]&lt;D[0], F_C, vector(0,0)))</value></variable><variable name=\"F_Wp\"><value>vector(0,-scalar(W_p))</value></variable><variable name=\"Dx\"><value>D[0]/12 Bx</value></variable><variable name=\"Ax\"><value>qty(0,units[1])</value></variable><variable name=\"Bx\"><value>L</value></variable><variable name=\"h2\"><value>abs(W_a-W_b) Wmax</value></variable><variable name=\"FA\"><value>W_t * (Cx-dw) /Cx</value></variable><variable name=\"FC\"><value>W_t dw/Cx</value></variable><variable name=\"FV\"><value>FA - W_p + if(C[0]&lt;D[0],FC,qty(0, units[0]))</value></variable><variable name=\"w_B\"><value>random(0..2#0.5)</value></variable><variable name=\"W_p\"><value>(Wa + Wd)/2 Dx</value></variable><variable name=\"M_D\"><value>FA Dx - W_p * (Dx - dw') + if(Cx&lt;Dx,FC,qty(0,units[0])) d_2</value></variable><variable name=\"dw\"><value>(Wa / 6 + Wb  /3 ) L L /W_T</value></variable><variable name=\"W_t\"><value>(Wa + Wb)/2 L</value></variable><variable name=\"F_A\"><value>- (F_C + F_Wt)</value></variable><variable name=\"C\"><value>vector(random(2..10#2),0)</value></variable><variable name=\"Wmax\"><value>qty(random(100,200,400,500,800,1000),units[0] +\"/\" + units[1])</value></variable><variable name=\"h1\"><value>min(W_a,W_b) Wmax</value></variable><variable name=\"Wd\"><value>wA +  (wb-wa) * if(C[0]&gt;D[0],d_1, d_1+d_2) / L </value></variable><variable name=\"B\"><value>vector(12,0)\n</value></variable><variable name=\"w_A\"><value>random(0..2#0.5)</value></variable><variable name=\"Wb\"><value>Wmax w_b</value></variable><variable name=\"F_C\"><value>vector(0,scalar(FC))</value></variable><variable name=\"dw'\"><value>(Wa / 6 + Wd  /3 ) Dx Dx /W_p</value></variable><variable name=\"Cx\"><value>C[0]/12 Bx\n </value></variable><variable name=\"Wa\"><value>Wmax w_a</value></variable><variable name=\"D\"><value>vector(random(2..10#2),0)</value></variable><variable name=\"d_1\"><value>qty(min(scalar(Cx),scalar(Dx)),units[1])</value></variable><variable name=\"ggb_points\"><value>[\n  ['C',C],['D',D],['w_A',w_a],['w_B',w_b], ['fbd','false']\n]</value></variable><variable name=\"d_3\"><value>Bx-d_1-d_2</value></variable></variables><functions><function name=\"display\" outtype=\"string\" definition=\"string(siground(q,4))\" language=\"jme\"><parameters><parameter name=\"q\" type=\"quantity\" /></parameters></function><function name=\"applet\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'susdzdmr',&#10;  width: app_width,&#10;  height: app_height&#10;};&#10;//geogebra_applet('susdzdmr') old ggb file&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(false);&#10;  &#10;  function setGGBPoint(name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    var pt = question.scope.evaluate(name).value&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, pt[0], pt[1]);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  &#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  app.setValue('fbd',show_fbd);&#10;  app.setAxesVisible(false,false);&#10;  app.enableShiftDragZoom(false);&#10;  setGGBNumber(&quot;w_A&quot;);&#10;  setGGBNumber(&quot;w_B&quot;);&#10;  &#10; &#10;  &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters><parameter name=\"app_width\" type=\"number\" /><parameter name=\"app_height\" type=\"number\" /><parameter name=\"show_fbd\" type=\"boolean\" /></parameters></function><function name=\"showfbds\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'susdzdmr',&#10;  width: 500,&#10;  height: 500&#10;};&#10;//geogebra_applet('susdzdmr') old ggb file&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(false);&#10;  &#10;  function setGGBPoint(name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    var pt = question.scope.evaluate(name).value&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, pt[0], pt[1]);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  &#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  app.setValue('fbd',true);&#10;  app.setAxesVisible(false,false);&#10;  app.enableShiftDragZoom(false);&#10;  setGGBNumber(&quot;w_A&quot;);&#10;  setGGBNumber(&quot;w_B&quot;);&#10;  &#10; &#10;  &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\" /></preambles><rulesets /><objectives /><penalties /><tags><tag>bending moment</tag><tag>distributed load</tag><tag>internal forces</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question></questions></question_group><question_group name=\"Shear and Bending Moment Diagrams\" pickingStrategy=\"all-ordered\" pickQuestions=\"1\"><questions><question name=\"V-M 5: Symmetric parabolic loading\" customName=\"Symmetric parabolic loading\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p><span data-jme-visible=\"debug\">to do: use the show_curves(applet)  javascript function when Step 2 is shown to show V and M curves.  With the procedure shown in the steps, the advice section is redundant. Diagram sometimes doesn't load properly.  Need to change the ggb applet to the one contained in Arbitrary Parabolic Loading.</span></p>\n<p>A {qty(2b, units[0])} long, simply-supported beam is subjected to a symmetrical parabolic loading, where</p>\n<p>$w\\!(x) =\\simplify[fractionNumbers]{{w}}$    [{units[1]}/{units[0]}].</p>\n<p>{applet}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Load and Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the total weight supported by the beam and the reactions at $A$ and $B$.</p>\n<p>$W = $ <gapfill reference=\"0\" /></p>\n<p>$R_A =$ <gapfill reference=\"1\" /> $\\qquad R_B = $<gapfill reference=\"2\" /></p>\n<p><span data-jme-visible=\"debug\">$R_A = R_B =\\simplify[fractionNumbers]{{F_A}}$ =  {siground(qty(F_A,units[1]),4)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The total weight is found by integrating the loading function $w(x)$.  Positive values indicate a downward load.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}W &amp;= \\simplify{defint(w,x,0,L)}\\\\ &amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({w},x,0,{2b})}\\\\ &amp;= \\var{W_t}\\end{align}$</p>\n<p>By symmetry, the reactions are half the weight:</p>\n<p style=\"padding-left: 40px;\">$F_A = F_B = \\dfrac{W}{2}$.</p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$W$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(2 F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_A$\" type=\"engineering-answer\" marks=\"5.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_B$\" type=\"engineering-answer\" marks=\"5.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Shear and Bending Moment Functions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine expressions for:</p>\n<p>$V\\!(x) =$ <gapfill reference=\"0\" /></p>\n<p>$M\\!(x) =$ <gapfill reference=\"1\" /></p>\n<p>and then plot the shear and bending moment diagrams.</p>\n<p><span data-jme-visible=\"debug\">$V(x) = \\simplify[canonicalOrder,fractionNumbers]{{v}}$</span></p>\n<p><span data-jme-visible=\"debug\">$M(x) = \\simplify[canonicalOrder,fractionNumbers]{{m}}$</span></p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The shear function is found by integrating the loading function. The negative sign is because positive values of w(x) represent a load which points down.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}V(x) &amp;=  \\simplify{-defint(w,x,0,x)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({-w},x,0,L)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}}\\end{align}$</p>\n<p>The bending moment function is found by integrating the shear function.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}M(x) &amp;= \\simplify{defint(V,x,0,x)}\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({v},x,0,L)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{M}}\\end{align}$</p>\n<p>In both cases, the resulting constant of integration is determined by considering the values at $x=0$.</p>\n<p style=\"padding-left: 40px;\">$V(0) = F_A, \\text{ and } M(0) = 0$</p>\n<p />\n<p><button type=\"button\" onclick=\"Numbas.exam.currentQuestion.scope.variables.applet.app.setValue('showV',true);\">Show Shear Diagram</button>   <button type=\"button\" onclick=\"Numbas.exam.currentQuestion.scope.variables.applet.app.setValue('showM',true);\">Show Bending Moment Diagram</button></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts><script name=\"validate\" order=\"after\">{show_curves(applet)}</script></scripts><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"V(x)\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers\"><math>{expr(v)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part><part usecustomname=\"True\" customName=\"M(x)\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers\"><math>{expr(m)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum internal loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.  Use the standard sign convention for shear and bending moments.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p>\n<p><span data-jme-visible=\"debug\">$V_{max} = \\var{siground(qty(eval(v,0),units[1]),4)}$ </span></p>\n<p><span data-jme-visible=\"debug\">$M_{max} = \\var{siground(qty(eval(m,b),units[0]+\" \" + units[1]),4)}$</span></p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The maximum shear occurs at the ends, where $\\simplify{diff(V,x,1)} = -w(x) = 0$ i.e. at $x=0$, or $x=\\var{qty(2b,units[0])}$.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}V_{max} &amp;= V(0) \\\\ &amp;= \\var{siground(qty(F_A,units[1]),4)}\\end{align}$</p>\n<p>Maximum moment occurs at midpoint, where $\\simplify{diff(M,x,1)} = V = 0$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}M_{max} &amp;= M(\\var{b}) \\\\&amp;= \\var{siground(qty(eval(m,b),units[0] + ' ' + units[1]),4)}\\end{align}$</p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;siground(qty(F_A,units[1]),4)&quot;\" /><setting name=\"right\" value=\"&quot;0.5&quot;\" /><setting name=\"close\" value=\"&quot;1&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;siground(qty(eval(m,b),units[0] + ' ' + units[1]),4)&quot;\" /><setting name=\"right\" value=\"&quot;0.5&quot;\" /><setting name=\"close\" value=\"&quot;1&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>Given $w(x)$ and beam length $L$,</p>\n<p>1.  Find load $W= \\int_0^L w(x)\\; dx$</p>\n<p>2.  By symmetry, the reactions are half the load.  $ A = B = W/2$</p>\n<p>3.  Integrate $V(x) = \\int w(x)\\; dx$ to get the shear function.</p>\n<p style=\"padding-left: 30px;\">Maximum shear occurs at the ends, where $d V /d x = -w(x) = 0$</p>\n<p style=\"padding-left: 30px;\">$V_{max} = V(0)$</p>\n<p>4.  Integrate $M(x) = \\int V(x)\\; dx$ to get moment function.  </p>\n<p style=\"padding-left: 30px;\">Maximum moment occurs at midpoint, where $dM/dx = V = 0$</p>\n<p style=\"padding-left: 30px;\">$M_{max} = M(\\var{b})$</p>\n<p><em>Don't forget to evaluate the constant of integration when deriving the shear and bending moment functions.</em></p>\n<p />\n<p /></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_cA1Sig0.ggb' , ggb_params)\ngeogebra_applet('stsbvkgw',ggb_params)</value></variable><variable name=\"ggb_params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n A: [definition: vector(0,0), visible: false ],\n B: [definition: vector(2 b,0), visible: false], \n C: [definition: vector(b,h), visible: false], \n L: 2b,\n showV:[definition: 'false', visible: true],\n showM:[definition: 'false', visible: true],\n wscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/4))\"],\n vscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/3))\"],\n mscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/3))\"]\n]\n</value></variable><variable name=\"b\"><value>random(5..10)</value></variable><variable name=\"h\"><value>random([1,2,2.5,5,7.5,10])random([10,100])</value></variable><variable name=\"w\"><value>polynomial(x,[0,2 h/b,-h/(b^2)])</value></variable><variable name=\"F_A\"><value>rational(2/3 b h)</value></variable><variable name=\"v\"><value>polynomial(x,[ F_A,0, -h/b, h/(b^2)/3])</value></variable><variable name=\"m\"><value>polynomial(x,[0, F_A,0, -h/b/3, h/(b^2)/3/4])</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"w_t\"><value>siground(qty(2 F_A, units[1]),4)</value></variable></variables><functions><function name=\"show_curvesxxx\" outtype=\"anything\" definition=\"app.promise.then(function(d) {&#10;  d.app.setVisible(&quot;showV&quot;, true,false);&#10;  d.app.setVisible(&quot;showM&quot;, true,false);&#10;  d.app.setValue(&quot;showV&quot;,true);&#10;  d.app.setValue(&quot;showM&quot;,true);&#10;});&#10;return &quot;&quot;//new Numbas.jme.types.ggbapplet(app);&#10;\" language=\"javascript\"><parameters><parameter name=\"app\" type=\"ggbapplet\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"VM6: Uniformly distributed load\" customName=\"Uniformly distributed load\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A simply-supported beam of length $L = \\var {qty(beamlen, units[0])}$ supports a uniformly distributed loading of $\\var{show(qty(A[1], units[1]+\"/\"+units[0]))}$, as shown. Positive loading points down.  Sketch the shear and bending moment diagrams.</p>\n<p>{applet}</p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at the end suppports.  Use negative values to indicate downward forces.</p>\n<p>$R_A = $ <gapfill reference=\"0\" /> $\\qquad R_B=$ <gapfill reference=\"1\" /></p>\n<p>Determine the maximum bending moment.  Use the standard sign convention.</p>\n<p>$M_{max} = $<gapfill reference=\"2\" /></p>\n<p>Sketch the shear and bending moment diagrams.</p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$R_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$R_B$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_B,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(mmax, units[0]+\\&quot; \\&quot;+ units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>The total load $W$ is the area under the loading curve, in this case a rectagle so,</p>\n<p>$W = w L = (\\var{qty(A[1], units[1]+\"/\"+units[0])})(\\var{qty(beamLen,units[0])}) = \\var{show(qty(abs(load),units[1]))}\\ \\var{arrow(-A[1])}.$</p>\n<p>By symmetry and $\\sum F_y=0$, the reactions at $A$ and $B$ are equal to half the load and act in the opposite direction of the load.</p>\n<p>$R_A = R_B = \\dfrac{W}{2} = \\var{show(qty(abs(load/2),units[1]))}\\ \\var{arrow(A[1])}.$</p>\n<p>The shear diagram for a uniformly distributed load is linear.  It begins by jumping {if(R_A &gt; 0,'up','down')} by the concentrated load $R_A$ at the left end, then slopes {if(R_A &gt; 0,'down','up')} at a rate of $w = \\var{show(qty(-A[1], units[1]+\"/\"+units[0]))}$ until it reaches $R_B = \\var{show(qty(abs(load/2),units[1]))}$ at the left end.  From there it jumps {if(R_B &gt; 0,'up','down')} to return to $V=\\var{qty(0,units[1])}$.</p>\n<p>The moment diagram beneath a uniformly distributed load is parabolic, and since this load is symetrical over the entire length of the beam, the vertex of the parabola will be at the midpoint of the beam.  The beam reactions are vertical only, with no moment reactions at the ends so the moment curve should begin and end at zero with a maximum at the midpoint.  The maximum moment is equal to the 'area' under the shear curve from $x=0$ to $x = L/2$.  Since this 'area' is a triangle there is no need to actually integrate.</p>\n<p>$M_{max} = \\dfrac{1}{2} b h = \\dfrac{1}{2} \\left(\\dfrac{L}{2}\\right) R_A = \\var{show(qty(mmax, units[0]+\" \"+ units[1]))}$</p></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"load &lt;&gt; 0   // we really want the load to be non-zero&#10;\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(10..20#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"A\"><value>vector(0,random(-4..3) scale)</value></variable><variable name=\"B\"><value>vector(beamLen,A[1])</value></variable><variable name=\"C\"><value>vector(beamLen/2,(A[1]+B[1])/2)</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_W8fZxNa.ggb',params)\ngeogebra_applet('nksgmn8t',params)</value></variable><variable name=\"params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n  showV: [definition: \"false\",  visible: false],\n  showM: [definition: \"false\",  visible: false],\n  A: A, B: B, C: C,\n  L: beamlen,\n  wscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/1.5))'],\n  vscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/4))'],\n  mscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/4))']\n]\n\n</value></variable><variable name=\"matrix\"><value>reduced_row_echelon_form(matrix([[A[0]^2, A[0], 1, A[1]],\n  [B[0]^2, B[0], 1, B[1]],\n  [C[0]^2, C[0], 1, C[1]]]))</value></variable><variable name=\"w\"><value>polynomial(x,[matrix[2][3], matrix[1][3], matrix[0][3],0,0])</value></variable><variable name=\"v\"><value>-polynomial(x, [-R_A, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"m\"><value>polynomial(x,[ 0, v[0], v[1]/2, v[2]/3, v[3]/4])</value></variable><variable name=\"load\"><value>eval(intW,beamlen) - eval(intW,0)</value></variable><variable name=\"dQy\"><value>polynomial(x) w</value></variable><variable name=\"intdQy\"><value>polynomial(x, [0, dQy[0], dQy[1]/2, dQy[2]/3, dQy[3]/4])</value></variable><variable name=\"Qy\"><value>eval(intdqy,beamlen)</value></variable><variable name=\"xBar\"><value>Qy/load</value></variable><variable name=\"intW\"><value>polynomial(x, [0, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"R_B\"><value>xbar load / beamlen</value></variable><variable name=\"R_A\"><value>(beamlen-xbar) load/ beamlen</value></variable><variable name=\"check\"><value>withintolerance(R_A+R_B,load,10^10)</value></variable><variable name=\"roots\"><value>sort(\n  if(d&gt;=0, \n    filter(x&gt;=0 and x &lt;=beamlen,x,\n      let([a: w[2], b: w[1], c: w[0]], \n     [(-b + sqrt(d))/(2 a), (-b - sqrt(d))/(2 a)]\n)),[]) + [0,beamlen])</value></variable><variable name=\"d\"><value>w[1]^2 - 4 w[2] * w[0]</value></variable><variable name=\"v_extremes\"><value>map(vector(x,eval(v,x)),x,roots)</value></variable><variable name=\"v_max\"><value>foldl(if(abs(pt[1])&gt;abs(v[1]),pt,v),pt, v,  vector(0,0),v_extremes)</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"scale\"><value>random(10..200#10)</value></variable><variable name=\"direction\"><value>latex(if(A[1]&gt;0,\"\\\\downarrow\",\"\\\\uparrow\"))</value></variable><variable name=\"mmax\"><value>beamlen R_A /4</value></variable></variables><functions><function name=\"arrow\" outtype=\"anything\" definition=\"if(sign(F) &gt;= 0 ,latex(&quot;\\\\uparrow&quot;), latex(&quot;\\\\downarrow&quot;))\" language=\"jme\"><parameters><parameter name=\"F\" type=\"?\" /></parameters></function><function name=\"show\" outtype=\"anything\" definition=\"if(abs(if(type(A)=type(qty(1,'m')),scalar(A),A))&lt;1,&#10;  precround(A,4),siground(A,4))\" language=\"jme\"><parameters><parameter name=\"A\" type=\"?\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>mechanics</tag><tag>Mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>linear-algebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"V-M 5a: Arbitrary parabolic loading\" customName=\"Arbitrary parabolic loading \" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A simply-supported beam of length $L = \\var {qty(beamlen, units[0])}$ is subjected to a parabolic loading $w\\!(x)$ given by the function:</p>\n<p>$w\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{w}}$  [{units[1]} / {units[0]}]</p>\n<p>The shear and bending moment diagrams are also shown.</p>\n<p>{applet}</p>\n<p><span data-jme-visible=\"debug\">Started working on maximum shear and moment, but did not finish.  Need to solve a cubic equation by writing equation solver. I would like to turn the visibility of the curves on as a hint, but need a signal for that.  </span></p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at the end suppports.  Use negative values to indicate downward forces.</p>\n<p>$R_A = $ <gapfill reference=\"0\" /> $\\qquad R_B=$ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_B,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Shear Function\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Use integration to determine the equation of the shear function $V\\!(x) = \\int -w\\!(x) \\textrm{d} x$</p>\n<p><span data-jme-visible=\"debug\">$V\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{v}}$  = {string(v)}</span></p>\n<p>$V\\!(x) = $<gapfill reference=\"0\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V\\!(x)$\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers,canonicalOrder\"><math>{expr(v)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1.00000000000000\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Bending Moment\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Use integration to find the bending moment function $M(x) =\\int V\\!(x) \\textrm{d}x$.</p>\n<p><span data-jme-visible=\"debug\">$M\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{m}}$  = {string(m)}</span></p>\n<p>$M\\!(x) = $ <gapfill reference=\"0\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$M\\!(x)$\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers,canonicalOrder\"><math>{expr(m)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>Given $w(x)$ and beam length $L$,</p>\n<p>1.  Find load $W= \\int_0^L w(x)\\; dx$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align} W &amp; = \\int w\\!(x) \\text{d}x \\\\ &amp; = \\simplify[fractionNumbers,canonicalOrder]{defint({w}, x, 0, {beamlen})} \\\\ &amp;= \\left[\\simplify[fractionNumbers,canonicalOrder]{{intw}}+C_1 \\right]_0^\\var{beamlen}\\\\ &amp;= \\var{siground(qty(load,units[1]),5)} = \\var{siground(qty(abs(load),units[1]),5)}  \\var{arrow(-load)}\\end{align}$</p>\n<p>2.  Find $Q_y = \\int_0^L x w(x)\\;dx$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}  Q_y &amp;= \\int_0^L x\\ w\\!(x) \\text{d}x\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({dqy},x,0,L)}\\\\&amp; = \\left[\\simplify[fractionNumbers,canonicalOrder]{{intdqy}}+C_2 \\right]_0^\\var{beamlen}\\\\ &amp;= \\var{siground(qty(Qy,units[0] + \" \" + units[1]),4)} \\end{align}$</p>\n<p>3.  Find centroid $\\bar{x}=\\frac{Q_y}{W}$</p>\n<p style=\"padding-left: 40px;\">$\\bar{x} = \\dfrac{Q_y}{W} = \\dfrac{\\var{siground(Qy,4)}}{\\var{siground(load,4)}} = \\var{siground(qty(xbar,units[0]),4)}$</p>\n<p>4.  Take moments about $A$ and $B$ to find reactions.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}\\sum M_B &amp;= 0 &amp; \\sum M_A &amp;=0 \\\\    R_A L &amp;=  \\simplify{{sign(load)} W }(L-\\bar{x}) &amp; + R_B L &amp;= \\simplify{{sign(load)} W }\\bar{x} &amp;  \\\\ R_A&amp;= \\var{show(qty(abs(R_A),units[1]))} \\var{arrow(R_A)} &amp;  R_B &amp;= \\var{show(qty(abs(R_B),units[1]))} \\var{arrow(R_B)}  \\end{align}$</p>\n<p>5.  Integrate $V(x) = \\int w(x)\\; dx$ to get the shear function.</p>\n<p style=\"padding-left: 40px;\">Note: <em>Positive values of</em> $w\\!(x)$ <em>indicate downward forces, so the integrations is over</em> $-w\\!(x)$.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align} V\\!(x) &amp;= \\int - w\\!(x) dx \\\\&amp;= \\simplify[fractionNumbers, canonicalOrder]{int({-w},x)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v -v[0]}}+C_3  &amp;&amp; v\\!(0) = R_A  \\therefore C_3 = \\var{show(qty(R_A,\"\"))}\\\\ &amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}} &amp;&amp; [\\var{units[1]}] &amp;\\end{align}$</p>\n<p>6.  Integrate $M(x) = \\int V(x)\\; dx$ to get moment function.  </p>\n<p style=\"padding-left: 30px;\">$\\begin{align} M\\!(x) &amp;= \\int V\\!(x) dx \\\\&amp;= \\simplify[fractionNumbers, canonicalOrder]{int({v},x)}\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}}+C_4  &amp;&amp; M\\!(0) =0  \\therefore C_4 = 0 \\\\&amp;=  \\simplify[fractionNumbers,canonicalOrder]{{m}} &amp;&amp; [\\var{units[1]}\\text{-}\\var{units[0]} ]&amp;\\end{align}$</p>\n<p style=\"padding-left: 30px;\" />\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Maximum moment occurs where $dM/dx = V = 0$</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Evaluate $M(x)$ at point of maximum bending moment.</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Maximum shear occurs where $d V /d x = -w(x) = 0$</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Evaluate $V(x)$ at point of maximum shear.</span></p>\n<p style=\"padding-left: 40px;\" />\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">To find maximum shear, determine where $\\simplify{diff(v,x,1)} = -w\\!(x) = 0$ using the quadratic equation.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$x_{max} =  \\frac{- b \\pm \\sqrt{b^2 - 4 a c}}{2a}$ where, $a= \\var[fractionNumbers]{-w[2]}, b=\\var[fractionNumbers]{-w[1]}$ and $c=\\var[fractionNumbers]{-w[0]}$.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">Any real roots of $w\\!(x)$ between the beam's endpoints plus the endpoints themselves are locations of local maximums or minimums.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">{v_extremes}</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$\\simplify{{show(v_extremes[1])}}$</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">The maximum of these local maximums is the the one we want</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$V_{max} = \\var{show(qty(v_max[1], units[1]))}$</span></p>\n<p style=\"padding-left: 40px;\" />\n<p style=\"padding-left: 40px;\" /></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"load &lt;&gt; 0   // we really want the load to be non-zero&#10;and abs(w[2]) &gt; 1/10// and want to be sure it is a quadratic&#10;\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(10..20#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"A\"><value>vector(0,random(-4..3) scale )</value></variable><variable name=\"B\"><value>vector(beamLen,random(-4..3) scale )</value></variable><variable name=\"C\"><value>vector(random(4..beamlen-4), random(-4..4) scale )</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_6j6k8Vp.ggb',params)\ngeogebra_applet('shk4mfk6',params)</value></variable><variable name=\"params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n  showV: [definition: \"true\",  visible: false],\n  showM: [definition: \"true\",  visible: false],\n  A: A, B: B, C: C,\n  L: beamlen,\n  wscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/5))'],\n  vscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/3))'],\n  mscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/3))']\n]\n\n</value></variable><variable name=\"scale\"><value>random(5..200#5)</value></variable><variable name=\"matrix\"><value>reduced_row_echelon_form(matrix([[A[0]^2, A[0], 1, A[1]],\n  [B[0]^2, B[0], 1, B[1]],\n  [C[0]^2, C[0], 1, C[1]]]))</value></variable><variable name=\"w\"><value>polynomial(x,[matrix[2][3], matrix[1][3], matrix[0][3],0,0])</value></variable><variable name=\"v\"><value>-polynomial(x, [-R_A, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"m\"><value>polynomial(x,[ 0, v[0], v[1]/2, v[2]/3, v[3]/4])</value></variable><variable name=\"load\"><value>eval(intW,beamlen) - eval(intW,0)</value></variable><variable name=\"dQy\"><value>polynomial(x) w</value></variable><variable name=\"intdQy\"><value>polynomial(x, [0, dQy[0], dQy[1]/2, dQy[2]/3, dQy[3]/4])</value></variable><variable name=\"Qy\"><value>eval(intdqy,beamlen)</value></variable><variable name=\"xBar\"><value>Qy/load</value></variable><variable name=\"intW\"><value>polynomial(x, [0, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"R_B\"><value>xbar load / beamlen</value></variable><variable name=\"R_A\"><value>(beamlen-xbar) load/ beamlen</value></variable><variable name=\"check\"><value>withintolerance(R_A+R_B,load,10^10)</value></variable><variable name=\"roots\"><value>sort(\n  if(d&gt;=0, \n    filter(x&gt;=0 and x &lt;=beamlen,x,\n      let([a: w[2], b: w[1], c: w[0]], \n     [(-b + sqrt(d))/(2 a), (-b - sqrt(d))/(2 a)]\n)),[]) + [0,beamlen])</value></variable><variable name=\"d\"><value>w[1]^2 - 4 w[2] * w[0]</value></variable><variable name=\"v_extremes\"><value>map(vector(x,eval(v,x)),x,roots)</value></variable><variable name=\"v_max\"><value>foldl(if(abs(pt[1])&gt;abs(v[1]),pt,v),pt, v,  vector(0,0),v_extremes)</value></variable><variable name=\"debug\"><value>false</value></variable></variables><functions><function name=\"arrow\" outtype=\"anything\" definition=\"if(sign(F) &gt;= 0 ,latex(&quot;\\\\uparrow&quot;), latex(&quot;\\\\downarrow&quot;))\" language=\"jme\"><parameters><parameter name=\"F\" type=\"?\" /></parameters></function><function name=\"show\" outtype=\"anything\" definition=\"if(abs(if(type(A)=type(qty(1,'m')),scalar(A),A))&lt;1,&#10;  precround(A,4),siground(A,4))\" language=\"jme\"><parameters><parameter name=\"A\" type=\"?\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>linear-algebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"V-M 1a: Concentrated forces, no diagrams\" customName=\"Concentrated forces\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>Draw the shear and bending moment for the beam and loading shown.  The beam is {qty(beamlen,units[0])} long.  </p>\n<p>{ggb_function}</p>\n<p />\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at the pin and roller supports?</p>\n<p>$A$ =  <gapfill reference=\"0\" />  $\\qquad B$ = <gapfill reference=\"1\" /> </p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(value(ggb_function, \"F_A\"),units[1])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n    qty(value(ggb_function, \"F_B\"),units[1])\n\n\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"Vmax\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function,safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function,safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"Mmax\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n value(ggb_function,safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function,safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"range\"><value>[0]+[beamLen] + sort(shuffle(2..(beamLen -2)#2)[0..3])</value></variable><variable name=\"beamLen\"><value>2 random(5..10)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"FE\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"FC\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"FD\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"anything\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qnhnawam',&#10;  width: 560,&#10;  height: 600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('beamLen');&#10;  setGGBNumber('F_C',&quot;FC&quot;);&#10;  setGGBNumber('F_D',&quot;FD&quot;);&#10;  setGGBNumber('F_E',&quot;FE&quot;);&#10;  &#10;  function setPoint(name, index) {&#10;  var x = question.unwrappedVariables.range[index]&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  }&#10;  &#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-30);&#10;  &#10;  setPoint('A',0);&#10;  setPoint('B',1);&#10;  setPoint('C',2);&#10;  setPoint('D',3);&#10;  setPoint('E',4);&#10;  &#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  app.evalCommand(&quot;RunClickScript(Rescale)&quot;);&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  app.setVisible(&quot;Rescale&quot;, false, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return Numbas.exam.currentQuestion.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function><function name=\"advice\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qnhnawam'&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('beamLen');&#10;  setGGBNumber('F_C',&quot;FC&quot;);&#10;  setGGBNumber('F_D',&quot;FD&quot;);&#10;  setGGBNumber('F_E',&quot;FE&quot;);&#10;  &#10;  function setPoint(name, index) {&#10;  var x = question.unwrappedVariables.range[index]&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  }&#10;  &#10;  setPoint('A',0);&#10;  setPoint('B',1);&#10;  setPoint('C',2);&#10;  setPoint('D',3);&#10;  setPoint('E',4);&#10;  &#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  app.evalCommand(&quot;RunClickScript(Rescale)&quot;);&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  app.setVisible(&quot;Rescale&quot;, false, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;    &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.applet.app;\n  \n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  //app.setVisible(\"F_C\",true,true);\n  //app.setVisible(\"F_D\",true,true);\n  //app.setVisible(\"F_E\",true,true);\n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n     \n     }\n  catch(err){}  \n})\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 3a: Distributed loads, no diagrams\" customName=\"Distributed loads\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>Draw the shear and bending moment for the {beamlen} {units[0]}  beam and loading shown. </p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at $A$ and $F$? </p>\n<p>$A = $  <gapfill reference=\"0\" /> $\\qquad F = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_A\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"F\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_F\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.  Use the standard sign convention.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_\\text{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function,safe(\"V_{max}\"))\n\nVmin:\n  value(ggb_function,safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_\\text{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n value(ggb_function,safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function,safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"C &lt;&gt; D\" maxRuns=\"100\"><variable name=\"range\"><value>[0]+ sort(shuffle(2..(beamLen -2)#2)[0..4]) +[beamLen]</value></variable><variable name=\"beamLen\"><value> random(12..20#2)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()\n</value></variable><variable name=\"A\"><value>range[0]</value></variable><variable name=\"B\"><value>if(random(0..100)&gt;50, range[0],range[1])</value></variable><variable name=\"C\"><value>if(random(0..100)&lt;25, range[3],range[2])</value></variable><variable name=\"D\"><value>range[3]</value></variable><variable name=\"EE\"><value>if(random(0..100)&lt;40, range[5],range[4])</value></variable><variable name=\"F\"><value>range[5]</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"w_1\"><value>random(-100..100#10 except 0)</value></variable><variable name=\"w_2\"><value>random(-100..100#10 except 0)</value></variable><variable name=\"points\"><value>sort(distinct([A,B,C,D,EE,F]))</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'q7zdsmu3',&#10;  width: 560,&#10;  height: 600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10; &#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('w_1');&#10;  setGGBNumber('w_2');&#10;  &#10;  function setPoint(name,nname=name) {&#10;  var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname))&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  app.setFixed(name,true);&#10;  }&#10;  &#10;  setPoint('A');&#10;  setPoint('B');&#10;  setPoint('C');&#10;  setPoint('D');&#10;  setPoint('E','EE');&#10;  setPoint('F');&#10;  &#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-35);&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  &#10;  /*debuging values&#10;  app.setVisible('showR', true);&#10;  app.setVisible('showV', true);&#10;  app.setVisible('showM', true);&#10;  app.setVisible('showMax', true);&#10;  app.setVisible(&quot;textShowSoln&quot;, true, false);&#10; &#10;  app.setValue('showMax',true);&#10;  app.setValue('showR',true);&#10;  app.setValue('showV',true);&#10;  app.setValue('showM',true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n  try{\n    var app = question.applet.app;\n \n    app.setVisible('showR', true);\n  app.setVisible('showV', true);\n  app.setVisible('showM', true);\n  app.setVisible('showMax', true);\n  app.setVisible(\"textShowSoln\", true, false);\n  \n  app.setValue('showMax',true);\n  app.setValue('showR',true);\n  app.setValue('showV',true);\n  app.setValue('showM',true);\n  \n  }\n  catch(err){}  \n})\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 2a: Concentrated moments, no diagrams\" customName=\"Concentrated moments\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A {qty(beamLen, units[0])} long cantilevered beam is supported by a fixed support at $A$ and subjected to the loading shown.</p>\n<p>Draw the corresponding shear and bending moment diagram.</p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at $A$.</p>\n<p>$A = $ <gapfill reference=\"0\" /> $\\qquad M_A = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(value(ggb_function,\"F_A\"),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n qty(value(ggb_function,\"M_A\"),units[1] + ' ' + units[0])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0]+\\&quot; \\&quot; +  units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function, safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function, safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n  value(ggb_function, safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function, safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(12..20#2)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"P_C\"><value>random(-50..50#10 except 0)</value></variable><variable name=\"M_D\"><value>random(-200..200#10 except 0)</value></variable><variable name=\"F_B\"><value>random(-50..50#10 except 0)</value></variable><variable name=\"A\"><value>ends[0]</value></variable><variable name=\"B\"><value>ends[1]</value></variable><variable name=\"C\"><value>random(midpoints)</value></variable><variable name=\"D\"><value>random(midpoints)</value></variable><variable name=\"EE\"><value>ends[0]</value></variable><variable name=\"points\"><value>sort(distinct([A,B,C,D,EE]))</value></variable><variable name=\"ends\"><value>shuffle([0,beamLen])</value></variable><variable name=\"midpoints\"><value>shuffle(2..beamLen-2#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"anything\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'wzynat8x',&#10;  width:560,&#10;  height:600&#10;};&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(1, true);&#10;  app.setAxesVisible(true,false);&#10;  app.enableShiftDragZoom(false);&#10;  &#10;  function setGGBPoint(name, nname=name) {&#10;    // moves point in GGB to Numbas value&#10;    var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname));&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, x, 0);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-32);&#10;  &#10;  &#10;  setGGBPoint(&quot;A&quot;);&#10;  setGGBPoint(&quot;B&quot;);&#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  setGGBPoint(&quot;E&quot;,&quot;EE&quot;);&#10;  &#10;  setGGBNumber(&quot;P_C&quot;);&#10;  setGGBNumber(&quot;F_B&quot;);&#10;  setGGBNumber(&quot;M_D&quot;);&#10;  &#10;  app.setVisible(&quot;P_C&quot;,false);&#10;  app.setVisible(&quot;F_B&quot;,false);&#10;  app.setVisible(&quot;M_D&quot;,false);&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;  &#10;  /* begin debug &#10;  app.setVisible(&quot;textShowSoln&quot;, true, false);&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n try{\n    var app = question.applet.app;\n   app.setVisible(\"textShowSoln\", true, false);\n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  \n  \n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n  \n  }\n  catch(err){}  \n})\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 4a: Combined loads, no diagrams\" customName=\"Combined loads\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A {qty(beamlen, units[0])} long beam is subjected to a {abs(P_C)} {units[1]} concentrated force $P$ and a {abs(w)} {units[1]}/{units[0]} distributed load $w$ as shown.   </p>\n<p>Draw the corresponding shear and bending moment.  </p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at $A$ and $B$?</p>\n<p>$A= $ <gapfill reference=\"0\" /> $\\qquad B = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_A\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_B\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum internal load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>$V_{max}= $ <gapfill reference=\"0\" /> $\\qquad M_{max}= $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"V_max\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function, safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function, safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"M_max\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n  value(ggb_function, safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function, safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"A&lt; beamLen/2 and  B &gt; beamLen/2 and C &lt;&gt; A and C &lt;&gt; B and D &lt;&gt; EE and abs(A-B) &gt;= 6&#10;// Reactions in two places, load not on top of reactions, and distributed load starts and ends \" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(12..20#2)</value></variable><variable name=\"range\"><value>[0]+ sort(shuffle(2..(beamLen -2)#2)[0..3]) +[beamLen]</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"dots\"><value>[if(A&lt;&gt;0,0,random(0..beamLen#2))]+ \n[if(B&lt;&gt; beamLen, beamLen, random(0..BeamLen#2))]+\n[random(0..BeamLen/2#2)]</value></variable><variable name=\"P_C\"><value>random(-200..200#10 except 0)</value></variable><variable name=\"A\"><value>random(0..beamLen/2#2)</value></variable><variable name=\"B\"><value>beamlen-random(0..beamLen/2#2)</value></variable><variable name=\"C\"><value>dots[0]</value></variable><variable name=\"D\"><value>dots[1]</value></variable><variable name=\"EE\"><value>dots[2]</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"w\"><value>random(-50..50#10 except 0)</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qqv7vew7',&#10;  width:560,&#10;  height:600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10; &#10;   app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-32);&#10;  &#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('w');&#10;  setGGBNumber('P_C');&#10;  &#10;  function setPoint(name,nname=name) {&#10;  var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname))&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  app.setFixed(name,true);&#10;  }&#10;  &#10;  setPoint('A');&#10;  setPoint('B');&#10;  setPoint('C');&#10;  setPoint('D');&#10;  setPoint('E','EE');&#10;&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  /* debug values&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.applet.app;\n \n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  //app.setVisible(\"F_C\",true,true);\n  //app.setVisible(\"F_D\",true,true);\n  //app.setVisible(\"F_E\",true,true);\n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n  \n  }\n  catch(err){}  \n})\n\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question></questions></question_group></question_groups><knowledge_graph>{\"topics\": [], \"learning_objectives\": []}</knowledge_graph></exam>"
+        examXML: "<exam name=\"Chapter 8 Exercises\" percentPass=\"0%\" allowPrinting=\"True\"><settings><navigation allowregen=\"True\" navigatemode=\"menu\" reverse=\"True\" browse=\"True\" allowsteps=\"True\" showfrontpage=\"False\" preventleave=\"False\" typeendtoleave=\"False\" startpassword=\"\" allowAttemptDownload=\"False\" downloadEncryptionKey=\"\" autoSubmit=\"True\"><event type=\"onleave\" action=\"none\"><content><span /></content></event></navigation><timing duration=\"0\" allowPause=\"True\"><event type=\"timeout\" action=\"none\"><content><span /></content></event><event type=\"timedwarning\" action=\"none\"><content><span /></content></event></timing><feedback enterreviewmodeimmediately=\"True\" showactualmarkwhen=\"always\" showtotalmarkwhen=\"always\" showanswerstatewhen=\"always\" showpartfeedbackmessageswhen=\"always\" allowrevealanswer=\"True\" showstudentname=\"True\" showexpectedanswerswhen=\"inreview\" showadvicewhen=\"inreview\"><intro><content><span /></content></intro><end_message><content><span /></content></end_message><results_options printquestions=\"True\" printadvice=\"True\" /><feedbackmessages /></feedback><rulesets /><diagnostic><algorithm script=\"diagnosys\" /></diagnostic></settings><functions /><variables /><question_groups showQuestionGroupNames=\"True\" shuffleQuestionGroups=\"False\"><question_group name=\"Internal Forces\" pickingStrategy=\"all-ordered\" pickQuestions=\"1\"><questions><question name=\"Internal force: overhanging beam\" customName=\"Distributed load V, M\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>{applet(500,215,false)}</p>\n<p style=\"padding: 3px;\">The beam shown supports a<span data-jme-visible=\"Wa=Wb\"> uniformly distributed load of $w$ = {Wa}.</span><span data-jme-visible=\"Wa&lt;&gt;Wb\"> load that varies uniformly from {Wa} at the left end to {Wb} at the right end.</span> </p>\n<p style=\"padding-left: 30px;\">The lengths of the beam segments are $d_1$ = {display(d_1)}, $d_2$ = {display(d_2)}, and $d_3$ = {display(d_3)}.</p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the reactions at pin $A$ and roller $C$.  Let positive values indicate upward forces.</p>\n<p>$A$ = <gapfill reference=\"0\" /> <span data-jme-visible=\"debug\">{display(FA)}</span></p>\n<p>$C$ = <gapfill reference=\"1\" /> <span data-jme-visible=\"debug\">{display(FC)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$F_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FA&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_C$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FC&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Internal Load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the internal shear and bending moment at a section passing through point $D$. Use the standard convention for the meaning of positive shears and bending moments. </p>\n<p>$V_D$  = <gapfill reference=\"0\" /> <span data-jme-visible=\"debug\">{display(FV)}</span></p>\n<p>$M_D$ = <gapfill reference=\"1\" /> <span data-jme-visible=\"debug\">{display(M_D)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V$\" type=\"engineering-answer\" marks=\"15.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;FV&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_D$\" type=\"engineering-answer\" marks=\"15.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;M_D&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p><strong>1.</strong> <strong>Draw a FBD of the entire beam and find reactions at <em>A</em> and <em>C</em>.</strong></p>\n<p style=\"padding-left: 30px;\">{applet(500,566,true)}</p>\n<p style=\"padding-left: 30px;\"><strong>a.  Replace distributed load with an equivalent concentrated load.</strong></p>\n<p style=\"padding-left: 30px;\">$W$ = {W_t},     $d$ = {display(dw)}</p>\n<p style=\"padding-left: 30px;\"><strong>b.  Apply equilibrium equations.</strong></p>\n<p style=\"padding-left: 30px;\">$\\begin{align} \\Sigma M_A &amp;= 0 &amp;  \\Sigma F_y &amp;=0 \\\\C \\cdot\\var{if(C[0]&lt;D[0],latex('d_1'),latex('(d_1+d_2)'))} &amp;=  W \\cdot d  &amp;  \\simplify{{if(scalar(FA)&lt;0,-1,1)} A} + C  &amp;= W = \\var{W_t}\\\\ C &amp;= \\var{display(FC)} \\uparrow &amp; A &amp;= \\var{display(abs(FA))}  \\var{if(F_A[1]&gt;0,latex('\\\\uparrow'),latex('\\\\downarrow'))}\\end{align}$</p>\n<p><strong>2. Draw a FBD of the portion of the beam between <em>A</em> and <em>D</em> and find the shear and bending moment.</strong></p>\n<p style=\"padding-left: 30px;\"><strong>a.  Determine the distributed load above point D.</strong></p>\n<p style=\"padding-left: 60px;\">Let $w_A$, $w_B$, and $w_D$ be the magnitude of the distributed load at points $A$, $B$, and $D$ respectively, and $L$ the length of the beam.</p>\n<p style=\"padding-left: 60px;\">Given: $w_A = \\var{wA},\\qquad w_B = \\var{wB}\\qquad L = (d_1 + d_2 + d_3) = \\var{L}$  </p>\n<p style=\"padding-left: 60px;\" data-jme-visible=\"wa=wb\">$w_D = \\var{display(wD)}$</p>\n<p style=\"padding-left: 60px;\" data-jme-visible=\"wa&lt;&gt;wb\">Using similar triangles:  $w_D = w_A + \\dfrac{\\var{if(C[0]&gt;D[0],latex('d_1'),latex('(d_1+d_2)'))}}{L} \\left( w_B - w_A \\right) = \\var{display(wD)}$</p>\n<p style=\"padding-left: 30px;\"><strong>b. Replace distributed load with an equivalent concentrated load.</strong></p>\n<p style=\"padding-left: 60px;\">$W'$ = {display(W_p)},     $d'$ = {display(dw')}</p>\n<p style=\"padding-left: 30px;\"><strong>c. Apply equilibrium equations.</strong></p>\n<p style=\"padding-left: 60px;\">Let $\\ell =  \\var{if(C[0]&gt;D[0],latex('d_1'),latex('d_1+d_2'))} = \\var{display(Dx)}\\text{, and} \\qquad d_\\perp = (\\ell - d') = \\var{display(Dx - dw')}$</p>\n<p style=\"padding-left: 60px;\">$\\begin{align} \\Sigma M_D &amp;= 0 &amp; \\Sigma F_y &amp;=0 \\\\ \\simplify{{if(scalar(FA)&lt;0,1,-1)} A} \\ell + W' d_\\perp \\var{if(Cx &lt; Dx, latex('+C d_2'),'')} + M_D&amp;= 0 &amp; \\simplify{{if(scalar(FA)&lt;0,-1,1)} A} \\var{if(Cx &lt; Dx, latex('+ C'),'')} - W' - V &amp;=0 \\\\ M_D &amp;= \\simplify{{if(scalar(FA)&gt;0,1,-1)} A} \\ell - W' d_\\perp \\var{if(Cx &lt; Dx, latex('C d_2'),'')} &amp; V &amp;= \\simplify{{if(scalar(FA)&lt;0,-1,1) }A} \\var{if(Cx &lt; Dx, latex('+ C'),'')} - W' \\\\ &amp;= \\var{display(M_D)} &amp; V &amp;= \\var{display(FV)} \\end{align}$</p>\n<p style=\"padding-left: 60px;\" />\n<p>=</p></span></content></advice><notes /><constants><builtin /><custom /></constants><variables condition=\"abs(C[0]-D[0])&gt;1 and  // not too close to each other&#10;w_a+w_b &lt;&gt; 0 and // must not both be zero = no load&#10;D[0] &gt; 2 // not too close to end\" maxRuns=\"100\"><variable name=\"F_Wt\"><value>vector(0,-scalar(W_t))</value></variable><variable name=\"L\"><value>qty(random(6,8,12,16,20,24),units[1])</value></variable><variable name=\"d_2\"><value>abs(Dx-Cx)</value></variable><variable name=\"units\"><value>random(['N','m'],['lb','ft'])</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"A\"><value>Vector(0,0)\n</value></variable><variable name=\"F_V\"><value>(F_A + F_Wp + if(C[0]&lt;D[0], F_C, vector(0,0)))</value></variable><variable name=\"F_Wp\"><value>vector(0,-scalar(W_p))</value></variable><variable name=\"Dx\"><value>D[0]/12 Bx</value></variable><variable name=\"Ax\"><value>qty(0,units[1])</value></variable><variable name=\"Bx\"><value>L</value></variable><variable name=\"h2\"><value>abs(W_a-W_b) Wmax</value></variable><variable name=\"FA\"><value>W_t * (Cx-dw) /Cx</value></variable><variable name=\"FC\"><value>W_t dw/Cx</value></variable><variable name=\"FV\"><value>FA - W_p + if(C[0]&lt;D[0],FC,qty(0, units[0]))</value></variable><variable name=\"w_B\"><value>random(0..2#0.5)</value></variable><variable name=\"W_p\"><value>(Wa + Wd)/2 Dx</value></variable><variable name=\"M_D\"><value>FA Dx - W_p * (Dx - dw') + if(Cx&lt;Dx,FC,qty(0,units[0])) d_2</value></variable><variable name=\"dw\"><value>(Wa / 6 + Wb  /3 ) L L /W_T</value></variable><variable name=\"W_t\"><value>(Wa + Wb)/2 L</value></variable><variable name=\"F_A\"><value>- (F_C + F_Wt)</value></variable><variable name=\"C\"><value>vector(random(2..10#2),0)</value></variable><variable name=\"Wmax\"><value>qty(random(100,200,400,500,800,1000),units[0] +\"/\" + units[1])</value></variable><variable name=\"h1\"><value>min(W_a,W_b) Wmax</value></variable><variable name=\"Wd\"><value>wA +  (wb-wa) * if(C[0]&gt;D[0],d_1, d_1+d_2) / L </value></variable><variable name=\"B\"><value>vector(12,0)\n</value></variable><variable name=\"w_A\"><value>random(0..2#0.5)</value></variable><variable name=\"Wb\"><value>Wmax w_b</value></variable><variable name=\"F_C\"><value>vector(0,scalar(FC))</value></variable><variable name=\"dw'\"><value>(Wa / 6 + Wd  /3 ) Dx Dx /W_p</value></variable><variable name=\"Cx\"><value>C[0]/12 Bx\n </value></variable><variable name=\"Wa\"><value>Wmax w_a</value></variable><variable name=\"D\"><value>vector(random(2..10#2),0)</value></variable><variable name=\"d_1\"><value>qty(min(scalar(Cx),scalar(Dx)),units[1])</value></variable><variable name=\"ggb_points\"><value>[\n  ['C',C],['D',D],['w_A',w_a],['w_B',w_b], ['fbd','false']\n]</value></variable><variable name=\"d_3\"><value>Bx-d_1-d_2</value></variable></variables><functions><function name=\"display\" outtype=\"string\" definition=\"string(siground(q,4))\" language=\"jme\"><parameters><parameter name=\"q\" type=\"quantity\" /></parameters></function><function name=\"applet\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'susdzdmr',&#10;  width: app_width,&#10;  height: app_height&#10;};&#10;//geogebra_applet('susdzdmr') old ggb file&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(false);&#10;  &#10;  function setGGBPoint(name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    var pt = question.scope.evaluate(name).value&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, pt[0], pt[1]);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  &#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  app.setValue('fbd',show_fbd);&#10;  app.setAxesVisible(false,false);&#10;  app.enableShiftDragZoom(false);&#10;  setGGBNumber(&quot;w_A&quot;);&#10;  setGGBNumber(&quot;w_B&quot;);&#10;  &#10; &#10;  &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters><parameter name=\"app_width\" type=\"number\" /><parameter name=\"app_height\" type=\"number\" /><parameter name=\"show_fbd\" type=\"boolean\" /></parameters></function><function name=\"showfbds\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'susdzdmr',&#10;  width: 500,&#10;  height: 500&#10;};&#10;//geogebra_applet('susdzdmr') old ggb file&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(false);&#10;  &#10;  function setGGBPoint(name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    var pt = question.scope.evaluate(name).value&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, pt[0], pt[1]);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  &#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  app.setValue('fbd',true);&#10;  app.setAxesVisible(false,false);&#10;  app.enableShiftDragZoom(false);&#10;  setGGBNumber(&quot;w_A&quot;);&#10;  setGGBNumber(&quot;w_B&quot;);&#10;  &#10; &#10;  &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\" /></preambles><rulesets /><objectives /><penalties /><tags><tag>bending moment</tag><tag>distributed load</tag><tag>internal forces</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"Internal Force: distributed load\" customName=\"Distributed load V, P, M\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>The frame shown supports a uniformly distributed load $w = \\var{load}$.  Member $BC$ is {BC} long.  </p>\n<p>Determine the internal forces at point $D$ which is located {BD} to the right of point $B$.</p>\n<p width=\"50%\">{applet}</p></span></content></statement><parts><part usecustomname=\"False\" customName=\"\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><table style=\"height: 98px; width: 411px;\">\n<tbody>\n<tr style=\"height: 23px;\">\n<td style=\"width: 157.375px; height: 17px;\">Shear force:</td>\n<td style=\"width: 220.640625px; height: 17px;\">\n<p>$V_D  = $ <gapfill reference=\"1\" /></p>\n</td>\n</tr>\n<tr style=\"height: 23px;\">\n<td style=\"width: 157.375px; height: 39px;\">Normal force:</td>\n<td style=\"width: 220.640625px; height: 39px;\">\n<p>$P_D = $ <gapfill reference=\"0\" /></p>\n</td>\n</tr>\n<tr style=\"height: 23px;\">\n<td style=\"width: 157.375px; height: 42px;\">Bending moment: </td>\n<td style=\"width: 220.640625px; height: 42px;\">$M_D =$ <gapfill reference=\"2\" /></td>\n</tr>\n</tbody>\n</table>\n<p />\n<p /></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$P_D$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;-Q_Cx&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$V_D$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;Q_V&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_D$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;Q_MD&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p><strong>Find the reactions <em>B</em> and <em>C</em>. </strong></p>\n<p style=\"padding-left: 40px;\">Draw a Free body diagram of beam $BC$.  </p>\n<p>{fbd1}</p>\n<p style=\"padding-left: 30px;\">Note that member $AB$ is a two-force member, so force $AB$ acts along its axis.</p>\n<p style=\"padding-left: 30px;\">Replace the distributed load with an equivalent concentrated. The equivalent load acts at the center of member $BC$ with magnitude:</p>\n<p style=\"padding-left: 30px;\">$W = w \\cdot \\overline{BC} = (\\var{load}) (\\var{BC}) = \\var{Q_W}$.</p>\n<p />\n<p style=\"padding-left: 30px;\">Let the length of member  $BC = \\ell = \\var{BC}$, then solve the equilibrium equations to find the reactions at $B$ and $C$.</p>\n<p style=\"padding-left: 30px;\">$\\begin{align}\\Sigma M_C &amp; = 0 &amp;\\Sigma F_x &amp;= 0 &amp;\\Sigma F_y &amp;= 0\\\\AB_y  \\cdot \\ell &amp;= W \\cdot \\dfrac {\\ell}{2}  &amp;   C_x &amp;=AB_x  &amp; C_y &amp;= W -AB_y \\\\AB \\sin \\var{abs(alpha)}°&amp; = \\dfrac{ W }{2}&amp; C_x &amp;= AB \\cos \\var{abs(alpha)}° &amp; C_y &amp;= W - AB \\sin \\var{abs(alpha)}° \\\\ AB &amp;= \\var{display(Q_AB)} &amp; C_x &amp;= \\var{display(abs(Q_cx))}\\var{if(F_AB[0]&gt;0,latex('\\\\leftarrow'),latex('\\\\rightarrow'))} &amp; C_y &amp;= \\var{display(Q_Cy)} \\var{if(F_AB[1]&gt;0,latex('\\\\uparrow'),latex('\\\\downarrow'))}\\end{align}$</p>\n<p style=\"padding-left: 30px;\" />\n<p><strong>Take an imaginary cut through member <em>BC</em> at point <em>D</em> and draw a free body diagram of the right (or left) portion. </strong></p>\n<p>{fbd2} </p>\n<p style=\"padding-left: 40px;\">The length of segment $DC$ is $\\var{CD}$. There will be unknown internal shear ($V$), bending moment ($M_D$) and normal force ($P$) at the cut. Assume that they act in the 'positive' directions established by the sign convention for shear and bending moments.  </p>\n<p style=\"padding-left: 40px;\">Note that the downward force on this section of the beam ($W'$) is due to the distributed force acting on this portion of the beam only and acts at the centroid of the loading.</p>\n<p style=\"padding-left: 40px;\">$W' = w \\cdot \\overline{DC} = (\\var{load}) (\\var{BC-BD}) = \\var{display(Q_W')}$</p>\n<p><strong>Solve for the internal forces at <em>D</em>.</strong></p>\n<p style=\"padding-left: 30px;\">$\\begin{align}\\Sigma M_D &amp; = 0 &amp;\\Sigma F_x &amp;= 0 &amp;\\Sigma F_y &amp;= 0\\\\ M_D  &amp;= C_y (\\var{CD}) - W'(\\var{CD/2})&amp;   P &amp;= \\var{if(F_AB[0]&gt;0,latex('-'),'')} C_x  &amp; V &amp;= W'-C_y\\\\ &amp;= \\var{display(Q_MD)} &amp; &amp;= \\var{display(-Q_Cx)} &amp; &amp;= \\var{display(Q_V)} \\end{align}$</p>\n<p>  </p></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"BC\"><value>qty(random(4..12#2),units[1])</value></variable><variable name=\"units\"><value>['lb','ft']</value></variable><variable name=\"load\"><value>qty(random(10..50#5), units[0\n  ]+\"/\"+units[1])</value></variable><variable name=\"Q_W'\"><value>CD Load\n</value></variable><variable name=\"Q_V\"><value>Q_W'-Q_Cy</value></variable><variable name=\"Q_Cy\"><value>Q_W - qty(F_AB[1], units[0])</value></variable><variable name=\"Q_AB\"><value>qty(abs(F_AB), units[0])</value></variable><variable name=\"params\"><value>[alpha: [definition: radians(alpha), visible: false],\nn: [definition: n, visible: false],\nshow: [definition: 0, visible: false],\n]</value></variable><variable name=\"F_AB\"><value>precround(scalar(Q_W)/2 * vector(1/tan(radians(alpha+180)), 1),4)</value></variable><variable name=\"BD\"><value>n/10 BC\n</value></variable><variable name=\"Q_W\"><value>load * bc</value></variable><variable name=\"alpha\"><value>random(-60..60#5 except [0, -5, 5])</value></variable><variable name=\"sum\"><value>precround(F_AB+F_C+F_W,3)</value></variable><variable name=\"Q_Cx\"><value>qty((F_AB[0]), units[0])</value></variable><variable name=\"F_W\"><value>vector(-scalar(Q_W),0)</value></variable><variable name=\"CD\"><value>BC-BD</value></variable><variable name=\"Q_MD\"><value>(CD Q_Cy - CD Q_W'/2)</value></variable><variable name=\"F_C\"><value>precround(-(F_AB+F_W),4)</value></variable><variable name=\"applet\"><value>geogebra_applet( 'pt6wrf9n', params)</value></variable><variable name=\"n\"><value>random(2..8# 0.5)</value></variable><variable name=\"fbd1\"><value>geogebra_applet('pt6wrf9n', params + [show: [definition: 1, visible: false]])</value></variable><variable name=\"fbd2\"><value>geogebra_applet('pt6wrf9n', params + \n[show: [definition: 2, visible: false],\n n: [definition: min(5,n), visible: false]\n])</value></variable></variables><functions><function name=\"display\" outtype=\"string\" definition=\"string(siground(q,4))\" language=\"jme\"><parameters><parameter name=\"q\" type=\"quantity\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"fbd\", true,false);\n    app.setValue(\"fbd\", 1);\n  }\n  catch(err){}  \n})\n</preamble></preambles><rulesets /><objectives /><penalties /><tags /><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question></questions></question_group><question_group name=\"Shear and Bending Moment Diagrams\" pickingStrategy=\"all-ordered\" pickQuestions=\"1\"><questions><question name=\"V-M 5: Symmetric parabolic loading\" customName=\"Symmetric parabolic loading\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p><span data-jme-visible=\"debug\">to do: use the show_curves(applet)  javascript function when Step 2 is shown to show V and M curves.  With the procedure shown in the steps, the advice section is redundant. Diagram sometimes doesn't load properly.  Need to change the ggb applet to the one contained in Arbitrary Parabolic Loading.</span></p>\n<p>A {qty(2b, units[0])} long, simply-supported beam is subjected to a symmetrical parabolic loading, where</p>\n<p>$w\\!(x) =\\simplify[fractionNumbers]{{w}}$    [{units[1]}/{units[0]}].</p>\n<p>{applet}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Load and Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine the total weight supported by the beam and the reactions at $A$ and $B$.</p>\n<p>$W = $ <gapfill reference=\"0\" /></p>\n<p>$R_A =$ <gapfill reference=\"1\" /> $\\qquad R_B = $<gapfill reference=\"2\" /></p>\n<p><span data-jme-visible=\"debug\">$R_A = R_B =\\simplify[fractionNumbers]{{F_A}}$ =  {siground(qty(F_A,units[1]),4)}</span></p></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The total weight is found by integrating the loading function $w(x)$.  Positive values indicate a downward load.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}W &amp;= \\simplify{defint(w,x,0,L)}\\\\ &amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({w},x,0,{2b})}\\\\ &amp;= \\var{W_t}\\end{align}$</p>\n<p>By symmetry, the reactions are half the weight:</p>\n<p style=\"padding-left: 40px;\">$F_A = F_B = \\dfrac{W}{2}$.</p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$W$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(2 F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_A$\" type=\"engineering-answer\" marks=\"5.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$F_B$\" type=\"engineering-answer\" marks=\"5.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(F_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Shear and Bending Moment Functions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Determine expressions for:</p>\n<p>$V\\!(x) =$ <gapfill reference=\"0\" /></p>\n<p>$M\\!(x) =$ <gapfill reference=\"1\" /></p>\n<p>and then plot the shear and bending moment diagrams.</p>\n<p><span data-jme-visible=\"debug\">$V(x) = \\simplify[canonicalOrder,fractionNumbers]{{v}}$</span></p>\n<p><span data-jme-visible=\"debug\">$M(x) = \\simplify[canonicalOrder,fractionNumbers]{{m}}$</span></p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The shear function is found by integrating the loading function. The negative sign is because positive values of w(x) represent a load which points down.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}V(x) &amp;=  \\simplify{-defint(w,x,0,x)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({-w},x,0,L)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}}\\end{align}$</p>\n<p>The bending moment function is found by integrating the shear function.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}M(x) &amp;= \\simplify{defint(V,x,0,x)}\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({v},x,0,L)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{M}}\\end{align}$</p>\n<p>In both cases, the resulting constant of integration is determined by considering the values at $x=0$.</p>\n<p style=\"padding-left: 40px;\">$V(0) = F_A, \\text{ and } M(0) = 0$</p>\n<p />\n<p><button type=\"button\" onclick=\"Numbas.exam.currentQuestion.scope.variables.applet.app.setValue('showV',true);\">Show Shear Diagram</button>   <button type=\"button\" onclick=\"Numbas.exam.currentQuestion.scope.variables.applet.app.setValue('showM',true);\">Show Bending Moment Diagram</button></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts><script name=\"validate\" order=\"after\">{show_curves(applet)}</script></scripts><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"V(x)\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers\"><math>{expr(v)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part><part usecustomname=\"True\" customName=\"M(x)\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers\"><math>{expr(m)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum internal loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"10.00000000000000\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.  Use the standard sign convention for shear and bending moments.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p>\n<p><span data-jme-visible=\"debug\">$V_{max} = \\var{siground(qty(eval(v,0),units[1]),4)}$ </span></p>\n<p><span data-jme-visible=\"debug\">$M_{max} = \\var{siground(qty(eval(m,b),units[0]+\" \" + units[1]),4)}$</span></p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps><part usecustomname=\"False\" customName=\"\" type=\"information\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>The maximum shear occurs at the ends, where $\\simplify{diff(V,x,1)} = -w(x) = 0$ i.e. at $x=0$, or $x=\\var{qty(2b,units[0])}$.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}V_{max} &amp;= V(0) \\\\ &amp;= \\var{siground(qty(F_A,units[1]),4)}\\end{align}$</p>\n<p>Maximum moment occurs at midpoint, where $\\simplify{diff(M,x,1)} = V = 0$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}M_{max} &amp;= M(\\var{b}) \\\\&amp;= \\var{siground(qty(eval(m,b),units[0] + ' ' + units[1]),4)}\\end{align}$</p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /></part></steps><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;siground(qty(F_A,units[1]),4)&quot;\" /><setting name=\"right\" value=\"&quot;0.5&quot;\" /><setting name=\"close\" value=\"&quot;1&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;siground(qty(eval(m,b),units[0] + ' ' + units[1]),4)&quot;\" /><setting name=\"right\" value=\"&quot;0.5&quot;\" /><setting name=\"close\" value=\"&quot;1&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>Given $w(x)$ and beam length $L$,</p>\n<p>1.  Find load $W= \\int_0^L w(x)\\; dx$</p>\n<p>2.  By symmetry, the reactions are half the load.  $ A = B = W/2$</p>\n<p>3.  Integrate $V(x) = \\int w(x)\\; dx$ to get the shear function.</p>\n<p style=\"padding-left: 30px;\">Maximum shear occurs at the ends, where $d V /d x = -w(x) = 0$</p>\n<p style=\"padding-left: 30px;\">$V_{max} = V(0)$</p>\n<p>4.  Integrate $M(x) = \\int V(x)\\; dx$ to get moment function.  </p>\n<p style=\"padding-left: 30px;\">Maximum moment occurs at midpoint, where $dM/dx = V = 0$</p>\n<p style=\"padding-left: 30px;\">$M_{max} = M(\\var{b})$</p>\n<p><em>Don't forget to evaluate the constant of integration when deriving the shear and bending moment functions.</em></p>\n<p />\n<p /></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_cA1Sig0.ggb' , ggb_params)\ngeogebra_applet('stsbvkgw',ggb_params)</value></variable><variable name=\"ggb_params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n A: [definition: vector(0,0), visible: false ],\n B: [definition: vector(2 b,0), visible: false], \n C: [definition: vector(b,h), visible: false], \n L: 2b,\n showV:[definition: 'false', visible: true],\n showM:[definition: 'false', visible: true],\n wscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/4))\"],\n vscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/3))\"],\n mscale: [definition: \"CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/3))\"]\n]\n</value></variable><variable name=\"b\"><value>random(5..10)</value></variable><variable name=\"h\"><value>random([1,2,2.5,5,7.5,10])random([10,100])</value></variable><variable name=\"w\"><value>polynomial(x,[0,2 h/b,-h/(b^2)])</value></variable><variable name=\"F_A\"><value>rational(2/3 b h)</value></variable><variable name=\"v\"><value>polynomial(x,[ F_A,0, -h/b, h/(b^2)/3])</value></variable><variable name=\"m\"><value>polynomial(x,[0, F_A,0, -h/b/3, h/(b^2)/3/4])</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"w_t\"><value>siground(qty(2 F_A, units[1]),4)</value></variable></variables><functions><function name=\"show_curvesxxx\" outtype=\"anything\" definition=\"app.promise.then(function(d) {&#10;  d.app.setVisible(&quot;showV&quot;, true,false);&#10;  d.app.setVisible(&quot;showM&quot;, true,false);&#10;  d.app.setValue(&quot;showV&quot;,true);&#10;  d.app.setValue(&quot;showM&quot;,true);&#10;});&#10;return &quot;&quot;//new Numbas.jme.types.ggbapplet(app);&#10;\" language=\"javascript\"><parameters><parameter name=\"app\" type=\"ggbapplet\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"VM6: Uniformly distributed load\" customName=\"Uniformly distributed load\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A simply-supported beam of length $L = \\var {qty(beamlen, units[0])}$ supports a uniformly distributed loading of $\\var{show(qty(A[1], units[1]+\"/\"+units[0]))}$, as shown. Positive loading points down.  Sketch the shear and bending moment diagrams.</p>\n<p>{applet}</p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at the end suppports.  Use negative values to indicate downward forces.</p>\n<p>$R_A = $ <gapfill reference=\"0\" /> $\\qquad R_B=$ <gapfill reference=\"1\" /></p>\n<p>Determine the maximum bending moment.  Use the standard sign convention.</p>\n<p>$M_{max} = $<gapfill reference=\"2\" /></p>\n<p>Sketch the shear and bending moment diagrams.</p>\n<p /></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$R_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$R_B$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_B,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(mmax, units[0]+\\&quot; \\&quot;+ units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>The total load $W$ is the area under the loading curve, in this case a rectagle so,</p>\n<p>$W = w L = (\\var{qty(A[1], units[1]+\"/\"+units[0])})(\\var{qty(beamLen,units[0])}) = \\var{show(qty(abs(load),units[1]))}\\ \\var{arrow(-A[1])}.$</p>\n<p>By symmetry and $\\sum F_y=0$, the reactions at $A$ and $B$ are equal to half the load and act in the opposite direction of the load.</p>\n<p>$R_A = R_B = \\dfrac{W}{2} = \\var{show(qty(abs(load/2),units[1]))}\\ \\var{arrow(A[1])}.$</p>\n<p>The shear diagram for a uniformly distributed load is linear.  It begins by jumping {if(R_A &gt; 0,'up','down')} by the concentrated load $R_A$ at the left end, then slopes {if(R_A &gt; 0,'down','up')} at a rate of $w = \\var{show(qty(-A[1], units[1]+\"/\"+units[0]))}$ until it reaches $R_B = \\var{show(qty(abs(load/2),units[1]))}$ at the left end.  From there it jumps {if(R_B &gt; 0,'up','down')} to return to $V=\\var{qty(0,units[1])}$.</p>\n<p>The moment diagram beneath a uniformly distributed load is parabolic, and since this load is symetrical over the entire length of the beam, the vertex of the parabola will be at the midpoint of the beam.  The beam reactions are vertical only, with no moment reactions at the ends so the moment curve should begin and end at zero with a maximum at the midpoint.  The maximum moment is equal to the 'area' under the shear curve from $x=0$ to $x = L/2$.  Since this 'area' is a triangle there is no need to actually integrate.</p>\n<p>$M_{max} = \\dfrac{1}{2} b h = \\dfrac{1}{2} \\left(\\dfrac{L}{2}\\right) R_A = \\var{show(qty(mmax, units[0]+\" \"+ units[1]))}$</p></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"load &lt;&gt; 0   // we really want the load to be non-zero&#10;\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(10..20#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"A\"><value>vector(0,random(-4..3) scale)</value></variable><variable name=\"B\"><value>vector(beamLen,A[1])</value></variable><variable name=\"C\"><value>vector(beamLen/2,(A[1]+B[1])/2)</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_W8fZxNa.ggb',params)\ngeogebra_applet('nksgmn8t',params)</value></variable><variable name=\"params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n  showV: [definition: \"false\",  visible: false],\n  showM: [definition: \"false\",  visible: false],\n  A: A, B: B, C: C,\n  L: beamlen,\n  wscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/1.5))'],\n  vscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/4))'],\n  mscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/4))']\n]\n\n</value></variable><variable name=\"matrix\"><value>reduced_row_echelon_form(matrix([[A[0]^2, A[0], 1, A[1]],\n  [B[0]^2, B[0], 1, B[1]],\n  [C[0]^2, C[0], 1, C[1]]]))</value></variable><variable name=\"w\"><value>polynomial(x,[matrix[2][3], matrix[1][3], matrix[0][3],0,0])</value></variable><variable name=\"v\"><value>-polynomial(x, [-R_A, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"m\"><value>polynomial(x,[ 0, v[0], v[1]/2, v[2]/3, v[3]/4])</value></variable><variable name=\"load\"><value>eval(intW,beamlen) - eval(intW,0)</value></variable><variable name=\"dQy\"><value>polynomial(x) w</value></variable><variable name=\"intdQy\"><value>polynomial(x, [0, dQy[0], dQy[1]/2, dQy[2]/3, dQy[3]/4])</value></variable><variable name=\"Qy\"><value>eval(intdqy,beamlen)</value></variable><variable name=\"xBar\"><value>Qy/load</value></variable><variable name=\"intW\"><value>polynomial(x, [0, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"R_B\"><value>xbar load / beamlen</value></variable><variable name=\"R_A\"><value>(beamlen-xbar) load/ beamlen</value></variable><variable name=\"check\"><value>withintolerance(R_A+R_B,load,10^10)</value></variable><variable name=\"roots\"><value>sort(\n  if(d&gt;=0, \n    filter(x&gt;=0 and x &lt;=beamlen,x,\n      let([a: w[2], b: w[1], c: w[0]], \n     [(-b + sqrt(d))/(2 a), (-b - sqrt(d))/(2 a)]\n)),[]) + [0,beamlen])</value></variable><variable name=\"d\"><value>w[1]^2 - 4 w[2] * w[0]</value></variable><variable name=\"v_extremes\"><value>map(vector(x,eval(v,x)),x,roots)</value></variable><variable name=\"v_max\"><value>foldl(if(abs(pt[1])&gt;abs(v[1]),pt,v),pt, v,  vector(0,0),v_extremes)</value></variable><variable name=\"debug\"><value>false</value></variable><variable name=\"scale\"><value>random(10..200#10)</value></variable><variable name=\"direction\"><value>latex(if(A[1]&gt;0,\"\\\\downarrow\",\"\\\\uparrow\"))</value></variable><variable name=\"mmax\"><value>beamlen R_A /4</value></variable></variables><functions><function name=\"arrow\" outtype=\"anything\" definition=\"if(sign(F) &gt;= 0 ,latex(&quot;\\\\uparrow&quot;), latex(&quot;\\\\downarrow&quot;))\" language=\"jme\"><parameters><parameter name=\"F\" type=\"?\" /></parameters></function><function name=\"show\" outtype=\"anything\" definition=\"if(abs(if(type(A)=type(qty(1,'m')),scalar(A),A))&lt;1,&#10;  precround(A,4),siground(A,4))\" language=\"jme\"><parameters><parameter name=\"A\" type=\"?\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>mechanics</tag><tag>Mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>linear-algebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"V-M 5a: Arbitrary parabolic loading\" customName=\"Arbitrary parabolic loading \" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A simply-supported beam of length $L = \\var {qty(beamlen, units[0])}$ is subjected to a parabolic loading $w\\!(x)$ given by the function:</p>\n<p>$w\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{w}}$  [{units[1]} / {units[0]}]</p>\n<p>The shear and bending moment diagrams are also shown.</p>\n<p>{applet}</p>\n<p><span data-jme-visible=\"debug\">Started working on maximum shear and moment, but did not finish.  Need to solve a cubic equation by writing equation solver. I would like to turn the visibility of the curves on as a hint, but need a signal for that.  </span></p></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at the end suppports.  Use negative values to indicate downward forces.</p>\n<p>$R_A = $ <gapfill reference=\"0\" /> $\\qquad R_B=$ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_A,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(R_B,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Shear Function\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Use integration to determine the equation of the shear function $V\\!(x) = \\int -w\\!(x) \\textrm{d} x$</p>\n<p><span data-jme-visible=\"debug\">$V\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{v}}$  = {string(v)}</span></p>\n<p>$V\\!(x) = $<gapfill reference=\"0\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V\\!(x)$\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers,canonicalOrder\"><math>{expr(v)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1.00000000000000\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Bending Moment\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Use integration to find the bending moment function $M(x) =\\int V\\!(x) \\textrm{d}x$.</p>\n<p><span data-jme-visible=\"debug\">$M\\!(x) = \\simplify[fractionNumbers,canonicalOrder]{{m}}$  = {string(m)}</span></p>\n<p>$M\\!(x) = $ <gapfill reference=\"0\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$M\\!(x)$\" type=\"jme\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><answer checkvariablenames=\"False\" singlelettervariables=\"False\" allowunknownfunctions=\"True\" implicitfunctioncomposition=\"False\" caseSensitive=\"False\" showPreview=\"True\"><correctanswer simplification=\"fractionNumbers,canonicalOrder\"><math>{expr(m)}</math></correctanswer><checking type=\"sigfig\" accuracy=\"2.00000000000000\" failurerate=\"1\"><range start=\"0\" end=\"1\" points=\"5\" /><valuegenerators /></checking><maxlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too long.</span></content></message></maxlength><minlength partialcredit=\"0%\" length=\"0\"><message><content><span>Your answer is too short.</span></content></message></minlength><musthave partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer does not contain all required elements.</span></content></message></musthave><notallowed partialcredit=\"0%\" showstrings=\"False\"><message><content><span>Your answer contains elements which are not allowed.</span></content></message></notallowed><mustmatchpattern partialcredit=\"0%\" pattern=\"\" nameToCompare=\"\" warningTime=\"input\"><message><content><span /></content></message></mustmatchpattern></answer></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span><p>Given $w(x)$ and beam length $L$,</p>\n<p>1.  Find load $W= \\int_0^L w(x)\\; dx$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align} W &amp; = \\int w\\!(x) \\text{d}x \\\\ &amp; = \\simplify[fractionNumbers,canonicalOrder]{defint({w}, x, 0, {beamlen})} \\\\ &amp;= \\left[\\simplify[fractionNumbers,canonicalOrder]{{intw}}+C_1 \\right]_0^\\var{beamlen}\\\\ &amp;= \\var{siground(qty(load,units[1]),5)} = \\var{siground(qty(abs(load),units[1]),5)}  \\var{arrow(-load)}\\end{align}$</p>\n<p>2.  Find $Q_y = \\int_0^L x w(x)\\;dx$</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}  Q_y &amp;= \\int_0^L x\\ w\\!(x) \\text{d}x\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{defint({dqy},x,0,L)}\\\\&amp; = \\left[\\simplify[fractionNumbers,canonicalOrder]{{intdqy}}+C_2 \\right]_0^\\var{beamlen}\\\\ &amp;= \\var{siground(qty(Qy,units[0] + \" \" + units[1]),4)} \\end{align}$</p>\n<p>3.  Find centroid $\\bar{x}=\\frac{Q_y}{W}$</p>\n<p style=\"padding-left: 40px;\">$\\bar{x} = \\dfrac{Q_y}{W} = \\dfrac{\\var{siground(Qy,4)}}{\\var{siground(load,4)}} = \\var{siground(qty(xbar,units[0]),4)}$</p>\n<p>4.  Take moments about $A$ and $B$ to find reactions.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}\\sum M_B &amp;= 0 &amp; \\sum M_A &amp;=0 \\\\    R_A L &amp;=  \\simplify{{sign(load)} W }(L-\\bar{x}) &amp; + R_B L &amp;= \\simplify{{sign(load)} W }\\bar{x} &amp;  \\\\ R_A&amp;= \\var{show(qty(abs(R_A),units[1]))} \\var{arrow(R_A)} &amp;  R_B &amp;= \\var{show(qty(abs(R_B),units[1]))} \\var{arrow(R_B)}  \\end{align}$</p>\n<p>5.  Integrate $V(x) = \\int w(x)\\; dx$ to get the shear function.</p>\n<p style=\"padding-left: 40px;\">Note: <em>Positive values of</em> $w\\!(x)$ <em>indicate downward forces, so the integrations is over</em> $-w\\!(x)$.</p>\n<p style=\"padding-left: 40px;\">$\\begin{align} V\\!(x) &amp;= \\int - w\\!(x) dx \\\\&amp;= \\simplify[fractionNumbers, canonicalOrder]{int({-w},x)} \\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v -v[0]}}+C_3  &amp;&amp; v\\!(0) = R_A  \\therefore C_3 = \\var{show(qty(R_A,\"\"))}\\\\ &amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}} &amp;&amp; [\\var{units[1]}] &amp;\\end{align}$</p>\n<p>6.  Integrate $M(x) = \\int V(x)\\; dx$ to get moment function.  </p>\n<p style=\"padding-left: 30px;\">$\\begin{align} M\\!(x) &amp;= \\int V\\!(x) dx \\\\&amp;= \\simplify[fractionNumbers, canonicalOrder]{int({v},x)}\\\\&amp;= \\simplify[fractionNumbers,canonicalOrder]{{v}}+C_4  &amp;&amp; M\\!(0) =0  \\therefore C_4 = 0 \\\\&amp;=  \\simplify[fractionNumbers,canonicalOrder]{{m}} &amp;&amp; [\\var{units[1]}\\text{-}\\var{units[0]} ]&amp;\\end{align}$</p>\n<p style=\"padding-left: 30px;\" />\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Maximum moment occurs where $dM/dx = V = 0$</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Evaluate $M(x)$ at point of maximum bending moment.</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Maximum shear occurs where $d V /d x = -w(x) = 0$</span></p>\n<p style=\"padding-left: 30px;\"><span data-jme-visible=\"false\">Evaluate $V(x)$ at point of maximum shear.</span></p>\n<p style=\"padding-left: 40px;\" />\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">To find maximum shear, determine where $\\simplify{diff(v,x,1)} = -w\\!(x) = 0$ using the quadratic equation.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$x_{max} =  \\frac{- b \\pm \\sqrt{b^2 - 4 a c}}{2a}$ where, $a= \\var[fractionNumbers]{-w[2]}, b=\\var[fractionNumbers]{-w[1]}$ and $c=\\var[fractionNumbers]{-w[0]}$.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">Any real roots of $w\\!(x)$ between the beam's endpoints plus the endpoints themselves are locations of local maximums or minimums.</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">{v_extremes}</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$\\simplify{{show(v_extremes[1])}}$</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">The maximum of these local maximums is the the one we want</span></p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"false\">$V_{max} = \\var{show(qty(v_max[1], units[1]))}$</span></p>\n<p style=\"padding-left: 40px;\" />\n<p style=\"padding-left: 40px;\" /></span></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"load &lt;&gt; 0   // we really want the load to be non-zero&#10;and abs(w[2]) &gt; 1/10// and want to be sure it is a quadratic&#10;\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(10..20#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"A\"><value>vector(0,random(-4..3) scale )</value></variable><variable name=\"B\"><value>vector(beamLen,random(-4..3) scale )</value></variable><variable name=\"C\"><value>vector(random(4..beamlen-4), random(-4..4) scale )</value></variable><variable name=\"applet\"><value>//geogebra_file('newVM_6j6k8Vp.ggb',params)\ngeogebra_applet('shk4mfk6',params)</value></variable><variable name=\"params\"><value>[ unitsD: '\"' + units[0] + '\"',\n  unitsF: '\"' + units[1] + '\"',\n  showV: [definition: \"true\",  visible: false],\n  showM: [definition: \"true\",  visible: false],\n  A: A, B: B, C: C,\n  L: beamlen,\n  wscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(wmax)))/5))'],\n  vscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(vmax)))/3))'],\n  mscale: [definition: 'CopyFreeObject(scaleFunction(Max(abs(y(mmax)))/3))']\n]\n\n</value></variable><variable name=\"scale\"><value>random(5..200#5)</value></variable><variable name=\"matrix\"><value>reduced_row_echelon_form(matrix([[A[0]^2, A[0], 1, A[1]],\n  [B[0]^2, B[0], 1, B[1]],\n  [C[0]^2, C[0], 1, C[1]]]))</value></variable><variable name=\"w\"><value>polynomial(x,[matrix[2][3], matrix[1][3], matrix[0][3],0,0])</value></variable><variable name=\"v\"><value>-polynomial(x, [-R_A, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"m\"><value>polynomial(x,[ 0, v[0], v[1]/2, v[2]/3, v[3]/4])</value></variable><variable name=\"load\"><value>eval(intW,beamlen) - eval(intW,0)</value></variable><variable name=\"dQy\"><value>polynomial(x) w</value></variable><variable name=\"intdQy\"><value>polynomial(x, [0, dQy[0], dQy[1]/2, dQy[2]/3, dQy[3]/4])</value></variable><variable name=\"Qy\"><value>eval(intdqy,beamlen)</value></variable><variable name=\"xBar\"><value>Qy/load</value></variable><variable name=\"intW\"><value>polynomial(x, [0, w[0], w[1]/2, w[2]/3])</value></variable><variable name=\"R_B\"><value>xbar load / beamlen</value></variable><variable name=\"R_A\"><value>(beamlen-xbar) load/ beamlen</value></variable><variable name=\"check\"><value>withintolerance(R_A+R_B,load,10^10)</value></variable><variable name=\"roots\"><value>sort(\n  if(d&gt;=0, \n    filter(x&gt;=0 and x &lt;=beamlen,x,\n      let([a: w[2], b: w[1], c: w[0]], \n     [(-b + sqrt(d))/(2 a), (-b - sqrt(d))/(2 a)]\n)),[]) + [0,beamlen])</value></variable><variable name=\"d\"><value>w[1]^2 - 4 w[2] * w[0]</value></variable><variable name=\"v_extremes\"><value>map(vector(x,eval(v,x)),x,roots)</value></variable><variable name=\"v_max\"><value>foldl(if(abs(pt[1])&gt;abs(v[1]),pt,v),pt, v,  vector(0,0),v_extremes)</value></variable><variable name=\"debug\"><value>false</value></variable></variables><functions><function name=\"arrow\" outtype=\"anything\" definition=\"if(sign(F) &gt;= 0 ,latex(&quot;\\\\uparrow&quot;), latex(&quot;\\\\downarrow&quot;))\" language=\"jme\"><parameters><parameter name=\"F\" type=\"?\" /></parameters></function><function name=\"show\" outtype=\"anything\" definition=\"if(abs(if(type(A)=type(qty(1,'m')),scalar(A),A))&lt;1,&#10;  precround(A,4),siground(A,4))\" language=\"jme\"><parameters><parameter name=\"A\" type=\"?\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.scope.variables.applet.app;  \n    app.setVisible(\"showV\", true,false);\n    app.setVisible(\"showM\", true,false);\n    app.setValue(\"showV\",true);\n    app.setValue(\"showM\",true);\n  }\n  catch(err){}  \n})\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>linear-algebra</extension><extension>polynomials</extension><extension>quantities</extension></extensions></question><question name=\"V-M 1a: Concentrated forces, no diagrams\" customName=\"Concentrated forces\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>Draw the shear and bending moment for the beam and loading shown.  The beam is {qty(beamlen,units[0])} long.  </p>\n<p>{ggb_function}</p>\n<p />\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at the pin and roller supports?</p>\n<p>$A$ =  <gapfill reference=\"0\" />  $\\qquad B$ = <gapfill reference=\"1\" /> </p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(value(ggb_function, \"F_A\"),units[1])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n    qty(value(ggb_function, \"F_B\"),units[1])\n\n\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"Vmax\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function,safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function,safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"Mmax\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n value(ggb_function,safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function,safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"range\"><value>[0]+[beamLen] + sort(shuffle(2..(beamLen -2)#2)[0..3])</value></variable><variable name=\"beamLen\"><value>2 random(5..10)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"FE\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"FC\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"FD\"><value>random(-150..150#10 except 0)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"anything\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qnhnawam',&#10;  width: 560,&#10;  height: 600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('beamLen');&#10;  setGGBNumber('F_C',&quot;FC&quot;);&#10;  setGGBNumber('F_D',&quot;FD&quot;);&#10;  setGGBNumber('F_E',&quot;FE&quot;);&#10;  &#10;  function setPoint(name, index) {&#10;  var x = question.unwrappedVariables.range[index]&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  }&#10;  &#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-30);&#10;  &#10;  setPoint('A',0);&#10;  setPoint('B',1);&#10;  setPoint('C',2);&#10;  setPoint('D',3);&#10;  setPoint('E',4);&#10;  &#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  app.evalCommand(&quot;RunClickScript(Rescale)&quot;);&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  app.setVisible(&quot;Rescale&quot;, false, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return Numbas.exam.currentQuestion.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function><function name=\"advice\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qnhnawam'&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('beamLen');&#10;  setGGBNumber('F_C',&quot;FC&quot;);&#10;  setGGBNumber('F_D',&quot;FD&quot;);&#10;  setGGBNumber('F_E',&quot;FE&quot;);&#10;  &#10;  function setPoint(name, index) {&#10;  var x = question.unwrappedVariables.range[index]&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  }&#10;  &#10;  setPoint('A',0);&#10;  setPoint('B',1);&#10;  setPoint('C',2);&#10;  setPoint('D',3);&#10;  setPoint('E',4);&#10;  &#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  app.evalCommand(&quot;RunClickScript(Rescale)&quot;);&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  app.setVisible(&quot;Rescale&quot;, false, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;    &#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.applet.app;\n  \n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  //app.setVisible(\"F_C\",true,true);\n  //app.setVisible(\"F_D\",true,true);\n  //app.setVisible(\"F_E\",true,true);\n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n     \n     }\n  catch(err){}  \n})\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 3a: Distributed loads, no diagrams\" customName=\"Distributed loads\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>Draw the shear and bending moment for the {beamlen} {units[0]}  beam and loading shown. </p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at $A$ and $F$? </p>\n<p>$A = $  <gapfill reference=\"0\" /> $\\qquad F = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_A\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"F\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_F\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.  Use the standard sign convention.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_\\text{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function,safe(\"V_{max}\"))\n\nVmin:\n  value(ggb_function,safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_\\text{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n value(ggb_function,safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function,safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"C &lt;&gt; D\" maxRuns=\"100\"><variable name=\"range\"><value>[0]+ sort(shuffle(2..(beamLen -2)#2)[0..4]) +[beamLen]</value></variable><variable name=\"beamLen\"><value> random(12..20#2)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()\n</value></variable><variable name=\"A\"><value>range[0]</value></variable><variable name=\"B\"><value>if(random(0..100)&gt;50, range[0],range[1])</value></variable><variable name=\"C\"><value>if(random(0..100)&lt;25, range[3],range[2])</value></variable><variable name=\"D\"><value>range[3]</value></variable><variable name=\"EE\"><value>if(random(0..100)&lt;40, range[5],range[4])</value></variable><variable name=\"F\"><value>range[5]</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"w_1\"><value>random(-100..100#10 except 0)</value></variable><variable name=\"w_2\"><value>random(-100..100#10 except 0)</value></variable><variable name=\"points\"><value>sort(distinct([A,B,C,D,EE,F]))</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'q7zdsmu3',&#10;  width: 560,&#10;  height: 600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10; &#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('w_1');&#10;  setGGBNumber('w_2');&#10;  &#10;  function setPoint(name,nname=name) {&#10;  var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname))&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  app.setFixed(name,true);&#10;  }&#10;  &#10;  setPoint('A');&#10;  setPoint('B');&#10;  setPoint('C');&#10;  setPoint('D');&#10;  setPoint('E','EE');&#10;  setPoint('F');&#10;  &#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-35);&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  &#10;  /*debuging values&#10;  app.setVisible('showR', true);&#10;  app.setVisible('showV', true);&#10;  app.setVisible('showM', true);&#10;  app.setVisible('showMax', true);&#10;  app.setVisible(&quot;textShowSoln&quot;, true, false);&#10; &#10;  app.setValue('showMax',true);&#10;  app.setValue('showR',true);&#10;  app.setValue('showV',true);&#10;  app.setValue('showM',true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n  try{\n    var app = question.applet.app;\n \n    app.setVisible('showR', true);\n  app.setVisible('showV', true);\n  app.setVisible('showM', true);\n  app.setVisible('showMax', true);\n  app.setVisible(\"textShowSoln\", true, false);\n  \n  app.setValue('showMax',true);\n  app.setValue('showR',true);\n  app.setValue('showV',true);\n  app.setValue('showM',true);\n  \n  }\n  catch(err){}  \n})\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 2a: Concentrated moments, no diagrams\" customName=\"Concentrated moments\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A {qty(beamLen, units[0])} long cantilevered beam is supported by a fixed support at $A$ and subjected to the loading shown.</p>\n<p>Draw the corresponding shear and bending moment diagram.</p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Find the reactions at $A$.</p>\n<p>$A = $ <gapfill reference=\"0\" /> $\\qquad M_A = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(value(ggb_function,\"F_A\"),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_A$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n qty(value(ggb_function,\"M_A\"),units[1] + ' ' + units[0])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0]+\\&quot; \\&quot; +  units[1])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum Internal Loads\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>Give the (signed) values of the largest shear and bending moment occuring anywhere within the beam.</p>\n<p>$V_{\\text{max}} = $  <gapfill reference=\"0\" /> $\\qquad M_{\\text{max}} = $  <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"$V_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function, safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function, safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"$M_{max}$\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n  value(ggb_function, safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function, safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0,units[1] + ' ' + units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /></builtin><custom /></constants><variables condition=\"\" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(12..20#2)</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"P_C\"><value>random(-50..50#10 except 0)</value></variable><variable name=\"M_D\"><value>random(-200..200#10 except 0)</value></variable><variable name=\"F_B\"><value>random(-50..50#10 except 0)</value></variable><variable name=\"A\"><value>ends[0]</value></variable><variable name=\"B\"><value>ends[1]</value></variable><variable name=\"C\"><value>random(midpoints)</value></variable><variable name=\"D\"><value>random(midpoints)</value></variable><variable name=\"EE\"><value>ends[0]</value></variable><variable name=\"points\"><value>sort(distinct([A,B,C,D,EE]))</value></variable><variable name=\"ends\"><value>shuffle([0,beamLen])</value></variable><variable name=\"midpoints\"><value>shuffle(2..beamLen-2#2)</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"anything\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'wzynat8x',&#10;  width:560,&#10;  height:600&#10;};&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10;  app.setGridVisible(1, true);&#10;  app.setAxesVisible(true,false);&#10;  app.enableShiftDragZoom(false);&#10;  &#10;  function setGGBPoint(name, nname=name) {&#10;    // moves point in GGB to Numbas value&#10;    var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname));&#10;    app.setFixed(name,false,false);&#10;    app.setCoords(name, x, 0);&#10;    app.setFixed(name,true,true);&#10;  }&#10;&#10; function setGGBNumber(name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = question.scope.evaluate(name).value;&#10;    app.setValue(name,n);&#10;  }&#10;  app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-32);&#10;  &#10;  &#10;  setGGBPoint(&quot;A&quot;);&#10;  setGGBPoint(&quot;B&quot;);&#10;  setGGBPoint(&quot;C&quot;);&#10;  setGGBPoint(&quot;D&quot;);&#10;  setGGBPoint(&quot;E&quot;,&quot;EE&quot;);&#10;  &#10;  setGGBNumber(&quot;P_C&quot;);&#10;  setGGBNumber(&quot;F_B&quot;);&#10;  setGGBNumber(&quot;M_D&quot;);&#10;  &#10;  app.setVisible(&quot;P_C&quot;,false);&#10;  app.setVisible(&quot;F_B&quot;,false);&#10;  app.setVisible(&quot;M_D&quot;,false);&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;  &#10;  /* begin debug &#10;  app.setVisible(&quot;textShowSoln&quot;, true, false);&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n try{\n    var app = question.applet.app;\n   app.setVisible(\"textShowSoln\", true, false);\n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  \n  \n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n  \n  }\n  catch(err){}  \n})\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question><question name=\"V-M 4a: Combined loads, no diagrams\" customName=\"Combined loads\" partsMode=\"all\" maxMarks=\"0\" objectiveVisibility=\"always\" penaltyVisibility=\"always\"><statement><content><span><p>A {qty(beamlen, units[0])} long beam is subjected to a {abs(P_C)} {units[1]} concentrated force $P$ and a {abs(w)} {units[1]}/{units[0]} distributed load $w$ as shown.   </p>\n<p>Draw the corresponding shear and bending moment.  </p>\n<p>{ggb_function}</p>\n<p /></span></content></statement><parts><part usecustomname=\"True\" customName=\"Reactions\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>What are the reactions at $A$ and $B$?</p>\n<p>$A= $ <gapfill reference=\"0\" /> $\\qquad B = $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"A\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_A\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"B\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">correct_quantity:\n  qty(abs(value(ggb_function,\"F_B\")),units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;0.2&quot;\" /><setting name=\"close\" value=\"&quot;1.0&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part><part usecustomname=\"True\" customName=\"Maximum internal load\" type=\"gapfill\" marks=\"0\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"True\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\"><prompt><content><span><p>$V_{max}= $ <gapfill reference=\"0\" /> $\\qquad M_{max}= $ <gapfill reference=\"1\" /></p></span></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\" /><nextparts /><gaps><part usecustomname=\"True\" customName=\"V_max\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Vmax:\n  value(ggb_function, safe(\"V_{max}\"))\n\nVmin:\n   value(ggb_function, safe(\"V_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Vmax)&gt;=abs(Vmin), Vmax, Vmin), units[1])</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part><part usecustomname=\"True\" customName=\"M_max\" type=\"engineering-answer\" marks=\"10.00000000000000\" stepspenalty=\"0\" enableminimummarks=\"True\" minimummarks=\"0\" showcorrectanswer=\"False\" showfeedbackicon=\"True\" exploreobjective=\"\" suggestgoingback=\"False\" usealternativefeedback=\"False\" custom=\"true\"><prompt><content><span /></content></prompt><alternativefeedbackmessage /><steps /><alternatives /><scripts /><adaptivemarking penalty=\"0\" strategy=\"originalfirst\"><variablereplacements /></adaptivemarking><markingalgorithm extend=\"True\">Mmax:\n  value(ggb_function, safe(\"M_{max}\"))\n\nMmin:\n   value(ggb_function, safe(\"M_{min}\"))\n\ncorrect_quantity:\n  qty(if(abs(Mmax)&gt;=abs(Mmin), Mmax, Mmin), units[1]+' ' + units[0])\n\n</markingalgorithm><nextparts /><settings><setting name=\"correctAnswer\" value=\"&quot;qty(0, units[0])&quot;\" /><setting name=\"right\" value=\"&quot;1&quot;\" /><setting name=\"close\" value=\"&quot;5&quot;\" /><setting name=\"C1\" value=\"&quot;75&quot;\" /><setting name=\"C2\" value=\"&quot;50&quot;\" /><setting name=\"C3\" value=\"&quot;25&quot;\" /></settings></part></gaps><marking sortanswers=\"False\" /></part></parts><advice><content><span /></content></advice><notes /><constants><builtin><constant name=\"e\" enable=\"True\" /><constant name=\"pi,π\" enable=\"True\" /><constant name=\"i\" enable=\"True\" /><constant name=\"j\" enable=\"False\" /></builtin><custom /></constants><variables condition=\"A&lt; beamLen/2 and  B &gt; beamLen/2 and C &lt;&gt; A and C &lt;&gt; B and D &lt;&gt; EE and abs(A-B) &gt;= 6&#10;// Reactions in two places, load not on top of reactions, and distributed load starts and ends \" maxRuns=\"100\"><variable name=\"beamLen\"><value>random(12..20#2)</value></variable><variable name=\"range\"><value>[0]+ sort(shuffle(2..(beamLen -2)#2)[0..3]) +[beamLen]</value></variable><variable name=\"ggb_function\"><value>geogebra_function()</value></variable><variable name=\"dots\"><value>[if(A&lt;&gt;0,0,random(0..beamLen#2))]+ \n[if(B&lt;&gt; beamLen, beamLen, random(0..BeamLen#2))]+\n[random(0..BeamLen/2#2)]</value></variable><variable name=\"P_C\"><value>random(-200..200#10 except 0)</value></variable><variable name=\"A\"><value>random(0..beamLen/2#2)</value></variable><variable name=\"B\"><value>beamlen-random(0..beamLen/2#2)</value></variable><variable name=\"C\"><value>dots[0]</value></variable><variable name=\"D\"><value>dots[1]</value></variable><variable name=\"EE\"><value>dots[2]</value></variable><variable name=\"units\"><value>random(['ft','lb'],['m','kN'])</value></variable><variable name=\"w\"><value>random(-50..50#10 except 0)</value></variable></variables><functions><function name=\"geogebra_function\" outtype=\"ggbapplet\" definition=\"// Create the worksheet. &#10;// This function returns an object with a container `element` and a `promise` resolving to a GeoGebra applet.&#10;var params = {&#10;  material_id: 'qqv7vew7',&#10;  width:560,&#10;  height:600&#10;}&#10;&#10;var result = Numbas.extensions.geogebra.createGeogebraApplet(params);&#10;&#10;// Once the applet has loaded, run some commands to manipulate the worksheet.&#10;result.promise.then(function(d) {&#10;  var app = d.app;&#10;  question.applet = d;&#10; &#10;   app.setVisible('TR',false);&#10;  app.setVisible('BL',false);&#10;  app.setLabelVisible('TR',true);&#10;  app.setLabelStyle('TR',2);&#10;  app.setLabelVisible('BL',true);&#10;  app.setLabelStyle('BL',2);&#10;  app.setCoords('BL',-4,-32);&#10;  &#10;  &#10;  //initialize the dimensions and forces&#10;  &#10;   function setGGBPoint(g_name, n_name = g_name) {&#10;    // moves point in GGB to location of Numbas Vector Variable&#10;    // g_name = geogebra point, n_name = numbas vector&#10;    &#10;    //var pt = question.scope.evaluate(n_name).value&#10;    var pt = scope.getVariable(n_name).value&#10;    app.setFixed(g_name,false,false);&#10;    app.setCoords(g_name, pt[0], pt[1]);&#10;    //app.setFixed(g_name,true,true);&#10;  }&#10;  &#10;   function setGGBNumber(g_name, n_name = g_name) {&#10;    // Sets number in GGB to a Numbas Variable&#10;    var n = scope.getVariable(n_name).value;&#10;    app.setValue(g_name,n);&#10;    app.setVisible(g_name,false);&#10;  }&#10;  &#10;  setGGBNumber('w');&#10;  setGGBNumber('P_C');&#10;  &#10;  function setPoint(name,nname=name) {&#10;  var x = Numbas.jme.unwrapValue(question.scope.getVariable(nname))&#10;  app.setFixed(name,false,false);&#10;  app.setCoords(name, x, 0);&#10;  app.setFixed(name,true);&#10;  }&#10;  &#10;  setPoint('A');&#10;  setPoint('B');&#10;  setPoint('C');&#10;  setPoint('D');&#10;  setPoint('E','EE');&#10;&#10;  &#10;  app.evalCommand('Scale_V = CopyFreeObject(scaleFunction(Max({V_{max},abs(V_{min})})/2 ))');&#10;  app.evalCommand('Scale_M = CopyFreeObject(scaleFunction(Max({M_{max},abs(M_{min})})/3 ))');&#10;  &#10;  var units = question.unwrappedVariables.units&#10;  app.setTextValue('units_d', units[0]);&#10;  app.setTextValue('units_f', units[1]);&#10;  //app.evalCommand(&quot;RunClickScript(Rescale)&quot;);  (not implemented in ggb)&#10;  &#10;  app.setVisible(&quot;NewProblem&quot;, false, false);&#10;  //app.setVisible(&quot;Rescale&quot;, true, false);&#10;  app.setVisible(&quot;textShowSoln&quot;, false, false);&#10;  app.setVisible(&quot;showR&quot;, false,false);&#10;  app.setVisible(&quot;showV&quot;, false,false);&#10;  app.setVisible(&quot;showM&quot;, false,false);&#10;  app.setVisible(&quot;showMax&quot;, false,false);&#10;&#10;  &#10;  &#10;  app.setValue(&quot;showR&quot;,false);&#10;  app.setValue(&quot;showV&quot;,false);&#10;  app.setValue(&quot;showM&quot;,false);&#10;  app.setValue(&quot;showMax&quot;,false);&#10;    &#10;  /* debug values&#10;  app.setVisible(&quot;showR&quot;, true,false);&#10;  app.setVisible(&quot;showV&quot;, true,false);&#10;  app.setVisible(&quot;showM&quot;, true,false);&#10;  app.setVisible(&quot;showMax&quot;, true,false);&#10;  &#10;  app.setValue(&quot;showR&quot;,true);&#10;  app.setValue(&quot;showV&quot;,true);&#10;  app.setValue(&quot;showM&quot;,true);&#10;  app.setValue(&quot;showMax&quot;,true);&#10;  */&#10;  &#10;});&#10;&#10;// This function returns the result of `createGeogebraApplet` as an object &#10;// with the JME data type 'ggbapplet', which can be substituted into the question's content.&#10;return new Numbas.jme.types.ggbapplet(result);\" language=\"javascript\"><parameters /></function><function name=\"getGGB\" outtype=\"anything\" definition=\"return question.applet.app.getValue(val)\" language=\"javascript\"><parameters><parameter name=\"val\" type=\"string\" /></parameters></function></functions><preambles nosubvars=\"true\"><preamble language=\"css\" /><preamble language=\"js\">question.signals.on('adviceDisplayed',function() {\n   try{\n    var app = question.applet.app;\n \n  app.setVisible(\"showR\", true,false);\n  app.setVisible(\"showV\", true,false);\n  app.setVisible(\"showM\", true,false);\n  app.setVisible(\"showMax\", true,false);\n  //app.setVisible(\"F_C\",true,true);\n  //app.setVisible(\"F_D\",true,true);\n  //app.setVisible(\"F_E\",true,true);\n  app.setValue(\"showR\",true);\n  app.setValue(\"showV\",true);\n  app.setValue(\"showM\",true);\n  app.setValue(\"showMax\",true);\n  \n  }\n  catch(err){}  \n})\n\n\n\n\n</preamble></preambles><rulesets /><objectives /><penalties /><tags><tag>gets answer from ggb</tag><tag>Mechanics</tag><tag>mechanics</tag><tag>shear and bending moment</tag><tag>Statics</tag><tag>statics</tag></tags><extensions><extension>geogebra</extension><extension>quantities</extension></extensions></question></questions></question_group></question_groups><knowledge_graph>{\"topics\": [], \"learning_objectives\": []}</knowledge_graph></exam>"
     };
 });
