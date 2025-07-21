@@ -639,111 +639,6 @@ The common support methods are
     </figure>
     <p>We will limit our analysis to these three support systems, and since beams primarily support vertical loads, axial forces will not be considered in this section.</p>
   </section>
-  <section xml:id="section_cut_method">
-    <title>Section Cut Method</title>
-    <p>In this section we'll extend the method of <xref ref="internal_force_at_point"/> where we found the internal forces at a specific point to to find the internal forces at every point needed to produce s shear and bending moment diagram.</p>
-    <p>The procedure is identical except that the cut is taken at a position designated by <m>x</m> instead of at a specified point.
-The analysis produces <em>equations</em>  as functions of <m>x</m> rather than <em>values</em> at a particular <m>x</m>.
-Shear and bending moment diagrams are plots of these equations, and the internal forces at any particular point can be found by substituting that particular value of <m>x</m> into the equations.</p>
-    <sidebyside margins="0%" valign="middle" widths="55% 40%">
-      <p>We will use a cantilevered beam fixed to a wall on the left end and subjected to a vertical force <m>P</m> on the right end as an example.
-Global equilibrium requires that the reactions at the fixed support at <m>A</m> are a vertical force <m>A_y = P</m>, and a counter-clockwise moment <m>M_A = P L</m>.</p>
-      <image source="images/cantilevered-beam-ex0">
-        <shortdescription>Cantilevered beam of length L fixed to a wall at A on its left end and subject to a vertical force P on its right end.</shortdescription>
-      </image>
-    </sidebyside>
-    <p>By taking a cut at a distance <m>x</m> from the left we can draw two free-body diagrams with lengths <m>x</m> and <m>(L-x)</m>.
-This beam has <em>one</em> loading segment, because no matter where <m>x</m> is chosen, the free-body diagrams shown in <xref ref="cuts_1"/> (b) and (c) are correct.
-The internal loadings are named <m>V(x)</m> and <m>M(x)</m> to indicate that they are functions of <m>x</m> and are drawn with positive sense as defined in <xref ref="VM_sign_convention"/>. </p>
-    <figure xml:id="cuts_1">
-      <caption/>
-      <sidebyside margins="0%" widths="40% 25% 25%">
-        <figure>
-          <caption>Cut at position <m>x</m>.</caption>
-          <image source="images/cantilevered-beam-ex1">
-            <shortdescription>FBD of system from previous figure, with an imaginary cut at some distance x from the left end.</shortdescription>
-          </image>
-        </figure>
-        <figure>
-          <caption>Left <acro>FBD</acro>.</caption>
-          <image source="images/cantilevered-beam-ex2">
-            <shortdescription>FBD of the left side of the beam.</shortdescription>
-          </image>
-        </figure>
-        <figure>
-          <caption>Right <acro>FBD</acro>.</caption>
-          <image source="images/cantilevered-beam-ex3">
-            <shortdescription>FBD of the right side of the beam.</shortdescription>
-          </image>
-        </figure>
-      </sidebyside>
-    </figure>
-    <p>To find the shear and bending moment functions, we apply the equilibrium to one of the free-body diagrams.
-Either side will work, so we'll select the right-hand portion as it doesn't require us to find the reactions at <m>A</m>.
-Letting <m>L</m> be the length of the beam and <m>(L-x)</m> the length of the right portion, we find</p>
-    <sidebyside margins="15%" widths="35% 25%">
-      <p>
-        <md>
-          <mrow>
-            \Sigma F_y \amp = 0 \amp \Sigma M_\text{cut} \amp = 0
-          </mrow>
-          <mrow>
-            V(x) \amp = P \amp M(x) \amp = - P(L-x)
-          </mrow>
-        </md>
-      </p>
-      <image source="images/cantilevered-beam-ex3">
-        <shortdescription>The same FBD of the right side of the beam.</shortdescription>
-      </image>
-    </sidebyside>
-    <p>The plots of the equations for <m>V(x)</m> and <m>M(x)</m> are shown below in <xref ref="vm-cantilever"/>.
-These equations indicate that the shear force <m>V(x)</m> is constant <m>P</m> over the length of the beam and the moment <m>M(x)</m> is a linear function of the position of the cut, <m>x</m> starting at <m>-PL</m> at <m>x=0</m> and linearly increasing to zero at <m>x=L</m>.
-Note that the graphs are only valid from <m>0 \le x \le L</m>, so the curves outside this range are shown as dotted lines.
-These two graphs are usually drawn stacked beneath the load diagram of the beam.</p>
-    <figure xml:id="vm-cantilever" >
-      <caption>Shear and Bending Moment Diagrams for Cantilever Beam</caption>
-          <image source="images/cantilever_vm_diagram" width="60%">
-            <shortdescription>Load, Shear and Moment diagrams for the previous FBD.  Shear digram rises to P at x=0, then stays there for the length of the beam.  Moment diagram starts at -PL and linearly increases to zero over the length of the beam.</shortdescription>
-          </image>
-    </figure>
-    <p>The previous example was simple because only one <acro>FBD</acro> was necessary for any point on the beam, but many beams are more complex.
-Beams with multiple loads must be divided into loading segments between the points where loads are applied or where distributed loads begin or end.</p>
-  
-      <p>Consider the simply supported beam <m>AD</m> with a uniformly distributed load <m>w</m> over the first segment from <m>A</m> to <m>B</m>, and two vertical loads <m>B</m> and <m>C</m> .</p>
-      <figure><caption>Simply Suppported Beam with Uniformly Distributed Load</caption><image source="images/simple-beam-ex0" width="50%">
-        <shortdescription>Simply supported beam AD of length 3 units with a uniformly distributed load w from A to B (1 unit length).
-Two vertical loads are at B and at C (1 unit to the right of B).</shortdescription></image></figure>
-
-    <p>This beam has three loading segments so you must draw three free-body diagrams and analyze each segment independently.
-For each, make an imaginary cut through the segment, then draw a new free-body diagram of the portion to the left (or right) of the cut.
-Always assume that the exposed internal shear force and internal bending moment act in the positive direction according to the <xref ref="VM_sign_convention" text="custom">sign convention</xref>.</p>
-    <figure>
-      <caption/>
-      <sidebyside margins="0%" widths="20% 30% 40%">
-        <figure>
-          <caption><m>0 \lt x \lt 1</m></caption>
-          <image source="images/simple-beam-ex1">
-            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 0 less than x less than 1.</shortdescription>
-          </image>
-        </figure>
-        <figure>
-          <caption><m>1 \lt x \lt 2</m></caption>
-          <image source="images/simple-beam-ex2">
-            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 1 less than x less than 2.</shortdescription>
-          </image>
-        </figure>
-        <figure>
-          <caption><m>2 \lt x \lt 3</m></caption>
-          <image source="images/simple-beam-ex3">
-            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 2 less than x less than 3.</shortdescription>
-          </image>
-        </figure>
-      </sidebyside>
-    </figure>
-    <p>After the equilibrium equations are applied to each segment, the resulting equations <m>V(x)</m> and <m>M(x)</m> from each segment are joined to plot the shear and moment diagrams.
-These diagrams help us visualize the values of <m>V</m> and <m>M</m> throughout the beam.</p>
-    <!--todo this really needs a numeric example and plot to demonstrate -->
-  </section>
   <section xml:id="VM_relations">
     <title>Relations between Loading, Shear and Moment</title>
     <p>Shear and bending moment diagrams are used to show how load on a beam affects the shear and bending moment within.</p>
@@ -861,91 +756,112 @@ A segment is indicated with imaginary cuts at x and at x+delta x.</shortdescript
   <p>
      It is sometimes convenient to assume that positive loads act down, and not up as we have assumed here.  In that case simply subtitute <m>-w(x)</m> for <m>w(x)</m> into and equations <xref ref="VMV1"/> and <xref ref="VMV2"/> and use these variations instead: <mdn><mrow>\frac {dV}{dx}\amp = -w(x)  \amp \Delta V\amp=-\int_a^b w(x) \ dx </mrow></mdn>. 
     </p></remark>
+    
   </section>
+  <section xml:id="section_cut_method">
+    <title>Section Cut Method</title>
+    <p>In this section we'll extend the method of <xref ref="internal_force_at_point"/> where we found the internal forces at a specific point to to find the internal forces at every point needed to produce s shear and bending moment diagram.</p>
+    <p>The procedure is identical except that the cut is taken at a position designated by <m>x</m> instead of at a specified point.
+The analysis produces <em>equations</em>  as functions of <m>x</m> rather than <em>values</em> at a particular <m>x</m>.
+Shear and bending moment diagrams are plots of these equations, and the internal forces at any particular point can be found by substituting that particular value of <m>x</m> into the equations.</p>
+    <sidebyside margins="0%" valign="middle" widths="55% 40%">
+      <p>We will use a cantilevered beam fixed to a wall on the left end and subjected to a vertical force <m>P</m> on the right end as an example.
+Global equilibrium requires that the reactions at the fixed support at <m>A</m> are a vertical force <m>A_y = P</m>, and a counter-clockwise moment <m>M_A = P L</m>.</p>
+      <image source="images/cantilevered-beam-ex0">
+        <shortdescription>Cantilevered beam of length L fixed to a wall at A on its left end and subject to a vertical force P on its right end.</shortdescription>
+      </image>
+    </sidebyside>
+    <p>By taking a cut at a distance <m>x</m> from the left we can draw two free-body diagrams with lengths <m>x</m> and <m>(L-x)</m>.
+This beam has <em>one</em> loading segment, because no matter where <m>x</m> is chosen, the free-body diagrams shown in <xref ref="cuts_1"/> (b) and (c) are correct.
+The internal loadings are named <m>V(x)</m> and <m>M(x)</m> to indicate that they are functions of <m>x</m> and are drawn with positive sense as defined in <xref ref="VM_sign_convention"/>. </p>
+    <figure xml:id="cuts_1">
+      <caption/>
+      <sidebyside margins="0%" widths="40% 25% 25%">
+        <figure>
+          <caption>Cut at position <m>x</m>.</caption>
+          <image source="images/cantilevered-beam-ex1">
+            <shortdescription>FBD of system from previous figure, with an imaginary cut at some distance x from the left end.</shortdescription>
+          </image>
+        </figure>
+        <figure>
+          <caption>Left <acro>FBD</acro>.</caption>
+          <image source="images/cantilevered-beam-ex2">
+            <shortdescription>FBD of the left side of the beam.</shortdescription>
+          </image>
+        </figure>
+        <figure>
+          <caption>Right <acro>FBD</acro>.</caption>
+          <image source="images/cantilevered-beam-ex3">
+            <shortdescription>FBD of the right side of the beam.</shortdescription>
+          </image>
+        </figure>
+      </sidebyside>
+    </figure>
+    <p>To find the shear and bending moment functions, we apply the equilibrium to one of the free-body diagrams.
+Either side will work, so we'll select the right-hand portion as it doesn't require us to find the reactions at <m>A</m>.
+Letting <m>L</m> be the length of the beam and <m>(L-x)</m> the length of the right portion, we find</p>
+    <sidebyside margins="15%" widths="35% 25%">
+      <p>
+        <md>
+          <mrow>
+            \Sigma F_y \amp = 0 \amp \Sigma M_\text{cut} \amp = 0
+          </mrow>
+          <mrow>
+            V(x) \amp = P \amp M(x) \amp = - P(L-x)
+          </mrow>
+        </md>
+      </p>
+      <image source="images/cantilevered-beam-ex3">
+        <shortdescription>The same FBD of the right side of the beam.</shortdescription>
+      </image>
+    </sidebyside>
+    <p>The plots of the equations for <m>V(x)</m> and <m>M(x)</m> are shown below in <xref ref="vm-cantilever"/>.
+These equations indicate that the shear force <m>V(x)</m> is constant <m>P</m> over the length of the beam and the moment <m>M(x)</m> is a linear function of the position of the cut, <m>x</m> starting at <m>-PL</m> at <m>x=0</m> and linearly increasing to zero at <m>x=L</m>.
+Note that the graphs are only valid from <m>0 \le x \le L</m>, so the curves outside this range are shown as dotted lines.
+These two graphs are usually drawn stacked beneath the load diagram of the beam.</p>
+    <figure xml:id="vm-cantilever" >
+      <caption>Shear and Bending Moment Diagrams for Cantilever Beam</caption>
+          <image source="images/cantilever_vm_diagram" width="60%">
+            <shortdescription>Load, Shear and Moment diagrams for the previous FBD.  Shear digram rises to P at x=0, then stays there for the length of the beam.  Moment diagram starts at -PL and linearly increases to zero over the length of the beam.</shortdescription>
+          </image>
+    </figure>
+    <p>The previous example was simple because only one <acro>FBD</acro> was necessary for any point on the beam, but many beams are more complex.
+Beams with multiple loads must be divided into loading segments between the points where loads are applied or where distributed loads begin or end.</p>
   
-  
+      <p>Consider the simply supported beam <m>AD</m> with a uniformly distributed load <m>w</m> over the first segment from <m>A</m> to <m>B</m>, and two vertical loads <m>B</m> and <m>C</m> .</p>
+      <figure><caption>Simply Suppported Beam with Uniformly Distributed Load</caption><image source="images/simple-beam-ex0" width="50%">
+        <shortdescription>Simply supported beam AD of length 3 units with a uniformly distributed load w from A to B (1 unit length).
+Two vertical loads are at B and at C (1 unit to the right of B).</shortdescription></image></figure>
 
-  <section xml:id="graphical_method">
-    <title>Graphical Method</title>
-    <p>Once you have a firm grasp on the relations between load, shear and bending moments, you can quickly draw shear and bending moment diagrams using a graphical approach. This technique is really a graphical integration process; rather than using calculus, the integrals are found using simple geometry.</p>
-    <p>
-      Shear and bending moment diagrams are governed by equations <xref ref="VMV1"/> through <xref ref="VMM2"/> and must be consistent with them.
-      <md>
-        <mrow>
-          \dfrac{dV}{dx} \amp = w(x) \amp \dfrac{dM}{dx} \amp = V(x)
-        </mrow>
-        <mrow>
-          \Delta V \amp = \int_a^b w(x)\,dx \amp \Delta M \amp= \int_a^b V(x)\,dx
-        </mrow>
-      </md>
-    </p>
-    <p>From top to bottom, the shear function is determined from the area under the load, and the moment function is determined from the area under the shear function. At the same time, from bottom to top, differentiating the moment function, gives the shear function, and differentiating the shear function gives the load..</p>
-    <p>
-      Shear and bending moment diagram problems should include:
-      <ol>
-        <li>A neat, accurate, labeled free-body diagram of the entire structure, and the work to find the reactions.
-For this work, you may replace the distributed loads with equivalent concentrated loads.</li>
-        <li>A neat, properly scaled diagram of the beam showing its reactions and <q>true</q> loads.
-Distributed loads must be shown this diagram, because their distributed nature is significant.</li>
-        <li>A large graph of the shear and bending moment functions drawn directly below the scaled beam diagram.
-It is convenient to draw this graph on graph paper.</li>
-        <li>The correct shape and curvature for each curve segment: zero, constant slope, polynomial.
-Changes in curve shapes should align with the load which causes them.
-Indicate the scale used for shear and moment, and use a straightedge.</li>
-        <li>Values of shear and moment at maximums, minimums and points of inflection.</li>
-        <li>Any other work need to justify your results.</li>
-      </ol>
-    </p>
-    <p>
-      You can draw shear and bending moments efficiently and accurately using this procedure
-      <ol>
-        <li>First, <em>determine the reaction forces</em> and moments by drawing a free-body diagram of the entire beam and applying the equilibrium equations.
-Double check that your reactions are correct.</li>
-        <li>Establish the shear graph with a horizontal axis below the beam and a vertical axis to represent shear.
-Positive shears will be plotted above the <m>x</m> axis and negative below.</li>
-        <li>Make vertical lines at all the <q>interesting points</q>, <ie/> points where concentrated forces or moments act on the beam and at the beginning and end of any distributed loads.
-This divides the beam into segments between vertical lines.</li>
-        <li>
-          <p>
-            <em>Draw the shear diagram</em> by starting with a dot at <m>x = 0</m>, <m>V = 0</m> then proceeding from left to right until you reach the end of the beam. Choose and label a scale which keeps the diagram a reasonable size.
-            <ol>
-              <li>Whenever you encounter a concentrated force, jump up or down by that value</li>
-              <li>Whenever you encounter a concentrated moment, do not jump.</li>
-              <li>Whenever you encounter a distributed load, move up or down by the <q>area</q> under the loading curve over the length of the segment, according to equation <xref ref="VMV2"/>.
-The <q>area</q> is actually a force.</li>
-              <li>The slope of the curve at each point <m>x</m> is given by <xref ref="VMV1"/>.
-Distributed loads cause the shear diagram to have a slope equal to value of the distributed load at that point.
-For unloaded segments of the beam, the slope is zero, i.e.
-the shear curve is horizontal.
-For segments with uniformly distributed load, the slope is constant.
-Downward loads cause downward slopes.</li>
-              <li>The shear diagram should start and end at <m>V = 0</m>.
-If it doesn't, recheck your work.</li>
-            </ol>
-          </p>
-        </li>
-        <li>Add another interesting point wherever the shear diagram crosses the <m>x</m>-axis, and determine the <m>x</m> position of the zero crossing.</li>
-        <li>After you have completed the shear diagram, <em>calculate the area under the shear curve</em> for each segment.
-Areas above the axis are positive, areas below the axis are negative.
-The areas represent moments and the sum of the areas plus the values of any concentrated moments should add to zero.
-If they don't, then recheck your work.</li>
-        <li>Establish the moment graph with a horizontal axis below the shear diagram and a vertical axis to represent moment.
-Positive moments will be plotted above the <m>x</m> axis and negative below.</li>
-        <li>
-          <p>
-            <em>Draw and label dots on the moment diagram</em> by starting with a dot at <m>x = 0, M = 0</m> then proceed from left to right placing dots until you reach the end of the beam. As you move over each segment move up or down from the current value by the <q>area</q> under the shear curve for that segment and place a dot on the graph. In this step, you are applying <xref ref="VMM2"/>.
-            <ol>
-              <li>Positive areas cause the moment to increase, negative areas cause it to decrease.</li>
-              <li>If you encounter a concentrated moment, jump straight up or down by the amount of the moment and place a dot.
-Clockwise moments cause upward jumps and counter-clockwise moments cause downward jumps.</li>
-              <li>When you reach the end of the beam you should return to <m>M = 0</m>.
-If you don't, then recheck your work.</li>
-            </ol>
-          </p>
-        </li>
-        <li><em>Connect the dots with correctly shaped lines</em>. Segments under constant shear are straight lines, segments under changing shear are curves. The general curvature of the lines can be determined by considering equation <xref ref="VMM1"/>.</li>
-      </ol>
-    </p>
+    <p>This beam has three loading segments so you must draw three free-body diagrams and analyze each segment independently.
+For each, make an imaginary cut through the segment, then draw a new free-body diagram of the portion to the left (or right) of the cut.
+Always assume that the exposed internal shear force and internal bending moment act in the positive direction according to the <xref ref="VM_sign_convention" text="custom">sign convention</xref>.</p>
+    <figure>
+      <caption/>
+      <sidebyside margins="0%" widths="20% 30% 40%">
+        <figure>
+          <caption><m>0 \lt x \lt 1</m></caption>
+          <image source="images/simple-beam-ex1">
+            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 0 less than x less than 1.</shortdescription>
+          </image>
+        </figure>
+        <figure>
+          <caption><m>1 \lt x \lt 2</m></caption>
+          <image source="images/simple-beam-ex2">
+            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 1 less than x less than 2.</shortdescription>
+          </image>
+        </figure>
+        <figure>
+          <caption><m>2 \lt x \lt 3</m></caption>
+          <image source="images/simple-beam-ex3">
+            <shortdescription>FBD of the simply supported beam to determine V(x) and M(x) for 2 less than x less than 3.</shortdescription>
+          </image>
+        </figure>
+      </sidebyside>
+    </figure>
+    <p>After the equilibrium equations are applied to each segment, the resulting equations <m>V(x)</m> and <m>M(x)</m> from each segment are joined to plot the shear and moment diagrams.
+These diagrams help us visualize the values of <m>V</m> and <m>M</m> throughout the beam.</p>
+    <!--todo this really needs a numeric example and plot to demonstrate -->
   </section>
   <section xml:id="integration_method">
     <title>Integration Method</title>
@@ -1116,6 +1032,91 @@ There is a pinned connection at <m>x=0</m> which provides a vertical force and n
         </solution>
       </example>
     </subsection>
+  </section>
+  
+  
+
+  <section xml:id="graphical_method">
+    <title>Graphical Method</title>
+    <p>Once you have a firm grasp on the relations between load, shear and bending moments, you can quickly draw shear and bending moment diagrams using a graphical approach. This technique is really a graphical integration process; rather than using calculus, the integrals are found using simple geometry.</p>
+    <p>
+      Shear and bending moment diagrams are governed by equations <xref ref="VMV1"/> through <xref ref="VMM2"/> and must be consistent with them.
+      <md>
+        <mrow>
+          \dfrac{dV}{dx} \amp = w(x) \amp \dfrac{dM}{dx} \amp = V(x)
+        </mrow>
+        <mrow>
+          \Delta V \amp = \int_a^b w(x)\,dx \amp \Delta M \amp= \int_a^b V(x)\,dx
+        </mrow>
+      </md>
+    </p>
+    <p>From top to bottom, the shear function is determined from the area under the load, and the moment function is determined from the area under the shear function. At the same time, from bottom to top, differentiating the moment function, gives the shear function, and differentiating the shear function gives the load.</p>
+    <p>
+      Shear and bending moment diagram problems should include:
+      <ol>
+        <li>A neat, accurate, labeled free-body diagram of the entire structure, and the work to find the reactions.
+For this work, you may replace the distributed loads with equivalent concentrated loads.</li>
+        <li>A neat, properly scaled diagram of the beam showing its reactions and <q>true</q> loads.
+Distributed loads must be shown this diagram, because their distributed nature is significant.</li>
+        <li>A large graph of the shear and bending moment functions drawn directly below the scaled beam diagram.
+It is convenient to draw this graph on graph paper.</li>
+        <li>The correct shape and curvature for each curve segment: zero, constant slope, polynomial.
+Changes in curve shapes should align with the load which causes them.
+Indicate the scale used for shear and moment, and use a straightedge.</li>
+        <li>Values of shear and moment at maximums, minimums and points of inflection.</li>
+        <li>Any other work need to justify your results.</li>
+      </ol>
+    </p>
+    <p>
+      You can draw shear and bending moments efficiently and accurately using this procedure
+      <ol>
+        <li>First, <em>determine the reaction forces</em> and moments by drawing a free-body diagram of the entire beam and applying the equilibrium equations.
+Double check that your reactions are correct.</li>
+        <li>Establish the shear graph with a horizontal axis below the beam and a vertical axis to represent shear.
+Positive shears will be plotted above the <m>x</m> axis and negative below.</li>
+        <li>Make vertical lines at all the <q>interesting points</q>, <ie/> points where concentrated forces or moments act on the beam and at the beginning and end of any distributed loads.
+This divides the beam into segments between vertical lines.</li>
+        <li>
+          <p>
+            <em>Draw the shear diagram</em> by starting with a dot at <m>x = 0</m>, <m>V = 0</m> then proceeding from left to right until you reach the end of the beam. Choose and label a scale which keeps the diagram a reasonable size.
+            <ol>
+              <li>Whenever you encounter a concentrated force, jump up or down by that value</li>
+              <li>Whenever you encounter a concentrated moment, do not jump.</li>
+              <li>Whenever you encounter a distributed load, move up or down by the <q>area</q> under the loading curve over the length of the segment, according to equation <xref ref="VMV2"/>.
+The <q>area</q> is actually a force.</li>
+              <li>The slope of the curve at each point <m>x</m> is given by <xref ref="VMV1"/>.
+Distributed loads cause the shear diagram to have a slope equal to value of the distributed load at that point.
+For unloaded segments of the beam, the slope is zero, i.e.
+the shear curve is horizontal.
+For segments with uniformly distributed load, the slope is constant.
+Downward loads cause downward slopes.</li>
+              <li>The shear diagram should start and end at <m>V = 0</m>.
+If it doesn't, recheck your work.</li>
+            </ol>
+          </p>
+        </li>
+        <li>Add another interesting point wherever the shear diagram crosses the <m>x</m>-axis, and determine the <m>x</m> position of the zero crossing.</li>
+        <li>After you have completed the shear diagram, <em>calculate the area under the shear curve</em> for each segment.
+Areas above the axis are positive, areas below the axis are negative.
+The areas represent moments and the sum of the areas plus the values of any concentrated moments should add to zero.
+If they don't, then recheck your work.</li>
+        <li>Establish the moment graph with a horizontal axis below the shear diagram and a vertical axis to represent moment.
+Positive moments will be plotted above the <m>x</m> axis and negative below.</li>
+        <li>
+          <p>
+            <em>Draw and label dots on the moment diagram</em> by starting with a dot at <m>x = 0, M = 0</m> then proceed from left to right placing dots until you reach the end of the beam. As you move over each segment move up or down from the current value by the <q>area</q> under the shear curve for that segment and place a dot on the graph. In this step, you are applying <xref ref="VMM2"/>.
+            <ol>
+              <li>Positive areas cause the moment to increase, negative areas cause it to decrease.</li>
+              <li>If you encounter a concentrated moment, jump straight up or down by the amount of the moment and place a dot.
+Clockwise moments cause upward jumps and counter-clockwise moments cause downward jumps.</li>
+              <li>When you reach the end of the beam you should return to <m>M = 0</m>.
+If you don't, then recheck your work.</li>
+            </ol>
+          </p>
+        </li>
+        <li><em>Connect the dots with correctly shaped lines</em>. Segments under constant shear are straight lines, segments under changing shear are curves. The general curvature of the lines can be determined by considering equation <xref ref="VMM1"/>.</li>
+      </ol>
+    </p>
   </section>
   <section xml:id="Chapter_08-geogebra-interactives">
     <title>Geogebra Interactives</title>
