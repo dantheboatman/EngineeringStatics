@@ -1059,10 +1059,10 @@ If you don't, then recheck your work.</li>
   <section xml:id="integration_method">
     <title>Integration Method</title>
     <introduction>
-      <p>In <xref ref="VM_relations"/> we learned that loading, shear and bending moments are related by integral and differential equations, and used this knowledge to draw shear and bending moment diagram using a graphical approach.
+      <p>In <xref ref="VM_relations"/> we saw that loading, shear and bending moments are related by integral and differential equations, and in <xref ref="graphical_method"/> used this knowledge to draw shear and bending moment diagram using a graphical approach.
 This method is straightforward and fast for concentrated forces and uniformly distributed loads, because they produce triangular and rectangular areas that are easy to calculate but it falls short when the areas are more complicated.</p>
       <p>For example, a uniformly varying load is a first degree linear function of <m>x</m>,
-<me>w(x) = - w_0 x</me>
+<me>w(x) = w_0 x</me>
 It integrates to a second degree parabolic shear function, and a third degree cubic moment function.
 Finding the zero crossings and areas under these curves with geometery is troublesome.
 More complex loading functions are even more difficult.</p>
@@ -1073,10 +1073,10 @@ More complex loading functions are even more difficult.</p>
             \Delta V\amp =\int_a^b w(x)\ dx \amp \Delta M\amp=\int_a^b V(x)\ dx
           </mrow>
         </md>
-        Rather than finding areas and slopes using geometry, we will integrate the load function <m>w(x)</m> once to find the shear function <m>v(x)</m>, then integrate that result to find the moment function <m>m(x)</m>.
+        Rather than finding areas and slopes using geometry, we will directly integrate the load function <m>w(x)</m> once to find the shear function <m>v(x)</m>, then integrate that result to find the moment function <m>m(x)</m>.
       </p>
       <p>These results are the change in shear and moment over a segment; to find the actual shear and moment functions <m>V(x)</m> and <m>M(x)</m> for the entire beam we will need to find initial values for each segment.
-This is equivalent to using boundary conditions to find the constant of integration when solving a differential equation.
+This is equivalent to applying boundary conditions to find the constant of integration when solving a differential equation.
 The initial values come from either the final value of the previous segment or from point loads or point moments.
 Because of the requirement for these segment starting values, no segment can be computed in isolation from the other segments.
 Physically this means that the shear and moment along a beam are not just due to the loading in one segment, but are related to the loading on the rest of the beam as well.</p>
@@ -1119,7 +1119,7 @@ The slope <m>m</m>, intercept <m>b</m>, and constant <m>c</m> must be determined
             <p>The loading function will be a given function of <m>x</m>. <me>w(x) = f(x)</me>,
 and the shear and moment functions are found by integration. <me>V(x) = \int f(x) dx \qquad M(x) = \int V(x) dx</me></p>
             <p>Most gravitational distributed loads are drawn with the arrows pointing down and resting on the beam.
-If you slide these along their line of action so that their tails are on the beam, the tips define the loading equation.</p>
+If you slide these along their line of action so that their tails are on the beam, the tips define the loading equation.  In other words, for downward pointing loads, the scalar values are negative.</p>
           </li>
         </ul>
       </p>
@@ -1164,15 +1164,13 @@ The direction of the internal forces is not usually significant.
           </li>
         </ol>
       </p>
-      <example xml:id="Chapter_08-example-example">
-        <title>Example</title>
+      <example xml:id="Chapter_08-example-UDL">
+        <title>Uniformly Distributed Load</title>
         <statement>
-          <sidebyside margins="0%" valign="middle" widths="60% 40%">
-            <p>Use the integration method to find the equations for shear and moment as a function of <m>x</m>, for a simply supported beam carrying a uniformly distributed load <m>w</m> over its entire length <m>L</m>.</p>
-            <image source="images/VM-integration-1">
+             <p>Use the integration method to find the equations for shear and moment as a function of <m>x</m>, for a simply supported beam carrying a uniformly distributed load <m>w</m> over its entire length <m>L</m>.</p>
+            <image source="images/VM-integration-1" width="50%">
               <shortdescription>Simply supported beam carrying a uniformly distributed load w over its entire length L.</shortdescription>
             </image>
-          </sidebyside>
         </statement>
         <answer>
           <p>
@@ -1185,10 +1183,10 @@ The direction of the internal forces is not usually significant.
         </answer>
         <solution>
           <p/>
-          <p>This beam has only one load section, and on that section the load is constant so, <me>w(x)= -w</me>.
+          <p>This beam has only one load section, and on that section the load is constant and points down, so, <me>w(x)= -w</me>.
 There is a pinned connection at <m>x=0</m> which provides a vertical force and no concentrated moment, so the initial conditions there are <m>V(0) = wL/2</m>, and <m>M(0) = 0</m>.</p>
           <p>Integrating equations <xref ref="VMV2"/> and <xref ref="VMM2"/> we have.</p>
-          <sidebyside margins="0%" valign="middle" widths="60% 40%">
+
             <p>
               <md>
                 <mrow>
@@ -1205,9 +1203,8 @@ There is a pinned connection at <m>x=0</m> which provides a vertical force and n
                 </mrow>
               </md>
             </p>
-            <image source="images/VM-integration-2"/>
-          </sidebyside>
-          <sidebyside margins="0%" valign="middle" widths="60% 40%">
+            <image source="images/VM-integration-2" width="70%"/>
+
             <p>
               <md>
                 <mrow>
@@ -1221,8 +1218,7 @@ There is a pinned connection at <m>x=0</m> which provides a vertical force and n
                 </mrow>
               </md>
             </p>
-            <image source="images/VM-integration-3"/>
-          </sidebyside>
+            <image source="images/VM-integration-3" width="70%"/>
         </solution>
       </example>
     </subsection>
