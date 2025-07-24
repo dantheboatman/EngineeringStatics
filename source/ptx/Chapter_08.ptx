@@ -1167,10 +1167,10 @@ The direction of the internal forces is not usually significant.
       <example xml:id="Chapter_08-example-UDL">
         <title>Uniformly Distributed Load</title>
         <statement>
-             <p>Use the integration method to find the equations for shear and moment as a function of <m>x</m>, for a simply supported beam carrying a uniformly distributed load <m>w</m> over its entire length <m>L</m>.</p>
-            <image source="images/VM-integration-1" width="50%">
-              <shortdescription>Simply supported beam carrying a uniformly distributed load w over its entire length L.</shortdescription>
-            </image>
+          <p>Use the integration method to find the equations for shear and moment as a function of <m>x</m>, for a simply supported beam carrying a uniformly distributed load <m>w</m> over its entire length <m>L</m>.</p>
+          <image source="images/VM-integration-1" width="50%">
+            <shortdescription>Simply supported beam carrying a uniformly distributed load w over its entire length L.</shortdescription>
+          </image>
         </statement>
         <answer>
           <p>
@@ -1186,39 +1186,197 @@ The direction of the internal forces is not usually significant.
           <p>This beam has only one load section, and on that section the load is constant and points down, so, <me>w(x)= -w</me>.
 There is a pinned connection at <m>x=0</m> which provides a vertical force and no concentrated moment, so the initial conditions there are <m>V(0) = wL/2</m>, and <m>M(0) = 0</m>.</p>
           <p>Integrating equations <xref ref="VMV2"/> and <xref ref="VMM2"/> we have.</p>
-
-            <p>
-              <md>
-                <mrow>
-                  \Delta V \amp = - \int_0^x w(x) \ dx
-                </mrow>
-                <mrow>
-                  V(x) - \cancelto{wL/2}{V(0)} \amp = -w x
-                </mrow>
-                <mrow>
-                  V(x)\amp = \frac{wL}{2} - wx
-                </mrow>
-                <mrow>
-                  \amp = w\left(\frac{L}{2} - x\right)
-                </mrow>
-              </md>
-            </p>
-            <image source="images/VM-integration-2" width="70%"/>
-
-            <p>
-              <md>
-                <mrow>
-                  \Delta M \amp = \int_0^x V(x) \ dx
-                </mrow>
-                <mrow>
-                  M(x)- \cancelto{0}{M(0)} \amp = \int_0^x w\left(\frac{L}{2} - x \right) \ dx
-                </mrow>
-                <mrow>
-                  M(x) \amp = \frac{w}{2} (Lx - x^2)
-                </mrow>
-              </md>
-            </p>
-            <image source="images/VM-integration-3" width="70%"/>
+          <p>
+            <md>
+              <mrow>
+                \Delta V \amp = - \int_0^x w(x) \ dx
+              </mrow>
+              <mrow>
+                V(x) - \cancelto{wL/2}{V(0)} \amp = -w x
+              </mrow>
+              <mrow>
+                V(x)\amp = \frac{wL}{2} - wx
+              </mrow>
+              <mrow>
+                \amp = w\left(\frac{L}{2} - x\right)
+              </mrow>
+            </md>
+          </p>
+          <image source="images/VM-integration-2" width="70%"/>
+          <p>
+            <md>
+              <mrow>
+                \Delta M \amp = \int_0^x V(x) \ dx
+              </mrow>
+              <mrow>
+                M(x)- \cancelto{0}{M(0)} \amp = \int_0^x w\left(\frac{L}{2} - x \right) \ dx
+              </mrow>
+              <mrow>
+                M(x) \amp = \frac{w}{2} (Lx - x^2)
+              </mrow>
+            </md>
+          </p>
+          <image source="images/VM-integration-3" width="70%"/>
+        </solution>
+      </example>
+      <example xml:id="Chapter_08-integration">
+        <title>Piecewise Function</title>
+        <statement>
+          <p>Consider a <m>\m{20}</m> beam loaded as as shown.  Use the integration method to derive the shear and bending moment as functions of <m>x</m> and plot them.</p>
+          <image source="images/piecewise_load" width="60%"/>
+        </statement>
+        <answer>
+          <p>
+            On the range <m>0 &lt; x &lt;= 10</m>
+            <md>
+              <mrow>
+                V(x) \amp= -12 x + 75
+              </mrow>
+              <mrow>
+                M(x) \amp=  - 6 x^2 + 75 x
+              </mrow>
+            </md>
+          </p>
+          <p>
+            On the range <m>10 &lt;x &lt;= 20</m>
+            <md>
+              <mrow>
+                V(x) \amp =   - \frac{9}{20} (x-10) ^2 + 9 (x-10) - 45
+              </mrow>
+              <mrow>
+                M(x)\amp= - \frac{3}{20} (x-10) ^3 + \dfrac{9}{2} (x-10) ^2-45 (10-x)  + 150
+              </mrow>
+            </md>
+          </p>
+        </answer>
+        <solution>
+          <p>
+            <ol>
+              <li>
+                <title>Reactions</title>
+                <p>Find the reactions using the methods of <xref ref="distributed-loads"/>.</p>
+                <image source="images/piecewse_fbd" width="60%"/>
+                <p>
+                  <md>
+                    <mrow>
+                      \Sigma M_A \amp= 0
+                    </mrow>
+                    <mrow>
+                      - W_1 x_1 + W_2 x_2 + R_B (\m{20}) \amp =0
+                    </mrow>
+                    <mrow>
+                      R_B (\m{20}) \amp = \kN{120} \cdot \m{5} - \kN{45} \cdot \m{13.33}
+                    </mrow>
+                    <mrow>
+                      R_B \amp= 0
+                    </mrow>
+                    <mrow></mrow>
+                    <mrow>
+                      \Sigma F_y \amp=0
+                    </mrow>
+                    <mrow>
+                      R_A - W_1 + W_2 + R_B \amp =0
+                    </mrow>
+                    <mrow>
+                      R_A \amp= \kN{120} - \kN{45}
+                    </mrow>
+                    <mrow>
+                      R_A \amp= \kN{75}
+                    </mrow>
+                  </md>
+                </p>
+              </li>
+              <li>
+                <title>Segment 1</title>
+                <p>On the first half of the beam, for the range <m>x = 0</m> up to and including <m>x = \m{10}</m>, the loading is constant and pointing down, so the loading function on this segment is <me>w_1(x) = - \kNperm{12}</me>.</p>
+                <p>
+                  Integrating twice gives the shear and bending moment functions on this segment
+                  <md>
+                    <mrow>
+                      V_1(x) \amp= -12 x + C_0
+                    </mrow>
+                    <mrow>
+                      M_1(x) \amp= - 6 x^2 + C_0 x +  C_1
+                    </mrow>
+                  </md>
+                </p>
+                <p>
+                  Evaluating the boundary conditions,  <m>V(0) = R_A</m> and <m>M(0) = 0</m> we learn that
+                  <md>
+                    <mrow>
+                      C_0 = \kN{75}.
+                    </mrow>
+                    <mrow>
+                      C_1 = 0
+                    </mrow>
+                  </md>
+                </p>
+              </li>
+              <li>
+                <title>Segment 2</title>
+                <p>To simplify the analysis of the second half of the beams we will use local coordinates by defining <me>x' = (x-10)</me>.  In local coordinates, the function is valid over the range <m>0 &lt; x' &lt;= 10</m>.</p>
+                <p>
+                  The load over this segment starts at <m>\kNperm{9}</m> but decreases to zero after <m>\m{10}</m>, so the slope is <me>m = \dfrac{\kNperm{-9}}{\m{10}} = -\kNperm{\dfrac{9}{10}}^2</me>.  In terms of <m>x'</m> the load the loading function is  <me>w_2(x') = 9 - \frac{9}{10} x'</me>.   Integrating twice gives the shear and moment functions.
+                  <md>
+                    <mrow>
+                      V_2(x') \amp = 9 x' - \frac{9}{20} x'^2 + C_2
+                    </mrow>
+                    <mrow>
+                      M_2(x')\amp=\dfrac{9}{2} x'^2 - \frac{3}{20} x'^3 + C_2 x' + C_3
+                    </mrow>
+                  </md>
+                </p>
+                <p>
+                  The constants are evaluated by matching the functions at the boundary <m>x=\m{10}</m>, where
+                  <md>
+                    <mrow>
+                      V_1(10) = -\kN{45}
+                    </mrow>
+                    <mrow>
+                      M_1(10) = \kNm{150}
+                    </mrow>
+                  </md>
+                  Evaluating <m>V_2(x')</m> and <m>M_2(x')</m> at <m>x' = 0</m> we find that
+                  <md>
+                    <mrow>
+                      C_2  \amp= -\kN{45}
+                    </mrow>
+                    <mrow>
+                      C_3 \amp= \kNm{150}
+                    </mrow>
+                  </md>
+                </p>
+              </li>
+              <li>
+                <title>Results</title>
+                <p>Combining results we get the final version of shear and bending moment functions in terms of <m>x</m>.</p>
+                <p>
+                  On the range <m>0 &lt; x &lt;= 10</m>
+                  <md>
+                    <mrow>
+                      V(x) \amp= -12 x + 75
+                    </mrow>
+                    <mrow>
+                      M(x) \amp=  - 6 x^2 + 75 x
+                    </mrow>
+                  </md>
+                </p>
+                <p>
+                  On the range <m>10 &lt;x &lt;= 20</m>
+                  <md>
+                    <mrow>
+                      V(x) \amp =   - \frac{9}{20} (x-10) ^2 + 9 (x-10) - 45
+                    </mrow>
+                    <mrow>
+                      M(x)\amp= - \frac{3}{20} (x-10) ^3 + \dfrac{9}{2} (x-10) ^2-45 (10-x)  + 150
+                    </mrow>
+                  </md>
+                </p>
+              </li>
+            </ol>
+          </p>
+          <p>A plot of the two functions is shown below.  Notice how the two halves of each function joins continuously at <m>x =\m{10}</m>.</p>
+          <image source="images/piecewise_curves" width="90%"/>
         </solution>
       </example>
     </subsection>
