@@ -1062,24 +1062,8 @@ Discontinuities occur at these locations, and the shear function has different v
         <xi:include href="interactives.ptx" xpointer="ggb_VM-building-blocks_interactive"/>
       </figure>
     </subsection>
-    <subsection>
+    <subsection xml:id="graphical_procedure">
       <title>Graphical Method Procedure</title>
-      <p>
-        Shear and bending moment diagram problems should include:
-        <ol>
-          <li>A neat, accurate, labeled free-body diagram of the entire structure, and the work to find the reactions.
-For this work, you may replace the distributed loads with equivalent concentrated loads.</li>
-          <li>A neat, properly scaled diagram of the beam showing its reactions and <q>true</q> loads.
-Distributed loads must be shown this diagram, because their distributed nature is significant.</li>
-          <li>A large graph of the shear and bending moment functions drawn directly below the scaled beam diagram.
-It is convenient to draw this graph on graph paper.</li>
-          <li>The correct shape and curvature for each curve segment: zero, constant slope, polynomial.
-Changes in curve shapes should align with the load which causes them.
-Indicate the scale used for shear and moment, and use a straightedge.</li>
-          <li>Values of shear and moment at maximums, minimums and points of inflection.</li>
-          <li>Any other work need to justify your results.</li>
-        </ol>
-      </p>
       <p>
         You can draw shear and bending moments efficiently and accurately using this procedure
         <ol>
@@ -1113,7 +1097,7 @@ If it doesn't, recheck your work.</li>
 Areas above the axis are positive, areas below the axis are negative.
 The areas represent moments and the sum of the areas plus the values of any concentrated moments should add to zero.
 If they don't, then recheck your work.</li>
-          <li>Establish the moment graph with a horizontal axis below the shear diagram and a vertical axis to represent moment.
+          <li>Establish the moment graph beneath the shear diagram with a horizontal axis below the shear diagram and a vertical axis to represent moment.
 Positive moments will be plotted above the <m>x</m> axis and negative below.</li>
           <li>
             <p>
@@ -1133,21 +1117,66 @@ If you don't, then recheck your work.</li>
       <example>
         <title>Graphical Method</title>
         <statement>
-          <p/>
+          <p>Draw a neat, accurate, labeled shear and bending moment diagram for the beam and loading shown using the method of this section.  Distance units are in feet.</p>
+          <image source="images/graphical-load" width="70%"/>
         </statement>
         <answer>
+          <image source="images/graphical-load" width="70%"/>
+          <image source="images/graphical-shear" width="70%"/>
+          <image source="images/graphical-moment" width="70%"/>
           <p/>
         </answer>
         <solution>
-          <p/>
+          <p>Use the buttons below to step through the solution.</p>
+          <interactive
+           xml:id="interactive-graphical-method"
+           aspect="100:150"
+           platform="javascript"
+           source="code/graphicalMethod.js">
+            <slate surface="html">
+              <div style="text-align: center;" xmlns="http://www.w3.org/1999/xhtml">
+                <input id="nextBtn" onkeypress="" style="width:20%; margins: margins: auto; padding: 10px;" type="button" value="Next Step"/>
+                <input id="prevBtn" onkeypress="" style="width:20%; margins: margins: auto; padding: 10px;" type="button" value="Previous Step"/>
+                <input id="resetBtn" onkeypress="" style=" width:20%; margins: margins: auto; padding: 10px;" type="button" value="Start Over"/>
+                <object data="external/images/graphical-fbd.svg" height="140" id="FBDiagramObject" type="image/svg+xml" width="420"/>
+                <object data="external/images/graphical-shear.svg" height="210" id="shearDiagramObject" type="image/svg+xml" width="420"/>
+                <object data="external/images/graphical-moment.svg" height="210" id="momentDiagramObject" type="image/svg+xml" width="420"/>
+              </div>
+            </slate>
+            <slate label="VMCommentary" surface="pretext">
+              <sidebyside margins="5%" width="90%">
+                <p label="VMComment"/>
+              </sidebyside>
+            </slate>
+          </interactive>
         </solution>
       </example>
+      <remark>
+        <title>Tips for Drawing Good Shear and Bending Moment Diagrams</title>
+        <p>
+          <ol>
+            <li>
+              <p>Work neatly and professionally, and take  pride in your work.   Use a straightedge!</p>
+            </li>
+            <li>Draw  a labeled free-body diagram of the entire structure, and your work to find the reactions off to the side.
+              For this free-body diagram, you may replace the distributed loads with equivalent concentrated loads.</li>
+            <li>Next draw a careful sketch of the beam showing its reactions and the <q>actuall</q> distributed loads.
+              Distributed loads must be shown here, because their distributed nature is significant.</li>
+            <li>Draw the shear diagram directly below the load diagram and the moment diagram beneath that..
+              It is convenient to draw these graphs on graph paper.  Indicate the scale used each function</li>
+            <li>Show the correct shape and curvature for each curve segment: zero, constant slope, polynomial.
+              Changes in curve shapes should align with the load which causes them.</li>
+            <li>Indicate the values of shear and moment at maximums, minimums and points of inflection.</li>
+            <li>Include any other work needed to justify your results.</li>
+          </ol>
+        </p>
+      </remark>
     </subsection>
   </section>
   <section xml:id="integration_method">
     <title>Integration Method</title>
     <introduction>
-      <p>In <xref ref="VM_relations"/> we saw that loading, shear and bending moments are related by integral and differential equations, and in <xref ref="graphical_method"/> used this knowledge to draw shear and bending moment diagram using a graphical approach.
+      <p>In <xref ref="VM_relations"/> we saw that loading, shear and bending moments are related by integral and differential equations, and in <xref ref="graphical_procedure"/> used this knowledge to draw shear and bending moment diagram using a graphical approach.
 This method is straightforward and fast for concentrated forces and uniformly distributed loads, because they produce triangular and rectangular areas that are easy to calculate but it falls short when the areas are more complicated.</p>
       <p>For example, a uniformly varying load is a first degree linear function of <m>x</m>,
 <me>w(x) = w_0 x</me>
