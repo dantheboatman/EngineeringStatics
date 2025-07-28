@@ -102,8 +102,8 @@ const steps = [
     hide: [],
     commentary:
       "<p>First, determine the reaction forces and moments by drawing a free-body diagram of the entire beam and applying the equilibrium equations.\
-     Double check that your reactions are correct. The reactions are\
-      <me>R_A = \\kN{65} \\qquad  R_B = \\kN{85}</me></p>",
+     Double check that they are are correct. The reactions are\
+      <me>R_A = \\lb{65} \\qquad  R_B = \\lb{85}</me></p>",
   },
   {
     diagram: "shear",
@@ -185,14 +185,14 @@ Underneath <i>uniformly</i> distributed loads, the slope is constant, so connect
     diagram: "shear",
     show: ["IP3", "dot11", "d1"],
     hide: [],
-    commentary: "Add another interesting point at any ponts where the shear diagram crosses the <m>x</m>-axis.  We will need to find this point.",
+    commentary: "<p>Add another interesting point at any points where the shear diagram crosses the <m>x</m>-axis.  We will need to find this point.</p>",
   },
   {
     diagram: "shear",
     show: ["d2", "rise", "run", "riserun", "A3"],
     hide: [],
     commentary:
-      "<p>Determine the <m>x</m> position of the zero crossing. </p><p>Since we know the slope of this segment, use similar triangles to find the distance <m>x</m>.\
+      "<p>Determine the <m>x</m> position of the zero crossing. </p><p>Since we know the slope of this segment, use similar triangles to find the distance <m>d</m>.\
       <me> \\dfrac{\\lb{-10}}{\\ft{1}} = \\dfrac{\\lb{-35}}{d}</me>\
       <me> d= \\ft{3.5} \\qquad d' = (10 - d) = \\ft{6.5}</me></p>",
   },
@@ -202,7 +202,7 @@ Underneath <i>uniformly</i> distributed loads, the slope is constant, so connect
     hide: [, "rise", "run", "riserun"],
     commentary:
       "<p> After you have completed the shear diagram, divide the area into rectangles and triangles between the vertical lines.</p>\
-    These areas are in fact, moments.  Areas above the axis are positive moments, areas below the axis are negative moments.",
+    These areas are in fact, moments.  Areas above the axis are positive moments, areas below the axis are negative moments.</p>",
   },
   {
     diagram: "shear",
@@ -227,7 +227,7 @@ Underneath <i>uniformly</i> distributed loads, the slope is constant, so connect
     commentary:
       "<p>As a reflection of <m>\\Sigma M = 0</m>, the positive and negative areas must add up to zero. If they don't, recheck your work!\
     <me>\\Sigma A_i = 260 + 70 + 61.25 - 211.25 - 260 + 80 = 0~~ \\checkmark</me></p>\
-   <p> If the load includes any concentrated moments, they must also be included in the tally</p>",
+   <p> If the load includes any concentrated moments, they must also be included in the tally.</p>",
   },
   {
     diagram: "moment",
@@ -244,20 +244,20 @@ Underneath <i>uniformly</i> distributed loads, the slope is constant, so connect
     commentary:
       "<p>Draw and label dots on the moment diagram starting with a dot at <m>(0,0)</m> then proceed from left to right placing dots until you reach the end of the beam.\
      As you move across each segment move up or down by the <q>area</q> of that segment and place a dot.  If you pass a concentrated moments, jump by that amount.<p>\
-     <p>When you reach the end of the beam you should return to <m>M=0</m>. If you didn't, then recheck your work!",
+     <p>When you reach the end of the beam you should return to <m>M=0</m>. If you didn't, then recheck your work!</p>",
   },
   {
     diagram: "moment",
     show: ["segment1", "segment2", "segment4", "segment5"],
     hide: [],
-    commentary: "<p>Connect the dots with correctly shaped lines. Segments under constant shear are straight lines.",
+    commentary: "<p>Connect the dots with correctly shaped lines. Segments under constant shear are straight lines.</p>",
   },
   {
     diagram: "moment",
     show: ["segment3"],
     hide: [],
     commentary:
-      "<p>Segments under uniformly distributed loads are parabolas. The shape can be determined from <me>\\dfrac{dM}{dx} = V</me> </p>\
+      "<p>Segments under uniformly distributed loads are parabolas. The shape can be determined from <me>\\dfrac{dM}{dx} = V</me></p>\
       <p>Between <m>x=6</m> and <m>x=16</m>, the shear changes from <m>\\lb{+35}</m> through 0 to <m>\\lb{-65}</m>, so the curve starts with a positive slope, reaches\
        a maximum where the shear crosses the <m>x</m>-axis, and then turns down to end with negative slope.</p>",
   },
