@@ -1,12 +1,12 @@
 window.onload = function () {
-  const commentDiv = document.getElementById("VMComment");
+  const commentDiv = this.document.getElementById("VMComment-ex-1");
   commentDiv.style.backgroundColor = "#C0D0E1";
   commentDiv.style.width = "90%";
   commentDiv.style.padding = "5px";
   commentDiv.style.minHeight = "6em";
-  const objectV = document.getElementById("shearDiagramObject");
+  const objectV = this.document.getElementById("shearDiagramObject-1");
   const shearSVG = objectV.contentDocument.querySelector("svg");
-  const objectM = document.getElementById("momentDiagramObject");
+  const objectM = this.document.getElementById("momentDiagramObject-1");
   const momentSVG = objectM.contentDocument.querySelector("svg");
 
   let currentStep = -1;
