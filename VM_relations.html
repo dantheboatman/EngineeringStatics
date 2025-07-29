@@ -14,7 +14,7 @@
 <!--******************************************-->
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Statics: Relation Between Loading, Shear and Moment</title>
+<title>Statics: Relations between Loading, Shear and Moment</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
@@ -123,15 +123,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.8.4';
+eBookConfig.runestone_version = '7.9.3';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.962d00926ef9460e.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.2e7f40e86ae7d163.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.5bdeacdba067a0e3.css">
+<script src="_static/prefix-runtime.47a5fea5694fc0ae.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.014cb392a13bd045.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.8141ae22fd347e48.css">
 <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -155,7 +155,7 @@ eBookConfig.enable_chatcodes =  false;
 <ol id="searchresults" class="searchresults"></ol>
 </div>
 </div>
-<span class="nav-other-controls"><button id="light-dark-button" class="light-dark-button button" title="Dark Mode"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span class="name">Dark Mode</span></button></span><span class="treebuttons"><a class="previous-button button" href="section_cut_method.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_08.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="graphical_method.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+<span class="nav-other-controls"><button id="light-dark-button" class="light-dark-button button" title="Dark Mode"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span class="name">Dark Mode</span></button></span><span class="treebuttons"><a class="previous-button button" href="VM_diagrams.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_08.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="section_cut_method.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
 </div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -189,6 +189,7 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\lbperft}[1]{#1~\mathrm{lb}/\mathrm{ft} }
 \newcommand{\lbperin}[1]{#1~\mathrm{lb}/\mathrm{in} }
 \newcommand{\Nperm}[1]{#1~\mathrm{N}/\mathrm{m} }
+\newcommand{\kNperm}[1]{#1~\mathrm{kN}/\mathrm{m} }
 \newcommand{\kgperkm}[1]{#1~\mathrm{kg}/\mathrm{km} }
 \newcommand{\psinch}[1]{#1~\mathrm{lb}/\mathrm{in}^2 }
 \newcommand{\pqinch}[1]{#1~\mathrm{lb}/\mathrm{in}^3 }
@@ -502,18 +503,21 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-title-box"><a href="internal_force_at_point.html" class="internal"><span class="codenumber">8.3</span> <span class="title">Internal Forces at a Point</span></a></div>
 <ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="internal_force_at_point.html#Chapter_08-interactive-internal-loading" class="internal"><span class="codenumber">8.3.1</span> <span class="title">Interactive Internal Forces</span></a></div></li></ul>
 </li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li>
+<li class="toc-item toc-section active"><div class="toc-title-box"><a href="VM_relations.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Relations between Loading, Shear and Moment</span></a></div></li>
+<li class="toc-item toc-section"><div class="toc-title-box"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Section Cut Method</span></a></div></li>
 <li class="toc-item toc-section">
-<div class="toc-title-box"><a href="VM_diagrams.html" class="internal"><span class="codenumber">8.4</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div>
-<ul class="structural toc-item-list"><li class="toc-item toc-subsection"><div class="toc-title-box"><a href="VM_diagrams.html#Chapter_08-shear-and-bending-moment-diagrams" class="internal"><span class="codenumber">8.4.1</span> <span class="title">Shear and Bending Moment Diagrams</span></a></div></li></ul>
+<div class="toc-title-box"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div>
+<ul class="structural toc-item-list">
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="graphical_method.html#graphical_method-3" class="internal"><span class="codenumber">8.7.1</span> <span class="title">Relationship Review</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="graphical_method.html#graphical_procedure" class="internal"><span class="codenumber">8.7.2</span> <span class="title">Graphical Method Procedure</span></a></div></li>
+</ul>
 </li>
-<li class="toc-item toc-section"><div class="toc-title-box"><a href="section_cut_method.html" class="internal"><span class="codenumber">8.5</span> <span class="title">Section Cut Method</span></a></div></li>
-<li class="toc-item toc-section active"><div class="toc-title-box"><a href="VM_relations.html" class="internal"><span class="codenumber">8.6</span> <span class="title">Relation Between Loading, Shear and Moment</span></a></div></li>
-<li class="toc-item toc-section"><div class="toc-title-box"><a href="graphical_method.html" class="internal"><span class="codenumber">8.7</span> <span class="title">Graphical Method</span></a></div></li>
 <li class="toc-item toc-section">
 <div class="toc-title-box"><a href="integration_method.html" class="internal"><span class="codenumber">8.8</span> <span class="title">Integration Method</span></a></div>
 <ul class="structural toc-item-list">
 <li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-determining-loading-functions" class="internal"><span class="codenumber">8.8.1</span> <span class="title">Determining Loading Functions</span></a></div></li>
-<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Calculus Method</span></a></div></li>
+<li class="toc-item toc-subsection"><div class="toc-title-box"><a href="integration_method.html#Chapter_08-application-of-the-calculus-method" class="internal"><span class="codenumber">8.8.2</span> <span class="title">Application of the Integration Method</span></a></div></li>
 </ul>
 </li>
 <li class="toc-item toc-section">
@@ -707,133 +711,126 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul></nav></div>
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="VM_relations"><h2 class="heading hide-type">
-<span class="type">Section</span><span class="space"> </span><span class="codenumber">8.6</span><span class="space"> </span><span class="title">Relation Between Loading, Shear and Moment</span>
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">8.5</span><span class="space"> </span><span class="title">Relations between Loading, Shear and Moment</span>
 </h2>
-<div class="para" id="VM_relations-2">Suppose that we have a simply supported beam upon which there is an applied load <span class="process-math">\(w(x)\)</span> which is distributed on the beam by some function of position, <span class="process-math">\(x\text{,}\)</span> as shown in <a href="VM_relations.html#arbitrary-load-ex0" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex0.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.6.1">Figure 8.6.1</a>.</div>
-<figure class="figure figure-like" id="arbitrary-load-ex0"><div class="image-box" style="width: 40%; margin-left: 30%; margin-right: 30%;"><img src="external/images/arbitrary-load-ex0.svg" role="img" class="contained" alt="A simply supported beam with a distributed load that is a function of beam position. A segment is indicated with imaginary cuts at x and at x+delta x."></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.6.1<span class="period">.</span></span><span class="space"> </span>A simply supported beam with a distributed load that is a function of beam position <span class="process-math">\(w(x)\text{.}\)</span></figcaption></figure><div class="para" id="VM_relations-4">If we select a small section of this beam from <span class="process-math">\(x\)</span> to <span class="process-math">\(x+\Delta x\)</span> to look at closely, we have the free-body diagram shown in <a href="VM_relations.html#arbitrary-load-ex1" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.6.2">Figure 8.6.2</a>.</div>
-<div class="para" id="VM_relations-5"></div>
-<figure class="figure figure-like" id="arbitrary-load-ex1"><div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/arbitrary-load-ex1.svg" role="img" class="contained" alt='FBD of the small segment delta x, with shear and bending moments indicated on the "cut" surfaces.'></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.6.2<span class="period">.</span></span><span class="space"> </span>A free-body diagram of a small section of the beam with a width of <span class="process-math">\(\Delta x\)</span></figcaption></figure><div class="para" id="VM_relations-7">Since <span class="process-math">\(\Delta x\)</span> is infinitely narrow, we can assume that the distributed load over this small distance is constant and equal to the value at <span class="process-math">\(x\text{,}\)</span> and call it <span class="process-math">\(w\text{.}\)</span>
-</div>
-<div class="para logical" id="VM_relations-8">
+<div class="para" id="VM_relations-2">Shear and bending moment diagrams are used to show how load on a beam affects the shear and bending moment within.</div>
+<div class="para" id="VM_relations-3">In this section, we will look at a completely general beam and loading, and use a free-body diagram and the principles of equlibrium to derive the fundamental mathematical relationships that exist between load, shear, and bending moment.</div>
+<div class="para" id="VM_relations-4">Then in the sections to follow, we will learn three methods to produce shear and bending moment diagrams: an equilibrium based approach, a graphical integration method, and a calculus-based analytical approach,.  All three methods are consistent with the equations derived in this section and understanding them all can be insightful.</div>
+<div class="para" id="VM_relations-5">Suppose that we have a simply supported beam upon which there is a load <span class="process-math">\(w(x)\)</span> which is acts on the beam by some arbitrary function of <span class="process-math">\(x\text{,}\)</span> as shown in <a href="VM_relations.html#arbitrary-load-ex0" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex0.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.5.1">Figure 8.5.1</a>.</div>
+<figure class="figure figure-like" id="arbitrary-load-ex0"><div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/arbitrary-load-ex0.svg" role="img" class="contained" alt="A simply supported beam with a distributed load that is a function of beam position. A segment is indicated with imaginary cuts at x and at x+delta x."></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.5.1<span class="period">.</span></span><span class="space"> </span>A simply supported beam with a distributed load that is a function of beam position <span class="process-math">\(w(x)\text{.}\)</span></figcaption></figure><div class="para" id="VM_relations-7">For a thin section of this beam between <span class="process-math">\(x\)</span> and <span class="process-math">\(x+\Delta x\text{,}\)</span> we can assume that the distributed load is approximately constant and equal to <span class="process-math">\(w = w(x)\text{.}\)</span>   With this assumption, the distributed load is rectangular, and equivalent to a force <span class="process-math">\(W = w \Delta x\)</span> acting at the centroid of the rectangle.   The free-body diagram for this thin section is shown in <a href="VM_relations.html#arbitrary-load-ex1" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.5.2">Figure 8.5.2</a>.</div>
+<div class="para" id="VM_relations-8"></div>
+<figure class="figure figure-like" id="arbitrary-load-ex1"><div class="image-box" style="width: 42%; margin-left: 29%; margin-right: 29%;"><img src="external/images/arbitrary-load-ex2.svg" role="img" class="contained" alt='FBD of the small segment delta x, with shear and bending moments indicated on the "cut" surfaces.'></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.5.2<span class="period">.</span></span><span class="space"> </span>A free-body diagram of a small section of the beam with a width of <span class="process-math">\(\Delta x\text{.}\)</span></figcaption></figure><div class="para logical" id="VM_relations-10">
 <div class="para">Applying the force equilibrium in the vertical direction gives the following result:</div>
-<div class="displaymath process-math" id="VM_relations-8-1">
+<div class="displaymath process-math" id="VM_relations-10-1">
 \begin{align*}
 \sum F_y \amp = 0\\
-V+w (\Delta x)-(V+\Delta V) \amp = 0\\
-\frac {\Delta V}{\Delta x} \amp = w
+V+w Delta x \amp = (V+\Delta V)\\
+\Delta V \amp = w {\Delta x}\\
+\frac {\Delta V}{\Delta x} \amp= w
 \end{align*}
 </div>
 </div>
-<div class="para logical" id="VM_relations-9">
+<div class="para logical" id="VM_relations-11">
 <div class="para">Taking the limit of both sides as <span class="process-math">\(\Delta x\)</span> approaches 0, we get this important result</div>
-<div class="displaymath process-math" id="VM_relations-9-2">
-\begin{align*}
-\lim_{\Delta x \to\ 0}\left( \frac {\Delta V}{\Delta x} \right) \amp= \lim_{\Delta x \to\ 0}\left( w \right)\\
-\frac {dV}{dx}\amp = w
-\end{align*}
+<div class="displaymath process-math" id="VM_relations-11-2">
+\begin{align}
+\lim_{\Delta x \to\ 0}\left( \frac {\Delta V}{\Delta x} \right) \amp= \lim_{\Delta x \to\ 0}\left( w \right)\notag\\
+\frac {dV}{dx}\amp = w(x)\tag{8.5.1}
+\end{align}
 </div>
 </div>
-<div class="para" id="VM_relations-10"></div>
-<div class="para" id="VM_relations-11">This equation tells us that, at a given location <span class="process-math">\(x\text{,}\)</span> the slope of the shear function <span class="process-math">\(V(x)\)</span> there is the value of the loading directly above, <span class="process-math">\(w(x)\text{.}\)</span> Furthermore, if we multiply both sides by <span class="process-math">\(dx\text{,}\)</span> we can integrate to find that</div>
-<div class="para logical" id="VM_relations-12"><div class="displaymath process-math">
+<div class="para" id="VM_relations-12"></div>
+<div class="para" id="VM_relations-13">This differential equation tells us that at a given location <span class="process-math">\(x\text{,}\)</span> the slope of the shear function at that point is the value of the loading directly above, <span class="process-math">\(w(x)\text{.}\)</span>
+</div>
+<div class="para" id="VM_relations-14">Furthermore, if we separate the variables by multiplying both sides by <span class="process-math">\(dx\text{,}\)</span> and then integrate between any two points along the beam we find that</div>
+<div class="para logical" id="VM_relations-15"><div class="displaymath process-math" id="VMV2">
+\begin{equation}
+\Delta V=\int_a^b w(x) \ dx\tag{8.5.2}
+\end{equation}
+</div></div>
+<div class="para" id="VM_relations-16"></div>
+<div class="para" id="VM_relations-17">In words, this equation says that the change in the shear <span class="process-math">\(\Delta V\)</span> between any two points <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{,}\)</span> is the area under the loading curve between them.</div>
+<div class="para logical" id="VM_relations-18">
+<div class="para">Next, considering moment equilibrium of the <abbr class="acronym">FBD</abbr> in <a href="VM_relations.html#arbitrary-load-ex1" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.5.2">Figure 8.5.2</a>, and following the same procedure, we get:</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/arbitrary-load-ex1.html" id="VM_relations-18-3">
+\begin{align}
+\sum M \amp =0\notag\\
+(M+\Delta M)\amp=\frac {\Delta x}{2}V+\frac {\Delta x}{2}(V+\Delta V)+M\notag\\
+\Delta M\amp=(V+\frac{\Delta V}{2}) \Delta x\notag\\
+\end{align}
+<div class="para intertext">Separating variables and taking limits as before, gives:</div>
+\begin{align}
+\lim_{\Delta x \to\ 0}\left( \frac {\Delta M}{\Delta x}\right)\amp= \lim_{\Delta x \to\ 0}\left(V+\frac{\Delta V}{2}\right)\notag\\
+\frac {dM}{dx} \amp =V(x)\tag{8.5.3}
+\end{align}
+</div>
+</div>
+<div class="para" id="VM_relations-19"></div>
+<div class="para" id="VM_relations-20">This equation tells us that at any point on the beam the slope of the moment function is equal to the value of the shear at that point.</div>
+<div class="para" id="VM_relations-21">Furthermore, if we multiply both sides by <span class="process-math">\(dx\text{,}\)</span> we can integrate to find that</div>
+<div class="para logical" id="VM_relations-22"><div class="displaymath process-math" id="VMM2">
+\begin{equation}
+\Delta M=\int_a^b V(x)\,dx\tag{8.5.4}
+\end{equation}
+</div></div>
+<div class="para" id="VM_relations-23"></div>
+<div class="para" id="VM_relations-24">In words, this equation says that over a given segment, the change in the moment value is the area under the shear curve.</div>
+<section class="paragraphs" id="VM_relations-25"><h3 class="heading"><span class="title">Summary.</span></h3>
+<div class="para" id="VM_relations-25-2">The internal shear force <span class="process-math">\(V(x)\text{,}\)</span> bending moment <span class="process-math">\(M(x)\text{,}\)</span> and loading <span class="process-math">\(w(x)\)</span> at every point <span class="process-math">\(x\)</span>are related to each other by the integral and differetial equations below.</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:40%;"><div class="para logical" id="VM_relations-25-3-1"><div class="displaymath process-math">
 \begin{equation*}
-\Delta V=\int w(x) \ dx
+\frac {dV}{dx}=w(x)
 \end{equation*}
+</div></div></div>
+<div class="sbspanel middle" style="width:60%;"><div class="para" id="VM_relations-25-3-2">The slope of the shear function at <span class="process-math">\(x\)</span> is the value of the loading function at the same position. An upward load is considered a positive load.</div></div>
 </div></div>
-<div class="para" id="VM_relations-13"></div>
-<div class="para" id="VM_relations-14">In words, this equation says that over a given distance, the change in the shear <span class="process-math">\(V\)</span> between two points is the area under the loading curve between them.</div>
-<div class="para" id="VM_relations-15">Now looking at the internal bending moments on the <abbr class="acronym">FBD</abbr> in <a href="VM_relations.html#arbitrary-load-ex1" class="xref" data-knowl="./knowl/xref/arbitrary-load-ex1.html" data-reveal-label="Reveal" data-close-label="Close" title="Figure 8.6.2">Figure 8.6.2</a>, when we apply moment equilibrium about the centroid of the element, and take the limit similarly,</div>
-<div class="para logical" id="VM_relations-16"><div class="displaymath process-math" id="VM_relations-16-1">
-\begin{align*}
-\sum M \amp =0\\
--\frac {\Delta x}{2}V-\frac {\Delta x}{2}(V+\Delta V)-M+(M+\Delta M)\amp=0\\
-\frac {\Delta M}{\Delta x}\amp=\frac{1}{2}(2V+\Delta V)\\
-\lim_{\Delta x \to\ 0}\left( \frac {\Delta M}{\Delta x}\right)\amp= \lim_{\Delta x \to\ 0}\left(V+\frac{\Delta V}{2}\right)\\
-\frac {dM}{dx} \amp =V
-\end{align*}
-</div></div>
-<div class="para" id="VM_relations-17"></div>
-<div class="para" id="VM_relations-18">This final equation tells us that, the slope of the moment diagram is the value of the shear. Furthermore, if we multiply both sides by <span class="process-math">\(dx\text{,}\)</span> we can integrate to find that</div>
-<div class="para logical" id="VM_relations-19"><div class="displaymath process-math">
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:40%;"><div class="para logical" id="VM_relations-25-4-1"><div class="displaymath process-math">
 \begin{equation*}
-\Delta M=\int V\ dx
+\Delta V=\int_a^b w(x)\ dx
 \end{equation*}
-</div></div>
-<div class="para" id="VM_relations-20"></div>
-<div class="para" id="VM_relations-21">In words, this equation says that over a given segment, the change in the moment value is the area under the shear curve.</div>
-<div class="para" id="VM_relations-22">Hence, the functional relationships between the internal shear force <span class="process-math">\(V(x)\text{,}\)</span> internal bending moment <span class="process-math">\(M(x)\)</span> at a point <span class="process-math">\(x\text{,}\)</span> and the value of the loading at that point <span class="process-math">\(w(x)\)</span> are simply the derivatives and integrals that you learned in Calculus I. These relationships are summarized below.</div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
-<div class="sbspanel top" style="width:50%;"><div class="para" id="VM_relations-23-1">The slope of the shear function at <span class="process-math">\(x\)</span> is the value of the loading function at the same position. An upward load is considered a positive load.</div></div>
-<div class="sbspanel top" style="width:50%;"><div class="para logical" id="VM_relations-23-2"><div class="displaymath process-math" id="VMV1">
-\begin{equation}
-\frac {dV}{dx}=w(x)\tag{8.6.1}
-\end{equation}
 </div></div></div>
+<div class="sbspanel middle" style="width:60%;"><div class="para" id="VM_relations-25-4-2">The change in the shear value between two points is the area under the loading function between those points.</div></div>
 </div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
-<div class="sbspanel top" style="width:50%;"><div class="para" id="VM_relations-24-1">The change in the shear value between two points is the area under the loading function between those points.</div></div>
-<div class="sbspanel top" style="width:50%;"><div class="para logical" id="VM_relations-24-2"><div class="displaymath process-math" id="VMV2">
-\begin{equation}
-\Delta V=\int_a^b w(x)\ dx\tag{8.6.2}
-\end{equation}
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:40%;"><div class="para logical" id="VM_relations-25-5-1"><div class="displaymath process-math">
+\begin{equation*}
+\frac {dM}{dx}=V(x)
+\end{equation*}
 </div></div></div>
+<div class="sbspanel middle" style="width:60%;"><div class="para" id="VM_relations-25-5-2">The slope of the moment function at <span class="process-math">\(x\)</span> is the value of the shear at the same position.</div></div>
 </div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
-<div class="sbspanel top" style="width:50%;"><div class="para" id="VM_relations-25-1">The slope of the moment function at <span class="process-math">\(x\)</span> is the value of the shear at the same position.</div></div>
-<div class="sbspanel top" style="width:50%;"><div class="para logical" id="VM_relations-25-2"><div class="displaymath process-math" id="VMM1">
-\begin{equation}
-\frac {dM}{dx}=V(x)\tag{8.6.3}
-\end{equation}
+<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:40%;"><div class="para logical" id="VM_relations-25-6-1"><div class="displaymath process-math">
+\begin{equation*}
+\Delta M=\int_a^b V(x)\ dx
+\end{equation*}
 </div></div></div>
-</div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;">
-<div class="sbspanel top" style="width:50%;"><div class="para" id="VM_relations-26-1">The change in the moment value between two points is the area under the shear curve between those points.</div></div>
-<div class="sbspanel top" style="width:50%;"><div class="para logical" id="VM_relations-26-2"><div class="displaymath process-math" id="VMM2">
-\begin{equation}
-\Delta M=\int_a^b V(x)\ dx\tag{8.6.4}
-\end{equation}
-</div></div></div>
-</div></div>
-<div class="para logical" id="VM_relations-27">
-<div class="para">Shear and bending moment diagrams show the effect of the load on the internal forces within the beam and are a graphical representation of equations <a href="VM_relations.html#VMV1" class="xref" data-knowl="./knowl/xref/VMV1.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 8.6.1">(8.6.1)–(8.6.4)</a>. The diagrams are made up of jumps, slopes and areas as a result of the load.</div>
-<ul class="disc" id="VM_relations-27-2">
-<li id="VM_relations-27-2-1"><div class="para" id="p-derived-VM_relations-27-2-1">
-<dfn class="terminology">Jumps</dfn> are vertical changes in shear and moment diagrams.</div></li>
-<li id="VM_relations-27-2-2"><div class="para" id="p-derived-VM_relations-27-2-2">
-<dfn class="terminology">Slopes</dfn> are gradual changes in shear and moment diagrams. Positive slopes go up and to the right.</div></li>
-<li id="VM_relations-27-2-3"><div class="para" id="p-derived-VM_relations-27-2-3">
-<dfn class="terminology">Areas</dfn> are “areas” under the loading and shear curves, i.e. integration. The area under the loading curve is actually the force, and the area under the shear curve is actually the bending moment.</div></li>
-</ul>
+<div class="sbspanel middle" style="width:60%;"><div class="para" id="VM_relations-25-6-2">The change in the moment value between two points is the area under the shear curve between those points.</div></div>
+</div></div></section><article class="remark remark-like" id="VM_relations-26"><h3 class="heading">
+<span class="type">Remark</span><span class="space"> </span><span class="codenumber">8.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Sign Conventions.</span>
+</h3>
+<div class="para logical" id="VM_relations-26-2">
+<div class="para">It is sometimes convenient to assume that positive loads act down, and not up as we have assumed here.  In that case simply subtitute <span class="process-math">\(-w(x)\)</span> for <span class="process-math">\(w(x)\)</span> into and equations <a href="VM_relations.html#VM_relations-11-2" class="xref" data-knowl="./knowl/xref/VMV1.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 8.5.1">(8.5.1)</a> and <a href="VM_relations.html#VMV2" class="xref" data-knowl="./knowl/xref/VMV2.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 8.5.2">(8.5.2)</a> and use these variations instead:</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/VMV1.html ./knowl/xref/VMV2.html" id="VM_relations-26-2-5">
+\begin{align}
+\frac {dV}{dx}\amp = -w(x) \amp \Delta V\amp=-\int_a^b w(x) \ dx\tag{8.5.5}
+\end{align}
 </div>
-<figure class="table table-like" id="VM_summary"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">8.6.3<span class="period">.</span></span><span class="space"> </span>Effect of load on shear and bending moments.</figcaption><div class="tabular-box natural-width"><table class="tabular">
-<tr>
-<td class="l t b3 r0 l0 t0" style="max-width:60px;"><div class="para" id="VM_summary-2-5-1-1">Diagram</div></td>
-<td class="l t b3 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-5-2-1">Jumps</div></td>
-<td class="l t b3 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-5-3-1">Slopes</div></td>
-<td class="l t b3 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-5-4-1">Areas</div></td>
-</tr>
-<tr>
-<td class="l t b1 r0 l0 t0" style="max-width:60px;"><div class="para" id="VM_summary-2-6-1-1">Shear</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;">
-<div class="para" id="VM_summary-2-6-2-1">Concentrated forces cause the shear diagram to jump by the same amount. Upward loads cause upward jumps.</div>
-<div class="para" id="VM_summary-2-6-2-2">Concentrated moments on the beam have no effect on the shear diagram.</div>
-</td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-6-3-1">The slope of the shear diagram at a point is equal to the value of the distributed load above that point. A downward distributed load will give the shear diagram a negative slope.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-6-4-1">The change in the shear between two points is equal to the corresponding area under the loading curve.</div></td>
-</tr>
-<tr>
-<td class="l t b1 r0 l0 t0" style="max-width:60px;"><div class="para" id="VM_summary-2-7-1-1">Moment</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-7-2-1">Concentrated moments cause jumps on the moment curve. Counterclockwise moments cause downward jumps and vice-versa.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-7-3-1">The slope of the moment diagram at a point is equal to the value of shear at that point. A positive shear causes a positive slope on the moment diagram and vice-versa.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:180px;"><div class="para" id="VM_summary-2-7-4-1">Change in the moment between two points is equal to the corresponding area under a shear curve.</div></td>
-</tr>
-</table></div></figure><div class="para" id="VM_relations-29">You can use the interactive below to explore how changes to concentrated load <span class="process-math">\(P\)</span> and distributed load <span class="process-math">\(w\)</span> affects the slopes, jumps, and areas of the resulting shear and bending moment diagrams.</div>
-<figure class="figure figure-like" id="VM_building_blocks"><iframe id="ggb_VM-building-blocks_interactive" width="600" height="550" src="ggb_VM-building-blocks_interactive-if.html"></iframe><div class="instructions"><details id="ggb_VM-building-blocks_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h3 class="heading"><span class="type">Instructions<span class="period">.</span></span></h3></summary><div class="solution-like knowl__content"><div class="para" id="ggb_VM-building-blocks_interactive-2-1">Try moving the red dots to change the load and see the effects on the diagrams.</div></div></details></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">8.6.4<span class="period">.</span></span><span class="space"> </span>Building Blocks for Shear and Moment Diagrams</figcaption></figure></section></div>
+</div></article><article class="insight remark-like" id="VM_relations-27"><h3 class="heading">
+<span class="type">Thinking Deeper</span><span class="space"> </span><span class="codenumber">8.5.4</span><span class="period">.</span><span class="space"> </span><span class="title">What happens if we keep integrating?</span>
+</h3>
+<div class="para" id="VM_relations-27-2">As we have seen, integrating the load function once gives the shear force, and integrating the shear force gives the bending moment.</div>
+<div class="para" id="VM_relations-27-3">You may be wondering what happens if we keep integrating? Does this produce anything interesting?</div>
+<div class="para" id="VM_relations-27-4">In fact it does, as you will see in Mechanics of Materials.  In the Statics world, all beams are assumed to be rigid, but in the real world they deform under load.  The shape the beam takes on is described by a deflection curve which gives the actual displacement of the beam at any given point due to the applied loads</div>
+<div class="para" id="VM_relations-27-5">Integrating the bending moment <span class="process-math">\(M(x)\)</span> (and dividing by the flexural rigidity, <span class="process-math">\(EI\)</span>) gives the slope of the deflection curve, which represents the angle of the beam’s deformation at any given point.</div>
+<div class="para" id="VM_relations-27-6">Integrating that function once more (and dividing by <span class="process-math">\(EI\)</span> again) gives the actual deflection function.</div>
+<div class="para" id="VM_relations-27-7">So, if you keep integrating the load function, you’re essentially moving through these stages of beam analysis, progressing from the applied forces to the resulting deformation: Load <span class="fas fa-arrow-right"></span> Shear <span class="fas fa-arrow-right"></span> Moment <span class="fas fa-arrow-right"></span> Slope <span class="fas fa-arrow-right"></span> Deflection. Each step provides valuable information about the beam’s behavior under the given loading conditions.</div></article></section></div>
 <div id="ptx-content-footer" class="ptx-content-footer">
-<a class="previous-button button" href="section_cut_method.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="graphical_method.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
+<a class="previous-button button" href="VM_diagrams.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="section_cut_method.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>
 </div>
 <div id="ptx-page-footer" class="ptx-page-footer">
