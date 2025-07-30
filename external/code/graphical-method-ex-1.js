@@ -126,7 +126,7 @@ const steps = [
     diagram: "shear",
     show: ["dot1"],
     hide: [],
-    commentary: "<p>Start the shear diagram</em> with a dot at <m>(0,0)</m>.</p>",
+    commentary: "<p>Start the shear diagram with a dot at <m>(0,0)</m>.</p>",
   },
 
   {
