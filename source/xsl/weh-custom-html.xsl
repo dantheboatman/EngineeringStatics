@@ -16,5 +16,10 @@
     </xsl:copy>
   </xsl:template>
 -->
- 
+  
+  
+<!--  This template is needed to enable slate[@surface='svg']  used by shear and bending moment example problems-->
+  <xsl:template match="slate[@surface='svg']">
+        <xsl:copy-of select="*"/>
+  </xsl:template>
 </xsl:stylesheet>
