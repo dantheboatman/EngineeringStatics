@@ -71,9 +71,8 @@ window.onload = function () {
       if (currentStep >= 0) {
         loadSVG.setAttribute("style", "visibility: visible");
       }
+      comments[currentStep].setAttribute("style", "visibility: visible");
     }
-
-    comments[currentStep].setAttribute("style", "visibility: visible");
 
     // MathJax render
     if (window.MathJax) {
