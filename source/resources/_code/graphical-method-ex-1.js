@@ -27,9 +27,6 @@ window.onload = function () {
 
   let currentStep = -1;
 
-  shearSVG.setAttribute("style", "visibility: visible");
-  momentSVG.setAttribute("style", "visibility: visible");
-
   function updateView() {
     const allItems = new Set();
     steps.forEach((step) => {
@@ -46,14 +43,13 @@ window.onload = function () {
 
     allShearPoints.forEach((id) => {
       const el = getSVG("shear").querySelector(`#${id}`);
-      if (el) el.setAttribute("style", "visibility: visibile; opacity: 0;");
+      if (el) el.style.opacity = 0;
     });
 
     allMomentPoints.forEach((id) => {
       const el = getSVG("moment").querySelector(`#${id}`);
-      if (el) el.setAttribute("style", "visibility: visibile; opacity: 0");
+      if (el) el.style.opacity = 0;
     });
-
     // for each step, show and hide elements
 
     for (let i = 0; i <= currentStep; i++) {
@@ -71,9 +67,8 @@ window.onload = function () {
       if (currentStep >= 0) {
         loadSVG.setAttribute("style", "visibility: visible");
       }
+      comments[currentStep].setAttribute("style", "visibility: visible");
     }
-
-    comments[currentStep].setAttribute("style", "visibility: visible");
 
     // MathJax render
     if (window.MathJax) {
@@ -205,7 +200,6 @@ const steps = [
     hide: [],
   },
   { diagram: "shear", show: ["d3"], hide: ["MA1", "MA2", "MA3", "MA4", "MA5", "MA6", "A1", "A2", "A3", "A4", "A5", "A6"] },
-  { diagram: "", show: [], hide: [] },
 ];
 
 const allShearPoints = [

@@ -64,10 +64,10 @@ window.onload = function () {
         const el = svg.querySelector(`#${id}`);
         if (el) el.style.opacity = 0;
       });
-    }
-    if (currentStep > -1) {
-      loadSVG.setAttribute("style", "visibility: initial");
-      comments[currentStep].setAttribute("style", "visibility: initial");
+      if (currentStep >= 0) {
+        loadSVG.setAttribute("style", "visibility: visible");
+      }
+      comments[currentStep].setAttribute("style", "visibility: visible");
     }
 
     // MathJax render
