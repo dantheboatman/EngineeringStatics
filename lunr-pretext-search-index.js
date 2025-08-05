@@ -4969,49 +4969,49 @@ var ptx_lunr_docs = [
   "body": " Distance Formula  The distance formula is used for finding the distance between two points. In two dimensions it is simply an application of the Pythagorean theorem.   Given two points and the distance between them is: .  Extension of the distance formula to three dimensions is straightforward.  "
 },
 {
-  "id": "soh-coh-toa",
+  "id": "soh-cah-toa",
   "level": "1",
-  "url": "soh-coh-toa.html",
+  "url": "soh-cah-toa.html",
   "type": "Section",
   "number": "B.2",
   "title": "Right Triangle Trigonometry",
-  "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-COH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.  , and are functions of an angle and their values are unitless ratios of lengths.  The inverse trig functions are functions of unitless ratios and their results are angles.  The sine of an angle equals the cosine of its complement and vice-versa.  The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.  The sine, cosine, and tangent of angles between 0 and 90° are always positive.  The inverse trig functions of positive numbers will always yield angles between 0 and 90°  The legs of a right triangle are always shorter than the hypotenuse.  Only right triangles have a hypotenuse.      Hints  Here are some useful tips for angle calculations  Take care that your calculator is set in degrees mode for this course.  Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.  Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.     "
+  "body": " Right Triangle Trigonometry  A right triangle is a triangle containing a 90° angle.  The side opposite to the right angle is called the hypotenuse .  The other two angles add to 90° and are called complementary angles .      The relationship between the sides and angles of a right triangle are given by the three basic trig relations which may be recalled with the mnemonic SOH-CAH-TOA .     and their inverses,      Facts  The following statements regarding the trig functions and triangles are always true, and remembering them will help you avoid errors.  , and are functions of an angle and their values are unitless ratios of lengths.  The inverse trig functions are functions of unitless ratios and their results are angles.  The sine of an angle equals the cosine of its complement and vice-versa.  The sine and cosine of any angle is always a unitless number between -1 and 1, inclusive.  The sine, cosine, and tangent of angles between 0 and 90° are always positive.  The inverse trig functions of positive numbers will always yield angles between 0 and 90°  The legs of a right triangle are always shorter than the hypotenuse.  Only right triangles have a hypotenuse.      Hints  Here are some useful tips for angle calculations  Take care that your calculator is set in degrees mode for this course.  Always work with angles between 0° and 90° and use positive arguments for the inverse trig functions.  Following this advice will avoid unwanted signs and incorrect directions caused because , and and the calculator can't distinguish between them.     "
 },
 {
-  "id": "soh-coh-toa-2",
+  "id": "soh-cah-toa-2",
   "level": "2",
-  "url": "soh-coh-toa.html#soh-coh-toa-2",
+  "url": "soh-cah-toa.html#soh-cah-toa-2",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "right triangle "
 },
 {
-  "id": "soh-coh-toa-3",
+  "id": "soh-cah-toa-3",
   "level": "2",
-  "url": "soh-coh-toa.html#soh-coh-toa-3",
+  "url": "soh-cah-toa.html#soh-cah-toa-3",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "hypotenuse "
 },
 {
-  "id": "soh-coh-toa-4",
+  "id": "soh-cah-toa-4",
   "level": "2",
-  "url": "soh-coh-toa.html#soh-coh-toa-4",
+  "url": "soh-cah-toa.html#soh-cah-toa-4",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
   "body": "complementary angles "
 },
 {
-  "id": "soh-coh-toa-6",
+  "id": "soh-cah-toa-6",
   "level": "2",
-  "url": "soh-coh-toa.html#soh-coh-toa-6",
+  "url": "soh-cah-toa.html#soh-cah-toa-6",
   "type": "Paragraph (with a defined term)",
   "number": "",
   "title": "",
-  "body": "SOH-COH-TOA "
+  "body": "SOH-CAH-TOA "
 },
 {
   "id": "los-loc",
