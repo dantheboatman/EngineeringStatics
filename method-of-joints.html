@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US" dir="ltr">
+<html lang="en-US" dir="ltr" data-darkmode="disabled">
 <!--******************************************-->
 <!--*  Authored with PreTeXt                 *-->
 <!--*  pretextbook.org                       *-->
@@ -123,14 +123,14 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.9.4';
+eBookConfig.runestone_version = '7.9.8';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.879b99e54406967d.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.28cc3c4821792be5.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
+<script src="_static/prefix-runtime.b215b0da62d655bd.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.28cc3c4821792be5.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
 <link rel="stylesheet" type="text/css" href="_static/prefix-runestone.8141ae22fd347e48.css">
 <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
@@ -155,7 +155,7 @@ eBookConfig.enable_chatcodes =  false;
 <ol id="searchresults" class="searchresults"></ol>
 </div>
 </div>
-<span class="nav-other-controls"><button id="light-dark-button" class="light-dark-button button" title="Dark Mode"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe51c;</span><span class="name">Dark Mode</span></button></span><span class="treebuttons"><a class="previous-button button" href="Chapter_06-trusses.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_06.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="method-of-sections.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
+<span class="nav-other-controls"></span><span class="treebuttons"><a class="previous-button button" href="Chapter_06-trusses.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="up-button button" href="Chapter_06.html" title="Up"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Up</span></a><a class="next-button button" href="method-of-sections.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a></span>
 </div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\require{cancel}\let\vecarrow\vec
 \renewcommand{\vec}{\mathbf}
 \newcommand{\ihat}{\vec{i}}
@@ -711,49 +711,99 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul></nav></div>
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="method-of-joints"><h2 class="heading hide-type">
-<span class="type">Section</span><span class="space"> </span><span class="codenumber">6.4</span><span class="space"> </span><span class="title">Method of Joints</span>
+<span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">6.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Method of Joints</span>
 </h2>
 <article class="objectives goal-like" id="method-of-joints-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
 <ul class="disc" id="method-of-joints-2-1">
-<li id="method-of-joints-2-1-1"><div class="para" id="p-derived-method-of-joints-2-1-1">What are the important components to include on a free-body diagram of a joint in a truss?</div></li>
-<li id="method-of-joints-2-1-2"><div class="para" id="p-derived-method-of-joints-2-1-2">How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</div></li>
-<li id="method-of-joints-2-1-3"><div class="para" id="p-derived-method-of-joints-2-1-3">How do we ensure that tension or compression in a member is properly represented?</div></li>
-</ul></article><section class="introduction" id="method-of-joints-3"><div class="para" id="method-of-joints-3-1">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.</div>
-<div class="para" id="method-of-joints-3-2">The joints are treated as particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.</div>
-<div class="para" id="method-of-joints-3-3">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found. Therefore, a joint can be solved when there are one or two unknown forces and at least one known force acting on it.</div>
-<div class="para" id="method-of-joints-3-4">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.</div></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
-<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">6.4.1</span><span class="space"> </span><span class="title">Procedure</span>
+<li id="method-of-joints-2-1-1">
+<div class="para" id="p-derived-method-of-joints-2-1-1">What are the important components to include on a free-body diagram of a joint in a truss?</div>
+<div class="autopermalink" data-description="Objective"><a href="#method-of-joints-2-1-1" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="method-of-joints-2-1-2">
+<div class="para" id="p-derived-method-of-joints-2-1-2">How are the solutions found at one joint used to create an accurate free-body diagram of another joint?</div>
+<div class="autopermalink" data-description="Objective"><a href="#method-of-joints-2-1-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+<li id="method-of-joints-2-1-3">
+<div class="para" id="p-derived-method-of-joints-2-1-3">How do we ensure that tension or compression in a member is properly represented?</div>
+<div class="autopermalink" data-description="Objective"><a href="#method-of-joints-2-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" data-description="Key Questions 6.4"><a href="#method-of-joints-2" title="Copy heading and permalink for Key Questions 6.4" aria-label="Copy heading and permalink for Key Questions 6.4">🔗</a></div></article><section class="introduction" id="method-of-joints-3"><div class="para" id="method-of-joints-3-1">The <dfn class="terminology">method of joints</dfn> is a process used to solve for the unknown forces acting on members of a truss. The method centers on the joints or connection points between the members, and it is most useful when you need to solve for all the unknown forces in a truss structure.<div class="autopermalink" data-description="Paragraph"><a href="#method-of-joints-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="method-of-joints-3-2">The joints are treated as particles subjected to force by the connected members and any applied loads. As the joints are in equilibrium and the forces are concurrent, <span class="process-math">\(\Sigma \vec{F} = 0\)</span> can be applied, but the <span class="process-math">\(\Sigma M=0\)</span> equation provides no information.<div class="autopermalink" data-description="Paragraph"><a href="#method-of-joints-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="method-of-joints-3-3">For planar trusses, each joint yields two scalar equations, <span class="process-math">\(\Sigma F_x=0\)</span> and <span class="process-math">\(\Sigma F_y=0\text{,}\)</span> and so two unknowns can be found. Therefore, a joint can be solved when there are one or two unknown forces and at least one known force acting on it.<div class="autopermalink" data-description="Paragraph"><a href="#method-of-joints-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="method-of-joints-3-4">Forces are transferred from joint to joint by the connecting members, so when unknown forces on a joint are found, the corresponding forces on adjacent joints are also found.<div class="autopermalink" data-description="Paragraph"><a href="#method-of-joints-3-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section><section class="subsection" id="joints-procedure"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">6.4.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Procedure</span>
 </h3>
 <div class="para logical" id="joints-procedure-2">
 <div class="para">The procedure is a straightforward application of rigid body and particle equilibrium</div>
 <ol class="decimal" id="joints-procedure-2-1">
-<li id="joints-procedure-2-1-1"><div class="para" id="joints-procedure-2-1-1-1">Determine if the structure is a truss and if it is determinate. See <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">Subsection 6.3.2</a>
-</div></li>
-<li id="joints-procedure-2-1-2"><div class="para" id="joints-procedure-2-1-2-1">Identify and remove all zero-force members. This is not required but will eliminate unnecessary computations. See <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">Subsection 6.3.4</a>.</div></li>
+<li id="joints-procedure-2-1-1">
+<div class="para" id="joints-procedure-2-1-1-1">Determine if the structure is a truss and if it is determinate. See <a href="Chapter_06-trusses.html#simple-trusses" class="internal" title="Subsection 6.3.2: Simple Trusses">Subsection 6.3.2</a><div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 1"><a href="#joints-procedure-2-1-1" title="Copy heading and permalink for Item 1" aria-label="Copy heading and permalink for Item 1">🔗</a></div>
+</li>
+<li id="joints-procedure-2-1-2">
+<div class="para" id="joints-procedure-2-1-2-1">Identify and remove all zero-force members. This is not required but will eliminate unnecessary computations. See <a href="Chapter_06-trusses.html#zero-force-members" class="internal" title="Subsection 6.3.4: Zero-Force Members">Subsection 6.3.4</a>.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 2"><a href="#joints-procedure-2-1-2" title="Copy heading and permalink for Item 2" aria-label="Copy heading and permalink for Item 2">🔗</a></div>
+</li>
 <li id="joints-procedure-2-1-3">
-<div class="para" id="joints-procedure-2-1-3-1">Determine if you need to find the external reactions. If you can identify a solvable joint immediately, then you do not need to find the external reactions.</div>
-<div class="para" id="joints-procedure-2-1-3-2">A solvable joint includes one or more known forces and no more than two unknown forces. If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.</div>
+<div class="para" id="joints-procedure-2-1-3-1">Determine if you need to find the external reactions. If you can identify a solvable joint immediately, then you do not need to find the external reactions.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="joints-procedure-2-1-3-2">A solvable joint includes one or more known forces and no more than two unknown forces. If there are no joints that satisfy this condition then you will need to find the external reactions before proceeding, using a free-body diagram of the entire truss.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 3"><a href="#joints-procedure-2-1-3" title="Copy heading and permalink for Item 3" aria-label="Copy heading and permalink for Item 3">🔗</a></div>
 </li>
 <li id="joints-procedure-2-1-4">
 <div class="para logical" id="joints-procedure-2-1-4-1">
 <div class="para">Identify a solvable joint and solve it using the methods of <a href="Chapter_03.html" class="internal" title="Chapter 3: Equilibrium of Particles">Chapter 3</a>. When drawing free-body diagrams of joints you should</div>
 <ul class="disc" id="joints-procedure-2-1-4-1-2">
-<li id="joints-procedure-2-1-4-1-2-1"><div class="para" id="p-derived-joints-procedure-2-1-4-1-2-1">Represent the joint as a dot.</div></li>
-<li id="joints-procedure-2-1-4-1-2-2"><div class="para" id="p-derived-joints-procedure-2-1-4-1-2-2">Draw all known forces in their known directions with arrowheads indicating their sense. Known forces are the given loads and forces determined from previously solved joints.</div></li>
-<li id="joints-procedure-2-1-4-1-2-3"><div class="para" id="p-derived-joints-procedure-2-1-4-1-2-3">Assume the sense of unknown forces. A common practice is to assume that all unknown forces are in tension, i.e. pulling away from the free-body diagram of the pin, and label them based on the member they represent.</div></li>
-</ul>
-</div>
-<div class="para" id="joints-procedure-2-1-4-2">Finally, write out and solve the force equilibrium equations for the joint. If you assumed that all forces were tensile earlier, negative answers indicate compression.</div>
+<li id="joints-procedure-2-1-4-1-2-1">
+<div class="para" id="p-derived-joints-procedure-2-1-4-1-2-1">Represent the joint as a dot.</div>
+<div class="autopermalink" data-description="Item"><a href="#joints-procedure-2-1-4-1-2-1" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
 </li>
-<li id="joints-procedure-2-1-5"><div class="para" id="joints-procedure-2-1-5-1">Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved. Take care when transferring forces to adjoining joints to maintain their sense — either tension or compression.</div></li>
-<li id="joints-procedure-2-1-6"><div class="para" id="joints-procedure-2-1-6-1">If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint. The extra equations can be used to check your work.</div></li>
-</ol>
+<li id="joints-procedure-2-1-4-1-2-2">
+<div class="para" id="p-derived-joints-procedure-2-1-4-1-2-2">Draw all known forces in their known directions with arrowheads indicating their sense. Known forces are the given loads and forces determined from previously solved joints.</div>
+<div class="autopermalink" data-description="Item"><a href="#joints-procedure-2-1-4-1-2-2" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+<li id="joints-procedure-2-1-4-1-2-3">
+<div class="para" id="p-derived-joints-procedure-2-1-4-1-2-3">Assume the sense of unknown forces. A common practice is to assume that all unknown forces are in tension, i.e. pulling away from the free-body diagram of the pin, and label them based on the member they represent.</div>
+<div class="autopermalink" data-description="Item"><a href="#joints-procedure-2-1-4-1-2-3" title="Copy heading and permalink for Item" aria-label="Copy heading and permalink for Item">🔗</a></div>
+</li>
+</ul>
+<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="para" id="joints-procedure-3">Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.</div>
-<div class="para" id="joints-procedure-4">The interactive below shows a triangular truss supported by a pin at <span class="process-math">\(A\)</span> and a roller at <span class="process-math">\(B\text{,}\)</span> and loaded at joint <span class="process-math">\(C\text{.}\)</span> You can see how the reactions and internal forces adjust as you vary the load at <span class="process-math">\(C\text{.}\)</span> You can solve it by starting at joint <span class="process-math">\(C\)</span> and solving for <span class="process-math">\(BC\)</span> and <span class="process-math">\(CD\text{,}\)</span> then moving to joint <span class="process-math">\(B\)</span> and solving for <span class="process-math">\(AB\)</span> Joint <span class="process-math">\(A\)</span> can be used to check your work.</div>
-<figure class="figure figure-like" id="ggb_fvuugvb4"><iframe id="ggb_method-of-joints_interactive" width="600" height="300" src="ggb_method-of-joints_interactive-if.html"></iframe><div class="instructions"><details id="ggb_method-of-joints_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></summary><div class="solution-like knowl__content"><div class="para" id="ggb_method-of-joints_interactive-3-1">Interactive shows the effect of a load at <span class="process-math">\(C\)</span> on the reactions and the truss members. Internal tension forces are indicated with <span class="process-math">\((T)\)</span> and internal compression forces with <span class="process-math">\((C)\text{.}\)</span> Move the red point to change load <span class="process-math">\(C\text{.}\)</span>
-</div></div></details></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.1<span class="period">.</span></span><span class="space"> </span>Internal and external forces of a simple truss.</figcaption></figure></section></section></div>
+<div class="para" id="joints-procedure-2-1-4-2">Finally, write out and solve the force equilibrium equations for the joint. If you assumed that all forces were tensile earlier, negative answers indicate compression.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 4"><a href="#joints-procedure-2-1-4" title="Copy heading and permalink for Item 4" aria-label="Copy heading and permalink for Item 4">🔗</a></div>
+</li>
+<li id="joints-procedure-2-1-5">
+<div class="para" id="joints-procedure-2-1-5-1">Once the unknown forces acting on a joint are determined, carry these values to the adjacent joints and repeat step four until all the joints have been solved. Take care when transferring forces to adjoining joints to maintain their sense — either tension or compression.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-5-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 5"><a href="#joints-procedure-2-1-5" title="Copy heading and permalink for Item 5" aria-label="Copy heading and permalink for Item 5">🔗</a></div>
+</li>
+<li id="joints-procedure-2-1-6">
+<div class="para" id="joints-procedure-2-1-6-1">If you solved for the reactions in step two, you will have more equations available than unknown forces when you reach the last joint. The extra equations can be used to check your work.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2-1-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Item 6"><a href="#joints-procedure-2-1-6" title="Copy heading and permalink for Item 6" aria-label="Copy heading and permalink for Item 6">🔗</a></div>
+</li>
+</ol>
+<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="joints-procedure-3">Rather than solving the joints sequentially, you could write out the equations for all the joints first and solve them simultaneously using a matrix solution, but only if you have a computer available as large matrices are not typically solvable with a calculator.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="para" id="joints-procedure-4">The interactive below shows a triangular truss supported by a pin at <span class="process-math">\(A\)</span> and a roller at <span class="process-math">\(B\text{,}\)</span> and loaded at joint <span class="process-math">\(C\text{.}\)</span> You can see how the reactions and internal forces adjust as you vary the load at <span class="process-math">\(C\text{.}\)</span> You can solve it by starting at joint <span class="process-math">\(C\)</span> and solving for <span class="process-math">\(BC\)</span> and <span class="process-math">\(CD\text{,}\)</span> then moving to joint <span class="process-math">\(B\)</span> and solving for <span class="process-math">\(AB\)</span> Joint <span class="process-math">\(A\)</span> can be used to check your work.<div class="autopermalink" data-description="Paragraph"><a href="#joints-procedure-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<figure class="figure figure-like" id="ggb_fvuugvb4"><iframe id="ggb_method-of-joints_interactive" width="600" height="300" src="ggb_method-of-joints_interactive-if.html"></iframe><div class="instructions"><details id="ggb_method-of-joints_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="para" id="ggb_method-of-joints_interactive-3-1">Interactive shows the effect of a load at <span class="process-math">\(C\)</span> on the reactions and the truss members. Internal tension forces are indicated with <span class="process-math">\((T)\)</span> and internal compression forces with <span class="process-math">\((C)\text{.}\)</span> Move the red point to change load <span class="process-math">\(C\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#ggb_method-of-joints_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+<div class="autopermalink" data-description="Instructions"><a href="#ggb_method-of-joints_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
+</div></details></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">6.4.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Internal and external forces of a simple truss.<div class="autopermalink" data-description="Figure 6.4.1"><a href="#ggb_fvuugvb4" title="Copy heading and permalink for Figure 6.4.1" aria-label="Copy heading and permalink for Figure 6.4.1">🔗</a></div></figcaption></figure><div class="autopermalink" data-description="Subsection 6.4.1: Procedure"><a href="#joints-procedure" title="Copy heading and permalink for Subsection 6.4.1: Procedure" aria-label="Copy heading and permalink for Subsection 6.4.1: Procedure">🔗</a></div></section><div class="autopermalink" data-description="Section 6.4: Method of Joints"><a href="#method-of-joints" title="Copy heading and permalink for Section 6.4: Method of Joints" aria-label="Copy heading and permalink for Section 6.4: Method of Joints">🔗</a></div></section></div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="Chapter_06-trusses.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="method-of-sections.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>
