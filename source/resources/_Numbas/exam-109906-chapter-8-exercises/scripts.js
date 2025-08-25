@@ -2239,6 +2239,551 @@ try {
 
 JXG.Options.text.useMathJax = true;
 ;
+Numbas.addExtension('linear-algebra',['jme','jme-display'],function(extension) {
+
+var math = Numbas.math;
+var vectormath = Numbas.vectormath;
+var matrixmath = Numbas.matrixmath;
+
+var Fraction = extension.Fraction = function(n) {
+    if(typeof(n)=='number') {
+        var c = math.rationalApproximation(n);
+        this.n = c[0];
+        this.d = c[1];
+    } else {
+        this.n = n.n;
+        this.d = n.d;
+    }
+    this.tidy();
+}
+Fraction.prototype = {
+    toString: function() {
+        return this.d==1 ? this.n+'' : this.n+'/'+this.d;
+    },
+
+    toLaTeX: function() {
+        return this.d==1 ? this.n+'' : (this.n<0 ? '-': '')+'\\frac{'+(Math.abs(this.n))+'}{'+this.d+'}';
+    },
+
+    /** Ensure fraction is reduced, and denominator is positive
+     */
+    tidy: function() {
+        if(this.n==0) {
+            this.n = 0;
+            this.d = 1;
+        }
+        var g = math.gcd(this.n,this.d) * (this.d<0 ? -1 : 1);
+        this.n /= g;
+        this.d /= g;
+    },
+
+    add: function(f2) {
+        return new Fraction({n: this.n*f2.d + f2.n*this.d, d: this.d*f2.d});
+    },
+    sub: function(f2) {
+        return new Fraction({n: this.n*f2.d - f2.n*this.d, d: this.d*f2.d});
+    },
+    mul: function(f2) {
+        return new Fraction({n: this.n*f2.n, d: this.d*f2.d});
+    },
+    div: function(f2) {
+        return new Fraction({n: this.n*f2.d, d: this.d*f2.n});
+    },
+    is_zero: function() {
+        return this.n==0;
+    },
+    is_one: function() {
+        return this.n==this.d;
+    },
+    reciprocal: function() {
+        return new Fraction({n:this.d,d:this.n});
+    }
+}
+
+var fraction_matrix = extension.fraction_matrix = function(matrix) {
+    var o = matrix.map(function(r){return r.map(function(c){ return c instanceof Fraction ? c : new Fraction(c)})});
+    o.rows = matrix.rows;
+    o.columns = matrix.columns;
+    return o;
+}
+var unfraction_matrix = extension.unfraction_matrix = function(matrix) {
+    var o = matrix.map(function(r){return r.map(function(c){return c.n/c.d})});
+    o.rows = matrix.rows;
+    o.columns = matrix.columns;
+    return o;
+}
+
+function wrap_fraction_matrix(fn,unwrap_res) {
+    return function(matrix) {
+        matrix = fraction_matrix(matrix);
+        var res = fn(matrix);
+        if(unwrap_res) {
+            res = res.matrix;
+        }
+        return unfraction_matrix(res);
+    }
+}
+
+function logger(operations,matrix) {
+    return function log(message,include_matrix,options) {
+        include_matrix = include_matrix===undefined ? true : include_matrix;
+        var lmatrix;
+        if(include_matrix) {
+            lmatrix = matrix.map(function(r){return r.slice()});
+            lmatrix.rows = matrix.rows;
+            lmatrix.columns = matrix.columns;
+        }
+        var l = {message:message, matrix: lmatrix};
+        for(var key in options) {
+            l[key] = options[key];
+        }
+        operations.push(l);
+    }
+}
+
+var row_echelon_form = function(matrix) {
+    /** Put a matrix representing a system of equations in row-echelon form.
+    * Can:
+    * * Swap two rows
+    * * Multiply a row by a scalar
+    * * Subtract a multiple of one row from another
+    * For each row of the output, the first non-zero entry is 1, and strictly to the right of the first non-zero entry in the row above.
+    * Works over the rationals: input is a matrix of objects {n: numerator,d: denominator}.
+    * Output is an object {matrix, operations}, where operations is a list of descriptions of each step of the process, of the form {message: string, matrix: the state of the matrix after the operation}.
+    */
+    matrix = matrix.map(function(r){return r.slice()});
+    var rows = matrix.length;
+    var columns = matrix[0].length;
+    matrix.rows = rows;
+    matrix.columns = columns;
+    
+    var operations = [];
+    var log = logger(operations,matrix);
+
+    var current_row = 0;
+    // for each column, there should be at most one row with a 1 in that column, and every other row should have 0 in that column
+    for(var leader_column=0;leader_column<columns;leader_column++) {
+        // find the first row with a non-zero in that column
+        for(var row=current_row;row<rows;row++) {
+            if(!matrix[row][leader_column].is_zero()) {
+                break;
+            }
+        }
+        // if we found a row with a non-zero in the leader column 
+        if(row<rows) {
+            // swap that row with the <current_row>th one
+            if(row!=current_row) {
+                var tmp = matrix[row];
+                matrix[row] = matrix[current_row];
+                matrix[current_row] = tmp;
+                log("Row "+(row+1)+" has a non-zero entry in column "+(leader_column+1)+", so it should go before row "+(current_row+1)+". Swap row "+(row+1)+" with row "+(current_row+1)+".",true,{determinant_scale:new Fraction(-1)});
+            }
+
+            // multiply this row so the leader column has a 1 in it
+            var leader = matrix[current_row][leader_column];
+            if(!leader.is_one()) {
+                matrix[current_row] = matrix[current_row].map(function(c){ return c.div(leader)});
+                log("Divide row "+(current_row+1)+" by \\("+leader+"\\), so that the first non-zero entry is \\(1\\).",true, {determinant_scale:leader.reciprocal()});
+            }
+
+            // subtract multiples of this row from every other row so they all have a zero in this column
+            var sub = function(a,b){ return a.sub(b); };
+            var add = function(a,b){ return a.add(b); };
+            for(var row=current_row+1;row<rows;row++) {
+                if(row!=current_row && !matrix[row][leader_column].is_zero()) {
+                    var scale = matrix[row][leader_column];
+                    var op = sub;
+                    if(scale.n<0) {
+                        scale = new Fraction({n:-scale.n,d:scale.d});
+                        op = add;
+                    }
+                    matrix[row] = matrix[row].map(function(c,i) { 
+                        var res = op(c,matrix[current_row][i].mul(scale));
+                        return res;
+                    });
+                    var mop = op==sub ? "Subtract" : "Add";
+                    var mverb = op==sub ? "from" : "to";
+                    log(mop+" "+(scale.is_one() ? "" : "\\("+scale+"\\) times ")+"row "+(current_row+1)+" "+mverb+" row "+(row+1)+".");
+                }
+            }
+            current_row += 1;
+        }
+    }
+    if(operations.length>0) {
+        log("The matrix is now in row echelon form.",false);
+    }
+    return {
+        matrix: matrix,
+        operations: operations
+    };
+}
+extension.row_echelon_form = wrap_fraction_matrix(row_echelon_form,true);
+
+var reduced_row_echelon_form = function(matrix) {
+    /** Put a matrix representing a system of equations in reduced row-echelon form.
+     * Can:
+     * * Swap two rows
+     * * Multiply a row by a scalar
+     * * Subtract a multiple of one row from another
+     * As well as being in row-echelon form, the matrix has the property that the first non-zero entry in each row is also the only non-zero entry in its column.
+     * Works over the rationals: input is a matrix of objects {n: numerator,d: denominator}.
+     * Output is an object {matrix, operations}, where operations is a list of descriptions of each step of the process, of the form {message: string, matrix: the state of the matrix after the operation}.
+     */
+    matrix = matrix.map(function(r){return r.slice()});
+    var res = row_echelon_form(matrix);
+    matrix = res.matrix;
+    var operations = res.operations.slice();
+
+    var rows = matrix.length;
+    var columns = matrix[0].length;
+    matrix.rows = rows;
+    matrix.columns = columns;
+
+    var log = logger(operations,matrix);
+
+    var sub = function(a,b){ return a.sub(b); };
+    var add = function(a,b){ return a.add(b); };
+
+    for(var row=0;row<rows;row++) {
+        for(var column=0;column<columns && matrix[row][column].is_zero();column++) {}
+        
+        if(column==columns) {
+            continue;
+        }
+        for(var vrow = 0;vrow<rows;vrow++) {
+            if(vrow!=row && !matrix[vrow][column].is_zero()) {
+                
+                var scale = matrix[vrow][column];
+                if(!scale.is_zero()) {
+                    var op = sub;
+                    if(scale.n<0) {
+                        op = add;
+                        scale = new Fraction({n:-scale.n, d:scale.d});
+                    }
+                    matrix[vrow] = matrix[vrow].map(function(c,i) { 
+                        return op(c,matrix[row][i].mul(scale));
+                    });
+
+                    var mop = op==sub ? "subtract" : "add";
+                    var mverb = op==sub ? "from" : "to";
+                    log("We want a zero in column "+(column+1)+" of row "+(vrow+1)+": "+mop+" "+(scale.is_one() ? "" : "\\("+scale+"\\) times ")+"row "+(row+1)+" "+mverb+" row "+(vrow+1)+".");
+                }
+            }
+        }
+    }
+    if(operations.length>0) {
+        log("The matrix is now in reduced row echelon form.",false);
+    }
+    return {
+        matrix: matrix,
+        operations: operations
+    };
+}
+extension.reduced_row_echelon_form = wrap_fraction_matrix(reduced_row_echelon_form,true);
+
+function rref_without_zero(matrix) {
+    var rref = reduced_row_echelon_form(matrix).matrix;
+    return rref.filter(function(row) { return !vectormath.is_zero(row); });
+}
+
+function rank(matrix) {
+    return rref_without_zero(matrix).length;
+}
+extension.rank = function(matrix) {
+    matrix = fraction_matrix(matrix);
+    return rank(matrix);
+}
+
+function is_linearly_independent(vectors) {
+    return rref_without_zero(vectors).length==vectors.length;
+}
+extension.is_linearly_independent = function(vectors) {
+    vectors = fraction_matrix(vectors);
+    return is_linearly_independent(vectors);
+}
+
+var adjoin = extension.adjoin = function(matrix,vector) {
+    var o = [];
+    for(var i=0;i<matrix.length;i++) {
+        var row = matrix[i].slice();
+        row.push(vector[i] || 0);
+        o.push(row);
+    }
+    o.rows = matrix.rows;
+    o.columns = matrix.columns+1;
+}
+
+/** Subset of the given vectors, with the given dimension.
+ * Not always possible - if the vectors have length k, you can't have d>k. 
+ * If the input list has dimension less than d, it can't be done.
+ * Likewise with extra dependent vectors - if there aren't enough, it'll fail.
+ * The vectors are processed in order, so if you want a random subset you should shuffle the list first.
+ *
+ * @param {Array.<vector>} vectors 
+ * @param {Number} n - number of vectors to return
+ * @param {Number} d - dimension of the set (the first d vectors will be linearly independent, and any others will be multiples of those.
+ * @returns {Array.<vector>}
+ */
+function subset_with_dimension(vectors,n,d) {
+    vectors = vectors.filter(function(v){ return !vectormath.is_zero(v); });
+    var independent = [];
+    var combos = [];
+    for(var i=0; i<vectors.length && (independent.length<d || combos.length<n-d); i++) {
+        var v = vectors[i];
+        if(is_linearly_independent(independent.concat([v]))) {
+            independent.push(v);
+        } else {
+            combos.push(v);
+        }
+    }
+    if(independent.length<d || combos.length<n-d) {
+        throw(new Error("Couldn't generate a subset of the required size and dimension"));
+    }
+    return independent.slice(0,d).concat(combos.slice(0,n-d));
+}
+
+extension.subset_with_dimension = function(vectors,n,d) {
+    vectors = fraction_matrix(vectors);
+    var subset = subset_with_dimension(vectors,n,d);
+    return unfraction_matrix(subset);
+}
+
+/** Span of vectors in Z^n, with no element bigger than max
+ */
+function span(vectors,max) {
+    var dim = vectors[0].length;
+    var zero = [];
+    for(var i=0;i<dim;i++) {
+        zero.push(0);
+    }
+    var out = [zero];
+    vectors.forEach(function(v) {
+        var biggest = v.reduce(function(best,x){ return Math.max(best,Math.abs(x)); },0);
+        var lim = vectors.length*max/biggest;
+        var mults = [];
+        for(var i=0;i<=lim;i++) {
+            mults.push(vectormath.mul(i,v));
+            mults.push(vectormath.mul(-i,v));
+        }
+        
+        var nout = [];
+        out.forEach(function(v2) {
+            mults.forEach(function(m) {
+                var s = vectormath.add(m,v2);
+                if(!nout.find(function(v3){return vectormath.eq(v3,s)})) {
+                    nout.push(s);
+                }
+            });
+        });
+        out = nout;
+    })
+    out = out.filter(function(v){ return v.every(function(x){return Math.abs(x)<=max}) });
+    return out;
+}
+extension.span = span;
+
+function as_sum_of_basis(basis,v) {
+    basis.rows = basis.length;
+    basis.columns = basis.rows>0 ? basis[0].length : 0;
+    var matrix = matrixmath.transpose(basis);
+    var augmented_matrix = matrix.map(function(row,i) {
+        row = row.slice();
+        row.push(v[i] || 0);
+        return row;
+    });
+    augmented_matrix = fraction_matrix(augmented_matrix);
+    augmented_matrix.rows = matrix.rows;
+    augmented_matrix.columns = matrix.columns;
+    var rref = reduced_row_echelon_form(augmented_matrix).matrix;
+    rref = unfraction_matrix(rref);
+    return rref.map(function(row){return row[matrix.columns]});
+}
+extension.as_sum_of_basis = as_sum_of_basis;
+
+/** Is the given matrix in row echelon form?
+ * If not, throws an error with an explanation why it isn't.
+ */
+var is_row_echelon_form = extension.is_row_echelon_form = function(matrix) {
+    var leader = -1;
+    var rows = matrix.length;
+    var columns = matrix[0].length;
+    for(var row=0;row<rows;row++) {
+        for(var column=0;column<columns;column++) {
+            var cell = matrix[row][column];
+            if(column<=leader) {
+                if(!cell.is_zero()) {
+                    throw(new Error("The first non-zero entry in row "+(row+1)+" is not strictly to the right of the first non-zero entries in the rows above."));
+                } 
+            } else {
+                leader = column;
+                break;
+            }
+        }
+    }
+    return true;
+}
+extension.is_row_echelon_form = function(matrix) {
+    matrix = fraction_matrix(matrix);
+    return is_row_echelon_form(matrix);
+}
+
+/** Is the given matrix in row echelon form?
+ * If not, throws an error with an explanation why it isn't.
+ */
+var is_reduced_row_echelon_form = extension.is_reduced_row_echelon_form = function(matrix) {
+    is_row_echelon_form(matrix); // this will throw an error if the matrix is not in row echelon form
+
+    for(var row=0;row<matrix.rows;row++) {
+        for(var column=0;column<matrix.columns;column++) {
+            var cell = matrix[row][column];
+            if(!cell.is_zero()) {
+                if(!cell.is_one()) {
+                    throw(new Error("The first non-zero entry in row "+(row+1)+" is not 1."))
+                }
+                for(var vrow=0;vrow<matrix.rows;vrow++) {
+                    if(vrow!=row && !matrix[vrow][column].is_zero()) {
+                        throw(new Error("There is more than one non-zero value in column "+(column+1)+"."));
+                    }
+                }
+                break;
+            }
+        }
+    }
+    return true;
+}
+extension.is_reduced_row_echelon_form = function(matrix) {
+    matrix = fraction_matrix(matrix);
+    return is_reduced_row_echelon_form(matrix);
+}
+
+var scope = extension.scope;
+var jme = Numbas.jme;
+var funcObj = jme.funcObj;
+var TNum = jme.types.TNum;
+var TList = jme.types.TList;
+var TVector = jme.types.TVector;
+var TMatrix = jme.types.TMatrix;
+var TString = jme.types.TString;
+var THTML = jme.types.THTML;
+var TBool = jme.types.TBool;
+
+function element(name,attrs,content) {
+    var e = document.createElement(name);
+    for(var k in attrs) {
+        e.setAttribute(k,attrs[k]);
+    }
+    if(content!==undefined) {
+        e.innerHTML = content;
+    }
+    return e;
+}
+
+scope.addFunction(new funcObj('row_echelon_form',[TMatrix],TMatrix,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    var res = row_echelon_form(matrix);
+    var omatrix = unfraction_matrix(res.matrix);
+    return omatrix;
+}));
+
+function show_steps(steps,describe_determinant) {
+    var ops = element('ul');
+    if(describe_determinant) {
+        var li = element('li',{},'Let the determinant of the matrix be \\(d\\)');
+    }
+    var d = new Fraction(1);
+    steps.map(function(o) {
+        var li = element('li');
+        li.appendChild(element('span',{},o.message));
+        if(o.matrix) {
+            var m = new TMatrix(unfraction_matrix(o.matrix));
+            li.appendChild(element('span',{},'\\['+jme.display.texify({tok:m},{fractionnumbers:true})+'\\]'));
+            if(describe_determinant && o.determinant_scale) {
+                d = d.mul(o.determinant_scale);
+                li.appendChild(element('p',{},'The determinant of this matrix is \\('+(Math.abs(d.n)==d.d ? d.n<0 ? '-' : '' : d.toLaTeX())+' d\\).'));
+            }
+        }
+        ops.appendChild(li);
+    });
+    return new THTML(ops);
+}
+
+scope.addFunction(new funcObj('row_echelon_form_display',[TMatrix],THTML,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    var res = row_echelon_form(matrix);
+    return show_steps(res.operations);
+},{unwrapValues:true}));
+
+scope.addFunction(new funcObj('row_echelon_form_display_determinant',[TMatrix],THTML,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    var res = row_echelon_form(matrix);
+    return show_steps(res.operations,true);
+},{unwrapValues:true}));
+
+scope.addFunction(new funcObj('is_row_echelon_form',[TMatrix],TBool,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    try {
+        return is_row_echelon_form(matrix);
+    } catch(e) {
+        return false;
+    }
+}));
+
+scope.addFunction(new funcObj('describe_why_row_echelon_form',[TMatrix],TString,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    try {
+        is_row_echelon_form(matrix);
+        return "The matrix is in row echelon form.";
+    } catch(e) {
+        return e.message;
+    }
+}));
+
+scope.addFunction(new funcObj('reduced_row_echelon_form',[TMatrix],TMatrix,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    var res = reduced_row_echelon_form(matrix);
+    var omatrix = unfraction_matrix(res.matrix);
+    return omatrix;
+}));
+
+scope.addFunction(new funcObj('reduced_row_echelon_form_display',[TMatrix],THTML,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    var res = reduced_row_echelon_form(matrix);
+    return show_steps(res.operations);
+},{unwrapValues:true}));
+
+scope.addFunction(new funcObj('is_reduced_row_echelon_form',[TMatrix],TBool,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    try {
+        return is_reduced_row_echelon_form(matrix);
+    } catch(e) {
+        return false;
+    }
+}));
+
+scope.addFunction(new funcObj('describe_why_reduced_row_echelon_form',[TMatrix],TString,function(matrix) {
+    matrix = fraction_matrix(matrix);
+    try {
+        is_reduced_row_echelon_form(matrix);
+        return "The matrix is in reduced row echelon form.";
+    } catch(e) {
+        return e.message;
+    }
+}));
+
+scope.addFunction(new funcObj('rank',[TMatrix],TNum,extension.rank));
+
+scope.addFunction(new funcObj('is_linearly_independent',[TList],TBool,extension.is_linearly_independent,{unwrapValues:true}));
+
+scope.addFunction(new funcObj('adjoin',[TMatrix,TVector],TMatrix,adjoin,{unwrapValues:true}));
+
+scope.addFunction(new funcObj('subset_with_dimension',[TList,TNum,TNum],TList,function(vectors,n,d) {
+    var out = extension.subset_with_dimension(vectors,n,d);
+    return out.map(function(v){return new TVector(v); });
+},{unwrapValues:true}));
+
+scope.addFunction(new funcObj('as_sum_of_basis',[TList,TVector],TList,extension.as_sum_of_basis,{unwrapValues:true}));
+
+});;
 Numbas.addExtension('polynomials',['jme','jme-display'],function(extension) {
     var jme = Numbas.jme;
     var funcObj = jme.funcObj;
@@ -22262,7 +22807,7 @@ Texifier.prototype = {
         var name = tok.nameWithoutAnnotation;
         var annotations = tok.annotation;
         longNameMacro = longNameMacro || (function(name) {
-            return '\\texttt{' + name + '}';
+            return '\\texttt{' + name.replaceAll('_', '\\_') + '}';
         });
         /** Apply annotations to the given name.
          *
@@ -51418,7 +51963,7 @@ var xml = Numbas.xml = {
 };
 });
 ;
-Numbas.queueScript('settings',['extensions/geogebra/geogebra.js', 'extensions/jsxgraph/jsxgraph.js', 'extensions/polynomials/polynomials.js', 'extensions/quantities/quantities.js', 'extensions/shear-and-bending-moment-diagrams/shear-and-bending-moment-diagrams.js'],function() {
+Numbas.queueScript('settings',['extensions/geogebra/geogebra.js', 'extensions/jsxgraph/jsxgraph.js', 'extensions/linear-algebra/linear-algebra.js', 'extensions/polynomials/polynomials.js', 'extensions/quantities/quantities.js', 'extensions/shear-and-bending-moment-diagrams/shear-and-bending-moment-diagrams.js'],function() {
     Numbas.version = 9.0;
 
     Numbas.rawxml = {"templates": {"question": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\nCopyright 2011-16 Newcastle University\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n       http://www.apache.org/licenses/LICENSE-2.0\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n-->\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n    <xsl:output method=\"html\" version=\"5.0\" encoding=\"UTF-8\" standalone=\"yes\" indent=\"yes\" media-type=\"text/html\" omit-xml-declaration=\"yes\"/>\n    <xsl:strip-space elements=\"p\"/>\n    <xsl:template match=\"question\">\n        <article class=\"question clearfix print-visible\" data-bind=\"visible: isCurrentQuestion, css: css_classes, descendantsComplete: htmlBound, attr: {{'aria-label': displayName, id: 'question-'+question.path}}\">\n            <form autocomplete=\"off\">\n                <span style=\"display:none\">\\( \\begingroup \\)</span>\n                <header>\n                    <h2 data-bind=\"latex: displayName, attr: {{id: question.path+'-header'}}\" class=\"question-header\"></h2>\n                    <nav class=\"parts-tree navbar navbar-default\" data-bind=\"if: showPartsTree, visible: showPartsTree, attr: {{'aria-labelledby': question.path+'-breadcrumbs'}}\">\n                        <h3 class=\"part-progress\" data-bind=\"attr: {{id: question.path+'-breadcrumbs'}}\"><localise>question.progress</localise></h3>\n                        <div class=\"part\" data-bind=\"treeView: firstPart\">\n                            <div data-bind=\"jmescope: part.getScope()\">\n                                <a class=\"name\" data-bind=\"latex: name, click: $parent.setCurrentPart, css: partTreeCSS, attr: {{'aria-current': partTreeCSS().current ? 'step' : false}}\"></a>\n                            </div>\n                            <ul data-bind=\"foreach: madeNextParts\">\n                                <li>\n                                    <div class=\"part\" data-bind=\"treeNode: $data\"></div>\n                                </li>\n                            </ul>\n                        </div>\n                    </nav>\n                </header>\n                <xsl:apply-templates />\n                <span style=\"display: none\">\\( \\endgroup \\)</span>\n            </form>\n\n            \n<!-- bottom nav bar - prv/nxt, plus submit/advice/reveal buttons -->\n<nav class=\"question-nav question-bottom-nav navbar navbar-default\" data-bind=\"jmescope: question.scope,attr: {{'aria-label': R('question.nav.label')}}\">\n    <div class=\"nav navbar-nav\">\n        <p class=\"marks navbar-text\" data-bind=\"visible: !showScoreBreakdown()\">\n            <span class=\"score\" data-bind=\"html: scoreFeedback.message, pulse: scoreFeedback.update\"></span>\n            <span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr, pulse: scoreFeedback.update\" aria-hidden=\"true\"></span>\n            <span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n        </p>\n\n        <div class=\"explore-breakdown\" data-bind=\"visible: showScoreBreakdown()\">\n            <table>\n                <tbody>\n                    <xsl:comment> ko foreach: objectives </xsl:comment>\n                    <xsl:comment> ko if: visible </xsl:comment>\n                    <tr>\n                        <td class=\"name\" data-bind=\"latex: name\"></td>\n                        <td class=\"message\"><span data-bind=\"text: feedback.plainMessage, pulse: feedback.update\"></span></td>\n                        <td>\n                            <span class=\"feedback-icon\" data-bind=\"css: feedback.iconClass, attr: feedback.iconAttr, pulse: feedback.update\"></span>\n                        </td>\n                    </tr>\n                    <xsl:comment> /ko </xsl:comment>\n                    <xsl:comment> /ko </xsl:comment>\n\n                    <xsl:comment> ko foreach: penalties </xsl:comment>\n                    <xsl:comment> ko if: visible </xsl:comment>\n                    <tr>\n                        <td class=\"name\" data-bind=\"latex: name\"></td>\n                        <td class=\"message\"><span data-bind=\"text: scoreDisplay\"></span></td>\n                        <td></td>\n                    </tr>\n                    <xsl:comment> /ko </xsl:comment>\n                    <xsl:comment> /ko </xsl:comment>\n                    <tr class=\"total\">\n                        <th><localise>control.total</localise></th>\n                        <td>\n                            <span class=\"score\" data-bind=\"html: scoreFeedback.plainMessage, pulse: scoreFeedback.update\"></span>\n                        </td>\n                        <td>\n                            <span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr, pulse: scoreFeedback.update\"></span>\n                        </td>\n                    </tr>\n                </tbody>\n\n            </table>\n        </div>\n\n        <button type=\"button\" class=\"btn btn-primary navbar-btn nextQuestionBtn\" data-bind=\"visible: $root.exam().mode()=='normal' &amp;&amp; $root.exam().exam.settings.navigateMode=='diagnostic', click: Numbas.controls.nextQuestion, attr: {{disabled: !$parent.canAdvance()}}\"><localise>control.move to next question</localise></button>\n        <button class=\"btn btn-primary navbar-btn regenBtn\" data-bind=\"visible: $root.exam().mode()=='normal' &amp;&amp; $root.exam().exam.settings.allowRegen, click: Numbas.controls.regenQuestion\"><localise>control.regen</localise></button>\n        <button class=\"btn btn-primary navbar-btn revealBtn\" data-bind=\"visible: question.parts.length &amp;&amp; canReveal, click: Numbas.controls.revealAnswer\"><localise>control.reveal</localise></button>\n    </div>\n</nav>\n\n        </article>\n    </xsl:template>\n    <xsl:template match=\"properties|feedbacksettings|preview|notes|variables|preprocessing|preambles\" />\n    <xsl:template match=\"content\">\n        <xsl:apply-templates select=\"*\" mode=\"content\" />\n    </xsl:template>\n    <xsl:template match=\"@*|node()\" mode=\"content\">\n        <xsl:copy>\n            <xsl:apply-templates select=\"@*|node()\" mode=\"content\" />\n        </xsl:copy>\n    </xsl:template>\n    <xsl:template match=\"parts\">\n        <div class=\"parts\" data-bind=\"foreach: parts\">\n            <div data-bind=\"promise: html_promise, descendantsComplete: htmlBound\"></div>\n        </div>\n    </xsl:template>\n    <xsl:template match=\"part\">\n    </xsl:template>\n    <xsl:template match=\"tags\">\n    </xsl:template>\n    <xsl:template match=\"extensions\">\n    </xsl:template>\n    \n<xsl:template match=\"statement\">\n    <div data-bind=\"visible: hasStatement\">\n        <div class=\"statement content-area\" localise-data-jme-context-description=\"question.statement\">\n            <xsl:apply-templates />\n        </div>\n        <hr/>\n    </div>\n</xsl:template>\n\n    \n<xsl:template match=\"advice\">\n    <div class=\"adviceContainer\" data-bind=\"visible: hasAdvice() &amp;&amp; adviceDisplayed()\" localise-data-jme-context-description=\"question.advice\">\n        <h3><localise>question.advice</localise></h3>\n        <span class=\"adviceDisplay content-area\">\n            <xsl:apply-templates />\n        </span>\n    </div>\n</xsl:template>\n\n</xsl:stylesheet>", "part": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\nCopyright 2011-16 Newcastle University\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n       http://www.apache.org/licenses/LICENSE-2.0\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n-->\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n    <xsl:output method=\"html\" version=\"5.0\" encoding=\"UTF-8\" standalone=\"yes\" indent=\"yes\" media-type=\"text/html\" omit-xml-declaration=\"yes\"/>\n    <xsl:strip-space elements=\"p\"/>\n    <xsl:template match=\"content\">\n        <xsl:apply-templates select=\"*\" mode=\"content\" />\n    </xsl:template>\n\n    <xsl:template match=\"@*|node()\" mode=\"content\">\n        <xsl:copy>\n            <xsl:apply-templates select=\"@*|node()\" mode=\"content\" />\n        </xsl:copy>\n    </xsl:template>\n\n    <xsl:template match=\"no-paragraph\">\n        <xsl:apply-templates select=\"*\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <!-- the `no-paragraph` mode strips block-level tags which would be invalid, such as inside a <span> or <option> tag. -->\n\n    <xsl:template match=\"content\" mode=\"no-paragraph\">\n        <xsl:apply-templates select=\"*\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <!-- block-level tags; list from https://www.w3.org/TR/html4/sgml/dtd.html#block -->\n    <xsl:template match=\"p|div|h1|h2|h3|h4|h5|h6|pre|dl|blockquote|form|hr|table|fieldset|address\" mode=\"no-paragraph\">\n        <xsl:apply-templates select=\"@*|node()\" mode=\"no-paragraph\" />\n    </xsl:template>\n\n    <xsl:template match=\"@*|node()\" mode=\"no-paragraph\">\n        <xsl:copy>\n            <xsl:apply-templates select=\"@*|node()\" mode=\"no-paragraph\" />\n        </xsl:copy>\n    </xsl:template>\n\n    \n<xsl:template match=\"steps\">\n    <div class=\"steps well clearfix\" data-bind=\"visible: stepsOpen\">\n        <xsl:apply-templates select=\"part\"/>\n    </div>\n    <div class=\"stepsBtn\">\n        <button class=\"btn btn-primary\" data-bind=\"visible: !stepsOpen(), click: controls.showSteps\"><localise>question.show steps</localise></button>\n        <button class=\"btn btn-primary\" data-bind=\"visible: stepsOpen(), click: controls.hideSteps\"><localise>question.hide steps</localise></button>\n        <span class=\"help-block hint penaltyMessage\">(<span data-bind=\"html: stepsPenaltyMessage\"></span>)</span>\n    </div>\n</xsl:template>\n\n    \n<xsl:template match=\"prompt\">\n    <span class=\"prompt content-area\" localise-data-jme-context-description=\"part.prompt\">\n        <xsl:apply-templates />\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part\">\n    <xsl:variable name=\"inline\">\n        <xsl:choose>\n            <xsl:when test=\"@isgap='true' and @type='1_n_2' and choices/@displaytype='dropdownlist'\"><xsl:text>true</xsl:text></xsl:when>\n            <xsl:when test=\"@isgap='true' and not (choices)\"><xsl:text>true</xsl:text></xsl:when>\n            <xsl:otherwise><xsl:text>false</xsl:text></xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"tag\">\n        <xsl:choose>\n            <xsl:when test=\"$inline='true'\">span</xsl:when>\n            <xsl:otherwise>section</xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"clear\">\n        <xsl:choose>\n            <xsl:when test=\"@isgap='true'\"></xsl:when>\n            <xsl:otherwise><xsl:text>clearfix</xsl:text></xsl:otherwise>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:variable name=\"block\">\n        <xsl:choose>\n        <xsl:when test=\"@type='m_n_2' or @type='m_n_x'\"><xsl:text> block</xsl:text></xsl:when>\n            <xsl:when test=\"@type='1_n_2' and @displaytype='radiogroup'\"><xsl:text> block</xsl:text></xsl:when>\n        </xsl:choose>\n    </xsl:variable>\n    <xsl:element name=\"{$tag}\">\n        <xsl:attribute name=\"class\">part <xsl:value-of select=\"$clear\"/> type-<xsl:value-of select=\"@type\"/> <xsl:value-of select=\"$block\"/><xsl:if test=\"parent::steps\"> step</xsl:if><xsl:if test=\"parent::gaps\"> gap</xsl:if></xsl:attribute>\n        <xsl:attribute name=\"data-bind\">with: question.display.getPart('<xsl:value-of select=\"@path\" />'), visible: question.display.getPart('<xsl:value-of select=\"@path\" />').visible, css: {dirty: question.display.getPart('<xsl:value-of select=\"@path\" />').isDirty, 'has-name': question.display.getPart('<xsl:value-of select=\"@path\" />').showName(), answered: answered(), dirty: isDirty(), 'has-feedback-messages': hasFeedbackMessages()}, event: event_handlers</xsl:attribute>\n        <xsl:attribute name=\"data-part-path\"><xsl:value-of select=\"@path\" /></xsl:attribute>\n        <xsl:attribute name=\"data-jme-context-description\"><xsl:value-of select=\"@jme-context-description\" /></xsl:attribute>\n        <xsl:if test=\"$inline='false'\"><h3 class=\"partheader\" data-bind=\"visible: showName(), latex: name\"></h3></xsl:if>\n        <xsl:if test=\"not(ancestor::gaps)\">\n            <xsl:apply-templates select=\"prompt\" />\n        </xsl:if>\n        <xsl:if test=\"count(steps/part)>0\">\n            <xsl:apply-templates select=\"steps\"/>\n        </xsl:if>\n        <span class=\"student-answer\">\n            <xsl:attribute name=\"data-bind\">css: {answered: scoreFeedback.answered, 'has-warnings': hasWarnings}, attr: {\"feedback-state\": scoreFeedback.state}</xsl:attribute>\n            <xsl:apply-templates select=\".\" mode=\"typespecific\"/>\n            <span class=\"warnings alert alert-warning\" aria-live=\"assertive\" role=\"alert\" data-bind=\"visible: warningsShown, css: {{shown: warningsShown}}, attr: {{id: part.full_path+'-warnings'}}\">\n                <xsl:comment>ko foreach: warnings</xsl:comment>\n                <span class=\"warning\" data-bind=\"latex: message\"></span>\n                <xsl:comment>/ko</xsl:comment>\n            </span>\n        </span>\n        <xsl:apply-templates select=\".\" mode=\"correctanswer\"/>\n        <xsl:if test=\"not(ancestor::gaps)\">\n            <div class=\"submit-and-feedback\" data-bind=\"visible: doesMarking, css: {{changed: changedFeedback()}}\">\n                <button class=\"btn btn-primary submitPart\" data-bind=\"visible: showSubmitPart, click: controls.submit, text: isDirty() || !scoreFeedback.answered() ? R('question.submit part') : R('question.answer saved')\"><localise>question.submit part</localise></button>\n                <div class=\"partFeedback\" data-bind=\"visible: showFeedbackBox()\">\n                    <div class=\"marks\" data-bind=\"pulse: scoreFeedback.update, visible: showMarks()\">\n                        <span class=\"score\" data-bind=\"html: scoreFeedback.message\"></span>\n                        <span class=\"feedback-icon\" data-bind=\"visible: scoreFeedback.iconClass, css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n                        <span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n                    </div>\n                </div>\n                <details class=\"feedbackMessages\" role=\"log\" aria-live=\"polite\" data-bind=\"pulse: scoreFeedback.update, open: feedbackShown, css: {{changed: changedFeedback()}}\" localise-data-jme-context-description=\"part.feedback\">\n                    <summary data-bind=\"visible: isNotOnlyPart\">\n                        <p class=\"sr-only\" data-bind=\"visible: isNotOnlyPart, text: feedback_title\"></p>\n                        <span data-bind=\"text: feedbackToggleText\"></span><span class=\"sr-only\">.</span>\n                        <span class=\"sr-only\" data-bind=\"visible: changedFeedback\"><localise>part.there is new feedback</localise></span>\n                    </summary>\n                    <p class=\"out-of-date-message\" data-bind=\"visible: isDirty\"><localise>part.feedback out of date</localise></p>\n                    <ol data-bind=\"visible: shownFeedbackMessages().length, foreach: shownFeedbackMessages\">\n                        <li class=\"feedbackMessage\" data-bind=\"attr: {{'data-credit-change': credit_change}}\">\n                            <span data-bind=\"visible: $parent.showFeedbackIcon, css: 'feedback-icon '+icon\" aria-hidden=\"true\"></span> \n\n                            <span class=\"message\">\n                                <xsl:comment>ko if: format=='html'</xsl:comment>\n                                    <span data-bind=\"dom: message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n\n                                <xsl:comment>ko if: format=='string'</xsl:comment>\n                                    <span data-bind=\"latex: message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n\n                                <xsl:comment>ko if: $parent.scoreFeedback.showActualMark() &amp;&amp; credit_message</xsl:comment>\n                                    <xsl:text> </xsl:text>\n                                    <span data-bind=\"dom: credit_message\"></span>\n                                <xsl:comment>/ko</xsl:comment>\n                            </span>\n                        </li>\n                    </ol>\n                </details>\n            </div>\n            <div class=\"next-parts\" data-bind=\"visible: showNextParts\">\n                <p>\n                    <span class=\"what-next\" data-bind=\"text: whatNextMessage\"></span>\n                </p>\n                <button class=\"btn btn-link\" type=\"button\" data-bind=\"visible: part.settings.suggestGoingBack, click: question.display.goToPreviousPart\">\u293a <localise>question.back to previous part</localise></button>\n                <ul data-bind=\"foreach: nextParts\">\n                    <li class=\"next-part\">\n                        <button class=\"btn btn-primary next-part-option\" type=\"button\" data-bind=\"click: select, css: {{made: made}}, disable: $parent.isDirty\">\n                            <span data-bind=\"latex: label\"></span>\n                            <span class=\"hint\" data-bind=\"visible: lockAfterLeaving\"> <localise>part.choose next part.will be locked</localise></span>\n                        </button>\n                    </li>\n                </ul>\n            </div>\n            <div class=\"dead-end\" data-bind=\"visible: reachedDeadEnd\">\n                <p><localise>part.reached dead end</localise></p>\n            </div>\n        </xsl:if>\n    </xsl:element>\n</xsl:template>\n<xsl:template match=\"part\" mode=\"typespecific\">\n    <localise>question.unsupported part type</localise> <xsl:text> </xsl:text> <xsl:value-of select=\"@type\"/>\n</xsl:template>\n<xsl:template match=\"part\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='1_n_2']\" mode=\"typespecific\">\n    <xsl:apply-templates select=\"choices\" mode=\"one\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='1_n_2']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <xsl:apply-templates select=\"choices\" mode=\"correctanswer\"/>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='m_n_2']\" mode=\"typespecific\">\n    <xsl:apply-templates select=\"choices\" mode=\"one\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='m_n_2']\" mode=\"correctanswer\">\n    <div class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <xsl:apply-templates select=\"choices\" mode=\"correctanswer\"/>\n    </div>\n</xsl:template>\n\n    \n<xsl:template match=\"choices\" mode=\"one\">\n    <xsl:variable name=\"displaytype\"><xsl:value-of select=\"@displaytype\"/></xsl:variable>\n    <span localise-data-jme-context-description=\"part.mcq.choices\">\n    <xsl:choose>\n        <xsl:when test=\"@displaytype='radiogroup'\">\n            <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <ul class=\"multiplechoice radiogroup\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}, css: {{'show-cell-answer-state': showCellAnswerState, 'columns': displayColumns}}\">\n                    <xsl:variable name=\"cols\" select=\"@displaycolumns\"/>\n                    <xsl:if test=\"$cols>0\"> \n                        <xsl:attribute name=\"style\">grid-template-columns: repeat(<xsl:number value=\"$cols\"/>,auto);</xsl:attribute>\n                    </xsl:if>\n                    <xsl:apply-templates select=\"choice\" mode=\"radiogroup\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='checkbox'\">\n            <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <ul class=\"multiplechoice checkbox\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}, css: {{'show-cell-answer-state': showCellAnswerState, 'columns': displayColumns}}\">\n                    <xsl:variable name=\"cols\" select=\"@displaycolumns\"/>\n                    <xsl:if test=\"$cols>0\"> \n                        <xsl:attribute name=\"style\">grid-template-columns: repeat(<xsl:number value=\"$cols\"/>,auto);</xsl:attribute>\n                    </xsl:if>\n                    <xsl:apply-templates select=\"choice\" mode=\"checkbox\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='dropdownlist'\">\n            <select class=\"multiplechoice dropdownlist screen-only\" data-bind=\"event: inputEvents, value: studentAnswer, disable: disabled, reorder_list: {{order: part.shuffleAnswers, leaders: 1}}, css: {{'show-cell-answer-state': showCellAnswerState}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\">\n                <option value=\"\"></option>\n                <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-screen\"/>\n            </select>\n            <span class=\"multiplechoice dropdownlist print-only\" data-bind=\"value: studentAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 0}}, css: {{'show-cell-answer-state': showCellAnswerState}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\">\n                <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-print\"/>\n            </span>\n        </xsl:when>\n    </xsl:choose>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choices\" mode=\"correctanswer\">\n    <xsl:variable name=\"displaytype\"><xsl:value-of select=\"@displaytype\"/></xsl:variable>\n    <span>\n    <xsl:choose>\n        <xsl:when test=\"@displaytype='radiogroup'\">\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\">\n                <legend><localise>part.correct answer</localise></legend>\n                <ul class=\"multiplechoice radiogroup\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}\">\n                    <xsl:apply-templates select=\"choice\" mode=\"radiogroup-correctanswer\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='checkbox'\">\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\">\n                <legend><localise>part.correct answer</localise></legend>\n                <ul class=\"multiplechoice checkbox\" data-bind=\"reorder_list: {{order: part.shuffleAnswers}}\">\n                    <xsl:apply-templates select=\"choice\" mode=\"checkbox-correctanswer\"/>\n                </ul>\n            </fieldset>\n        </xsl:when>\n        <xsl:when test=\"@displaytype='dropdownlist'\">\n            <label>\n                <localise>part.correct answer</localise>\n                <select class=\"multiplechoice screen-only\" data-bind=\"value: correctAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 1}}, attr: {{id: part.full_path+'-expected-input'}}\" disabled=\"true\">\n                    <option value=\"\"></option>\n                    <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-correctanswer-screen\"/>\n                </select>\n                <span class=\"multiplechoice dropdownlist print-only\" data-bind=\"value: correctAnswer, reorder_list: {{order: part.shuffleAnswers, leaders: 0}}, attr: {{id: part.full_path+'-expected-input'}}\" disabled=\"true\">\n                    <xsl:apply-templates select=\"choice\" mode=\"dropdownlist-correctanswer-print\"/>\n                </span>\n            </label>\n        </xsl:when>\n    </xsl:choose>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"radiogroup\">\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <xsl:attribute name=\"data-bind\">css: {checked: studentAnswer()==<xsl:value-of select=\"$choicenum\"/>, correct: studentAnswer()==<xsl:value-of select=\"$choicenum\"/> &amp;&amp; correctAnswer()==<xsl:value-of select=\"$choicenum\"/>}</xsl:attribute>\n        <label>\n            <input type=\"radio\" class=\"choice\" data-bind=\"event: inputEvents, checked: studentAnswer, disable: disabled, attr: {{name: part.path+'-choice'}}\" value=\"{$choicenum}\"/>\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"radiogroup-correctanswer\">\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <label>\n            <input type=\"radio\" class=\"choice\" data-bind=\"checked: correctAnswer()+'', attr: {{name: part.path+'-correctanswer'}}\" disabled=\"true\" value=\"{$choicenum}\"/>\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"checkbox\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <xsl:attribute name=\"data-bind\">css: {checked: ticks[<xsl:value-of select=\"$choicenum\"/>], correct: ticks[<xsl:value-of select=\"$choicenum\"/>] &amp;&amp; correctTicks()[<xsl:value-of select=\"$choicenum\"/>]}</xsl:attribute>\n        <label>\n            <input type=\"checkbox\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$choicenum}], disable: disabled, attr: {{name: part.path+'-choice'}}\" />\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"checkbox-correctanswer\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <li>\n        <label>\n            <input type=\"checkbox\" class=\"choice\" name=\"choice\" data-bind=\"checked: correctTicks()[{$choicenum}], attr: {{name: part.path+'-correctanswer'}}\" disabled=\"true\" />\n            <xsl:apply-templates select=\"content\"/>\n        </label>\n    </li>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-screen\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <option value=\"{$choicenum}\">\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\" />\n    </option>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-correctanswer-screen\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <option value=\"{$choicenum}\">\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\" />\n    </option>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-print\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <span class=\"dropdownlist-option\" value=\"{$choicenum}\">\n        <xsl:attribute name=\"data-bind\">css: {'checked': studentAnswer()===\"<xsl:value-of select=\"$choicenum\"/>\"}</xsl:attribute>\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\"/>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"choice\" mode=\"dropdownlist-correctanswer-print\">\n    <xsl:variable name=\"choicenum\"><xsl:value-of select=\"count(preceding-sibling::choice)\"/></xsl:variable>\n    <span class=\"dropdownlist-option\" value=\"{$choicenum}\">\n        <xsl:attribute name=\"data-bind\">css: {'checked': correctAnswer()===\"<xsl:value-of select=\"$choicenum\"/>\"}</xsl:attribute>\n        <xsl:apply-templates select=\"content\" mode=\"no-paragraph\"/>\n    </span>\n</xsl:template>\n\n<xsl:template match=\"distractor\">\n    <span><xsl:apply-templates /></span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='m_n_x']\" mode=\"typespecific\">\n    <xsl:variable name=\"displaytype\" select=\"choices/@displaytype\"/>\n    <form autocomplete=\"off\">\n        <fieldset data-bind=\"part_aria_validity: hasWarnings, part: $data, attr: {{id: part.full_path+'-input'}}\">\n            <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n            <table class=\"choices-grid\" data-bind=\"reorder_table: {{rows: part.shuffleChoices, columns: part.shuffleAnswers, leaders: 1}}, css: {{'show-cell-answer-state': showCellAnswerState}}\">\n                <thead localise-data-jme-context-description=\"part.mcq.answers\">\n                    <td/>\n                    <xsl:for-each select=\"answers/answer\">\n                        <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n                        <th data-bind=\"attr: {{id: part.full_path+'-answer-{$answernum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n                    </xsl:for-each>\n                </thead>\n                <tbody>\n                    <xsl:for-each select=\"choices/choice\">\n                        <xsl:apply-templates select=\".\" mode=\"m_n_x\">\n                            <xsl:with-param name=\"displaytype\" select=\"$displaytype\"/>\n                        </xsl:apply-templates>\n                    </xsl:for-each>\n                </tbody>\n            </table>\n        </fieldset>\n    </form>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='m_n_x']\" mode=\"correctanswer\">\n    <xsl:variable name=\"displaytype\" select=\"choices/@displaytype\"/>\n    <div class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <form autocomplete=\"off\">\n            <legend><localise>part.correct answer</localise></legend>\n            <fieldset data-bind=\"attr: {{id: part.full_path+'-correct-input'}}\">\n                <legend data-bind=\"text: input_title\" class=\"sr-only\"></legend>\n                <table class=\"choices-grid\" data-bind=\"reorder_table: {{rows: part.shuffleChoices, columns: part.shuffleAnswers, leaders: 1}}\">\n                    <thead>\n                        <td/>\n                        <xsl:for-each select=\"answers/answer\">\n                            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n                            <th data-bind=\"attr: {{id: part.full_path+'-expected-answer-{$answernum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n                        </xsl:for-each>\n                    </thead>\n                    <tbody>\n                        <xsl:for-each select=\"choices/choice\">\n                            <xsl:apply-templates select=\".\" mode=\"m_n_x-correctanswer\">\n                                <xsl:with-param name=\"displaytype\" select=\"$displaytype\"/>\n                            </xsl:apply-templates>\n                        </xsl:for-each>\n                    </tbody>\n                </table>\n            </fieldset>\n        </form>\n    </div>\n</xsl:template>\n<xsl:template match=\"choice\" mode=\"m_n_x\">\n    <xsl:param name=\"displaytype\"/>\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"answers\" select=\"../../answers\"/>\n    <xsl:variable name=\"choicenum\" select=\"count(preceding-sibling::choice)\"/>\n    <tr>\n        <th class=\"choice\" data-bind=\"attr: {{id: part.full_path+'-choice-{$choicenum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n        <xsl:for-each select=\"$answers/answer\">\n            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n            <td class=\"option\">\n                <xsl:attribute name=\"data-bind\">css: tickFeedback()[<xsl:value-of select=\"$answernum\"/>][<xsl:value-of select=\"$choicenum\"/>]</xsl:attribute>\n                <label>\n                <xsl:choose>\n                    <xsl:when test=\"$displaytype='checkbox'\">\n                        <input type=\"checkbox\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$answernum}][{$choicenum}], disable: disabled, visible: layout[{$answernum}][{$choicenum}], attr: {{name: part.full_path+'-choice-{$choicenum}', 'aria-labelledby': part.full_path+'-choice-{$choicenum} '+part.full_path+'-answer-{$answernum}'}}\" />\n                    </xsl:when>\n                    <xsl:when test=\"$displaytype='radiogroup'\">\n                        <input type=\"radio\" class=\"choice\" data-bind=\"event: inputEvents, checked: ticks[{$choicenum}], disable: disabled, visible: layout[{$answernum}][{$choicenum}], attr: {{name: part.path+'-choice-'+{$choicenum}, 'aria-labelledby': part.full_path+'-choice-{$choicenum} '+part.full_path+'-answer-{$answernum}'}}\" value=\"{$answernum}\"/>\n                    </xsl:when>\n                </xsl:choose>\n                </label>\n            </td>\n        </xsl:for-each>\n    </tr>\n</xsl:template>\n<xsl:template match=\"choice\" mode=\"m_n_x-correctanswer\">\n    <xsl:param name=\"displaytype\"/>\n    <xsl:variable name=\"path\">\n        <xsl:apply-templates select=\"../..\" mode=\"path\"/>\n    </xsl:variable>\n    <xsl:variable name=\"answers\" select=\"../../answers\"/>\n    <xsl:variable name=\"choicenum\" select=\"count(preceding-sibling::choice)\"/>\n    <tr>\n        <th class=\"choice\" data-bind=\"attr: {{id: part.full_path+'-expected-choice-{$choicenum}'}}\"><xsl:apply-templates select=\"content\"/></th>\n        <xsl:for-each select=\"$answers/answer\">\n            <xsl:variable name=\"answernum\" select=\"count(preceding-sibling::answer)\"/>\n            <td class=\"option\">\n                <xsl:choose>\n                    <xsl:when test=\"$displaytype='checkbox'\">\n                        <input type=\"checkbox\" class=\"choice\" data-bind=\"checked: correctTicks()[{$answernum}][{$choicenum}], visible: layout[{$answernum}][{$choicenum}], disable: true, attr: {{name: part.path+'-choice-{$choicenum}-correctanswer', 'aria-labelledby': part.full_path+'-expected-choice-{$choicenum} '+part.full_path+'-expected-answer-{$answernum}'}}\" disabled=\"true\"/>\n                    </xsl:when>\n                    <xsl:when test=\"$displaytype='radiogroup'\">\n                        <input type=\"radio\" class=\"choice\" data-bind=\"checked: correctTicks()[{$choicenum}]+'', visible: layout[{$answernum}][{$choicenum}], disable: true, attr: {{name: part.path+'-choice-'+{$choicenum}+'-correctanswer', 'aria-labelledby': part.full_path+'-expected-choice-{$choicenum} '+part.full_path+'-expected-answer-{$answernum}'}}\" disabled=\"true\" value=\"{$answernum}\"/>\n                    </xsl:when>\n                </xsl:choose>\n            </td>\n        </xsl:for-each>\n    </tr>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='patternmatch']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" class=\"patternmatch\" size=\"12.5\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='patternmatch']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"patternmatch\" data-bind=\"value: displayAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='gapfill']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='gapfill']\" mode=\"correctanswer\">\n</xsl:template>\n<xsl:template match=\"gapfill\" mode=\"content\">\n    <xsl:variable name=\"n\"><xsl:value-of select=\"@reference\"/></xsl:variable>\n    <xsl:apply-templates select=\"ancestor::part[1]/gaps/part[$n+1]\" />\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='jme']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" class=\"jme\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n    <span class=\"jme-preview\" data-bind=\"visible: showPreview &amp;&amp; studentAnswerLaTeX()\">\n        <span class=\"sr-only\"><localise>jme.interpreted as</localise></span>\n        <output aria-live=\"polite\" data-bind=\"attr: {{for: part.full_path+'-input'}}, maths: showPreview ? '\\\\displaystyle{{'+studentAnswerLaTeX()+'}}' : '', click: focusInput\"></output>\n    </span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='jme']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"jme\" data-bind=\"value: correctAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n            <span class=\"jme-preview\">\n                <span class=\"sr-only\"><localise>jme.interpreted as</localise></span>\n                <output aria-live=\"polite\" data-bind=\"attr: {{for: part.full_path+'-correct-input'}}, maths: '\\\\displaystyle{{'+correctAnswerLaTeX()+'}}'\"></output>\n            </span>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='numberentry']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" step=\"{answer/inputstep/@value}\" class=\"numberentry\" data-bind=\"event: inputEvents, textInput: studentAnswer, autosize: true, disable: disabled, css: {{'has-error': warningsShown}}, attr: {{title: input_title, id: part.full_path+'-input'}}, part_aria_validity: hasWarnings, part: $data\"/>\n    <span class=\"preview\" data-bind=\"visible: showPreview &amp;&amp; studentAnswerLaTeX(), maths: showPreview ? studentAnswerLaTeX() : '', click: focusInput\"></span>\n    <span class=\"help-block hint precision-hint\" data-bind=\"visible: showInputHint, html: inputHint\"></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='numberentry']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <input type=\"text\" autocapitalize=\"off\" inputmode=\"text\" spellcheck=\"false\" disabled=\"true\" class=\"jme\" data-bind=\"value: correctAnswer, autosize: true, attr: {{id: part.full_path+'-expected-input'}}\"/>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='matrix']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <span><matrix-input data-bind=\"attr: {{id: part.full_path+'-input'}}\" params=\"rows: studentAnswerRows, columns: studentAnswerColumns, prefilledCells: prefilledCells, value: studentAnswer, allowResize: allowResize, minColumns: minColumns, maxColumns: maxColumns, minRows: minRows, maxRows: maxRows, disable: disabled, events: inputEvents, title: input_title\"></matrix-input></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@type='matrix']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <span><matrix-input data-bind=\"attr: {{id: part.full_path+'-expected-input'}}\" params=\"rows: correctAnswerRows, columns: correctAnswerColumns, prefilledCells: prefilledCells, value: correctAnswer, allowResize: false, disable: true\"></matrix-input></span>\n        </label>\n    </span>\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='information']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='information']\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@type='extension']\" mode=\"typespecific\">\n</xsl:template>\n<xsl:template match=\"part[@type='extension']\" mode=\"correctanswer\">\n</xsl:template>\n\n    \n<xsl:template match=\"part[@custom='true']\" mode=\"typespecific\">\n    <xsl:if test=\"count(steps/part)>0\"><localise>part.with steps answer prompt</localise></xsl:if>\n    <span data-bind=\"event: inputEvents, component: {{name: 'answer-widget', params: {{answer: studentAnswer, widget: input_widget, widget_options: input_options, part: part, disable: disabled, events: part.display.inputEvents, title: input_title, id: part.full_path}}}}\"></span>\n    <span class=\"help-block hint\" data-bind=\"visible: input_options.hint, html: input_options.hint, typeset: input_options.hint\"></span>\n\n    \n<span class=\"feedback-icon\" data-bind=\"css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr\" aria-hidden=\"true\"></span>\n<span class=\"sr-only\" data-bind=\"text: scoreFeedback.iconAttr().title\"></span>\n\n\n</xsl:template>\n<xsl:template match=\"part[@custom='true']\" mode=\"correctanswer\">\n    <span class=\"correct-answer\" data-bind=\"visible: showCorrectAnswer, typeset: showCorrectAnswer\">\n        <label>\n            <localise>part.correct answer</localise>\n            <span data-bind=\"component: {{name: 'answer-widget', params: {{answer: correctAnswer, widget: input_widget, widget_options: input_options, part: part, disable: true, id: part.full_path+'-expected'}}}}\"></span>\n        </label>\n    </span>\n</xsl:template>\n\n</xsl:stylesheet>"}};
