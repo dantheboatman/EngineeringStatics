@@ -757,6 +757,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a geogebra.org material ID, or a blank applet with the given width and height.
      */
     extension.scope.addFunction(new funcObj('geogebra_applet', [sig_ggbapplet], TGGBApplet, null, {
+        random: false,
         evaluate: function(args, scope) {
             var match = sig_ggbapplet(args);
 
@@ -809,6 +810,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a base-64 string.
      */
     extension.scope.addFunction(new funcObj('geogebra_base64',[sig_ggbbase64],TGGBApplet,null,{
+        random: false,
         evaluate: function(args,scope) {
             var match = sig_ggbbase64(args);
 
@@ -849,6 +851,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a file. The filename can be relative to `resources/question-resources/`, or absolute.
      */
     extension.scope.addFunction(new funcObj('geogebra_file',[sig_ggbfilename],TGGBApplet, null, {
+        random: false,
         evaluate: function(args,scope) {
             var match = sig_ggbfilename(args);
 
@@ -877,6 +880,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     }));
 
     extension.scope.addFunction(new funcObj('resume_geogebra_applet',['dict','list of dict','dict','string','[dict]'],TGGBApplet, null, {
+        random: false,
         evaluate: function(args,scope) {
             var q = scope.question;
             var options = jme.unwrapValue(args[0]);
@@ -948,6 +952,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Get the value of an object in a GeoGebra applet.
      */
     extension.scope.addFunction(new funcObj('value',[TGGBApplet,TString],'?',null,{
+        random: false,
         evaluate: app_required('value',function(args,scope) {
             var app = args[0].app;
             var name = args[1].value;
@@ -958,6 +963,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Get the LaTeX string corresponding to an object in a GeoGebra applet.
      */
     extension.scope.addFunction(new funcObj('latex',[TGGBApplet,TString],'?',null,{
+        random: false,
         evaluate: app_required('latex',function(args,scope) {
             var app = args[0].app;
             var name = args[1].value;
@@ -993,6 +999,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         var ggb_name = def[1];
         var outtype = def[2];
         extension.scope.addFunction(new funcObj(jme_name, [TGGBApplet,TString],outtype,null,{
+            random: false,
             evaluate: app_required(jme_name, function(args,scope) {
                 var app = args[0].app;
                 var name = args[1].value;
