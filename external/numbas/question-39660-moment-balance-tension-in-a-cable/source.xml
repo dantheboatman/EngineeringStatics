@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSON>
+  <name>Moment Balance: Tension in a cable</name>
+  <extensions>geogebra</extensions>
+  <extensions>quantities</extensions>
+  <custom_part_types>
+    <array>
+      <source>
+        <pk>19</pk>
+        <author>
+          <name>William Haynes</name>
+          <pk>2530</pk>
+        </author>
+        <edit_page>/part_type/19/edit</edit_page>
+      </source>
+      <name>Engineering Accuracy with units</name>
+      <short_name>engineering-answer</short_name>
+      <description>&lt;p>A value with units marked right if within an adjustable % error of the correct value. &amp;nbsp;Marked close if within a wider margin of error.&lt;/p></description>
+      <help_url/>
+      <input_widget>string</input_widget>
+      <input_options>
+        <correctAnswer>siground(settings['correctAnswer'],4)</correctAnswer>
+        <hint>
+          <static>true</static>
+          <value/>
+        </hint>
+        <allowEmpty>
+          <static>true</static>
+          <value>true</value>
+        </allowEmpty>
+      </input_options>
+      <can_be_gap>true</can_be_gap>
+      <can_be_step>true</can_be_step>
+      <marking_script>mark: switch( right and good_units and right_sign, add_credit(1.0,'Correct.'), right and good_units and not right_sign, add_credit(settings['C2'],'Wrong sign.'), right and right_sign and not good_units, add_credit(settings['C2'],'Correct value, but wrong or missing units.'), close and good_units, add_credit(settings['C1'],'Close.'), close and not good_units, add_credit(settings['C3'],'Answer is close, but wrong or missing units.'), incorrect('Wrong answer.') ) interpreted_answer: qty(student_scalar, student_units) correct_quantity: settings["correctAnswer"] correct_units: units(correct_quantity) allowed_notation_styles: ["plain","en"] match_student_number: matchnumber(studentAnswer,allowed_notation_styles) student_scalar: match_student_number[1] student_units: replace_regex('ohms','ohm', replace_regex('\u00b0', ' deg', replace_regex('-', ' ' , studentAnswer[len(match_student_number[0])..len(studentAnswer)])),"i") good_units: try( compatible(quantity(1,
+        student_units),correct_units), msg, feedback(msg);false) student_quantity: switch(not good_units, student_scalar * correct_units, not right_sign, -quantity(student_scalar, student_units), quantity(student_scalar,student_units) ) percent_error: try( scalar(abs((correct_quantity - student_quantity)/correct_quantity))*100 ,msg, if(student_quantity=correct_quantity,0,100)) right: percent_error &lt;= settings['right'] close: right_sign and percent_error &lt;= settings['close'] right_sign: sign(student_scalar) = sign(correct_quantity)</marking_script>
+      <marking_notes>
+        <name>mark</name>
+        <description>This is the main marking note. It should award credit and provide feedback based on the student's answer.</description>
+        <definition>switch( right and good_units and right_sign, add_credit(1.0,'Correct.'), right and good_units and not right_sign, add_credit(settings['C2'],'Wrong sign.'), right and right_sign and not good_units, add_credit(settings['C2'],'Correct value, but wrong or missing units.'), close and good_units, add_credit(settings['C1'],'Close.'), close and not good_units, add_credit(settings['C3'],'Answer is close, but wrong or missing units.'), incorrect('Wrong answer.') )</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>interpreted_answer</name>
+        <description>A value representing the student's answer to this part.</description>
+        <definition>qty(student_scalar, student_units) </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>correct_quantity</name>
+        <description/>
+        <definition>settings["correctAnswer"] </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>correct_units</name>
+        <description/>
+        <definition>units(correct_quantity) </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>allowed_notation_styles</name>
+        <description/>
+        <definition>["plain","en"]</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>match_student_number</name>
+        <description/>
+        <definition>matchnumber(studentAnswer,allowed_notation_styles)</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>student_scalar</name>
+        <description/>
+        <definition>match_student_number[1]</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>student_units</name>
+        <description>&lt;p>Modify&amp;nbsp;the&amp;nbsp;unit portion of&amp;nbsp;the student's answer by&lt;/p> &lt;p>1. replacing "ohms" with "ohm" &amp;nbsp;case insensitive&lt;/p> &lt;p>2.&amp;nbsp;replacing '-'&amp;nbsp;with ' '&amp;nbsp;&lt;/p> &lt;p>3. replacing '&amp;deg;' with ' deg'&amp;nbsp;&lt;/p> &lt;p>to allow answers like 10 ft-lb and 30&amp;deg;&lt;/p></description>
+        <definition>replace_regex('ohms','ohm', replace_regex('\u00b0', ' deg', replace_regex('-', ' ' , studentAnswer[len(match_student_number[0])..len(studentAnswer)])),"i")</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>good_units</name>
+        <description/>
+        <definition>try( compatible(quantity(1, student_units),correct_units), msg, feedback(msg);false) </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>student_quantity</name>
+        <description>&lt;p>This fixes the student answer for two common errors. &amp;nbsp;&lt;/p> &lt;p>If student_units are wrong&amp;nbsp;&amp;nbsp;- replace with correct units&lt;/p> &lt;p>If student_scalar has the wrong sign - replace with right sign&lt;/p> &lt;p>If student makes both errors, only one gets fixed.&lt;/p></description>
+        <definition>switch(not good_units, student_scalar * correct_units, not right_sign, -quantity(student_scalar, student_units), quantity(student_scalar,student_units) ) </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>percent_error</name>
+        <description/>
+        <definition>try( scalar(abs((correct_quantity - student_quantity)/correct_quantity))*100 ,msg, if(student_quantity=correct_quantity,0,100)) </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>right</name>
+        <description/>
+        <definition>percent_error &lt;= settings['right'] </definition>
+      </marking_notes>
+      <marking_notes>
+        <name>close</name>
+        <description>&lt;p>Only marked close if the student actually has the right sign.&lt;/p></description>
+        <definition>right_sign and percent_error &lt;= settings['close']</definition>
+      </marking_notes>
+      <marking_notes>
+        <name>right_sign</name>
+        <description/>
+        <definition>sign(student_scalar) = sign(correct_quantity) </definition>
+      </marking_notes>
+      <settings>
+        <name>correctAnswer</name>
+        <label>Correct Quantity.</label>
+        <help_url/>
+        <hint>The correct answer given as a JME quantity.</hint>
+        <input_type>code</input_type>
+        <default_value/>
+        <evaluate>true</evaluate>
+      </settings>
+      <settings>
+        <name>right</name>
+        <label>% Accuracy for right.</label>
+        <help_url/>
+        <hint>Question will be considered correct if the scalar part of the student's answer is within this % of correct value.</hint>
+        <input_type>code</input_type>
+        <default_value>0.2</default_value>
+        <evaluate>true</evaluate>
+      </settings>
+      <settings>
+        <name>close</name>
+        <label>% Accuracy for close.</label>
+        <help_url/>
+        <hint>Question will be considered close if the scalar part of the student's answer is within this % of correct value.</hint>
+        <input_type>code</input_type>
+        <default_value>1.0</default_value>
+        <evaluate>true</evaluate>
+      </settings>
+      <settings>
+        <name>C1</name>
+        <label>Close with units.</label>
+        <help_url/>
+        <hint>Partial Credit for close value with appropriate units. &amp;nbsp;if correct answer is 100 N and close is &amp;plusmn;1%,&lt;br />99 &amp;nbsp;N is accepted.</hint>
+        <input_type>percent</input_type>
+        <default_value>75</default_value>
+      </settings>
+      <settings>
+        <name>C2</name>
+        <label>No units or wrong sign</label>
+        <help_url/>
+        <hint>Partial credit for forgetting units or using wrong sign.&lt;br />If the correct answer is 100 N, both 100 and -100 N are accepted.</hint>
+        <input_type>percent</input_type>
+        <default_value>50</default_value>
+      </settings>
+      <settings>
+        <name>C3</name>
+        <label>Close, no units.</label>
+        <help_url/>
+        <hint>Partial Credit for close value but forgotten units.&lt;br />This value would be close&amp;nbsp;if the expected units were provided. &amp;nbsp;If the correct answer is 100 N, and close is &amp;plusmn;1%,&lt;br />99 is accepted.</hint>
+        <input_type>percent</input_type>
+        <default_value>25</default_value>
+      </settings>
+      <public_availability>always</public_availability>
+      <published>true</published>
+      <extensions>
+        <array>quantities</array>
+      </extensions>
+    </array>
+  </custom_part_types>
+  <resources>
+    <array/>
+  </resources>
+  <navigation>
+    <allowregen>true</allowregen>
+    <showfrontpage>false</showfrontpage>
+    <preventleave>false</preventleave>
+    <typeendtoleave>false</typeendtoleave>
+  </navigation>
+  <question_groups>
+    <array>
+      <pickingStrategy>all-ordered</pickingStrategy>
+      <questions>
+        <array>
+          <name>Moment Balance: Tension in a cable</name>
+          <tags>
+            <array>Mechanics, statics, moment, 2-d, tension</array>
+          </tags>
+          <metadata>
+            <description>&lt;p>Find the force required to produce a given moment, or vice-versa.&lt;/p></description>
+            <licence>Creative Commons Attribution-NonCommercial 4.0 International</licence>
+          </metadata>
+          <statement>&lt;p>Control arm $AB$ is subjected to a {direction} moment $M$ and held in position by cable $AC$.&amp;nbsp;&lt;/p> &lt;p>{applet}&lt;/p> &lt;p>&lt;span data-jme-visible="version=0">Knowing that the moment&amp;nbsp;is {M} {direction}, determine the tension in the cable.&lt;/span>&lt;/p> &lt;p>&lt;span data-jme-visible="version=1">Knowing that the tension in the cable&amp;nbsp;is {T}, determine the magnitude of the moment $M$.&lt;/span>&lt;/p></statement>
+          <advice>&lt;p>For equilibrium, the clockwise and counter-clockwise moments about point $B$ must be equal, therefore&lt;/p> &lt;p>$M = F d_\perp$&lt;/p> &lt;p>Use geometry to find $d_\perp$ then solve for the unknown quantity.&lt;/p></advice>
+          <rulesets/>
+          <extensions>geogebra</extensions>
+          <extensions>quantities</extensions>
+          <builtin_constants>
+            <e>true</e>
+            <pi_X2c__X5c_u03c0>true</pi_X2c__X5c_u03c0>
+            <i>true</i>
+            <j>false</j>
+          </builtin_constants>
+          <constants>
+            <array/>
+          </constants>
+          <variables>
+            <dperp>
+              <name>dperp</name>
+              <group>Ungrouped variables</group>
+              <definition>L sin(radians(alpha))</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </dperp>
+            <T>
+              <name>T</name>
+              <group>Inputs</group>
+              <definition>qty(random(1..5)random(2,4,5,10),units[1])</definition>
+              <description>&lt;p>Used when T is given.&lt;/p></description>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </T>
+            <debug>
+              <name>debug</name>
+              <group>ggb</group>
+              <definition>false</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </debug>
+            <direction>
+              <name>direction</name>
+              <group>Ungrouped variables</group>
+              <definition>if(A[0]>C[0],'clockwise','counterclockwise')</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </direction>
+            <C>
+              <name>C</name>
+              <group>Inputs</group>
+              <definition>vector(random(0..24#4),random(0..32#4))</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </C>
+            <L>
+              <name>L</name>
+              <group>Ungrouped variables</group>
+              <definition>qty(abs(A),units[0])</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </L>
+            <A>
+              <name>A</name>
+              <group>Inputs</group>
+              <definition>vector(random(-28..28#4 except 0),random(8..28#4))</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </A>
+            <answers>
+              <name>answers</name>
+              <group>Inputs</group>
+              <definition>[['T', M/dperp], ['M', T*dperp]] </definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </answers>
+            <M>
+              <name>M</name>
+              <group>Inputs</group>
+              <definition>qty(random(1..9)random(12, 24,36,48), units[0] + " " + units[1]) </definition>
+              <description>&lt;p>Used when M is given.&lt;/p></description>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </M>
+            <units>
+              <name>units</name>
+              <group>Inputs</group>
+              <definition>['in','lb'] </definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </units>
+            <version>
+              <name>version</name>
+              <group>Inputs</group>
+              <definition>random(0..1)</definition>
+              <description>&lt;p>Which version?&lt;/p></description>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </version>
+            <alpha>
+              <name>alpha</name>
+              <group>Ungrouped variables</group>
+              <definition>degrees(angle(-A,C-A))</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </alpha>
+            <applet>
+              <name>applet</name>
+              <group>ggb</group>
+              <definition>geogebra_applet('msspdvgu', params)</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </applet>
+            <params>
+              <name>params</name>
+              <group>ggb</group>
+              <definition>[A: A, C: C, show: [definition: 'false', visible: false]]</definition>
+              <description/>
+              <templateType>anything</templateType>
+              <can_override>false</can_override>
+            </params>
+          </variables>
+          <variablesTest>
+            <condition>abs(A) > 18 and abs(A-C) > 16 and abs(C) > 16</condition>
+            <maxRuns>100</maxRuns>
+          </variablesTest>
+          <ungrouped_variables>L</ungrouped_variables>
+          <ungrouped_variables>alpha</ungrouped_variables>
+          <ungrouped_variables>dperp</ungrouped_variables>
+          <ungrouped_variables>direction</ungrouped_variables>
+          <variable_groups>
+            <name>Inputs</name>
+            <variables>C</variables>
+            <variables>A</variables>
+            <variables>T</variables>
+            <variables>M</variables>
+            <variables>version</variables>
+            <variables>answers</variables>
+            <variables>units</variables>
+          </variable_groups>
+          <variable_groups>
+            <name>ggb</name>
+            <variables>applet</variables>
+            <variables>params</variables>
+            <variables>debug</variables>
+          </variable_groups>
+          <functions/>
+          <preamble>
+            <js>question.signals.on('adviceDisplayed',function() { try{ var app = question.scope.variables.applet.app; app.setVisible("show", true,false); app.setValue("show", 1); } catch(err){} })</js>
+            <css/>
+          </preamble>
+          <parts>
+            <array>
+              <type>gapfill</type>
+              <useCustomName>true</useCustomName>
+              <customName>Answer</customName>
+              <marks>0</marks>
+              <scripts/>
+              <customMarkingAlgorithm/>
+              <extendBaseMarkingAlgorithm>true</extendBaseMarkingAlgorithm>
+              <unitTests>
+                <array/>
+              </unitTests>
+              <showCorrectAnswer>true</showCorrectAnswer>
+              <showFeedbackIcon>true</showFeedbackIcon>
+              <variableReplacements>
+                <array/>
+              </variableReplacements>
+              <variableReplacementStrategy>originalfirst</variableReplacementStrategy>
+              <nextParts>
+                <array/>
+              </nextParts>
+              <suggestGoingBack>false</suggestGoingBack>
+              <adaptiveMarkingPenalty>0</adaptiveMarkingPenalty>
+              <exploreObjective>null</exploreObjective>
+              <prompt>&lt;p>{latex(answers[version][0])} =&amp;nbsp;[[0]]&lt;/p> &lt;div data-jme-visible="debug"> &lt;p>&lt;em>{answers[version][0]}&lt;/em> = {siground(answers[version][1],5)}&amp;nbsp;&lt;/p> &lt;p>&lt;/p> &lt;/div></prompt>
+              <gaps>
+                <array>
+                  <type>engineering-answer</type>
+                  <useCustomName>true</useCustomName>
+                  <customName>Answer</customName>
+                  <marks>4</marks>
+                  <scripts/>
+                  <customMarkingAlgorithm/>
+                  <extendBaseMarkingAlgorithm>true</extendBaseMarkingAlgorithm>
+                  <unitTests>
+                    <array/>
+                  </unitTests>
+                  <showCorrectAnswer>true</showCorrectAnswer>
+                  <showFeedbackIcon>true</showFeedbackIcon>
+                  <variableReplacements>
+                    <array/>
+                  </variableReplacements>
+                  <variableReplacementStrategy>originalfirst</variableReplacementStrategy>
+                  <nextParts>
+                    <array/>
+                  </nextParts>
+                  <suggestGoingBack>false</suggestGoingBack>
+                  <adaptiveMarkingPenalty>0</adaptiveMarkingPenalty>
+                  <exploreObjective>null</exploreObjective>
+                  <settings>
+                    <correctAnswer>answers[version][1]</correctAnswer>
+                    <right>0.2</right>
+                    <close>1.0</close>
+                    <C1>75</C1>
+                    <C2>50</C2>
+                    <C3>25</C3>
+                  </settings>
+                </array>
+              </gaps>
+              <sortAnswers>false</sortAnswers>
+            </array>
+          </parts>
+          <partsMode>all</partsMode>
+          <maxMarks>0</maxMarks>
+          <objectives>
+            <array/>
+          </objectives>
+          <penalties>
+            <array/>
+          </penalties>
+          <objectiveVisibility>always</objectiveVisibility>
+          <penaltyVisibility>always</penaltyVisibility>
+          <contributors>
+            <array>
+              <name>William Haynes</name>
+              <profile_url>https://numbas.mathcentre.ac.uk/accounts/profile/2530/</profile_url>
+            </array>
+          </contributors>
+          <resources>
+            <array/>
+          </resources>
+        </array>
+      </questions>
+    </array>
+  </question_groups>
+  <contributors>
+    <array>
+      <name>William Haynes</name>
+      <profile_url>https://numbas.mathcentre.ac.uk/accounts/profile/2530/</profile_url>
+    </array>
+  </contributors>
+</JSON>
