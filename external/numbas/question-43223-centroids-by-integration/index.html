@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<!--
+Copyright 2011-16 Newcastle University
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html lang="en-GB">
+    <head>
+        
+    <title>Centroids by integration  - Numbas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="resources/numbas-icon.png"/>
+
+    <!-- CSS -->
+<style>
+    /* This rule will be overriden in styles.css, so the page content is only shown when the stylesheet has loaded
+    */
+    @layer no-stylesheet {
+        body > #with-stylesheet {
+            display: none;
+        }
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1770501015.447512" />
+    <!-- mathjax stuff -->
+<script>
+/** A fake style element that uses a constructed CSSStyleSheet object
+*/
+class FakeStyleElement {
+    /**
+     * @param {Object.<string>} def - Attributes.
+     * @param {string} styles - CSS styles.
+     */
+    constructor(def, styles) {
+        this.attrib = {};
+        Object.assign(this.attrib, def);
+        this.sheet = new CSSStyleSheet();
+        this.sheet.replaceSync(styles);
+    }
+    setAttribute(name, value) {this.attrib[name] = value}
+    getAttribute(name) {return this.attrib[name]}
+}
+class MathJaxStyleManager {
+    constructor() {
+        this.sheets = new Map();
+        this.roots = [document];
+    }
+    /**
+     * @param {StyleElement} style
+     */
+    add_sheet(style) {
+        this.sheets.set(style.id, style.sheet);
+        this.update();
+    }
+    /**
+     * @param {ShadowRoot|Document} root
+     */
+    register(root) {
+        this.roots.push(root);
+        this.update();
+    }
+
+    update() {
+        const SHEETS = Array.from(this.sheets.values());
+        document.adoptedStyleSheets = SHEETS;
+
+        for(let root of this.roots) {
+            root.adoptedStyleSheets = SHEETS;
+        }
+    }
+}
+MathJax = {
+    style_manager: new MathJaxStyleManager(),
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        packages: {'[+]': ['numbas','texhtml']},
+        allowTexHTML: true
+    },
+    loader: {
+        load: ['[numbas]/numbas-mathjax.js?build_time=1770501015.447512', '[tex]/texhtml'],
+        paths: {numbas: './scripts/standalone_scripts'},
+        versionWarnings: false
+    },
+    startup: {
+        ready() {
+            /** 
+                Constructed stylesheet adaptor code by Davide Cervone, 2026.
+
+                To register an element's shadow root, call `MathJax.config.style_manager.register(element.shadowRoot)`.
+            */
+
+
+            /* Custom HTMLAdaptor to use constructed stylesheets instead of a `<style>` tags. */
+            const {HTMLAdaptor} = MathJax._.adaptors.HTMLAdaptor;
+            Object.assign(HTMLAdaptor.prototype, {
+                // Make node() create FakeStyleElement objects rather than HTMLStyleElement objects.
+                _node_: HTMLAdaptor.prototype.node,
+                node(kind, def = {}, children = [], ns) {
+                    if (kind === 'style' && def.id) return new FakeStyleElement(def, children[0]?.textContent ?? '');
+                    return this._node_(kind, def, children, ns);
+                },
+                // When a stylesheet is appended, add it to the style manager, which will update all registered roots to adopt it.
+                _append_: HTMLAdaptor.prototype.append,
+                append(node, child) {
+                    if (child instanceof FakeStyleElement) {
+                        MathJax.config.style_manager.add_sheet(child);
+                        return;
+                    }
+                    return this._append_(node, child);
+                },
+            });
+            // Modify AbstractRegion and LiveRegion to handle FakeStyleElement stylesheets
+            const {AbstractRegion, LiveRegion} = MathJax._.a11y.explorer.Region;
+            AbstractRegion.prototype.AddStyles = function () {
+                const adaptor = this.document.adaptor;
+                if (!this.CLASS.style || this.styleSheet) return;
+                const id = this.CLASS.sheetId;
+                const node = adaptor.node('style', {id}, [adaptor.text(this.CLASS.style.cssText)]);
+                this.CLASS._sheet = node;
+                adaptor.append(adaptor.head, node);
+            }
+            Object.defineProperty(LiveRegion, 'styleSheet', {get() {return this._sheet}});
+            // Handle the DraggableDialog stylesheet
+            const {DraggableDialog} = MathJax._.ui.dialog.DraggableDialog;
+            const {StyleJsonSheet} = MathJax._.util.StyleJson;
+            DraggableDialog.prototype.init = function (adaptor) {
+                const CLASS = this.constructor;
+                if (!sheets.has(CLASS.styleId)) {
+                    const style = adaptor.node(
+                        'style', { id: CLASS.styleId },
+                        [adaptor.text(new StyleJsonSheet(CLASS.styles).cssText)]
+                    );
+                    adaptor.append(adaptor.head(), style);
+                }
+            }
+
+            MathJax.startup.defaultReady();
+
+            // Grab the Menu stylesheet and recreate it as a FakeStyleElement object
+            // (we can't override the mj-context-menu methods, unfortunately).
+            const adaptor = MathJax.startup.adaptor;
+            const menu = document.head.querySelector('#MJX-Menu-styles');
+            const mstyle = adaptor.node('style', {id: menu.id}, [adaptor.text(menu.textContent)]);
+            menu.remove();
+            adaptor.append(adaptor.head(), mstyle);
+        }
+
+    }
+};
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+
+<!-- numbas stuff -->
+<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1770501015.447512" charset="utf-8"></script>
+
+<script>
+    Numbas.queueScript('go',['start-exam'], function() {
+        Numbas.locale.set_preferred_locale('en-GB');
+    });
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', Numbas.checkAllScriptsLoaded);
+    } else {
+        Numbas.checkAllScriptsLoaded();
+    }
+    Numbas.get_exam_init_data = function() {
+        return {
+            source: "// Numbas version: finer_feedback_settings\n{\"name\": \"Centroids by integration \", \"extensions\": [\"geogebra\"], \"custom_part_types\": [], \"resources\": [], \"navigation\": {\"allowregen\": true, \"showfrontpage\": false, \"preventleave\": false, \"typeendtoleave\": false}, \"question_groups\": [{\"pickingStrategy\": \"all-ordered\", \"questions\": [{\"name\": \"Centroids by integration \", \"tags\": [\"area under curve\", \"centroidal coordinates\", \"centroids by integration\", \"first moment of area\", \"integration\", \"Mechanics\", \"mechanics\", \"Statics\", \"statics\"], \"metadata\": {\"description\": \"\u003cp\u003eFind the area, first moment of area, and coordinates of a general spandrel. \u0026nbsp;The area\u0026nbsp;may be above or below the function.\u003c/p\u003e\", \"licence\": \"Creative Commons Attribution-NonCommercial 4.0 International\"}, \"statement\": \"\u003cp\u003eUse integration with {if(Vertical=1,\u0027vertical\u0027,\u0027horizontal\u0027)} strips to determine the area of the spandrel bounded by the function $\\\\color{red}{y = f(x) = h - k \\\\simplify[all,fractionnumbers]{x^{n}}}$ and $\\\\var{if(Above=1, \u0027the lines $y=h$ and $x=b$\u0027,\u0027the $x$- and $y$-axes\u0027)}$, and also find the coordinates of its centroid. Note: $b$ and $h$ are constants.\u003c/p\u003e\\n\u003ctable style=\\\"margin-left: auto; margin-right: auto;\\\"\u003e\\n\u003ctbody\u003e\\n\u003ctr\u003e\\n\u003ctd\u003e{applet}\u003c/td\u003e\\n\u003c/tr\u003e\\n\u003c/tbody\u003e\\n\u003c/table\u003e\", \"advice\": \"\u003cdiv data-jme-visible=\\\"vertical = 0\\\" style=\\\"background: yellow; border: 1px solid black; padding: 1em; margin: 1em;\\\"\u003e\\n\u003cp\u003eNote: The solutions below is\u0026nbsp;for Vertical Strips. \u0026nbsp;\u003c/p\u003e\\n\u003cp\u003eThe procedure\u0026nbsp;for horizontal strips is similar, but with these strip properties and limits:\u003c/p\u003e\\n\u003cp\u003eStrip properties: \u0026nbsp;\u003cspan data-jme-visible=\\\"Above = 1\\\"\u003e$dA = (b-x)\\\\,dy$, $\\\\bar{x}_{el} = \\\\dfrac{x+b}{y}$, $\\\\bar{y}_{el} = y\u0026nbsp;$\u003c/span\u003e\u003cspan\u003e\u0026nbsp;\u003c/span\u003e\u003cspan data-jme-visible=\\\"above = 0\\\"\u003e$dA = x\u0026nbsp;\\\\,dy$, $\\\\bar{x}_{el} = x/2$, $\\\\bar{y}_{el} =y$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003eLimits: \u0026nbsp;$x= 0 \\\\text{ to } h$\u003c/p\u003e\\n\u003cp\u003eYou will get the same results for $A, Q_x, Q_y, \\\\bar{x} \\\\text{ and } \\\\bar{y}$, which ever strips you choose.\u003c/p\u003e\\n\u003c/div\u003e\\n\u003cp\u003e1. Bounding function: $y = f(x) = h - k \\\\simplify[all,fractionnumbers]{x^{n}}$\u003c/p\u003e\\n\u003cp\u003e2. Constant\u0026nbsp;$k$ in terms of $b$:\u0026nbsp;at $x=b, y=0\u0026nbsp;\\\\therefore\u0026nbsp;h - k\u0026nbsp;\\\\simplify[all,fractionnumbers]{b^{n}} \u0026nbsp;= 0 \\\\therefore k = \\\\dfrac{h}{\\\\simplify[all,fractionnumbers]{b^{n}}}$\u003c/p\u003e\\n\u003cp\u003e3. Strip properties: \u0026nbsp;\u003cspan data-jme-visible=\\\"Above = 0\\\"\u003e$dA = y\\\\,dx$, $\\\\bar{x}_{el} = x$, $\\\\bar{y}_{el} = y/2$\u003c/span\u003e\u003cspan\u003e\u0026nbsp;\u003c/span\u003e\u003cspan data-jme-visible=\\\"above = 1\\\"\u003e$dA = (h-y)\\\\,dx$, $\\\\bar{x}_{el} = x$, $\\\\bar{y}_{el} = (h+y)/2$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e4. Limits: \u0026nbsp;$x= 0 \\\\text{ to } b$\u003c/p\u003e\\n\u003cp\u003e5. Area under the curve:\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=0\\\"\u003e$\\\\begin{align} A \u0026amp;= \\\\int dA\\\\\\\\\u0026amp;= \\\\int_0^b y\\\\, dx\\\\\\\\\u0026amp;= \\\\int_0^b \u0026nbsp;(h - k \\\\simplify[all,fractionnumbers]{x^{n}})\\\\, dx\\\\\\\\\u0026amp;= \\\\left[ hx - k \\\\dfrac{\\\\simplify[all,fractionnumbers]{x^{n+1}}}{\\\\simplify[all,fractionnumbers]{{n+1}}}\\\\right]_0^b\\\\\\\\\u0026amp;= \\\\left[ hb - \\\\left(\\\\dfrac{h}{\\\\simplify[all,fractionnumbers]{b^{n}}}\\\\right)\u0026nbsp;\\\\dfrac{\\\\simplify[all,fractionnumbers]{b^{n+1}}}{\\\\simplify[all,fractionnumbers]{{n+1}}}\\\\right]\\\\\\\\\u0026amp;=hb-\\\\dfrac{hb}{\\\\simplify[all,fractionnumbers]{{n}+1}}\\\\\\\\\u0026amp;=\\\\var[all,fractionnumbers]{{n}/({n}+1)} h b\\\\end{align}$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=1\\\"\u003e$\\\\begin{align} A \u0026amp;= \\\\int dA\\\\\\\\\u0026amp;= \\\\int_0^b (h-y)\\\\, dx\\\\\\\\\u0026amp;= \\\\int_0^b \u0026nbsp;h - (h - k \\\\simplify[all,fractionnumbers]{x^{n}})\\\\, dx\\\\\\\\\u0026amp;=\\\\int_0^bk \\\\simplify[all,fractionnumbers]{x^{n}}dx\\\\\\\\\u0026amp;= \\\\left[k \\\\dfrac{\\\\simplify[all,fractionnumbers]{x^{n+1}}}{\\\\simplify[all,fractionnumbers]{{n+1}}}\\\\right]_0^b\\\\\\\\\u0026amp;= \\\\left[ \\\\left(\\\\dfrac{h}{\\\\simplify[all,fractionnumbers]{b^{n}}}\\\\right)\u0026nbsp;\\\\dfrac{\\\\simplify[all,fractionnumbers]{b^{n+1}}}{\\\\simplify[all,fractionnumbers]{{n+1}}}\\\\right]\\\\\\\\\u0026amp;=\\\\dfrac{hb}{\\\\simplify[all,fractionnumbers]{{n}+1}}\\\\\\\\\u0026amp;=\\\\var[all,fractionnumbers]{1/({n}+1)} h b\\\\end{align}$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e6. $Q_x$ and $Q_y$ \u0026nbsp;Perform similar integrations to get:\u0026nbsp;\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=0\\\"\u003e$Q_x = \\\\int \\\\bar{y}_{el}\\\\,dA \u0026nbsp;= \\\\simplify[all,simplifyfractions,fractionnumbers]{{n}^2\u0026nbsp;/(2{n}^2+3{n}+1) h^2b} \u0026nbsp;\\\\qquad\u0026nbsp;Q_y = \\\\int \\\\bar{x}_{el}\\\\,dA \u0026nbsp;= \\\\simplify[all,fractionnumbers,simplifyfractions]{{n}/(2{n}+4)} hb^2$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=1\\\"\u003e$Q_x = \\\\int \\\\bar{y}_{el}\\\\,dA \u0026nbsp;= \\\\simplify[all,simplifyfractions,fractionnumbers]{(3{n}+1)/(2({n}+1)(2{n}+1))}h^2b\u0026nbsp;\\\\qquad\u0026nbsp;Q_y = \\\\int \\\\bar{x}_{el}\\\\,dA \u0026nbsp;= \\\\simplify[all,fractionnumbers,simplifyfractions]{1/({n}+2)} hb^2$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e7. Centroid:\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=0\\\"\u003e$\\\\bar{x} = \\\\dfrac{Q_y}{A} = \\\\dfrac{\\\\simplify[all,fractionnumbers,simplifyfractions]{{n}/(2{n}+4)} hb^2}{\\\\var[all,fractionnumbers]{{n}/({n}+1)} h b} = \\\\simplify[all,collectnumbers]{({n}+1)/(2{n}+4)}b\u0026nbsp;\\\\qquad\u0026nbsp;\\\\bar{y} = \\\\dfrac{Q_x}{A} = \\\\dfrac{\\\\simplify[all,fractionnumbers,simplifyfractions]{{n^2}/(({n}+1)(2{n}+1))} h^2b}{\\\\var[all,fractionnumbers]{{n}/({n}+1)} h b}\u0026nbsp;= \\\\simplify[all,collectnumbers,simplifyfractions]{{n}/(2{n}+1)}h\u0026nbsp;$\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"above=1\\\"\u003e$\\\\bar{x} = \\\\dfrac{Q_y}{A} = \\\\dfrac{\\\\simplify[all,fractionnumbers,simplifyfractions]{1/({n}+2)} hb^2}{\\\\var[all,fractionnumbers]{1/({n}+1)} h b} = \\\\simplify[all,collectnumbers]{({n}+1)/({n}+2)}b\u0026nbsp;\\\\qquad\u0026nbsp;\\\\bar{y} = \\\\dfrac{Q_x}{A} = \\\\dfrac{\\\\simplify[all,simplifyfractions,fractionnumbers]{(3{n}+1)/(2({n}+1)(2{n}+1))}h^2b}{\\\\var[all,fractionnumbers]{1/({n}+1)} h b}\u0026nbsp;= \\\\simplify[all,collectnumbers,simplifyfractions]{(3{n}+1)/(4{n}+2)}h\u0026nbsp;$\u003c/span\u003e\u003c/p\u003e\", \"rulesets\": {}, \"extensions\": [\"geogebra\"], \"builtin_constants\": {\"e\": true, \"pi,\\u03c0\": true, \"i\": true, \"j\": false}, \"constants\": [], \"variables\": {\"Qy\": {\"name\": \"Qy\", \"group\": \"answers\", \"definition\": \" simplify(substitute([\\\"n\\\" :n],\\n if(Above=1, \\n    expression(\u0027h b^2 / (n+2)\u0027),\\n    expression(\u0027h b^2 n / (2 n + 4 )\u0027))),\\\"basic,collectNumbers,simplifyFractions,constantsFirst\\\")\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"ybar_el\": {\"name\": \"ybar_el\", \"group\": \"answers\", \"definition\": \"expression([\u0027y\u0027,\u0027y/2\u0027,\u0027y\u0027,\u0027(h+y)/2\u0027][version])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"xbar\": {\"name\": \"xbar\", \"group\": \"answers\", \"definition\": \" simplify(substitute([\\\"n\\\" :n],\\n  if(Above=1,\\n    expression(\u0027b* (n+1)/(n+2)\u0027),\\n    expression(\u0027b * (n+1)/(2n+4)\u0027))),\\\"basic,collectNumbers,simplifyFractions,cancelTerms\\\")\", \"description\": \"\u003cp\u003eexpression(\\\"(\\\"+ string(Qy) +\\\")/(\\\"+ string(area) +\\\")\\\")\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"debug\": {\"name\": \"debug\", \"group\": \"inputs\", \"definition\": \"false\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"k\": {\"name\": \"k\", \"group\": \"inputs\", \"definition\": \"expression(if(vertical=1,\u0027h/b^n\u0027,\u0027b/h^(1/n)\u0027))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"Qx\": {\"name\": \"Qx\", \"group\": \"answers\", \"definition\": \" simplify(substitute([\\\"n\\\" :n],\\n  if(Above=1,\\n    expression(\u0027(b h^2 /2)(3n+1)/((n+1) (2n+1))\u0027),\\n    expression(\u0027h^2 b n^2/((n+1)(2n+1))\u0027))),\\\"basic,collectNumbers,simplifyFractions,constantsFirst\\\")\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"Above\": {\"name\": \"Above\", \"group\": \"inputs\", \"definition\": \"random(0,1)\", \"description\": \"\u003cp\u003earea above or below the curve?\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"version\": {\"name\": \"version\", \"group\": \"inputs\", \"definition\": \"2 above + vertical\\n\", \"description\": \"\u003cp\u003e0 = below horizontal\u003c/p\u003e\\n\u003cp\u003e1 = below vertical\u003c/p\u003e\\n\u003cp\u003e2 = above horizontal\u003c/p\u003e\\n\u003cp\u003e3 = above vertical\u003c/p\u003e\\n\u003cp\u003ehorizontal strips not implemented\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"Vertical\": {\"name\": \"Vertical\", \"group\": \"inputs\", \"definition\": \"random(0,1)\", \"description\": \"\u003cp\u003e0 = horizontal strips\u003c/p\u003e\\n\u003cp\u003e1 = vertical strips? \u0026nbsp;Horizontal strips not currently implemented.\u003c/p\u003e\\n\u003cp\u003e\u003c/p\u003e\\n\u003cp\u003e\u0026nbsp;Can\u0027t figure out how to pass a boolean to geogebra, so using {0,1} instead. Only exponents \u0026lt; 2 can be horizontal \u0026nbsp;\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"ybar\": {\"name\": \"ybar\", \"group\": \"answers\", \"definition\": \" simplify(substitute([\\\"n\\\" :n],if(Above=1,\\n    expression(\u0027h * (3 n +1)/(4 n+2)\u0027),\\n    expression(\u0027h n / (2 n+1)\u0027))),\\\"basic,collectNumbers,simplifyFractions\\\")\", \"description\": \"\u003cp\u003e\u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp; \u0026nbsp;\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"area\": {\"name\": \"area\", \"group\": \"answers\", \"definition\": \"simplify(substitute([\\\"n\\\" :n], if(Above=1,\\n    expression(\u0027b h / (n+1)\u0027),\\n    expression(\u0027b h n /(n +1)\u0027))),\\\"basic,collectNumbers,simplifyFractions,cancelTerms\\\")\", \"description\": \"\u003cp\u003eok\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"lower_limit\": {\"name\": \"lower_limit\", \"group\": \"answers\", \"definition\": \"0\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"n\": {\"name\": \"n\", \"group\": \"inputs\", \"definition\": \"random(1/3,1/2,1,3/2,2,3)\", \"description\": \"\u003cp\u003ethe exponent of the function (1-kx^n) (0.5 .. 5#0.5)\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"upper_limit\": {\"name\": \"upper_limit\", \"group\": \"answers\", \"definition\": \"if(Vertical=1,\u0027b\u0027,\u0027h\u0027)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"xbar_el\": {\"name\": \"xbar_el\", \"group\": \"answers\", \"definition\": \"expression([\u0027x/2\u0027,\u0027x\u0027,\u0027(b+x)/2\u0027,\u0027x\u0027][version])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"dA\": {\"name\": \"dA\", \"group\": \"answers\", \"definition\": \"expression([\u0027x dy\u0027,\u0027y dx\u0027,\u0027(b-x) dy\u0027,\u0027(h-y) dx\u0027][version])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"applet\": {\"name\": \"applet\", \"group\": \"Ungrouped variables\", \"definition\": \"geogebra_applet(\u0027bqnqgpfp\u0027,[[\u0027n\u0027,n],[\u0027h\u0027,random(1,1.5)],[\u0027b\u0027,random(0.8,1.3)],[\u0027Above\u0027, above],[\u0027Vertical\u0027,vertical]])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}}, \"variablesTest\": {\"condition\": \"\", \"maxRuns\": 100}, \"ungrouped_variables\": [\"applet\"], \"variable_groups\": [{\"name\": \"inputs\", \"variables\": [\"n\", \"version\", \"Vertical\", \"Above\", \"k\", \"debug\"]}, {\"name\": \"answers\", \"variables\": [\"dA\", \"xbar_el\", \"ybar_el\", \"upper_limit\", \"lower_limit\", \"area\", \"Qy\", \"xbar\", \"ybar\", \"Qx\"]}], \"functions\": {}, \"preamble\": {\"js\": \"\", \"css\": \"\"}, \"parts\": [{\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"Bounding function\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003eThe bounding funtion\u0026nbsp;contains a constant $k$ which can be expressed in terms of\u0026nbsp;$b$ and $h$. \u0026nbsp;Determine the value of $k$ in terms of \u003cem\u003eb\u003c/em\u003e and \u003cem\u003eh\u0026nbsp;\u003c/em\u003eby substituting in the coordinates of a point which is on the curve into the bounding function.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$k$ =\u0026nbsp;[[0]] \u003cspan data-jme-visible=\\\"debug\\\"\u003e{k}\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"k\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"h/b^{n}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": false, \"allowUnknownFunctions\": true, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": [{\"name\": \"b\", \"value\": \"\"}, {\"name\": \"h\", \"value\": \"\"}]}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"Strip\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003eDetermine the area of the rectangular differential strip.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$dA$ =\u0026nbsp;[[0]] \u003cspan data-jme-visible=\\\"debug\\\"\u003e{da}\u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003eDetermine expressions for the coordinates of the centroid of the strip.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\bar{x}_{el} = $ [[1]]\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\bar{y}_{el} = $\u0026nbsp;[[2]]\u0026nbsp;\u0026nbsp;\u003cspan data-jme-visible=\\\"debug\\\"\u003exbar= {xbar_el} \u0026nbsp;ybar = {ybar_el}\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"$dA$\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{dA}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": false, \"allowUnknownFunctions\": true, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}, {\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"$\\\\bar{x}$\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{xbar_el}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": false, \"allowUnknownFunctions\": true, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}, {\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"$\\\\bar{y}$\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{ybar_el}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": false, \"allowUnknownFunctions\": true, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"Limits\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003eDetermine the limits of integration for these strips.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003eLower limit is:\u0026nbsp;[[0]]\u003cspan data-jme-visible=\\\"debug\\\"\u003e{0}\u003c/span\u003e\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003eUpper limit is: [[1]]\u003cspan data-jme-visible=\\\"debug\\\"\u003e{upper_limit}\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"patternmatch\", \"useCustomName\": true, \"customName\": \"lower\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"0\", \"displayAnswer\": \"\", \"matchMode\": \"exact\", \"allowEmpty\": false}, {\"type\": \"patternmatch\", \"useCustomName\": true, \"customName\": \"upper\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{upper_limit}\", \"displayAnswer\": \"\", \"matchMode\": \"exact\", \"allowEmpty\": false}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"Area\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003eWith the information determined above, evaluate this integral to find the area of the spandrel in terms of constants $b$ and $h$.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$A = \u0026nbsp;\\\\int dA \u0026nbsp;= $\u0026nbsp;[[0]]\u0026nbsp; \u0026nbsp;\u003cspan data-jme-visible=\\\"debug\\\"\u003earea = {area}\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"area\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{area}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": true, \"allowUnknownFunctions\": true, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"First Moments\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003ePerform the following integrals to determine the first moments of area with respect to the x- and y-axis.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$Q_x = \\\\int \\\\bar{y}_{el} dA =$ [[0]] \u003cspan data-jme-visible=\\\"debug\\\"\u003e{Qx}\u003c/span\u003e\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$Q_y = \\\\int \\\\bar{x}_{el} dA =$ [[1]]\u0026nbsp;\u003cspan data-jme-visible=\\\"debug\\\"\u003e{Qy}\u003c/span\u003e\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"qx\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{Qx}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": true, \"allowUnknownFunctions\": false, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}, {\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"qy\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{Qy}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": true, \"allowUnknownFunctions\": false, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"Centroid\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp\u003eUse the information you found above to determine the coordinates of the centroid of the shaded spandrel.\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\bar{x}\u0026nbsp;= \\\\dfrac{Q_y}{A} = $ \u0026nbsp;[[0]]\u0026nbsp;\u0026nbsp;\u003cspan data-jme-visible=\\\"debug\\\"\u003e{xbar} \u0026nbsp;\u003c/span\u003e\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\bar{y} = \\\\dfrac{Q_x}{A} = $ \u0026nbsp;[[1]]\u0026nbsp;\u0026nbsp;\u003cspan data-jme-visible=\\\"debug\\\"\u003e{ybar} \u0026nbsp;\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"xbar\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{xbar}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": true, \"allowUnknownFunctions\": false, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}, {\"type\": \"jme\", \"useCustomName\": true, \"customName\": \"ybar\", \"marks\": \"5\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"answer\": \"{ybar}\", \"showPreview\": true, \"checkingType\": \"absdiff\", \"checkingAccuracy\": 0.001, \"failureRate\": 1, \"vsetRangePoints\": 5, \"vsetRange\": [0, 1], \"checkVariableNames\": false, \"singleLetterVariables\": true, \"allowUnknownFunctions\": false, \"implicitFunctionComposition\": false, \"caseSensitive\": false, \"valuegenerators\": []}], \"sortAnswers\": false}], \"partsMode\": \"all\", \"maxMarks\": 0, \"objectives\": [], \"penalties\": [], \"objectiveVisibility\": \"always\", \"penaltyVisibility\": \"always\", \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}], \"resources\": []}]}], \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}]}",
+            extension_data: "{\"geogebra\": {\"root\": \"extensions/geogebra\", \"stylesheets\": [], \"javascripts\": [\"geogebra.js\"]}}"
+        }
+    }
+</script>
+
+
+
+	</head>
+	
+    <body>
+        <template id="numbas-exam-template">
+    
+    <style id="numbas-style">@import 'numbas.css?build_time=1770501015.447512';</style>
+    
+    <exam-container class="numbas-container" data-bind="with: exam, css: css, attr: attr">
+        <div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+        <!-- modal dialog boxes -->
+<dialog id="saving" data-bind="modal: saving">
+    <div class="text" data-localise="page.saving"></div>
+</dialog>
+<dialog class="modal" id="alert-modal" aria-labelledby="alert-modal-title" aria-describedby="alert-modal-body" data-bind="modal: {submit: $root.modal.ok}">
+    <section>
+        <header>
+            <h2 id="alert-modal-title" data-localise="modal.alert"></h2>
+        </header>
+
+        <div class="modal-body" id="alert-modal-body"></div>
+
+        <footer>
+            <form method="dialog">
+                <button value="ok" autofocus class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+
+<dialog class="modal" id="confirm-modal" aria-labelledby="confirm-modal-title" aria-describedby="confirm-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <section>
+        <header>
+            <h2 id="confirm-modal-title" data-localise="modal.confirm"></h2>
+        </header>
+        <div class="modal-body" id="confirm-modal-body">
+        </div>
+        <footer>
+            <form method="dialog">
+                <button autofocus class="cancel btn" value="cancel" data-localise="modal.cancel"></button>
+                <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+<dialog class="modal" id="confirm-end-exam-modal" aria-labelledby="confirm-end-exam-modal-title" aria-describedby="confirm-end-exam-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <form method="dialog">
+        <header>
+            <h4 id="confirm-end-exam-modal-title" data-localise="modal.confirm"></h4>
+        </header>
+        <div class="modal-body" id="confirm-end-exam-modal-body" data-bind="with: $root.exam">
+            <p id="confirm-end-exam-modal-message"></p>
+            <form class="form-inline" data-bind="submit: $root.modal.ok">
+                <label for="confirm-end-text-input" id="confirm-end-exam-modal-input-message"></label>
+                <input autofocus id="confirm-end-text-input" type="text" data-bind="textInput: confirmEndHandler.value, autosize: confirmEndHandler.value">
+                <span class="password-feedback feedback-icon" data-bind="css: confirmEndHandler.feedback().iconClass, attr: {title: confirmEndHandler.feedback().title}"></span>
+            </form>
+        </div>
+        <footer>
+            <button value="cancel" class="cancel btn" data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-bind="disable: !confirmEndHandler.valid(), css: confirmEndHandler.feedback().buttonClass" data-localise="modal.end exam button"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal force-default-style" id="style-modal" aria-labelledby="style-modal-title" aria-describedby="style-modal-explanation" data-bind="with: $root.style_customiser, modal: {submit: $root.saveStyle}">
+    <form method="dialog">
+        <header>
+            <h4 id="style-modal-title" data-localise="control.style options"></h4>
+        </header>
+
+        
+        <p class="help-block" id="style-modal-explanation" data-localise="modal.style.explanation"></p>
+
+        <p class="help-block warning" data-bind="visible: forced_colors" data-localise="modal.forced colours warning"></p>
+
+        
+        <section class="style-controls">
+            <fieldset>
+                <label for="main-font-picker" data-localise="modal.style.main font"></label>
+                <select id="main-font-picker" data-bind="value: staged_style['--main-font'], options: font_options, optionsText: 'label', optionsValue: 'name'">
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="text-size-picker" data-localise="modal.style.text size"></label>
+                <input id="text-size-picker" type="number" step="0.1" min="0.5" max="4" data-bind="value: staged_style['--text-size']">
+                <output id="text-size-preview" class="big" data-localise="modal.style.text preview"></output>
+            </fieldset>
+            <fieldset>
+                <label for="font-weight-picker" data-localise="modal.style.font weight"></label>
+                <input id="font-weight-picker" type="range" step="100" min="200" max="800" data-bind="value: staged_style['--font-weight'], valueUpdate: 'input'">
+                <output id="font-weight-preview" data-bind="text: staged_style['--font-weight']"></output>
+            </fieldset>
+            <fieldset>
+                <label for="spacing-picker" data-localise="modal.style.spacing"></label>
+                <input id="spacing-picker" type="range" step="0.1" min="0.1" max="3" data-bind="value: staged_style['--spacing-scale'], valueUpdate: 'input'">
+                <output id="spacing-preview" data-bind="percentage: parseFloat(staged_style['--spacing-scale']())"></output>
+            </fieldset>
+            <fieldset>
+                <label for="color-scheme-picker" data-localise="modal.style.colour scheme"></label>
+                <select id="color-scheme-picker" data-bind="value: color_scheme">
+                    <option value="automatic" data-localise="modal.style.automatic colour scheme"></option>
+                    <option value="light" data-localise="modal.style.light colour scheme"></option>
+                    <option value="dark" data-localise="modal.style.dark colour scheme"></option>
+                    <option value="custom" data-localise="modal.style.custom colour scheme"></option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="invert-images" data-localise="modal.style.invert images in dark mode"></label>
+                <input id="invert-images" type="checkbox" data-bind="checked: invert_images">
+            </fieldset>
+        </section>
+
+        <section class="style-controls" data-bind="visible: using_custom_color_scheme">
+            <fieldset>
+                <label for="background-colour-picker" data-localise="modal.style.background colour"></label>
+                <input id="background-colour-picker" type="color" data-bind="value: style['--custom-background-color']">
+            </fieldset>
+            <fieldset>
+                <label for="text-colour-picker" data-localise="modal.style.text colour"></label>
+                <input id="text-colour-picker" type="color" data-bind="value: style['--custom-text-color']">
+            </fieldset>
+            <fieldset>
+                <label for="main-colour-picker" data-localise="modal.style.main colour"></label>
+                <input id="main-colour-picker" type="color" data-bind="value: style['--custom-main-color']">
+            </fieldset>
+            <fieldset>
+                <label for="primary-colour-picker" data-localise="modal.style.primary colour"></label>
+                <input id="primary-colour-picker" type="color" data-bind="value: style['--custom-primary-color']">
+            </fieldset>
+            <fieldset>
+                <label for="link-colour-picker" data-localise="modal.style.link colour"></label>
+                <input id="link-colour-picker" type="color" data-bind="value: style['--custom-link-color']">
+            </fieldset>
+            <fieldset>
+                <label for="success-colour-picker" data-localise="modal.style.success colour"></label>
+                <input id="success-colour-picker" type="color" data-bind="value: style['--custom-success-color']">
+            </fieldset>
+            <fieldset>
+                <label for="info-colour-picker" data-localise="modal.style.info colour"></label>
+                <input id="info-colour-picker" type="color" data-bind="value: style['--custom-info-color']">
+            </fieldset>
+            <fieldset>
+                <label for="warning-colour-picker" data-localise="modal.style.warning colour"></label>
+                <input id="warning-colour-picker" type="color" data-bind="value: style['--custom-warning-color']">
+            </fieldset>
+            <fieldset>
+                <label for="danger-colour-picker" data-localise="modal.style.danger colour"></label>
+                <input id="danger-colour-picker" type="color" data-bind="value: style['--custom-danger-color']">
+            </fieldset>
+            <fieldset>
+                <label for="muted-colour-picker" data-localise="modal.style.muted colour"></label>
+                <input id="muted-colour-picker" type="color" data-bind="value: style['--custom-muted-color']">
+            </fieldset>
+            <fieldset>
+                <label for="highlight-colour-picker" data-localise="modal.style.highlight colour"></label>
+                <input id="highlight-colour-picker" type="color" data-bind="value: style['--custom-highlight-color']">
+            </fieldset>
+        </section>
+
+        
+
+        
+
+        
+        <hr/>
+        <p class="help-block"><a href="https://docs.numbas.org.uk/en/latest/accessibility/exam.html" target="_blank" data-localise="accessibility statement"></a></p>
+        
+
+        <footer>
+            <button type="button" class="btn danger sm" data-localise="modal.style.reset to defaults" data-bind="click: reset"></button>
+            <button class="cancel btn" value="cancel" autofocus data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal" id="next-actions-modal" aria-labelledby="next-actions-modal-title">
+    <form method="dialog" data-bind="with: diagnostic_next_actions">
+        <header>
+            <h4 id="next-actions-modal-title" data-localise="diagnostic.make a choice"></h4>
+        </header>
+        <div data-bind="latex: feedback"></div>
+
+        <menu data-bind="foreach: actions" class="list-unstyled actions">
+            <li>
+                <button type="button" data-bind="click: go"><span data-bind="latex: label"></span></button>
+            </li>
+        </menu>
+    </form>
+</dialog>
+
+<dialog id="lightbox"></dialog>
+        <div id="everything">
+            <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionContainer'}" data-localise="page.skip to content"></a>
+            <div class="question-nav">
+    <!-- side menu -->
+</div>
+
+
+            <!-- main content area - info pages or questions go in here -->
+            <main class="mainDisplay" role="main" data-bind="attr: {'aria-labelledby': main_labelledby}">
+                <div id="infoDisplay" class="main-content" data-bind="visible: infoPage">
+    <div id="frontpage" data-bind="visible: infoPage()=='frontpage', if: infoPage()=='frontpage'">
+        <h1 class="break-words" id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
+<table class="summary">
+    <tbody>
+    <!-- ko if: exam.settings.navigateMode != 'diagnostic' -->
+    <tr>
+        <th data-localise="exam.number of questions"></th>
+        <td class="rtd" data-bind="html: numAssessedQuestions"></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showTotalMark">
+        <th data-localise="exam.marks available"></th>
+        <td class="rtd" data-bind="niceNumber: marks"></td>
+    </tr>
+    <!-- /ko -->
+    <tr data-bind="visible: exam.settings.percentPass>0">
+        <th data-localise="exam.pass percentage"></th>
+        <td class="rtd" data-bind="text: percentPass"></td>
+    </tr>
+    <tr data-bind="visible: duration()>0">
+        <th data-localise="exam.time allowed"></th>
+        <td class="rtd"><time data-bind="duration: duration"></time></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showStudentName && exam.student_name && !needsStudentName">
+        <th data-localise="exam.student name"></th>
+        <td><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="intro" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<div class="alert danger" data-bind="visible: showAttemptDownloadSecurityWarning">
+    <p data-localise="exam.attempt download security warning"></p>
+</div>
+<div id="standalone-warning" class="alert info" data-bind="visible: !Numbas.storage.lmsConnected && !allowAttemptDownload" data-localise="frontpage.scorm.lms not connected"></div>
+
+<form data-bind="submit: beginExam" class="info-buttons">
+    <button class="btn display-options force-original-color" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    <div class="student-name" data-bind="visible: needsStudentName">
+        <label for="begin-exam-student-name" data-localise="exam.enter your name"></label>
+        <input id="begin-exam-student-name" name="begin-exam-student-name" type="text" data-bind="textInput: student_name, autosize: student_name"/>
+    </div>
+    <div class="password" data-bind="visible: needsPassword">
+        <label for="begin-exam-password" data-localise="exam.enter password"></label>
+        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" data-bind="textInput: passwordHandler.value, autosize: passwordHandler.value, css: {'has-errors': passwordHandler.value().length && !passwordHandler.valid(), 'success': passwordHandler.valid()}"/>
+        <span class="password-feedback feedback-icon" data-bind="css: passwordHandler.feedback().iconClass, attr: {title: passwordHandler.feedback().title}"></span>
+    </div>
+    <button class="btn" id="startBtn" type="submit" data-bind="disable: !canBegin(), css: passwordHandler.feedback().buttonClass" data-localise="frontpage.start"></button>
+</form>
+    </div>
+    <div id="menu" data-bind="visible: infoPage()=='menu', if: infoPage()=='menu'">
+        <h1 id="infopage-menu-header" class="break-words" data-bind="html: exam.settings.name"></h1>
+
+<div class="intro" class="alert" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<nav id="question-chooser">
+    <table class="table questionSelector">
+        <colgroup>
+            <col class="question">
+            <col class="score">
+            <col class="icon">
+        </colgroup>
+        <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $parent.showQuestionGroupNames -->
+            <tr>
+                <th data-bind="visible: $parent.question_groups.length>1">
+                    <span data-bind="latex: name"></span>
+                </th>
+                <th class="messages">
+                    <span class="score" data-bind="html: feedback.plainMessage"></span>
+                </th>
+                <th class="icon">
+                    <span class="feedback-icon" data-bind="css: feedback.iconClass, attr: feedback.iconAttr" aria-hidden="true"></span>
+                </th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="" role="button" data-bind="click: Numbas.controls.makeQuestionJumper(question.number, question.exam), attr: {'aria-labelledby': question.path+'-menu-name'}">
+                <td class="info">
+                    <button class="btn link" type="button" class="name" data-bind="latex: displayName, attr: {id: question.path+'-menu-name'}"></button>
+                </td>
+                <td class="messages">
+                    <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
+                    <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                    <div class="answered-state" data-bind="">
+                        <span data-bind="text: scoreFeedback.attemptedString"></span>
+                    </div>
+                    <div data-bind="visible: isDirty" class="dirty-message">
+                        <span class="warning-icon icon-exclamation-sign"></span>
+                        <span data-localise="question.selector.unsubmitted changes"></span>
+                    </div>
+                </td>
+                <td class="icon">
+                    <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr" aria-hidden="true"></span>
+                </td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        </tbody>
+    </table>
+</nav>
+
+<menu class="nav navmenu-nav menuButtons">
+    <li><button class="btn thin-button" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button></li>
+    <li><button class="btn danger thin-button" id="endBtn" data-localise="control.end exam" data-bind="click: endExam"></button></li>
+</menu>
+    </div>
+    <div id="introduction" data-bind="visible: infoPage()=='introduction', if: infoPage()=='introduction'">
+        <h1 id="infopage-introduction-header" data-localise="exam.introduction"></h1>
+<div data-bind="latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+    </div>
+    <div id="suspend" data-bind="visible: infoPage()=='paused' || infoPage()=='resumed', if: infoPage()=='paused' || infoPage()=='resumed'">
+        <h1 id="infopage-suspend-header">
+    <span data-bind="visible: infoPage()=='paused'" data-localise="suspend.paused header" ></span>
+    <span data-bind="visible: infoPage()=='resumed'" data-localise="suspend.resumed header" ></span>
+</h1>
+<p data-localise="suspend.exam suspended"></p>
+<p data-localise="suspend.you can resume"></p>
+<button class="btn primary" id="resumeBtn" data-bind="click: resumeExam" data-localise="suspend.resume"></button>
+    </div>
+    <div id="results" data-bind="visible: infoPage()=='result', if: infoPage()=='result'">
+        <header>
+    <h1 class="exam-name text-center break-words" data-bind="latex: exam.settings.name"></h1>
+</header>
+
+<!-- ko if: exam.settings.navigateMode=='diagnostic' -->
+    <table id="diagnostic-breakdown">
+    <colgroup>
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+        <th data-localise="result.learning objective"></th>
+        <!-- ko if: showActualMark -->
+        <th data-localise="result.question score"></th>
+        <!-- /ko -->
+    </thead>
+    <tbody>
+        <!-- ko foreach: diagnostic_progress -->
+            <tr data-bind="css: {total: $index()==$parent.diagnostic_progress().length-1}">
+                <td class="name" data-bind="latex: name"></td>
+                <!-- ko if: $parent.showActualMark -->
+                <td class="score" data-bind="text: Math.floor(100*credit)+'%'"></td>
+                <!-- /ko -->
+            </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='sequence' || exam.settings.navigateMode=='menu' -->
+<p data-localise="result.click a question to review"></p>
+<table id="question-breakdown">
+    <colgroup>
+        <col>
+        <col span="3" class="score">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+        <!-- ko if: exam.settings.navigateMode=='sequence' -->
+            <th data-localise="result.question number"></th>
+        <!-- /ko -->
+        <!-- ko if: exam.settings.navigateMode=='menu' -->
+            <th data-localise="question"></th>
+        <!-- /ko -->
+        <th data-bind="text: resultsScoreColumnHeader"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $root.exam().showQuestionGroupNames -->
+            <tr class="question-group-header" data-bind="visible: show_name">
+                <th data-bind="text: name, typeset: name"></th>
+                <th class="score-cell" data-bind="html: feedback.plainMessage"></th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="question" data-bind="click: review, attr: {title: R('result.question review title')}">
+                <td class="name"><a href="#" data-bind="latex: displayName"></a></td>
+                <td class="score-cell" data-bind="html: scoreFeedback.plainMessage"></td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: scoreFeedback.showActualMark() || scoreFeedback.showTotalMark() -->
+        <tr class="total">
+            <th scope="row" data-localise="Total"></th>
+            <td class="score-cell">
+                <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                <!-- ko if: scoreFeedback.showActualMark() && scoreFeedback.showTotalMark() -->(<span data-bind="text: percentScore"></span>%)<!-- /ko -->
+            </td>
+        </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+
+<!-- /ko -->
+
+<div id="end-message" class="alert" data-bind="visible: exam.has_end_message, latex: exam.end_message" localise-data-jme-context-description="exam.end_message"></div>
+
+<!-- ko if: scoreFeedback.showActualMark -->
+<div id="feedback" class="alert results-feedback" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
+<!-- /ko -->
+
+<div id="performance-summary">
+    <h2 data-localise="result.performance summary"></h2>
+
+    <table class="summary">
+        <tr>
+            <th data-localise="exam.exam name"></th>
+            <td class="break-words" data-bind="html: exam.settings.name"></td>
+        </tr>
+        <tr>
+            <th data-localise="exam.random seed"></th>
+            <td class="break-words" data-bind="html: exam.seed"></td>
+        </tr>
+        <tr data-bind="visible: exam.settings.showStudentName && exam.student_name">
+            <th data-localise="exam.student name"></th>
+            <td class="break-words"><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam start"></th>
+            <td class="break-words"><time data-bind="datetime: startTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam stop"></th>
+            <td class="break-words"><time data-bind="datetime: endTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.time spent"></th>
+            <td class="break-words"><time data-bind="duration: timeSpent"></time></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="info-buttons">
+    <button class="btn info" data-bind="visible: allowPrinting, click: function(){ window.print(); }, text: printLabel"></button>
+    <button class="btn info" data-bind="visible: allowAttemptDownload, click: download_attempt_data" data-localise="result.download exam object"></button>
+</div>
+
+<p id="finished-text" class="text-center" data-localise="end.exam has finished"></p>
+    </div>
+
+    
+    
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    
+</div>
+
+                <div id="questionContainer" class="print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
+    <div class="contentArea ">
+        <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
+
+        <div id="questionDisplay" data-bind="foreach: questions">
+            <div class="question-wrapper print-visible" data-bind="promise: html_promise, visible: isCurrentQuestion">
+            </div>
+        </div>
+
+        
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    </div>
+
+</div>
+            </main>
+        </div>
+    </exam-container>
+</template>
+        <div id="no-stylesheet">
+            <p data-localise="page.no stylesheet loaded"></p>
+        </div>
+
+        <div id="with-stylesheet">
+<div id="die" hidden class="force-default-style">
+    <h1 data-localise="die.numbas failed">Numbas failed</h1>
+    <p data-localise="die.sorry"></p>
+    <div class="error" tabindex="1">
+        <div class="message"></div>
+        <div class="stack"></div>
+    </div>
+</div>
+<div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+
+            
+            <numbas-exam storage="scorm">
+                <script type="application/numbas-exam">// Numbas version: finer_feedback_settings
+{"name": "Centroids by integration ", "extensions": ["geogebra"], "custom_part_types": [], "resources": [], "navigation": {"allowregen": true, "showfrontpage": false, "preventleave": false, "typeendtoleave": false}, "question_groups": [{"pickingStrategy": "all-ordered", "questions": [{"name": "Centroids by integration ", "tags": ["area under curve", "centroidal coordinates", "centroids by integration", "first moment of area", "integration", "Mechanics", "mechanics", "Statics", "statics"], "metadata": {"description": "<p>Find the area, first moment of area, and coordinates of a general spandrel. &nbsp;The area&nbsp;may be above or below the function.</p>", "licence": "Creative Commons Attribution-NonCommercial 4.0 International"}, "statement": "<p>Use integration with {if(Vertical=1,'vertical','horizontal')} strips to determine the area of the spandrel bounded by the function $\\color{red}{y = f(x) = h - k \\simplify[all,fractionnumbers]{x^{n}}}$ and $\\var{if(Above=1, 'the lines $y=h$ and $x=b$','the $x$- and $y$-axes')}$, and also find the coordinates of its centroid. Note: $b$ and $h$ are constants.</p>\n<table style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n<tr>\n<td>{applet}</td>\n</tr>\n</tbody>\n</table>", "advice": "<div data-jme-visible=\"vertical = 0\" style=\"background: yellow; border: 1px solid black; padding: 1em; margin: 1em;\">\n<p>Note: The solutions below is&nbsp;for Vertical Strips. &nbsp;</p>\n<p>The procedure&nbsp;for horizontal strips is similar, but with these strip properties and limits:</p>\n<p>Strip properties: &nbsp;<span data-jme-visible=\"Above = 1\">$dA = (b-x)\\,dy$, $\\bar{x}_{el} = \\dfrac{x+b}{y}$, $\\bar{y}_{el} = y&nbsp;$</span><span>&nbsp;</span><span data-jme-visible=\"above = 0\">$dA = x&nbsp;\\,dy$, $\\bar{x}_{el} = x/2$, $\\bar{y}_{el} =y$</span></p>\n<p>Limits: &nbsp;$x= 0 \\text{ to } h$</p>\n<p>You will get the same results for $A, Q_x, Q_y, \\bar{x} \\text{ and } \\bar{y}$, which ever strips you choose.</p>\n</div>\n<p>1. Bounding function: $y = f(x) = h - k \\simplify[all,fractionnumbers]{x^{n}}$</p>\n<p>2. Constant&nbsp;$k$ in terms of $b$:&nbsp;at $x=b, y=0&nbsp;\\therefore&nbsp;h - k&nbsp;\\simplify[all,fractionnumbers]{b^{n}} &nbsp;= 0 \\therefore k = \\dfrac{h}{\\simplify[all,fractionnumbers]{b^{n}}}$</p>\n<p>3. Strip properties: &nbsp;<span data-jme-visible=\"Above = 0\">$dA = y\\,dx$, $\\bar{x}_{el} = x$, $\\bar{y}_{el} = y/2$</span><span>&nbsp;</span><span data-jme-visible=\"above = 1\">$dA = (h-y)\\,dx$, $\\bar{x}_{el} = x$, $\\bar{y}_{el} = (h+y)/2$</span></p>\n<p>4. Limits: &nbsp;$x= 0 \\text{ to } b$</p>\n<p>5. Area under the curve:</p>\n<p><span data-jme-visible=\"above=0\">$\\begin{align} A &amp;= \\int dA\\\\&amp;= \\int_0^b y\\, dx\\\\&amp;= \\int_0^b &nbsp;(h - k \\simplify[all,fractionnumbers]{x^{n}})\\, dx\\\\&amp;= \\left[ hx - k \\dfrac{\\simplify[all,fractionnumbers]{x^{n+1}}}{\\simplify[all,fractionnumbers]{{n+1}}}\\right]_0^b\\\\&amp;= \\left[ hb - \\left(\\dfrac{h}{\\simplify[all,fractionnumbers]{b^{n}}}\\right)&nbsp;\\dfrac{\\simplify[all,fractionnumbers]{b^{n+1}}}{\\simplify[all,fractionnumbers]{{n+1}}}\\right]\\\\&amp;=hb-\\dfrac{hb}{\\simplify[all,fractionnumbers]{{n}+1}}\\\\&amp;=\\var[all,fractionnumbers]{{n}/({n}+1)} h b\\end{align}$</span></p>\n<p><span data-jme-visible=\"above=1\">$\\begin{align} A &amp;= \\int dA\\\\&amp;= \\int_0^b (h-y)\\, dx\\\\&amp;= \\int_0^b &nbsp;h - (h - k \\simplify[all,fractionnumbers]{x^{n}})\\, dx\\\\&amp;=\\int_0^bk \\simplify[all,fractionnumbers]{x^{n}}dx\\\\&amp;= \\left[k \\dfrac{\\simplify[all,fractionnumbers]{x^{n+1}}}{\\simplify[all,fractionnumbers]{{n+1}}}\\right]_0^b\\\\&amp;= \\left[ \\left(\\dfrac{h}{\\simplify[all,fractionnumbers]{b^{n}}}\\right)&nbsp;\\dfrac{\\simplify[all,fractionnumbers]{b^{n+1}}}{\\simplify[all,fractionnumbers]{{n+1}}}\\right]\\\\&amp;=\\dfrac{hb}{\\simplify[all,fractionnumbers]{{n}+1}}\\\\&amp;=\\var[all,fractionnumbers]{1/({n}+1)} h b\\end{align}$</span></p>\n<p>6. $Q_x$ and $Q_y$ &nbsp;Perform similar integrations to get:&nbsp;</p>\n<p><span data-jme-visible=\"above=0\">$Q_x = \\int \\bar{y}_{el}\\,dA &nbsp;= \\simplify[all,simplifyfractions,fractionnumbers]{{n}^2&nbsp;/(2{n}^2+3{n}+1) h^2b} &nbsp;\\qquad&nbsp;Q_y = \\int \\bar{x}_{el}\\,dA &nbsp;= \\simplify[all,fractionnumbers,simplifyfractions]{{n}/(2{n}+4)} hb^2$</span></p>\n<p><span data-jme-visible=\"above=1\">$Q_x = \\int \\bar{y}_{el}\\,dA &nbsp;= \\simplify[all,simplifyfractions,fractionnumbers]{(3{n}+1)/(2({n}+1)(2{n}+1))}h^2b&nbsp;\\qquad&nbsp;Q_y = \\int \\bar{x}_{el}\\,dA &nbsp;= \\simplify[all,fractionnumbers,simplifyfractions]{1/({n}+2)} hb^2$</span></p>\n<p>7. Centroid:</p>\n<p><span data-jme-visible=\"above=0\">$\\bar{x} = \\dfrac{Q_y}{A} = \\dfrac{\\simplify[all,fractionnumbers,simplifyfractions]{{n}/(2{n}+4)} hb^2}{\\var[all,fractionnumbers]{{n}/({n}+1)} h b} = \\simplify[all,collectnumbers]{({n}+1)/(2{n}+4)}b&nbsp;\\qquad&nbsp;\\bar{y} = \\dfrac{Q_x}{A} = \\dfrac{\\simplify[all,fractionnumbers,simplifyfractions]{{n^2}/(({n}+1)(2{n}+1))} h^2b}{\\var[all,fractionnumbers]{{n}/({n}+1)} h b}&nbsp;= \\simplify[all,collectnumbers,simplifyfractions]{{n}/(2{n}+1)}h&nbsp;$</span></p>\n<p><span data-jme-visible=\"above=1\">$\\bar{x} = \\dfrac{Q_y}{A} = \\dfrac{\\simplify[all,fractionnumbers,simplifyfractions]{1/({n}+2)} hb^2}{\\var[all,fractionnumbers]{1/({n}+1)} h b} = \\simplify[all,collectnumbers]{({n}+1)/({n}+2)}b&nbsp;\\qquad&nbsp;\\bar{y} = \\dfrac{Q_x}{A} = \\dfrac{\\simplify[all,simplifyfractions,fractionnumbers]{(3{n}+1)/(2({n}+1)(2{n}+1))}h^2b}{\\var[all,fractionnumbers]{1/({n}+1)} h b}&nbsp;= \\simplify[all,collectnumbers,simplifyfractions]{(3{n}+1)/(4{n}+2)}h&nbsp;$</span></p>", "rulesets": {}, "extensions": ["geogebra"], "builtin_constants": {"e": true, "pi,\u03c0": true, "i": true, "j": false}, "constants": [], "variables": {"Qy": {"name": "Qy", "group": "answers", "definition": " simplify(substitute([\"n\" :n],\n if(Above=1, \n    expression('h b^2 / (n+2)'),\n    expression('h b^2 n / (2 n + 4 )'))),\"basic,collectNumbers,simplifyFractions,constantsFirst\")", "description": "", "templateType": "anything", "can_override": false}, "ybar_el": {"name": "ybar_el", "group": "answers", "definition": "expression(['y','y/2','y','(h+y)/2'][version])", "description": "", "templateType": "anything", "can_override": false}, "xbar": {"name": "xbar", "group": "answers", "definition": " simplify(substitute([\"n\" :n],\n  if(Above=1,\n    expression('b* (n+1)/(n+2)'),\n    expression('b * (n+1)/(2n+4)'))),\"basic,collectNumbers,simplifyFractions,cancelTerms\")", "description": "<p>expression(\"(\"+ string(Qy) +\")/(\"+ string(area) +\")\")</p>", "templateType": "anything", "can_override": false}, "debug": {"name": "debug", "group": "inputs", "definition": "false", "description": "", "templateType": "anything", "can_override": false}, "k": {"name": "k", "group": "inputs", "definition": "expression(if(vertical=1,'h/b^n','b/h^(1/n)'))", "description": "", "templateType": "anything", "can_override": false}, "Qx": {"name": "Qx", "group": "answers", "definition": " simplify(substitute([\"n\" :n],\n  if(Above=1,\n    expression('(b h^2 /2)(3n+1)/((n+1) (2n+1))'),\n    expression('h^2 b n^2/((n+1)(2n+1))'))),\"basic,collectNumbers,simplifyFractions,constantsFirst\")", "description": "", "templateType": "anything", "can_override": false}, "Above": {"name": "Above", "group": "inputs", "definition": "random(0,1)", "description": "<p>area above or below the curve?</p>", "templateType": "anything", "can_override": false}, "version": {"name": "version", "group": "inputs", "definition": "2 above + vertical\n", "description": "<p>0 = below horizontal</p>\n<p>1 = below vertical</p>\n<p>2 = above horizontal</p>\n<p>3 = above vertical</p>\n<p>horizontal strips not implemented</p>", "templateType": "anything", "can_override": false}, "Vertical": {"name": "Vertical", "group": "inputs", "definition": "random(0,1)", "description": "<p>0 = horizontal strips</p>\n<p>1 = vertical strips? &nbsp;Horizontal strips not currently implemented.</p>\n<p></p>\n<p>&nbsp;Can't figure out how to pass a boolean to geogebra, so using {0,1} instead. Only exponents &lt; 2 can be horizontal &nbsp;</p>", "templateType": "anything", "can_override": false}, "ybar": {"name": "ybar", "group": "answers", "definition": " simplify(substitute([\"n\" :n],if(Above=1,\n    expression('h * (3 n +1)/(4 n+2)'),\n    expression('h n / (2 n+1)'))),\"basic,collectNumbers,simplifyFractions\")", "description": "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>", "templateType": "anything", "can_override": false}, "area": {"name": "area", "group": "answers", "definition": "simplify(substitute([\"n\" :n], if(Above=1,\n    expression('b h / (n+1)'),\n    expression('b h n /(n +1)'))),\"basic,collectNumbers,simplifyFractions,cancelTerms\")", "description": "<p>ok</p>", "templateType": "anything", "can_override": false}, "lower_limit": {"name": "lower_limit", "group": "answers", "definition": "0", "description": "", "templateType": "anything", "can_override": false}, "n": {"name": "n", "group": "inputs", "definition": "random(1/3,1/2,1,3/2,2,3)", "description": "<p>the exponent of the function (1-kx^n) (0.5 .. 5#0.5)</p>", "templateType": "anything", "can_override": false}, "upper_limit": {"name": "upper_limit", "group": "answers", "definition": "if(Vertical=1,'b','h')", "description": "", "templateType": "anything", "can_override": false}, "xbar_el": {"name": "xbar_el", "group": "answers", "definition": "expression(['x/2','x','(b+x)/2','x'][version])", "description": "", "templateType": "anything", "can_override": false}, "dA": {"name": "dA", "group": "answers", "definition": "expression(['x dy','y dx','(b-x) dy','(h-y) dx'][version])", "description": "", "templateType": "anything", "can_override": false}, "applet": {"name": "applet", "group": "Ungrouped variables", "definition": "geogebra_applet('bqnqgpfp',[['n',n],['h',random(1,1.5)],['b',random(0.8,1.3)],['Above', above],['Vertical',vertical]])", "description": "", "templateType": "anything", "can_override": false}}, "variablesTest": {"condition": "", "maxRuns": 100}, "ungrouped_variables": ["applet"], "variable_groups": [{"name": "inputs", "variables": ["n", "version", "Vertical", "Above", "k", "debug"]}, {"name": "answers", "variables": ["dA", "xbar_el", "ybar_el", "upper_limit", "lower_limit", "area", "Qy", "xbar", "ybar", "Qx"]}], "functions": {}, "preamble": {"js": "", "css": ""}, "parts": [{"type": "gapfill", "useCustomName": true, "customName": "Bounding function", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>The bounding funtion&nbsp;contains a constant $k$ which can be expressed in terms of&nbsp;$b$ and $h$. &nbsp;Determine the value of $k$ in terms of <em>b</em> and <em>h&nbsp;</em>by substituting in the coordinates of a point which is on the curve into the bounding function.</p>\n<p style=\"padding-left: 40px;\">$k$ =&nbsp;[[0]] <span data-jme-visible=\"debug\">{k}</span></p>\n<p></p>", "gaps": [{"type": "jme", "useCustomName": true, "customName": "k", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "h/b^{n}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": false, "allowUnknownFunctions": true, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": [{"name": "b", "value": ""}, {"name": "h", "value": ""}]}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "Strip", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>Determine the area of the rectangular differential strip.</p>\n<p style=\"padding-left: 40px;\">$dA$ =&nbsp;[[0]] <span data-jme-visible=\"debug\">{da}</span></p>\n<p>Determine expressions for the coordinates of the centroid of the strip.</p>\n<p style=\"padding-left: 40px;\">$\\bar{x}_{el} = $ [[1]]</p>\n<p style=\"padding-left: 40px;\">$\\bar{y}_{el} = $&nbsp;[[2]]&nbsp;&nbsp;<span data-jme-visible=\"debug\">xbar= {xbar_el} &nbsp;ybar = {ybar_el}</span></p>", "gaps": [{"type": "jme", "useCustomName": true, "customName": "$dA$", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{dA}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": false, "allowUnknownFunctions": true, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}, {"type": "jme", "useCustomName": true, "customName": "$\\bar{x}$", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{xbar_el}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": false, "allowUnknownFunctions": true, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}, {"type": "jme", "useCustomName": true, "customName": "$\\bar{y}$", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{ybar_el}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": false, "allowUnknownFunctions": true, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "Limits", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>Determine the limits of integration for these strips.</p>\n<p style=\"padding-left: 40px;\">Lower limit is:&nbsp;[[0]]<span data-jme-visible=\"debug\">{0}</span></p>\n<p style=\"padding-left: 40px;\">Upper limit is: [[1]]<span data-jme-visible=\"debug\">{upper_limit}</span></p>", "gaps": [{"type": "patternmatch", "useCustomName": true, "customName": "lower", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "0", "displayAnswer": "", "matchMode": "exact", "allowEmpty": false}, {"type": "patternmatch", "useCustomName": true, "customName": "upper", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{upper_limit}", "displayAnswer": "", "matchMode": "exact", "allowEmpty": false}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "Area", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>With the information determined above, evaluate this integral to find the area of the spandrel in terms of constants $b$ and $h$.</p>\n<p style=\"padding-left: 40px;\">$A = &nbsp;\\int dA &nbsp;= $&nbsp;[[0]]&nbsp; &nbsp;<span data-jme-visible=\"debug\">area = {area}</span></p>", "gaps": [{"type": "jme", "useCustomName": true, "customName": "area", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{area}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": true, "allowUnknownFunctions": true, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "First Moments", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>Perform the following integrals to determine the first moments of area with respect to the x- and y-axis.</p>\n<p style=\"padding-left: 40px;\">$Q_x = \\int \\bar{y}_{el} dA =$ [[0]] <span data-jme-visible=\"debug\">{Qx}</span></p>\n<p style=\"padding-left: 40px;\">$Q_y = \\int \\bar{x}_{el} dA =$ [[1]]&nbsp;<span data-jme-visible=\"debug\">{Qy}</span></p>\n<p style=\"padding-left: 40px;\"></p>", "gaps": [{"type": "jme", "useCustomName": true, "customName": "qx", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{Qx}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": true, "allowUnknownFunctions": false, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}, {"type": "jme", "useCustomName": true, "customName": "qy", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{Qy}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": true, "allowUnknownFunctions": false, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "Centroid", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p>Use the information you found above to determine the coordinates of the centroid of the shaded spandrel.</p>\n<p style=\"padding-left: 40px;\">$\\bar{x}&nbsp;= \\dfrac{Q_y}{A} = $ &nbsp;[[0]]&nbsp;&nbsp;<span data-jme-visible=\"debug\">{xbar} &nbsp;</span></p>\n<p style=\"padding-left: 40px;\">$\\bar{y} = \\dfrac{Q_x}{A} = $ &nbsp;[[1]]&nbsp;&nbsp;<span data-jme-visible=\"debug\">{ybar} &nbsp;</span></p>", "gaps": [{"type": "jme", "useCustomName": true, "customName": "xbar", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{xbar}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": true, "allowUnknownFunctions": false, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}, {"type": "jme", "useCustomName": true, "customName": "ybar", "marks": "5", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "answer": "{ybar}", "showPreview": true, "checkingType": "absdiff", "checkingAccuracy": 0.001, "failureRate": 1, "vsetRangePoints": 5, "vsetRange": [0, 1], "checkVariableNames": false, "singleLetterVariables": true, "allowUnknownFunctions": false, "implicitFunctionComposition": false, "caseSensitive": false, "valuegenerators": []}], "sortAnswers": false}], "partsMode": "all", "maxMarks": 0, "objectives": [], "penalties": [], "objectiveVisibility": "always", "penaltyVisibility": "always", "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}], "resources": []}]}], "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}]}</script>
+                <script type="application/json" slot="extension-data">{"geogebra": {"root": "extensions/geogebra", "stylesheets": [], "javascripts": ["geogebra.js"]}}</script>
+            </numbas-exam>
+            
+        </div>
+	</body>
+</html>

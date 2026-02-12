@@ -3889,6 +3889,7 @@ class NumbasExamElement extends HTMLElement {
         super();
 
         this.attachShadow({mode:'open'});
+        MathJax.config.style_manager.register(this.shadowRoot);
     }
 
     connectedCallback() {
@@ -3980,8 +3981,6 @@ class NumbasExamElement extends HTMLElement {
     }
 
     init(exam) {
-        this.shadowRoot.append(MathJax.svgStylesheet().cloneNode(true));
-
         const lightbox = this.lightbox = this.shadowRoot.getElementById('lightbox');
         lightbox.addEventListener('click', () => this.hide_lightbox());
         document.addEventListener('keyup', () => {
@@ -5598,7 +5597,7 @@ Numbas.queueScript('exam-display', ['display-util', 'display-base', 'math', 'uti
             if(this.viewType() == 'question') {
                 Numbas.controls.nextQuestion(this.exam);
             } else {
-                this.exam.resumeExam();
+                this.resumeExam();
             }
         };
 
@@ -19281,7 +19280,10 @@ DOMcontentsubber.prototype = {
         for(let i = 0; i < l; i += 4) {
             var textsubs = jme.variables.DOMsubvars(bits[i], this.scope, node.ownerDocument);
             for(let j = 0;j < textsubs.length;j++) {
-                textsubs[j].forEach(function(t) {
+                textsubs[j].forEach((t) => {
+                    if(t.nodeType == t.ELEMENT_NODE) {
+                        t = this.subvars(t);
+                    }
                     node.parentElement.insertBefore(t, node);
                 });
             }
@@ -22395,7 +22397,7 @@ Scope.prototype = /** @lends Numbas.jme.Scope.prototype */ {
                     for(let i = name.length - 1;i >= 0;i--) {
                         for(let j = 0;j < breaks.length;j++) {
                             var sub = jme.normaliseName(name.slice(i, breaks[j]), scope);
-                            if(defined_names[sub]) {
+                            if(sub.length > 0 && defined_names[sub]) {
                                 breaks = breaks.slice(0, j + 1);
                                 breaks.push(i);
                             }
@@ -26426,7 +26428,11 @@ Numbas.queueScript('marking', ['util', 'jme', 'localisation', 'jme-variables', '
                 throw(new Numbas.Error('marking.apply marking script.script not found', {name: script_name}));
             }
             var nscope = new StatefulScope([scope]);
-            for(const x of Object.keys(scope.states)) {
+            let stateful_scope = scope;
+            while(stateful_scope && !stateful_scope.states) {
+                stateful_scope = stateful_scope.parent;
+            }
+            for(const x of Object.keys(stateful_scope.states)) {
                 nscope.deleteVariable(x);
             }
             var result = script.evaluate(
@@ -33057,7 +33063,13 @@ if(res) { \
         if(this.display) {
             this.display.updateNextParts();
         }
-        this.store && this.store.partAnswered(this);
+        if(!this.parentPart?.submitting) {
+            this.store && this.store.partAnswered(this);
+        } else {
+            this.parentPart.events.once('post-submit').then(() => {
+                this.store && this.store.partAnswered(this);
+            });
+        }
         this.submitting = false;
         if(this.answered && this.question) {
             for(const path of Object.keys(this.errorCarriedForwardBackReferences)) {

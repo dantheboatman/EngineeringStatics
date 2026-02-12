@@ -3889,6 +3889,7 @@ class NumbasExamElement extends HTMLElement {
         super();
 
         this.attachShadow({mode:'open'});
+        MathJax.config.style_manager.register(this.shadowRoot);
     }
 
     connectedCallback() {
@@ -3980,8 +3981,6 @@ class NumbasExamElement extends HTMLElement {
     }
 
     init(exam) {
-        this.shadowRoot.append(MathJax.svgStylesheet().cloneNode(true));
-
         const lightbox = this.lightbox = this.shadowRoot.getElementById('lightbox');
         lightbox.addEventListener('click', () => this.hide_lightbox());
         document.addEventListener('keyup', () => {
@@ -5598,7 +5597,7 @@ Numbas.queueScript('exam-display', ['display-util', 'display-base', 'math', 'uti
             if(this.viewType() == 'question') {
                 Numbas.controls.nextQuestion(this.exam);
             } else {
-                this.exam.resumeExam();
+                this.resumeExam();
             }
         };
 
@@ -19281,7 +19280,10 @@ DOMcontentsubber.prototype = {
         for(let i = 0; i < l; i += 4) {
             var textsubs = jme.variables.DOMsubvars(bits[i], this.scope, node.ownerDocument);
             for(let j = 0;j < textsubs.length;j++) {
-                textsubs[j].forEach(function(t) {
+                textsubs[j].forEach((t) => {
+                    if(t.nodeType == t.ELEMENT_NODE) {
+                        t = this.subvars(t);
+                    }
                     node.parentElement.insertBefore(t, node);
                 });
             }
