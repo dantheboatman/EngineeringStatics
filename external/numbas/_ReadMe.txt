@@ -26,3 +26,6 @@ To add a new extension
 To modify extension look and behavior, make necessary changes in
 	numbas.js, numbas.css or numbas-template in xslt
 
+I added this line of css to make space for the numbas interactives (design width 900px) plus 40px left margin.
+
+section.exercises{width:940px;}
