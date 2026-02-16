@@ -85,6 +85,7 @@
 
     mjx-container svg {
         background: none;
+        color: inherit;
         filter: none;
     }
 }
@@ -877,7 +878,7 @@
         --highlight-text-color: var(--light-highlight-text-color);
     }
 
-    .numbas-container:is([data-prefers-color-scheme="dark"], .dark-background) {
+    .numbas-container:is([data-prefers-color-scheme="dark"], [data-prefers-color-scheme="custom"].dark-background) {
         --highlight: var(--dark-highlight);
         --off: var(--dark-off);
         --styled-text-mix: var(--dark-styled-text-mix);
@@ -1295,8 +1296,10 @@ Copyright 2011-25 Newcastle University
 
 @layer theme {
 
-    :root {
-        container-type: size;
+    @media screen {
+        :root {
+            container-type: size;
+        }
     }
 
     exam-container {
@@ -1364,11 +1367,15 @@ Copyright 2011-25 Newcastle University
         display: none;
     }
 
+    @media screen {
+        #everything {
+            display: grid;
+        }
+    }
 
     #everything {
         overflow-x: hidden;
         overflow-y: hidden;
-        display: grid;
         grid-gap: var(--spacing);
 
         grid-template: "main";
@@ -2130,6 +2137,7 @@ Copyright 2011-25 Newcastle University
                 &:not(.changed) .feedbackMessages {
                     border: none;
                     background: none;
+                    color: var(--text-color);
                 }
 
                 & .submitPart {
@@ -2610,6 +2618,7 @@ Copyright 2011-25 Newcastle University
 
         & :is(img, svg, object[type*="image"]) {
             background: white;
+            color: black;
         }
 
         & img {
@@ -2734,6 +2743,7 @@ Copyright 2011-25 Newcastle University
           height: 100% !important;
           object-fit: contain;
           background: white;
+          color: black;
         }
     }
 
