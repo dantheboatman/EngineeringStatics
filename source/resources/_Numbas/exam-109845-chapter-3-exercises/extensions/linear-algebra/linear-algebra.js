@@ -4,60 +4,7 @@ var math = Numbas.math;
 var vectormath = Numbas.vectormath;
 var matrixmath = Numbas.matrixmath;
 
-var Fraction = extension.Fraction = function(n) {
-    if(typeof(n)=='number') {
-        var c = math.rationalApproximation(n);
-        this.n = c[0];
-        this.d = c[1];
-    } else {
-        this.n = n.n;
-        this.d = n.d;
-    }
-    this.tidy();
-}
-Fraction.prototype = {
-    toString: function() {
-        return this.d==1 ? this.n+'' : this.n+'/'+this.d;
-    },
-
-    toLaTeX: function() {
-        return this.d==1 ? this.n+'' : (this.n<0 ? '-': '')+'\\frac{'+(Math.abs(this.n))+'}{'+this.d+'}';
-    },
-
-    /** Ensure fraction is reduced, and denominator is positive
-     */
-    tidy: function() {
-        if(this.n==0) {
-            this.n = 0;
-            this.d = 1;
-        }
-        var g = math.gcd(this.n,this.d) * (this.d<0 ? -1 : 1);
-        this.n /= g;
-        this.d /= g;
-    },
-
-    add: function(f2) {
-        return new Fraction({n: this.n*f2.d + f2.n*this.d, d: this.d*f2.d});
-    },
-    sub: function(f2) {
-        return new Fraction({n: this.n*f2.d - f2.n*this.d, d: this.d*f2.d});
-    },
-    mul: function(f2) {
-        return new Fraction({n: this.n*f2.n, d: this.d*f2.d});
-    },
-    div: function(f2) {
-        return new Fraction({n: this.n*f2.d, d: this.d*f2.n});
-    },
-    is_zero: function() {
-        return this.n==0;
-    },
-    is_one: function() {
-        return this.n==this.d;
-    },
-    reciprocal: function() {
-        return new Fraction({n:this.d,d:this.n});
-    }
-}
+var Fraction = math.Fraction;
 
 var fraction_matrix = extension.fraction_matrix = function(matrix) {
     var o = matrix.map(function(r){return r.map(function(c){ return c instanceof Fraction ? c : new Fraction(c)})});
@@ -66,7 +13,7 @@ var fraction_matrix = extension.fraction_matrix = function(matrix) {
     return o;
 }
 var unfraction_matrix = extension.unfraction_matrix = function(matrix) {
-    var o = matrix.map(function(r){return r.map(function(c){return c.n/c.d})});
+    var o = matrix.map(function(r){return r.map(function(c){return c.numerator/c.denominator})});
     o.rows = matrix.rows;
     o.columns = matrix.columns;
     return o;
@@ -141,12 +88,12 @@ var row_echelon_form = function(matrix) {
             // multiply this row so the leader column has a 1 in it
             var leader = matrix[current_row][leader_column];
             if(!leader.is_one()) {
-                matrix[current_row] = matrix[current_row].map(function(c){ return c.div(leader)});
+                matrix[current_row] = matrix[current_row].map(function(c){ return c.divide(leader)});
                 log("Divide row "+(current_row+1)+" by \\("+leader+"\\), so that the first non-zero entry is \\(1\\).",true, {determinant_scale:leader.reciprocal()});
             }
 
             // subtract multiples of this row from every other row so they all have a zero in this column
-            var sub = function(a,b){ return a.sub(b); };
+            var sub = function(a,b){ return a.subtract(b); };
             var add = function(a,b){ return a.add(b); };
             for(var row=current_row+1;row<rows;row++) {
                 if(row!=current_row && !matrix[row][leader_column].is_zero()) {
@@ -157,7 +104,7 @@ var row_echelon_form = function(matrix) {
                         op = add;
                     }
                     matrix[row] = matrix[row].map(function(c,i) { 
-                        var res = op(c,matrix[current_row][i].mul(scale));
+                        var res = op(c,matrix[current_row][i].multiply(scale));
                         return res;
                     });
                     var mop = op==sub ? "Subtract" : "Add";
@@ -200,7 +147,7 @@ var reduced_row_echelon_form = function(matrix) {
 
     var log = logger(operations,matrix);
 
-    var sub = function(a,b){ return a.sub(b); };
+    var sub = function(a,b){ return a.subtract(b); };
     var add = function(a,b){ return a.add(b); };
 
     for(var row=0;row<rows;row++) {
@@ -220,7 +167,7 @@ var reduced_row_echelon_form = function(matrix) {
                         scale = new Fraction({n:-scale.n, d:scale.d});
                     }
                     matrix[vrow] = matrix[vrow].map(function(c,i) { 
-                        return op(c,matrix[row][i].mul(scale));
+                        return op(c,matrix[row][i].multiply(scale));
                     });
 
                     var mop = op==sub ? "subtract" : "add";
@@ -442,7 +389,7 @@ scope.addFunction(new funcObj('row_echelon_form',[TMatrix],TMatrix,function(matr
     var res = row_echelon_form(matrix);
     var omatrix = unfraction_matrix(res.matrix);
     return omatrix;
-}));
+}, {random: false}));
 
 function show_steps(steps,describe_determinant) {
     var ops = element('ul');
@@ -457,7 +404,7 @@ function show_steps(steps,describe_determinant) {
             var m = new TMatrix(unfraction_matrix(o.matrix));
             li.appendChild(element('span',{},'\\['+jme.display.texify({tok:m},{fractionnumbers:true})+'\\]'));
             if(describe_determinant && o.determinant_scale) {
-                d = d.mul(o.determinant_scale);
+                d = d.multiply(o.determinant_scale);
                 li.appendChild(element('p',{},'The determinant of this matrix is \\('+(Math.abs(d.n)==d.d ? d.n<0 ? '-' : '' : d.toLaTeX())+' d\\).'));
             }
         }
@@ -470,13 +417,13 @@ scope.addFunction(new funcObj('row_echelon_form_display',[TMatrix],THTML,functio
     matrix = fraction_matrix(matrix);
     var res = row_echelon_form(matrix);
     return show_steps(res.operations);
-},{unwrapValues:true}));
+},{unwrapValues:true, random: false}));
 
 scope.addFunction(new funcObj('row_echelon_form_display_determinant',[TMatrix],THTML,function(matrix) {
     matrix = fraction_matrix(matrix);
     var res = row_echelon_form(matrix);
     return show_steps(res.operations,true);
-},{unwrapValues:true}));
+},{unwrapValues:true, random: false}));
 
 scope.addFunction(new funcObj('is_row_echelon_form',[TMatrix],TBool,function(matrix) {
     matrix = fraction_matrix(matrix);
@@ -485,7 +432,7 @@ scope.addFunction(new funcObj('is_row_echelon_form',[TMatrix],TBool,function(mat
     } catch(e) {
         return false;
     }
-}));
+}, {random: false}));
 
 scope.addFunction(new funcObj('describe_why_row_echelon_form',[TMatrix],TString,function(matrix) {
     matrix = fraction_matrix(matrix);
@@ -495,20 +442,20 @@ scope.addFunction(new funcObj('describe_why_row_echelon_form',[TMatrix],TString,
     } catch(e) {
         return e.message;
     }
-}));
+}, {random: false}));
 
 scope.addFunction(new funcObj('reduced_row_echelon_form',[TMatrix],TMatrix,function(matrix) {
     matrix = fraction_matrix(matrix);
     var res = reduced_row_echelon_form(matrix);
     var omatrix = unfraction_matrix(res.matrix);
     return omatrix;
-}));
+}, {random: false}));
 
 scope.addFunction(new funcObj('reduced_row_echelon_form_display',[TMatrix],THTML,function(matrix) {
     matrix = fraction_matrix(matrix);
     var res = reduced_row_echelon_form(matrix);
     return show_steps(res.operations);
-},{unwrapValues:true}));
+},{unwrapValues:true, random: false}));
 
 scope.addFunction(new funcObj('is_reduced_row_echelon_form',[TMatrix],TBool,function(matrix) {
     matrix = fraction_matrix(matrix);
@@ -517,7 +464,7 @@ scope.addFunction(new funcObj('is_reduced_row_echelon_form',[TMatrix],TBool,func
     } catch(e) {
         return false;
     }
-}));
+}, {random: false}));
 
 scope.addFunction(new funcObj('describe_why_reduced_row_echelon_form',[TMatrix],TString,function(matrix) {
     matrix = fraction_matrix(matrix);
@@ -527,19 +474,19 @@ scope.addFunction(new funcObj('describe_why_reduced_row_echelon_form',[TMatrix],
     } catch(e) {
         return e.message;
     }
-}));
+}, {random: false}));
 
-scope.addFunction(new funcObj('rank',[TMatrix],TNum,extension.rank));
+scope.addFunction(new funcObj('rank',[TMatrix],TNum,extension.rank, {random: false}));
 
-scope.addFunction(new funcObj('is_linearly_independent',[TList],TBool,extension.is_linearly_independent,{unwrapValues:true}));
+scope.addFunction(new funcObj('is_linearly_independent',[TList],TBool,extension.is_linearly_independent,{unwrapValues:true, random: false}));
 
-scope.addFunction(new funcObj('adjoin',[TMatrix,TVector],TMatrix,adjoin,{unwrapValues:true}));
+scope.addFunction(new funcObj('adjoin',[TMatrix,TVector],TMatrix,adjoin,{unwrapValues:true, random: false}));
 
 scope.addFunction(new funcObj('subset_with_dimension',[TList,TNum,TNum],TList,function(vectors,n,d) {
     var out = extension.subset_with_dimension(vectors,n,d);
     return out.map(function(v){return new TVector(v); });
-},{unwrapValues:true}));
+},{unwrapValues:true, random: false}));
 
-scope.addFunction(new funcObj('as_sum_of_basis',[TList,TVector],TList,extension.as_sum_of_basis,{unwrapValues:true}));
+scope.addFunction(new funcObj('as_sum_of_basis',[TList,TVector],TList,extension.as_sum_of_basis,{unwrapValues:true, random: false}));
 
 });

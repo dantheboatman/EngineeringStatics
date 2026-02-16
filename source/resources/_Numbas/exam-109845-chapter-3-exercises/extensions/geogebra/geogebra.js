@@ -130,10 +130,18 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         }
     });
 
+    /** 
+     * @typedef Numbas.extensions.geogebra.applet_container
+     * @property {GGBApplet} app
+     * @property {Element} element
+     * @property {string} id
+     * @property {Object.<boolean>} part_first_change
+     */
+
     /** Inject a GeoGebra applet in the document. Creates a `<div>` element to contain it.
      *
      * @param {Object} options - options for `GGBApplet`.
-     * @returns {Promise} - resolves to an object `{app, el}` - `app` is the GGBApplet object, `el` is the container element.
+     * @returns {Promise.<Numbas.extensions.geogebra.applet_container>}
      */
     var injectApplet = function(options) {
         return containerPromise.promise.then((container) => {
@@ -143,7 +151,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 container.appendChild(element);
                 options.id = 'numbasGGBApplet'+(window.geogebraIdAcc++);
                 options.appletOnLoad = function(api) {
-                    resolve({app: api, element: element, id:options.id});
+                    resolve({app: api, element: element, id: options.id, part_first_change: {}});
                 };
                 applet = new GGBApplet(options, true);
                 applet.inject(element, 'preferHTML5');
@@ -393,6 +401,13 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                                 }
                             },1);
                         })
+
+                        d.element.addEventListener('focusin', e => {
+                            html_part.display.event_handlers.focusin.apply(html_part.display, e);
+                        });
+                        d.element.addEventListener('focusout', e => {
+                            html_part.display.event_handlers.focusout.apply(html_part.display, e);
+                        });
                     });
                 });
                 var check_debounce = Numbas.util.debounce(100);
@@ -400,7 +415,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                     check_debounce(function() {
                         objects.forEach(function(name) {
                             var part = parts[name];
-                            set_part_answer(part,app,name);
+                            set_part_answer(part,d,name);
                         });
                     });
                 }
@@ -442,20 +457,24 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 answer = new TVector([answer.value[0][0], answer.value[1][0]]);
             }
         })();
-        part.storeAnswer(os);
-        part.setStudentAnswer();
-        part.storeAnswer(stagedAnswer);
-        part.setDirty(dirty);
+
+        if(!Numbas.util.objects_equal(os,stagedAnswer)) {
+            part.storeAnswer(os);
+            part.setStudentAnswer();
+            part.storeAnswer(stagedAnswer);
+            part.setDirty(dirty);
+        }
         return answer;
     }
   
     /** Set the student's answer to a part with the value of a GeoGebra object.
      * 
      * @param {Numbas.parts.Part} part
-     * @param {GGBApplet} app
+     * @param {Numbas.extensions.geogebra.applet_container} d
      * @param {string} name - the name of the GeoGebra object
      */
-    function set_part_answer(part,app,name) {
+    function set_part_answer(part,d,name) {
+        const app = d.app;
         if(!app.exists(name)) {
             return;
         }
@@ -496,7 +515,11 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 break;
         }
         if(!Numbas.util.objects_equal(answer,part.stagedAnswer)) {
-            part.storeAnswer(answer);
+            if(!d.part_first_change[part.full_path]) {
+                d.part_first_change[part.full_path] = true;
+            } else {
+                part.storeAnswer(answer);
+            }
         }
         part.display.restoreAnswer(part.stagedAnswer);
     }
@@ -531,6 +554,8 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         replacements = this.replacements = replacements || [];
         parts = this.parts = parts || {};
 
+        /** @type Promise.<Numbas.extensions.geogebra.applet_container>
+         */
         promise = promise
             .then(function() {
                 return loadGGB;
@@ -757,6 +782,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a geogebra.org material ID, or a blank applet with the given width and height.
      */
     extension.scope.addFunction(new funcObj('geogebra_applet', [sig_ggbapplet], TGGBApplet, null, {
+        random: false,
         evaluate: function(args, scope) {
             var match = sig_ggbapplet(args);
 
@@ -809,6 +835,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a base-64 string.
      */
     extension.scope.addFunction(new funcObj('geogebra_base64',[sig_ggbbase64],TGGBApplet,null,{
+        random: false,
         evaluate: function(args,scope) {
             var match = sig_ggbbase64(args);
 
@@ -849,6 +876,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Load a GeoGebra applet from a file. The filename can be relative to `resources/question-resources/`, or absolute.
      */
     extension.scope.addFunction(new funcObj('geogebra_file',[sig_ggbfilename],TGGBApplet, null, {
+        random: false,
         evaluate: function(args,scope) {
             var match = sig_ggbfilename(args);
 
@@ -877,6 +905,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     }));
 
     extension.scope.addFunction(new funcObj('resume_geogebra_applet',['dict','list of dict','dict','string','[dict]'],TGGBApplet, null, {
+        random: false,
         evaluate: function(args,scope) {
             var q = scope.question;
             var options = jme.unwrapValue(args[0]);
@@ -948,6 +977,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Get the value of an object in a GeoGebra applet.
      */
     extension.scope.addFunction(new funcObj('value',[TGGBApplet,TString],'?',null,{
+        random: false,
         evaluate: app_required('value',function(args,scope) {
             var app = args[0].app;
             var name = args[1].value;
@@ -958,6 +988,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
     /** Get the LaTeX string corresponding to an object in a GeoGebra applet.
      */
     extension.scope.addFunction(new funcObj('latex',[TGGBApplet,TString],'?',null,{
+        random: false,
         evaluate: app_required('latex',function(args,scope) {
             var app = args[0].app;
             var name = args[1].value;
@@ -993,6 +1024,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         var ggb_name = def[1];
         var outtype = def[2];
         extension.scope.addFunction(new funcObj(jme_name, [TGGBApplet,TString],outtype,null,{
+            random: false,
             evaluate: app_required(jme_name, function(args,scope) {
                 var app = args[0].app;
                 var name = args[1].value;

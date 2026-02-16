@@ -130,10 +130,18 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         }
     });
 
+    /** 
+     * @typedef Numbas.extensions.geogebra.applet_container
+     * @property {GGBApplet} app
+     * @property {Element} element
+     * @property {string} id
+     * @property {Object.<boolean>} part_first_change
+     */
+
     /** Inject a GeoGebra applet in the document. Creates a `<div>` element to contain it.
      *
      * @param {Object} options - options for `GGBApplet`.
-     * @returns {Promise} - resolves to an object `{app, el}` - `app` is the GGBApplet object, `el` is the container element.
+     * @returns {Promise.<Numbas.extensions.geogebra.applet_container>}
      */
     var injectApplet = function(options) {
         return containerPromise.promise.then((container) => {
@@ -143,7 +151,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 container.appendChild(element);
                 options.id = 'numbasGGBApplet'+(window.geogebraIdAcc++);
                 options.appletOnLoad = function(api) {
-                    resolve({app: api, element: element, id:options.id});
+                    resolve({app: api, element: element, id: options.id, part_first_change: {}});
                 };
                 applet = new GGBApplet(options, true);
                 applet.inject(element, 'preferHTML5');
@@ -393,6 +401,13 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                                 }
                             },1);
                         })
+
+                        d.element.addEventListener('focusin', e => {
+                            html_part.display.event_handlers.focusin.apply(html_part.display, e);
+                        });
+                        d.element.addEventListener('focusout', e => {
+                            html_part.display.event_handlers.focusout.apply(html_part.display, e);
+                        });
                     });
                 });
                 var check_debounce = Numbas.util.debounce(100);
@@ -400,7 +415,7 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                     check_debounce(function() {
                         objects.forEach(function(name) {
                             var part = parts[name];
-                            set_part_answer(part,app,name);
+                            set_part_answer(part,d,name);
                         });
                     });
                 }
@@ -442,20 +457,24 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 answer = new TVector([answer.value[0][0], answer.value[1][0]]);
             }
         })();
-        part.storeAnswer(os);
-        part.setStudentAnswer();
-        part.storeAnswer(stagedAnswer);
-        part.setDirty(dirty);
+
+        if(!Numbas.util.objects_equal(os,stagedAnswer)) {
+            part.storeAnswer(os);
+            part.setStudentAnswer();
+            part.storeAnswer(stagedAnswer);
+            part.setDirty(dirty);
+        }
         return answer;
     }
   
     /** Set the student's answer to a part with the value of a GeoGebra object.
      * 
      * @param {Numbas.parts.Part} part
-     * @param {GGBApplet} app
+     * @param {Numbas.extensions.geogebra.applet_container} d
      * @param {string} name - the name of the GeoGebra object
      */
-    function set_part_answer(part,app,name) {
+    function set_part_answer(part,d,name) {
+        const app = d.app;
         if(!app.exists(name)) {
             return;
         }
@@ -496,7 +515,11 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
                 break;
         }
         if(!Numbas.util.objects_equal(answer,part.stagedAnswer)) {
-            part.storeAnswer(answer);
+            if(!d.part_first_change[part.full_path]) {
+                d.part_first_change[part.full_path] = true;
+            } else {
+                part.storeAnswer(answer);
+            }
         }
         part.display.restoreAnswer(part.stagedAnswer);
     }
@@ -531,6 +554,8 @@ Numbas.addExtension('geogebra',['jme','math','jme-display'],function(extension) 
         replacements = this.replacements = replacements || [];
         parts = this.parts = parts || {};
 
+        /** @type Promise.<Numbas.extensions.geogebra.applet_container>
+         */
         promise = promise
             .then(function() {
                 return loadGGB;
