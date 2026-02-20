@@ -12,8 +12,9 @@
   <!--  Hide answers in examples-->
   <xsl:template match="example/answer"/>
   
-  <!-- Adjust Widths fo Numbas Exercises Include link to web version-->
-  <xsl:template match="interactive[@platform = 'geogebra']" mode="representations">
+
+  <!-- Adjust Widths of Numbas and GGB interactives. Include link to web version-->
+  <xsl:template match="interactive[@platform = 'numbas'] | interactive[@platform = 'geogebra']" mode="representations">
     <xsl:variable name="the-url">
       <xsl:apply-templates select="." mode="static-url"/>
     </xsl:variable>
