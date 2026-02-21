@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<!--
+Copyright 2011-16 Newcastle University
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html lang="en-GB">
+    <head>
+        
+    <title>Find magnitude and direction of three vectors - Numbas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="resources/numbas-icon.png"/>
+
+    <!-- CSS -->
+<style>
+    /* This rule will be overriden in styles.css, so the page content is only shown when the stylesheet has loaded
+    */
+    @layer no-stylesheet {
+        body > #with-stylesheet {
+            display: none;
+        }
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1771097419.826804" />
+    <!-- mathjax stuff -->
+<script>
+/** A fake style element that uses a constructed CSSStyleSheet object
+*/
+class FakeStyleElement {
+    /**
+     * @param {Object.<string>} def - Attributes.
+     * @param {string} styles - CSS styles.
+     */
+    constructor(def, styles) {
+        this.attrib = {};
+        Object.assign(this.attrib, def);
+        this.sheet = new CSSStyleSheet();
+        this.sheet.replaceSync(styles);
+    }
+    setAttribute(name, value) {this.attrib[name] = value}
+    getAttribute(name) {return this.attrib[name]}
+}
+class MathJaxStyleManager {
+    constructor() {
+        this.sheets = new Map();
+        this.roots = [document];
+    }
+    /**
+     * @param {StyleElement} style
+     */
+    add_sheet(style) {
+        this.sheets.set(style.id, style.sheet);
+        this.update();
+    }
+    /**
+     * @param {ShadowRoot|Document} root
+     */
+    register(root) {
+        this.roots.push(root);
+        this.update();
+    }
+
+    update() {
+        const SHEETS = Array.from(this.sheets.values());
+        document.adoptedStyleSheets = SHEETS;
+
+        for(let root of this.roots) {
+            root.adoptedStyleSheets = SHEETS;
+        }
+    }
+}
+MathJax = {
+    style_manager: new MathJaxStyleManager(),
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        packages: {'[+]': ['numbas','texhtml']},
+        allowTexHTML: true
+    },
+    loader: {
+        load: ['[numbas]/numbas-mathjax.js?build_time=1771097419.826804', '[tex]/texhtml'],
+        paths: {numbas: './scripts/standalone_scripts'},
+        versionWarnings: false
+    },
+    startup: {
+        ready() {
+            /** 
+                Constructed stylesheet adaptor code by Davide Cervone, 2026.
+
+                To register an element's shadow root, call `MathJax.config.style_manager.register(element.shadowRoot)`.
+            */
+
+
+            /* Custom HTMLAdaptor to use constructed stylesheets instead of a `<style>` tags. */
+            const {HTMLAdaptor} = MathJax._.adaptors.HTMLAdaptor;
+            Object.assign(HTMLAdaptor.prototype, {
+                // Make node() create FakeStyleElement objects rather than HTMLStyleElement objects.
+                _node_: HTMLAdaptor.prototype.node,
+                node(kind, def = {}, children = [], ns) {
+                    if (kind === 'style' && def.id) return new FakeStyleElement(def, children[0]?.textContent ?? '');
+                    return this._node_(kind, def, children, ns);
+                },
+                // When a stylesheet is appended, add it to the style manager, which will update all registered roots to adopt it.
+                _append_: HTMLAdaptor.prototype.append,
+                append(node, child) {
+                    if (child instanceof FakeStyleElement) {
+                        MathJax.config.style_manager.add_sheet(child);
+                        return;
+                    }
+                    return this._append_(node, child);
+                },
+            });
+            // Modify AbstractRegion and LiveRegion to handle FakeStyleElement stylesheets
+            const {AbstractRegion, LiveRegion} = MathJax._.a11y.explorer.Region;
+            AbstractRegion.prototype.AddStyles = function () {
+                const adaptor = this.document.adaptor;
+                if (!this.CLASS.style || this.styleSheet) return;
+                const id = this.CLASS.sheetId;
+                const node = adaptor.node('style', {id}, [adaptor.text(this.CLASS.style.cssText)]);
+                this.CLASS._sheet = node;
+                adaptor.append(adaptor.head, node);
+            }
+            Object.defineProperty(LiveRegion, 'styleSheet', {get() {return this._sheet}});
+            // Handle the DraggableDialog stylesheet
+            const {DraggableDialog} = MathJax._.ui.dialog.DraggableDialog;
+            const {StyleJsonSheet} = MathJax._.util.StyleJson;
+            DraggableDialog.prototype.init = function (adaptor) {
+                const CLASS = this.constructor;
+                if (!sheets.has(CLASS.styleId)) {
+                    const style = adaptor.node(
+                        'style', { id: CLASS.styleId },
+                        [adaptor.text(new StyleJsonSheet(CLASS.styles).cssText)]
+                    );
+                    adaptor.append(adaptor.head(), style);
+                }
+            }
+
+            MathJax.startup.defaultReady();
+
+            // Grab the Menu stylesheet and recreate it as a FakeStyleElement object
+            // (we can't override the mj-context-menu methods, unfortunately).
+            const adaptor = MathJax.startup.adaptor;
+            const menu = document.head.querySelector('#MJX-Menu-styles');
+            const mstyle = adaptor.node('style', {id: menu.id}, [adaptor.text(menu.textContent)]);
+            menu.remove();
+            adaptor.append(adaptor.head(), mstyle);
+        }
+
+    }
+};
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+
+<!-- numbas stuff -->
+<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1771097419.826804" charset="utf-8"></script>
+
+<script>
+    Numbas.queueScript('go',['start-exam'], function() {
+        Numbas.locale.set_preferred_locale('en-GB');
+    });
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', Numbas.checkAllScriptsLoaded);
+    } else {
+        Numbas.checkAllScriptsLoaded();
+    }
+    Numbas.get_exam_init_data = function() {
+        return {
+            source: "// Numbas version: finer_feedback_settings\n{\"name\": \"Find magnitude and direction of three vectors\", \"extensions\": [\"geogebra\", \"quantities\"], \"custom_part_types\": [{\"source\": {\"pk\": 12, \"author\": {\"name\": \"William Haynes\", \"pk\": 2530}, \"edit_page\": \"/part_type/12/edit\"}, \"name\": \"Angle quantity 2020\", \"short_name\": \"angle\", \"description\": \"\u003cp\u003eAdjusts all angles to 0 \u0026lt; $\\\\theta$ \u0026lt; 360.\u003c/p\u003e\\n\u003cp\u003eAccepts \u0027\u0026deg;\u0027 and \u0027deg\u0027 as units.\u003c/p\u003e\\n\u003cp\u003ePenalizes if not close enough or no units.\u003c/p\u003e\\n\u003cp\u003e90\u0026deg; = -270\u0026deg; = 450\u0026deg;\u003c/p\u003e\", \"help_url\": \"\", \"input_widget\": \"string\", \"input_options\": {\"correctAnswer\": \"plain_string(settings[\u0027expected_answer\u0027]) \", \"hint\": {\"static\": true, \"value\": \"\"}, \"allowEmpty\": {\"static\": true, \"value\": false}}, \"can_be_gap\": true, \"can_be_step\": true, \"marking_script\": \"original_student_scalar:\\nmatchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[1]\\n\\nstudent_scalar:\\nmod(original_student_scalar,360)\\n\\n\\nstudent_unit:\\nstudentAnswer[len(matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer)]\\n\\ninterpreted_unit:\\nif(trim(student_unit)=\u0027\\u00b0\u0027,\u0027deg\u0027,student_unit)\\n\\ninterpreted_answer:\\nqty(mod(student_scalar,360),\u0027deg\u0027)\\n\\nclose:\\nwithintolerance(student_scalar, correct_scalar,decimal(settings[\u0027close_tol\u0027]))\\n\\ncorrect_scalar:\\nmod(scalar(settings[\u0027expected_answer\u0027]),360)\\n\\nright:\\nwithintolerance(student_scalar, correct_scalar, decimal(settings[\u0027right_tol\u0027]))\\n\\ngood_unit:\\nsame(qty(1,interpreted_unit),qty(1,\u0027deg\u0027))\\n\\nmark:\\nassert(close,incorrect(\u0027Incorrect.\u0027);end());\\nif(right,correct(\u0027Correct angle.\u0027), set_credit(1 - settings[\u0027close_penalty\u0027],\u0027Angle is close.\u0027));\\nassert(good_unit,sub_credit(settings[\u0027unit_penalty\u0027], \u0027Missing or incorrect units.\u0027))\", \"marking_notes\": [{\"name\": \"original_student_scalar\", \"description\": \"\u003cp\u003eRetuns the scalar part of students answer (which is a quantity) as a number.\u003c/p\u003e\", \"definition\": \"matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[1]\"}, {\"name\": \"student_scalar\", \"description\": \"\u003cp\u003eNormalize angle with mod 360\u003c/p\u003e\", \"definition\": \"mod(original_student_scalar,360)\\n\"}, {\"name\": \"student_unit\", \"description\": \"\u003cp\u003ematchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0] is a string \\\"12.34\\\"\u003c/p\u003e\", \"definition\": \"studentAnswer[len(matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer)]\"}, {\"name\": \"interpreted_unit\", \"description\": \"\u003cp\u003eAllows student to use degree symbol or \u0027deg\u0027 for units.\u003c/p\u003e\", \"definition\": \"if(trim(student_unit)=\u0027\\u00b0\u0027,\u0027deg\u0027,student_unit)\"}, {\"name\": \"interpreted_answer\", \"description\": \"A value representing the student\u0027s answer to this part.\", \"definition\": \"qty(mod(student_scalar,360),\u0027deg\u0027)\"}, {\"name\": \"close\", \"description\": \"\", \"definition\": \"withintolerance(student_scalar, correct_scalar,decimal(settings[\u0027close_tol\u0027]))\"}, {\"name\": \"correct_scalar\", \"description\": \"\u003cp\u003eNormalize expected_answer with mod 360\u003c/p\u003e\", \"definition\": \"mod(scalar(settings[\u0027expected_answer\u0027]),360)\"}, {\"name\": \"right\", \"description\": \"\", \"definition\": \"withintolerance(student_scalar, correct_scalar, decimal(settings[\u0027right_tol\u0027]))\"}, {\"name\": \"good_unit\", \"description\": \"\", \"definition\": \"same(qty(1,interpreted_unit),qty(1,\u0027deg\u0027))\"}, {\"name\": \"mark\", \"description\": \"This is the main marking note. It should award credit and provide feedback based on the student\u0027s answer.\", \"definition\": \"assert(close,incorrect(\u0027Incorrect.\u0027);end());\\nif(right,correct(\u0027Correct angle.\u0027), set_credit(1 - settings[\u0027close_penalty\u0027],\u0027Angle is close.\u0027));\\nassert(good_unit,sub_credit(settings[\u0027unit_penalty\u0027], \u0027Missing or incorrect units.\u0027))\"}], \"settings\": [{\"name\": \"expected_answer\", \"label\": \"Expected Answer\", \"help_url\": \"\", \"hint\": \"Expected angle as a quantity.\", \"input_type\": \"code\", \"default_value\": \"qty(30,\u0027deg\u0027)\", \"evaluate\": true}, {\"name\": \"unit_penalty\", \"label\": \"Unit penalty\", \"help_url\": \"\", \"hint\": \"Penalty for not including degree sign or \u0027deg\u0027.\", \"input_type\": \"percent\", \"default_value\": \"20\"}, {\"name\": \"close_penalty\", \"label\": \"Close Penalty\", \"help_url\": \"\", \"hint\": \"Penalty for close answer.\", \"input_type\": \"percent\", \"default_value\": \"20\"}, {\"name\": \"close_tol\", \"label\": \"Close\", \"help_url\": \"\", \"hint\": \"Angle must be $\\\\pm$ this many degrees to be marked close. \u0026nbsp;\u0026nbsp;\", \"input_type\": \"code\", \"default_value\": \"0.5\", \"evaluate\": false}, {\"name\": \"right_tol\", \"label\": \"Right \", \"help_url\": \"\", \"hint\": \"Angle must be $\\\\pm$ this many degrees to be marked correct. \u0026nbsp;\", \"input_type\": \"code\", \"default_value\": \"0.1\", \"evaluate\": false}], \"public_availability\": \"restricted\", \"published\": false, \"extensions\": [\"quantities\"]}, {\"source\": {\"pk\": 19, \"author\": {\"name\": \"William Haynes\", \"pk\": 2530}, \"edit_page\": \"/part_type/19/edit\"}, \"name\": \"Engineering Accuracy with units\", \"short_name\": \"engineering-answer\", \"description\": \"\u003cp\u003eA value with units marked right if within an adjustable % error of the correct value. \u0026nbsp;Marked close if within a wider margin of error.\u003c/p\u003e\", \"help_url\": \"\", \"input_widget\": \"string\", \"input_options\": {\"correctAnswer\": \"siground(settings[\u0027correctAnswer\u0027],4)\", \"hint\": {\"static\": true, \"value\": \"\"}, \"allowEmpty\": {\"static\": true, \"value\": true}}, \"can_be_gap\": true, \"can_be_step\": true, \"marking_script\": \"mark:\\nswitch( \\n  right and good_units and right_sign, add_credit(1.0,\u0027Correct.\u0027),\\n  right and good_units and not right_sign, add_credit(settings[\u0027C2\u0027],\u0027Wrong sign.\u0027),\\n  right and right_sign and not good_units, add_credit(settings[\u0027C2\u0027],\u0027Correct value, but wrong or missing units.\u0027),\\n  close and good_units, add_credit(settings[\u0027C1\u0027],\u0027Close.\u0027),\\n  close and not good_units, add_credit(settings[\u0027C3\u0027],\u0027Answer is close, but wrong or missing units.\u0027),\\n  incorrect(\u0027Wrong answer.\u0027)\\n)\\n\\ninterpreted_answer:\\nqty(student_scalar, student_units)\\n\\n\\n\\ncorrect_quantity:\\nsettings[\\\"correctAnswer\\\"]\\n\\n\\n\\ncorrect_units:\\nunits(correct_quantity)\\n\\n\\nallowed_notation_styles:\\n[\\\"plain\\\",\\\"en\\\"]\\n\\nmatch_student_number:\\nmatchnumber(studentAnswer,allowed_notation_styles)\\n\\nstudent_scalar:\\nmatch_student_number[1]\\n\\nstudent_units:\\nreplace_regex(\u0027ohms\u0027,\u0027ohm\u0027,\\n  replace_regex(\u0027\\u00b0\u0027, \u0027 deg\u0027,\\n    replace_regex(\u0027-\u0027, \u0027 \u0027 ,\\n      studentAnswer[len(match_student_number[0])..len(studentAnswer)])),\\\"i\\\")\\n\\ngood_units:\\ntry(\\ncompatible(quantity(1, student_units),correct_units),\\nmsg,\\nfeedback(msg);false)\\n\\n\\nstudent_quantity:\\nswitch(not good_units, \\n       student_scalar * correct_units, \\n       not right_sign,\\n       -quantity(student_scalar, student_units),\\n       quantity(student_scalar,student_units)\\n)\\n  \\n\\n\\npercent_error:\\ntry(\\nscalar(abs((correct_quantity - student_quantity)/correct_quantity))*100  \\n,msg,\\nif(student_quantity=correct_quantity,0,100))\\n   \\n\\nright:\\npercent_error \u003c= settings[\u0027right\u0027]\\n\\n\\nclose:\\nright_sign and percent_error \u003c= settings[\u0027close\u0027]\\n\\nright_sign:\\nsign(student_scalar) = sign(correct_quantity)\", \"marking_notes\": [{\"name\": \"mark\", \"description\": \"This is the main marking note. It should award credit and provide feedback based on the student\u0027s answer.\", \"definition\": \"switch( \\n  right and good_units and right_sign, add_credit(1.0,\u0027Correct.\u0027),\\n  right and good_units and not right_sign, add_credit(settings[\u0027C2\u0027],\u0027Wrong sign.\u0027),\\n  right and right_sign and not good_units, add_credit(settings[\u0027C2\u0027],\u0027Correct value, but wrong or missing units.\u0027),\\n  close and good_units, add_credit(settings[\u0027C1\u0027],\u0027Close.\u0027),\\n  close and not good_units, add_credit(settings[\u0027C3\u0027],\u0027Answer is close, but wrong or missing units.\u0027),\\n  incorrect(\u0027Wrong answer.\u0027)\\n)\"}, {\"name\": \"interpreted_answer\", \"description\": \"A value representing the student\u0027s answer to this part.\", \"definition\": \"qty(student_scalar, student_units)\\n\\n\"}, {\"name\": \"correct_quantity\", \"description\": \"\", \"definition\": \"settings[\\\"correctAnswer\\\"]\\n\\n\"}, {\"name\": \"correct_units\", \"description\": \"\", \"definition\": \"units(correct_quantity)\\n\"}, {\"name\": \"allowed_notation_styles\", \"description\": \"\", \"definition\": \"[\\\"plain\\\",\\\"en\\\"]\"}, {\"name\": \"match_student_number\", \"description\": \"\", \"definition\": \"matchnumber(studentAnswer,allowed_notation_styles)\"}, {\"name\": \"student_scalar\", \"description\": \"\", \"definition\": \"match_student_number[1]\"}, {\"name\": \"student_units\", \"description\": \"\u003cp\u003eModify\u0026nbsp;the\u0026nbsp;unit portion of\u0026nbsp;the student\u0027s answer by\u003c/p\u003e\\n\u003cp\u003e1. replacing \\\"ohms\\\" with \\\"ohm\\\" \u0026nbsp;case insensitive\u003c/p\u003e\\n\u003cp\u003e2.\u0026nbsp;replacing \u0027-\u0027\u0026nbsp;with \u0027 \u0027\u0026nbsp;\u003c/p\u003e\\n\u003cp\u003e3. replacing \u0027\u0026deg;\u0027 with \u0027 deg\u0027\u0026nbsp;\u003c/p\u003e\\n\u003cp\u003eto allow answers like 10 ft-lb and 30\u0026deg;\u003c/p\u003e\", \"definition\": \"replace_regex(\u0027ohms\u0027,\u0027ohm\u0027,\\n  replace_regex(\u0027\\u00b0\u0027, \u0027 deg\u0027,\\n    replace_regex(\u0027-\u0027, \u0027 \u0027 ,\\n      studentAnswer[len(match_student_number[0])..len(studentAnswer)])),\\\"i\\\")\"}, {\"name\": \"good_units\", \"description\": \"\", \"definition\": \"try(\\ncompatible(quantity(1, student_units),correct_units),\\nmsg,\\nfeedback(msg);false)\\n\"}, {\"name\": \"student_quantity\", \"description\": \"\u003cp\u003eThis fixes the student answer for two common errors. \u0026nbsp;\u003c/p\u003e\\n\u003cp\u003eIf student_units are wrong\u0026nbsp;\u0026nbsp;- replace with correct units\u003c/p\u003e\\n\u003cp\u003eIf student_scalar has the wrong sign - replace with right sign\u003c/p\u003e\\n\u003cp\u003eIf student makes both errors, only one gets fixed.\u003c/p\u003e\", \"definition\": \"switch(not good_units, \\n       student_scalar * correct_units, \\n       not right_sign,\\n       -quantity(student_scalar, student_units),\\n       quantity(student_scalar,student_units)\\n)\\n  \\n\"}, {\"name\": \"percent_error\", \"description\": \"\", \"definition\": \"try(\\nscalar(abs((correct_quantity - student_quantity)/correct_quantity))*100  \\n,msg,\\nif(student_quantity=correct_quantity,0,100))\\n   \"}, {\"name\": \"right\", \"description\": \"\", \"definition\": \"percent_error \u003c= settings[\u0027right\u0027]\\n\"}, {\"name\": \"close\", \"description\": \"\u003cp\u003eOnly marked close if the student actually has the right sign.\u003c/p\u003e\", \"definition\": \"right_sign and percent_error \u003c= settings[\u0027close\u0027]\"}, {\"name\": \"right_sign\", \"description\": \"\", \"definition\": \"sign(student_scalar) = sign(correct_quantity) \"}], \"settings\": [{\"name\": \"correctAnswer\", \"label\": \"Correct Quantity.\", \"help_url\": \"\", \"hint\": \"The correct answer given as a JME quantity.\", \"input_type\": \"code\", \"default_value\": \"\", \"evaluate\": true}, {\"name\": \"right\", \"label\": \"% Accuracy for right.\", \"help_url\": \"\", \"hint\": \"Question will be considered correct if the scalar part of the student\u0027s answer is within this % of correct value.\", \"input_type\": \"code\", \"default_value\": \"0.2\", \"evaluate\": true}, {\"name\": \"close\", \"label\": \"% Accuracy for close.\", \"help_url\": \"\", \"hint\": \"Question will be considered close if the scalar part of the student\u0027s answer is within this % of correct value.\", \"input_type\": \"code\", \"default_value\": \"1.0\", \"evaluate\": true}, {\"name\": \"C1\", \"label\": \"Close with units.\", \"help_url\": \"\", \"hint\": \"Partial Credit for close value with appropriate units. \u0026nbsp;if correct answer is 100 N and close is \u0026plusmn;1%,\u003cbr /\u003e99 \u0026nbsp;N is accepted.\", \"input_type\": \"percent\", \"default_value\": \"75\"}, {\"name\": \"C2\", \"label\": \"No units or wrong sign\", \"help_url\": \"\", \"hint\": \"Partial credit for forgetting units or using wrong sign.\u003cbr /\u003eIf the correct answer is 100 N, both 100 and -100 N are accepted.\", \"input_type\": \"percent\", \"default_value\": \"50\"}, {\"name\": \"C3\", \"label\": \"Close, no units.\", \"help_url\": \"\", \"hint\": \"Partial Credit for close value but forgotten units.\u003cbr /\u003eThis value would be close\u0026nbsp;if the expected units were provided. \u0026nbsp;If the correct answer is 100 N, and close is \u0026plusmn;1%,\u003cbr /\u003e99 is accepted.\", \"input_type\": \"percent\", \"default_value\": \"25\"}], \"public_availability\": \"always\", \"published\": true, \"extensions\": [\"quantities\"]}], \"resources\": [], \"navigation\": {\"allowregen\": true, \"showfrontpage\": false, \"preventleave\": false, \"typeendtoleave\": false}, \"question_groups\": [{\"pickingStrategy\": \"all-ordered\", \"questions\": [{\"name\": \"Find magnitude and direction of three vectors\", \"tags\": [\"angle from reference\", \"Mechanics\", \"mechanics\", \"Statics\", \"statics\", \"Vector addition\", \"vector addition\", \"Vector Addition\"], \"metadata\": {\"description\": \"\u003cp\u003eGiven three vectors with integer components, find the corresponding magnitude and direction.\u003c/p\u003e\", \"licence\": \"Creative Commons Attribution-NonCommercial 4.0 International\"}, \"statement\": \"\u003cp\u003e\u003cstrong\u003e\u003c/strong\u003eThree forces, ${\\\\color{#cc0000} \\\\mathbf{A}}$, ${\\\\color{#0033cc} \\\\mathbf{B}}$, and ${\\\\color{#006400} \\\\mathbf{C}}$\u0026nbsp;are drawn\u0026nbsp;to scale of 1 square = {scale} {units[1]}. \u0026nbsp;Find the magnitude and direction of each.\u003c/p\u003e\\n\u003ctable style=\\\"margin-left: auto; margin-right: auto;\\\"\u003e\\n\u003ctbody\u003e\\n\u003ctr\u003e\\n\u003ctd\u003e{geogebra_applet(\u0027qdbwtfa9\u0027, [[\u0027fa\u0027,FA],[\u0027fb\u0027,FB],[\u0027fc\u0027,FC]])}\u003c/td\u003e\\n\u003c/tr\u003e\\n\u003c/tbody\u003e\\n\u003c/table\u003e\", \"advice\": \"\u003cp\u003eFor force ${\\\\color{#cc0000} \\\\mathbf{A}}$:\u003c/p\u003e\\n\u003cp\u003e$A = \\\\sqrt{{A_x}^2 + {A_y}^2} = \\\\sqrt{\\\\var{FA[0]}^2 +\\\\var{FA[1]}^2} \\\\times \\\\var{scale}$ {units[1]} per square = {siground(mag_A,4)}\u003c/p\u003e\\n\u003cp\u003e$\\\\theta_A = \\\\tan^{-1}\\\\left(\\\\left|\\\\dfrac{A_y}{A_x}\\\\right|\\\\right) =\u0026nbsp;\\\\tan^{-1}\\\\left(\\\\left|\\\\dfrac{\\\\var{FA[1]}}{\\\\var{FA[0]}}\\\\right|\\\\right) =\\\\var{siground(degrees(arctan(abs(FA[1]/FA[0]))),4)}\u0026deg;$\u003c/p\u003e\\n\u003cp\u003eand similarly for ${\\\\color{#0033cc} \\\\mathbf{B}}$, and ${\\\\color{#006400} \\\\mathbf{C}}$.\u003c/p\u003e\", \"rulesets\": {}, \"extensions\": [\"geogebra\", \"quantities\"], \"builtin_constants\": {\"e\": true, \"pi,\\u03c0\": true, \"i\": true, \"j\": false}, \"constants\": [], \"variables\": {\"FC\": {\"name\": \"FC\", \"group\": \"Inputs\", \"definition\": \"vector(random(-5..5 except 0),random(-5..5 except 0))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"scale\": {\"name\": \"scale\", \"group\": \"Inputs\", \"definition\": \"random(0.1,0.25,0.5,2,4,5,10,20)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"ref\": {\"name\": \"ref\", \"group\": \"Ungrouped variables\", \"definition\": \"0\", \"description\": \"\u003cp\u003eplaceholder for reference axis\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"theta_b\": {\"name\": \"theta_b\", \"group\": \"Outputs\", \"definition\": \"degrees(atan2(FB[1],FB[0]))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"c_from_ref\": {\"name\": \"c_from_ref\", \"group\": \"Ungrouped variables\", \"definition\": \"let(ang,theta_c,\\n[if(ang\u003e180,ang-360,ang),\\nif(ang\u003e270,ang-450,if(ang \u003c -90,ang+270,ang-90)),\\nif(ang\u003e0,ang-180,ang+180),\\nif(ang\u003e90,ang-270,90+ang)])\\n\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"theta_a\": {\"name\": \"theta_a\", \"group\": \"Outputs\", \"definition\": \"mod(degrees(atan2(FA[1],FA[0])),360)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"C1\": {\"name\": \"C1\", \"group\": \"Inputs\", \"definition\": \"vector(5,0)\\n\", \"description\": \"\u003cp\u003ePosition of point C\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"b_from_ref\": {\"name\": \"b_from_ref\", \"group\": \"Ungrouped variables\", \"definition\": \"let(ang,theta_b,\\n[if(ang\u003e180,ang-360,ang),\\nif(ang\u003e270,ang-450,if(ang \u003c -90,ang+270,ang-90)),\\nif(ang\u003e0,ang-180,ang+180),\\nif(ang\u003e90,ang-270,90+ang)])\\n\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"A1\": {\"name\": \"A1\", \"group\": \"Inputs\", \"definition\": \"vector(-5,0)\", \"description\": \"\u003cp\u003ePosition of point A \u0026nbsp;(start point for force A) \u0026nbsp;fixed in this problem\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"mag_c\": {\"name\": \"mag_c\", \"group\": \"Outputs\", \"definition\": \"qty(abs(FC),units[1]) scale\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"mag_a\": {\"name\": \"mag_a\", \"group\": \"Outputs\", \"definition\": \"qty(abs(FA),units[1]) scale\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"debug\": {\"name\": \"debug\", \"group\": \"Inputs\", \"definition\": \"false\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"theta_c\": {\"name\": \"theta_c\", \"group\": \"Outputs\", \"definition\": \"degrees(atan2(FC[1],FC[0]))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"a_from_ref\": {\"name\": \"a_from_ref\", \"group\": \"Ungrouped variables\", \"definition\": \"let(ang,theta_a,\\n[if(ang\u003e180,ang-360,ang),\\nif(ang\u003e270,ang-450,if(ang \u003c -90,ang+270,ang-90)),\\nif(ang\u003e0,ang-180,ang+180),\\nif(ang\u003e90,ang-270,90+ang)])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"units\": {\"name\": \"units\", \"group\": \"Inputs\", \"definition\": \"random([\u0027ft\u0027,\u0027lb\u0027],[\u0027in\u0027,\u0027lb\u0027],[\u0027cm\u0027,\u0027N\u0027])\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"FA\": {\"name\": \"FA\", \"group\": \"Inputs\", \"definition\": \"vector(random(-5..5 except 0),random(-5..5))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"FB\": {\"name\": \"FB\", \"group\": \"Inputs\", \"definition\": \"vector(random(-5..5),random(-5..5 except 0))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"mag_b\": {\"name\": \"mag_b\", \"group\": \"Outputs\", \"definition\": \"qty(abs(FB),units[1]) scale\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"B1\": {\"name\": \"B1\", \"group\": \"Inputs\", \"definition\": \"vector(0,0)\\n\", \"description\": \"\u003cp\u003ePosition of point B\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}}, \"variablesTest\": {\"condition\": \"abs(FA)\u003e=3 and abs(FB)\u003e=3 and abs(FC)\u003e=3\", \"maxRuns\": \"100\"}, \"ungrouped_variables\": [\"a_from_ref\", \"b_from_ref\", \"c_from_ref\", \"ref\"], \"variable_groups\": [{\"name\": \"Inputs\", \"variables\": [\"A1\", \"FA\", \"B1\", \"FB\", \"C1\", \"FC\", \"units\", \"debug\", \"scale\"]}, {\"name\": \"Outputs\", \"variables\": [\"mag_a\", \"theta_a\", \"mag_b\", \"theta_b\", \"mag_c\", \"theta_c\"]}], \"functions\": {}, \"preamble\": {\"js\": \"\", \"css\": \"\"}, \"parts\": [{\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"$\\\\mathbf{A}$\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"interpreted_angle:  // a qty string corrected to standard angle\\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\\n\\nmagnitude:\\n  studentAnswer[3]\\n\\nstudent_angle:\\n  [mod(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[1],360), // angle\\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\\n\\nstudent_units:\\n  studentAnswer[0][len(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer[0])]\\n\\ninterpreted_answers:\\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\\n\\ngap_feedback (Feedback on each of the gaps):\\n    map(\\n        try(\\n            let(\\n                result, submit_part(gaps[gap_number][\\\"path\\\"],answer),\\n                gap, gaps[gap_number],\\n                name, gap[\\\"name\\\"],  \\n                noFeedbackIcon, not gap[\\\"settings\\\"][\\\"showFeedbackIcon\\\"],\\n                assert(name=\\\"\\\" or len(gaps)=1,feedback(translate(\u0027part.gapfill.feedback header\u0027,[\\\"name\\\": name])));\\n                concat_feedback(filter(x[\\\"op\\\"]\u003c\u003e\\\"warning\\\",x,result[\\\"feedback\\\"]), if(marks\u003e0,result[\\\"marks\\\"]/marks,1), noFeedbackIcon);\\n                    result\\n            ),\\n            err,\\n            fail(translate(\\\"part.gapfill.error marking gap\\\",[\\\"name\\\": gaps[gap_number][\\\"name\\\"], \\\"message\\\": err]))\\n        ),\\n        [gap_number,answer,index],\\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\\n    )\\n\\n\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp style=\\\"padding-left: 40px;\\\"\u003e$A$\u0026nbsp;=\u0026nbsp;[[3]]\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e\u0026nbsp;$\\\\theta_A$ =\u0026nbsp;[[0]]\u0026nbsp;measured [[1]]\u0026nbsp;from the\u0026nbsp;\u0026nbsp;[[2]].\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003emagnitude\u0026nbsp;= {siground(mag_A,4)} \u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003edirection={theta_A}\u0026nbsp;\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"angle\", \"useCustomName\": true, \"customName\": \"angle\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"expected_answer\": \"precround(qty(theta_a,\u0027deg\u0027),1)\", \"unit_penalty\": \"20\", \"close_penalty\": \"20\", \"close_tol\": \"0.5\", \"right_tol\": \"0.2\"}}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"dir\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"CCW\", \"CW\"], \"matrix\": [0, 0], \"distractors\": [\"\", \"\"]}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"ref\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"+x axis\", \"+y axis\", \"-x axis\", \"-y axis\"], \"matrix\": [0, 0, 0, 0], \"distractors\": [\"\", \"\", \"\", \"\"]}, {\"type\": \"engineering-answer\", \"useCustomName\": true, \"customName\": \"Magnitude\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"correctAnswer\": \"mag_A\", \"right\": \"0.2\", \"close\": \"1.0\", \"C1\": \"75\", \"C2\": \"50\", \"C3\": \"25\"}}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"$\\\\mathbf{B}$\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"interpreted_angle:  // a qty string corrected to standard angle\\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\\n\\nmagnitude:\\n  studentAnswer[3]\\n\\nstudent_angle:\\n  [mod(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[1],360), // angle\\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\\n\\nstudent_units:\\n  studentAnswer[0][len(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer[0])]\\n\\ninterpreted_answers:\\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\\n\\ngap_feedback (Feedback on each of the gaps):\\n    map(\\n        try(\\n            let(\\n                result, submit_part(gaps[gap_number][\\\"path\\\"],answer),\\n                gap, gaps[gap_number],\\n                name, gap[\\\"name\\\"],  \\n                noFeedbackIcon, not gap[\\\"settings\\\"][\\\"showFeedbackIcon\\\"],\\n                assert(name=\\\"\\\" or len(gaps)=1,feedback(translate(\u0027part.gapfill.feedback header\u0027,[\\\"name\\\": name])));\\n                concat_feedback(filter(x[\\\"op\\\"]\u003c\u003e\\\"warning\\\",x,result[\\\"feedback\\\"]), if(marks\u003e0,result[\\\"marks\\\"]/marks,1), noFeedbackIcon);\\n                    result\\n            ),\\n            err,\\n            fail(translate(\\\"part.gapfill.error marking gap\\\",[\\\"name\\\": gaps[gap_number][\\\"name\\\"], \\\"message\\\": err]))\\n        ),\\n        [gap_number,answer,index],\\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\\n    )\\n\\n\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp style=\\\"padding-left: 40px;\\\"\u003e$B$\u0026nbsp;=\u0026nbsp;[[3]]\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\theta_B$ =\u0026nbsp;[[0]]\u0026nbsp;measured [[1]]\u0026nbsp;from the\u0026nbsp;[[2]].\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003emagnitude\u0026nbsp;= {siground(mag_B,4)} \u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003edirection={theta_B}\u0026nbsp;\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"angle\", \"useCustomName\": true, \"customName\": \"angle\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"expected_answer\": \"precround(qty(theta_b,\u0027deg\u0027),1)\", \"unit_penalty\": \"20\", \"close_penalty\": \"20\", \"close_tol\": \"0.5\", \"right_tol\": \"0.2\"}}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"dir\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"CCW\", \"CW\"], \"matrix\": [0, 0], \"distractors\": [\"\", \"\"]}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"ref\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"+x axis\", \"+y axis\", \"-x axis\", \"-y axis\"], \"matrix\": [0, 0, 0, 0], \"distractors\": [\"\", \"\", \"\", \"\"]}, {\"type\": \"engineering-answer\", \"useCustomName\": true, \"customName\": \"Magnitude\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"correctAnswer\": \"mag_B\", \"right\": \"0.2\", \"close\": \"1.0\", \"C1\": \"75\", \"C2\": \"50\", \"C3\": \"25\"}}], \"sortAnswers\": false}, {\"type\": \"gapfill\", \"useCustomName\": true, \"customName\": \"$\\\\mathbf{C}$\\u00a0\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"interpreted_angle:  // a qty string corrected to standard angle\\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\\n\\nmagnitude:\\n  studentAnswer[3]\\n\\nstudent_angle:\\n  [mod(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[1],360), // angle\\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\\n\\nstudent_units:\\n  studentAnswer[0][len(matchnumber(studentAnswer[0],[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer[0])]\\n\\ninterpreted_answers:\\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\\n\\ngap_feedback (Feedback on each of the gaps):\\n    map(\\n        try(\\n            let(\\n                result, submit_part(gaps[gap_number][\\\"path\\\"],answer),\\n                gap, gaps[gap_number],\\n                name, gap[\\\"name\\\"],  \\n                noFeedbackIcon, not gap[\\\"settings\\\"][\\\"showFeedbackIcon\\\"],\\n                assert(name=\\\"\\\" or len(gaps)=1,feedback(translate(\u0027part.gapfill.feedback header\u0027,[\\\"name\\\": name])));\\n                concat_feedback(filter(x[\\\"op\\\"]\u003c\u003e\\\"warning\\\",x,result[\\\"feedback\\\"]), if(marks\u003e0,result[\\\"marks\\\"]/marks,1), noFeedbackIcon);\\n                    result\\n            ),\\n            err,\\n            fail(translate(\\\"part.gapfill.error marking gap\\\",[\\\"name\\\": gaps[gap_number][\\\"name\\\"], \\\"message\\\": err]))\\n        ),\\n        [gap_number,answer,index],\\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\\n    )\\n\\n\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp style=\\\"padding-left: 40px;\\\"\u003e$C$\u0026nbsp;=\u0026nbsp;[[3]]\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e\u0026nbsp;$\\\\theta_C$ =\u0026nbsp;[[0]]\u0026nbsp;measured [[1]]\u0026nbsp;from the\u0026nbsp;\u0026nbsp;[[2]].\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003emagnitude\u0026nbsp;= {siground(mag_C,4)} \u003c/span\u003e\u003c/p\u003e\\n\u003cp\u003e\u003cspan data-jme-visible=\\\"debug\\\"\u003edirection={theta_C} {C_from_ref}\u0026nbsp;\u003c/span\u003e\u003c/p\u003e\", \"gaps\": [{\"type\": \"angle\", \"useCustomName\": true, \"customName\": \"angle\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"expected_answer\": \"precround(qty(theta_c,\u0027deg\u0027),1)\", \"unit_penalty\": \"20\", \"close_penalty\": \"20\", \"close_tol\": \"0.5\", \"right_tol\": \"0.2\"}}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"dir\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"CCW\", \"CW\"], \"matrix\": [0, 0], \"distractors\": [\"\", \"\"]}, {\"type\": \"1_n_2\", \"useCustomName\": true, \"customName\": \"ref\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": false, \"showFeedbackIcon\": false, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"minMarks\": 0, \"maxMarks\": 0, \"shuffleChoices\": false, \"displayType\": \"dropdownlist\", \"displayColumns\": 0, \"showBlankOption\": true, \"showCellAnswerState\": true, \"choices\": [\"+x axis\", \"+y axis\", \"-x axis\", \"-y axis\"], \"matrix\": [0, 0, 0, 0], \"distractors\": [\"\", \"\", \"\", \"\"]}, {\"type\": \"engineering-answer\", \"useCustomName\": true, \"customName\": \"Magnitude\", \"marks\": \"10\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"settings\": {\"correctAnswer\": \"mag_C\", \"right\": \"0.2\", \"close\": \"1.0\", \"C1\": \"75\", \"C2\": \"50\", \"C3\": \"25\"}}], \"sortAnswers\": false}], \"partsMode\": \"all\", \"maxMarks\": 0, \"objectives\": [], \"penalties\": [], \"objectiveVisibility\": \"always\", \"penaltyVisibility\": \"always\", \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}], \"resources\": []}]}], \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}]}",
+            extension_data: "{\"geogebra\": {\"root\": \"extensions/geogebra\", \"stylesheets\": [], \"javascripts\": [\"geogebra.js\"]}, \"quantities\": {\"root\": \"extensions/quantities\", \"stylesheets\": [], \"javascripts\": [\"quantities.js\"]}}"
+        }
+    }
+</script>
+
+
+
+	</head>
+	
+    <body>
+        <template id="numbas-exam-template">
+    
+    <style id="numbas-style">@import 'numbas.css?build_time=1771097419.826804';</style>
+    
+    <exam-container class="numbas-container" data-bind="with: exam, css: css, attr: attr">
+        <div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+        <!-- modal dialog boxes -->
+<dialog id="saving" data-bind="modal: saving">
+    <div class="text" data-localise="page.saving"></div>
+</dialog>
+<dialog class="modal" id="alert-modal" aria-labelledby="alert-modal-title" aria-describedby="alert-modal-body" data-bind="modal: {submit: $root.modal.ok}">
+    <section>
+        <header>
+            <h2 id="alert-modal-title" data-localise="modal.alert"></h2>
+        </header>
+
+        <div class="modal-body" id="alert-modal-body"></div>
+
+        <footer>
+            <form method="dialog">
+                <button value="ok" autofocus class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+
+<dialog class="modal" id="confirm-modal" aria-labelledby="confirm-modal-title" aria-describedby="confirm-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <section>
+        <header>
+            <h2 id="confirm-modal-title" data-localise="modal.confirm"></h2>
+        </header>
+        <div class="modal-body" id="confirm-modal-body">
+        </div>
+        <footer>
+            <form method="dialog">
+                <button autofocus class="cancel btn" value="cancel" data-localise="modal.cancel"></button>
+                <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+<dialog class="modal" id="confirm-end-exam-modal" aria-labelledby="confirm-end-exam-modal-title" aria-describedby="confirm-end-exam-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <form method="dialog">
+        <header>
+            <h4 id="confirm-end-exam-modal-title" data-localise="modal.confirm"></h4>
+        </header>
+        <div class="modal-body" id="confirm-end-exam-modal-body" data-bind="with: $root.exam">
+            <p id="confirm-end-exam-modal-message"></p>
+            <form class="form-inline" data-bind="submit: $root.modal.ok">
+                <label for="confirm-end-text-input" id="confirm-end-exam-modal-input-message"></label>
+                <input autofocus id="confirm-end-text-input" type="text" data-bind="textInput: confirmEndHandler.value, autosize: confirmEndHandler.value">
+                <span class="password-feedback feedback-icon" data-bind="css: confirmEndHandler.feedback().iconClass, attr: {title: confirmEndHandler.feedback().title}"></span>
+            </form>
+        </div>
+        <footer>
+            <button value="cancel" class="cancel btn" data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-bind="disable: !confirmEndHandler.valid(), css: confirmEndHandler.feedback().buttonClass" data-localise="modal.end exam button"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal force-default-style" id="style-modal" aria-labelledby="style-modal-title" aria-describedby="style-modal-explanation" data-bind="with: $root.style_customiser, modal: {submit: $root.saveStyle}">
+    <form method="dialog">
+        <header>
+            <h4 id="style-modal-title" data-localise="control.style options"></h4>
+        </header>
+
+        
+        <p class="help-block" id="style-modal-explanation" data-localise="modal.style.explanation"></p>
+
+        <p class="help-block warning" data-bind="visible: forced_colors" data-localise="modal.forced colours warning"></p>
+
+        
+        <section class="style-controls">
+            <fieldset>
+                <label for="main-font-picker" data-localise="modal.style.main font"></label>
+                <select id="main-font-picker" data-bind="value: staged_style['--main-font'], options: font_options, optionsText: 'label', optionsValue: 'name'">
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="text-size-picker" data-localise="modal.style.text size"></label>
+                <input id="text-size-picker" type="number" step="0.1" min="0.5" max="4" data-bind="value: staged_style['--text-size']">
+                <output id="text-size-preview" class="big" data-localise="modal.style.text preview"></output>
+            </fieldset>
+            <fieldset>
+                <label for="font-weight-picker" data-localise="modal.style.font weight"></label>
+                <input id="font-weight-picker" type="range" step="100" min="200" max="800" data-bind="value: staged_style['--font-weight'], valueUpdate: 'input'">
+                <output id="font-weight-preview" data-bind="text: staged_style['--font-weight']"></output>
+            </fieldset>
+            <fieldset>
+                <label for="spacing-picker" data-localise="modal.style.spacing"></label>
+                <input id="spacing-picker" type="range" step="0.1" min="0.1" max="3" data-bind="value: staged_style['--spacing-scale'], valueUpdate: 'input'">
+                <output id="spacing-preview" data-bind="percentage: parseFloat(staged_style['--spacing-scale']())"></output>
+            </fieldset>
+            <fieldset>
+                <label for="color-scheme-picker" data-localise="modal.style.colour scheme"></label>
+                <select id="color-scheme-picker" data-bind="value: color_scheme">
+                    <option value="automatic" data-localise="modal.style.automatic colour scheme"></option>
+                    <option value="light" data-localise="modal.style.light colour scheme"></option>
+                    <option value="dark" data-localise="modal.style.dark colour scheme"></option>
+                    <option value="custom" data-localise="modal.style.custom colour scheme"></option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="invert-images" data-localise="modal.style.invert images in dark mode"></label>
+                <input id="invert-images" type="checkbox" data-bind="checked: invert_images">
+            </fieldset>
+        </section>
+
+        <section class="style-controls" data-bind="visible: using_custom_color_scheme">
+            <fieldset>
+                <label for="background-colour-picker" data-localise="modal.style.background colour"></label>
+                <input id="background-colour-picker" type="color" data-bind="value: style['--custom-background-color']">
+            </fieldset>
+            <fieldset>
+                <label for="text-colour-picker" data-localise="modal.style.text colour"></label>
+                <input id="text-colour-picker" type="color" data-bind="value: style['--custom-text-color']">
+            </fieldset>
+            <fieldset>
+                <label for="main-colour-picker" data-localise="modal.style.main colour"></label>
+                <input id="main-colour-picker" type="color" data-bind="value: style['--custom-main-color']">
+            </fieldset>
+            <fieldset>
+                <label for="primary-colour-picker" data-localise="modal.style.primary colour"></label>
+                <input id="primary-colour-picker" type="color" data-bind="value: style['--custom-primary-color']">
+            </fieldset>
+            <fieldset>
+                <label for="link-colour-picker" data-localise="modal.style.link colour"></label>
+                <input id="link-colour-picker" type="color" data-bind="value: style['--custom-link-color']">
+            </fieldset>
+            <fieldset>
+                <label for="success-colour-picker" data-localise="modal.style.success colour"></label>
+                <input id="success-colour-picker" type="color" data-bind="value: style['--custom-success-color']">
+            </fieldset>
+            <fieldset>
+                <label for="info-colour-picker" data-localise="modal.style.info colour"></label>
+                <input id="info-colour-picker" type="color" data-bind="value: style['--custom-info-color']">
+            </fieldset>
+            <fieldset>
+                <label for="warning-colour-picker" data-localise="modal.style.warning colour"></label>
+                <input id="warning-colour-picker" type="color" data-bind="value: style['--custom-warning-color']">
+            </fieldset>
+            <fieldset>
+                <label for="danger-colour-picker" data-localise="modal.style.danger colour"></label>
+                <input id="danger-colour-picker" type="color" data-bind="value: style['--custom-danger-color']">
+            </fieldset>
+            <fieldset>
+                <label for="muted-colour-picker" data-localise="modal.style.muted colour"></label>
+                <input id="muted-colour-picker" type="color" data-bind="value: style['--custom-muted-color']">
+            </fieldset>
+            <fieldset>
+                <label for="highlight-colour-picker" data-localise="modal.style.highlight colour"></label>
+                <input id="highlight-colour-picker" type="color" data-bind="value: style['--custom-highlight-color']">
+            </fieldset>
+        </section>
+
+        
+
+        
+
+        
+        <hr/>
+        <p class="help-block"><a href="https://docs.numbas.org.uk/en/latest/accessibility/exam.html" target="_blank" data-localise="accessibility statement"></a></p>
+        
+
+        <footer>
+            <button type="button" class="btn danger sm" data-localise="modal.style.reset to defaults" data-bind="click: reset"></button>
+            <button class="cancel btn" value="cancel" autofocus data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal" id="next-actions-modal" aria-labelledby="next-actions-modal-title">
+    <form method="dialog" data-bind="with: diagnostic_next_actions">
+        <header>
+            <h4 id="next-actions-modal-title" data-localise="diagnostic.make a choice"></h4>
+        </header>
+        <div data-bind="latex: feedback"></div>
+
+        <menu data-bind="foreach: actions" class="list-unstyled actions">
+            <li>
+                <button type="button" data-bind="click: go"><span data-bind="latex: label"></span></button>
+            </li>
+        </menu>
+    </form>
+</dialog>
+
+<dialog id="lightbox"></dialog>
+        <div id="everything">
+            <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionContainer'}" data-localise="page.skip to content"></a>
+            <div class="question-nav">
+    <!-- side menu -->
+</div>
+
+
+            <!-- main content area - info pages or questions go in here -->
+            <main class="mainDisplay" role="main" data-bind="attr: {'aria-labelledby': main_labelledby}">
+                <div id="infoDisplay" class="main-content" data-bind="visible: infoPage">
+    <div id="frontpage" data-bind="visible: infoPage()=='frontpage', if: infoPage()=='frontpage'">
+        <h1 class="break-words" id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
+<table class="summary">
+    <tbody>
+    <!-- ko if: exam.settings.navigateMode != 'diagnostic' -->
+    <tr>
+        <th data-localise="exam.number of questions"></th>
+        <td class="rtd" data-bind="html: numAssessedQuestions"></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showTotalMark">
+        <th data-localise="exam.marks available"></th>
+        <td class="rtd" data-bind="niceNumber: marks"></td>
+    </tr>
+    <!-- /ko -->
+    <tr data-bind="visible: exam.settings.percentPass>0">
+        <th data-localise="exam.pass percentage"></th>
+        <td class="rtd" data-bind="text: percentPass"></td>
+    </tr>
+    <tr data-bind="visible: duration()>0">
+        <th data-localise="exam.time allowed"></th>
+        <td class="rtd"><time data-bind="duration: duration"></time></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showStudentName && exam.student_name && !needsStudentName">
+        <th data-localise="exam.student name"></th>
+        <td><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="intro" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<div class="alert danger" data-bind="visible: showAttemptDownloadSecurityWarning">
+    <p data-localise="exam.attempt download security warning"></p>
+</div>
+<div id="standalone-warning" class="alert info" data-bind="visible: !Numbas.storage.lmsConnected && !allowAttemptDownload" data-localise="frontpage.scorm.lms not connected"></div>
+
+<form data-bind="submit: beginExam" class="info-buttons">
+    <button class="btn display-options force-original-color" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    <div class="student-name" data-bind="visible: needsStudentName">
+        <label for="begin-exam-student-name" data-localise="exam.enter your name"></label>
+        <input id="begin-exam-student-name" name="begin-exam-student-name" type="text" data-bind="textInput: student_name, autosize: student_name"/>
+    </div>
+    <div class="password" data-bind="visible: needsPassword">
+        <label for="begin-exam-password" data-localise="exam.enter password"></label>
+        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" data-bind="textInput: passwordHandler.value, autosize: passwordHandler.value, css: {'has-errors': passwordHandler.value().length && !passwordHandler.valid(), 'success': passwordHandler.valid()}"/>
+        <span class="password-feedback feedback-icon" data-bind="css: passwordHandler.feedback().iconClass, attr: {title: passwordHandler.feedback().title}"></span>
+    </div>
+    <button class="btn" id="startBtn" type="submit" data-bind="disable: !canBegin(), css: passwordHandler.feedback().buttonClass" data-localise="frontpage.start"></button>
+</form>
+    </div>
+    <div id="menu" data-bind="visible: infoPage()=='menu', if: infoPage()=='menu'">
+        <h1 id="infopage-menu-header" class="break-words" data-bind="html: exam.settings.name"></h1>
+
+<div class="intro" class="alert" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<nav id="question-chooser">
+    <table class="table questionSelector">
+        <colgroup>
+            <col class="question">
+            <col class="score">
+            <col class="icon">
+        </colgroup>
+        <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $parent.showQuestionGroupNames -->
+            <tr>
+                <th data-bind="visible: $parent.question_groups.length>1">
+                    <span data-bind="latex: name"></span>
+                </th>
+                <th class="messages">
+                    <span class="score" data-bind="html: feedback.plainMessage"></span>
+                </th>
+                <th class="icon">
+                    <span class="feedback-icon" data-bind="css: feedback.iconClass, attr: feedback.iconAttr" aria-hidden="true"></span>
+                </th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="" role="button" data-bind="click: Numbas.controls.makeQuestionJumper(question.number, question.exam), attr: {'aria-labelledby': question.path+'-menu-name'}">
+                <td class="info">
+                    <button class="btn link" type="button" class="name" data-bind="latex: displayName, attr: {id: question.path+'-menu-name'}"></button>
+                </td>
+                <td class="messages">
+                    <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
+                    <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                    <div class="answered-state" data-bind="">
+                        <span data-bind="text: scoreFeedback.attemptedString"></span>
+                    </div>
+                    <div data-bind="visible: isDirty" class="dirty-message">
+                        <span class="warning-icon icon-exclamation-sign"></span>
+                        <span data-localise="question.selector.unsubmitted changes"></span>
+                    </div>
+                </td>
+                <td class="icon">
+                    <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr" aria-hidden="true"></span>
+                </td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        </tbody>
+    </table>
+</nav>
+
+<menu class="nav navmenu-nav menuButtons">
+    <li><button class="btn thin-button" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button></li>
+    <li><button class="btn danger thin-button" id="endBtn" data-localise="control.end exam" data-bind="click: endExam"></button></li>
+</menu>
+    </div>
+    <div id="introduction" data-bind="visible: infoPage()=='introduction', if: infoPage()=='introduction'">
+        <h1 id="infopage-introduction-header" data-localise="exam.introduction"></h1>
+<div data-bind="latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+    </div>
+    <div id="suspend" data-bind="visible: infoPage()=='paused' || infoPage()=='resumed', if: infoPage()=='paused' || infoPage()=='resumed'">
+        <h1 id="infopage-suspend-header">
+    <span data-bind="visible: infoPage()=='paused'" data-localise="suspend.paused header" ></span>
+    <span data-bind="visible: infoPage()=='resumed'" data-localise="suspend.resumed header" ></span>
+</h1>
+<p data-localise="suspend.exam suspended"></p>
+<p data-localise="suspend.you can resume"></p>
+<button class="btn primary" id="resumeBtn" data-bind="click: resumeExam" data-localise="suspend.resume"></button>
+    </div>
+    <div id="results" data-bind="visible: infoPage()=='result', if: infoPage()=='result'">
+        <header>
+    <h1 class="exam-name text-center break-words" data-bind="latex: exam.settings.name"></h1>
+</header>
+
+<!-- ko if: exam.settings.navigateMode=='diagnostic' -->
+    <table id="diagnostic-breakdown">
+    <colgroup>
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+        <th data-localise="result.learning objective"></th>
+        <!-- ko if: showActualMark -->
+        <th data-localise="result.question score"></th>
+        <!-- /ko -->
+    </thead>
+    <tbody>
+        <!-- ko foreach: diagnostic_progress -->
+            <tr data-bind="css: {total: $index()==$parent.diagnostic_progress().length-1}">
+                <td class="name" data-bind="latex: name"></td>
+                <!-- ko if: $parent.showActualMark -->
+                <td class="score" data-bind="text: Math.floor(100*credit)+'%'"></td>
+                <!-- /ko -->
+            </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='sequence' || exam.settings.navigateMode=='menu' -->
+<p data-localise="result.click a question to review"></p>
+<table id="question-breakdown">
+    <colgroup>
+        <col>
+        <col span="3" class="score">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+        <!-- ko if: exam.settings.navigateMode=='sequence' -->
+            <th data-localise="result.question number"></th>
+        <!-- /ko -->
+        <!-- ko if: exam.settings.navigateMode=='menu' -->
+            <th data-localise="question"></th>
+        <!-- /ko -->
+        <th data-bind="text: resultsScoreColumnHeader"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $root.exam().showQuestionGroupNames -->
+            <tr class="question-group-header" data-bind="visible: show_name">
+                <th data-bind="text: name, typeset: name"></th>
+                <th class="score-cell" data-bind="html: feedback.plainMessage"></th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="question" data-bind="click: review, attr: {title: R('result.question review title')}">
+                <td class="name"><a href="#" data-bind="latex: displayName"></a></td>
+                <td class="score-cell" data-bind="html: scoreFeedback.plainMessage"></td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: scoreFeedback.showActualMark() || scoreFeedback.showTotalMark() -->
+        <tr class="total">
+            <th scope="row" data-localise="Total"></th>
+            <td class="score-cell">
+                <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                <!-- ko if: scoreFeedback.showActualMark() && scoreFeedback.showTotalMark() -->(<span data-bind="text: percentScore"></span>%)<!-- /ko -->
+            </td>
+        </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+
+<!-- /ko -->
+
+<div id="end-message" class="alert" data-bind="visible: exam.has_end_message, latex: exam.end_message" localise-data-jme-context-description="exam.end_message"></div>
+
+<!-- ko if: scoreFeedback.showActualMark -->
+<div id="feedback" class="alert results-feedback" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
+<!-- /ko -->
+
+<div id="performance-summary">
+    <h2 data-localise="result.performance summary"></h2>
+
+    <table class="summary">
+        <tr>
+            <th data-localise="exam.exam name"></th>
+            <td class="break-words" data-bind="html: exam.settings.name"></td>
+        </tr>
+        <tr>
+            <th data-localise="exam.random seed"></th>
+            <td class="break-words" data-bind="html: exam.seed"></td>
+        </tr>
+        <tr data-bind="visible: exam.settings.showStudentName && exam.student_name">
+            <th data-localise="exam.student name"></th>
+            <td class="break-words"><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam start"></th>
+            <td class="break-words"><time data-bind="datetime: startTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam stop"></th>
+            <td class="break-words"><time data-bind="datetime: endTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.time spent"></th>
+            <td class="break-words"><time data-bind="duration: timeSpent"></time></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="info-buttons">
+    <button class="btn info" data-bind="visible: allowPrinting, click: function(){ window.print(); }, text: printLabel"></button>
+    <button class="btn info" data-bind="visible: allowAttemptDownload, click: download_attempt_data" data-localise="result.download exam object"></button>
+</div>
+
+<p id="finished-text" class="text-center" data-localise="end.exam has finished"></p>
+    </div>
+
+    
+    
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    
+</div>
+
+                <div id="questionContainer" class="print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
+    <div class="contentArea ">
+        <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
+
+        <div id="questionDisplay" data-bind="foreach: questions">
+            <div class="question-wrapper print-visible" data-bind="promise: html_promise, visible: isCurrentQuestion">
+            </div>
+        </div>
+
+        
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    </div>
+
+</div>
+            </main>
+        </div>
+    </exam-container>
+</template>
+        <div id="no-stylesheet">
+            <p data-localise="page.no stylesheet loaded"></p>
+        </div>
+
+        <div id="with-stylesheet">
+<div id="die" hidden class="force-default-style">
+    <h1 data-localise="die.numbas failed">Numbas failed</h1>
+    <p data-localise="die.sorry"></p>
+    <div class="error" tabindex="1">
+        <div class="message"></div>
+        <div class="stack"></div>
+    </div>
+</div>
+<div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+
+            
+            <numbas-exam storage="scorm">
+                <script type="application/numbas-exam">// Numbas version: finer_feedback_settings
+{"name": "Find magnitude and direction of three vectors", "extensions": ["geogebra", "quantities"], "custom_part_types": [{"source": {"pk": 12, "author": {"name": "William Haynes", "pk": 2530}, "edit_page": "/part_type/12/edit"}, "name": "Angle quantity 2020", "short_name": "angle", "description": "<p>Adjusts all angles to 0 &lt; $\\theta$ &lt; 360.</p>\n<p>Accepts '&deg;' and 'deg' as units.</p>\n<p>Penalizes if not close enough or no units.</p>\n<p>90&deg; = -270&deg; = 450&deg;</p>", "help_url": "", "input_widget": "string", "input_options": {"correctAnswer": "plain_string(settings['expected_answer']) ", "hint": {"static": true, "value": ""}, "allowEmpty": {"static": true, "value": false}}, "can_be_gap": true, "can_be_step": true, "marking_script": "original_student_scalar:\nmatchnumber(studentAnswer,['plain','en'])[1]\n\nstudent_scalar:\nmod(original_student_scalar,360)\n\n\nstudent_unit:\nstudentAnswer[len(matchnumber(studentAnswer,['plain','en'])[0])..len(studentAnswer)]\n\ninterpreted_unit:\nif(trim(student_unit)='\u00b0','deg',student_unit)\n\ninterpreted_answer:\nqty(mod(student_scalar,360),'deg')\n\nclose:\nwithintolerance(student_scalar, correct_scalar,decimal(settings['close_tol']))\n\ncorrect_scalar:\nmod(scalar(settings['expected_answer']),360)\n\nright:\nwithintolerance(student_scalar, correct_scalar, decimal(settings['right_tol']))\n\ngood_unit:\nsame(qty(1,interpreted_unit),qty(1,'deg'))\n\nmark:\nassert(close,incorrect('Incorrect.');end());\nif(right,correct('Correct angle.'), set_credit(1 - settings['close_penalty'],'Angle is close.'));\nassert(good_unit,sub_credit(settings['unit_penalty'], 'Missing or incorrect units.'))", "marking_notes": [{"name": "original_student_scalar", "description": "<p>Retuns the scalar part of students answer (which is a quantity) as a number.</p>", "definition": "matchnumber(studentAnswer,['plain','en'])[1]"}, {"name": "student_scalar", "description": "<p>Normalize angle with mod 360</p>", "definition": "mod(original_student_scalar,360)\n"}, {"name": "student_unit", "description": "<p>matchnumber(studentAnswer,['plain','en'])[0] is a string \"12.34\"</p>", "definition": "studentAnswer[len(matchnumber(studentAnswer,['plain','en'])[0])..len(studentAnswer)]"}, {"name": "interpreted_unit", "description": "<p>Allows student to use degree symbol or 'deg' for units.</p>", "definition": "if(trim(student_unit)='\u00b0','deg',student_unit)"}, {"name": "interpreted_answer", "description": "A value representing the student's answer to this part.", "definition": "qty(mod(student_scalar,360),'deg')"}, {"name": "close", "description": "", "definition": "withintolerance(student_scalar, correct_scalar,decimal(settings['close_tol']))"}, {"name": "correct_scalar", "description": "<p>Normalize expected_answer with mod 360</p>", "definition": "mod(scalar(settings['expected_answer']),360)"}, {"name": "right", "description": "", "definition": "withintolerance(student_scalar, correct_scalar, decimal(settings['right_tol']))"}, {"name": "good_unit", "description": "", "definition": "same(qty(1,interpreted_unit),qty(1,'deg'))"}, {"name": "mark", "description": "This is the main marking note. It should award credit and provide feedback based on the student's answer.", "definition": "assert(close,incorrect('Incorrect.');end());\nif(right,correct('Correct angle.'), set_credit(1 - settings['close_penalty'],'Angle is close.'));\nassert(good_unit,sub_credit(settings['unit_penalty'], 'Missing or incorrect units.'))"}], "settings": [{"name": "expected_answer", "label": "Expected Answer", "help_url": "", "hint": "Expected angle as a quantity.", "input_type": "code", "default_value": "qty(30,'deg')", "evaluate": true}, {"name": "unit_penalty", "label": "Unit penalty", "help_url": "", "hint": "Penalty for not including degree sign or 'deg'.", "input_type": "percent", "default_value": "20"}, {"name": "close_penalty", "label": "Close Penalty", "help_url": "", "hint": "Penalty for close answer.", "input_type": "percent", "default_value": "20"}, {"name": "close_tol", "label": "Close", "help_url": "", "hint": "Angle must be $\\pm$ this many degrees to be marked close. &nbsp;&nbsp;", "input_type": "code", "default_value": "0.5", "evaluate": false}, {"name": "right_tol", "label": "Right ", "help_url": "", "hint": "Angle must be $\\pm$ this many degrees to be marked correct. &nbsp;", "input_type": "code", "default_value": "0.1", "evaluate": false}], "public_availability": "restricted", "published": false, "extensions": ["quantities"]}, {"source": {"pk": 19, "author": {"name": "William Haynes", "pk": 2530}, "edit_page": "/part_type/19/edit"}, "name": "Engineering Accuracy with units", "short_name": "engineering-answer", "description": "<p>A value with units marked right if within an adjustable % error of the correct value. &nbsp;Marked close if within a wider margin of error.</p>", "help_url": "", "input_widget": "string", "input_options": {"correctAnswer": "siground(settings['correctAnswer'],4)", "hint": {"static": true, "value": ""}, "allowEmpty": {"static": true, "value": true}}, "can_be_gap": true, "can_be_step": true, "marking_script": "mark:\nswitch( \n  right and good_units and right_sign, add_credit(1.0,'Correct.'),\n  right and good_units and not right_sign, add_credit(settings['C2'],'Wrong sign.'),\n  right and right_sign and not good_units, add_credit(settings['C2'],'Correct value, but wrong or missing units.'),\n  close and good_units, add_credit(settings['C1'],'Close.'),\n  close and not good_units, add_credit(settings['C3'],'Answer is close, but wrong or missing units.'),\n  incorrect('Wrong answer.')\n)\n\ninterpreted_answer:\nqty(student_scalar, student_units)\n\n\n\ncorrect_quantity:\nsettings[\"correctAnswer\"]\n\n\n\ncorrect_units:\nunits(correct_quantity)\n\n\nallowed_notation_styles:\n[\"plain\",\"en\"]\n\nmatch_student_number:\nmatchnumber(studentAnswer,allowed_notation_styles)\n\nstudent_scalar:\nmatch_student_number[1]\n\nstudent_units:\nreplace_regex('ohms','ohm',\n  replace_regex('\u00b0', ' deg',\n    replace_regex('-', ' ' ,\n      studentAnswer[len(match_student_number[0])..len(studentAnswer)])),\"i\")\n\ngood_units:\ntry(\ncompatible(quantity(1, student_units),correct_units),\nmsg,\nfeedback(msg);false)\n\n\nstudent_quantity:\nswitch(not good_units, \n       student_scalar * correct_units, \n       not right_sign,\n       -quantity(student_scalar, student_units),\n       quantity(student_scalar,student_units)\n)\n  \n\n\npercent_error:\ntry(\nscalar(abs((correct_quantity - student_quantity)/correct_quantity))*100  \n,msg,\nif(student_quantity=correct_quantity,0,100))\n   \n\nright:\npercent_error <= settings['right']\n\n\nclose:\nright_sign and percent_error <= settings['close']\n\nright_sign:\nsign(student_scalar) = sign(correct_quantity)", "marking_notes": [{"name": "mark", "description": "This is the main marking note. It should award credit and provide feedback based on the student's answer.", "definition": "switch( \n  right and good_units and right_sign, add_credit(1.0,'Correct.'),\n  right and good_units and not right_sign, add_credit(settings['C2'],'Wrong sign.'),\n  right and right_sign and not good_units, add_credit(settings['C2'],'Correct value, but wrong or missing units.'),\n  close and good_units, add_credit(settings['C1'],'Close.'),\n  close and not good_units, add_credit(settings['C3'],'Answer is close, but wrong or missing units.'),\n  incorrect('Wrong answer.')\n)"}, {"name": "interpreted_answer", "description": "A value representing the student's answer to this part.", "definition": "qty(student_scalar, student_units)\n\n"}, {"name": "correct_quantity", "description": "", "definition": "settings[\"correctAnswer\"]\n\n"}, {"name": "correct_units", "description": "", "definition": "units(correct_quantity)\n"}, {"name": "allowed_notation_styles", "description": "", "definition": "[\"plain\",\"en\"]"}, {"name": "match_student_number", "description": "", "definition": "matchnumber(studentAnswer,allowed_notation_styles)"}, {"name": "student_scalar", "description": "", "definition": "match_student_number[1]"}, {"name": "student_units", "description": "<p>Modify&nbsp;the&nbsp;unit portion of&nbsp;the student's answer by</p>\n<p>1. replacing \"ohms\" with \"ohm\" &nbsp;case insensitive</p>\n<p>2.&nbsp;replacing '-'&nbsp;with ' '&nbsp;</p>\n<p>3. replacing '&deg;' with ' deg'&nbsp;</p>\n<p>to allow answers like 10 ft-lb and 30&deg;</p>", "definition": "replace_regex('ohms','ohm',\n  replace_regex('\u00b0', ' deg',\n    replace_regex('-', ' ' ,\n      studentAnswer[len(match_student_number[0])..len(studentAnswer)])),\"i\")"}, {"name": "good_units", "description": "", "definition": "try(\ncompatible(quantity(1, student_units),correct_units),\nmsg,\nfeedback(msg);false)\n"}, {"name": "student_quantity", "description": "<p>This fixes the student answer for two common errors. &nbsp;</p>\n<p>If student_units are wrong&nbsp;&nbsp;- replace with correct units</p>\n<p>If student_scalar has the wrong sign - replace with right sign</p>\n<p>If student makes both errors, only one gets fixed.</p>", "definition": "switch(not good_units, \n       student_scalar * correct_units, \n       not right_sign,\n       -quantity(student_scalar, student_units),\n       quantity(student_scalar,student_units)\n)\n  \n"}, {"name": "percent_error", "description": "", "definition": "try(\nscalar(abs((correct_quantity - student_quantity)/correct_quantity))*100  \n,msg,\nif(student_quantity=correct_quantity,0,100))\n   "}, {"name": "right", "description": "", "definition": "percent_error <= settings['right']\n"}, {"name": "close", "description": "<p>Only marked close if the student actually has the right sign.</p>", "definition": "right_sign and percent_error <= settings['close']"}, {"name": "right_sign", "description": "", "definition": "sign(student_scalar) = sign(correct_quantity) "}], "settings": [{"name": "correctAnswer", "label": "Correct Quantity.", "help_url": "", "hint": "The correct answer given as a JME quantity.", "input_type": "code", "default_value": "", "evaluate": true}, {"name": "right", "label": "% Accuracy for right.", "help_url": "", "hint": "Question will be considered correct if the scalar part of the student's answer is within this % of correct value.", "input_type": "code", "default_value": "0.2", "evaluate": true}, {"name": "close", "label": "% Accuracy for close.", "help_url": "", "hint": "Question will be considered close if the scalar part of the student's answer is within this % of correct value.", "input_type": "code", "default_value": "1.0", "evaluate": true}, {"name": "C1", "label": "Close with units.", "help_url": "", "hint": "Partial Credit for close value with appropriate units. &nbsp;if correct answer is 100 N and close is &plusmn;1%,<br />99 &nbsp;N is accepted.", "input_type": "percent", "default_value": "75"}, {"name": "C2", "label": "No units or wrong sign", "help_url": "", "hint": "Partial credit for forgetting units or using wrong sign.<br />If the correct answer is 100 N, both 100 and -100 N are accepted.", "input_type": "percent", "default_value": "50"}, {"name": "C3", "label": "Close, no units.", "help_url": "", "hint": "Partial Credit for close value but forgotten units.<br />This value would be close&nbsp;if the expected units were provided. &nbsp;If the correct answer is 100 N, and close is &plusmn;1%,<br />99 is accepted.", "input_type": "percent", "default_value": "25"}], "public_availability": "always", "published": true, "extensions": ["quantities"]}], "resources": [], "navigation": {"allowregen": true, "showfrontpage": false, "preventleave": false, "typeendtoleave": false}, "question_groups": [{"pickingStrategy": "all-ordered", "questions": [{"name": "Find magnitude and direction of three vectors", "tags": ["angle from reference", "Mechanics", "mechanics", "Statics", "statics", "Vector addition", "vector addition", "Vector Addition"], "metadata": {"description": "<p>Given three vectors with integer components, find the corresponding magnitude and direction.</p>", "licence": "Creative Commons Attribution-NonCommercial 4.0 International"}, "statement": "<p><strong></strong>Three forces, ${\\color{#cc0000} \\mathbf{A}}$, ${\\color{#0033cc} \\mathbf{B}}$, and ${\\color{#006400} \\mathbf{C}}$&nbsp;are drawn&nbsp;to scale of 1 square = {scale} {units[1]}. &nbsp;Find the magnitude and direction of each.</p>\n<table style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n<tr>\n<td>{geogebra_applet('qdbwtfa9', [['fa',FA],['fb',FB],['fc',FC]])}</td>\n</tr>\n</tbody>\n</table>", "advice": "<p>For force ${\\color{#cc0000} \\mathbf{A}}$:</p>\n<p>$A = \\sqrt{{A_x}^2 + {A_y}^2} = \\sqrt{\\var{FA[0]}^2 +\\var{FA[1]}^2} \\times \\var{scale}$ {units[1]} per square = {siground(mag_A,4)}</p>\n<p>$\\theta_A = \\tan^{-1}\\left(\\left|\\dfrac{A_y}{A_x}\\right|\\right) =&nbsp;\\tan^{-1}\\left(\\left|\\dfrac{\\var{FA[1]}}{\\var{FA[0]}}\\right|\\right) =\\var{siground(degrees(arctan(abs(FA[1]/FA[0]))),4)}&deg;$</p>\n<p>and similarly for ${\\color{#0033cc} \\mathbf{B}}$, and ${\\color{#006400} \\mathbf{C}}$.</p>", "rulesets": {}, "extensions": ["geogebra", "quantities"], "builtin_constants": {"e": true, "pi,\u03c0": true, "i": true, "j": false}, "constants": [], "variables": {"FC": {"name": "FC", "group": "Inputs", "definition": "vector(random(-5..5 except 0),random(-5..5 except 0))", "description": "", "templateType": "anything", "can_override": false}, "scale": {"name": "scale", "group": "Inputs", "definition": "random(0.1,0.25,0.5,2,4,5,10,20)", "description": "", "templateType": "anything", "can_override": false}, "ref": {"name": "ref", "group": "Ungrouped variables", "definition": "0", "description": "<p>placeholder for reference axis</p>", "templateType": "anything", "can_override": false}, "theta_b": {"name": "theta_b", "group": "Outputs", "definition": "degrees(atan2(FB[1],FB[0]))", "description": "", "templateType": "anything", "can_override": false}, "c_from_ref": {"name": "c_from_ref", "group": "Ungrouped variables", "definition": "let(ang,theta_c,\n[if(ang>180,ang-360,ang),\nif(ang>270,ang-450,if(ang < -90,ang+270,ang-90)),\nif(ang>0,ang-180,ang+180),\nif(ang>90,ang-270,90+ang)])\n", "description": "", "templateType": "anything", "can_override": false}, "theta_a": {"name": "theta_a", "group": "Outputs", "definition": "mod(degrees(atan2(FA[1],FA[0])),360)", "description": "", "templateType": "anything", "can_override": false}, "C1": {"name": "C1", "group": "Inputs", "definition": "vector(5,0)\n", "description": "<p>Position of point C</p>", "templateType": "anything", "can_override": false}, "b_from_ref": {"name": "b_from_ref", "group": "Ungrouped variables", "definition": "let(ang,theta_b,\n[if(ang>180,ang-360,ang),\nif(ang>270,ang-450,if(ang < -90,ang+270,ang-90)),\nif(ang>0,ang-180,ang+180),\nif(ang>90,ang-270,90+ang)])\n", "description": "", "templateType": "anything", "can_override": false}, "A1": {"name": "A1", "group": "Inputs", "definition": "vector(-5,0)", "description": "<p>Position of point A &nbsp;(start point for force A) &nbsp;fixed in this problem</p>", "templateType": "anything", "can_override": false}, "mag_c": {"name": "mag_c", "group": "Outputs", "definition": "qty(abs(FC),units[1]) scale", "description": "", "templateType": "anything", "can_override": false}, "mag_a": {"name": "mag_a", "group": "Outputs", "definition": "qty(abs(FA),units[1]) scale", "description": "", "templateType": "anything", "can_override": false}, "debug": {"name": "debug", "group": "Inputs", "definition": "false", "description": "", "templateType": "anything", "can_override": false}, "theta_c": {"name": "theta_c", "group": "Outputs", "definition": "degrees(atan2(FC[1],FC[0]))", "description": "", "templateType": "anything", "can_override": false}, "a_from_ref": {"name": "a_from_ref", "group": "Ungrouped variables", "definition": "let(ang,theta_a,\n[if(ang>180,ang-360,ang),\nif(ang>270,ang-450,if(ang < -90,ang+270,ang-90)),\nif(ang>0,ang-180,ang+180),\nif(ang>90,ang-270,90+ang)])", "description": "", "templateType": "anything", "can_override": false}, "units": {"name": "units", "group": "Inputs", "definition": "random(['ft','lb'],['in','lb'],['cm','N'])", "description": "", "templateType": "anything", "can_override": false}, "FA": {"name": "FA", "group": "Inputs", "definition": "vector(random(-5..5 except 0),random(-5..5))", "description": "", "templateType": "anything", "can_override": false}, "FB": {"name": "FB", "group": "Inputs", "definition": "vector(random(-5..5),random(-5..5 except 0))", "description": "", "templateType": "anything", "can_override": false}, "mag_b": {"name": "mag_b", "group": "Outputs", "definition": "qty(abs(FB),units[1]) scale", "description": "", "templateType": "anything", "can_override": false}, "B1": {"name": "B1", "group": "Inputs", "definition": "vector(0,0)\n", "description": "<p>Position of point B</p>", "templateType": "anything", "can_override": false}}, "variablesTest": {"condition": "abs(FA)>=3 and abs(FB)>=3 and abs(FC)>=3", "maxRuns": "100"}, "ungrouped_variables": ["a_from_ref", "b_from_ref", "c_from_ref", "ref"], "variable_groups": [{"name": "Inputs", "variables": ["A1", "FA", "B1", "FB", "C1", "FC", "units", "debug", "scale"]}, {"name": "Outputs", "variables": ["mag_a", "theta_a", "mag_b", "theta_b", "mag_c", "theta_c"]}], "functions": {}, "preamble": {"js": "", "css": ""}, "parts": [{"type": "gapfill", "useCustomName": true, "customName": "$\\mathbf{A}$", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "interpreted_angle:  // a qty string corrected to standard angle\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\n\nmagnitude:\n  studentAnswer[3]\n\nstudent_angle:\n  [mod(matchnumber(studentAnswer[0],['plain','en'])[1],360), // angle\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\n\nstudent_units:\n  studentAnswer[0][len(matchnumber(studentAnswer[0],['plain','en'])[0])..len(studentAnswer[0])]\n\ninterpreted_answers:\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\n\ngap_feedback (Feedback on each of the gaps):\n    map(\n        try(\n            let(\n                result, submit_part(gaps[gap_number][\"path\"],answer),\n                gap, gaps[gap_number],\n                name, gap[\"name\"],  \n                noFeedbackIcon, not gap[\"settings\"][\"showFeedbackIcon\"],\n                assert(name=\"\" or len(gaps)=1,feedback(translate('part.gapfill.feedback header',[\"name\": name])));\n                concat_feedback(filter(x[\"op\"]<>\"warning\",x,result[\"feedback\"]), if(marks>0,result[\"marks\"]/marks,1), noFeedbackIcon);\n                    result\n            ),\n            err,\n            fail(translate(\"part.gapfill.error marking gap\",[\"name\": gaps[gap_number][\"name\"], \"message\": err]))\n        ),\n        [gap_number,answer,index],\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\n    )\n\n", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p style=\"padding-left: 40px;\">$A$&nbsp;=&nbsp;[[3]]</p>\n<p style=\"padding-left: 40px;\">&nbsp;$\\theta_A$ =&nbsp;[[0]]&nbsp;measured [[1]]&nbsp;from the&nbsp;&nbsp;[[2]].</p>\n<p><span data-jme-visible=\"debug\">magnitude&nbsp;= {siground(mag_A,4)} </span></p>\n<p><span data-jme-visible=\"debug\">direction={theta_A}&nbsp;</span></p>", "gaps": [{"type": "angle", "useCustomName": true, "customName": "angle", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"expected_answer": "precround(qty(theta_a,'deg'),1)", "unit_penalty": "20", "close_penalty": "20", "close_tol": "0.5", "right_tol": "0.2"}}, {"type": "1_n_2", "useCustomName": true, "customName": "dir", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["CCW", "CW"], "matrix": [0, 0], "distractors": ["", ""]}, {"type": "1_n_2", "useCustomName": true, "customName": "ref", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["+x axis", "+y axis", "-x axis", "-y axis"], "matrix": [0, 0, 0, 0], "distractors": ["", "", "", ""]}, {"type": "engineering-answer", "useCustomName": true, "customName": "Magnitude", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"correctAnswer": "mag_A", "right": "0.2", "close": "1.0", "C1": "75", "C2": "50", "C3": "25"}}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "$\\mathbf{B}$", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "interpreted_angle:  // a qty string corrected to standard angle\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\n\nmagnitude:\n  studentAnswer[3]\n\nstudent_angle:\n  [mod(matchnumber(studentAnswer[0],['plain','en'])[1],360), // angle\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\n\nstudent_units:\n  studentAnswer[0][len(matchnumber(studentAnswer[0],['plain','en'])[0])..len(studentAnswer[0])]\n\ninterpreted_answers:\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\n\ngap_feedback (Feedback on each of the gaps):\n    map(\n        try(\n            let(\n                result, submit_part(gaps[gap_number][\"path\"],answer),\n                gap, gaps[gap_number],\n                name, gap[\"name\"],  \n                noFeedbackIcon, not gap[\"settings\"][\"showFeedbackIcon\"],\n                assert(name=\"\" or len(gaps)=1,feedback(translate('part.gapfill.feedback header',[\"name\": name])));\n                concat_feedback(filter(x[\"op\"]<>\"warning\",x,result[\"feedback\"]), if(marks>0,result[\"marks\"]/marks,1), noFeedbackIcon);\n                    result\n            ),\n            err,\n            fail(translate(\"part.gapfill.error marking gap\",[\"name\": gaps[gap_number][\"name\"], \"message\": err]))\n        ),\n        [gap_number,answer,index],\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\n    )\n\n", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p style=\"padding-left: 40px;\">$B$&nbsp;=&nbsp;[[3]]</p>\n<p style=\"padding-left: 40px;\">$\\theta_B$ =&nbsp;[[0]]&nbsp;measured [[1]]&nbsp;from the&nbsp;[[2]].</p>\n<p><span data-jme-visible=\"debug\">magnitude&nbsp;= {siground(mag_B,4)} </span></p>\n<p><span data-jme-visible=\"debug\">direction={theta_B}&nbsp;</span></p>", "gaps": [{"type": "angle", "useCustomName": true, "customName": "angle", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"expected_answer": "precround(qty(theta_b,'deg'),1)", "unit_penalty": "20", "close_penalty": "20", "close_tol": "0.5", "right_tol": "0.2"}}, {"type": "1_n_2", "useCustomName": true, "customName": "dir", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["CCW", "CW"], "matrix": [0, 0], "distractors": ["", ""]}, {"type": "1_n_2", "useCustomName": true, "customName": "ref", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["+x axis", "+y axis", "-x axis", "-y axis"], "matrix": [0, 0, 0, 0], "distractors": ["", "", "", ""]}, {"type": "engineering-answer", "useCustomName": true, "customName": "Magnitude", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"correctAnswer": "mag_B", "right": "0.2", "close": "1.0", "C1": "75", "C2": "50", "C3": "25"}}], "sortAnswers": false}, {"type": "gapfill", "useCustomName": true, "customName": "$\\mathbf{C}$\u00a0", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "interpreted_angle:  // a qty string corrected to standard angle\n  student_angle[2]  + student_angle[1] * student_angle[0] + student_units\n\nmagnitude:\n  studentAnswer[3]\n\nstudent_angle:\n  [mod(matchnumber(studentAnswer[0],['plain','en'])[1],360), // angle\n  [1,-1][indices(studentAnswer[1],[true])[0]],      // ccw = 1 cw = -1\n  [0,90,180,-90][indices(studentAnswer[2],[true])[0]]] // reference axis\n\nstudent_units:\n  studentAnswer[0][len(matchnumber(studentAnswer[0],['plain','en'])[0])..len(studentAnswer[0])]\n\ninterpreted_answers:\n  [interpreted_angle, studentAnswer[1], studentAnswer[2], studentAnswer[3]]\n\ngap_feedback (Feedback on each of the gaps):\n    map(\n        try(\n            let(\n                result, submit_part(gaps[gap_number][\"path\"],answer),\n                gap, gaps[gap_number],\n                name, gap[\"name\"],  \n                noFeedbackIcon, not gap[\"settings\"][\"showFeedbackIcon\"],\n                assert(name=\"\" or len(gaps)=1,feedback(translate('part.gapfill.feedback header',[\"name\": name])));\n                concat_feedback(filter(x[\"op\"]<>\"warning\",x,result[\"feedback\"]), if(marks>0,result[\"marks\"]/marks,1), noFeedbackIcon);\n                    result\n            ),\n            err,\n            fail(translate(\"part.gapfill.error marking gap\",[\"name\": gaps[gap_number][\"name\"], \"message\": err]))\n        ),\n        [gap_number,answer,index],\n        zip([3,0],[studentAnswer[3], interpreted_angle],[1,2])\n    )\n\n", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p style=\"padding-left: 40px;\">$C$&nbsp;=&nbsp;[[3]]</p>\n<p style=\"padding-left: 40px;\">&nbsp;$\\theta_C$ =&nbsp;[[0]]&nbsp;measured [[1]]&nbsp;from the&nbsp;&nbsp;[[2]].</p>\n<p style=\"padding-left: 40px;\"><span data-jme-visible=\"debug\">magnitude&nbsp;= {siground(mag_C,4)} </span></p>\n<p><span data-jme-visible=\"debug\">direction={theta_C} {C_from_ref}&nbsp;</span></p>", "gaps": [{"type": "angle", "useCustomName": true, "customName": "angle", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"expected_answer": "precround(qty(theta_c,'deg'),1)", "unit_penalty": "20", "close_penalty": "20", "close_tol": "0.5", "right_tol": "0.2"}}, {"type": "1_n_2", "useCustomName": true, "customName": "dir", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["CCW", "CW"], "matrix": [0, 0], "distractors": ["", ""]}, {"type": "1_n_2", "useCustomName": true, "customName": "ref", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": false, "showFeedbackIcon": false, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "minMarks": 0, "maxMarks": 0, "shuffleChoices": false, "displayType": "dropdownlist", "displayColumns": 0, "showBlankOption": true, "showCellAnswerState": true, "choices": ["+x axis", "+y axis", "-x axis", "-y axis"], "matrix": [0, 0, 0, 0], "distractors": ["", "", "", ""]}, {"type": "engineering-answer", "useCustomName": true, "customName": "Magnitude", "marks": "10", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "settings": {"correctAnswer": "mag_C", "right": "0.2", "close": "1.0", "C1": "75", "C2": "50", "C3": "25"}}], "sortAnswers": false}], "partsMode": "all", "maxMarks": 0, "objectives": [], "penalties": [], "objectiveVisibility": "always", "penaltyVisibility": "always", "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}], "resources": []}]}], "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}]}</script>
+                <script type="application/json" slot="extension-data">{"geogebra": {"root": "extensions/geogebra", "stylesheets": [], "javascripts": ["geogebra.js"]}, "quantities": {"root": "extensions/quantities", "stylesheets": [], "javascripts": ["quantities.js"]}}</script>
+            </numbas-exam>
+            
+        </div>
+	</body>
+</html>
