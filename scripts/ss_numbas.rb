@@ -12,7 +12,7 @@ BASE_URL = 'http://localhost:8888/statics/web'
 OUTPUT_DIR = Pathname.new('/Users/whaynes/source/resources/screenshots')
 
 RENDER_DELAY = (ENV['RENDER_DELAY'] || 2.5).to_f
-SCALE        = (ENV['SCALE_FACTOR'] || 1).to_f
+SCALE        = (ENV['SCALE_FACTOR'] || 2).to_f
 
 FileUtils.mkdir_p(OUTPUT_DIR)
 
