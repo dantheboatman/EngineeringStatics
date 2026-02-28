@@ -52,6 +52,7 @@
           <!-- The template for Numbas exams -->
           <xsl:copy-of select="$numbas-template"/>
         </body>
+        <!-- resize pretext container to fit numbas -->
       </html>
     </exsl:document>
   </xsl:template>
@@ -80,6 +81,44 @@
     <xsl:text>&#10;</xsl:text>
     <script charset="UTF-8" type="text/javascript" src="../scripts/numbas.js"/>
     <xsl:text>&#10;</xsl:text>
+    <!--    resize container to fit numbas content-->
+    <script>
+      <xsl:text>
+        document.addEventListener("DOMContentLoaded", () => {
+        
+          const exam = document.querySelector("numbas-exam");
+          const main = document.querySelector("main");
+          if (!exam || !main) return;
+        
+          let lastHeight = 0;
+        
+          function sendResize() {
+            const newHeight = main.scrollHeight + 20;
+        
+            if (Math.abs(newHeight - lastHeight) > 2) {
+              lastHeight = newHeight;
+        
+              parent.postMessage({
+                subject: "lti.frameResize",
+                height: newHeight
+              }, "*");
+            }
+          }
+        
+          // Resize immediately when Numbas signals ready
+          exam.addEventListener("numbas:signal:HTMLAttached", sendResize);
+        
+          // Continue resizing as layout changes
+          const observer = new ResizeObserver(() => {
+            requestAnimationFrame(sendResize);
+          });
+        
+          observer.observe(main);
+        
+        });
+      </xsl:text>
+    </script>
+    
     <!-- Style for this page -->
     <style>
       <xsl:text>
@@ -583,7 +622,7 @@
               <footer>
                 <div class="copyright-footer">
                   <img class="logo center-block" src="../resources/numbas-logo.svg" alt="Numbas"/>
-                  <p> Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>. </p>
+                  <p> Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="https://www.newcastle.ac.uk">Newcastle University</a>. </p>
                   <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"/>
                 </div>
               </footer>
