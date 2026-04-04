@@ -33,7 +33,7 @@ Copyright 2011-16 Newcastle University
         }
     }
 </style>
-<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1774210983.959991" />
+<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1775332857.645835" />
     <!-- mathjax stuff -->
 <script>
 /** A fake style element that uses a constructed CSSStyleSheet object
@@ -44,13 +44,12 @@ class FakeStyleElement {
      * @param {string} styles - CSS styles.
      */
     constructor(def, styles) {
-        this.attrib = {};
-        Object.assign(this.attrib, def);
+        Object.assign(this, def);
         this.sheet = new CSSStyleSheet();
         this.sheet.replaceSync(styles);
     }
-    setAttribute(name, value) {this.attrib[name] = value}
-    getAttribute(name) {return this.attrib[name]}
+    setAttribute(name, value) {this[name] = value}
+    getAttribute(name) {return this[name]}
 }
 class MathJaxStyleManager {
     constructor() {
@@ -89,7 +88,7 @@ MathJax = {
         allowTexHTML: true
     },
     loader: {
-        load: ['[numbas]/numbas-mathjax.js?build_time=1774210983.959991', '[tex]/texhtml'],
+        load: ['[numbas]/numbas-mathjax.js?build_time=1775332857.645835', '[tex]/texhtml'],
         paths: {numbas: './scripts/standalone_scripts'},
         versionWarnings: false
     },
@@ -137,6 +136,7 @@ MathJax = {
             const {StyleJsonSheet} = MathJax._.util.StyleJson;
             DraggableDialog.prototype.init = function (adaptor) {
                 const CLASS = this.constructor;
+                const {sheets} = MathJax.config.style_manager;
                 if (!sheets.has(CLASS.styleId)) {
                     const style = adaptor.node(
                         'style', { id: CLASS.styleId },
@@ -163,7 +163,7 @@ MathJax = {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
 
 <!-- numbas stuff -->
-<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1774210983.959991" charset="utf-8"></script>
+<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1775332857.645835" charset="utf-8"></script>
 
 <script>
     Numbas.queueScript('go',['start-exam'], function() {
@@ -189,7 +189,7 @@ MathJax = {
     <body>
         <template id="numbas-exam-template">
     
-    <style id="numbas-style">@import 'numbas.css?build_time=1774210983.959991';</style>
+    <style id="numbas-style">@import 'numbas.css?build_time=1775332857.645835';</style>
     
     <exam-container class="numbas-container" data-bind="with: exam, css: css, attr: attr">
         <div id="loading">
