@@ -35,7 +35,7 @@ Copyright 2023 Newcastle University
         }
     }
 </style>
-<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1772307983.687448" />
+<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1775332851.731217" />
     <!-- mathjax stuff -->
 <script>
 /** A fake style element that uses a constructed CSSStyleSheet object
@@ -46,13 +46,12 @@ class FakeStyleElement {
      * @param {string} styles - CSS styles.
      */
     constructor(def, styles) {
-        this.attrib = {};
-        Object.assign(this.attrib, def);
+        Object.assign(this, def);
         this.sheet = new CSSStyleSheet();
         this.sheet.replaceSync(styles);
     }
-    setAttribute(name, value) {this.attrib[name] = value}
-    getAttribute(name) {return this.attrib[name]}
+    setAttribute(name, value) {this[name] = value}
+    getAttribute(name) {return this[name]}
 }
 class MathJaxStyleManager {
     constructor() {
@@ -91,7 +90,7 @@ MathJax = {
         allowTexHTML: true
     },
     loader: {
-        load: ['[numbas]/numbas-mathjax.js?build_time=1772307983.687448', '[tex]/texhtml'],
+        load: ['[numbas]/numbas-mathjax.js?build_time=1775332851.731217', '[tex]/texhtml'],
         paths: {numbas: './scripts/standalone_scripts'},
         versionWarnings: false
     },
@@ -139,6 +138,7 @@ MathJax = {
             const {StyleJsonSheet} = MathJax._.util.StyleJson;
             DraggableDialog.prototype.init = function (adaptor) {
                 const CLASS = this.constructor;
+                const {sheets} = MathJax.config.style_manager;
                 if (!sheets.has(CLASS.styleId)) {
                     const style = adaptor.node(
                         'style', { id: CLASS.styleId },
@@ -165,7 +165,7 @@ MathJax = {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
 
 <!-- numbas stuff -->
-<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1772307983.687448" charset="utf-8"></script>
+<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1775332851.731217" charset="utf-8"></script>
 
 
 
@@ -327,11 +327,11 @@ MathJax = {
 <body class="offline-analysis numbas-container">
     <template id="numbas-exam-template">
     
-    <style id="numbas-style">@import 'numbas.css?build_time=1772307983.687448';</style>
+    <style id="numbas-style">@import 'numbas.css?build_time=1775332851.731217';</style>
     
     <exam-container class="numbas-container" data-bind="with: exam, css: css, attr: attr">
         <div id="loading">
-    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <img width="300px" class="logo center-block" src="resources/statics-logo.svg" alt="Numbas"/>
     <progress min="0" max="100" value="0"></progress>
     <span class="loading-text" data-localise="page.loading">Loading...</span>
 </div>
@@ -523,7 +523,7 @@ MathJax = {
 <nav id="sideNav">
 
     <header>
-        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <img width="300px" class="logo center-block" src="resources/statics-logo.svg" alt="Numbas"/>
 
         <h1 class="exam-name" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
 
@@ -641,7 +641,7 @@ MathJax = {
 
     <header>
         <div class="navmenu-brand">
-            <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+            <img width="300px" class="logo center-block" src="resources/statics-logo.svg" alt="Numbas"/>
         </div>
         <h1 class="exam-name navmenu-brand" data-bind="text: exam.settings.name, typeset: exam.settings.name"></h1>
         <button type="button" class="navbar-toggle btn" aria-controls="navMenu">
@@ -972,13 +972,13 @@ MathJax = {
     </exam-container>
 </template>
     <div id="loading">
-    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <img width="300px" class="logo center-block" src="resources/statics-logo.svg" alt="Numbas"/>
     <progress min="0" max="100" value="0"></progress>
     <span class="loading-text" data-localise="page.loading">Loading...</span>
 </div>
     <header class="readable-container">
         <h1>
-            <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+            <img width="300px" class="logo center-block" src="resources/statics-logo.svg" alt="Numbas"/>
             <span data-localise="analysis.header"></span>
         </h1>
     </header>
