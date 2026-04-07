@@ -3105,6 +3105,13 @@ Numbas.signals.on('localisation initialised', () => {
 });
 });
 ;
+Numbas.queueScript('change-strings', ['localisation'], function() {
+  Object.assign(Numbas.locale.resources['en-gb'].translation, {
+    'control.end exam': 'Done',
+    'part.correct answer': '',
+    'control.regen': 'Try again' ,
+  });
+});;
 /*
 Copyright 2011-14 Newcastle University
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -4135,11 +4142,11 @@ class NumbasExamElement extends HTMLElement {
         const register_image = (img) => {
           
           // opt-out check  weh, so no lightbox around numbas-icon and settings-gear in footer.
-    		if (
-        		img.dataset.lightbox === 'false' 
-        		) {
-        		return;
-			}
+            if (
+                img.dataset.lightbox === 'false' 
+                ) {
+                return;
+            }
 
             var wrapper = document.createElement('span');
             wrapper.setAttribute('class', 'lightbox-image-wrapper');
@@ -33615,7 +33622,7 @@ if(res) { \
         var p = this;
         const replacements = new jme.types.TList(this.getErrorCarriedForwardReplacements().map(r => scope.getVariable(r.variable)));
         var cache = this.pre_submit_cache.find(function(c) {
-            return c.exec_path == exec_path && util.eq(studentAnswer, c.studentAnswer, scope) && util.eq(replacements, c.replacements, scope);
+            return c.exec_path == exec_path && util.eq(studentAnswer, c.studentAnswer, scope) && (c.replacements === null || util.eq(replacements, c.replacements, scope));
         });
         if(cache) {
             return {parameters: cache.results};
@@ -38723,7 +38730,7 @@ Question.prototype = /** @lends Numbas.Question.prototype */
                     outtype: fd.type,
                     parameters: fd.parameters.map(function(p) {
                         return {
-                            name:p[0],
+                            name: p[0],
                             type: p[1]
                         }
                     })
@@ -41677,7 +41684,7 @@ class Storage {
             var obj = {
                 exec_path: c.exec_path,
                 studentAnswer: Numbas.jme.display.treeToJME({tok: c.studentAnswer}, scope),
-                replacements: Numbas.jme.display.treeToJME({tok: c.replacements}, scope),
+                replacements: c.replacements ? Numbas.jme.display.treeToJME({tok: c.replacements}, scope) : c.replacements,
                 results: c.results.map(function(r) {
                     var o = {};
                     for(const [k, v] of Object.entries(r)) {
