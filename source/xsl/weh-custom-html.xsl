@@ -19,8 +19,32 @@
       <xsl:copy-of select="*"/>
     </div>
   </xsl:template>
+  
   <!--These template enable standalone numbas interactives for chapter exercises-->
+  
+  <xsl:template match="interactive[@platform='numbas']" mode="iframe-interactive">
+<!--    This template calls the default interactive[@platform] template, and adds class='numbas-iframe' to the iframe in order to target numbas exercises for javascript lazy-loading.-->
+    <xsl:variable name="imported">
+      <xsl:apply-imports/>
+    </xsl:variable>
+    <xsl:for-each select="exsl:node-set($imported)/*">
+      <xsl:choose>
+        <xsl:when test="local-name()='iframe'">
+          <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:attribute name="class">numbas-iframe</xsl:attribute>
+            <xsl:copy-of select="node()"/>
+          </xsl:copy>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:template>
+  
   <xsl:template match="interactive[@platform = 'numbas']" mode="create-iframe-page">
+<!--    This template builds the iframe page specificall for numbas questions-->
     <xsl:variable name="if-filename">
       <xsl:apply-templates select="." mode="iframe-filename"/>
     </xsl:variable>
@@ -56,7 +80,9 @@
       </html>
     </exsl:document>
   </xsl:template>
+  
   <xsl:template match="interactive[@platform = 'numbas']" mode="header-libraries">
+<!--    This template adds the appropriate header libraries for numbas-->
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <base href="external/numbas/{@source}/"/>
     <link rel="icon" type="image/png" href="../resources/numbas-icon.png"/>
@@ -154,7 +180,9 @@
       }&#10;</xsl:text>
     </style>
   </xsl:template>
+  
   <xsl:template match="interactive[@platform = 'numbas']/@extensions">
+<!--    This template adds the necessary lines for numbas to find extensions. May need to add additional extensions from time to time.-->
     <script type="application/json" slot="extension-data">
       <xsl:text>{</xsl:text>
       <xsl:for-each select="str:tokenize(.)">
@@ -189,7 +217,9 @@
       <xsl:text>}</xsl:text>
     </script>
   </xsl:template>
+  
   <xsl:variable name="numbas-template">
+<!--    This is the boilerplate numbas exam template which is added to all questions.-->
     <template id="numbas-exam-template">
       <style id="numbas-style">
         @import '../numbas.css';</style>

@@ -1,4 +1,5 @@
 #! /usr/bin/ruby/ 
+# this produces screens shots of numbas exercises for pdf 
 require 'selenium-webdriver'
 require 'pathname'
 require 'base64'
