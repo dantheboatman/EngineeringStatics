@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<!--
+Copyright 2011-16 Newcastle University
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html lang="en-GB">
+    <head>
+        
+    <title>Moment Balance - Numbas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="resources/numbas-icon.png"/>
+
+    <!-- CSS -->
+<style>
+    /* This rule will be overriden in styles.css, so the page content is only shown when the stylesheet has loaded
+    */
+    @layer no-stylesheet {
+        body > #with-stylesheet {
+            display: none;
+        }
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="numbas.css?build_time=1771018742.42766" />
+    <!-- mathjax stuff -->
+<script>
+/** A fake style element that uses a constructed CSSStyleSheet object
+*/
+class FakeStyleElement {
+    /**
+     * @param {Object.<string>} def - Attributes.
+     * @param {string} styles - CSS styles.
+     */
+    constructor(def, styles) {
+        this.attrib = {};
+        Object.assign(this.attrib, def);
+        this.sheet = new CSSStyleSheet();
+        this.sheet.replaceSync(styles);
+    }
+    setAttribute(name, value) {this.attrib[name] = value}
+    getAttribute(name) {return this.attrib[name]}
+}
+class MathJaxStyleManager {
+    constructor() {
+        this.sheets = new Map();
+        this.roots = [document];
+    }
+    /**
+     * @param {StyleElement} style
+     */
+    add_sheet(style) {
+        this.sheets.set(style.id, style.sheet);
+        this.update();
+    }
+    /**
+     * @param {ShadowRoot|Document} root
+     */
+    register(root) {
+        this.roots.push(root);
+        this.update();
+    }
+
+    update() {
+        const SHEETS = Array.from(this.sheets.values());
+        document.adoptedStyleSheets = SHEETS;
+
+        for(let root of this.roots) {
+            root.adoptedStyleSheets = SHEETS;
+        }
+    }
+}
+MathJax = {
+    style_manager: new MathJaxStyleManager(),
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        packages: {'[+]': ['numbas','texhtml']},
+        allowTexHTML: true
+    },
+    loader: {
+        load: ['[numbas]/numbas-mathjax.js?build_time=1771018742.42766', '[tex]/texhtml'],
+        paths: {numbas: './scripts/standalone_scripts'},
+        versionWarnings: false
+    },
+    startup: {
+        ready() {
+            /** 
+                Constructed stylesheet adaptor code by Davide Cervone, 2026.
+
+                To register an element's shadow root, call `MathJax.config.style_manager.register(element.shadowRoot)`.
+            */
+
+
+            /* Custom HTMLAdaptor to use constructed stylesheets instead of a `<style>` tags. */
+            const {HTMLAdaptor} = MathJax._.adaptors.HTMLAdaptor;
+            Object.assign(HTMLAdaptor.prototype, {
+                // Make node() create FakeStyleElement objects rather than HTMLStyleElement objects.
+                _node_: HTMLAdaptor.prototype.node,
+                node(kind, def = {}, children = [], ns) {
+                    if (kind === 'style' && def.id) return new FakeStyleElement(def, children[0]?.textContent ?? '');
+                    return this._node_(kind, def, children, ns);
+                },
+                // When a stylesheet is appended, add it to the style manager, which will update all registered roots to adopt it.
+                _append_: HTMLAdaptor.prototype.append,
+                append(node, child) {
+                    if (child instanceof FakeStyleElement) {
+                        MathJax.config.style_manager.add_sheet(child);
+                        return;
+                    }
+                    return this._append_(node, child);
+                },
+            });
+            // Modify AbstractRegion and LiveRegion to handle FakeStyleElement stylesheets
+            const {AbstractRegion, LiveRegion} = MathJax._.a11y.explorer.Region;
+            AbstractRegion.prototype.AddStyles = function () {
+                const adaptor = this.document.adaptor;
+                if (!this.CLASS.style || this.styleSheet) return;
+                const id = this.CLASS.sheetId;
+                const node = adaptor.node('style', {id}, [adaptor.text(this.CLASS.style.cssText)]);
+                this.CLASS._sheet = node;
+                adaptor.append(adaptor.head, node);
+            }
+            Object.defineProperty(LiveRegion, 'styleSheet', {get() {return this._sheet}});
+            // Handle the DraggableDialog stylesheet
+            const {DraggableDialog} = MathJax._.ui.dialog.DraggableDialog;
+            const {StyleJsonSheet} = MathJax._.util.StyleJson;
+            DraggableDialog.prototype.init = function (adaptor) {
+                const CLASS = this.constructor;
+                if (!sheets.has(CLASS.styleId)) {
+                    const style = adaptor.node(
+                        'style', { id: CLASS.styleId },
+                        [adaptor.text(new StyleJsonSheet(CLASS.styles).cssText)]
+                    );
+                    adaptor.append(adaptor.head(), style);
+                }
+            }
+
+            MathJax.startup.defaultReady();
+
+            // Grab the Menu stylesheet and recreate it as a FakeStyleElement object
+            // (we can't override the mj-context-menu methods, unfortunately).
+            const adaptor = MathJax.startup.adaptor;
+            const menu = document.head.querySelector('#MJX-Menu-styles');
+            const mstyle = adaptor.node('style', {id: menu.id}, [adaptor.text(menu.textContent)]);
+            menu.remove();
+            adaptor.append(adaptor.head(), mstyle);
+        }
+
+    }
+};
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+
+<!-- numbas stuff -->
+<script charset="UTF-8" type="text/javascript" src="numbas.js?build_time=1771018742.42766" charset="utf-8"></script>
+
+<script>
+    Numbas.queueScript('go',['start-exam'], function() {
+        Numbas.locale.set_preferred_locale('en-GB');
+    });
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', Numbas.checkAllScriptsLoaded);
+    } else {
+        Numbas.checkAllScriptsLoaded();
+    }
+    Numbas.get_exam_init_data = function() {
+        return {
+            source: "// Numbas version: finer_feedback_settings\n{\"name\": \"Moment Balance\", \"extensions\": [\"geogebra\", \"quantities\"], \"custom_part_types\": [{\"source\": {\"pk\": 12, \"author\": {\"name\": \"William Haynes\", \"pk\": 2530}, \"edit_page\": \"/part_type/12/edit\"}, \"name\": \"Angle quantity 2020\", \"short_name\": \"angle\", \"description\": \"\u003cp\u003eAdjusts all angles to 0 \u0026lt; $\\\\theta$ \u0026lt; 360.\u003c/p\u003e\\n\u003cp\u003eAccepts \u0027\u0026deg;\u0027 and \u0027deg\u0027 as units.\u003c/p\u003e\\n\u003cp\u003ePenalizes if not close enough or no units.\u003c/p\u003e\\n\u003cp\u003e90\u0026deg; = -270\u0026deg; = 450\u0026deg;\u003c/p\u003e\", \"help_url\": \"\", \"input_widget\": \"string\", \"input_options\": {\"correctAnswer\": \"plain_string(settings[\u0027expected_answer\u0027]) \", \"hint\": {\"static\": true, \"value\": \"\"}, \"allowEmpty\": {\"static\": true, \"value\": false}}, \"can_be_gap\": true, \"can_be_step\": true, \"marking_script\": \"original_student_scalar:\\nmatchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[1]\\n\\nstudent_scalar:\\nmod(original_student_scalar,360)\\n\\n\\nstudent_unit:\\nstudentAnswer[len(matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer)]\\n\\ninterpreted_unit:\\nif(trim(student_unit)=\u0027\\u00b0\u0027,\u0027deg\u0027,student_unit)\\n\\ninterpreted_answer:\\nqty(mod(student_scalar,360),\u0027deg\u0027)\\n\\nclose:\\nwithintolerance(student_scalar, correct_scalar,decimal(settings[\u0027close_tol\u0027]))\\n\\ncorrect_scalar:\\nmod(scalar(settings[\u0027expected_answer\u0027]),360)\\n\\nright:\\nwithintolerance(student_scalar, correct_scalar, decimal(settings[\u0027right_tol\u0027]))\\n\\ngood_unit:\\nsame(qty(1,interpreted_unit),qty(1,\u0027deg\u0027))\\n\\nmark:\\nassert(close,incorrect(\u0027Incorrect.\u0027);end());\\nif(right,correct(\u0027Correct angle.\u0027), set_credit(1 - settings[\u0027close_penalty\u0027],\u0027Angle is close.\u0027));\\nassert(good_unit,sub_credit(settings[\u0027unit_penalty\u0027], \u0027Missing or incorrect units.\u0027))\", \"marking_notes\": [{\"name\": \"original_student_scalar\", \"description\": \"\u003cp\u003eRetuns the scalar part of students answer (which is a quantity) as a number.\u003c/p\u003e\", \"definition\": \"matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[1]\"}, {\"name\": \"student_scalar\", \"description\": \"\u003cp\u003eNormalize angle with mod 360\u003c/p\u003e\", \"definition\": \"mod(original_student_scalar,360)\\n\"}, {\"name\": \"student_unit\", \"description\": \"\u003cp\u003ematchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0] is a string \\\"12.34\\\"\u003c/p\u003e\", \"definition\": \"studentAnswer[len(matchnumber(studentAnswer,[\u0027plain\u0027,\u0027en\u0027])[0])..len(studentAnswer)]\"}, {\"name\": \"interpreted_unit\", \"description\": \"\u003cp\u003eAllows student to use degree symbol or \u0027deg\u0027 for units.\u003c/p\u003e\", \"definition\": \"if(trim(student_unit)=\u0027\\u00b0\u0027,\u0027deg\u0027,student_unit)\"}, {\"name\": \"interpreted_answer\", \"description\": \"A value representing the student\u0027s answer to this part.\", \"definition\": \"qty(mod(student_scalar,360),\u0027deg\u0027)\"}, {\"name\": \"close\", \"description\": \"\", \"definition\": \"withintolerance(student_scalar, correct_scalar,decimal(settings[\u0027close_tol\u0027]))\"}, {\"name\": \"correct_scalar\", \"description\": \"\u003cp\u003eNormalize expected_answer with mod 360\u003c/p\u003e\", \"definition\": \"mod(scalar(settings[\u0027expected_answer\u0027]),360)\"}, {\"name\": \"right\", \"description\": \"\", \"definition\": \"withintolerance(student_scalar, correct_scalar, decimal(settings[\u0027right_tol\u0027]))\"}, {\"name\": \"good_unit\", \"description\": \"\", \"definition\": \"same(qty(1,interpreted_unit),qty(1,\u0027deg\u0027))\"}, {\"name\": \"mark\", \"description\": \"This is the main marking note. It should award credit and provide feedback based on the student\u0027s answer.\", \"definition\": \"assert(close,incorrect(\u0027Incorrect.\u0027);end());\\nif(right,correct(\u0027Correct angle.\u0027), set_credit(1 - settings[\u0027close_penalty\u0027],\u0027Angle is close.\u0027));\\nassert(good_unit,sub_credit(settings[\u0027unit_penalty\u0027], \u0027Missing or incorrect units.\u0027))\"}], \"settings\": [{\"name\": \"expected_answer\", \"label\": \"Expected Answer\", \"help_url\": \"\", \"hint\": \"Expected angle as a quantity.\", \"input_type\": \"code\", \"default_value\": \"qty(30,\u0027deg\u0027)\", \"evaluate\": true}, {\"name\": \"unit_penalty\", \"label\": \"Unit penalty\", \"help_url\": \"\", \"hint\": \"Penalty for not including degree sign or \u0027deg\u0027.\", \"input_type\": \"percent\", \"default_value\": \"20\"}, {\"name\": \"close_penalty\", \"label\": \"Close Penalty\", \"help_url\": \"\", \"hint\": \"Penalty for close answer.\", \"input_type\": \"percent\", \"default_value\": \"20\"}, {\"name\": \"close_tol\", \"label\": \"Close\", \"help_url\": \"\", \"hint\": \"Angle must be $\\\\pm$ this many degrees to be marked close. \u0026nbsp;\u0026nbsp;\", \"input_type\": \"code\", \"default_value\": \"0.5\", \"evaluate\": false}, {\"name\": \"right_tol\", \"label\": \"Right \", \"help_url\": \"\", \"hint\": \"Angle must be $\\\\pm$ this many degrees to be marked correct. \u0026nbsp;\", \"input_type\": \"code\", \"default_value\": \"0.1\", \"evaluate\": false}], \"public_availability\": \"restricted\", \"published\": false, \"extensions\": [\"quantities\"]}], \"resources\": [], \"navigation\": {\"allowregen\": true, \"showfrontpage\": false, \"preventleave\": false, \"typeendtoleave\": false}, \"question_groups\": [{\"pickingStrategy\": \"all-ordered\", \"questions\": [{\"name\": \"Moment Balance\", \"tags\": [\"eqilibrium\", \"Mechanics\", \"mechanics\", \"Moments\", \"moments\", \"Statics\", \"statics\"], \"metadata\": {\"description\": \"\u003cp\u003eTwo known forces, and a third with known magnitude act on a rigid body. \u0026nbsp;Apply $\\\\Sigma M = 0$ about a pin restraint to determine the direction of the third force. \u0026nbsp;The problem has two valid answers.\u003c/p\u003e\", \"licence\": \"Creative Commons Attribution-NonCommercial 4.0 International\"}, \"statement\": \"\u003cp\u003eThree forces, $A = \\\\var{A F_units}$, $C = \\\\var{C F_units}$ and $D = \\\\var{F F_units}$, act on the rigid, bent bar which can pivot freely on a pin at $B$. The segment lengths are: $AB = \\\\var{ab D_units}$, $BC = \\\\var{bc D_units}$, and $CD= \\\\var{cd D_units}$.\u003c/p\u003e\\n\u003ctable style=\\\"margin-left: auto; margin-right: auto; height: 18px;\\\"\u003e\\n\u003ctbody\u003e\\n\u003ctr style=\\\"height: 18px;\\\"\u003e\\n\u003ctd style=\\\"height: 18px; width: 0px;\\\"\u003e{applet}\u003c/td\u003e\\n\u003c/tr\u003e\\n\u003c/tbody\u003e\\n\u003c/table\u003e\\n\u003cp\u003eFind an angle $\\\\theta$ that will make the sum of the moments about point $B=0$.\u003c/p\u003e\", \"advice\": \"\u003cp\u003eFrom the geometry of triangle $BCD$:\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\phi = \\\\tan^{-1}\\\\left( \\\\dfrac{BC}{CD}\\\\right) =\\\\var{precround(phi,1)}\u0026deg;$\u003cbr/\u003e\u003cbr/\u003e$d = \\\\sqrt{BC^2 +CD^2} \u0026nbsp;= \\\\var{siground(abs(r_d),4) D_units}$\u003c/p\u003e\\n\u003cp\u003eFrom a moment balance around point $B$, the clockwise moment equals the counterclockwise moments:\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\begin{align}\u003cbr/\u003eM_D \u0026amp;= M_A + M_C \\\\\\\\\u003cbr/\u003e\u0026nbsp;\u0026amp;= (\\\\var{AB})\\\\ A_y + (\\\\var{BC})\\\\ C_x\\\\\\\\\u003cbr/\u003e\u0026amp;= \\\\simplify[!collectNumbers]{({siground(M_A[2],4)} +{siground(M_C[2],4)})}\\\\\\\\\u003cbr/\u003e\u0026amp;= \\\\var{siground(-M D_units F_units,4)} \\\\text{ clockwise}\u003cbr/\u003e\\\\end{align}$\u003c/p\u003e\\n\u003cp\u003eWith the required moment $M_D$ and the magnitude of force $D$ known, the perpendicular distance and the angle between segment $BD$ and force $D$ are:\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$d_\\\\perp = M_D / D \u0026nbsp;= \\\\dfrac{ \\\\var{siground(-M D_units F_units,4)}}{\\\\var{F F_units}} = \\\\var{siground(dperp,4) D_units}$\u003cbr/\u003e\u003cbr/\u003e$\\\\alpha =\\\\sin^{-1}\\\\left( \\\\dfrac{d_\\\\perp}{d}\\\\right)=\\\\var{precround(alpha1,1)}\u0026deg;$\u003c/p\u003e\\n\u003cp\u003eSince $\\\\sin \\\\alpha = \\\\sin (180\u0026deg;-\\\\alpha)$ another possible angle is:\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\alpha\u0027 = (180\u0026deg; - \\\\var{precround(alpha1,1)}) = \\\\var{precround(alpha2,1)}\u0026deg;$\u003c/p\u003e\\n\u003cp\u003eFinally the angle from the positive $x$ axis to force $D$ can be determined. \u0026nbsp;There are two possible solutions:\u003c/p\u003e\\n\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\theta =180\u0026deg; - \\\\alpha - \\\\phi = \\\\var{precround(-theta1,1)}\u0026deg; $ or \u003cbr/\u003e$\\\\theta = 180 - \\\\alpha\u0027 - \\\\phi = \\\\var{precround(-theta2,1)}$\u003c/p\u003e\\n\u003cp\u003eNote:\u003cem\u003e You can use the red slider on the diagram to switch between the two possible solutions.\u003c/em\u003e\u003c/p\u003e\", \"rulesets\": {}, \"extensions\": [\"geogebra\", \"quantities\"], \"builtin_constants\": {\"e\": true, \"pi,\\u03c0\": true, \"i\": true, \"j\": false}, \"constants\": [], \"variables\": {\"applet\": {\"name\": \"applet\", \"group\": \"inputs\", \"definition\": \"geogebra_applet(\u0027qavc8kmn\u0027,params)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"params\": {\"name\": \"params\", \"group\": \"inputs\", \"definition\": \"[ ab: ab, bc: bc, cd: cd, \\n  theta_A: radians(theta_A), theta_C: radians(theta_C), theta: radians(-40),\\n  fbd: [visible: false, definition: \\\"false\\\"],\\n  soln: [visible: false]\\n ]\", \"description\": \"\u003cp\u003eParamiters for applet\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"ab\": {\"name\": \"ab\", \"group\": \"inputs\", \"definition\": \"random(1..3#0.25)\", \"description\": \"\u003cp\u003eLength of segment AB\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"bc\": {\"name\": \"bc\", \"group\": \"inputs\", \"definition\": \"random(1..2#0.25)\", \"description\": \"\u003cp\u003eLength of segment BC\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"cd\": {\"name\": \"cd\", \"group\": \"inputs\", \"definition\": \"random(1..3#0.25)\", \"description\": \"\u003cp\u003eLength of segment CD\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"D_units\": {\"name\": \"D_units\", \"group\": \"inputs\", \"definition\": \"qty(\u0027ft\u0027)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"theta_C\": {\"name\": \"theta_C\", \"group\": \"inputs\", \"definition\": \"random(110..250#10 except 180)\", \"description\": \"\u003cp\u003eAngle of force C, chosen to make a CCW moment\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"theta_A\": {\"name\": \"theta_A\", \"group\": \"inputs\", \"definition\": \"random(195..345#15)\", \"description\": \"\u003cp\u003eAngle of force A, chosen to make a CCW moment\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"A\": {\"name\": \"A\", \"group\": \"inputs\", \"definition\": \"random(25..250#25)\", \"description\": \"\u003cp\u003eMagnitude of force A\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"C\": {\"name\": \"C\", \"group\": \"inputs\", \"definition\": \"random(25..200#25)\", \"description\": \"\u003cp\u003emagnitude of force C\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"r_a\": {\"name\": \"r_a\", \"group\": \"solution\", \"definition\": \"vector(-ab,0,0)\", \"description\": \"\u003cp\u003epositon vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"r_c\": {\"name\": \"r_c\", \"group\": \"solution\", \"definition\": \"vector(0,bc,0)\", \"description\": \"\u003cp\u003eposition vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"r_d\": {\"name\": \"r_d\", \"group\": \"solution\", \"definition\": \"vector(cd,bc,0)\", \"description\": \"\u003cp\u003eposition vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"f_a\": {\"name\": \"f_a\", \"group\": \"solution\", \"definition\": \"A vector(cos(radians(theta_a)),sin(radians(theta_a)),0)\", \"description\": \"\u003cp\u003eforce vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"f_c\": {\"name\": \"f_c\", \"group\": \"solution\", \"definition\": \"C vector(cos(radians(theta_C)),sin(radians(theta_c)),0)\", \"description\": \"\u003cp\u003eforce vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"M_A\": {\"name\": \"M_A\", \"group\": \"solution\", \"definition\": \"cross(r_a,f_a)\", \"description\": \"\u003cp\u003eMoment vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"M_C\": {\"name\": \"M_C\", \"group\": \"solution\", \"definition\": \"cross(r_C, f_C)\", \"description\": \"\u003cp\u003eMoment vector\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"M_D\": {\"name\": \"M_D\", \"group\": \"solution\", \"definition\": \"-(M_A+M_C)\", \"description\": \"\u003cp\u003eMoment vector needed for equilibrium\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"F\": {\"name\": \"F\", \"group\": \"inputs\", \"definition\": \"random(25..200#20)\", \"description\": \"\u003cp\u003eMagnitude of force D\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"F_min\": {\"name\": \"F_min\", \"group\": \"method 1\", \"definition\": \"cross(M_D,r_d)/(abs(r_d)^2)\", \"description\": \"\u003cp\u003eSolve for force F, which is the minimum force required, i.e. the force perpendicuar to the moment arm.\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"f_perp\": {\"name\": \"f_perp\", \"group\": \"method 1\", \"definition\": \"abs(F_min)\", \"description\": \"\u003cp\u003eMinimum magnitude of F, also the perpendicular component of force D\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"alpha1\": {\"name\": \"alpha1\", \"group\": \"method 1\", \"definition\": \" degrees(abs(arcsin(f_perp/F)))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"phi\": {\"name\": \"phi\", \"group\": \"method 1\", \"definition\": \"degrees(arctan(r_d[1]/r_d[0]))\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"dperp\": {\"name\": \"dperp\", \"group\": \"method 1\", \"definition\": \"abs(M/F)\", \"description\": \"\u003cp\u003eperpendicular distance\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"M\": {\"name\": \"M\", \"group\": \"solution\", \"definition\": \"M_D[2]\", \"description\": \"\u003cp\u003escalar component of M_D\u003c/p\u003e\", \"templateType\": \"anything\", \"can_override\": false}, \"theta1\": {\"name\": \"theta1\", \"group\": \"method 1\", \"definition\": \"-(180-phi-alpha1)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"f_units\": {\"name\": \"f_units\", \"group\": \"inputs\", \"definition\": \"qty(\\\"lb\\\")\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"alpha2\": {\"name\": \"alpha2\", \"group\": \"method 1\", \"definition\": \"180-alpha1\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}, \"theta2\": {\"name\": \"theta2\", \"group\": \"method 1\", \"definition\": \"-(180-phi-alpha2)\", \"description\": \"\", \"templateType\": \"anything\", \"can_override\": false}}, \"variablesTest\": {\"condition\": \"0.3 \u003c sin(radians(alpha1)) \u003c 0.95 and alpha1 \u003c 180 - phi -20//  for diagram to show alpha in the triangle\\nand dperp \u003c abs(r_d)\", \"maxRuns\": 100}, \"ungrouped_variables\": [], \"variable_groups\": [{\"name\": \"solution\", \"variables\": [\"r_a\", \"r_c\", \"r_d\", \"f_a\", \"f_c\", \"M_A\", \"M_C\", \"M_D\", \"M\"]}, {\"name\": \"method 1\", \"variables\": [\"F_min\", \"f_perp\", \"dperp\", \"alpha1\", \"alpha2\", \"phi\", \"theta1\", \"theta2\"]}, {\"name\": \"inputs\", \"variables\": [\"applet\", \"params\", \"ab\", \"bc\", \"cd\", \"theta_A\", \"theta_C\", \"f_units\", \"D_units\", \"A\", \"C\", \"F\"]}], \"functions\": {\"hide_items\": {\"parameters\": [[\"app\", \"ggbapplet\"]], \"type\": \"anything\", \"language\": \"javascript\", \"definition\": \"// See https://wiki.geogebra.org/en/Scripting_Commands and\\n// https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_API\\nreturn;\\napp.promise.then(function(d) {\\n  d.app.setVisible(\u0027LOA\u0027, false);\\n  d.app.setVisible(\u0027ref\u0027, false);\\n  d.app.setVisible(\u0027t1\u0027, false);\\n  d.app.setVisible(\u0027alpha\u0027, false);\\n  d.app.setVisible(\u0027phi\u0027, false);\\n});\\nreturn new Numbas.jme.types.ggbapplet(app);\\n\"}}, \"preamble\": {\"js\": \"question.signals.on(\u0027adviceDisplayed\u0027,function() {\\n  \\n  try{\\n    //var app = question.applet.app;\\n    //var app = Numbas.exam.currentQuestion.scope.variables.applet.app;\\n    //var theta = - Numbas.exam.currentQuestion.scope.variables.theta1.value;\\n    var app = question.scope.variables.applet.app;\\n    var theta = - question.scope.variables.theta1.value;\\n    console.log(theta);\\n    app.setVisible(\\\"fbd\\\",true);\\n    app.setValue(\\\"fbd\\\",true);\\n    app.setVisible(\\\"soln\\\",true);\\n    app.setValue(\\\"soln\\\",1);\\n    app.setValue(\\\"theta\\\", -theta * 3.14 /180 );\\n    app.setLabelVisible(\\\"A\\\",false);\\n    app.setLabelVisible(\\\"B\\\",false);\\n    app.setLabelVisible(\\\"C\\\",false);\\n    app.setLabelVisible(\\\"D\\\",false);\\n  }\\n  catch(err){}  \\n})\\n\", \"css\": \"\"}, \"parts\": [{\"type\": \"gapfill\", \"useCustomName\": false, \"customName\": \"\", \"marks\": 0, \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"prompt\": \"\u003cp style=\\\"padding-left: 40px;\\\"\u003e$\\\\theta = $ [[0]]\u0026nbsp; (Measure $\\\\theta$ CW from the positive $x$ axis.)\u003c/p\u003e\", \"gaps\": [{\"type\": \"angle\", \"useCustomName\": true, \"customName\": \"$\\\\theta$\", \"marks\": \"20\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"showCorrectAnswer\": true, \"showFeedbackIcon\": true, \"variableReplacements\": [], \"variableReplacementStrategy\": \"originalfirst\", \"nextParts\": [], \"suggestGoingBack\": false, \"adaptiveMarkingPenalty\": 0, \"exploreObjective\": null, \"alternatives\": [{\"type\": \"angle\", \"useCustomName\": true, \"customName\": \"$\\\\theta\u0027$\", \"marks\": \"20\", \"scripts\": {}, \"customMarkingAlgorithm\": \"\", \"extendBaseMarkingAlgorithm\": true, \"unitTests\": [], \"alternativeFeedbackMessage\": \"\", \"useAlternativeFeedback\": false, \"settings\": {\"expected_answer\": \"precround(qty(-theta2,\u0027deg\u0027),2)\", \"unit_penalty\": \"20\", \"close_penalty\": \"20\", \"close_tol\": \"0.5\", \"right_tol\": \"0.1\"}}], \"settings\": {\"expected_answer\": \"precround(qty(-theta1,\u0027deg\u0027),2)\", \"unit_penalty\": \"20\", \"close_penalty\": \"20\", \"close_tol\": \"0.5\", \"right_tol\": \"0.1\"}}], \"sortAnswers\": false}], \"partsMode\": \"all\", \"maxMarks\": 0, \"objectives\": [], \"penalties\": [], \"objectiveVisibility\": \"always\", \"penaltyVisibility\": \"always\", \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}], \"resources\": []}]}], \"contributors\": [{\"name\": \"William Haynes\", \"profile_url\": \"https://numbas.mathcentre.ac.uk/accounts/profile/2530/\"}]}",
+            extension_data: "{\"geogebra\": {\"root\": \"extensions/geogebra\", \"stylesheets\": [], \"javascripts\": [\"geogebra.js\"]}, \"quantities\": {\"root\": \"extensions/quantities\", \"stylesheets\": [], \"javascripts\": [\"quantities.js\"]}}"
+        }
+    }
+</script>
+
+
+
+	</head>
+	
+    <body>
+        <template id="numbas-exam-template">
+    
+    <style id="numbas-style">@import 'numbas.css?build_time=1771018742.42766';</style>
+    
+    <exam-container class="numbas-container" data-bind="with: exam, css: css, attr: attr">
+        <div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+        <!-- modal dialog boxes -->
+<dialog id="saving" data-bind="modal: saving">
+    <div class="text" data-localise="page.saving"></div>
+</dialog>
+<dialog class="modal" id="alert-modal" aria-labelledby="alert-modal-title" aria-describedby="alert-modal-body" data-bind="modal: {submit: $root.modal.ok}">
+    <section>
+        <header>
+            <h2 id="alert-modal-title" data-localise="modal.alert"></h2>
+        </header>
+
+        <div class="modal-body" id="alert-modal-body"></div>
+
+        <footer>
+            <form method="dialog">
+                <button value="ok" autofocus class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+
+<dialog class="modal" id="confirm-modal" aria-labelledby="confirm-modal-title" aria-describedby="confirm-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <section>
+        <header>
+            <h2 id="confirm-modal-title" data-localise="modal.confirm"></h2>
+        </header>
+        <div class="modal-body" id="confirm-modal-body">
+        </div>
+        <footer>
+            <form method="dialog">
+                <button autofocus class="cancel btn" value="cancel" data-localise="modal.cancel"></button>
+                <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+            </form>
+        </footer>
+    </section>
+</dialog>
+<dialog class="modal" id="confirm-end-exam-modal" aria-labelledby="confirm-end-exam-modal-title" aria-describedby="confirm-end-exam-modal-body" data-bind="modal: {submit: $root.modal.ok, cancel: $root.modal.cancel}">
+    <form method="dialog">
+        <header>
+            <h4 id="confirm-end-exam-modal-title" data-localise="modal.confirm"></h4>
+        </header>
+        <div class="modal-body" id="confirm-end-exam-modal-body" data-bind="with: $root.exam">
+            <p id="confirm-end-exam-modal-message"></p>
+            <form class="form-inline" data-bind="submit: $root.modal.ok">
+                <label for="confirm-end-text-input" id="confirm-end-exam-modal-input-message"></label>
+                <input autofocus id="confirm-end-text-input" type="text" data-bind="textInput: confirmEndHandler.value, autosize: confirmEndHandler.value">
+                <span class="password-feedback feedback-icon" data-bind="css: confirmEndHandler.feedback().iconClass, attr: {title: confirmEndHandler.feedback().title}"></span>
+            </form>
+        </div>
+        <footer>
+            <button value="cancel" class="cancel btn" data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-bind="disable: !confirmEndHandler.valid(), css: confirmEndHandler.feedback().buttonClass" data-localise="modal.end exam button"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal force-default-style" id="style-modal" aria-labelledby="style-modal-title" aria-describedby="style-modal-explanation" data-bind="with: $root.style_customiser, modal: {submit: $root.saveStyle}">
+    <form method="dialog">
+        <header>
+            <h4 id="style-modal-title" data-localise="control.style options"></h4>
+        </header>
+
+        
+        <p class="help-block" id="style-modal-explanation" data-localise="modal.style.explanation"></p>
+
+        <p class="help-block warning" data-bind="visible: forced_colors" data-localise="modal.forced colours warning"></p>
+
+        
+        <section class="style-controls">
+            <fieldset>
+                <label for="main-font-picker" data-localise="modal.style.main font"></label>
+                <select id="main-font-picker" data-bind="value: staged_style['--main-font'], options: font_options, optionsText: 'label', optionsValue: 'name'">
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="text-size-picker" data-localise="modal.style.text size"></label>
+                <input id="text-size-picker" type="number" step="0.1" min="0.5" max="4" data-bind="value: staged_style['--text-size']">
+                <output id="text-size-preview" class="big" data-localise="modal.style.text preview"></output>
+            </fieldset>
+            <fieldset>
+                <label for="font-weight-picker" data-localise="modal.style.font weight"></label>
+                <input id="font-weight-picker" type="range" step="100" min="200" max="800" data-bind="value: staged_style['--font-weight'], valueUpdate: 'input'">
+                <output id="font-weight-preview" data-bind="text: staged_style['--font-weight']"></output>
+            </fieldset>
+            <fieldset>
+                <label for="spacing-picker" data-localise="modal.style.spacing"></label>
+                <input id="spacing-picker" type="range" step="0.1" min="0.1" max="3" data-bind="value: staged_style['--spacing-scale'], valueUpdate: 'input'">
+                <output id="spacing-preview" data-bind="percentage: parseFloat(staged_style['--spacing-scale']())"></output>
+            </fieldset>
+            <fieldset>
+                <label for="color-scheme-picker" data-localise="modal.style.colour scheme"></label>
+                <select id="color-scheme-picker" data-bind="value: color_scheme">
+                    <option value="automatic" data-localise="modal.style.automatic colour scheme"></option>
+                    <option value="light" data-localise="modal.style.light colour scheme"></option>
+                    <option value="dark" data-localise="modal.style.dark colour scheme"></option>
+                    <option value="custom" data-localise="modal.style.custom colour scheme"></option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <label for="invert-images" data-localise="modal.style.invert images in dark mode"></label>
+                <input id="invert-images" type="checkbox" data-bind="checked: invert_images">
+            </fieldset>
+        </section>
+
+        <section class="style-controls" data-bind="visible: using_custom_color_scheme">
+            <fieldset>
+                <label for="background-colour-picker" data-localise="modal.style.background colour"></label>
+                <input id="background-colour-picker" type="color" data-bind="value: style['--custom-background-color']">
+            </fieldset>
+            <fieldset>
+                <label for="text-colour-picker" data-localise="modal.style.text colour"></label>
+                <input id="text-colour-picker" type="color" data-bind="value: style['--custom-text-color']">
+            </fieldset>
+            <fieldset>
+                <label for="main-colour-picker" data-localise="modal.style.main colour"></label>
+                <input id="main-colour-picker" type="color" data-bind="value: style['--custom-main-color']">
+            </fieldset>
+            <fieldset>
+                <label for="primary-colour-picker" data-localise="modal.style.primary colour"></label>
+                <input id="primary-colour-picker" type="color" data-bind="value: style['--custom-primary-color']">
+            </fieldset>
+            <fieldset>
+                <label for="link-colour-picker" data-localise="modal.style.link colour"></label>
+                <input id="link-colour-picker" type="color" data-bind="value: style['--custom-link-color']">
+            </fieldset>
+            <fieldset>
+                <label for="success-colour-picker" data-localise="modal.style.success colour"></label>
+                <input id="success-colour-picker" type="color" data-bind="value: style['--custom-success-color']">
+            </fieldset>
+            <fieldset>
+                <label for="info-colour-picker" data-localise="modal.style.info colour"></label>
+                <input id="info-colour-picker" type="color" data-bind="value: style['--custom-info-color']">
+            </fieldset>
+            <fieldset>
+                <label for="warning-colour-picker" data-localise="modal.style.warning colour"></label>
+                <input id="warning-colour-picker" type="color" data-bind="value: style['--custom-warning-color']">
+            </fieldset>
+            <fieldset>
+                <label for="danger-colour-picker" data-localise="modal.style.danger colour"></label>
+                <input id="danger-colour-picker" type="color" data-bind="value: style['--custom-danger-color']">
+            </fieldset>
+            <fieldset>
+                <label for="muted-colour-picker" data-localise="modal.style.muted colour"></label>
+                <input id="muted-colour-picker" type="color" data-bind="value: style['--custom-muted-color']">
+            </fieldset>
+            <fieldset>
+                <label for="highlight-colour-picker" data-localise="modal.style.highlight colour"></label>
+                <input id="highlight-colour-picker" type="color" data-bind="value: style['--custom-highlight-color']">
+            </fieldset>
+        </section>
+
+        
+
+        
+
+        
+        <hr/>
+        <p class="help-block"><a href="https://docs.numbas.org.uk/en/latest/accessibility/exam.html" target="_blank" data-localise="accessibility statement"></a></p>
+        
+
+        <footer>
+            <button type="button" class="btn danger sm" data-localise="modal.style.reset to defaults" data-bind="click: reset"></button>
+            <button class="cancel btn" value="cancel" autofocus data-localise="modal.cancel"></button>
+            <button value="ok" class="ok btn primary" data-localise="modal.ok"></button>
+        </footer>
+    </form>
+</dialog>
+<dialog class="modal" id="next-actions-modal" aria-labelledby="next-actions-modal-title">
+    <form method="dialog" data-bind="with: diagnostic_next_actions">
+        <header>
+            <h4 id="next-actions-modal-title" data-localise="diagnostic.make a choice"></h4>
+        </header>
+        <div data-bind="latex: feedback"></div>
+
+        <menu data-bind="foreach: actions" class="list-unstyled actions">
+            <li>
+                <button type="button" data-bind="click: go"><span data-bind="latex: label"></span></button>
+            </li>
+        </menu>
+    </form>
+</dialog>
+
+<dialog id="lightbox"></dialog>
+        <div id="everything">
+            <a class="sr-only" id="skip-link" data-bind="attr: {href: infoPage() ? '#infoDisplay' : '#questionContainer'}" data-localise="page.skip to content"></a>
+            <div class="question-nav">
+    <!-- side menu -->
+</div>
+
+
+            <!-- main content area - info pages or questions go in here -->
+            <main class="mainDisplay" role="main" data-bind="attr: {'aria-labelledby': main_labelledby}">
+                <div id="infoDisplay" class="main-content" data-bind="visible: infoPage">
+    <div id="frontpage" data-bind="visible: infoPage()=='frontpage', if: infoPage()=='frontpage'">
+        <h1 class="break-words" id="infopage-frontpage-header" data-bind="html: exam.settings.name"></h1>
+<table class="summary">
+    <tbody>
+    <!-- ko if: exam.settings.navigateMode != 'diagnostic' -->
+    <tr>
+        <th data-localise="exam.number of questions"></th>
+        <td class="rtd" data-bind="html: numAssessedQuestions"></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showTotalMark">
+        <th data-localise="exam.marks available"></th>
+        <td class="rtd" data-bind="niceNumber: marks"></td>
+    </tr>
+    <!-- /ko -->
+    <tr data-bind="visible: exam.settings.percentPass>0">
+        <th data-localise="exam.pass percentage"></th>
+        <td class="rtd" data-bind="text: percentPass"></td>
+    </tr>
+    <tr data-bind="visible: duration()>0">
+        <th data-localise="exam.time allowed"></th>
+        <td class="rtd"><time data-bind="duration: duration"></time></td>
+    </tr>
+    <tr data-bind="visible: exam.settings.showStudentName && exam.student_name && !needsStudentName">
+        <th data-localise="exam.student name"></th>
+        <td><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="intro" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<div class="alert danger" data-bind="visible: showAttemptDownloadSecurityWarning">
+    <p data-localise="exam.attempt download security warning"></p>
+</div>
+<div id="standalone-warning" class="alert info" data-bind="visible: !Numbas.storage.lmsConnected && !allowAttemptDownload" data-localise="frontpage.scorm.lms not connected"></div>
+
+<form data-bind="submit: beginExam" class="info-buttons">
+    <button class="btn display-options force-original-color" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    <div class="student-name" data-bind="visible: needsStudentName">
+        <label for="begin-exam-student-name" data-localise="exam.enter your name"></label>
+        <input id="begin-exam-student-name" name="begin-exam-student-name" type="text" data-bind="textInput: student_name, autosize: student_name"/>
+    </div>
+    <div class="password" data-bind="visible: needsPassword">
+        <label for="begin-exam-password" data-localise="exam.enter password"></label>
+        <input id="begin-exam-password" autocomplete="off" name="begin-exam-password" type="text" data-bind="textInput: passwordHandler.value, autosize: passwordHandler.value, css: {'has-errors': passwordHandler.value().length && !passwordHandler.valid(), 'success': passwordHandler.valid()}"/>
+        <span class="password-feedback feedback-icon" data-bind="css: passwordHandler.feedback().iconClass, attr: {title: passwordHandler.feedback().title}"></span>
+    </div>
+    <button class="btn" id="startBtn" type="submit" data-bind="disable: !canBegin(), css: passwordHandler.feedback().buttonClass" data-localise="frontpage.start"></button>
+</form>
+    </div>
+    <div id="menu" data-bind="visible: infoPage()=='menu', if: infoPage()=='menu'">
+        <h1 id="infopage-menu-header" class="break-words" data-bind="html: exam.settings.name"></h1>
+
+<div class="intro" class="alert" data-bind="visible: exam.hasIntro, latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+
+<nav id="question-chooser">
+    <table class="table questionSelector">
+        <colgroup>
+            <col class="question">
+            <col class="score">
+            <col class="icon">
+        </colgroup>
+        <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $parent.showQuestionGroupNames -->
+            <tr>
+                <th data-bind="visible: $parent.question_groups.length>1">
+                    <span data-bind="latex: name"></span>
+                </th>
+                <th class="messages">
+                    <span class="score" data-bind="html: feedback.plainMessage"></span>
+                </th>
+                <th class="icon">
+                    <span class="feedback-icon" data-bind="css: feedback.iconClass, attr: feedback.iconAttr" aria-hidden="true"></span>
+                </th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="" role="button" data-bind="click: Numbas.controls.makeQuestionJumper(question.number, question.exam), attr: {'aria-labelledby': question.path+'-menu-name'}">
+                <td class="info">
+                    <button class="btn link" type="button" class="name" data-bind="latex: displayName, attr: {id: question.path+'-menu-name'}"></button>
+                </td>
+                <td class="messages">
+                    <span class="sr-only" data-bind="text: scoreFeedback.iconAttr().title"></span>
+                    <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                    <div class="answered-state" data-bind="">
+                        <span data-bind="text: scoreFeedback.attemptedString"></span>
+                    </div>
+                    <div data-bind="visible: isDirty" class="dirty-message">
+                        <span class="warning-icon icon-exclamation-sign"></span>
+                        <span data-localise="question.selector.unsubmitted changes"></span>
+                    </div>
+                </td>
+                <td class="icon">
+                    <span class="feedback-icon" data-bind="css: scoreFeedback.iconClass, attr: scoreFeedback.iconAttr" aria-hidden="true"></span>
+                </td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        </tbody>
+    </table>
+</nav>
+
+<menu class="nav navmenu-nav menuButtons">
+    <li><button class="btn thin-button" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button></li>
+    <li><button class="btn danger thin-button" id="endBtn" data-localise="control.end exam" data-bind="click: endExam"></button></li>
+</menu>
+    </div>
+    <div id="introduction" data-bind="visible: infoPage()=='introduction', if: infoPage()=='introduction'">
+        <h1 id="infopage-introduction-header" data-localise="exam.introduction"></h1>
+<div data-bind="latex: exam.introMessage" localise-data-jme-context-description="exam.introduction"></div>
+    </div>
+    <div id="suspend" data-bind="visible: infoPage()=='paused' || infoPage()=='resumed', if: infoPage()=='paused' || infoPage()=='resumed'">
+        <h1 id="infopage-suspend-header">
+    <span data-bind="visible: infoPage()=='paused'" data-localise="suspend.paused header" ></span>
+    <span data-bind="visible: infoPage()=='resumed'" data-localise="suspend.resumed header" ></span>
+</h1>
+<p data-localise="suspend.exam suspended"></p>
+<p data-localise="suspend.you can resume"></p>
+<button class="btn primary" id="resumeBtn" data-bind="click: resumeExam" data-localise="suspend.resume"></button>
+    </div>
+    <div id="results" data-bind="visible: infoPage()=='result', if: infoPage()=='result'">
+        <header>
+    <h1 class="exam-name text-center break-words" data-bind="latex: exam.settings.name"></h1>
+</header>
+
+<!-- ko if: exam.settings.navigateMode=='diagnostic' -->
+    <table id="diagnostic-breakdown">
+    <colgroup>
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+        <th data-localise="result.learning objective"></th>
+        <!-- ko if: showActualMark -->
+        <th data-localise="result.question score"></th>
+        <!-- /ko -->
+    </thead>
+    <tbody>
+        <!-- ko foreach: diagnostic_progress -->
+            <tr data-bind="css: {total: $index()==$parent.diagnostic_progress().length-1}">
+                <td class="name" data-bind="latex: name"></td>
+                <!-- ko if: $parent.showActualMark -->
+                <td class="score" data-bind="text: Math.floor(100*credit)+'%'"></td>
+                <!-- /ko -->
+            </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+<!-- /ko -->
+
+<!-- ko if: exam.settings.navigateMode=='sequence' || exam.settings.navigateMode=='menu' -->
+<p data-localise="result.click a question to review"></p>
+<table id="question-breakdown">
+    <colgroup>
+        <col>
+        <col span="3" class="score">
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+        <!-- ko if: exam.settings.navigateMode=='sequence' -->
+            <th data-localise="result.question number"></th>
+        <!-- /ko -->
+        <!-- ko if: exam.settings.navigateMode=='menu' -->
+            <th data-localise="question"></th>
+        <!-- /ko -->
+        <th data-bind="text: resultsScoreColumnHeader"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- ko foreach: question_groups -->
+            <!-- ko if: $root.exam().showQuestionGroupNames -->
+            <tr class="question-group-header" data-bind="visible: show_name">
+                <th data-bind="text: name, typeset: name"></th>
+                <th class="score-cell" data-bind="html: feedback.plainMessage"></th>
+            </tr>
+            <!-- /ko -->
+            <!-- ko foreach: questions -->
+            <tr class="question" data-bind="click: review, attr: {title: R('result.question review title')}">
+                <td class="name"><a href="#" data-bind="latex: displayName"></a></td>
+                <td class="score-cell" data-bind="html: scoreFeedback.plainMessage"></td>
+            </tr>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: scoreFeedback.showActualMark() || scoreFeedback.showTotalMark() -->
+        <tr class="total">
+            <th scope="row" data-localise="Total"></th>
+            <td class="score-cell">
+                <span class="score" data-bind="html: scoreFeedback.plainMessage"></span>
+                <!-- ko if: scoreFeedback.showActualMark() && scoreFeedback.showTotalMark() -->(<span data-bind="text: percentScore"></span>%)<!-- /ko -->
+            </td>
+        </tr>
+        <!-- /ko -->
+    </tbody>
+</table>
+
+<!-- /ko -->
+
+<div id="end-message" class="alert" data-bind="visible: exam.has_end_message, latex: exam.end_message" localise-data-jme-context-description="exam.end_message"></div>
+
+<!-- ko if: scoreFeedback.showActualMark -->
+<div id="feedback" class="alert results-feedback" data-bind="visible: feedbackMessage()!==null, latex: feedbackMessage" localise-data-jme-context-description="exam.feedback"></div>
+<!-- /ko -->
+
+<div id="performance-summary">
+    <h2 data-localise="result.performance summary"></h2>
+
+    <table class="summary">
+        <tr>
+            <th data-localise="exam.exam name"></th>
+            <td class="break-words" data-bind="html: exam.settings.name"></td>
+        </tr>
+        <tr>
+            <th data-localise="exam.random seed"></th>
+            <td class="break-words" data-bind="html: exam.seed"></td>
+        </tr>
+        <tr data-bind="visible: exam.settings.showStudentName && exam.student_name">
+            <th data-localise="exam.student name"></th>
+            <td class="break-words"><span data-bind="text: exam.student_name"></span><span data-bind="visible: exam.student_id"> (<span data-bind="text: exam.student_id"></span>)</span></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam start"></th>
+            <td class="break-words"><time data-bind="datetime: startTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.exam stop"></th>
+            <td class="break-words"><time data-bind="datetime: endTime"></time></td>
+        </tr>
+        <tr>
+            <th data-localise="result.time spent"></th>
+            <td class="break-words"><time data-bind="duration: timeSpent"></time></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="info-buttons">
+    <button class="btn info" data-bind="visible: allowPrinting, click: function(){ window.print(); }, text: printLabel"></button>
+    <button class="btn info" data-bind="visible: allowAttemptDownload, click: download_attempt_data" data-localise="result.download exam object"></button>
+</div>
+
+<p id="finished-text" class="text-center" data-localise="end.exam has finished"></p>
+    </div>
+
+    
+    
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    
+</div>
+
+                <div id="questionContainer" class="print-visible" data-bind="visible: currentQuestion, css: {review: mode()=='review'}">
+    <div class="contentArea ">
+        <div id="diagnostic-feedback" class="diagnostic-feedback" data-bind="visible: diagnostic_feedback, latex: diagnostic_feedback"></div>
+
+        <div id="questionDisplay" data-bind="foreach: questions">
+            <div class="question-wrapper print-visible" data-bind="promise: html_promise, visible: isCurrentQuestion">
+            </div>
+        </div>
+
+        
+<footer>
+    <div class="copyright-footer">
+        <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+        <p>Created using <a target="_blank" href="https://www.numbas.org.uk">Numbas</a> v9.1, developed by <a target="_blank" href="http://www.newcastle.ac.uk">Newcastle University</a>.</p>
+        <button class="btn btn-default xs" type="button" data-bind="click: $root.showStyleModal" data-localise="control.style options"></button>
+    </div>
+</footer>
+    </div>
+
+</div>
+            </main>
+        </div>
+    </exam-container>
+</template>
+        <div id="no-stylesheet">
+            <p data-localise="page.no stylesheet loaded"></p>
+        </div>
+
+        <div id="with-stylesheet">
+<div id="die" hidden class="force-default-style">
+    <h1 data-localise="die.numbas failed">Numbas failed</h1>
+    <p data-localise="die.sorry"></p>
+    <div class="error" tabindex="1">
+        <div class="message"></div>
+        <div class="stack"></div>
+    </div>
+</div>
+<div id="loading">
+    <img class="logo center-block" src="resources/numbas-logo.svg" alt="Numbas"/>
+    <progress min="0" max="100" value="0"></progress>
+    <span class="loading-text" data-localise="page.loading">Loading...</span>
+</div>
+
+            
+            <numbas-exam storage="scorm">
+                <script type="application/numbas-exam">// Numbas version: finer_feedback_settings
+{"name": "Moment Balance", "extensions": ["geogebra", "quantities"], "custom_part_types": [{"source": {"pk": 12, "author": {"name": "William Haynes", "pk": 2530}, "edit_page": "/part_type/12/edit"}, "name": "Angle quantity 2020", "short_name": "angle", "description": "<p>Adjusts all angles to 0 &lt; $\\theta$ &lt; 360.</p>\n<p>Accepts '&deg;' and 'deg' as units.</p>\n<p>Penalizes if not close enough or no units.</p>\n<p>90&deg; = -270&deg; = 450&deg;</p>", "help_url": "", "input_widget": "string", "input_options": {"correctAnswer": "plain_string(settings['expected_answer']) ", "hint": {"static": true, "value": ""}, "allowEmpty": {"static": true, "value": false}}, "can_be_gap": true, "can_be_step": true, "marking_script": "original_student_scalar:\nmatchnumber(studentAnswer,['plain','en'])[1]\n\nstudent_scalar:\nmod(original_student_scalar,360)\n\n\nstudent_unit:\nstudentAnswer[len(matchnumber(studentAnswer,['plain','en'])[0])..len(studentAnswer)]\n\ninterpreted_unit:\nif(trim(student_unit)='\u00b0','deg',student_unit)\n\ninterpreted_answer:\nqty(mod(student_scalar,360),'deg')\n\nclose:\nwithintolerance(student_scalar, correct_scalar,decimal(settings['close_tol']))\n\ncorrect_scalar:\nmod(scalar(settings['expected_answer']),360)\n\nright:\nwithintolerance(student_scalar, correct_scalar, decimal(settings['right_tol']))\n\ngood_unit:\nsame(qty(1,interpreted_unit),qty(1,'deg'))\n\nmark:\nassert(close,incorrect('Incorrect.');end());\nif(right,correct('Correct angle.'), set_credit(1 - settings['close_penalty'],'Angle is close.'));\nassert(good_unit,sub_credit(settings['unit_penalty'], 'Missing or incorrect units.'))", "marking_notes": [{"name": "original_student_scalar", "description": "<p>Retuns the scalar part of students answer (which is a quantity) as a number.</p>", "definition": "matchnumber(studentAnswer,['plain','en'])[1]"}, {"name": "student_scalar", "description": "<p>Normalize angle with mod 360</p>", "definition": "mod(original_student_scalar,360)\n"}, {"name": "student_unit", "description": "<p>matchnumber(studentAnswer,['plain','en'])[0] is a string \"12.34\"</p>", "definition": "studentAnswer[len(matchnumber(studentAnswer,['plain','en'])[0])..len(studentAnswer)]"}, {"name": "interpreted_unit", "description": "<p>Allows student to use degree symbol or 'deg' for units.</p>", "definition": "if(trim(student_unit)='\u00b0','deg',student_unit)"}, {"name": "interpreted_answer", "description": "A value representing the student's answer to this part.", "definition": "qty(mod(student_scalar,360),'deg')"}, {"name": "close", "description": "", "definition": "withintolerance(student_scalar, correct_scalar,decimal(settings['close_tol']))"}, {"name": "correct_scalar", "description": "<p>Normalize expected_answer with mod 360</p>", "definition": "mod(scalar(settings['expected_answer']),360)"}, {"name": "right", "description": "", "definition": "withintolerance(student_scalar, correct_scalar, decimal(settings['right_tol']))"}, {"name": "good_unit", "description": "", "definition": "same(qty(1,interpreted_unit),qty(1,'deg'))"}, {"name": "mark", "description": "This is the main marking note. It should award credit and provide feedback based on the student's answer.", "definition": "assert(close,incorrect('Incorrect.');end());\nif(right,correct('Correct angle.'), set_credit(1 - settings['close_penalty'],'Angle is close.'));\nassert(good_unit,sub_credit(settings['unit_penalty'], 'Missing or incorrect units.'))"}], "settings": [{"name": "expected_answer", "label": "Expected Answer", "help_url": "", "hint": "Expected angle as a quantity.", "input_type": "code", "default_value": "qty(30,'deg')", "evaluate": true}, {"name": "unit_penalty", "label": "Unit penalty", "help_url": "", "hint": "Penalty for not including degree sign or 'deg'.", "input_type": "percent", "default_value": "20"}, {"name": "close_penalty", "label": "Close Penalty", "help_url": "", "hint": "Penalty for close answer.", "input_type": "percent", "default_value": "20"}, {"name": "close_tol", "label": "Close", "help_url": "", "hint": "Angle must be $\\pm$ this many degrees to be marked close. &nbsp;&nbsp;", "input_type": "code", "default_value": "0.5", "evaluate": false}, {"name": "right_tol", "label": "Right ", "help_url": "", "hint": "Angle must be $\\pm$ this many degrees to be marked correct. &nbsp;", "input_type": "code", "default_value": "0.1", "evaluate": false}], "public_availability": "restricted", "published": false, "extensions": ["quantities"]}], "resources": [], "navigation": {"allowregen": true, "showfrontpage": false, "preventleave": false, "typeendtoleave": false}, "question_groups": [{"pickingStrategy": "all-ordered", "questions": [{"name": "Moment Balance", "tags": ["eqilibrium", "Mechanics", "mechanics", "Moments", "moments", "Statics", "statics"], "metadata": {"description": "<p>Two known forces, and a third with known magnitude act on a rigid body. &nbsp;Apply $\\Sigma M = 0$ about a pin restraint to determine the direction of the third force. &nbsp;The problem has two valid answers.</p>", "licence": "Creative Commons Attribution-NonCommercial 4.0 International"}, "statement": "<p>Three forces, $A = \\var{A F_units}$, $C = \\var{C F_units}$ and $D = \\var{F F_units}$, act on the rigid, bent bar which can pivot freely on a pin at $B$. The segment lengths are: $AB = \\var{ab D_units}$, $BC = \\var{bc D_units}$, and $CD= \\var{cd D_units}$.</p>\n<table style=\"margin-left: auto; margin-right: auto; height: 18px;\">\n<tbody>\n<tr style=\"height: 18px;\">\n<td style=\"height: 18px; width: 0px;\">{applet}</td>\n</tr>\n</tbody>\n</table>\n<p>Find an angle $\\theta$ that will make the sum of the moments about point $B=0$.</p>", "advice": "<p>From the geometry of triangle $BCD$:</p>\n<p style=\"padding-left: 40px;\">$\\phi = \\tan^{-1}\\left( \\dfrac{BC}{CD}\\right) =\\var{precround(phi,1)}&deg;$<br/><br/>$d = \\sqrt{BC^2 +CD^2} &nbsp;= \\var{siground(abs(r_d),4) D_units}$</p>\n<p>From a moment balance around point $B$, the clockwise moment equals the counterclockwise moments:</p>\n<p style=\"padding-left: 40px;\">$\\begin{align}<br/>M_D &amp;= M_A + M_C \\\\<br/>&nbsp;&amp;= (\\var{AB})\\ A_y + (\\var{BC})\\ C_x\\\\<br/>&amp;= \\simplify[!collectNumbers]{({siground(M_A[2],4)} +{siground(M_C[2],4)})}\\\\<br/>&amp;= \\var{siground(-M D_units F_units,4)} \\text{ clockwise}<br/>\\end{align}$</p>\n<p>With the required moment $M_D$ and the magnitude of force $D$ known, the perpendicular distance and the angle between segment $BD$ and force $D$ are:</p>\n<p style=\"padding-left: 40px;\">$d_\\perp = M_D / D &nbsp;= \\dfrac{ \\var{siground(-M D_units F_units,4)}}{\\var{F F_units}} = \\var{siground(dperp,4) D_units}$<br/><br/>$\\alpha =\\sin^{-1}\\left( \\dfrac{d_\\perp}{d}\\right)=\\var{precround(alpha1,1)}&deg;$</p>\n<p>Since $\\sin \\alpha = \\sin (180&deg;-\\alpha)$ another possible angle is:</p>\n<p style=\"padding-left: 40px;\">$\\alpha' = (180&deg; - \\var{precround(alpha1,1)}) = \\var{precround(alpha2,1)}&deg;$</p>\n<p>Finally the angle from the positive $x$ axis to force $D$ can be determined. &nbsp;There are two possible solutions:</p>\n<p style=\"padding-left: 40px;\">$\\theta =180&deg; - \\alpha - \\phi = \\var{precround(-theta1,1)}&deg; $ or <br/>$\\theta = 180 - \\alpha' - \\phi = \\var{precround(-theta2,1)}$</p>\n<p>Note:<em> You can use the red slider on the diagram to switch between the two possible solutions.</em></p>", "rulesets": {}, "extensions": ["geogebra", "quantities"], "builtin_constants": {"e": true, "pi,\u03c0": true, "i": true, "j": false}, "constants": [], "variables": {"applet": {"name": "applet", "group": "inputs", "definition": "geogebra_applet('qavc8kmn',params)", "description": "", "templateType": "anything", "can_override": false}, "params": {"name": "params", "group": "inputs", "definition": "[ ab: ab, bc: bc, cd: cd, \n  theta_A: radians(theta_A), theta_C: radians(theta_C), theta: radians(-40),\n  fbd: [visible: false, definition: \"false\"],\n  soln: [visible: false]\n ]", "description": "<p>Paramiters for applet</p>", "templateType": "anything", "can_override": false}, "ab": {"name": "ab", "group": "inputs", "definition": "random(1..3#0.25)", "description": "<p>Length of segment AB</p>", "templateType": "anything", "can_override": false}, "bc": {"name": "bc", "group": "inputs", "definition": "random(1..2#0.25)", "description": "<p>Length of segment BC</p>", "templateType": "anything", "can_override": false}, "cd": {"name": "cd", "group": "inputs", "definition": "random(1..3#0.25)", "description": "<p>Length of segment CD</p>", "templateType": "anything", "can_override": false}, "D_units": {"name": "D_units", "group": "inputs", "definition": "qty('ft')", "description": "", "templateType": "anything", "can_override": false}, "theta_C": {"name": "theta_C", "group": "inputs", "definition": "random(110..250#10 except 180)", "description": "<p>Angle of force C, chosen to make a CCW moment</p>", "templateType": "anything", "can_override": false}, "theta_A": {"name": "theta_A", "group": "inputs", "definition": "random(195..345#15)", "description": "<p>Angle of force A, chosen to make a CCW moment</p>", "templateType": "anything", "can_override": false}, "A": {"name": "A", "group": "inputs", "definition": "random(25..250#25)", "description": "<p>Magnitude of force A</p>", "templateType": "anything", "can_override": false}, "C": {"name": "C", "group": "inputs", "definition": "random(25..200#25)", "description": "<p>magnitude of force C</p>", "templateType": "anything", "can_override": false}, "r_a": {"name": "r_a", "group": "solution", "definition": "vector(-ab,0,0)", "description": "<p>positon vector</p>", "templateType": "anything", "can_override": false}, "r_c": {"name": "r_c", "group": "solution", "definition": "vector(0,bc,0)", "description": "<p>position vector</p>", "templateType": "anything", "can_override": false}, "r_d": {"name": "r_d", "group": "solution", "definition": "vector(cd,bc,0)", "description": "<p>position vector</p>", "templateType": "anything", "can_override": false}, "f_a": {"name": "f_a", "group": "solution", "definition": "A vector(cos(radians(theta_a)),sin(radians(theta_a)),0)", "description": "<p>force vector</p>", "templateType": "anything", "can_override": false}, "f_c": {"name": "f_c", "group": "solution", "definition": "C vector(cos(radians(theta_C)),sin(radians(theta_c)),0)", "description": "<p>force vector</p>", "templateType": "anything", "can_override": false}, "M_A": {"name": "M_A", "group": "solution", "definition": "cross(r_a,f_a)", "description": "<p>Moment vector</p>", "templateType": "anything", "can_override": false}, "M_C": {"name": "M_C", "group": "solution", "definition": "cross(r_C, f_C)", "description": "<p>Moment vector</p>", "templateType": "anything", "can_override": false}, "M_D": {"name": "M_D", "group": "solution", "definition": "-(M_A+M_C)", "description": "<p>Moment vector needed for equilibrium</p>", "templateType": "anything", "can_override": false}, "F": {"name": "F", "group": "inputs", "definition": "random(25..200#20)", "description": "<p>Magnitude of force D</p>", "templateType": "anything", "can_override": false}, "F_min": {"name": "F_min", "group": "method 1", "definition": "cross(M_D,r_d)/(abs(r_d)^2)", "description": "<p>Solve for force F, which is the minimum force required, i.e. the force perpendicuar to the moment arm.</p>", "templateType": "anything", "can_override": false}, "f_perp": {"name": "f_perp", "group": "method 1", "definition": "abs(F_min)", "description": "<p>Minimum magnitude of F, also the perpendicular component of force D</p>", "templateType": "anything", "can_override": false}, "alpha1": {"name": "alpha1", "group": "method 1", "definition": " degrees(abs(arcsin(f_perp/F)))", "description": "", "templateType": "anything", "can_override": false}, "phi": {"name": "phi", "group": "method 1", "definition": "degrees(arctan(r_d[1]/r_d[0]))", "description": "", "templateType": "anything", "can_override": false}, "dperp": {"name": "dperp", "group": "method 1", "definition": "abs(M/F)", "description": "<p>perpendicular distance</p>", "templateType": "anything", "can_override": false}, "M": {"name": "M", "group": "solution", "definition": "M_D[2]", "description": "<p>scalar component of M_D</p>", "templateType": "anything", "can_override": false}, "theta1": {"name": "theta1", "group": "method 1", "definition": "-(180-phi-alpha1)", "description": "", "templateType": "anything", "can_override": false}, "f_units": {"name": "f_units", "group": "inputs", "definition": "qty(\"lb\")", "description": "", "templateType": "anything", "can_override": false}, "alpha2": {"name": "alpha2", "group": "method 1", "definition": "180-alpha1", "description": "", "templateType": "anything", "can_override": false}, "theta2": {"name": "theta2", "group": "method 1", "definition": "-(180-phi-alpha2)", "description": "", "templateType": "anything", "can_override": false}}, "variablesTest": {"condition": "0.3 < sin(radians(alpha1)) < 0.95 and alpha1 < 180 - phi -20//  for diagram to show alpha in the triangle\nand dperp < abs(r_d)", "maxRuns": 100}, "ungrouped_variables": [], "variable_groups": [{"name": "solution", "variables": ["r_a", "r_c", "r_d", "f_a", "f_c", "M_A", "M_C", "M_D", "M"]}, {"name": "method 1", "variables": ["F_min", "f_perp", "dperp", "alpha1", "alpha2", "phi", "theta1", "theta2"]}, {"name": "inputs", "variables": ["applet", "params", "ab", "bc", "cd", "theta_A", "theta_C", "f_units", "D_units", "A", "C", "F"]}], "functions": {"hide_items": {"parameters": [["app", "ggbapplet"]], "type": "anything", "language": "javascript", "definition": "// See https://wiki.geogebra.org/en/Scripting_Commands and\n// https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_API\nreturn;\napp.promise.then(function(d) {\n  d.app.setVisible('LOA', false);\n  d.app.setVisible('ref', false);\n  d.app.setVisible('t1', false);\n  d.app.setVisible('alpha', false);\n  d.app.setVisible('phi', false);\n});\nreturn new Numbas.jme.types.ggbapplet(app);\n"}}, "preamble": {"js": "question.signals.on('adviceDisplayed',function() {\n  \n  try{\n    //var app = question.applet.app;\n    //var app = Numbas.exam.currentQuestion.scope.variables.applet.app;\n    //var theta = - Numbas.exam.currentQuestion.scope.variables.theta1.value;\n    var app = question.scope.variables.applet.app;\n    var theta = - question.scope.variables.theta1.value;\n    console.log(theta);\n    app.setVisible(\"fbd\",true);\n    app.setValue(\"fbd\",true);\n    app.setVisible(\"soln\",true);\n    app.setValue(\"soln\",1);\n    app.setValue(\"theta\", -theta * 3.14 /180 );\n    app.setLabelVisible(\"A\",false);\n    app.setLabelVisible(\"B\",false);\n    app.setLabelVisible(\"C\",false);\n    app.setLabelVisible(\"D\",false);\n  }\n  catch(err){}  \n})\n", "css": ""}, "parts": [{"type": "gapfill", "useCustomName": false, "customName": "", "marks": 0, "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "prompt": "<p style=\"padding-left: 40px;\">$\\theta = $ [[0]]&nbsp; (Measure $\\theta$ CW from the positive $x$ axis.)</p>", "gaps": [{"type": "angle", "useCustomName": true, "customName": "$\\theta$", "marks": "20", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "showCorrectAnswer": true, "showFeedbackIcon": true, "variableReplacements": [], "variableReplacementStrategy": "originalfirst", "nextParts": [], "suggestGoingBack": false, "adaptiveMarkingPenalty": 0, "exploreObjective": null, "alternatives": [{"type": "angle", "useCustomName": true, "customName": "$\\theta'$", "marks": "20", "scripts": {}, "customMarkingAlgorithm": "", "extendBaseMarkingAlgorithm": true, "unitTests": [], "alternativeFeedbackMessage": "", "useAlternativeFeedback": false, "settings": {"expected_answer": "precround(qty(-theta2,'deg'),2)", "unit_penalty": "20", "close_penalty": "20", "close_tol": "0.5", "right_tol": "0.1"}}], "settings": {"expected_answer": "precround(qty(-theta1,'deg'),2)", "unit_penalty": "20", "close_penalty": "20", "close_tol": "0.5", "right_tol": "0.1"}}], "sortAnswers": false}], "partsMode": "all", "maxMarks": 0, "objectives": [], "penalties": [], "objectiveVisibility": "always", "penaltyVisibility": "always", "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}], "resources": []}]}], "contributors": [{"name": "William Haynes", "profile_url": "https://numbas.mathcentre.ac.uk/accounts/profile/2530/"}]}</script>
+                <script type="application/json" slot="extension-data">{"geogebra": {"root": "extensions/geogebra", "stylesheets": [], "javascripts": ["geogebra.js"]}, "quantities": {"root": "extensions/quantities", "stylesheets": [], "javascripts": ["quantities.js"]}}</script>
+            </numbas-exam>
+            
+        </div>
+	</body>
+</html>
