@@ -38,7 +38,7 @@ ggb.registerObjectUpdateListener('b', updateSlate);
 ggb.registerObjectUpdateListener('c', updateSlate);
 ggb.registerObjectUpdateListener('r', updateSlate);
 updateSlate();
-t1.getElementsByTagName('tr')[1].style.color='red';
-t1.getElementsByTagName('tr')[2].style.color='blue';
+t1.getElementsByTagName('tr')[1].style.color='#CC0000';
+t1.getElementsByTagName('tr')[2].style.color='#0033CC';
 t1.getElementsByTagName('tr')[3].style.color='darkgreen';
 }
