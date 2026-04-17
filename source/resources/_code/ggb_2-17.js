@@ -44,7 +44,7 @@ b_to_a.addEventListener('click',function () { ggb.evalCommand('RunClickScript(bt
 ggb.registerUpdateListener(updateSlate);
 
 updateSlate();
-tbody1.getElementsByTagName('tr')[1].style.color='red';
-tbody1.getElementsByTagName('tr')[2].style.color='blue';
+tbody1.getElementsByTagName('tr')[1].style.color='#CC0000';
+tbody1.getElementsByTagName('tr')[2].style.color='#0033CC';
  
 }
