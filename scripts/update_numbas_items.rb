@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# this script loops through all numbas items in source/resources/_Numbas, and downloads 
+# the latest versions from the Numbas Script Editor.
+
 require 'fileutils'
 require 'open-uri'
 require 'zip'
@@ -102,13 +105,14 @@ end
 
 # Main execution
 if __FILE__ == $0
-  if ARGV.empty?
-    puts "Usage: ruby update_numbas_items.rb <directory_path>"
-    puts "\nExample: ruby update_numbas_items.rb ./numbas_exams"
-    exit 1
-  end
+#  if ARGV.empty?
+#    puts "Usage: ruby update_numbas_items.rb <directory_path>"
+#    puts "\nExample: ruby update_numbas_items.rb ./numbas_exams"
+#    exit 1
+#  end
 
-  directory = ARGV[0]
+#  directory = ARGV[0]
+  directory = '../source/resources/_Numbas'
 
   unless File.directory?(directory)
     puts "Error: '#{directory}' is not a valid directory"
