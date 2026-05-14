@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="dot_products_2D"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="dot_products_2D">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Dot Products</span>
 </h2>
 <article class="objectives goal-like" id="dot_products_2D-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -732,8 +669,13 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#dot_products_2D-2-1-4" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 2.7"><a href="#dot_products_2D-2" title="Copy heading and permalink for Key Questions 2.7" aria-label="Copy heading and permalink for Key Questions 2.7">🔗</a></div></article><section class="introduction" id="dot_products_2D-3"><div class="para" id="dot_products_2D-3-1">Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations: <dfn class="terminology">dot product</dfn> and the <dfn class="terminology">cross product</dfn>. Alternately, the first is referred to as the <dfn class="terminology">scalar product</dfn> because its result is a scalar, and the second as the <dfn class="terminology">vector product</dfn> because its result is a vector. The dot product and its applications will be discussed in this section and the cross product in the next.<div class="autopermalink" data-description="Paragraph"><a href="#dot_products_2D-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></section><section class="subsection" id="Chapter_02_calculation-of-dot-product"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Key Questions 2.7"><a href="#dot_products_2D-2" title="Copy heading and permalink for Key Questions 2.7" aria-label="Copy heading and permalink for Key Questions 2.7">🔗</a></div>
+</article>
+<section class="introduction" id="dot_products_2D-3">
+<div class="para" id="dot_products_2D-3-1">Unlike ordinary algebra where there is only one way to multiply numbers, there are two distinct vector multiplication operations: <dfn class="terminology">dot product</dfn> and the <dfn class="terminology">cross product</dfn>. Alternately, the first is referred to as the <dfn class="terminology">scalar product</dfn> because its result is a scalar, and the second as the <dfn class="terminology">vector product</dfn> because its result is a vector. The dot product and its applications will be discussed in this section and the cross product in the next.<div class="autopermalink" data-description="Paragraph"><a href="#dot_products_2D-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></section>
+<section class="subsection" id="Chapter_02_calculation-of-dot-product">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Calculation of the Dot product</span>
 </h3>
 <div class="para logical" id="Chapter_02_calculation-of-dot-product-2">
@@ -811,7 +753,10 @@ C\left( \vec{A}\cdot\vec{B} \right ) = \left( C\ \vec{A} \right) \cdot\vec{B}= \
 </div>
 <div class="para" id="Chapter_02_calculation-of-dot-product-7">Dot products can be used to compute the magnitude of a vector, determine the angle between two vectors, and find the rectangular component or projection of a vector in a specified direction. These applications will be discussed in the following sections.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02_calculation-of-dot-product-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Subsection 2.7.1: Calculation of the Dot product"><a href="#Chapter_02_calculation-of-dot-product" title="Copy heading and permalink for Subsection 2.7.1: Calculation of the Dot product" aria-label="Copy heading and permalink for Subsection 2.7.1: Calculation of the Dot product">🔗</a></div></section><section class="subsection" id="Chapter_02-magnitude-of-a-vector"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Subsection 2.7.1: Calculation of the Dot product"><a href="#Chapter_02_calculation-of-dot-product" title="Copy heading and permalink for Subsection 2.7.1: Calculation of the Dot product" aria-label="Copy heading and permalink for Subsection 2.7.1: Calculation of the Dot product">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_02-magnitude-of-a-vector">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Magnitude of a Vector</span>
 </h3>
 <div class="para logical" id="Chapter_02-magnitude-of-a-vector-2">
@@ -850,7 +795,8 @@ C\left( \vec{A}\cdot\vec{B} \right ) = \left( C\ \vec{A} \right) \cdot\vec{B}= \
 <div class="para" id="intro_2D_dot_products-2-1">Find the magnitude of vector <span class="process-math">\(\vec{F}\)</span> with components <span class="process-math">\(F_x = \N{30}\text{,}\)</span> <span class="process-math">\(F_y=\N{-40}\)</span> and <span class="process-math">\(F_z = \N{50}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#intro_2D_dot_products-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="intro_2D_dot_products-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="intro_2D_dot_products-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="intro_2D_dot_products-3-1">
 <div class="displaymath process-math" id="intro_2D_dot_products-3-1-1">
 \begin{equation*}
@@ -860,7 +806,9 @@ F = |\vec{F}| = \N{70.7}
 <div class="autopermalink" data-description="Paragraph"><a href="#intro_2D_dot_products-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.1.1"><a href="#intro_2D_dot_products-3" title="Copy heading and permalink for Answer 2.7.1.1" aria-label="Copy heading and permalink for Answer 2.7.1.1">🔗</a></div>
-</div></details><details id="intro_2D_dot_products-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="intro_2D_dot_products-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="intro_2D_dot_products-4-1">
 <div class="displaymath process-math" id="intro_2D_dot_products-4-1-1">
 \begin{align*}
@@ -880,7 +828,11 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.1.1"><a href="#intro_2D_dot_products-4" title="Copy heading and permalink for Solution 2.7.1.1" aria-label="Copy heading and permalink for Solution 2.7.1.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.7.1: Find Vector Magnitude using the Dot Product"><a href="#intro_2D_dot_products" title="Copy heading and permalink for Example 2.7.1: Find Vector Magnitude using the Dot Product" aria-label="Copy heading and permalink for Example 2.7.1: Find Vector Magnitude using the Dot Product">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.7.2: Magnitude of a Vector"><a href="#Chapter_02-magnitude-of-a-vector" title="Copy heading and permalink for Subsection 2.7.2: Magnitude of a Vector" aria-label="Copy heading and permalink for Subsection 2.7.2: Magnitude of a Vector">🔗</a></div></section><section class="subsection" id="Chapter_02-angle-between-two-vectors"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 2.7.1: Find Vector Magnitude using the Dot Product"><a href="#intro_2D_dot_products" title="Copy heading and permalink for Example 2.7.1: Find Vector Magnitude using the Dot Product" aria-label="Copy heading and permalink for Example 2.7.1: Find Vector Magnitude using the Dot Product">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.7.2: Magnitude of a Vector"><a href="#Chapter_02-magnitude-of-a-vector" title="Copy heading and permalink for Subsection 2.7.2: Magnitude of a Vector" aria-label="Copy heading and permalink for Subsection 2.7.2: Magnitude of a Vector">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_02-angle-between-two-vectors">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.3</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Angle between Two Vectors</span>
 </h3>
 <div class="para logical" id="Chapter_02-angle-between-two-vectors-2">
@@ -899,7 +851,8 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="para" id="Chapter_02-example-angle-between-orthogonal-unit-vectors-2-1">Find the angle between <span class="process-math">\(\ihat= \langle 1,0,0 \rangle\)</span> and <span class="process-math">\(\jhat =\langle 0,1,0 \rangle\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-example-angle-between-orthogonal-unit-vectors-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-example-angle-between-orthogonal-unit-vectors-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-example-angle-between-orthogonal-unit-vectors-3-1">
 <div class="displaymath process-math" id="Chapter_02-example-angle-between-orthogonal-unit-vectors-3-1-1">
 \begin{equation*}
@@ -909,7 +862,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.2.1"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors-3" title="Copy heading and permalink for Answer 2.7.2.1" aria-label="Copy heading and permalink for Answer 2.7.2.1">🔗</a></div>
-</div></details><details id="Chapter_02-example-angle-between-orthogonal-unit-vectors-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-example-angle-between-orthogonal-unit-vectors-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Chapter_02-example-angle-between-orthogonal-unit-vectors-4-1">
 <div class="displaymath process-math" id="Chapter_02-example-angle-between-orthogonal-unit-vectors-4-1-1">
 \begin{align*}
@@ -927,13 +882,16 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.2.1"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors-4" title="Copy heading and permalink for Solution 2.7.2.1" aria-label="Copy heading and permalink for Solution 2.7.2.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.7.2: Angle between Orthogonal Unit Vectors"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors" title="Copy heading and permalink for Example 2.7.2: Angle between Orthogonal Unit Vectors" aria-label="Copy heading and permalink for Example 2.7.2: Angle between Orthogonal Unit Vectors">🔗</a></div></article><article class="example example-like" id="Chapter_02-example-angle-between-two-vectors"><h4 class="heading">
+<div class="autopermalink" data-description="Example 2.7.2: Angle between Orthogonal Unit Vectors"><a href="#Chapter_02-example-angle-between-orthogonal-unit-vectors" title="Copy heading and permalink for Example 2.7.2: Angle between Orthogonal Unit Vectors" aria-label="Copy heading and permalink for Example 2.7.2: Angle between Orthogonal Unit Vectors">🔗</a></div>
+</article>
+<article class="example example-like" id="Chapter_02-example-angle-between-two-vectors"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Angle between Two Vectors.</span>
 </h4>
 <div class="para" id="Chapter_02-example-angle-between-two-vectors-2-1">Find the angle between <span class="process-math">\(\vec{F} = \langle \N{100}, \N{200}, \N{-50} \rangle\)</span> and <span class="process-math">\(\vec{G} = \langle \N{-75}, \N{150}, \N{-40} \rangle\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-example-angle-between-two-vectors-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-example-angle-between-two-vectors-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-example-angle-between-two-vectors-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-example-angle-between-two-vectors-3-1">
 <div class="displaymath process-math" id="Chapter_02-example-angle-between-two-vectors-3-1-1">
 \begin{equation*}
@@ -943,7 +901,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-example-angle-between-two-vectors-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.3.1"><a href="#Chapter_02-example-angle-between-two-vectors-3" title="Copy heading and permalink for Answer 2.7.3.1" aria-label="Copy heading and permalink for Answer 2.7.3.1">🔗</a></div>
-</div></details><details id="Chapter_02-example-angle-between-two-vectors-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-example-angle-between-two-vectors-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Chapter_02-example-angle-between-two-vectors-4-1">
 <div class="displaymath process-math" id="Chapter_02-example-angle-between-two-vectors-4-1-1">
 \begin{align*}
@@ -962,7 +922,11 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.3.1"><a href="#Chapter_02-example-angle-between-two-vectors-4" title="Copy heading and permalink for Solution 2.7.3.1" aria-label="Copy heading and permalink for Solution 2.7.3.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.7.3: Angle between Two Vectors"><a href="#Chapter_02-example-angle-between-two-vectors" title="Copy heading and permalink for Example 2.7.3: Angle between Two Vectors" aria-label="Copy heading and permalink for Example 2.7.3: Angle between Two Vectors">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.7.3: Angle between Two Vectors"><a href="#Chapter_02-angle-between-two-vectors" title="Copy heading and permalink for Subsection 2.7.3: Angle between Two Vectors" aria-label="Copy heading and permalink for Subsection 2.7.3: Angle between Two Vectors">🔗</a></div></section><section class="subsection" id="vector-projections"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 2.7.3: Angle between Two Vectors"><a href="#Chapter_02-example-angle-between-two-vectors" title="Copy heading and permalink for Example 2.7.3: Angle between Two Vectors" aria-label="Copy heading and permalink for Example 2.7.3: Angle between Two Vectors">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.7.3: Angle between Two Vectors"><a href="#Chapter_02-angle-between-two-vectors" title="Copy heading and permalink for Subsection 2.7.3: Angle between Two Vectors" aria-label="Copy heading and permalink for Subsection 2.7.3: Angle between Two Vectors">🔗</a></div>
+</section>
+<section class="subsection" id="vector-projections">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Vector Projection</span>
 </h3>
 <div class="para" id="vector-projections-2">The dot product is used to find the <dfn class="terminology">projection</dfn> of one vector onto another. You can think of a projection of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\)</span> as a vector the length of the shadow of <span class="process-math">\(\vec{B}\)</span> on the line of action of <span class="process-math">\(\vec{A}\)</span> when the sun is directly above <span class="process-math">\(\vec{A}\text{.}\)</span> More precisely, the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\)</span> produces the rectangular component of <span class="process-math">\(\vec{B}\)</span> in the direction <em class="emphasis">parallel</em> to <span class="process-math">\(\vec{A}\text{.}\)</span> This is one side of a rectangle aligned with <span class="process-math">\(\vec{A}\text{,}\)</span> having <span class="process-math">\(\vec{B}\)</span> as its diagonal.<div class="autopermalink" data-description="Paragraph"><a href="#vector-projections-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -995,12 +959,17 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div>
 <figure class="figure figure-like" id="ggb_dot_product"><div class="interactive-iframe-container"><iframe id="ggb_2d-dot-product_interactive" style="width:600px; height:390px; display: block; " src="ggb_2d-dot-product_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_2d-dot-product_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_2d-dot-product_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_2d-dot-product_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_2d-dot-product_interactive-3-1">This interactive demonstrates the relationship between vectors <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> and the projection of <span class="process-math">\(\vec{B}\)</span> onto <span class="process-math">\(\vec{A}\text{.}\)</span> The checkbox switches between showing <span class="process-math">\(\proj_\vec{A}\vec{B}\)</span> and <span class="process-math">\(\proj_\vec{B}\vec{A}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#ggb_2d-dot-product_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_2d-dot-product_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Vector projection in two dimensions.<div class="autopermalink" data-description="Figure 2.7.4"><a href="#ggb_dot_product" title="Copy heading and permalink for Figure 2.7.4" aria-label="Copy heading and permalink for Figure 2.7.4">🔗</a></div></figcaption></figure><div class="para logical" id="vector-projections-7">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Vector projection in two dimensions.<div class="autopermalink" data-description="Figure 2.7.4"><a href="#ggb_dot_product" title="Copy heading and permalink for Figure 2.7.4" aria-label="Copy heading and permalink for Figure 2.7.4">🔗</a></div></figcaption>
+</figure>
+<div class="para logical" id="vector-projections-7">
 <div class="para">The interactive shows that the projection is the adjacent side of a right triangle with <span class="process-math">\(\vec{B}\)</span> as the hypotenuse. From the definition of the dot product <a href="dot_products_2D.html#dot-product-2" class="xref" data-knowl="./knowl/xref/dot-product-2.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 2.7.2">(2.7.2)</a> we find that</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/dot-product-2.html" id="projection-1">
 \begin{equation}
@@ -1085,20 +1054,29 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 </div>
 <figure class="figure figure-like" id="vector_dot_product_3d"><div class="interactive-iframe-container"><iframe id="ggb_3d-dot_product_interactive" style="width:600px; height:480px; display: block; " src="ggb_3d-dot_product_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_3d-dot_product_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_3d-dot_product_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_3d-dot_product_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_3d-dot_product_interactive-4-1">This interactive shows the vector projection of <span class="process-math">\(\vec{A}\)</span> on <span class="process-math">\(\vec{B}\)</span> or of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#ggb_3d-dot_product_interactive-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="ggb_3d-dot_product_interactive-4-2">You may change <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> by moving the red dots or entering values into the table cells. Click dot to switch between <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> mode and <span class="process-math">\(z\)</span> mode. The components of <span class="process-math">\(\vec{A}\)</span> and <span class="process-math">\(\vec{B}\)</span> can also be entered into the table.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_3d-dot_product_interactive-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_3d-dot_product_interactive-4" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.5<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Vector projections in three dimensions.<div class="autopermalink" data-description="Figure 2.7.5"><a href="#vector_dot_product_3d" title="Copy heading and permalink for Figure 2.7.5" aria-label="Copy heading and permalink for Figure 2.7.5">🔗</a></div></figcaption></figure><div class="autopermalink" data-description="Subsection 2.7.4: Vector Projection"><a href="#vector-projections" title="Copy heading and permalink for Subsection 2.7.4: Vector Projection" aria-label="Copy heading and permalink for Subsection 2.7.4: Vector Projection">🔗</a></div></section><section class="subsection" id="dot-product-math"><h3 class="heading hide-type">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.5<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Vector projections in three dimensions.<div class="autopermalink" data-description="Figure 2.7.5"><a href="#vector_dot_product_3d" title="Copy heading and permalink for Figure 2.7.5" aria-label="Copy heading and permalink for Figure 2.7.5">🔗</a></div></figcaption>
+</figure><div class="autopermalink" data-description="Subsection 2.7.4: Vector Projection"><a href="#vector-projections" title="Copy heading and permalink for Subsection 2.7.4: Vector Projection" aria-label="Copy heading and permalink for Subsection 2.7.4: Vector Projection">🔗</a></div>
+</section>
+<section class="subsection" id="dot-product-math">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.5</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Perpendicular Components</span>
 </h3>
 <div class="para" id="dot-product-math-2">The final application of dot products is to find the component of one vector perpendicular to another.<div class="autopermalink" data-description="Paragraph"><a href="#dot-product-math-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:48% 48%;column-gap:4%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para logical" id="dot-product-math-3-1">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:48% 48%;column-gap:4%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="dot-product-math-3-1">
 <div class="para">To find the component of <span class="process-math">\(\vec{B}\)</span> perpendicular to <span class="process-math">\(\vec{A}\text{,}\)</span> first find the vector projection of <span class="process-math">\(\vec{B}\)</span> on <span class="process-math">\(\vec{A}\text{,}\)</span> then subtract that from <span class="process-math">\(\vec{B}\text{.}\)</span> What remains is the perpendicular component.</div>
 <div class="displaymath process-math" id="dot-product-math-3-1-6">
 \begin{equation}
@@ -1106,10 +1084,15 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 \end{equation}
 </div>
 <div class="autopermalink" data-description="Paragraph"><a href="#dot-product-math-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-<div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="dot-product-math-3-2"><div class="image-box"><img src="external/images/dot-perp-component.svg" role="img" class="contained" alt="To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component."></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.6<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Perpendicular and parallel components of <span class="process-math">\(\vec{B}\text{.}\)</span><div class="autopermalink" data-description="Figure 2.7.6"><a href="#dot-product-math-3-2" title="Copy heading and permalink for Figure 2.7.6" aria-label="Copy heading and permalink for Figure 2.7.6">🔗</a></div></figcaption></figure></div>
-</div></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="dot-product-math-3-2"><div class="image-box"><img src="external/images/dot-perp-component.svg" role="img" class="contained" alt="To find the component of vector B perpendicular to vector A, first find the vector projection of B on A, then subtract that from B. What remains is the perpendicular component."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.6<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Perpendicular and parallel components of <span class="process-math">\(\vec{B}\text{.}\)</span><div class="autopermalink" data-description="Figure 2.7.6"><a href="#dot-product-math-3-2" title="Copy heading and permalink for Figure 2.7.6" aria-label="Copy heading and permalink for Figure 2.7.6">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
 <article class="example example-like" id="Chapter_02-Dot-products"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.7.7</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Dot Products.</span>
 </h4>
@@ -1124,7 +1107,8 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="para" id="Chapter_02-Dot-products-3-1-1">Find the dot product of the cable tension <span class="process-math">\(\vec{T}\)</span> and the anchor <span class="process-math">\(\vec{AB}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-Dot-products-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-Dot-products-3-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-3-2-1">
 <div class="displaymath process-math" id="Chapter_02-Dot-products-3-2-1-1">
 \begin{equation*}
@@ -1134,7 +1118,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-3-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.7.a.1"><a href="#Chapter_02-Dot-products-3-2" title="Copy heading and permalink for Answer 2.7.7.a.1" aria-label="Copy heading and permalink for Answer 2.7.7.a.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-3-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-3-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-Dot-products-3-3-1">When you know the magnitudes and angle between two vectors, it is easiest to use the second dot product equation <a href="dot_products_2D.html#dot-product-2" class="xref" data-knowl="./knowl/xref/dot-product-2.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 2.7.2">(2.7.2)</a>, but in this case it will be easier to find the components of <span class="process-math">\(\vec{AB}\)</span> and use <a href="dot_products_2D.html#dot-product-1" class="xref" data-knowl="./knowl/xref/dot-product-1.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 2.7.1">(2.7.1)</a>.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-3-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-Dot-products-3-3-2">
@@ -1156,11 +1142,14 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.7.a.1"><a href="#Chapter_02-Dot-products-3-3" title="Copy heading and permalink for Solution 2.7.7.a.1" aria-label="Copy heading and permalink for Solution 2.7.7.a.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Task 2.7.7.a"><a href="#Chapter_02-Dot-products-3" title="Copy heading and permalink for Task 2.7.7.a" aria-label="Copy heading and permalink for Task 2.7.7.a">🔗</a></div></article><article class="task exercise-like" id="Chapter_02-Dot-products-4"><h5 class="heading"><span class="codenumber">(b)</span></h5>
+<div class="autopermalink" data-description="Task 2.7.7.a"><a href="#Chapter_02-Dot-products-3" title="Copy heading and permalink for Task 2.7.7.a" aria-label="Copy heading and permalink for Task 2.7.7.a">🔗</a></div>
+</article>
+<article class="task exercise-like" id="Chapter_02-Dot-products-4"><h5 class="heading"><span class="codenumber">(b)</span></h5>
 <div class="para" id="Chapter_02-Dot-products-4-1-1">Find the angle <span class="process-math">\(\theta\)</span> between the cable tension <span class="process-math">\(\vec{T}\)</span> and the anchor <span class="process-math">\(\vec{AB}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-Dot-products-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-Dot-products-4-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-4-2-1">
 <div class="displaymath process-math" id="Chapter_02-Dot-products-4-2-1-1">
 \begin{equation*}
@@ -1170,7 +1159,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.7.b.1"><a href="#Chapter_02-Dot-products-4-2" title="Copy heading and permalink for Answer 2.7.7.b.1" aria-label="Copy heading and permalink for Answer 2.7.7.b.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-4-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-4-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-4-3-1">
 <div class="para">With the dot product <span class="process-math">\(\vec{T} \cdot \vec{AB}\)</span> known from the previous step, we can use the <a href="dot_products_2D.html#dot-product-2" class="xref" data-knowl="./knowl/xref/dot-product-2.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 2.7.2">(2.7.2)</a> to find the angle between force <span class="process-math">\(\vec{T}\)</span> and anchor.</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/dot-product-2.html" id="Chapter_02-Dot-products-4-3-1-4">
@@ -1205,11 +1196,14 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.7.b.1"><a href="#Chapter_02-Dot-products-4-3" title="Copy heading and permalink for Solution 2.7.7.b.1" aria-label="Copy heading and permalink for Solution 2.7.7.b.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Task 2.7.7.b"><a href="#Chapter_02-Dot-products-4" title="Copy heading and permalink for Task 2.7.7.b" aria-label="Copy heading and permalink for Task 2.7.7.b">🔗</a></div></article><article class="task exercise-like" id="Chapter_02-Dot-products-5"><h5 class="heading"><span class="codenumber">(c)</span></h5>
+<div class="autopermalink" data-description="Task 2.7.7.b"><a href="#Chapter_02-Dot-products-4" title="Copy heading and permalink for Task 2.7.7.b" aria-label="Copy heading and permalink for Task 2.7.7.b">🔗</a></div>
+</article>
+<article class="task exercise-like" id="Chapter_02-Dot-products-5"><h5 class="heading"><span class="codenumber">(c)</span></h5>
 <div class="para" id="Chapter_02-Dot-products-5-1-1">Find the scalar projection of the the cable tension <span class="process-math">\(\vec{T}\)</span> onto the anchor <span class="process-math">\(\vec{AB}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-Dot-products-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-Dot-products-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-5-2-1">
 <div class="displaymath process-math" id="Chapter_02-Dot-products-5-2-1-1">
 \begin{equation*}
@@ -1219,7 +1213,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.7.c.1"><a href="#Chapter_02-Dot-products-5-2" title="Copy heading and permalink for Answer 2.7.7.c.1" aria-label="Copy heading and permalink for Answer 2.7.7.c.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-5-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-5-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-Dot-products-5-3-1">Recall from <a href="dot_products_2D.html#vector-projections" class="internal" title="Subsection 2.7.4: Vector Projection">Subsection 2.7.4</a> that the scalar projection is the scalar component of one vector in the direction of another, in other words, how much of one vector is parallel to another. This is one of the most direct and practical applications of the dot product.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-5-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-Dot-products-5-3-2">
@@ -1244,7 +1240,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-5-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Solution 2.7.7.c.1"><a href="#Chapter_02-Dot-products-5-3" title="Copy heading and permalink for Solution 2.7.7.c.1" aria-label="Copy heading and permalink for Solution 2.7.7.c.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-5-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-5-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-Dot-products-5-4-1">Alternately, you can apply <a href="dot_products_2D.html#projection2" class="xref" data-knowl="./knowl/xref/projection2.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 2.7.10">(2.7.10)</a> and calculate the calculate the dot product of force vector <span class="process-math">\(\vec{T}\)</span> with the unit vector <span class="process-math">\(\widehat{\vec{AB}}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-5-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-Dot-products-5-4-2">
@@ -1273,11 +1271,14 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.7.c.2"><a href="#Chapter_02-Dot-products-5-4" title="Copy heading and permalink for Solution 2.7.7.c.2" aria-label="Copy heading and permalink for Solution 2.7.7.c.2">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Task 2.7.7.c"><a href="#Chapter_02-Dot-products-5" title="Copy heading and permalink for Task 2.7.7.c" aria-label="Copy heading and permalink for Task 2.7.7.c">🔗</a></div></article><article class="task exercise-like" id="Chapter_02-Dot-products-6"><h5 class="heading"><span class="codenumber">(d)</span></h5>
+<div class="autopermalink" data-description="Task 2.7.7.c"><a href="#Chapter_02-Dot-products-5" title="Copy heading and permalink for Task 2.7.7.c" aria-label="Copy heading and permalink for Task 2.7.7.c">🔗</a></div>
+</article>
+<article class="task exercise-like" id="Chapter_02-Dot-products-6"><h5 class="heading"><span class="codenumber">(d)</span></h5>
 <div class="para" id="Chapter_02-Dot-products-6-1-1">Find the vector projection of the cable tension <span class="process-math">\(\vec{T}\)</span> onto the anchor <span class="process-math">\(\vec{AB}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-6-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-Dot-products-6-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-Dot-products-6-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-6-2-1">
 <div class="displaymath process-math" id="Chapter_02-Dot-products-6-2-1-1">
 \begin{equation*}
@@ -1287,7 +1288,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-6-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.7.d.1"><a href="#Chapter_02-Dot-products-6-2" title="Copy heading and permalink for Answer 2.7.7.d.1" aria-label="Copy heading and permalink for Answer 2.7.7.d.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-6-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-6-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-Dot-products-6-3-1">The vector projection is the scalar projection value multiplied by a unit direction vector to turn it a vector. So we multiply the scalar projection with the unit vector of <span class="process-math">\(\widehat{\vec{AB}}\)</span> to compute the vector projection of <span class="process-math">\(T\)</span> onto <span class="process-math">\(AB\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-6-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-Dot-products-6-3-2">
@@ -1303,11 +1306,14 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.7.d.1"><a href="#Chapter_02-Dot-products-6-3" title="Copy heading and permalink for Solution 2.7.7.d.1" aria-label="Copy heading and permalink for Solution 2.7.7.d.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Task 2.7.7.d"><a href="#Chapter_02-Dot-products-6" title="Copy heading and permalink for Task 2.7.7.d" aria-label="Copy heading and permalink for Task 2.7.7.d">🔗</a></div></article><article class="task exercise-like" id="Chapter_02-Dot-products-7"><h5 class="heading"><span class="codenumber">(e)</span></h5>
+<div class="autopermalink" data-description="Task 2.7.7.d"><a href="#Chapter_02-Dot-products-6" title="Copy heading and permalink for Task 2.7.7.d" aria-label="Copy heading and permalink for Task 2.7.7.d">🔗</a></div>
+</article>
+<article class="task exercise-like" id="Chapter_02-Dot-products-7"><h5 class="heading"><span class="codenumber">(e)</span></h5>
 <div class="para" id="Chapter_02-Dot-products-7-1-1">Find the vector portion of cable tension <span class="process-math">\(\vec{T}\)</span> perpendicular to the anchor <span class="process-math">\(\vec{AB}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="Chapter_02-Dot-products-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-Dot-products-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-Dot-products-7-2-1">
 <div class="displaymath process-math" id="Chapter_02-Dot-products-7-2-1-1">
 \begin{equation*}
@@ -1317,7 +1323,9 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-7-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.7.7.e.1"><a href="#Chapter_02-Dot-products-7-2" title="Copy heading and permalink for Answer 2.7.7.e.1" aria-label="Copy heading and permalink for Answer 2.7.7.e.1">🔗</a></div>
-</div></details><details id="Chapter_02-Dot-products-7-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-Dot-products-7-3" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-Dot-products-7-3-1">Recall that a two-dimensional vector can be represented by the sum of two perpendicular components. In the same way, a right triangle can be represented by a vector along the hypotenuse equal to the sum of the two right-triangle sides.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-7-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-Dot-products-7-3-2">
@@ -1343,12 +1351,18 @@ F \amp = |\vec{F}| = \sqrt{\vec{F} \cdot \vec{F}}\\
 <div class="autopermalink" data-description="Solution 2.7.7.e.1"><a href="#Chapter_02-Dot-products-7-3" title="Copy heading and permalink for Solution 2.7.7.e.1" aria-label="Copy heading and permalink for Solution 2.7.7.e.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Task 2.7.7.e"><a href="#Chapter_02-Dot-products-7" title="Copy heading and permalink for Task 2.7.7.e" aria-label="Copy heading and permalink for Task 2.7.7.e">🔗</a></div></article><div class="conclusion" id="Chapter_02-Dot-products-8">
+<div class="autopermalink" data-description="Task 2.7.7.e"><a href="#Chapter_02-Dot-products-7" title="Copy heading and permalink for Task 2.7.7.e" aria-label="Copy heading and permalink for Task 2.7.7.e">🔗</a></div>
+</article>
+<div class="conclusion" id="Chapter_02-Dot-products-8">
 <div class="para" id="Chapter_02-Dot-products-8-1">Nice effort if you worked through all the parts of this example. Graphically the results for parts (b), (d), and (e) are shown in this diagram.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-Dot-products-8-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 75%; margin-left: 12.5%; margin-right: 12.5%;"><img src="external/images/dot-product-ex-ans.svg" role="img" class="contained" alt="The portion of vector F which is parallel and perpendicular to anchor AB is shown, in addition to the angle θ between the vectors F and AB."></div>
 </div>
-<div class="autopermalink" data-description="Example 2.7.7: Dot Products"><a href="#Chapter_02-Dot-products" title="Copy heading and permalink for Example 2.7.7: Dot Products" aria-label="Copy heading and permalink for Example 2.7.7: Dot Products">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.7.5: Perpendicular Components"><a href="#dot-product-math" title="Copy heading and permalink for Subsection 2.7.5: Perpendicular Components" aria-label="Copy heading and permalink for Subsection 2.7.5: Perpendicular Components">🔗</a></div></section><div class="autopermalink" data-description="Section 2.7: Dot Products"><a href="#dot_products_2D" title="Copy heading and permalink for Section 2.7: Dot Products" aria-label="Copy heading and permalink for Section 2.7: Dot Products">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 2.7.7: Dot Products"><a href="#Chapter_02-Dot-products" title="Copy heading and permalink for Example 2.7.7: Dot Products" aria-label="Copy heading and permalink for Example 2.7.7: Dot Products">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.7.5: Perpendicular Components"><a href="#dot-product-math" title="Copy heading and permalink for Subsection 2.7.5: Perpendicular Components" aria-label="Copy heading and permalink for Subsection 2.7.5: Perpendicular Components">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 2.7: Dot Products"><a href="#dot_products_2D" title="Copy heading and permalink for Section 2.7: Dot Products" aria-label="Copy heading and permalink for Section 2.7: Dot Products">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="vector_algebra_2D.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="cross-product-math.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

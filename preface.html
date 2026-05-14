@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="preface" id="preface"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="preface" id="preface">
+<h2 class="heading hide-type">
 <span class="type">Preface</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber"></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">About this Book</span>
 </h2>
 <div class="para" id="preface-2">
@@ -721,30 +658,41 @@ eBookConfig.enable_chatcodes =  false;
 <section class="paragraphs" id="preface-4"><h2 class="heading"><span class="title">Feedback.</span></h2>
 <div class="para" id="preface-4-2">Feedback and suggestions can be provided directly to the lead author Dan Baker via email at <a href="mailto:dan.baker@colostate.edu">dan.baker@colostate.edu</a>, by clicking the feedback button in the html footer. When reporting errors, please include a bit of the surrounding text to help locate the problem area in the source. The <a class="external" href="https://groups.google.com/g/engineering-statics-oer-text" target="_blank"><code class="code-inline tex2jax_ignore">Engineering Statics Google Group</code></a> is a good place to ask the authors and users questions about the book. Please join the group and say “Hi” if you are using the book for teaching purposes.<div class="autopermalink" data-description="Paragraph"><a href="#preface-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Feedback"><a href="#preface-4" title="Copy heading and permalink for Paragraphs: Feedback" aria-label="Copy heading and permalink for Paragraphs: Feedback">🔗</a></div></section><section class="paragraphs" id="preface-5"><h2 class="heading"><span class="title">Access.</span></h2>
+<div class="autopermalink" data-description="Paragraphs: Feedback"><a href="#preface-4" title="Copy heading and permalink for Paragraphs: Feedback" aria-label="Copy heading and permalink for Paragraphs: Feedback">🔗</a></div>
+</section>
+<section class="paragraphs" id="preface-5"><h2 class="heading"><span class="title">Access.</span></h2>
 <div class="para" id="preface-5-2">The entire book is available for free as an interactive online ebook at <a class="external" href="https://engineeringstatics.org" target="_blank"><code class="code-inline tex2jax_ignore">https://engineeringstatics.org</code></a>. While the interactive version works best on larger screens, it will also work smartphones but with some limitations due to limited screen width. A non-interactive PDF version, suitable for printing or offline reading on a tablet or computer, is available at <a class="external" href="https://engineeringstatics.org/pdf/statics.pdf" target="_blank"><code class="code-inline tex2jax_ignore">https://engineeringstatics.org/pdf/statics.pdf</code></a>. The PDF is searchable and easy to navigate using embedded links.<div class="autopermalink" data-description="Paragraph"><a href="#preface-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="preface-5-3">The source files for this book are available on GitHub at <a class="external" href="https://github.com/dantheboatman/EngineeringStatics" target="_blank"><code class="code-inline tex2jax_ignore">https://github.com/dantheboatman/EngineeringStatics</code></a>.<div class="autopermalink" data-description="Paragraph"><a href="#preface-5-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Access"><a href="#preface-5" title="Copy heading and permalink for Paragraphs: Access" aria-label="Copy heading and permalink for Paragraphs: Access">🔗</a></div></section><section class="paragraphs" id="preface-6"><h2 class="heading"><span class="title">License.</span></h2>
+<div class="autopermalink" data-description="Paragraphs: Access"><a href="#preface-5" title="Copy heading and permalink for Paragraphs: Access" aria-label="Copy heading and permalink for Paragraphs: Access">🔗</a></div>
+</section>
+<section class="paragraphs" id="preface-6"><h2 class="heading"><span class="title">License.</span></h2>
 <div class="para" id="preface-6-2">
 <span class="booktitle">Engineering Statics: Open and Interactive</span> is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 4.0 International License <a class="external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><code class="code-inline tex2jax_ignore">BY-NC-SA</code></a>. You are free to download, use, and print this work as you wish as long as your use is not primarily intended for or directed toward commercial advantage or monetary compensation. You can also modify the text as much as you like (for example to create a custom edition for your students), as long as you attribute the parts of the book you use to the authors. Please share your improvements with the authors!<div class="autopermalink" data-description="Paragraph"><a href="#preface-6-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="preface-6-3">All the GeoGebra content found in the book is licensed under a Creative Commons Attribution-Non Commercial-Share Alike 3.0 International License with more detailed information found at <a class="external" href="https://www.geogebra.org/license" target="_blank"><code class="code-inline tex2jax_ignore">https://www.geogebra.org/license</code></a><div class="autopermalink" data-description="Paragraph"><a href="#preface-6-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: License"><a href="#preface-6" title="Copy heading and permalink for Paragraphs: License" aria-label="Copy heading and permalink for Paragraphs: License">🔗</a></div></section><section class="paragraphs" id="preface-7"><h2 class="heading"><span class="title">End of Chapter exercises.</span></h2>
+<div class="autopermalink" data-description="Paragraphs: License"><a href="#preface-6" title="Copy heading and permalink for Paragraphs: License" aria-label="Copy heading and permalink for Paragraphs: License">🔗</a></div>
+</section>
+<section class="paragraphs" id="preface-7"><h2 class="heading"><span class="title">End of Chapter exercises.</span></h2>
 <div class="para" id="preface-7-2">The randomized end-of-chapter exercises were made using the <a class="external" href="https://www.numbas.org.uk" target="_blank"><code class="code-inline tex2jax_ignore">Numbas</code></a> open-source assessment system and <a class="external" href="https://geogebra.org" target="_blank"><code class="code-inline tex2jax_ignore">Geogebra</code></a> for the dynamic diagrams. Exercises in the <a class="external" href="https://numbas.mathcentre.ac.uk/project/3501/" target="_blank"><code class="code-inline tex2jax_ignore">Engineering Statics Repository</code></a> can be freely remixed into your own homework sets or online exams using the <a class="external" href="https://numbas.mathcentre.ac.uk" target="_blank"><code class="code-inline tex2jax_ignore">Numbas Editor</code></a>. You can also use the editor to write new questions or modify existing ones.<div class="autopermalink" data-description="Paragraph"><a href="#preface-7-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="preface-7-3">The exercises can be integrated into your institution’s Virtual Learning Environment to set deadlines and automatically record grades. See the <a class="external" href="https://docs.numbas.org.uk/en/latest/tutorials/deliver-to-students.html" target="_blank"><code class="code-inline tex2jax_ignore">Numbas Documentation</code></a> for more information. To fully take advantage of all the features, you may need the support of your institution’s IT department to install the <a class="external" href="https://docs.numbas.org.uk/lti/en/latest/" target="_blank"><code class="code-inline tex2jax_ignore">Numbas LTI provider</code></a>.<div class="autopermalink" data-description="Paragraph"><a href="#preface-7-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="preface-7-4">Please ask questions about Numbas integration and share any good problems you write with the Engineering Statics Group.<div class="autopermalink" data-description="Paragraph"><a href="#preface-7-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: End of Chapter exercises"><a href="#preface-7" title="Copy heading and permalink for Paragraphs: End of Chapter exercises" aria-label="Copy heading and permalink for Paragraphs: End of Chapter exercises">🔗</a></div></section><section class="paragraphs" id="preface-8"><h2 class="heading"><span class="title">On the Cover.</span></h2>
+<div class="autopermalink" data-description="Paragraphs: End of Chapter exercises"><a href="#preface-7" title="Copy heading and permalink for Paragraphs: End of Chapter exercises" aria-label="Copy heading and permalink for Paragraphs: End of Chapter exercises">🔗</a></div>
+</section>
+<section class="paragraphs" id="preface-8"><h2 class="heading"><span class="title">On the Cover.</span></h2>
 <div class="para" id="preface-8-2">Photo of the San Francisco–Oakland Bay Bridge and city skyline, taken from Yerba Buena Island by Artur Westergren.<div class="autopermalink" data-description="Paragraph"><a href="#preface-8-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="preface-8-3">Image source: <a class="external" href="https://unsplash.com/photos/Rx92z9dU-mA" target="_blank"><code class="code-inline tex2jax_ignore">https://unsplash.com/photos/Rx92z9dU-mA</code></a><div class="autopermalink" data-description="Paragraph"><a href="#preface-8-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: On the Cover"><a href="#preface-8" title="Copy heading and permalink for Paragraphs: On the Cover" aria-label="Copy heading and permalink for Paragraphs: On the Cover">🔗</a></div></section><div class="autopermalink" data-description="Preface: About this Book"><a href="#preface" title="Copy heading and permalink for Preface: About this Book" aria-label="Copy heading and permalink for Preface: About this Book">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Paragraphs: On the Cover"><a href="#preface-8" title="Copy heading and permalink for Paragraphs: On the Cover" aria-label="Copy heading and permalink for Paragraphs: On the Cover">🔗</a></div>
+</section><div class="autopermalink" data-description="Preface: About this Book"><a href="#preface" title="Copy heading and permalink for Preface: About this Book" aria-label="Copy heading and permalink for Preface: About this Book">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="front-colophon.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="acknowledgement.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

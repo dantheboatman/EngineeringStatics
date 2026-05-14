@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_07-fluid-statics"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="Chapter_07-fluid-statics">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Fluid Statics</span>
 </h2>
 <article class="objectives goal-like" id="Chapter_07-fluid-statics-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -728,7 +665,10 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#Chapter_07-fluid-statics-2-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 7.9"><a href="#Chapter_07-fluid-statics-2" title="Copy heading and permalink for Key Questions 7.9" aria-label="Copy heading and permalink for Key Questions 7.9">🔗</a></div></article><section class="introduction" id="Chapter_07-fluid-statics-3"><div class="para logical" id="Chapter_07-fluid-statics-3-1">
+<div class="autopermalink" data-description="Key Questions 7.9"><a href="#Chapter_07-fluid-statics-2" title="Copy heading and permalink for Key Questions 7.9" aria-label="Copy heading and permalink for Key Questions 7.9">🔗</a></div>
+</article>
+<section class="introduction" id="Chapter_07-fluid-statics-3">
+<div class="para logical" id="Chapter_07-fluid-statics-3-1">
 <div class="para">Pressure is the term used for a force distributed over an area</div>
 <div class="displaymath process-math" id="Chapter_07-fluid-statics-3-1-1">
 \begin{equation}
@@ -786,7 +726,9 @@ P =\frac{F}{A}\text{.}\tag{7.9.1}
 </li>
 </ul>
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-fluid-statics-3-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></section><section class="subsection" id="Chapter_07-principles-of-fluid-statics"><h3 class="heading hide-type">
+</div></section>
+<section class="subsection" id="Chapter_07-principles-of-fluid-statics">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Principles of Fluid Statics</span>
 </h3>
 <div class="para" id="Chapter_07-principles-of-fluid-statics-2">A fluid, like water or air exerts a pressure on its surroundings. This pressure applies a distributed load on surfaces surrounding the fluid, like the face of a dam, an irrigation control gate, a teakettle, or the drum of a steam boiler.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -820,15 +762,29 @@ P = \rho g h\text{,}\tag{7.9.2}
 </div>
 <div class="para" id="Chapter_07-principles-of-fluid-statics-4">Since fluid pressure increases linearly with depth, it behaves as a distributed load which increases linearly from 0 at the surface to <span class="process-math">\(\rho g h\)</span> at depth <span class="process-math">\(h\text{,}\)</span> acting normal to the surface. The pressure can be replaced with an equivalent force acting through the centroid of the triangular loading, with a magnitude equal to the triangular area. The pressure on horizontal surfaces is constant, and it is normal to all surfaces.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:30% 30% 37.5%;column-gap:1.25%;">
-<div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-1"><div class="image-box"><img src="external/images/dam-distributed.svg" role="img" class="contained" alt="Vertical submerged wall of height h. Pressure is a function of height p(y) = rho*g*y."></div>
-<figcaption><span class="codenumber">(a)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Distributed pressure.<div class="autopermalink" data-description="Figure 7.9.1(a)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-1" title="Copy heading and permalink for Figure 7.9.1(a)" aria-label="Copy heading and permalink for Figure 7.9.1(a)">🔗</a></div></figcaption></figure></div>
-<div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-2"><div class="image-box"><img src="external/images/dam-equivalent.svg" role="img" class="contained" alt="Vertical submerged wall of height h. Distributed load of water pressure is shown as (1/2)*rho*g*h at a depth of (2/3)*h."></div>
-<figcaption><span class="codenumber">(b)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent force.<div class="autopermalink" data-description="Figure 7.9.1(b)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-2" title="Copy heading and permalink for Figure 7.9.1(b)" aria-label="Copy heading and permalink for Figure 7.9.1(b)">🔗</a></div></figcaption></figure></div>
-<div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-3"><div class="image-box"><img src="external/images/submerged-surfaces.svg" role="img" class="contained" alt="Submerged trapezoid shape illustrating pressure is perpendicular to each surface."></div>
-<figcaption><span class="codenumber">(c)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Pressure is perpendicular to the surface.<div class="autopermalink" data-description="Figure 7.9.1(c)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-3" title="Copy heading and permalink for Figure 7.9.1(c)" aria-label="Copy heading and permalink for Figure 7.9.1(c)">🔗</a></div></figcaption></figure></div>
-</div></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Pressure on submerged surfaces.<div class="autopermalink" data-description="Figure 7.9.1"><a href="#Chapter_07-principles-of-fluid-statics-5" title="Copy heading and permalink for Figure 7.9.1" aria-label="Copy heading and permalink for Figure 7.9.1">🔗</a></div></figcaption></figure><div class="para logical" id="Chapter_07-principles-of-fluid-statics-6">
+<figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:30% 30% 37.5%;column-gap:1.25%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-1"><div class="image-box"><img src="external/images/dam-distributed.svg" role="img" class="contained" alt="Vertical submerged wall of height h. Pressure is a function of height p(y) = rho*g*y."></div>
+<figcaption><span class="codenumber">(a)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Distributed pressure.<div class="autopermalink" data-description="Figure 7.9.1(a)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-1" title="Copy heading and permalink for Figure 7.9.1(a)" aria-label="Copy heading and permalink for Figure 7.9.1(a)">🔗</a></div></figcaption>
+</figure>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-2"><div class="image-box"><img src="external/images/dam-equivalent.svg" role="img" class="contained" alt="Vertical submerged wall of height h. Distributed load of water pressure is shown as (1/2)*rho*g*h at a depth of (2/3)*h."></div>
+<figcaption><span class="codenumber">(b)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent force.<div class="autopermalink" data-description="Figure 7.9.1(b)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-2" title="Copy heading and permalink for Figure 7.9.1(b)" aria-label="Copy heading and permalink for Figure 7.9.1(b)">🔗</a></div></figcaption>
+</figure>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="Chapter_07-principles-of-fluid-statics-5-2-3"><div class="image-box"><img src="external/images/submerged-surfaces.svg" role="img" class="contained" alt="Submerged trapezoid shape illustrating pressure is perpendicular to each surface."></div>
+<figcaption><span class="codenumber">(c)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Pressure is perpendicular to the surface.<div class="autopermalink" data-description="Figure 7.9.1(c)"><a href="#Chapter_07-principles-of-fluid-statics-5-2-3" title="Copy heading and permalink for Figure 7.9.1(c)" aria-label="Copy heading and permalink for Figure 7.9.1(c)">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Pressure on submerged surfaces.<div class="autopermalink" data-description="Figure 7.9.1"><a href="#Chapter_07-principles-of-fluid-statics-5" title="Copy heading and permalink for Figure 7.9.1" aria-label="Copy heading and permalink for Figure 7.9.1">🔗</a></div></figcaption>
+</figure>
+<div class="para logical" id="Chapter_07-principles-of-fluid-statics-6">
 <div class="para">Some points to remember when solving fluid pressure problems.</div>
 <ol class="decimal" id="Chapter_07-principles-of-fluid-statics-6-1">
 <li id="Chapter_07-principles-of-fluid-statics-6-1-1">
@@ -866,7 +822,9 @@ P = \rho g h\text{,}\tag{7.9.2}
 </h4>
 <div class="para" id="Chapter_07-principles-of-fluid-statics-7-1-1">Does fluid pressure depend on the surface area of the container? For instance, is the pressure below the Atlantic Ocean less than the pressure below the Pacific Ocean since the Pacific is larger?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-7-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="solutions"><details id="Chapter_07-principles-of-fluid-statics-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<div class="solutions">
+<details id="Chapter_07-principles-of-fluid-statics-7-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-principles-of-fluid-statics-7-2-1">
 <div class="para">No. Fluid pressure is a function of density and depth only, so the surface area of an ocean or tank is insignificant.</div>
 <div class="displaymath process-math" id="Chapter_07-principles-of-fluid-statics-7-2-1-1">
@@ -878,13 +836,18 @@ P = \rho g h\text{.}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-7-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.2.1"><a href="#Chapter_07-principles-of-fluid-statics-7-2" title="Copy heading and permalink for Answer 7.9.2.1" aria-label="Copy heading and permalink for Answer 7.9.2.1">🔗</a></div>
-</div></details></div>
-<div class="autopermalink" data-description="Question 7.9.2"><a href="#Chapter_07-principles-of-fluid-statics-7" title="Copy heading and permalink for Question 7.9.2" aria-label="Copy heading and permalink for Question 7.9.2">🔗</a></div></article><article class="question example-like" id="Chapter_07-principles-of-fluid-statics-8"><h4 class="heading">
+</div></details>
+</div>
+<div class="autopermalink" data-description="Question 7.9.2"><a href="#Chapter_07-principles-of-fluid-statics-7" title="Copy heading and permalink for Question 7.9.2" aria-label="Copy heading and permalink for Question 7.9.2">🔗</a></div>
+</article>
+<article class="question example-like" id="Chapter_07-principles-of-fluid-statics-8"><h4 class="heading">
 <span class="type">Question</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h4>
 <div class="para" id="Chapter_07-principles-of-fluid-statics-8-1-1">Compare the pressure at three feet and thirty feet below the surface of freshwater to the atmospheric pressure.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-8-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="solutions"><details id="Chapter_07-principles-of-fluid-statics-8-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<div class="solutions">
+<details id="Chapter_07-principles-of-fluid-statics-8-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-principles-of-fluid-statics-8-2-1">
 <div class="para">The gage pressure at <span class="process-math">\(\ft{3}\)</span> is</div>
 <div class="displaymath process-math" id="Chapter_07-principles-of-fluid-statics-8-2-1-2">
@@ -907,14 +870,20 @@ p = \gamma d = \pqf{62.4} \times \ft{3} = \psf{187} = \psinch{1.30}\text{.}
 <div class="para" id="Chapter_07-principles-of-fluid-statics-8-2-3">At <span class="process-math">\(\ft{30}\)</span> below the surface, the pressure is 10 times higher, <span class="process-math">\(\psinch{13.0}\)</span> which is nearly twice atmospheric pressure.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-principles-of-fluid-statics-8-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.3.1"><a href="#Chapter_07-principles-of-fluid-statics-8-2" title="Copy heading and permalink for Answer 7.9.3.1" aria-label="Copy heading and permalink for Answer 7.9.3.1">🔗</a></div>
-</div></details></div>
-<div class="autopermalink" data-description="Question 7.9.3"><a href="#Chapter_07-principles-of-fluid-statics-8" title="Copy heading and permalink for Question 7.9.3" aria-label="Copy heading and permalink for Question 7.9.3">🔗</a></div></article><div class="autopermalink" data-description="Subsection 7.9.1: Principles of Fluid Statics"><a href="#Chapter_07-principles-of-fluid-statics" title="Copy heading and permalink for Subsection 7.9.1: Principles of Fluid Statics" aria-label="Copy heading and permalink for Subsection 7.9.1: Principles of Fluid Statics">🔗</a></div></section><section class="subsection" id="Chapter_07-fluid-statics-applications"><h3 class="heading hide-type">
+</div></details>
+</div>
+<div class="autopermalink" data-description="Question 7.9.3"><a href="#Chapter_07-principles-of-fluid-statics-8" title="Copy heading and permalink for Question 7.9.3" aria-label="Copy heading and permalink for Question 7.9.3">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 7.9.1: Principles of Fluid Statics"><a href="#Chapter_07-principles-of-fluid-statics" title="Copy heading and permalink for Subsection 7.9.1: Principles of Fluid Statics" aria-label="Copy heading and permalink for Subsection 7.9.1: Principles of Fluid Statics">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_07-fluid-statics-applications">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Fluid Statics Applications</span>
 </h3>
 <article class="example example-like" id="Chapter_07-example-force-on-a-submerged-window"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.4</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Force on a submerged window.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:71.7948717948718% 25.6410256410256%;column-gap:2.5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:71.7948717948718% 25.6410256410256%;column-gap:2.5%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para" id="Chapter_07-example-force-on-a-submerged-window-2-1-1-1">An aquarium tank has a <span class="process-math">\(\m{3}\times \m{1.5}\)</span> window AB for viewing the inhabitants. The tank contains water with density <span class="process-math">\(\rho = \kgqm{1000}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-force-on-a-submerged-window-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -922,14 +891,19 @@ p = \gamma d = \pqf{62.4} \times \ft{3} = \psf{187} = \psinch{1.30}\text{.}
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/aquarium.svg" role="img" class="contained" alt="Vertical submerged wall of height h. pressure is a function of height p(y) = rho*g*y."></div></div>
-</div></div> <div class="para" id="Chapter_07-example-force-on-a-submerged-window-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-force-on-a-submerged-window-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+</div>
+</div> 
+<div class="para" id="Chapter_07-example-force-on-a-submerged-window-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-force-on-a-submerged-window-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <div class="solutions">
-<details id="Chapter_07-example-force-on-a-submerged-window-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-force-on-a-submerged-window-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para" id="Chapter_07-example-force-on-a-submerged-window-3-1">
 <span class="process-math">\(F = \kN{155}\)</span> acting <span class="process-math">\(\m{1.29}\)</span> above point <span class="process-math">\(B\)</span> or <span class="process-math">\(\m{3.71}\)</span> below the surface of the water.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-force-on-a-submerged-window-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.4.1"><a href="#Chapter_07-example-force-on-a-submerged-window-3" title="Copy heading and permalink for Answer 7.9.4.1" aria-label="Copy heading and permalink for Answer 7.9.4.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-force-on-a-submerged-window-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-force-on-a-submerged-window-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_07-example-force-on-a-submerged-window-4-1">Begin by drawing a diagram of the window showing the load intensity and the equivalent concentrated force.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-force-on-a-submerged-window-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/aquarium-fbd.svg" role="img" class="contained" alt="Schematic of aquarium. Wall of aquarium descends 2 m from top. A glass window goes from 2 m in depth to 5 m in depth."></div>
@@ -983,10 +957,13 @@ d \amp = \m{3.71}
 <div class="autopermalink" data-description="Solution 7.9.4.1"><a href="#Chapter_07-example-force-on-a-submerged-window-4" title="Copy heading and permalink for Solution 7.9.4.1" aria-label="Copy heading and permalink for Solution 7.9.4.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.9.4: Force on a submerged window"><a href="#Chapter_07-example-force-on-a-submerged-window" title="Copy heading and permalink for Example 7.9.4: Force on a submerged window" aria-label="Copy heading and permalink for Example 7.9.4: Force on a submerged window">🔗</a></div></article><article class="example example-like" id="Chapter_07-example-mud-on-concrete-wall"><h4 class="heading">
+<div class="autopermalink" data-description="Example 7.9.4: Force on a submerged window"><a href="#Chapter_07-example-force-on-a-submerged-window" title="Copy heading and permalink for Example 7.9.4: Force on a submerged window" aria-label="Copy heading and permalink for Example 7.9.4: Force on a submerged window">🔗</a></div>
+</article>
+<article class="example example-like" id="Chapter_07-example-mud-on-concrete-wall"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.5</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Mud on Concrete Wall.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:65% 30%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:65% 30%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_07-example-mud-on-concrete-wall-2-1-1-1">A concrete retaining wall <span class="process-math">\(\m{3}\)</span> tall and <span class="process-math">\(\m{0.8}\)</span> thick encloses wet clay mud.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-mud-on-concrete-wall-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -996,9 +973,11 @@ d \amp = \m{3.71}
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/mud-dam.svg" role="img" class="contained" alt="Retaining wall is 3 m high and 0.8 m wide. The mud is shown to the right of the wall at height of h."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_07-example-mud-on-concrete-wall-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-mud-on-concrete-wall-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-mud-on-concrete-wall-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-mud-on-concrete-wall-3-1-1">
 \begin{equation*}
@@ -1008,7 +987,9 @@ h = \m{1.99}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-mud-on-concrete-wall-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.5.1"><a href="#Chapter_07-example-mud-on-concrete-wall-3" title="Copy heading and permalink for Answer 7.9.5.1" aria-label="Copy heading and permalink for Answer 7.9.5.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-mud-on-concrete-wall-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-mud-on-concrete-wall-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_07-example-mud-on-concrete-wall-4-1">Begin by drawing free-body diagram of the wall, showing the forces acting on it: the weight of the concrete <span class="process-math">\(W_c\text{,}\)</span> acting at the center of gravity of the rectangular wall, the horizontal force <span class="process-math">\(F\)</span> due to the mud, and the reaction components at <span class="process-math">\(A\text{.}\)</span> Define symbol <span class="process-math">\(D_z\)</span> for the unspecified length of the wall into the page.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-mud-on-concrete-wall-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 30%; margin-left: 35%; margin-right: 35%;"><img src="external/images/mud-dam-fbd.svg" role="img" class="contained"></div>
@@ -1049,10 +1030,13 @@ h \amp=\m{1.98}
 <div class="autopermalink" data-description="Solution 7.9.5.1"><a href="#Chapter_07-example-mud-on-concrete-wall-4" title="Copy heading and permalink for Solution 7.9.5.1" aria-label="Copy heading and permalink for Solution 7.9.5.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.9.5: Mud on Concrete Wall"><a href="#Chapter_07-example-mud-on-concrete-wall" title="Copy heading and permalink for Example 7.9.5: Mud on Concrete Wall" aria-label="Copy heading and permalink for Example 7.9.5: Mud on Concrete Wall">🔗</a></div></article><article class="example example-like" id="Chapter_07-example-sea-gate"><h4 class="heading">
+<div class="autopermalink" data-description="Example 7.9.5: Mud on Concrete Wall"><a href="#Chapter_07-example-mud-on-concrete-wall" title="Copy heading and permalink for Example 7.9.5: Mud on Concrete Wall" aria-label="Copy heading and permalink for Example 7.9.5: Mud on Concrete Wall">🔗</a></div>
+</article>
+<article class="example example-like" id="Chapter_07-example-sea-gate"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.6</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Sea Gate.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 30%;column-gap:10%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 30%;column-gap:10%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_07-example-sea-gate-2-1-1-1">A sea gate is hinged at point <span class="process-math">\(A\)</span> and is designed to rotate and release the water when the depth <span class="process-math">\(d\)</span> exceeds a certain value.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-sea-gate-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1062,9 +1046,12 @@ h \amp=\m{1.98}
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/sea-gate.svg" role="img" class="contained" alt="A vertical sea gate holds back water of depth d on its right. The gate is hinged at 500 mm from the floor of the sea. A stopper is at the bottom of the gate on the right to prevent the gate from rotating counter clockwise."></div></div>
-</div></div> <div class="para" id="Chapter_07-example-sea-gate-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-sea-gate-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+</div>
+</div> 
+<div class="para" id="Chapter_07-example-sea-gate-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-sea-gate-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <div class="solutions">
-<details id="Chapter_07-example-sea-gate-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-sea-gate-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-sea-gate-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-sea-gate-3-1-1">
 \begin{equation*}
@@ -1074,7 +1061,9 @@ d \ge \m{1.50}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-sea-gate-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.6.1"><a href="#Chapter_07-example-sea-gate-3" title="Copy heading and permalink for Answer 7.9.6.1" aria-label="Copy heading and permalink for Answer 7.9.6.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-sea-gate-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-sea-gate-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-sea-gate-4-1">
 <div class="para">For the gate to tip, the equivalent force of the water must act at or above <span class="process-math">\(A\text{.}\)</span> That happens when the centroid of the load intensity diagram of the water is at or above <span class="process-math">\(A\text{,}\)</span> so</div>
 <div class="displaymath process-math" id="Chapter_07-example-sea-gate-4-1-3">
@@ -1089,10 +1078,13 @@ d \amp \ge \mm{1500}
 <div class="autopermalink" data-description="Solution 7.9.6.1"><a href="#Chapter_07-example-sea-gate-4" title="Copy heading and permalink for Solution 7.9.6.1" aria-label="Copy heading and permalink for Solution 7.9.6.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.9.6: Sea Gate"><a href="#Chapter_07-example-sea-gate" title="Copy heading and permalink for Example 7.9.6: Sea Gate" aria-label="Copy heading and permalink for Example 7.9.6: Sea Gate">🔗</a></div></article><article class="example example-like" id="Chapter_07-example-gate-with-horizontal-surface"><h4 class="heading">
+<div class="autopermalink" data-description="Example 7.9.6: Sea Gate"><a href="#Chapter_07-example-sea-gate" title="Copy heading and permalink for Example 7.9.6: Sea Gate" aria-label="Copy heading and permalink for Example 7.9.6: Sea Gate">🔗</a></div>
+</article>
+<article class="example example-like" id="Chapter_07-example-gate-with-horizontal-surface"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.9.7</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Gate with Horizontal Surface.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 30%;column-gap:10%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 30%;column-gap:10%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_07-example-gate-with-horizontal-surface-2-1-1-1">A gate at the end of a freshwater channel is fabricated from three <span class="process-math">\(\kg{125}\text{,}\)</span> <span class="process-math">\(\m{0.6}\times \m{1}\)</span> rectangular steel plates. The gate is hinged at <span class="process-math">\(A\)</span> and rests against a frictionless support at <span class="process-math">\(D\text{.}\)</span> The depth of the water <span class="process-math">\(d\)</span> is <span class="process-math">\(\m{0.75}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-gate-with-horizontal-surface-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1100,9 +1092,12 @@ d \amp \ge \mm{1500}
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/gate.svg" role="img" class="contained"></div></div>
-</div></div> <div class="para" id="Chapter_07-example-gate-with-horizontal-surface-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-gate-with-horizontal-surface-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+</div>
+</div> 
+<div class="para" id="Chapter_07-example-gate-with-horizontal-surface-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-gate-with-horizontal-surface-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <div class="solutions">
-<details id="Chapter_07-example-gate-with-horizontal-surface-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-gate-with-horizontal-surface-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-gate-with-horizontal-surface-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-gate-with-horizontal-surface-3-1-1">
 \begin{align*}
@@ -1114,8 +1109,11 @@ A_y \amp = \N{2795} \uparrow
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-gate-with-horizontal-surface-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.9.7.1"><a href="#Chapter_07-example-gate-with-horizontal-surface-3" title="Copy heading and permalink for Answer 7.9.7.1" aria-label="Copy heading and permalink for Answer 7.9.7.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-gate-with-horizontal-surface-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 40%;column-gap:0%;">
+</div></details>
+<details id="Chapter_07-example-gate-with-horizontal-surface-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 40%;column-gap:0%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_07-example-gate-with-horizontal-surface-4-1-1-1">A free-body diagram of a cross section of the gate is shown. For simplicity the thickness of the steel plates has been ignored. You should ensure that sufficient distances are provided to locate the loads.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-gate-with-horizontal-surface-4-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1123,7 +1121,8 @@ A_y \amp = \N{2795} \uparrow
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/gate-fbd.svg" role="img" class="contained" alt="A sea gate holds back water of depth d. Pin A is at the sea floor at the origin. The gate goes up vertically to point (0, 0.6). The gate continues horizontally from (0, 0.6) to (-0.6, 0.6). Then the gate continues vertically up to point D. A roller is on the left end of point D to prevent the gate from rotating counter clockwise."></div></div>
-</div></div>
+</div>
+</div>
 <div class="para logical" id="Chapter_07-example-gate-with-horizontal-surface-4-2">
 <div class="para">The total horizontal force from the water will be</div>
 <div class="displaymath process-math" id="Chapter_07-example-gate-with-horizontal-surface-4-2-1">
@@ -1178,7 +1177,11 @@ W \amp = m g\\
 <div class="autopermalink" data-description="Solution 7.9.7.1"><a href="#Chapter_07-example-gate-with-horizontal-surface-4" title="Copy heading and permalink for Solution 7.9.7.1" aria-label="Copy heading and permalink for Solution 7.9.7.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.9.7: Gate with Horizontal Surface"><a href="#Chapter_07-example-gate-with-horizontal-surface" title="Copy heading and permalink for Example 7.9.7: Gate with Horizontal Surface" aria-label="Copy heading and permalink for Example 7.9.7: Gate with Horizontal Surface">🔗</a></div></article><div class="autopermalink" data-description="Subsection 7.9.2: Fluid Statics Applications"><a href="#Chapter_07-fluid-statics-applications" title="Copy heading and permalink for Subsection 7.9.2: Fluid Statics Applications" aria-label="Copy heading and permalink for Subsection 7.9.2: Fluid Statics Applications">🔗</a></div></section><div class="autopermalink" data-description="Section 7.9: Fluid Statics"><a href="#Chapter_07-fluid-statics" title="Copy heading and permalink for Section 7.9: Fluid Statics" aria-label="Copy heading and permalink for Section 7.9: Fluid Statics">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 7.9.7: Gate with Horizontal Surface"><a href="#Chapter_07-example-gate-with-horizontal-surface" title="Copy heading and permalink for Example 7.9.7: Gate with Horizontal Surface" aria-label="Copy heading and permalink for Example 7.9.7: Gate with Horizontal Surface">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 7.9.2: Fluid Statics Applications"><a href="#Chapter_07-fluid-statics-applications" title="Copy heading and permalink for Subsection 7.9.2: Fluid Statics Applications" aria-label="Copy heading and permalink for Subsection 7.9.2: Fluid Statics Applications">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 7.9: Fluid Statics"><a href="#Chapter_07-fluid-statics" title="Copy heading and permalink for Section 7.9: Fluid Statics" aria-label="Copy heading and permalink for Section 7.9: Fluid Statics">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="distributed-loads.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_07-12.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

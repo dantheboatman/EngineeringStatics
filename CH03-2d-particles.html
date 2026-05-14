@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,17 +645,23 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="CH03-2d-particles"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="CH03-2d-particles">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">2D Particle Equilibrium</span>
 </h2>
-<section class="subsection" id="Chapter_03-introduction"><h3 class="heading hide-type">
+<section class="subsection" id="Chapter_03-introduction">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Introduction</span>
 </h3>
 <div class="para" id="Chapter_03-introduction-2">In this section we will study situations where everything of importance occurs in a two-dimensional plane and the third dimension is not involved. Studying two-dimensional problems is worthwhile because they illustrate all the important principles of engineering statics while being easier to visualize and less mathematically complex.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_03-introduction-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_03-introduction-3">We will normally work in the “plane of the page,” that is, a two-dimensional Cartesian plane with a horizontal <span class="process-math">\(x\)</span> axis and a vertical <span class="process-math">\(y\)</span> axis discussed in <a href="cartesian-coords-2d.html" class="internal" title="Section 2.3: 2D Coordinate Systems &amp; Vectors">Section 2.3</a> previously. This coordinate system can represent either the front, side, or top view of a system as appropriate. In some problems it may be worthwhile to <dfn class="terminology">rotate the coordinate</dfn> system, that is, to establish a coordinate system where the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes are not horizontal and vertical. This is usually done to simplify the mathematics by avoiding simultaneous equations.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_03-introduction-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Subsection 3.4.1: Introduction"><a href="#Chapter_03-introduction" title="Copy heading and permalink for Subsection 3.4.1: Introduction" aria-label="Copy heading and permalink for Subsection 3.4.1: Introduction">🔗</a></div></section><section class="subsection" id="general-procedure"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Subsection 3.4.1: Introduction"><a href="#Chapter_03-introduction" title="Copy heading and permalink for Subsection 3.4.1: Introduction" aria-label="Copy heading and permalink for Subsection 3.4.1: Introduction">🔗</a></div>
+</section>
+<section class="subsection" id="general-procedure">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">General Procedure</span>
 </h3>
 <div class="para" id="general-procedure-2">The general procedure for solving two-dimensional particle equilibrium is a step up from solving <a href="CH03-1d-particles.html#Chapter_03-a-simple-case" class="internal" title="Subsection 3.3.1: A simple case">Subsection 3.3.1</a>, as you now need to find equilibrium in two independent directions. The major difference is that you must carefully find each independent vector component and then solve for the equilibrium in each component direction. The process follows the same five-step method for creating a free-body diagram, followed by steps to solve your equilibrium equations.<div class="autopermalink" data-description="Paragraph"><a href="#general-procedure-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -792,7 +733,10 @@ eBookConfig.enable_chatcodes =  false;
 </ol>
 <div class="autopermalink" data-description="Paragraph"><a href="#general-procedure-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Subsection 3.4.2: General Procedure"><a href="#general-procedure" title="Copy heading and permalink for Subsection 3.4.2: General Procedure" aria-label="Copy heading and permalink for Subsection 3.4.2: General Procedure">🔗</a></div></section><section class="subsection" id="ForceTriangleMethod"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Subsection 3.4.2: General Procedure"><a href="#general-procedure" title="Copy heading and permalink for Subsection 3.4.2: General Procedure" aria-label="Copy heading and permalink for Subsection 3.4.2: General Procedure">🔗</a></div>
+</section>
+<section class="subsection" id="ForceTriangleMethod">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.3</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Force Triangle Method</span>
 </h3>
 <div class="para" id="ForceTriangleMethod-2">The force triangle method applies to situations where there are (exactly) three forces acting on a particle, and no more than two unknown magnitudes or directions.<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -801,35 +745,50 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 <figure class="figure figure-like" id="fig-force-triangle"><div class="interactive-iframe-container"><iframe id="force-triangle_interactive" style="width:600px; height:270px; display: block; " src="force-triangle_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="force-triangle_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="force-triangle_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="force-triangle_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="force-triangle_interactive-2-1">Move the slider to rearrange the forces acting on the particle into the corresponding force triangle.<div class="autopermalink" data-description="Paragraph"><a href="#force-triangle_interactive-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#force-triangle_interactive-2" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Free-Body Diagram and Force Triangle<div class="autopermalink" data-description="Figure 3.4.1"><a href="#fig-force-triangle" title="Copy heading and permalink for Figure 3.4.1" aria-label="Copy heading and permalink for Figure 3.4.1">🔗</a></div></figcaption></figure><article class="question example-like" id="ForceTriangleMethod-5"><h4 class="heading">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Free-Body Diagram and Force Triangle<div class="autopermalink" data-description="Figure 3.4.1"><a href="#fig-force-triangle" title="Copy heading and permalink for Figure 3.4.1" aria-label="Copy heading and permalink for Figure 3.4.1">🔗</a></div></figcaption>
+</figure>
+<article class="question example-like" id="ForceTriangleMethod-5"><h4 class="heading">
 <span class="type">Question</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h4>
 <div class="para" id="ForceTriangleMethod-5-1-1">Why do the forces always form a closed polygon?<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="solutions"><details id="ForceTriangleMethod-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<div class="solutions">
+<details id="ForceTriangleMethod-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para" id="ForceTriangleMethod-5-2-1">Because their resultant is zero.<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.2.1"><a href="#ForceTriangleMethod-5-2" title="Copy heading and permalink for Answer 3.4.2.1" aria-label="Copy heading and permalink for Answer 3.4.2.1">🔗</a></div>
-</div></details></div>
-<div class="autopermalink" data-description="Question 3.4.2"><a href="#ForceTriangleMethod-5" title="Copy heading and permalink for Question 3.4.2" aria-label="Copy heading and permalink for Question 3.4.2">🔗</a></div></article><div class="para" id="ForceTriangleMethod-6">The force triangle is a graphical representation of the vector <a href="ch3-intro.html#SigmaF" class="xref" data-knowl="./knowl/xref/SigmaF.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 3.1.1">equilibrium equation (3.1.1)</a>. It can be used to solve for unknown values in multiple different ways, which will be illustrated in the next two examples. In <a href="CH03-2d-particles.html#Frictionless-Incline" class="xref" data-knowl="./knowl/xref/Frictionless-Incline.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.3: Frictionless Incline">Example 3.4.3</a> We will use a graphical approach to find the forces causing equilibrium, and in <a href="CH03-2d-particles.html#cargo_boom" class="xref" data-knowl="./knowl/xref/cargo_boom.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.4: Cargo Boom">Example 3.4.4</a> we will use trigonometry to solve for the unknown forces mathematically.<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></details>
+</div>
+<div class="autopermalink" data-description="Question 3.4.2"><a href="#ForceTriangleMethod-5" title="Copy heading and permalink for Question 3.4.2" aria-label="Copy heading and permalink for Question 3.4.2">🔗</a></div>
+</article>
+<div class="para" id="ForceTriangleMethod-6">The force triangle is a graphical representation of the vector <a href="ch3-intro.html#SigmaF" class="xref" data-knowl="./knowl/xref/SigmaF.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 3.1.1">equilibrium equation (3.1.1)</a>. It can be used to solve for unknown values in multiple different ways, which will be illustrated in the next two examples. In <a href="CH03-2d-particles.html#Frictionless-Incline" class="xref" data-knowl="./knowl/xref/Frictionless-Incline.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.3: Frictionless Incline">Example 3.4.3</a> We will use a graphical approach to find the forces causing equilibrium, and in <a href="CH03-2d-particles.html#cargo_boom" class="xref" data-knowl="./knowl/xref/cargo_boom.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.4: Cargo Boom">Example 3.4.4</a> we will use trigonometry to solve for the unknown forces mathematically.<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="ForceTriangleMethod-7">In the next example we will use technology to draw a scaled diagram of the force triangle representing the equilibrium situation. We are using <a class="external" href="https://geogebra.org" target="_blank">Geogebra</a> to make the drawing, but you could use CAD, another drawing program, or even a ruler and protractor as you prefer. Since the diagram is accurately drawn, the lengths and angles represent the magnitudes and directions of the forces which hold the particle in equilibrium.<div class="autopermalink" data-description="Paragraph"><a href="#ForceTriangleMethod-7" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="example example-like" id="Frictionless-Incline"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Frictionless Incline.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 40%;column-gap:10%;">
-<div class="sbspanel sbspanel--middle middle" style=""><div class="para" id="Frictionless-Incline-2-1-1-1">A force <span class="process-math">\(P\)</span> is being applied to a <span class="process-math">\(\lb{100}\)</span> block resting on a frictionless incline as shown. Determine the magnitude and direction of force <span class="process-math">\(P\)</span> and of the contact force on the bottom of the block.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 40%;column-gap:10%;">
+<div class="sbspanel sbspanel--middle middle" style="">
+<div class="para" id="Frictionless-Incline-2-1-1-1">A force <span class="process-math">\(P\)</span> is being applied to a <span class="process-math">\(\lb{100}\)</span> block resting on a frictionless incline as shown. Determine the magnitude and direction of force <span class="process-math">\(P\)</span> and of the contact force on the bottom of the block.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/incline.svg" role="img" class="contained" alt="A flat, frictionless surface is inclined at 25 degrees from the horizontal. A force is being applied to a block resting on the incline, pushing it up the incline, at an angle of 10 degrees below the horizontal."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Frictionless-Incline-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Frictionless-Incline-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Frictionless-Incline-3-1">
 <div class="displaymath process-math" id="Frictionless-Incline-3-1-1">
 \begin{align*}
@@ -840,31 +799,40 @@ N \amp = \lb{102}\text{ at }115° \measuredangle
 <div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.3.1"><a href="#Frictionless-Incline-3" title="Copy heading and permalink for Answer 3.4.3.1" aria-label="Copy heading and permalink for Answer 3.4.3.1">🔗</a></div>
-</div></details><details id="Frictionless-Incline-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Frictionless-Incline-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Frictionless-Incline-4-1">
 <ol class="decimal" id="Frictionless-Incline-4-1-1">
 <li id="Frictionless-Incline-4-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Assumptions.</span></span><div class="para" id="Frictionless-Incline-4-1-1-1-2">We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction that is normal to the surface since it is frictionless and can’t prevent motion along the surface.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Assumptions.</span></span>
+<div class="para" id="Frictionless-Incline-4-1-1-1-2">We must assume that the block is in equilibrium, that is, either motionless or moving at a constant velocity in order to use the equilibrium equations. We will represent the block’s weight and the force between the incline and the block as concentrated forces. The force of the inclined surface on the block must act in a direction that is normal to the surface since it is frictionless and can’t prevent motion along the surface.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 1: Assumptions"><a href="#Frictionless-Incline-4-1-1-1" title="Copy heading and permalink for Item 1: Assumptions" aria-label="Copy heading and permalink for Item 1: Assumptions">🔗</a></div>
 </li>
 <li id="Frictionless-Incline-4-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span><div class="para" id="Frictionless-Incline-4-1-1-2-2">The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span>
+<div class="para" id="Frictionless-Incline-4-1-1-2-2">The knowns here are the weight of the block, the direction of the applied force, and the slope of the incline. The slope of the incline provides the direction of the normal force.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Frictionless-Incline-4-1-1-2-3">The unknown values are the magnitudes of forces <span class="process-math">\(P\)</span> and <span class="process-math">\(N\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 2: Givens"><a href="#Frictionless-Incline-4-1-1-2" title="Copy heading and permalink for Item 2: Givens" aria-label="Copy heading and permalink for Item 2: Givens">🔗</a></div>
 </li>
 <li id="Frictionless-Incline-4-1-1-3">
-<span class="heading li--heading"><span class="title li--heading-title">Free-Body Diagram.</span></span><div class="para" id="Frictionless-Incline-4-1-1-3-2">You should always begin a statics problem by drawing a free-body diagram. It allows you to think about the situation, identify knowns and unknowns, and define symbols.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Free-Body Diagram.</span></span>
+<div class="para" id="Frictionless-Incline-4-1-1-3-2">You should always begin a statics problem by drawing a free-body diagram. It allows you to think about the situation, identify knowns and unknowns, and define symbols.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Frictionless-Incline-4-1-1-3-3">We define three symbols, <span class="process-math">\(W\text{,}\)</span> <span class="process-math">\(N\text{,}\)</span> and <span class="process-math">\(P\text{,}\)</span> representing the weight, normal force, and applied force respectively. The angles could be given symbols too, but since we know their values it isn’t necessary.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:42.1052631578947% 52.6315789473684%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:42.1052631578947% 52.6315789473684%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/incline-fbd.svg" role="img" class="contained"></div></div>
-<div class="sbspanel sbspanel--top top" style=""><div class="para" id="Frictionless-Incline-4-1-1-3-4-2-1">The free-body can be a quick sketch or an accurate drawing but it must show <em class="emphasis">all</em> the forces acting on the particle and define the symbols. In most cases, you won’t know the magnitudes of all the forces, so the lengths of the vectors are just approximate.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-</div></div>
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="Frictionless-Incline-4-1-1-3-4-2-1">The free-body can be a quick sketch or an accurate drawing but it must show <em class="emphasis">all</em> the forces acting on the particle and define the symbols. In most cases, you won’t know the magnitudes of all the forces, so the lengths of the vectors are just approximate.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-4-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
 <div class="para" id="Frictionless-Incline-4-1-1-3-5">Notice that the force <span class="process-math">\(N\)</span> is represented as acting 25° from the <span class="process-math">\(y\)</span> axis, which is 90° away from the direction of the surface.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-3-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 3: Free-Body Diagram"><a href="#Frictionless-Incline-4-1-1-3" title="Copy heading and permalink for Item 3: Free-Body Diagram" aria-label="Copy heading and permalink for Item 3: Free-Body Diagram">🔗</a></div>
@@ -872,11 +840,14 @@ N \amp = \lb{102}\text{ at }115° \measuredangle
 <li id="Frictionless-Incline-4-1-1-4">
 <span class="heading li--heading"><span class="title li--heading-title">Force Triangle.</span></span><div class="interactive-iframe-container"><iframe id="inclined-triangle_interactive" style="width:600px; height:330px; display: block; " src="inclined-triangle_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="inclined-triangle_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="inclined-triangle_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h6></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="inclined-triangle_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h6></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="inclined-triangle_interactive-2-1">You follow along with the instructions on the diagram below by clicking the <span class="fas fa-fast-backward"></span> arrow to go to the start, then click the <span class="fas fa-forward"></span> arrow to step through the process.<div class="autopermalink" data-description="Paragraph"><a href="#inclined-triangle_interactive-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#inclined-triangle_interactive-2" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
+</div></details>
+</div>
 <div class="para logical" id="Frictionless-Incline-4-1-1-4-3">
 <div class="para">Use the known information to carefully and accurately construct the force triangle.</div>
 <ol class="lower-alpha lower-alpha-level-1" id="Frictionless-Incline-4-1-1-4-3-1">
@@ -912,11 +883,15 @@ N \amp = \lb{102}\text{ at }115° \measuredangle
 </ol>
 <div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-4-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<details id="Frictionless-Incline-4-1-1-4-4" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Aside</span></h6></summary><aside class="aside aside-like knowl__content"><div class="para" id="Frictionless-Incline-4-1-1-4-4-1">Can you prove from the geometry of the triangle that angle <span class="process-math">\(BCA\)</span> is 75°?<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-4-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></aside></details><div class="autopermalink" data-description="Item 4: Force Triangle"><a href="#Frictionless-Incline-4-1-1-4" title="Copy heading and permalink for Item 4: Force Triangle" aria-label="Copy heading and permalink for Item 4: Force Triangle">🔗</a></div>
+<details id="Frictionless-Incline-4-1-1-4-4" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Aside</span></h6></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="Frictionless-Incline-4-1-1-4-4-1">Can you prove from the geometry of the triangle that angle <span class="process-math">\(BCA\)</span> is 75°?<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-4-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" data-description="Item 4: Force Triangle"><a href="#Frictionless-Incline-4-1-1-4" title="Copy heading and permalink for Item 4: Force Triangle" aria-label="Copy heading and permalink for Item 4: Force Triangle">🔗</a></div>
 </li>
 <li id="Frictionless-Incline-4-1-1-5">
-<span class="heading li--heading"><span class="title li--heading-title">Results.</span></span><div class="para" id="Frictionless-Incline-4-1-1-5-2">In steps 6 and 7, Geogebra tells us that <code class="code-inline tex2jax_ignore">p = (0.438;10.0°)</code> which means force <span class="process-math">\(P\)</span> is 0.438 units long with a direction of 10°, similarly <code class="code-inline tex2jax_ignore">n = (1.02;115°)</code> means <span class="process-math">\(N\)</span> is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive <span class="process-math">\(x\)</span> axis.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Results.</span></span>
+<div class="para" id="Frictionless-Incline-4-1-1-5-2">In steps 6 and 7, Geogebra tells us that <code class="code-inline tex2jax_ignore">p = (0.438;10.0°)</code> which means force <span class="process-math">\(P\)</span> is 0.438 units long with a direction of 10°, similarly <code class="code-inline tex2jax_ignore">n = (1.02;115°)</code> means <span class="process-math">\(N\)</span> is 1.02 units long at 115°. These angles are measured counter-clockwise from the positive <span class="process-math">\(x\)</span> axis.<div class="autopermalink" data-description="Paragraph"><a href="#Frictionless-Incline-4-1-1-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Frictionless-Incline-4-1-1-5-3">
 <div class="para">These are not the answers we are looking for, but we’re close. Remember that for this diagram, our scale is</div>
@@ -949,7 +924,11 @@ N \amp = ( \unit{1.02}) ({\lb{100}}/\unit{})\\
 <div class="autopermalink" data-description="Solution 3.4.3.1"><a href="#Frictionless-Incline-4" title="Copy heading and permalink for Solution 3.4.3.1" aria-label="Copy heading and permalink for Solution 3.4.3.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.3: Frictionless Incline"><a href="#Frictionless-Incline" title="Copy heading and permalink for Example 3.4.3: Frictionless Incline" aria-label="Copy heading and permalink for Example 3.4.3: Frictionless Incline">🔗</a></div></article><div class="autopermalink" data-description="Subsection 3.4.3: Force Triangle Method"><a href="#ForceTriangleMethod" title="Copy heading and permalink for Subsection 3.4.3: Force Triangle Method" aria-label="Copy heading and permalink for Subsection 3.4.3: Force Triangle Method">🔗</a></div></section><section class="subsection" id="Trigonometric-Method"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 3.4.3: Frictionless Incline"><a href="#Frictionless-Incline" title="Copy heading and permalink for Example 3.4.3: Frictionless Incline" aria-label="Copy heading and permalink for Example 3.4.3: Frictionless Incline">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 3.4.3: Force Triangle Method"><a href="#ForceTriangleMethod" title="Copy heading and permalink for Subsection 3.4.3: Force Triangle Method" aria-label="Copy heading and permalink for Subsection 3.4.3: Force Triangle Method">🔗</a></div>
+</section>
+<section class="subsection" id="Trigonometric-Method">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Trigonometric Method</span>
 </h3>
 <div class="para logical" id="Trigonometric-Method-2">
@@ -981,7 +960,8 @@ N \amp = ( \unit{1.02}) ({\lb{100}}/\unit{})\\
 <article class="example example-like" id="cargo_boom"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.4</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Cargo Boom.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 40%;column-gap:10%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 40%;column-gap:10%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="cargo_boom-2-1-1-1">A <span class="process-math">\(\kN{24}\)</span> crate is being lowered into the cargo hold of a ship. Boom <span class="process-math">\(AB\)</span> is <span class="process-math">\(\m{20}\)</span> long and acts at a 40° angle from kingpost <span class="process-math">\(AC\text{.}\)</span> The boom is held in this position by topping lift <span class="process-math">\(BC\)</span> which has a 1:4 slope.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -989,9 +969,11 @@ N \amp = ( \unit{1.02}) ({\lb{100}}/\unit{})\\
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/boom.svg" role="img" class="contained" alt="The boom AB is 20 m long and acts at a 40° angle from the vertical support (kingpost). The boom is connected to the bottom of the vertical support by a pin connection at point A. The boom is held in this position by topping lift BC (cable attached at point C on the kingpost and at point B on the boom) which has a -1/4 slope."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="cargo_boom-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="cargo_boom-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="cargo_boom-3-1">
 <div class="displaymath process-math" id="cargo_boom-3-1-1">
 \begin{align*}
@@ -1001,22 +983,28 @@ T\amp= \kN{17.16 } \amp C \amp= \kN{25.9}
 <div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.4.1"><a href="#cargo_boom-3" title="Copy heading and permalink for Answer 3.4.4.1" aria-label="Copy heading and permalink for Answer 3.4.4.1">🔗</a></div>
-</div></details><details id="cargo_boom-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="cargo_boom-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="cargo_boom-4-1">
 <ol class="decimal" id="cargo_boom-4-1-1">
 <li id="cargo_boom-4-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Draw diagrams.</span></span><div class="para" id="cargo_boom-4-1-1-1-2">Start by identifying the particle and drawing a free-body diagram. The particle in this case is point <span class="process-math">\(B\)</span> at the end of the boom because it is the point where all three forces intersect. Let <span class="process-math">\(T\)</span> be the tension of the topping lift, <span class="process-math">\(C\)</span> be the force in the boom, and <span class="process-math">\(W\)</span> be the weight of the load. Let <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> be the angles that forces <span class="process-math">\(T\)</span> and <span class="process-math">\(C\)</span> make with the horizontal.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Draw diagrams.</span></span>
+<div class="para" id="cargo_boom-4-1-1-1-2">Start by identifying the particle and drawing a free-body diagram. The particle in this case is point <span class="process-math">\(B\)</span> at the end of the boom because it is the point where all three forces intersect. Let <span class="process-math">\(T\)</span> be the tension of the topping lift, <span class="process-math">\(C\)</span> be the force in the boom, and <span class="process-math">\(W\)</span> be the weight of the load. Let <span class="process-math">\(\alpha\)</span> and <span class="process-math">\(\beta\)</span> be the angles that forces <span class="process-math">\(T\)</span> and <span class="process-math">\(C\)</span> make with the horizontal.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="cargo_boom-4-1-1-1-3">Rearrange the forces acting on point <span class="process-math">\(B\)</span> to form a force triangle as was done in the previous example.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:44.4444444444444% 44.4444444444444%;column-gap:10%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:5%;margin-right:5%;grid-template-columns:44.4444444444444% 44.4444444444444%;column-gap:10%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/boom-fbd.svg" role="img" class="contained"></div></div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/boom-triangle.svg" role="img" class="contained"></div></div>
-</div></div>
+</div>
+</div>
 <div class="autopermalink" data-description="Item 1: Draw diagrams"><a href="#cargo_boom-4-1-1-1" title="Copy heading and permalink for Item 1: Draw diagrams" aria-label="Copy heading and permalink for Item 1: Draw diagrams">🔗</a></div>
 </li>
 <li id="cargo_boom-4-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Find angles.</span></span><div class="para" id="cargo_boom-4-1-1-2-2">Angle <span class="process-math">\(\alpha\)</span> can be found from the slope of the topping lift.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Find angles.</span></span>
+<div class="para" id="cargo_boom-4-1-1-2-2">Angle <span class="process-math">\(\alpha\)</span> can be found from the slope of the topping lift.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="cargo_boom-4-1-1-2-3">
 <div class="displaymath process-math" id="cargo_boom-4-1-1-2-3-1">
@@ -1051,7 +1039,8 @@ T\amp= \kN{17.16 } \amp C \amp= \kN{25.9}
 <div class="autopermalink" data-description="Item 2: Find angles"><a href="#cargo_boom-4-1-1-2" title="Copy heading and permalink for Item 2: Find angles" aria-label="Copy heading and permalink for Item 2: Find angles">🔗</a></div>
 </li>
 <li id="cargo_boom-4-1-1-3">
-<span class="heading li--heading"><span class="title li--heading-title">Solve force triangle.</span></span><div class="para" id="cargo_boom-4-1-1-3-2">With the angles and one side of the force triangle known, apply the <a href="los-loc.html#los" class="internal" title="Subsection B.3.1: Law of Sines">Law of Sines</a> to find the two unknown sides.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Solve force triangle.</span></span>
+<div class="para" id="cargo_boom-4-1-1-3-2">With the angles and one side of the force triangle known, apply the <a href="los-loc.html#los" class="internal" title="Subsection B.3.1: Law of Sines">Law of Sines</a> to find the two unknown sides.<div class="autopermalink" data-description="Paragraph"><a href="#cargo_boom-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="cargo_boom-4-1-1-3-3">
 <div class="displaymath process-math" id="cargo_boom-4-1-1-3-3-1">
@@ -1079,7 +1068,11 @@ T\amp= \kN{17.16}\amp C \amp= \kN{25.9}
 <div class="autopermalink" data-description="Solution 3.4.4.1"><a href="#cargo_boom-4" title="Copy heading and permalink for Solution 3.4.4.1" aria-label="Copy heading and permalink for Solution 3.4.4.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.4: Cargo Boom"><a href="#cargo_boom" title="Copy heading and permalink for Example 3.4.4: Cargo Boom" aria-label="Copy heading and permalink for Example 3.4.4: Cargo Boom">🔗</a></div></article><div class="autopermalink" data-description="Subsection 3.4.4: Trigonometric Method"><a href="#Trigonometric-Method" title="Copy heading and permalink for Subsection 3.4.4: Trigonometric Method" aria-label="Copy heading and permalink for Subsection 3.4.4: Trigonometric Method">🔗</a></div></section><section class="subsection" id="scalar-components-method"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 3.4.4: Cargo Boom"><a href="#cargo_boom" title="Copy heading and permalink for Example 3.4.4: Cargo Boom" aria-label="Copy heading and permalink for Example 3.4.4: Cargo Boom">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 3.4.4: Trigonometric Method"><a href="#Trigonometric-Method" title="Copy heading and permalink for Subsection 3.4.4: Trigonometric Method" aria-label="Copy heading and permalink for Subsection 3.4.4: Trigonometric Method">🔗</a></div>
+</section>
+<section class="subsection" id="scalar-components-method">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.5</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Scalar Components Method</span>
 </h3>
 <div class="para logical" id="scalar-components-method-2">
@@ -1120,12 +1113,16 @@ T\amp= \kN{17.16}\amp C \amp= \kN{25.9}
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.5</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Utility Pole.</span>
 </h4>
 <div class="para" id="utilitypole-2-1">Consider the utility pole next to the road shown below. A top view is shown in the right-hand diagram. If each of the six power lines pulls with a force of <span class="process-math">\(\kN{10.0}\text{,}\)</span> determine the magnitude of the tension in the guy wire.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
+</div> 
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;grid-template-columns:47.3684210526316% 47.3684210526316%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/pole.png" class="contained" alt="Utility pole."></div></div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/utilitypole.svg" role="img" class="contained" alt='Looking at the top view of a utility pole, two parallel, horizontal members called crossarms at the top are shown. On each crossarm, three tensile forces act away from the utility pole. The tensions going to the right are 152 degrees from the tensions going to the left. Because of the type of connection of the cables to the crossarms, the tension in each cable is the same magnitude. A "guy wire" G acts 256 degrees from the tensile forces acting to the left, which is 104 degrees from the tensile forces acting to the right.'></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="utilitypole-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="utilitypole-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="utilitypole-3-1">
 <div class="displaymath process-math" id="utilitypole-3-1-1">
 \begin{gather*}
@@ -1135,24 +1132,29 @@ G = \kN{23.6}
 <div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.5.1"><a href="#utilitypole-3" title="Copy heading and permalink for Answer 3.4.5.1" aria-label="Copy heading and permalink for Answer 3.4.5.1">🔗</a></div>
-</div></details><details id="utilitypole-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="utilitypole-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="utilitypole-4-1">
 <ol class="decimal" id="utilitypole-4-1-1">
 <li id="utilitypole-4-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Assumptions.</span></span><div class="para" id="utilitypole-4-1-1-1-2">A utility pole isn’t two-dimensional, but we can solve this problem as if it was by first considering the force components acting in a horizontal plane, and then considering the components in a vertical plane.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Assumptions.</span></span>
+<div class="para" id="utilitypole-4-1-1-1-2">A utility pole isn’t two-dimensional, but we can solve this problem as if it was by first considering the force components acting in a horizontal plane, and then considering the components in a vertical plane.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="utilitypole-4-1-1-1-3">It also isn’t a concurrent force problem because the lines of action of the forces don’t all intersect at a single point. However, we can make it into one by replacing the forces of the three power lines in each direction with a single force three times larger. This is an example of an <em class="emphasis">equivalent transformation</em>, a trick engineers use frequently to turn complex situations into simpler ones. It works here because all the tensions are equal, and the outside wires are equidistant from the center wire. You must be careful to justify all equivalent transformations because they will lead to errors if they are not applied correctly. Equivalent transformations will be discussed in greater detail in <a href="equivalent-tranformations.html" class="internal" title="Section 4.6: Equivalent Transformations">Section 4.6</a> later.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 1: Assumptions"><a href="#utilitypole-4-1-1-1" title="Copy heading and permalink for Item 1: Assumptions" aria-label="Copy heading and permalink for Item 1: Assumptions">🔗</a></div>
 </li>
 <li id="utilitypole-4-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span><div class="para" id="utilitypole-4-1-1-2-2">
+<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span>
+<div class="para" id="utilitypole-4-1-1-2-2">
 <span class="process-math">\(T = \kN{10.0}\)</span> and 38° and 152° angles.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 2: Givens"><a href="#utilitypole-4-1-1-2" title="Copy heading and permalink for Item 2: Givens" aria-label="Copy heading and permalink for Item 2: Givens">🔗</a></div>
 </li>
 <li id="utilitypole-4-1-1-3">
-<span class="heading li--heading"><span class="title li--heading-title">Free-Body Diagram.</span></span><div class="para" id="utilitypole-4-1-1-3-2">Begin by drawing a neat, labeled, free-body diagram of the top view of the pole, establishing a coordinate system and indicating the directions of the forces.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Free-Body Diagram.</span></span>
+<div class="para" id="utilitypole-4-1-1-3-2">Begin by drawing a neat, labeled, free-body diagram of the top view of the pole, establishing a coordinate system and indicating the directions of the forces.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="utilitypole-4-1-1-3-3">Call the tension in one power line <span class="process-math">\(T\)</span> and the tension in the guy wire <span class="process-math">\(G\text{.}\)</span> Resolve the the tension of the guy wire into a horizontal component <span class="process-math">\(G_h\text{,}\)</span> and a vertical component <span class="process-math">\(G_v\text{.}\)</span> Only the horizontal component of <span class="process-math">\(G\)</span> is visible in the top view.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1162,7 +1164,8 @@ G = \kN{23.6}
 <div class="autopermalink" data-description="Item 3: Free-Body Diagram"><a href="#utilitypole-4-1-1-3" title="Copy heading and permalink for Item 3: Free-Body Diagram" aria-label="Copy heading and permalink for Item 3: Free-Body Diagram">🔗</a></div>
 </li>
 <li id="utilitypole-4-1-1-4">
-<span class="heading li--heading"><span class="title li--heading-title">Solution.</span></span><div class="para" id="utilitypole-4-1-1-4-2">Solve for <span class="process-math">\(G_h\)</span> by applying the equations of equilibrium. The symmetry of this problem means that the <span class="process-math">\(\Sigma F_x\)</span> equation is sufficient.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Solution.</span></span>
+<div class="para" id="utilitypole-4-1-1-4-2">Solve for <span class="process-math">\(G_h\)</span> by applying the equations of equilibrium. The symmetry of this problem means that the <span class="process-math">\(\Sigma F_x\)</span> equation is sufficient.<div class="autopermalink" data-description="Paragraph"><a href="#utilitypole-4-1-1-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="utilitypole-4-1-1-4-3">
 <div class="displaymath process-math" id="utilitypole-4-1-1-4-3-1">
@@ -1198,12 +1201,15 @@ G \amp= \kN{23.6}
 <div class="autopermalink" data-description="Solution 3.4.5.1"><a href="#utilitypole-4" title="Copy heading and permalink for Solution 3.4.5.1" aria-label="Copy heading and permalink for Solution 3.4.5.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.5: Utility Pole"><a href="#utilitypole" title="Copy heading and permalink for Example 3.4.5: Utility Pole" aria-label="Copy heading and permalink for Example 3.4.5: Utility Pole">🔗</a></div></article><div class="para" id="scalar-components-method-9">In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.<div class="autopermalink" data-description="Paragraph"><a href="#scalar-components-method-9" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Example 3.4.5: Utility Pole"><a href="#utilitypole" title="Copy heading and permalink for Example 3.4.5: Utility Pole" aria-label="Copy heading and permalink for Example 3.4.5: Utility Pole">🔗</a></div>
+</article>
+<div class="para" id="scalar-components-method-9">In the next example we look at the conditions of equilibrium by considering the load and the constraints, rather than taking a global equilibrium approach which considers both the load and reaction forces.<div class="autopermalink" data-description="Paragraph"><a href="#scalar-components-method-9" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="example example-like" id="Slider"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.6</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Slider.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 25%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 25%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para" id="Slider-2-1-1-1">Three forces act on a machine part that is free to slide along a vertical, frictionless rod. Forces <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> have a magnitude of <span class="process-math">\(\N{20}\)</span> and force <span class="process-math">\(C\)</span> has a magnitude of <span class="process-math">\(\N{30}\text{.}\)</span> Force <span class="process-math">\(B\)</span> acts <span class="process-math">\(\alpha\)</span> degrees from the horizontal, and force <span class="process-math">\(C\)</span> acts at the same angle from the vertical.<div class="autopermalink" data-description="Paragraph"><a href="#Slider-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1211,9 +1217,11 @@ G \amp= \kN{23.6}
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/Ch03-slider-space.svg" role="img" class="contained" alt="Three forces act on a machine part that is free to slide along a vertical, frictionless rod. The machine part has an attachment point where 3 forces are applied. Force A acts upwards vertically. Force B acts up and to the right at an angle alpha from the horizontal. Force C acts down and to the right at an angle of alpha from the negative y-axis."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Slider-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Slider-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para" id="Slider-3-1">The question asks for the <em class="emphasis">reaction</em> force. The reaction force <span class="process-math">\(\vec{R'}\)</span> is equal and opposite to force <span class="process-math">\(\vec{R}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Slider-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Slider-3-2">
@@ -1226,22 +1234,28 @@ G \amp= \kN{23.6}
 <div class="autopermalink" data-description="Paragraph"><a href="#Slider-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.6.1"><a href="#Slider-3" title="Copy heading and permalink for Answer 3.4.6.1" aria-label="Copy heading and permalink for Answer 3.4.6.1">🔗</a></div>
-</div></details><details id="Slider-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Slider-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Slider-4-1">
 <ol class="decimal" id="Slider-4-1-1">
 <li id="Slider-4-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span><div class="para" id="Slider-4-1-1-1-2">We are given magnitudes of forces <span class="process-math">\(A= \N{20}\text{,}\)</span> <span class="process-math">\(B = \N{20}\text{,}\)</span> and <span class="process-math">\(C = \N{30}\text{.}\)</span> The unknowns are angle <span class="process-math">\(\alpha\)</span> and resultant force <span class="process-math">\(R\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Slider-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Givens.</span></span>
+<div class="para" id="Slider-4-1-1-1-2">We are given magnitudes of forces <span class="process-math">\(A= \N{20}\text{,}\)</span> <span class="process-math">\(B = \N{20}\text{,}\)</span> and <span class="process-math">\(C = \N{30}\text{.}\)</span> The unknowns are angle <span class="process-math">\(\alpha\)</span> and resultant force <span class="process-math">\(R\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Slider-4-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Item 1: Givens"><a href="#Slider-4-1-1-1" title="Copy heading and permalink for Item 1: Givens" aria-label="Copy heading and permalink for Item 1: Givens">🔗</a></div>
 </li>
 <li id="Slider-4-1-1-2">
 <span class="heading li--heading"><span class="title li--heading-title">Procedure.</span></span><div class="interactive-iframe-container"><iframe id="ggb_slider_interactive" style="width:600px; height:306px; display: block; " src="ggb_slider_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_slider_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_slider_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h6></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_slider_interactive-2" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h6></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_slider_interactive-2-1">This interactive diagram will help you visualize the relationship between angle <span class="process-math">\(\alpha\)</span> and the resultant load force <span class="process-math">\(R\text{.}\)</span> When in equilibrium, the rod will supply a reaction force equal and opposite to the resultant load.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_slider_interactive-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_slider_interactive-2" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
+</div></details>
+</div>
 <div class="para" id="Slider-4-1-1-2-3">Since the rod is frictionless, it cannot prevent the slider from moving vertically. Consequently, the slider will only be in equilibrium if the resultant of the three load forces is horizontal. Since a horizontal force has no <span class="process-math">\(y\)</span> component, we can establish this equilibrium condition:<div class="autopermalink" data-description="Paragraph"><a href="#Slider-4-1-1-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Slider-4-1-1-2-4">
@@ -1308,12 +1322,15 @@ R_x \amp = A_x + B_x + C_x\\
 <div class="autopermalink" data-description="Solution 3.4.6.1"><a href="#Slider-4" title="Copy heading and permalink for Solution 3.4.6.1" aria-label="Copy heading and permalink for Solution 3.4.6.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.6: Slider"><a href="#Slider" title="Copy heading and permalink for Example 3.4.6: Slider" aria-label="Copy heading and permalink for Example 3.4.6: Slider">🔗</a></div></article><div class="para" id="scalar-components-method-11">The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.<div class="autopermalink" data-description="Paragraph"><a href="#scalar-components-method-11" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Example 3.4.6: Slider"><a href="#Slider" title="Copy heading and permalink for Example 3.4.6: Slider" aria-label="Copy heading and permalink for Example 3.4.6: Slider">🔗</a></div>
+</article>
+<div class="para" id="scalar-components-method-11">The next example demonstrates how rotating the coordinate system can simplify the solution. In the first solution, the standard orientation of the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> axes is chosen, and in the second the coordinate system is rotated to align with one of the unknowns, which enables the solution to be found without solving simultaneous equations.<div class="autopermalink" data-description="Paragraph"><a href="#scalar-components-method-11" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="example example-like" id="Rotate-Coordinate-System"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.7</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Roller.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:65% 35%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:65% 35%;column-gap:0%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para" id="Rotate-Coordinate-System-2-1-1-1">A lawn roller which weighs <span class="process-math">\(\lb{160}\)</span> is being pulled up a <span class="process-math">\(\ang{10}\)</span> slope at a constant velocity.<div class="autopermalink" data-description="Paragraph"><a href="#Rotate-Coordinate-System-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1321,9 +1338,11 @@ R_x \amp = A_x + B_x + C_x\\
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/Roller.svg" role="img" class="contained" alt="A lawn roller weighs 160 lb. is being pulled up a 10° slope at a constant velocity. The force P that is pulling it up the slope is directed 40 degrees above the horizontal."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Rotate-Coordinate-System-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Rotate-Coordinate-System-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Rotate-Coordinate-System-3-1">
 <div class="displaymath process-math" id="Rotate-Coordinate-System-3-1-1">
 \begin{equation*}
@@ -1333,12 +1352,17 @@ P = \lb{32.1}
 <div class="autopermalink" data-description="Paragraph"><a href="#Rotate-Coordinate-System-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.7.1"><a href="#Rotate-Coordinate-System-3" title="Copy heading and permalink for Answer 3.4.7.1" aria-label="Copy heading and permalink for Answer 3.4.7.1">🔗</a></div>
-</div></details><details id="Rotate-Coordinate-System-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Rotate-Coordinate-System-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">1</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Rotate-Coordinate-System-4-1">
 <ol class="decimal" id="Rotate-Coordinate-System-4-1-1">
 <li id="Rotate-Coordinate-System-4-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 30%;column-gap:0%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para logical" id="Rotate-Coordinate-System-4-1-1-1-2-1">
+<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span> 
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 30%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="Rotate-Coordinate-System-4-1-1-1-2-1">
 <ol class="lower-alpha lower-alpha-level-1" id="Rotate-Coordinate-System-4-1-1-1-2-1-1">
 <li id="Rotate-Coordinate-System-4-1-1-1-2-1-1-1">
 <div class="para" id="p-derived-Rotate-Coordinate-System-4-1-1-1-2-1-1-1">Select a coordinate system, in this case, horizontal and vertical.</div>
@@ -1354,13 +1378,16 @@ P = \lb{32.1}
 </li>
 </ol>
 <div class="autopermalink" data-description="Paragraph"><a href="#Rotate-Coordinate-System-4-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
+</div>
+</div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/Roller_FBD1.svg" role="img" class="contained"></div></div>
-</div></div>
+</div>
+</div>
 <div class="autopermalink" data-description="Item 1: Strategy"><a href="#Rotate-Coordinate-System-4-1-1-1" title="Copy heading and permalink for Item 1: Strategy" aria-label="Copy heading and permalink for Item 1: Strategy">🔗</a></div>
 </li>
 <li id="Rotate-Coordinate-System-4-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Procedure.</span></span><div class="para logical" id="Rotate-Coordinate-System-4-1-1-2-2">
+<span class="heading li--heading"><span class="title li--heading-title">Procedure.</span></span>
+<div class="para logical" id="Rotate-Coordinate-System-4-1-1-2-2">
 <div class="displaymath process-math" id="Rotate-Coordinate-System-4-1-1-2-2-1">
 \begin{align*}
 \Sigma F_x \amp = 0 \amp \Sigma F_y \amp = 0\\
@@ -1389,12 +1416,17 @@ P \amp = \lb{32.1}
 <div class="autopermalink" data-description="Paragraph"><a href="#Rotate-Coordinate-System-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Solution 3.4.7.1"><a href="#Rotate-Coordinate-System-4" title="Copy heading and permalink for Solution 3.4.7.1" aria-label="Copy heading and permalink for Solution 3.4.7.1">🔗</a></div>
-</div></details><details id="Rotate-Coordinate-System-5" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Rotate-Coordinate-System-5" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Rotate-Coordinate-System-5-1">
 <ol class="decimal" id="Rotate-Coordinate-System-5-1-1">
 <li id="Rotate-Coordinate-System-5-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 30%;column-gap:0%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para logical" id="Rotate-Coordinate-System-5-1-1-1-2-1">
+<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span> 
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:70% 30%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="Rotate-Coordinate-System-5-1-1-1-2-1">
 <ol class="lower-alpha lower-alpha-level-1" id="Rotate-Coordinate-System-5-1-1-1-2-1-1">
 <li id="Rotate-Coordinate-System-5-1-1-1-2-1-1-1">
 <div class="para" id="p-derived-Rotate-Coordinate-System-5-1-1-1-2-1-1-1">Rotate the standard coordinate system <span class="process-math">\(\ang{10}\)</span> clockwise to align the new <span class="process-math">\(y'\)</span> axis with force <span class="process-math">\(N\text{.}\)</span>
@@ -1411,13 +1443,16 @@ P \amp = \lb{32.1}
 </li>
 </ol>
 <div class="autopermalink" data-description="Paragraph"><a href="#Rotate-Coordinate-System-5-1-1-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
+</div>
+</div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/Roller_FBD2.svg" role="img" class="contained"></div></div>
-</div></div>
+</div>
+</div>
 <div class="autopermalink" data-description="Item 1: Strategy"><a href="#Rotate-Coordinate-System-5-1-1-1" title="Copy heading and permalink for Item 1: Strategy" aria-label="Copy heading and permalink for Item 1: Strategy">🔗</a></div>
 </li>
 <li id="Rotate-Coordinate-System-5-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Procedure.</span></span><div class="para logical" id="Rotate-Coordinate-System-5-1-1-2-2">
+<span class="heading li--heading"><span class="title li--heading-title">Procedure.</span></span>
+<div class="para logical" id="Rotate-Coordinate-System-5-1-1-2-2">
 <div class="displaymath process-math" id="Rotate-Coordinate-System-5-1-1-2-2-1">
 \begin{align*}
 \Sigma F_{x'} \amp = 0\\
@@ -1437,24 +1472,36 @@ P \amp = \lb{32.1}
 <div class="autopermalink" data-description="Solution 3.4.7.2"><a href="#Rotate-Coordinate-System-5" title="Copy heading and permalink for Solution 3.4.7.2" aria-label="Copy heading and permalink for Solution 3.4.7.2">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.7: Roller"><a href="#Rotate-Coordinate-System" title="Copy heading and permalink for Example 3.4.7: Roller" aria-label="Copy heading and permalink for Example 3.4.7: Roller">🔗</a></div></article><div class="autopermalink" data-description="Subsection 3.4.5: Scalar Components Method"><a href="#scalar-components-method" title="Copy heading and permalink for Subsection 3.4.5: Scalar Components Method" aria-label="Copy heading and permalink for Subsection 3.4.5: Scalar Components Method">🔗</a></div></section><section class="subsection" id="multi-particle"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 3.4.7: Roller"><a href="#Rotate-Coordinate-System" title="Copy heading and permalink for Example 3.4.7: Roller" aria-label="Copy heading and permalink for Example 3.4.7: Roller">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 3.4.5: Scalar Components Method"><a href="#scalar-components-method" title="Copy heading and permalink for Subsection 3.4.5: Scalar Components Method" aria-label="Copy heading and permalink for Subsection 3.4.5: Scalar Components Method">🔗</a></div>
+</section>
+<section class="subsection" id="multi-particle">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.6</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Multi-Particle Equilibrium</span>
 </h3>
 <div class="para" id="multi-particle-2">When two or more particles interact with each other there will always be common forces between them as a result of Newton’s Third Law, the action-reaction principle.<div class="autopermalink" data-description="Paragraph"><a href="#multi-particle-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:45% 50%;column-gap:5%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para" id="multi-particle-3-1">Consider the two boxes with weights <span class="process-math">\(W_1\)</span> and <span class="process-math">\(W_2\)</span> connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces <span class="process-math">\(T_A\)</span> and <span class="process-math">\(T_B\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#multi-particle-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-<div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="multi-particle-3-2"><div class="interactive-iframe-container"><iframe id="two-weight_interactive" style="width:300px; height:270px; display: block; " src="two-weight_interactive-if.html"></iframe></div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:45% 50%;column-gap:5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="multi-particle-3-1">Consider the two boxes with weights <span class="process-math">\(W_1\)</span> and <span class="process-math">\(W_2\)</span> connected to each other and the ceiling shown in the interactive diagram. Position one shows the physical arrangement of the objects, position two shows their free-body diagrams, and position three shows simplified free-body diagrams where the objects are represented by points. The boxes were freed by replacing the cables with tension forces <span class="process-math">\(T_A\)</span> and <span class="process-math">\(T_B\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#multi-particle-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="multi-particle-3-2"><div class="interactive-iframe-container"><iframe id="two-weight_interactive" style="width:300px; height:270px; display: block; " src="two-weight_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="two-weight_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.8<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Two suspended weights<div class="autopermalink" data-description="Figure 3.4.8"><a href="#multi-particle-3-2" title="Copy heading and permalink for Figure 3.4.8" aria-label="Copy heading and permalink for Figure 3.4.8">🔗</a></div></figcaption></figure></div>
-</div></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.8<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Two suspended weights<div class="autopermalink" data-description="Figure 3.4.8"><a href="#multi-particle-3-2" title="Copy heading and permalink for Figure 3.4.8" aria-label="Copy heading and permalink for Figure 3.4.8">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
 <div class="para" id="multi-particle-4">From the free-body diagrams you can see that cable <span class="process-math">\(B\)</span> only supports the weight of the bottom box, while cable <span class="process-math">\(A\)</span> and the ceiling support the combined weight. The tension <span class="process-math">\(T_B\)</span> is common to both diagrams. Recognizing the common force is the key to solving multi-particle equilibrium problems.<div class="autopermalink" data-description="Paragraph"><a href="#multi-particle-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="example example-like" id="two-hanging-weights-ex"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">3.4.9</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Two hanging weights.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:45% 50%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:45% 50%;column-gap:5%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para" id="two-hanging-weights-ex-2-1-1-1">A <span class="process-math">\(\N{100}\)</span> weight <span class="process-math">\(W\)</span> is supported by cable <span class="process-math">\(ABCD\text{.}\)</span> There is a frictionless pulley at <span class="process-math">\(B\)</span> and the hook is firmly attached to the cable at point <span class="process-math">\(C\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1462,13 +1509,17 @@ P \amp = \lb{32.1}
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/twoparticles-space.svg" role="img" class="contained" alt="At the ceiling, Point D is 150 cm to the right of A. Point B is 20 cm to the right of A, and 40 cm below A. Point C is 100 cm to the right of A, and 50 cm below A. A weight is supported by a hook that is firmly attached to the cable at point C. There is a frictionless pulley at B and a Force P acts down and to the left, at an angle of theta from the -x axis."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="hint1" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="hint solution-like knowl__content">
+<details id="hint1" class="hint solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Hint</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="hint solution-like knowl__content">
 <div class="para" id="hint1-1">The particles are points <span class="process-math">\(B\)</span> and <span class="process-math">\(C\text{.}\)</span> The common force is the tension in rope segment <span class="process-math">\(BC\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#hint1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Hint 3.4.9.1"><a href="#hint1" title="Copy heading and permalink for Hint 3.4.9.1" aria-label="Copy heading and permalink for Hint 3.4.9.1">🔗</a></div>
-</div></details><details id="two-hanging-weights-ex-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+</div></details>
+<details id="two-hanging-weights-ex-4" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="two-hanging-weights-ex-4-1">
 <div class="displaymath process-math" id="two-hanging-weights-ex-4-1-1">
 \begin{align*}
@@ -1479,11 +1530,14 @@ P\amp = \N{84.5} \amp \theta \amp = \ang{54.7} \text{ CCW from } -x \text{ axis.
 <div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 3.4.9.1"><a href="#two-hanging-weights-ex-4" title="Copy heading and permalink for Answer 3.4.9.1" aria-label="Copy heading and permalink for Answer 3.4.9.1">🔗</a></div>
-</div></details><details id="two-hanging-weights-ex-5" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="two-hanging-weights-ex-5" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="two-hanging-weights-ex-5-1">
 <ol class="decimal" id="two-hanging-weights-ex-5-1-1">
 <li id="two-hanging-weights-ex-5-1-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span><div class="para" id="two-hanging-weights-ex-5-1-1-1-2">Following the <a href="CH03-2d-particles.html#general-procedure" class="internal" title="Subsection 3.4.2: General Procedure">General Procedure</a> we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(C\text{,}\)</span> and <span class="process-math">\(D\)</span> for the endpoints of the rope segments, and label the angles of the forces <span class="process-math">\(\alpha\text{,}\)</span> <span class="process-math">\(\beta\text{,}\)</span> and <span class="process-math">\(\phi\text{.}\)</span> We will use the standard Cartesian coordinate system and use the <a href="CH03-2d-particles.html#scalar-components-method" class="internal" title="Subsection 3.4.5: Scalar Components Method">scalar components method</a>.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Strategy.</span></span>
+<div class="para" id="two-hanging-weights-ex-5-1-1-1-2">Following the <a href="CH03-2d-particles.html#general-procedure" class="internal" title="Subsection 3.4.2: General Procedure">General Procedure</a> we identify the particles as points A and B, and draw free-body diagrams of each. We label the rope tensions <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(C\text{,}\)</span> and <span class="process-math">\(D\)</span> for the endpoints of the rope segments, and label the angles of the forces <span class="process-math">\(\alpha\text{,}\)</span> <span class="process-math">\(\beta\text{,}\)</span> and <span class="process-math">\(\phi\text{.}\)</span> We will use the standard Cartesian coordinate system and use the <a href="CH03-2d-particles.html#scalar-components-method" class="internal" title="Subsection 3.4.5: Scalar Components Method">scalar components method</a>.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/twoparticles-fbd.svg" role="img" class="contained"></div>
 <div class="para" id="two-hanging-weights-ex-5-1-1-1-4">Weight <span class="process-math">\(W\)</span> was given, and we can easily find angles <span class="process-math">\(\alpha\text{,}\)</span> <span class="process-math">\(\beta\text{,}\)</span> and <span class="process-math">\(\phi\)</span> so the knowns are:<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-1-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -1506,7 +1560,8 @@ W \amp = \N{100}\\
 <div class="autopermalink" data-description="Item 1: Strategy"><a href="#two-hanging-weights-ex-5-1-1-1" title="Copy heading and permalink for Item 1: Strategy" aria-label="Copy heading and permalink for Item 1: Strategy">🔗</a></div>
 </li>
 <li id="two-hanging-weights-ex-5-1-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Solve Particle C.</span></span><div class="para logical" id="two-hanging-weights-ex-5-1-1-2-2">
+<span class="heading li--heading"><span class="title li--heading-title">Solve Particle C.</span></span>
+<div class="para logical" id="two-hanging-weights-ex-5-1-1-2-2">
 <div class="displaymath process-math" id="two-hanging-weights-ex-5-1-1-2-2-1">
 \begin{align*}
 \Sigma F_x \amp = 0 \amp \Sigma F_y \amp = 0\\
@@ -1531,11 +1586,15 @@ C \amp =\N{89.6} \amp D \amp = \N{125.7}
 </div>
 <div class="para" id="two-hanging-weights-ex-5-1-1-2-5">With particle <span class="process-math">\(C\)</span> solved, we can use the results to solve particle <span class="process-math">\(B\text{.}\)</span> There are three unknowns remaining, tension <span class="process-math">\(A\text{,}\)</span> magnitude <span class="process-math">\(P\text{,}\)</span> and direction <span class="process-math">\(\theta\text{.}\)</span> Unfortunately, we still only have two available equilibrium equations. When you find yourself in this situation with more unknowns than equations, it generally means that you are missing something. In this case, it is the pulley. When a cable wraps around a frictionless pulley the tension doesn’t change. The missing information is that <span class="process-math">\(A = C\text{.}\)</span> Knowing this, the magnitude and direction of force <span class="process-math">\(\vec{P}\)</span> can be determined.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-2-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<details id="two-hanging-weights-ex-5-1-1-2-6" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Aside</span></h6></summary><aside class="aside aside-like knowl__content"><div class="para" id="two-hanging-weights-ex-5-1-1-2-6-1">Because <span class="process-math">\(A = C\text{,}\)</span> the free-body diagram of particle <span class="process-math">\(B\)</span> is symmetric, and the technique used in <a href="CH03-2d-particles.html#utilitypole" class="xref" data-knowl="./knowl/xref/utilitypole.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.5: Utility Pole">Example 3.4.5</a> to rotate the coordinate system could be applied here.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-2-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></aside></details><div class="autopermalink" data-description="Item 2: Solve Particle C"><a href="#two-hanging-weights-ex-5-1-1-2" title="Copy heading and permalink for Item 2: Solve Particle C" aria-label="Copy heading and permalink for Item 2: Solve Particle C">🔗</a></div>
+<details id="two-hanging-weights-ex-5-1-1-2-6" class="aside aside-like born-hidden-knowl"><summary class="knowl__link"><h6 class="heading"><span class="type">Aside</span></h6></summary>
+<aside class="aside aside-like knowl__content">
+<div class="para" id="two-hanging-weights-ex-5-1-1-2-6-1">Because <span class="process-math">\(A = C\text{,}\)</span> the free-body diagram of particle <span class="process-math">\(B\)</span> is symmetric, and the technique used in <a href="CH03-2d-particles.html#utilitypole" class="xref" data-knowl="./knowl/xref/utilitypole.html" data-reveal-label="Reveal" data-close-label="Close" title="Example 3.4.5: Utility Pole">Example 3.4.5</a> to rotate the coordinate system could be applied here.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-2-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</aside></details><div class="autopermalink" data-description="Item 2: Solve Particle C"><a href="#two-hanging-weights-ex-5-1-1-2" title="Copy heading and permalink for Item 2: Solve Particle C" aria-label="Copy heading and permalink for Item 2: Solve Particle C">🔗</a></div>
 </li>
 <li id="two-hanging-weights-ex-5-1-1-3">
-<span class="heading li--heading"><span class="title li--heading-title">Solve Particle B.</span></span><div class="para" id="two-hanging-weights-ex-5-1-1-3-2">Referring to the <abbr class="acronym">FBD</abbr> for particle <span class="process-math">\(B\)</span> we can write these equations.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Solve Particle B.</span></span>
+<div class="para" id="two-hanging-weights-ex-5-1-1-3-2">Referring to the <abbr class="acronym">FBD</abbr> for particle <span class="process-math">\(B\)</span> we can write these equations.<div class="autopermalink" data-description="Paragraph"><a href="#two-hanging-weights-ex-5-1-1-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="two-hanging-weights-ex-5-1-1-3-3">
 <div class="displaymath process-math" id="two-hanging-weights-ex-5-1-1-3-3-1">
@@ -1578,7 +1637,11 @@ P\amp = \N{84.5} \amp \theta \amp = \ang{54.7}
 <div class="autopermalink" data-description="Solution 3.4.9.1"><a href="#two-hanging-weights-ex-5" title="Copy heading and permalink for Solution 3.4.9.1" aria-label="Copy heading and permalink for Solution 3.4.9.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 3.4.9: Two hanging weights"><a href="#two-hanging-weights-ex" title="Copy heading and permalink for Example 3.4.9: Two hanging weights" aria-label="Copy heading and permalink for Example 3.4.9: Two hanging weights">🔗</a></div></article><div class="autopermalink" data-description="Subsection 3.4.6: Multi-Particle Equilibrium"><a href="#multi-particle" title="Copy heading and permalink for Subsection 3.4.6: Multi-Particle Equilibrium" aria-label="Copy heading and permalink for Subsection 3.4.6: Multi-Particle Equilibrium">🔗</a></div></section><div class="autopermalink" data-description="Section 3.4: 2D Particle Equilibrium"><a href="#CH03-2d-particles" title="Copy heading and permalink for Section 3.4: 2D Particle Equilibrium" aria-label="Copy heading and permalink for Section 3.4: 2D Particle Equilibrium">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 3.4.9: Two hanging weights"><a href="#two-hanging-weights-ex" title="Copy heading and permalink for Example 3.4.9: Two hanging weights" aria-label="Copy heading and permalink for Example 3.4.9: Two hanging weights">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 3.4.6: Multi-Particle Equilibrium"><a href="#multi-particle" title="Copy heading and permalink for Subsection 3.4.6: Multi-Particle Equilibrium" aria-label="Copy heading and permalink for Subsection 3.4.6: Multi-Particle Equilibrium">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 3.4: 2D Particle Equilibrium"><a href="#CH03-2d-particles" title="Copy heading and permalink for Section 3.4: 2D Particle Equilibrium" aria-label="Copy heading and permalink for Section 3.4: 2D Particle Equilibrium">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="CH03-1d-particles.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="ch3-3d-particles.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

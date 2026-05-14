@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="Chapter_05-stability-and-determinacy"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="Chapter_05-stability-and-determinacy">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">5.6</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Stability and Determinacy</span>
 </h2>
 <article class="objectives goal-like" id="Chapter_05-stability-and-determinacy-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -736,20 +673,27 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#Chapter_05-stability-and-determinacy-2-1-5" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 5.6"><a href="#Chapter_05-stability-and-determinacy-2" title="Copy heading and permalink for Key Questions 5.6" aria-label="Copy heading and permalink for Key Questions 5.6">🔗</a></div></article><section class="paragraphs" id="Chapter_05-stability-and-determinacy-3"><h3 class="heading"><span class="title">Determinate vs. Indeterminate.</span></h3>
+<div class="autopermalink" data-description="Key Questions 5.6"><a href="#Chapter_05-stability-and-determinacy-2" title="Copy heading and permalink for Key Questions 5.6" aria-label="Copy heading and permalink for Key Questions 5.6">🔗</a></div>
+</article>
+<section class="paragraphs" id="Chapter_05-stability-and-determinacy-3"><h3 class="heading"><span class="title">Determinate vs. Indeterminate.</span></h3>
 <div class="para" id="Chapter_05-stability-and-determinacy-3-2">A static system is <dfn class="terminology">determinate</dfn> if it is possible to find the unknown reactions using the methods of statics, that is, by using equilibrium equations, otherwise it is <dfn class="terminology">indeterminate</dfn>.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_05-stability-and-determinacy-3-3">In order for a system to be determinate the number of unknown force and moment reaction components must be less than or equal to the number of independent equations of equilibrium available. Each equilibrium equation derives from a degree of freedom of the system, so there may be no more unknowns than degrees of freedom. This means that we can determine no more than three unknown reaction components in two-dimensional systems and no more than six in three-dimensional systems.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_05-stability-and-determinacy-3-4">An indeterminate system with fewer reaction components than degrees of freedom is <dfn class="terminology">under-constrained</dfn> and therefore unstable. On the other hand, if there are more reaction components than degrees of freedom, the system is both <dfn class="terminology">over-constrained</dfn> and <dfn class="terminology">indeterminate</dfn>. In terms of force and moment equations, there are more unknowns than equilibrium equations so they can’t all be determined. This is not to say that it is impossible to find all reaction force on an over-constrained system, just that you will not learn how to find them in this course.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-3-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Determinate vs. Indeterminate"><a href="#Chapter_05-stability-and-determinacy-3" title="Copy heading and permalink for Paragraphs: Determinate vs. Indeterminate" aria-label="Copy heading and permalink for Paragraphs: Determinate vs. Indeterminate">🔗</a></div></section><section class="paragraphs" id="Chapter_05-stability-and-determinacy-4"><h3 class="heading"><span class="title">Stable vs. Unstable.</span></h3>
+<div class="autopermalink" data-description="Paragraphs: Determinate vs. Indeterminate"><a href="#Chapter_05-stability-and-determinacy-3" title="Copy heading and permalink for Paragraphs: Determinate vs. Indeterminate" aria-label="Copy heading and permalink for Paragraphs: Determinate vs. Indeterminate">🔗</a></div>
+</section>
+<section class="paragraphs" id="Chapter_05-stability-and-determinacy-4"><h3 class="heading"><span class="title">Stable vs. Unstable.</span></h3>
 <div class="para" id="Chapter_05-stability-and-determinacy-4-2">A body in equilibrium is held in position by its supports, which restrict the body’s motion and counteract the applied loads. When there are sufficient supports to restrain a body from moving, we say that the body is <dfn class="terminology">stable</dfn>. A stable body is prevented from translating and rotating in all directions. A body which <em class="emphasis">can</em> move is <dfn class="terminology">unstable</dfn> even if it is not currently moving, because the slightest change in load may take it out of equilibrium and initiate motion. Stability is loading independent i.e. a stable body is stable for <em class="emphasis">any</em> loading condition.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Stable vs. Unstable"><a href="#Chapter_05-stability-and-determinacy-4" title="Copy heading and permalink for Paragraphs: Stable vs. Unstable" aria-label="Copy heading and permalink for Paragraphs: Stable vs. Unstable">🔗</a></div></section><section class="paragraphs" id="Chapter_05-stability-and-determinacy-5"><h3 class="heading"><span class="title">Rules to Validate a Stable and Determinate System.</span></h3>
+<div class="autopermalink" data-description="Paragraphs: Stable vs. Unstable"><a href="#Chapter_05-stability-and-determinacy-4" title="Copy heading and permalink for Paragraphs: Stable vs. Unstable" aria-label="Copy heading and permalink for Paragraphs: Stable vs. Unstable">🔗</a></div>
+</section>
+<section class="paragraphs" id="Chapter_05-stability-and-determinacy-5"><h3 class="heading"><span class="title">Rules to Validate a Stable and Determinate System.</span></h3>
 <div class="para" id="Chapter_05-stability-and-determinacy-5-2">There are three rules to determine if a system is both stable and determinate. While, the rules below can technically be checked in any order, they have been sorted from the quickest to the most time consuming to speed up your analysis.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-5-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_05-stability-and-determinacy-5-3-1-1">
 <em class="emphasis">Rule 1:</em> Are there exactly three reaction components on a two-dimensional body?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-5-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -760,8 +704,10 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/2Ddeterminacy.png" class="contained" alt="Three scenarios are shown. An L shaped beam has one end against a wall on the left and the other end against the ground. In the first scenario, the top left end is a roller resting against the wall, and bottom right end is a fixed pin connection. This has 3 unknowns and is determinate. The next scenario has both ends with fixed pin connections. This has 4 unknowns and is indeterminate. The final scenario has bot ends with roller connections. This has 2 unknowns and is indeterminate."></div></div>
-</div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
+</div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_05-stability-and-determinacy-5-4-1-1">
 <em class="emphasis">Rule 2:</em> Are all the reaction force components parallel to one another?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-5-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -772,8 +718,10 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/2Dparallel.png" class="contained" alt="Four scenarios are shown. An L shaped beam has one end against a wall on the left and the other end against the ground. In the first scenario, the top left end is a roller resting against the wall, and bottom right end is a fixed pin connection. This is stable for translation. The next scenario rollers on the top of the upper horizontal part of the beam, but no roller support on the vertical wall. This is not stable for translation. In the third scenario, the top left end is a roller resting against the wall, and bottom right end is a fixed pin connection. This is stable for rotation. The fourth scenario has a roller connection at the left end against the wall, and a roller connection on the top of the upper right horizontal part of the beam. This is not stable for rotation."></div></div>
-</div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
+</div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:35% 60%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_05-stability-and-determinacy-5-5-1-1">
 <em class="emphasis">Rule 3:</em> Do the lines of action of the reaction forces intersect at a single point?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_05-stability-and-determinacy-5-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -784,8 +732,12 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/2Drotation.png" class="contained"></div></div>
-</div></div>
-<div class="autopermalink" data-description="Paragraphs: Rules to Validate a Stable and Determinate System"><a href="#Chapter_05-stability-and-determinacy-5" title="Copy heading and permalink for Paragraphs: Rules to Validate a Stable and Determinate System" aria-label="Copy heading and permalink for Paragraphs: Rules to Validate a Stable and Determinate System">🔗</a></div></section><div class="autopermalink" data-description="Section 5.6: Stability and Determinacy"><a href="#Chapter_05-stability-and-determinacy" title="Copy heading and permalink for Section 5.6: Stability and Determinacy" aria-label="Copy heading and permalink for Section 5.6: Stability and Determinacy">🔗</a></div></section></div>
+</div>
+</div>
+<div class="autopermalink" data-description="Paragraphs: Rules to Validate a Stable and Determinate System"><a href="#Chapter_05-stability-and-determinacy-5" title="Copy heading and permalink for Paragraphs: Rules to Validate a Stable and Determinate System" aria-label="Copy heading and permalink for Paragraphs: Rules to Validate a Stable and Determinate System">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 5.6: Stability and Determinacy"><a href="#Chapter_05-stability-and-determinacy" title="Copy heading and permalink for Section 5.6: Stability and Determinacy" aria-label="Copy heading and permalink for Section 5.6: Stability and Determinacy">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="Chapter_05-3d-rigid-body-equilibrium.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_05-equilibrium-examples-.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="coordinates-3d"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="coordinates-3d">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">3D Coordinate Systems &amp; Vectors</span>
 </h2>
 <article class="objectives goal-like" id="coordinates-3d-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -728,12 +665,17 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#coordinates-3d-2-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 2.4"><a href="#coordinates-3d-2" title="Copy heading and permalink for Key Questions 2.4" aria-label="Copy heading and permalink for Key Questions 2.4">🔗</a></div></article><section class="introduction" id="coordinates-3d-3"><div class="para" id="coordinates-3d-3-1">In this section we will discuss four methods to specify points and vectors in three-dimensional space.<div class="autopermalink" data-description="Paragraph"><a href="#coordinates-3d-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Key Questions 2.4"><a href="#coordinates-3d-2" title="Copy heading and permalink for Key Questions 2.4" aria-label="Copy heading and permalink for Key Questions 2.4">🔗</a></div>
+</article>
+<section class="introduction" id="coordinates-3d-3">
+<div class="para" id="coordinates-3d-3-1">In this section we will discuss four methods to specify points and vectors in three-dimensional space.<div class="autopermalink" data-description="Paragraph"><a href="#coordinates-3d-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="coordinates-3d-3-2">The most commonly used method is an extension of two-dimensional <dfn class="terminology">rectangular coordinates</dfn> to three-dimensions. Alternately, points and vectors in three dimensions can be specified in terms of <dfn class="terminology">direction cosines</dfn>, or using <dfn class="terminology">spherical</dfn> or <dfn class="terminology">cylindrical</dfn> coordinate systems. These will be discussed in the following sections.<div class="autopermalink" data-description="Paragraph"><a href="#coordinates-3d-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="coordinates-3d-3-3">You will often need to convert from one representation to another. Good visualization skills are helpful here.<div class="autopermalink" data-description="Paragraph"><a href="#coordinates-3d-3-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></section><section class="subsection" id="Chapter_02-rectangular-coordinates"><h3 class="heading hide-type">
+</div></section>
+<section class="subsection" id="Chapter_02-rectangular-coordinates">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Rectangular Coordinates</span>
 </h3>
 <div class="para" id="Chapter_02-rectangular-coordinates-2">We can extend the two-dimensional Cartesian coordinate system into three dimensions easily by adding a <span class="process-math">\(z\)</span> axis perpendicular to the two-dimensional Cartesian plane. The notation is similar to the notation used for two-dimensional vectors. Points and forces are expressed as ordered triples of rectangular coordinates following the same notation used previously.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-rectangular-coordinates-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -750,31 +692,45 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 </div>
 <figure class="figure figure-like" id="Chapter_02-rectangular-coordinates-5"><div class="interactive-iframe-container"><iframe id="ggb_rectangular-coordinates-3d_interactive" style="width:600px; height:420px; display: block; " src="ggb_rectangular-coordinates-3d_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_rectangular-coordinates-3d_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_rectangular-coordinates-3d_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_rectangular-coordinates-3d_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_rectangular-coordinates-3d_interactive-3-1">Move the red point to move the vector in space. Click the red point to switch between <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> mode and <span class="process-math">\(z\)</span> mode.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_rectangular-coordinates-3d_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="ggb_rectangular-coordinates-3d_interactive-3-2">The vector can be visualized as the diagonal of a rectangular box with the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> components as the side lengths.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_rectangular-coordinates-3d_interactive-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_rectangular-coordinates-3d_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Three-Dimensional Rectangular Coordinates<div class="autopermalink" data-description="Figure 2.4.1"><a href="#Chapter_02-rectangular-coordinates-5" title="Copy heading and permalink for Figure 2.4.1" aria-label="Copy heading and permalink for Figure 2.4.1">🔗</a></div></figcaption></figure><div class="para" id="Chapter_02-rectangular-coordinates-6"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-rectangular-coordinates-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Three-Dimensional Rectangular Coordinates<div class="autopermalink" data-description="Figure 2.4.1"><a href="#Chapter_02-rectangular-coordinates-5" title="Copy heading and permalink for Figure 2.4.1" aria-label="Copy heading and permalink for Figure 2.4.1">🔗</a></div></figcaption>
+</figure>
+<div class="para" id="Chapter_02-rectangular-coordinates-6"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-rectangular-coordinates-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <article class="insight remark-like" id="Chapter_02-right-hand-axes"><h4 class="heading">
 <span class="type">Thinking Deeper</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Right-Handed Coordinate Systems.</span>
 </h4>
 <div class="para" id="Chapter_02-right-hand-axes-2">Does it matter which way the axes are oriented? Is it OK to make the <span class="process-math">\(x\)</span> axis point left or the <span class="process-math">\(y\)</span> axis point down?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-right-hand-axes-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_02-right-hand-axes-3"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-right-hand-axes-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:58% 38%;column-gap:4%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:58% 38%;column-gap:4%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_02-right-hand-axes-4-1-1">The answers to the questions above, like so many in life, are "It depends." If you are simply summing the forces of a system, you typically can select any perpendicular axes you wish, but for systems involving any cross-product relationships (like the rotational moments you’ll learn about in <a href="Chapter_04.html" class="internal" title="Chapter 4: Moments and Static Equivalence">Chapter 4</a>), we need to use a standard orientation. In mathematics and engineering, the default is a <dfn class="terminology">right-handed coordinate system</dfn>, where the coordinate axes are oriented according to the <dfn class="terminology">right-hand rule</dfn> shown in the figure.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-right-hand-axes-4-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_02-right-hand-axes-4-1-2">To apply the right-hand rule, orient your thumb and first two fingers at right angles to each other and align them with three coordinate axes. Starting with your thumb, name the axes in alphabetical order <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span>-<span class="process-math">\(z\text{.}\)</span> In mathematical terms, when we cross the <span class="process-math">\(x\)</span>-axis into the <span class="process-math">\(y\)</span>-axis, we need to get the direction of the <span class="process-math">\(z\)</span>-axis.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-right-hand-axes-4-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
-<div class="sbspanel sbspanel--middle middle" style=""><figure class="figure figure-like" id="Chapter_02-right-hand-axes-4-2"><div class="image-box"><img src="external/images/rhr1.svg" role="img" class="contained" alt="The image depicts three right-angled triangles. The vector is the hypotenuse and the adjacent sides are the, x, y, and z rectangular components. The rectangular components have corresponding coordinate direction angles (theta_x, theta_y, and theta_z)."></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Right-handed coordinate system.<div class="autopermalink" data-description="Figure 2.4.3"><a href="#Chapter_02-right-hand-axes-4-2" title="Copy heading and permalink for Figure 2.4.3" aria-label="Copy heading and permalink for Figure 2.4.3">🔗</a></div></figcaption></figure></div>
-</div></div>
-<div class="autopermalink" data-description="Thinking Deeper 2.4.2: Right-Handed Coordinate Systems"><a href="#Chapter_02-right-hand-axes" title="Copy heading and permalink for Thinking Deeper 2.4.2: Right-Handed Coordinate Systems" aria-label="Copy heading and permalink for Thinking Deeper 2.4.2: Right-Handed Coordinate Systems">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.4.1: Rectangular Coordinates"><a href="#Chapter_02-rectangular-coordinates" title="Copy heading and permalink for Subsection 2.4.1: Rectangular Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.1: Rectangular Coordinates">🔗</a></div></section><section class="subsection" id="Chapter_02-direction-cosine-angles"><h3 class="heading hide-type">
+<div class="sbspanel sbspanel--middle middle" style="">
+<figure class="figure figure-like" id="Chapter_02-right-hand-axes-4-2"><div class="image-box"><img src="external/images/rhr1.svg" role="img" class="contained" alt="The image depicts three right-angled triangles. The vector is the hypotenuse and the adjacent sides are the, x, y, and z rectangular components. The rectangular components have corresponding coordinate direction angles (theta_x, theta_y, and theta_z)."></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Right-handed coordinate system.<div class="autopermalink" data-description="Figure 2.4.3"><a href="#Chapter_02-right-hand-axes-4-2" title="Copy heading and permalink for Figure 2.4.3" aria-label="Copy heading and permalink for Figure 2.4.3">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="autopermalink" data-description="Thinking Deeper 2.4.2: Right-Handed Coordinate Systems"><a href="#Chapter_02-right-hand-axes" title="Copy heading and permalink for Thinking Deeper 2.4.2: Right-Handed Coordinate Systems" aria-label="Copy heading and permalink for Thinking Deeper 2.4.2: Right-Handed Coordinate Systems">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.4.1: Rectangular Coordinates"><a href="#Chapter_02-rectangular-coordinates" title="Copy heading and permalink for Subsection 2.4.1: Rectangular Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.1: Rectangular Coordinates">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_02-direction-cosine-angles">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Direction Cosine Angles</span>
 </h3>
 <div class="para" id="Chapter_02-direction-cosine-angles-2">The direction of a vector in two-dimensional systems could be expressed clearly with a single angle measured from a reference axis, but adding an additional dimension means that one angle is no longer enough.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-direction-cosine-angles-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -783,14 +739,19 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 </div>
 <figure class="figure figure-like" id="direction-cosines-3d_figure"><div class="interactive-iframe-container"><iframe id="direction-cosines-3d_interactive" style="width:600px; height:420px; display: block; " src="direction-cosines-3d_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="direction-cosines-3d_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="direction-cosines-3d_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="direction-cosines-3d_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="direction-cosines-3d_interactive-3-1">Move the red point to move the vector in space. Click the red point to switch between <span class="process-math">\(x\)</span>-<span class="process-math">\(y\)</span> mode and <span class="process-math">\(z\)</span> mode. Rotate the diagram to see it from different angles.<div class="autopermalink" data-description="Paragraph"><a href="#direction-cosines-3d_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="direction-cosines-3d_interactive-3-2">Note that the red, blue and green triangles are right angled although it is not always easy to see this. The vector is the hypotenuse and the adjacent sides are the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> rectangular components. The rectangular components and the direction angles are shown.<div class="autopermalink" data-description="Paragraph"><a href="#direction-cosines-3d_interactive-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#direction-cosines-3d_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Direction Cosine Angles<div class="autopermalink" data-description="Figure 2.4.4"><a href="#direction-cosines-3d_figure" title="Copy heading and permalink for Figure 2.4.4" aria-label="Copy heading and permalink for Figure 2.4.4">🔗</a></div></figcaption></figure><div class="para logical" id="Chapter_02-direction-cosine-angles-5">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Direction Cosine Angles<div class="autopermalink" data-description="Figure 2.4.4"><a href="#direction-cosines-3d_figure" title="Copy heading and permalink for Figure 2.4.4" aria-label="Copy heading and permalink for Figure 2.4.4">🔗</a></div></figcaption>
+</figure>
+<div class="para logical" id="Chapter_02-direction-cosine-angles-5">
 <div class="para">We can relate the components of a vector to its direction cosine angles using the following equations.</div>
 <div class="displaymath process-math" id="Chapter_02-direction-cosine-angles-5-1">
 \begin{align}
@@ -827,7 +788,8 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 <article class="example example-like" id="Chapter_02-3d-components-direction-cosine"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.5</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Direction Cosine Angles.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/3D-coods-prob.svg" role="img" class="contained" alt="A cable force pulls on an anchor ring centered on the x, y, and z axis origin."></div></div>
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_02-3d-components-direction-cosine-2-1-2-1">A rope pulls on an anchor ring centered at the origin with force <span class="process-math">\(\vec{F}=\lbf{\langle 20, -30, 60 \rangle}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-direction-cosine-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -835,9 +797,11 @@ P \amp = (x, y, z) \amp \vec{F} \amp = \langle F_x, F_y, F_z \rangle
 <div class="para" id="Chapter_02-3d-components-direction-cosine-2-1-2-2">Find the magnitude of <span class="process-math">\(\vec{F}\)</span> and the direction cosine angles, <span class="process-math">\(\theta_x\text{,}\)</span> <span class="process-math">\(\theta_y\text{,}\)</span> and <span class="process-math">\(\theta_z\)</span> components.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-direction-cosine-2-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_02-3d-components-direction-cosine-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-3d-components-direction-cosine-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-3d-components-direction-cosine-3-1">
 <div class="displaymath process-math" id="Chapter_02-3d-components-direction-cosine-3-1-1">
 \begin{gather*}
@@ -850,7 +814,9 @@ F=\lbf{70}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-direction-cosine-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.4.5.1"><a href="#Chapter_02-3d-components-direction-cosine-3" title="Copy heading and permalink for Answer 2.4.5.1" aria-label="Copy heading and permalink for Answer 2.4.5.1">🔗</a></div>
-</div></details><details id="Chapter_02-3d-components-direction-cosine-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-3d-components-direction-cosine-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-3d-components-direction-cosine-4-1">Since the three components of <span class="process-math">\(F\)</span> are perpendicular, we can apply the Pythagorean Theorem to find the magnitude of <span class="process-math">\(F\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-direction-cosine-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_02-3d-components-direction-cosine-4-2">
@@ -880,7 +846,11 @@ F= |\vec{F}| \amp= \sqrt{{F_x}^2+{F_y}^2+{F_z}^2}\\
 <div class="autopermalink" data-description="Solution 2.4.5.1"><a href="#Chapter_02-3d-components-direction-cosine-4" title="Copy heading and permalink for Solution 2.4.5.1" aria-label="Copy heading and permalink for Solution 2.4.5.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.4.5: Direction Cosine Angles"><a href="#Chapter_02-3d-components-direction-cosine" title="Copy heading and permalink for Example 2.4.5: Direction Cosine Angles" aria-label="Copy heading and permalink for Example 2.4.5: Direction Cosine Angles">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.4.2: Direction Cosine Angles"><a href="#Chapter_02-direction-cosine-angles" title="Copy heading and permalink for Subsection 2.4.2: Direction Cosine Angles" aria-label="Copy heading and permalink for Subsection 2.4.2: Direction Cosine Angles">🔗</a></div></section><section class="subsection" id="Chapter_02-spherical-coordinates"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 2.4.5: Direction Cosine Angles"><a href="#Chapter_02-3d-components-direction-cosine" title="Copy heading and permalink for Example 2.4.5: Direction Cosine Angles" aria-label="Copy heading and permalink for Example 2.4.5: Direction Cosine Angles">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.4.2: Direction Cosine Angles"><a href="#Chapter_02-direction-cosine-angles" title="Copy heading and permalink for Subsection 2.4.2: Direction Cosine Angles" aria-label="Copy heading and permalink for Subsection 2.4.2: Direction Cosine Angles">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_02-spherical-coordinates">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.3</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spherical Coordinates</span>
 </h3>
 <div class="para logical" id="Chapter_02-spherical-coordinates-2">
@@ -908,17 +878,24 @@ F= |\vec{F}| \amp= \sqrt{{F_x}^2+{F_y}^2+{F_z}^2}\\
 </div>
 <figure class="figure figure-like" id="Chapter_02-spherical-coordinates-4"><div class="interactive-iframe-container"><iframe id="ggb_spherical-coordinates_interactive" style="width:600px; height:420px; display: block; " src="ggb_spherical-coordinates_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_spherical-coordinates_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_spherical-coordinates_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_spherical-coordinates_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_spherical-coordinates_interactive-3-1">Use the red point to move the tip of the vector anywhere on the spherical surface. The rectangular and spherical coordinates are shown.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_spherical-coordinates_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_spherical-coordinates_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.6<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Spherical Coordinate System<div class="autopermalink" data-description="Figure 2.4.6"><a href="#Chapter_02-spherical-coordinates-4" title="Copy heading and permalink for Figure 2.4.6" aria-label="Copy heading and permalink for Figure 2.4.6">🔗</a></div></figcaption></figure><article class="question example-like" id="Chapter_02-spherical-coordinates-5"><h4 class="heading">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.6<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Spherical Coordinate System<div class="autopermalink" data-description="Figure 2.4.6"><a href="#Chapter_02-spherical-coordinates-4" title="Copy heading and permalink for Figure 2.4.6" aria-label="Copy heading and permalink for Figure 2.4.6">🔗</a></div></figcaption>
+</figure>
+<article class="question example-like" id="Chapter_02-spherical-coordinates-5"><h4 class="heading">
 <span class="type">Question</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.7</span><span class="period heading-divison-mark heading-divison-mark__period">.</span>
 </h4>
 <div class="para" id="Chapter_02-spherical-coordinates-5-1-1">What are the differences between polar coordinates and terrestrial latitude/longitude locations?<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-spherical-coordinates-5-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="solutions"><details id="Chapter_02-spherical-coordinates-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<div class="solutions">
+<details id="Chapter_02-spherical-coordinates-5-2" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-spherical-coordinates-5-2-1">
 <div class="para">In terrestrial measurements</div>
 <ul class="disc" id="Chapter_02-spherical-coordinates-5-2-1-1">
@@ -938,8 +915,11 @@ F= |\vec{F}| \amp= \sqrt{{F_x}^2+{F_y}^2+{F_z}^2}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-spherical-coordinates-5-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.4.7.1"><a href="#Chapter_02-spherical-coordinates-5-2" title="Copy heading and permalink for Answer 2.4.7.1" aria-label="Copy heading and permalink for Answer 2.4.7.1">🔗</a></div>
-</div></details></div>
-<div class="autopermalink" data-description="Question 2.4.7"><a href="#Chapter_02-spherical-coordinates-5" title="Copy heading and permalink for Question 2.4.7" aria-label="Copy heading and permalink for Question 2.4.7">🔗</a></div></article><div class="para logical" id="Chapter_02-spherical-coordinates-6">
+</div></details>
+</div>
+<div class="autopermalink" data-description="Question 2.4.7"><a href="#Chapter_02-spherical-coordinates-5" title="Copy heading and permalink for Question 2.4.7" aria-label="Copy heading and permalink for Question 2.4.7">🔗</a></div>
+</article>
+<div class="para logical" id="Chapter_02-spherical-coordinates-6">
 <div class="para">When the two given spherical angles are defined in the manner shown here, the rectangular components of the vector <span class="process-math">\(\vec{A} = (A\ ; \theta\ ; \phi)\)</span> are found thus:</div>
 <div class="displaymath process-math" id="Chapter_02-spherical-coordinates-6-2">
 \begin{align}
@@ -956,7 +936,8 @@ A_y \amp= A'\sin \theta = A \sin \phi \sin \theta\tag{2.4.5}
 <article class="example example-like" id="Chapter_02-3d-components-spherical"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.8</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Spherical Coordinates.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/3D-coods-prob.svg" role="img" class="contained" alt="A cable force pulls on an anchor ring centered on the x, y, and z axis origin."></div></div>
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_02-3d-components-spherical-2-1-2-1">A rope pulls on an anchor ring centered at the origin with force <span class="process-math">\(\vec{F}=\lbf{\langle 20, -30, 60 \rangle}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-spherical-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -964,9 +945,11 @@ A_y \amp= A'\sin \theta = A \sin \phi \sin \theta\tag{2.4.5}
 <div class="para" id="Chapter_02-3d-components-spherical-2-1-2-2">Find the <em class="emphasis">spherical</em> coordinates of <span class="process-math">\(\vec{F}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-spherical-2-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_02-3d-components-spherical-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-3d-components-spherical-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-3d-components-spherical-3-1">
 <div class="displaymath process-math" id="Chapter_02-3d-components-spherical-3-1-1">
 \begin{align*}
@@ -978,7 +961,9 @@ F \amp =\lbf{70}\\
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-spherical-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.4.8.1"><a href="#Chapter_02-3d-components-spherical-3" title="Copy heading and permalink for Answer 2.4.8.1" aria-label="Copy heading and permalink for Answer 2.4.8.1">🔗</a></div>
-</div></details><details id="Chapter_02-3d-components-spherical-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-3d-components-spherical-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-3d-components-spherical-4-1">To represent <span class="process-math">\(\vec{F}\)</span> in spherical coordinates, we must find the radial distance <span class="process-math">\(r\text{,}\)</span> the azimuthal angle <span class="process-math">\(\theta\text{,}\)</span> and the polar angle <span class="process-math">\(\phi\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-spherical-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_02-3d-components-spherical-4-2">Coordinate <span class="process-math">\(r\)</span> is simply the magnitude of force <span class="process-math">\(\vec{F}.\)</span> Since the three components of <span class="process-math">\(\vec{F}\)</span> are perpendicular, we can apply the Pythagorean Theorem to find it.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-spherical-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -1023,7 +1008,11 @@ F = |\vec{F}| = r \amp= \sqrt{F_x^2+F_y^2+F_z^2}\\
 <div class="autopermalink" data-description="Solution 2.4.8.1"><a href="#Chapter_02-3d-components-spherical-4" title="Copy heading and permalink for Solution 2.4.8.1" aria-label="Copy heading and permalink for Solution 2.4.8.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.4.8: Spherical Coordinates"><a href="#Chapter_02-3d-components-spherical" title="Copy heading and permalink for Example 2.4.8: Spherical Coordinates" aria-label="Copy heading and permalink for Example 2.4.8: Spherical Coordinates">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.4.3: Spherical Coordinates"><a href="#Chapter_02-spherical-coordinates" title="Copy heading and permalink for Subsection 2.4.3: Spherical Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.3: Spherical Coordinates">🔗</a></div></section><section class="subsection" id="Chapter_02-cylindrical-coordinates"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 2.4.8: Spherical Coordinates"><a href="#Chapter_02-3d-components-spherical" title="Copy heading and permalink for Example 2.4.8: Spherical Coordinates" aria-label="Copy heading and permalink for Example 2.4.8: Spherical Coordinates">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.4.3: Spherical Coordinates"><a href="#Chapter_02-spherical-coordinates" title="Copy heading and permalink for Subsection 2.4.3: Spherical Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.3: Spherical Coordinates">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_02-cylindrical-coordinates">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.4</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Cylindrical Coordinates</span>
 </h3>
 <div class="para" id="Chapter_02-cylindrical-coordinates-2">The cylindrical coordinate system is seldom used in statics, however, it is useful in certain geometries. Cylindrical coordinates extend two-dimensional polar coordinates by adding a <span class="process-math">\(z\)</span> coordinate indicating the distance above or below the <span class="process-math">\(xy\)</span> plane.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-cylindrical-coordinates-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -1051,19 +1040,25 @@ F = |\vec{F}| = r \amp= \sqrt{F_x^2+F_y^2+F_z^2}\\
 </div>
 <figure class="figure figure-like" id="Chapter_02-cylindrical-coordinates-4"><div class="interactive-iframe-container"><iframe id="ggb_cylindrical-coordinates_interactive" style="width:600px; height:435px; display: block; " src="ggb_cylindrical-coordinates_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_cylindrical-coordinates_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_cylindrical-coordinates_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_cylindrical-coordinates_interactive-3" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_cylindrical-coordinates_interactive-3-1">Use the red point to move the tip of the vector along the cylindrical surface. The rectangular and cylindrical coordinates are shown.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_cylindrical-coordinates_interactive-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_cylindrical-coordinates_interactive-3" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.9<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Cylindrical Coordinate System<div class="autopermalink" data-description="Figure 2.4.9"><a href="#Chapter_02-cylindrical-coordinates-4" title="Copy heading and permalink for Figure 2.4.9" aria-label="Copy heading and permalink for Figure 2.4.9">🔗</a></div></figcaption></figure><div class="para" id="Chapter_02-cylindrical-coordinates-5">Unfortunately, not all problems give the angles <span class="process-math">\(\theta\)</span> and <span class="process-math">\(\phi\)</span> as defined here; so you will need to find them from the given angles in other situations.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-cylindrical-coordinates-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.9<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Cylindrical Coordinate System<div class="autopermalink" data-description="Figure 2.4.9"><a href="#Chapter_02-cylindrical-coordinates-4" title="Copy heading and permalink for Figure 2.4.9" aria-label="Copy heading and permalink for Figure 2.4.9">🔗</a></div></figcaption>
+</figure>
+<div class="para" id="Chapter_02-cylindrical-coordinates-5">Unfortunately, not all problems give the angles <span class="process-math">\(\theta\)</span> and <span class="process-math">\(\phi\)</span> as defined here; so you will need to find them from the given angles in other situations.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-cylindrical-coordinates-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_02-cylindrical-coordinates-6">You can use the interactive diagram in this section to practice visualizing and finding the components of a vector in all of these coordinate systems. You should be able to find the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> coordinates given direction angles, spherical or cylindrical coordinates, and vice-versa.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-cylindrical-coordinates-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <article class="example example-like" id="Chapter_02-3d-components-cylindrical"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">2.4.10</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Cylindrical Coordinates.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 50%;column-gap:0%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/3D-coods-prob.svg" role="img" class="contained" alt="A cable force pulls on an anchor ring centered on the x, y and z axis origin."></div></div>
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_02-3d-components-cylindrical-2-1-2-1">A rope pulls on an anchor ring centered at the origin with force <span class="process-math">\(\vec{F}=\lbf{\langle 20, -30, 60 \rangle}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-cylindrical-2-1-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -1071,9 +1066,11 @@ F = |\vec{F}| = r \amp= \sqrt{F_x^2+F_y^2+F_z^2}\\
 <div class="para" id="Chapter_02-3d-components-cylindrical-2-1-2-2">Find the <em class="emphasis">cylindrical</em> coordinates of <span class="process-math">\(\vec{F}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-cylindrical-2-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_02-3d-components-cylindrical-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_02-3d-components-cylindrical-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_02-3d-components-cylindrical-3-1">
 <div class="displaymath process-math" id="Chapter_02-3d-components-cylindrical-3-1-1">
 \begin{align*}
@@ -1085,7 +1082,9 @@ z \amp =\lbf{60}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-cylindrical-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 2.4.10.1"><a href="#Chapter_02-3d-components-cylindrical-3" title="Copy heading and permalink for Answer 2.4.10.1" aria-label="Copy heading and permalink for Answer 2.4.10.1">🔗</a></div>
-</div></details><details id="Chapter_02-3d-components-cylindrical-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_02-3d-components-cylindrical-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_02-3d-components-cylindrical-4-1">To represent <span class="process-math">\(\vec{F}\)</span> in cylindrical coordinates, we must find the radial distance, <span class="process-math">\(r\text{,}\)</span> the azimuthal angle, <span class="process-math">\(\theta\text{,}\)</span> and the axial coordinate, <span class="process-math">\(z\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-cylindrical-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_02-3d-components-cylindrical-4-2">In cylindrical coordinates, <span class="process-math">\(r\)</span> is the radius of the cylinder rather than the radius of the enclosing sphere. <span class="process-math">\(r\)</span> is the projection of <span class="process-math">\(\vec{F}\)</span> onto the <span class="process-math">\(xy\)</span> plane, <span class="process-math">\(F_{xy}\text{,}\)</span> and can be found by applying the Pythagorean Theorem to the <span class="process-math">\(x\)</span> and <span class="process-math">\(y\)</span> components of <span class="process-math">\(\vec{F}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_02-3d-components-cylindrical-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -1123,7 +1122,11 @@ F_z = \lbf{60.0}
 <div class="autopermalink" data-description="Solution 2.4.10.1"><a href="#Chapter_02-3d-components-cylindrical-4" title="Copy heading and permalink for Solution 2.4.10.1" aria-label="Copy heading and permalink for Solution 2.4.10.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 2.4.10: Cylindrical Coordinates"><a href="#Chapter_02-3d-components-cylindrical" title="Copy heading and permalink for Example 2.4.10: Cylindrical Coordinates" aria-label="Copy heading and permalink for Example 2.4.10: Cylindrical Coordinates">🔗</a></div></article><div class="autopermalink" data-description="Subsection 2.4.4: Cylindrical Coordinates"><a href="#Chapter_02-cylindrical-coordinates" title="Copy heading and permalink for Subsection 2.4.4: Cylindrical Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.4: Cylindrical Coordinates">🔗</a></div></section><div class="autopermalink" data-description="Section 2.4: 3D Coordinate Systems &amp; Vectors"><a href="#coordinates-3d" title="Copy heading and permalink for Section 2.4: 3D Coordinate Systems &amp; Vectors" aria-label="Copy heading and permalink for Section 2.4: 3D Coordinate Systems &amp; Vectors">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 2.4.10: Cylindrical Coordinates"><a href="#Chapter_02-3d-components-cylindrical" title="Copy heading and permalink for Example 2.4.10: Cylindrical Coordinates" aria-label="Copy heading and permalink for Example 2.4.10: Cylindrical Coordinates">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 2.4.4: Cylindrical Coordinates"><a href="#Chapter_02-cylindrical-coordinates" title="Copy heading and permalink for Subsection 2.4.4: Cylindrical Coordinates" aria-label="Copy heading and permalink for Subsection 2.4.4: Cylindrical Coordinates">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 2.4: 3D Coordinate Systems &amp; Vectors"><a href="#coordinates-3d" title="Copy heading and permalink for Section 2.4: 3D Coordinate Systems &amp; Vectors" aria-label="Copy heading and permalink for Section 2.4: 3D Coordinate Systems &amp; Vectors">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="cartesian-coords-2d.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_02-unit-vectors.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

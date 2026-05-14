@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="equivalent-tranformations"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="equivalent-tranformations">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Equivalent Transformations</span>
 </h2>
 <article class="objectives goal-like" id="equivalent-tranformations-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -728,7 +665,9 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#equivalent-tranformations-2-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 4.6"><a href="#equivalent-tranformations-2" title="Copy heading and permalink for Key Questions 4.6" aria-label="Copy heading and permalink for Key Questions 4.6">🔗</a></div></article><div class="para" id="equivalent-tranformations-3">An <em class="emphasis">equivalent transformation</em> occurs when a loading on an object is replaced with another loading that has the same <em class="emphasis">external</em> effect on the object. By external effect, we mean the response of the body that we can see from the outside, with no consideration of what happens to it internally. If the object is a free body, the external effect would be translation and rotation. In statics, since objects are not accelerating, the external effect really means the reactions at the supports required to maintain equilibrium. The external effects will be exactly the same before and after an equivalent transformation.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Key Questions 4.6"><a href="#equivalent-tranformations-2" title="Copy heading and permalink for Key Questions 4.6" aria-label="Copy heading and permalink for Key Questions 4.6">🔗</a></div>
+</article>
+<div class="para" id="equivalent-tranformations-3">An <em class="emphasis">equivalent transformation</em> occurs when a loading on an object is replaced with another loading that has the same <em class="emphasis">external</em> effect on the object. By external effect, we mean the response of the body that we can see from the outside, with no consideration of what happens to it internally. If the object is a free body, the external effect would be translation and rotation. In statics, since objects are not accelerating, the external effect really means the reactions at the supports required to maintain equilibrium. The external effects will be exactly the same before and after an equivalent transformation.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="equivalent-tranformations-4">Equivalent transformation permits us to swap out one set of forces with another one without changing the fundamental physics of the situation. This is usually done to simplify or clarify the situation, or to give you an alternate way to think about, understand, and solve a mechanics problem.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -739,11 +678,15 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 <div class="para" id="equivalent-tranformations-6-3">Any number of <em class="emphasis">concurrent</em> forces can be added together to produce a single resultant force. By definition, the lines of action of concurrent forces all intersect at a common point. The resultant must be placed at this intersection point for the replacement to be equivalent. This is because before and after the replacement, the moment about the intersection point is zero. If the resultant was placed somewhere else, that would not be true.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-6-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Vector Addition"><a href="#equivalent-tranformations-6" title="Copy heading and permalink for Paragraphs: Vector Addition" aria-label="Copy heading and permalink for Paragraphs: Vector Addition">🔗</a></div></section><section class="paragraphs" id="equivalent-tranformations-7"><h3 class="heading"><span class="title">Replacing a Force with its Component.</span></h3>
+<div class="autopermalink" data-description="Paragraphs: Vector Addition"><a href="#equivalent-tranformations-6" title="Copy heading and permalink for Paragraphs: Vector Addition" aria-label="Copy heading and permalink for Paragraphs: Vector Addition">🔗</a></div>
+</section>
+<section class="paragraphs" id="equivalent-tranformations-7"><h3 class="heading"><span class="title">Replacing a Force with its Component.</span></h3>
 <div class="para" id="equivalent-tranformations-7-2">Resolving forces into components is also an equivalent transformation, as it is the inverse operation of vector addition. The components are usually orthogonal and in the coordinate directions, or in a given plane and perpendicular to it, but any combination of force components that add to the original force is equivalent.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-7-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <figure class="figure figure-like" id="equivalent-tranformations-7-3"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/images/equiv_forces.svg" role="img" class="contained" alt="A fixed ring is shown with two forces F1 and F2. This is equivalent to a fixed ring with the resultant force acting at an angle of theta from the horizontal, which would point towards the coordinates (F1x+F2x, F1y+F2y). This is equivalent to a fixed ring with a horizontal force of F*cos(theta) and a vertical force of F*sin(theta)."></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent transformations of vectors<div class="autopermalink" data-description="Figure 4.6.1"><a href="#equivalent-tranformations-7-3" title="Copy heading and permalink for Figure 4.6.1" aria-label="Copy heading and permalink for Figure 4.6.1">🔗</a></div></figcaption></figure><div class="para logical" id="equivalent-tranformations-7-4">
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent transformations of vectors<div class="autopermalink" data-description="Figure 4.6.1"><a href="#equivalent-tranformations-7-3" title="Copy heading and permalink for Figure 4.6.1" aria-label="Copy heading and permalink for Figure 4.6.1">🔗</a></div></figcaption>
+</figure>
+<div class="para logical" id="equivalent-tranformations-7-4">
 <div class="para">In this diagram,</div>
 <div class="displaymath process-math" id="equivalent-tranformations-7-4-1">
 \begin{equation*}
@@ -755,23 +698,34 @@ eBookConfig.enable_chatcodes =  false;
 </div>
 <div class="para" id="equivalent-tranformations-7-5">An interesting special case occurs when two forces are equal and opposite and have the same line of action. When these are added together, they cancel out, so replacing these two forces with nothing is an equivalent transformation. The opposite is true as well, so you can make two equal and opposite forces spontaneously appear at a point if you wish.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-7-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Replacing a Force with its Component"><a href="#equivalent-tranformations-7" title="Copy heading and permalink for Paragraphs: Replacing a Force with its Component" aria-label="Copy heading and permalink for Paragraphs: Replacing a Force with its Component">🔗</a></div></section><article class="insight remark-like" id="equivalent-tranformations-8"><h3 class="heading">
+<div class="autopermalink" data-description="Paragraphs: Replacing a Force with its Component"><a href="#equivalent-tranformations-7" title="Copy heading and permalink for Paragraphs: Replacing a Force with its Component" aria-label="Copy heading and permalink for Paragraphs: Replacing a Force with its Component">🔗</a></div>
+</section>
+<article class="insight remark-like" id="equivalent-tranformations-8"><h3 class="heading">
 <span class="type">Thinking Deeper</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Internal Effects.</span>
 </h3>
 <div class="para" id="equivalent-tranformations-8-2">We made a point of saying that equivalent systems of force have the same <span class="process-math">\(external\)</span> effect on the body. This implies that there may be some other effects that are not the same. As you will see in <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Forces">Chapter 8</a>, we sometimes need to consider internal forces and moments. These are the forces inside a body that hold all the parts of the object to each other, otherwise, it would break apart and fail. Although the external effects are the same for all equivalent systems, the internal forces depend on the specifics of how the loads are applied.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-8-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:48% 48%;column-gap:4%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para" id="equivalent-tranformations-8-3-1-1">Let’s imagine that you have gone off-roading and have managed to get your Jeep stuck in the mud. You have two basic options to get it out: you can <span class="process-math">\(pull\)</span> it out using the winch on the front bumper, or you can ask your friend to <span class="process-math">\(push\)</span> you out with his truck. Both methods (assuming that they apply forces with the same magnitude, direction, and line of action) are statically equivalent, and both will equally move your vehicle forward.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-8-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:48% 48%;column-gap:4%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para" id="equivalent-tranformations-8-3-1-1">Let’s imagine that you have gone off-roading and have managed to get your Jeep stuck in the mud. You have two basic options to get it out: you can <span class="process-math">\(pull\)</span> it out using the winch on the front bumper, or you can ask your friend to <span class="process-math">\(push\)</span> you out with his truck. Both methods (assuming that they apply forces with the same magnitude, direction, and line of action) are statically equivalent, and both will equally move your vehicle forward.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-8-3-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/2820337726_1e3f0bcb46_c.jpg" class="contained"></div></div>
-</div></div>
+</div>
+</div>
 <div class="para" id="equivalent-tranformations-8-4">The difference is what might happen to your vehicle. With one method, there’s a danger that you will rip your front bumper off, with the other you might damage your rear bumper. These are the internal effects, and they depend on <em class="emphasis">where</em> the equivalent force is applied. These forces are necessary to maintain rigidity and hold the parts of the body together.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-8-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Thinking Deeper 4.6.2: Internal Effects"><a href="#equivalent-tranformations-8" title="Copy heading and permalink for Thinking Deeper 4.6.2: Internal Effects" aria-label="Copy heading and permalink for Thinking Deeper 4.6.2: Internal Effects">🔗</a></div></article><section class="paragraphs" id="equivalent-tranformations-9"><h3 class="heading"><span class="title">Sliding a force along its line of action.</span></h3>
+<div class="autopermalink" data-description="Thinking Deeper 4.6.2: Internal Effects"><a href="#equivalent-tranformations-8" title="Copy heading and permalink for Thinking Deeper 4.6.2: Internal Effects" aria-label="Copy heading and permalink for Thinking Deeper 4.6.2: Internal Effects">🔗</a></div>
+</article>
+<section class="paragraphs" id="equivalent-tranformations-9"><h3 class="heading"><span class="title">Sliding a force along its line of action.</span></h3>
 <div class="para" id="equivalent-tranformations-9-2">Sliding a force along its line of action is an equivalent transformation because sliding a force does not change its magnitude, direction or the perpendicular distance from the line of action to any point, so the moments it creates do not change either. This transformation is called the “Principle of Transmissibility”.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-9-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <figure class="figure figure-like" id="equivalent-tranformations-9-3"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/images/equiv_slide.svg" role="img" class="contained" alt="A force vector is shown acting along a line of action. It is equivalent to a diagram where the same force vector has been shifted along the same line of action."></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Sliding a vector along its line of action<div class="autopermalink" data-description="Figure 4.6.3"><a href="#equivalent-tranformations-9-3" title="Copy heading and permalink for Figure 4.6.3" aria-label="Copy heading and permalink for Figure 4.6.3">🔗</a></div></figcaption></figure><div class="autopermalink" data-description="Paragraphs: Sliding a force along its line of action"><a href="#equivalent-tranformations-9" title="Copy heading and permalink for Paragraphs: Sliding a force along its line of action" aria-label="Copy heading and permalink for Paragraphs: Sliding a force along its line of action">🔗</a></div></section><section class="paragraphs" id="equivalent-tranformations-10"><h3 class="heading"><span class="title">Replacing a couple with couple-moment or vice-versa.</span></h3>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.3<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Sliding a vector along its line of action<div class="autopermalink" data-description="Figure 4.6.3"><a href="#equivalent-tranformations-9-3" title="Copy heading and permalink for Figure 4.6.3" aria-label="Copy heading and permalink for Figure 4.6.3">🔗</a></div></figcaption>
+</figure><div class="autopermalink" data-description="Paragraphs: Sliding a force along its line of action"><a href="#equivalent-tranformations-9" title="Copy heading and permalink for Paragraphs: Sliding a force along its line of action" aria-label="Copy heading and permalink for Paragraphs: Sliding a force along its line of action">🔗</a></div>
+</section>
+<section class="paragraphs" id="equivalent-tranformations-10"><h3 class="heading"><span class="title">Replacing a couple with couple-moment or vice-versa.</span></h3>
 <div class="para" id="equivalent-tranformations-10-2">A <em class="emphasis">couple</em>, defined as “two equal and opposite forces with different lines of action,” produces a pure turning action that is equivalent to a concentrated moment, called the <em class="emphasis">couple-moment</em>. Couples and couple-moments have no translational effect. Couple-moments are free vectors, which means that they are not bound to any point. Their external effect is on the entire body and is the same regardless of where it is applied.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-10-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="equivalent-tranformations-10-3">This means that you are free to swap out a couple for its couple-moment, or swap a couple-moment for a couple that has the same moment, and you may put the replacement anywhere on you please and it will still be equivalent.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-10-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -779,9 +733,13 @@ eBookConfig.enable_chatcodes =  false;
 <div class="para" id="equivalent-tranformations-10-4">The diagram shows a series of equivalent transformations of a couple.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-10-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <figure class="figure figure-like" id="equivalent-tranformations-10-5"><div class="image-box" style="width: 80%; margin-left: 10%; margin-right: 10%;"><img src="external/images/equiv_couples.svg" role="img" class="contained" alt="Six equivalent diagrams are shown representing a couple-moment. Two equal and opposite forces in parallel of magnitude F separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude (F/2) separated by a perpendicular distance 2d = two equal/opposite parallel forces at a different angle separated by a perpendicular distance d = two equal/opposite parallel forces of magnitude 2F separated by a perpendicular distance of (d/2) = a Moment of magnitude M = Fd acting counterclockwise at the middle of the object = a Moment of M = Fd acting counterclockwise at the edge of the object."></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent transformations of couples<div class="autopermalink" data-description="Figure 4.6.4"><a href="#equivalent-tranformations-10-5" title="Copy heading and permalink for Figure 4.6.4" aria-label="Copy heading and permalink for Figure 4.6.4">🔗</a></div></figcaption></figure><div class="para" id="equivalent-tranformations-10-6">Concentrated moments are <em class="emphasis">free vectors</em>, which you may draw the circular arrow anywhere you like on the body. In other words, moving a concentrated moment from one point to another is an equivalent transformation. Remember, this equivalence only applies to the external effects. What happens inside the body definitely does depend on the specific point where the moment is applied.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-10-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Equivalent transformations of couples<div class="autopermalink" data-description="Figure 4.6.4"><a href="#equivalent-tranformations-10-5" title="Copy heading and permalink for Figure 4.6.4" aria-label="Copy heading and permalink for Figure 4.6.4">🔗</a></div></figcaption>
+</figure>
+<div class="para" id="equivalent-tranformations-10-6">Concentrated moments are <em class="emphasis">free vectors</em>, which you may draw the circular arrow anywhere you like on the body. In other words, moving a concentrated moment from one point to another is an equivalent transformation. Remember, this equivalence only applies to the external effects. What happens inside the body definitely does depend on the specific point where the moment is applied.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-10-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Replacing a couple with couple-moment or vice-versa"><a href="#equivalent-tranformations-10" title="Copy heading and permalink for Paragraphs: Replacing a couple with couple-moment or vice-versa" aria-label="Copy heading and permalink for Paragraphs: Replacing a couple with couple-moment or vice-versa">🔗</a></div></section><section class="paragraphs" id="equivalent-tranformations-11"><h3 class="heading"><span class="title">Adding moments to produce a resultant moment.</span></h3>
+<div class="autopermalink" data-description="Paragraphs: Replacing a couple with couple-moment or vice-versa"><a href="#equivalent-tranformations-10" title="Copy heading and permalink for Paragraphs: Replacing a couple with couple-moment or vice-versa" aria-label="Copy heading and permalink for Paragraphs: Replacing a couple with couple-moment or vice-versa">🔗</a></div>
+</section>
+<section class="paragraphs" id="equivalent-tranformations-11"><h3 class="heading"><span class="title">Adding moments to produce a resultant moment.</span></h3>
 <div class="para" id="equivalent-tranformations-11-2">If more than one couple-moment or concentrated moment acts on an object, the situation may be simplified by adding them together to produce one <em class="emphasis">resultant moment</em>,<em class="emphasis"></em><span class="process-math">\(\vec{M}_R\text{.}\)</span> The standard rules of vector addition apply.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-11-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="equivalent-tranformations-11-3">In two-dimensional problems, moments are either clockwise or counterclockwise, so they may be considered scalar values and added algebraically. Give counterclockwise moments a positive sign and clockwise moments a negative sign according to the right-hand rule sign convention. If this is done, the sign of the resultant moment will indicate the direction of the net moment. You can use the right-hand rule to establish the direction of the moment vector, which will point into or out of the page.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-11-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -794,10 +752,13 @@ M_R = \Sigma M
 </div>
 <div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-11-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Adding moments to produce a resultant moment"><a href="#equivalent-tranformations-11" title="Copy heading and permalink for Paragraphs: Adding moments to produce a resultant moment" aria-label="Copy heading and permalink for Paragraphs: Adding moments to produce a resultant moment">🔗</a></div></section><article class="example example-like" id="Chapter_04-example-equivalent-moment"><h3 class="heading">
+<div class="autopermalink" data-description="Paragraphs: Adding moments to produce a resultant moment"><a href="#equivalent-tranformations-11" title="Copy heading and permalink for Paragraphs: Adding moments to produce a resultant moment" aria-label="Copy heading and permalink for Paragraphs: Adding moments to produce a resultant moment">🔗</a></div>
+</section>
+<article class="example example-like" id="Chapter_04-example-equivalent-moment"><h3 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">4.6.5</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Equivalent Moment.</span>
 </h3>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 40%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:60% 40%;column-gap:0%;">
 <div class="sbspanel sbspanel--top top" style="">
 <div class="para" id="Chapter_04-example-equivalent-moment-2-1-1-1">Two concentrated moments and a couple act on the object shown. Given: <span class="process-math">\(M_1 = \Nm{400}\text{,}\)</span> <span class="process-math">\(M_2 =\Nm{200}\text{,}\)</span> <span class="process-math">\(F = \N{40}\text{,}\)</span> and <span class="process-math">\(d=\m{2}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_04-example-equivalent-moment-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -805,14 +766,18 @@ M_R = \Sigma M
 </div>
 </div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/equiv_example1.svg" role="img" class="contained" alt="An object is shown with a Force couple where two equal/opposite parallel forces of magnitude 40 N are shown. The distance between them is shown as d = 2 m, but the forces act at an angle of 60 degrees from the distance vector. M1 = 400 N*m in clockwise direction, and M2 = 2200 N*m in counterclockwise direction."></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_04-example-equivalent-moment-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_04-example-equivalent-moment-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para" id="Chapter_04-example-equivalent-moment-3-1">
 <span class="process-math">\(M_r = \Nm{130.7}\)</span> clockwise.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_04-example-equivalent-moment-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 4.6.5.1"><a href="#Chapter_04-example-equivalent-moment-3" title="Copy heading and permalink for Answer 4.6.5.1" aria-label="Copy heading and permalink for Answer 4.6.5.1">🔗</a></div>
-</div></details><details id="Chapter_04-example-equivalent-moment-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_04-example-equivalent-moment-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_04-example-equivalent-moment-4-1">First, replace the couple with an equivalent couple, <span class="process-math">\(M_3\text{,}\)</span> the magnitude of which is<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_04-example-equivalent-moment-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_04-example-equivalent-moment-4-2">
@@ -842,10 +807,15 @@ M_R \amp = \Sigma M\\
 <div class="autopermalink" data-description="Solution 4.6.5.1"><a href="#Chapter_04-example-equivalent-moment-4" title="Copy heading and permalink for Solution 4.6.5.1" aria-label="Copy heading and permalink for Solution 4.6.5.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 4.6.5: Equivalent Moment"><a href="#Chapter_04-example-equivalent-moment" title="Copy heading and permalink for Example 4.6.5: Equivalent Moment" aria-label="Copy heading and permalink for Example 4.6.5: Equivalent Moment">🔗</a></div></article><section class="paragraphs" id="equivalent-tranformations-13"><h3 class="heading"><span class="title">Resolving a moment into components.</span></h3>
+<div class="autopermalink" data-description="Example 4.6.5: Equivalent Moment"><a href="#Chapter_04-example-equivalent-moment" title="Copy heading and permalink for Example 4.6.5: Equivalent Moment" aria-label="Copy heading and permalink for Example 4.6.5: Equivalent Moment">🔗</a></div>
+</article>
+<section class="paragraphs" id="equivalent-tranformations-13"><h3 class="heading"><span class="title">Resolving a moment into components.</span></h3>
 <div class="para" id="equivalent-tranformations-13-2">For three-dimensional moment vectors, another potential equivalent transformation is to resolve a moment vector into components. These may be orthogonal components in the <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> directions, or components in a plane and perpendicular to it, or components in some other rotated coordinate system.<div class="autopermalink" data-description="Paragraph"><a href="#equivalent-tranformations-13-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Paragraphs: Resolving a moment into components"><a href="#equivalent-tranformations-13" title="Copy heading and permalink for Paragraphs: Resolving a moment into components" aria-label="Copy heading and permalink for Paragraphs: Resolving a moment into components">🔗</a></div></section><div class="autopermalink" data-description="Section 4.6: Equivalent Transformations"><a href="#equivalent-tranformations" title="Copy heading and permalink for Section 4.6: Equivalent Transformations" aria-label="Copy heading and permalink for Section 4.6: Equivalent Transformations">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Paragraphs: Resolving a moment into components"><a href="#equivalent-tranformations-13" title="Copy heading and permalink for Paragraphs: Resolving a moment into components" aria-label="Copy heading and permalink for Paragraphs: Resolving a moment into components">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 4.6: Equivalent Transformations"><a href="#equivalent-tranformations" title="Copy heading and permalink for Section 4.6: Equivalent Transformations" aria-label="Copy heading and permalink for Section 4.6: Equivalent Transformations">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="Chapter_04-couples.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="statically-equivalent-systems.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

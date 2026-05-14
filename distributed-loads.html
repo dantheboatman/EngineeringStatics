@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="distributed-loads"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="distributed-loads">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Distributed Loads</span>
 </h2>
 <article class="objectives goal-like" id="distributed-loads-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -728,20 +665,47 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#distributed-loads-2-1-3" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 7.8"><a href="#distributed-loads-2" title="Copy heading and permalink for Key Questions 7.8" aria-label="Copy heading and permalink for Key Questions 7.8">🔗</a></div></article><section class="introduction" id="distributed-loads-3"><div class="para" id="distributed-loads-3-1">
+<div class="autopermalink" data-description="Key Questions 7.8"><a href="#distributed-loads-2" title="Copy heading and permalink for Key Questions 7.8" aria-label="Copy heading and permalink for Key Questions 7.8">🔗</a></div>
+</article>
+<section class="introduction" id="distributed-loads-3">
+<div class="para" id="distributed-loads-3-1">
 <dfn class="terminology">Distributed loads</dfn> are forces which are spread out over a length, area, or volume. Most real-world loads are distributed, including the weight of building materials and the force of wind, water, or earth pushing on a surface. Pressure, load, weight density and stress are all names commonly used for distributed loads. Distributed load is a force per unit length or force per unit area depicted with a series of force vectors joined together at the top, and will be designated as <span class="process-math">\(w(x)\)</span> to indicate that the distributed loading is a function of <span class="process-math">\(x\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="distributed-loads-3-2">For example, although a shelf of books <em class="emphasis">could</em> be treated as a collection of individual forces, it is more common and convenient to represent the weight of the books as a <dfn class="terminology">uniformly distributed load</dfn>. A uniformly distributed load is a load which has the same value everywhere, i.e.<span class="process-math">\(w(x) = C\text{,}\)</span> a constant.<div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<figure class="figure figure-like" id="distributed-loads-3-3"><div class="sbsgroup">
-<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;"><div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="distributed-loads-3-3-2-1-1"><div class="image-box"><img src="external/images/random-books.svg" role="img" class="contained" alt="Shelf of books."></div>
-<figcaption><span class="codenumber">(a)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>A shelf of books with various weights.<div class="autopermalink" data-description="Figure 7.8.1(a)"><a href="#distributed-loads-3-3-2-1-1" title="Copy heading and permalink for Figure 7.8.1(a)" aria-label="Copy heading and permalink for Figure 7.8.1(a)">🔗</a></div></figcaption></figure></div></div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;"><div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="distributed-loads-3-3-2-2-1"><div class="image-box"><img src="external/images/random-weights.svg" role="img" class="contained" alt="Shelf with books represented by different individual weights."></div>
-<figcaption><span class="codenumber">(b)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Each book represented as an individual weight<div class="autopermalink" data-description="Figure 7.8.1(b)"><a href="#distributed-loads-3-3-2-2-1" title="Copy heading and permalink for Figure 7.8.1(b)" aria-label="Copy heading and permalink for Figure 7.8.1(b)">🔗</a></div></figcaption></figure></div></div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;"><div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="distributed-loads-3-3-2-3-1"><div class="image-box"><img src="external/images/uniform-books.svg" role="img" class="contained" alt="All books represented as distributed load"></div>
-<figcaption><span class="codenumber">(c)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>All the books represented as a distributed load.<div class="autopermalink" data-description="Figure 7.8.1(c)"><a href="#distributed-loads-3-3-2-3-1" title="Copy heading and permalink for Figure 7.8.1(c)" aria-label="Copy heading and permalink for Figure 7.8.1(c)">🔗</a></div></figcaption></figure></div></div></div>
+<figure class="figure figure-like" id="distributed-loads-3-3">
+<div class="sbsgroup">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="distributed-loads-3-3-2-1-1"><div class="image-box"><img src="external/images/random-books.svg" role="img" class="contained" alt="Shelf of books."></div>
+<figcaption><span class="codenumber">(a)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>A shelf of books with various weights.<div class="autopermalink" data-description="Figure 7.8.1(a)"><a href="#distributed-loads-3-3-2-1-1" title="Copy heading and permalink for Figure 7.8.1(a)" aria-label="Copy heading and permalink for Figure 7.8.1(a)">🔗</a></div></figcaption>
+</figure>
 </div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" data-description="Figure 7.8.1"><a href="#distributed-loads-3-3" title="Copy heading and permalink for Figure 7.8.1" aria-label="Copy heading and permalink for Figure 7.8.1">🔗</a></div></figcaption></figure><div class="para" id="distributed-loads-3-4">We can use the computational tools discussed in the previous chapters to handle distributed loads if we first convert them to equivalent point forces. This equivalent replacement must be the <dfn class="terminology">resultant</dfn> of the distributed loading, as discussed in <a href="statically-equivalent-systems.html" class="internal" title="Section 4.7: Statically Equivalent Systems">Section 4.7</a>. Recall that this resultant force has the same external effect on the object as the original system of forces did.<div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="distributed-loads-3-3-2-2-1"><div class="image-box"><img src="external/images/random-weights.svg" role="img" class="contained" alt="Shelf with books represented by different individual weights."></div>
+<figcaption><span class="codenumber">(b)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Each book represented as an individual weight<div class="autopermalink" data-description="Figure 7.8.1(b)"><a href="#distributed-loads-3-3-2-2-1" title="Copy heading and permalink for Figure 7.8.1(b)" aria-label="Copy heading and permalink for Figure 7.8.1(b)">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:25%;margin-right:25%;grid-template-columns:100%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="distributed-loads-3-3-2-3-1"><div class="image-box"><img src="external/images/uniform-books.svg" role="img" class="contained" alt="All books represented as distributed load"></div>
+<figcaption><span class="codenumber">(c)</span><span class="space heading-divison-mark heading-divison-mark__space"> </span>All the books represented as a distributed load.<div class="autopermalink" data-description="Figure 7.8.1(c)"><a href="#distributed-loads-3-3-2-3-1" title="Copy heading and permalink for Figure 7.8.1(c)" aria-label="Copy heading and permalink for Figure 7.8.1(c)">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" data-description="Figure 7.8.1"><a href="#distributed-loads-3-3" title="Copy heading and permalink for Figure 7.8.1" aria-label="Copy heading and permalink for Figure 7.8.1">🔗</a></div></figcaption>
+</figure>
+<div class="para" id="distributed-loads-3-4">We can use the computational tools discussed in the previous chapters to handle distributed loads if we first convert them to equivalent point forces. This equivalent replacement must be the <dfn class="terminology">resultant</dfn> of the distributed loading, as discussed in <a href="statically-equivalent-systems.html" class="internal" title="Section 4.7: Statically Equivalent Systems">Section 4.7</a>. Recall that this resultant force has the same external effect on the object as the original system of forces did.<div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-4" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="distributed-loads-3-5">
 <div class="para">To be equivalent, the point force must have a:</div>
@@ -758,7 +722,9 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="distributed-loads-3-6">The next two sections will explore how to find the magnitude and location of the equivalent point force for a distributed load.<div class="autopermalink" data-description="Paragraph"><a href="#distributed-loads-3-6" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></section><section class="subsection" id="Chapter_07-equivalent-magnitude"><h3 class="heading hide-type">
+</div></section>
+<section class="subsection" id="Chapter_07-equivalent-magnitude">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Equivalent Magnitude</span>
 </h3>
 <div class="para logical" id="Chapter_07-equivalent-magnitude-2">
@@ -783,10 +749,12 @@ W \amp = w(x) \ell\\
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.2</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Bookshelf.</span>
 </h4>
 <div class="para" id="bookshelf-example-2-1">A common paperback is about <span class="process-math">\(\cm{3}\)</span> thick and weighs approximately <span class="process-math">\(\N{3}\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#bookshelf-example-2-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div> <div class="para" id="bookshelf-example-2-2">What is the loading function <span class="process-math">\(w(x)\)</span> for a shelf full of paperbacks and what is the total weight of paperback books on a <span class="process-math">\(\m{6}\)</span> shelf?<div class="autopermalink" data-description="Paragraph"><a href="#bookshelf-example-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div> 
+<div class="para" id="bookshelf-example-2-2">What is the loading function <span class="process-math">\(w(x)\)</span> for a shelf full of paperbacks and what is the total weight of paperback books on a <span class="process-math">\(\m{6}\)</span> shelf?<div class="autopermalink" data-description="Paragraph"><a href="#bookshelf-example-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="solutions">
-<details id="bookshelf-example-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="bookshelf-example-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="bookshelf-example-3-1">
 <div class="displaymath process-math" id="bookshelf-example-3-1-1">
 \begin{align*}
@@ -797,7 +765,9 @@ W \amp = \N{600}
 <div class="autopermalink" data-description="Paragraph"><a href="#bookshelf-example-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.8.2.1"><a href="#bookshelf-example-3" title="Copy heading and permalink for Answer 7.8.2.1" aria-label="Copy heading and permalink for Answer 7.8.2.1">🔗</a></div>
-</div></details><details id="bookshelf-example-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="bookshelf-example-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="bookshelf-example-4-1">
 <div class="para">The weight of one paperback over its thickness is the load intensity <span class="process-math">\(w(x)\text{,}\)</span> so</div>
 <div class="displaymath process-math" id="bookshelf-example-4-1-2">
@@ -823,7 +793,11 @@ W = w(x) \ell = (\Nperm{100})(\m{6}) = \N{600}\text{.}
 <div class="autopermalink" data-description="Solution 7.8.2.1"><a href="#bookshelf-example-4" title="Copy heading and permalink for Solution 7.8.2.1" aria-label="Copy heading and permalink for Solution 7.8.2.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.8.2: Bookshelf"><a href="#bookshelf-example" title="Copy heading and permalink for Example 7.8.2: Bookshelf" aria-label="Copy heading and permalink for Example 7.8.2: Bookshelf">🔗</a></div></article><div class="autopermalink" data-description="Subsection 7.8.1: Equivalent Magnitude"><a href="#Chapter_07-equivalent-magnitude" title="Copy heading and permalink for Subsection 7.8.1: Equivalent Magnitude" aria-label="Copy heading and permalink for Subsection 7.8.1: Equivalent Magnitude">🔗</a></div></section><section class="subsection" id="Chapter_07-equivalent-location"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Example 7.8.2: Bookshelf"><a href="#bookshelf-example" title="Copy heading and permalink for Example 7.8.2: Bookshelf" aria-label="Copy heading and permalink for Example 7.8.2: Bookshelf">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 7.8.1: Equivalent Magnitude"><a href="#Chapter_07-equivalent-magnitude" title="Copy heading and permalink for Subsection 7.8.1: Equivalent Magnitude" aria-label="Copy heading and permalink for Subsection 7.8.1: Equivalent Magnitude">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_07-equivalent-location">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Equivalent Location</span>
 </h3>
 <div class="para" id="Chapter_07-equivalent-location-2">To use a distributed load in an equilibrium problem, you must know the equivalent magnitude to sum the forces, and also know the position or line of action to sum the moments.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-equivalent-location-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -839,18 +813,25 @@ W = w(x) \ell = (\Nperm{100})(\m{6}) = \N{600}\text{.}
 <article class="example example-like" id="Chapter_07-example-uniformly-varying-load"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Uniformly Varying Load.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 55%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 55%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/triangle-load.svg" role="img" class="contained" alt="Horizontal beam with width of 6 ft fixed on the left end. Distributed load starts at 0 and increases to 10 lb/ft at the right end."></div></div>
-<div class="sbspanel sbspanel--middle middle" style=""><div class="para" id="Chapter_07-example-uniformly-varying-load-2-1-2">Find the equivalent point force and its point of application for the distributed load shown.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-uniformly-varying-load-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-</div></div>
+<div class="sbspanel sbspanel--middle middle" style="">
+<div class="para" id="Chapter_07-example-uniformly-varying-load-2-1-2">Find the equivalent point force and its point of application for the distributed load shown.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-uniformly-varying-load-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_07-example-uniformly-varying-load-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-uniformly-varying-load-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para" id="Chapter_07-example-uniformly-varying-load-3-1">The equivalent load is <span class="process-math">\(\lb{30}\)</span> downward force acting <span class="process-math">\(\ft{4}\)</span> from the left end.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-uniformly-varying-load-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 60%; margin-left: 20%; margin-right: 20%;"><img src="external/images/triangle-load-equiv.svg" role="img" class="contained"></div>
 <div class="autopermalink" data-description="Answer 7.8.3.1"><a href="#Chapter_07-example-uniformly-varying-load-3" title="Copy heading and permalink for Answer 7.8.3.1" aria-label="Copy heading and permalink for Answer 7.8.3.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-uniformly-varying-load-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-uniformly-varying-load-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-uniformly-varying-load-4-1">
 <div class="para">The equivalent load is the ‘area’ under the triangular load intensity curve and it acts straight down at the centroid of the triangle. This triangular loading has a <span class="process-math">\(\ft{6}\)</span> base and a<span class="process-math">\(\lbperft{10}\)</span> height so</div>
 <div class="displaymath process-math" id="Chapter_07-example-uniformly-varying-load-4-1-4">
@@ -869,7 +850,9 @@ W = \frac{1}{2} b h =\frac{1}{2}(\ft{6})(\lbperft{10}) =\lb{30}\text{.}
 <div class="autopermalink" data-description="Solution 7.8.3.1"><a href="#Chapter_07-example-uniformly-varying-load-4" title="Copy heading and permalink for Solution 7.8.3.1" aria-label="Copy heading and permalink for Solution 7.8.3.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.8.3: Uniformly Varying Load"><a href="#Chapter_07-example-uniformly-varying-load" title="Copy heading and permalink for Example 7.8.3: Uniformly Varying Load" aria-label="Copy heading and permalink for Example 7.8.3: Uniformly Varying Load">🔗</a></div></article><div class="para" id="Chapter_07-equivalent-location-8">Distributed loads may be any geometric shape or defined by a mathematical function. If the load is a combination of common shapes, use the properties of the shapes to find the magnitude and location of the equivalent point force using the methods of <a href="composite-parts.html" class="internal" title="Section 7.5: Centroids using Composite Parts">Section 7.5</a>. If the distributed load is defined by a mathematical function, integrate to find their area using the methods of <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-equivalent-location-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Example 7.8.3: Uniformly Varying Load"><a href="#Chapter_07-example-uniformly-varying-load" title="Copy heading and permalink for Example 7.8.3: Uniformly Varying Load" aria-label="Copy heading and permalink for Example 7.8.3: Uniformly Varying Load">🔗</a></div>
+</article>
+<div class="para" id="Chapter_07-equivalent-location-8">Distributed loads may be any geometric shape or defined by a mathematical function. If the load is a combination of common shapes, use the properties of the shapes to find the magnitude and location of the equivalent point force using the methods of <a href="composite-parts.html" class="internal" title="Section 7.5: Centroids using Composite Parts">Section 7.5</a>. If the distributed load is defined by a mathematical function, integrate to find their area using the methods of <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-equivalent-location-8" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para logical" id="Chapter_07-equivalent-location-9">
 <div class="para">A few things to note:</div>
@@ -885,7 +868,10 @@ W = \frac{1}{2} b h =\frac{1}{2}(\ft{6})(\lbperft{10}) =\lb{30}\text{.}
 </ul>
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-equivalent-location-9" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="autopermalink" data-description="Subsection 7.8.2: Equivalent Location"><a href="#Chapter_07-equivalent-location" title="Copy heading and permalink for Subsection 7.8.2: Equivalent Location" aria-label="Copy heading and permalink for Subsection 7.8.2: Equivalent Location">🔗</a></div></section><section class="subsection" id="Chapter_07-distributed-load-applications"><h3 class="heading hide-type">
+<div class="autopermalink" data-description="Subsection 7.8.2: Equivalent Location"><a href="#Chapter_07-equivalent-location" title="Copy heading and permalink for Subsection 7.8.2: Equivalent Location" aria-label="Copy heading and permalink for Subsection 7.8.2: Equivalent Location">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_07-distributed-load-applications">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.3</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Distributed Load Applications</span>
 </h3>
 <div class="para" id="Chapter_07-distributed-load-applications-2">Once you convert distributed loads to the resultant point force, you can solve problem in the same manner that you have other problems in previous chapters of this book. Note that while the resultant forces are <em class="emphasis">externally</em> equivalent to the distributed loads, they are not <em class="emphasis">internally</em> equivalent, as will be shown <a href="Chapter_08.html" class="internal" title="Chapter 8: Internal Forces">Chapter 8</a>.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-distributed-load-applications-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
@@ -893,13 +879,19 @@ W = \frac{1}{2} b h =\frac{1}{2}(\ft{6})(\lbperft{10}) =\lb{30}\text{.}
 <article class="example example-like" id="Chapter_07-example-cantilever-beam"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.4</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Cantilever Beam.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 55%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 55%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/cantilever-load.svg" role="img" class="contained" alt="Cantilever beam fixed on left end and length of 6 m. Uniform distributed load of 4 N/m begins at 2 m from left end and continues to the right end."></div></div>
-<div class="sbspanel sbspanel--middle middle" style=""><div class="para" id="Chapter_07-example-cantilever-beam-2-1-2">Find the reactions at the fixed connection at <span class="process-math">\(A\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-</div></div> <div class="para" id="Chapter_07-example-cantilever-beam-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+<div class="sbspanel sbspanel--middle middle" style="">
+<div class="para" id="Chapter_07-example-cantilever-beam-2-1-2">Find the reactions at the fixed connection at <span class="process-math">\(A\text{.}\)</span><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div> 
+<div class="para" id="Chapter_07-example-cantilever-beam-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <div class="solutions">
-<details id="Chapter_07-example-cantilever-beam-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-cantilever-beam-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-cantilever-beam-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-cantilever-beam-3-1-1">
 \begin{align*}
@@ -911,12 +903,16 @@ M \amp = \Nm{64}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.8.4.1"><a href="#Chapter_07-example-cantilever-beam-3" title="Copy heading and permalink for Answer 7.8.4.1" aria-label="Copy heading and permalink for Answer 7.8.4.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-cantilever-beam-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-cantilever-beam-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_07-example-cantilever-beam-4-1">Draw a free-body diagram with the distributed load replaced with an equivalent concentrated load, then apply the equations of equilibrium.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 60%;column-gap:0%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:40% 60%;column-gap:0%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/cantilever-load-fbd.svg" role="img" class="contained" alt="Horizontal beam 44 in long. Distributed load of 12 lb/in from left end to 10 in. Pin A at 10 in. Downward force of 100 lb at 16 in. Downward force of 150 lb at 22 in. Downward force of 100 lb at 28 in. Roller support at 28 in. Uniform distributed load of 12 lb/in starting at 34 in and ending at 44 in."></div></div>
-<div class="sbspanel sbspanel--middle middle" style=""><div class="para logical" id="Chapter_07-example-cantilever-beam-4-2-2">
+<div class="sbspanel sbspanel--middle middle" style="">
+<div class="para logical" id="Chapter_07-example-cantilever-beam-4-2-2">
 <div class="displaymath process-math" id="Chapter_07-example-cantilever-beam-4-2-2-1">
 \begin{align*}
 \Sigma F_x \amp = 0 \amp \amp \rightarrow \amp A_x \amp = 0\\
@@ -926,21 +922,31 @@ M \amp = \Nm{64}
 \end{align*}
 </div>
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-cantilever-beam-4-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-</div></div>
+</div>
+</div>
+</div>
+</div>
 <div class="autopermalink" data-description="Solution 7.8.4.1"><a href="#Chapter_07-example-cantilever-beam-4" title="Copy heading and permalink for Solution 7.8.4.1" aria-label="Copy heading and permalink for Solution 7.8.4.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.8.4: Cantilever Beam"><a href="#Chapter_07-example-cantilever-beam" title="Copy heading and permalink for Example 7.8.4: Cantilever Beam" aria-label="Copy heading and permalink for Example 7.8.4: Cantilever Beam">🔗</a></div></article><article class="example example-like" id="Chapter_07-example-beam-reactions"><h4 class="heading">
+<div class="autopermalink" data-description="Example 7.8.4: Cantilever Beam"><a href="#Chapter_07-example-cantilever-beam" title="Copy heading and permalink for Example 7.8.4: Cantilever Beam" aria-label="Copy heading and permalink for Example 7.8.4: Cantilever Beam">🔗</a></div>
+</article>
+<article class="example example-like" id="Chapter_07-example-beam-reactions"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.8.5</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Beam Reactions.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 45%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:50% 45%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/beam-dist-load-example.svg" role="img" class="contained"></div></div>
-<div class="sbspanel sbspanel--middle middle" style=""><div class="para" id="Chapter_07-example-beam-reactions-2-1-2">Find the reactions at the supports for the beam shown.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
-</div></div> <div class="para" id="Chapter_07-example-beam-reactions-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
+<div class="sbspanel sbspanel--middle middle" style="">
+<div class="para" id="Chapter_07-example-beam-reactions-2-1-2">Find the reactions at the supports for the beam shown.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-2-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+</div>
+</div>
+</div>
+</div> 
+<div class="para" id="Chapter_07-example-beam-reactions-2-2"><div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div></div>
 <div class="solutions">
-<details id="Chapter_07-example-beam-reactions-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-beam-reactions-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-beam-reactions-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-beam-reactions-3-1-1">
 \begin{equation*}
@@ -950,7 +956,9 @@ A_y = \lb{196.7}, A_x = \lb{0}, B_y = \lb{393.3}
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.8.5.1"><a href="#Chapter_07-example-beam-reactions-3" title="Copy heading and permalink for Answer 7.8.5.1" aria-label="Copy heading and permalink for Answer 7.8.5.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-beam-reactions-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-beam-reactions-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <div class="para" id="Chapter_07-example-beam-reactions-4-1">Start by drawing a free-body diagram of the beam with the two distributed loads replaced with equivalent concentrated loads. The two distributed loads are <span class="process-math">\((\inch{10}) (\lbperin{12}) = \lb{120}\)</span> each.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-beam-reactions-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="image-box" style="width: 50%; margin-left: 25%; margin-right: 25%;"><img src="external/images/beam-dist-load-fbd.svg" role="img" class="contained"></div>
@@ -975,7 +983,11 @@ A_y = \lb{196.7}, A_x = \lb{0}, B_y = \lb{393.3}
 <div class="autopermalink" data-description="Solution 7.8.5.1"><a href="#Chapter_07-example-beam-reactions-4" title="Copy heading and permalink for Solution 7.8.5.1" aria-label="Copy heading and permalink for Solution 7.8.5.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.8.5: Beam Reactions"><a href="#Chapter_07-example-beam-reactions" title="Copy heading and permalink for Example 7.8.5: Beam Reactions" aria-label="Copy heading and permalink for Example 7.8.5: Beam Reactions">🔗</a></div></article><div class="autopermalink" data-description="Subsection 7.8.3: Distributed Load Applications"><a href="#Chapter_07-distributed-load-applications" title="Copy heading and permalink for Subsection 7.8.3: Distributed Load Applications" aria-label="Copy heading and permalink for Subsection 7.8.3: Distributed Load Applications">🔗</a></div></section><div class="autopermalink" data-description="Section 7.8: Distributed Loads"><a href="#distributed-loads" title="Copy heading and permalink for Section 7.8: Distributed Loads" aria-label="Copy heading and permalink for Section 7.8: Distributed Loads">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 7.8.5: Beam Reactions"><a href="#Chapter_07-example-beam-reactions" title="Copy heading and permalink for Example 7.8.5: Beam Reactions" aria-label="Copy heading and permalink for Example 7.8.5: Beam Reactions">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 7.8.3: Distributed Load Applications"><a href="#Chapter_07-distributed-load-applications" title="Copy heading and permalink for Subsection 7.8.3: Distributed Load Applications" aria-label="Copy heading and permalink for Subsection 7.8.3: Distributed Load Applications">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 7.8: Distributed Loads"><a href="#distributed-loads" title="Copy heading and permalink for Section 7.8: Distributed Loads" aria-label="Copy heading and permalink for Section 7.8: Distributed Loads">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="centroids-by-integration.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_07-fluid-statics.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>

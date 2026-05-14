@@ -22,79 +22,14 @@
 <link href="_static/pretext/css/theme.css" rel="stylesheet" type="text/css">
 <link href="_static/pretext/css/ol-markers.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="external/css/statics.css">
-<script>
-var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
-window.MathJax = {
-  "tex": {
-    "inlineMath": [
-      [
-        "\\(",
-        "\\)"
-      ]
-    ],
-    "tags": "none",
-    "tagSide": "right",
-    "tagIndent": ".8em",
-    "packages": {
-      "[+]": [
-        "base",
-        "ams",
-        "amscd",
-        "color",
-        "newcommand",
-        "textmacros",
-        "knowl"
-      ]
-    }
-  },
-  "options": {
-    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
-    "processHtmlClass": "process-math",
-    "renderActions": {
-      "findScript": [
-        10,
-        function (doc) {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
-                var display = !!node.type.match(/; *mode=display/);
-                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                var text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = {node: text, delim: '', n: 0};
-                math.end = {node: text, delim: '', n: 0};
-                doc.math.push(math);
-            });
-        },
-        ""
-      ]
-    }
-  },
-  "chtml": {
-    "scale": 0.98,
-    "mtextInheritFont": true
-  },
-  "loader": {
-    "load": [
-      "input/asciimath",
-      "[tex]/amscd",
-      "[tex]/color",
-      "[tex]/newcommand",
-      "[tex]/textmacros",
-      "[pretext]/mathjaxknowl3.js"
-    ],
-    "paths": {
-      "pretext": "_static/pretext/js"
-    }
-  },
-  "startup": {
-    pageReady() {
-      return MathJax.startup.defaultPageReady().then(function () {
-      console.log("in ready function");
-      rsMathReady();
-      }
-    )}
-  }
-};
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
+<script type="module">import { startMathJax } from './_static/pretext/js/mathjax_startup.js';
+startMathJax({
+hasWebworkReps: false,
+hasSage: true,
+isReact: false,
+htmlPresentation: false,
+});
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><meta name="Keywords" content="Authored in PreTeXt">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta property="og:type" content="book">
 <meta property="og:image" content="http://engineeringstatics.org/external/images/front_cover-160x200.png">
@@ -123,15 +58,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.13.5';
+eBookConfig.runestone_version = '8.0.0';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script src="_static/prefix-runtime.52176322e2c1dde5.bundle.js"></script><script src="_static/prefix-723.3e6434f80549315a.bundle.js"></script><script src="_static/prefix-runestone.bbf2283c5c1d4f99.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-723.3bccd435914aa0ff.css">
-<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.b12a7b3f0773ebcd.css">
+<script src="_static/prefix-runtime.ce7e0a2163cb330f.bundle.js"></script><script src="_static/prefix-713.de0ab26248766350.bundle.js"></script><script src="_static/prefix-runestone.f4a2ffb04bb978bb.bundle.js"></script><link rel="stylesheet" type="text/css" href="_static/prefix-713.f43ced6a6134ea74.css">
+<link rel="stylesheet" type="text/css" href="_static/prefix-runestone.87414d180ebeebd6.css">
 <script src="_static/pretext/js/lti_iframe_resizer.js"></script><script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><link rel="icon" type="image/png" sizes="32x32" href="external/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="external/favicon/favicon-16x16.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="_static/pretext/js/pretext_search.js"></script><script src="_static/pretext/js/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -710,7 +645,9 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 </ul></nav></div>
-<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="composite-parts"><h2 class="heading hide-type">
+<main class="ptx-main"><div id="ptx-content" class="ptx-content">
+<section class="section" id="composite-parts">
+<h2 class="heading hide-type">
 <span class="type">Section</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Centroids using Composite Parts</span>
 </h2>
 <article class="objectives goal-like" id="composite-parts-2"><h3 class="heading"><span class="type">Key Questions</span></h3>
@@ -732,10 +669,15 @@ eBookConfig.enable_chatcodes =  false;
 <div class="autopermalink" data-description="Objective"><a href="#composite-parts-2-1-4" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 7.5"><a href="#composite-parts-2" title="Copy heading and permalink for Key Questions 7.5" aria-label="Copy heading and permalink for Key Questions 7.5">🔗</a></div></article><section class="introduction" id="composite-parts-3"><div class="para" id="composite-parts-3-1">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid. Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.<div class="autopermalink" data-description="Paragraph"><a href="#composite-parts-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<div class="autopermalink" data-description="Key Questions 7.5"><a href="#composite-parts-2" title="Copy heading and permalink for Key Questions 7.5" aria-label="Copy heading and permalink for Key Questions 7.5">🔗</a></div>
+</article>
+<section class="introduction" id="composite-parts-3">
+<div class="para" id="composite-parts-3-1">In this section we will discuss how to find centroids of two-dimensional shapes by first dividing them into pieces with known properties, and then combining the pieces to find the centroid of the original shape. This method will work when the geometric properties of all the sub-shapes are known or can be easily determined. If the shape can’t be decomposed this way, perhaps because it has a curved boundary, you will need to use integration to find the centroid. Integration will be covered in <a href="centroids-by-integration.html" class="internal" title="Section 7.7: Centroids using Integration">Section 7.7</a>.<div class="autopermalink" data-description="Paragraph"><a href="#composite-parts-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="composite-parts-3-2">For convenience, the properties of several common shapes can be found <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">here</a>.<div class="autopermalink" data-description="Paragraph"><a href="#composite-parts-3-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></section><section class="subsection" id="Chapter_07-composite-parts-method"><h3 class="heading hide-type">
+</div></section>
+<section class="subsection" id="Chapter_07-composite-parts-method">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.1</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Composite Parts Method</span>
 </h3>
 <div class="para logical" id="Chapter_07-composite-parts-method-2">
@@ -788,8 +730,10 @@ eBookConfig.enable_chatcodes =  false;
 </ol>
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-5" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:61.5384615384615% 35.8974358974359%;column-gap:2.5%;">
-<div class="sbspanel sbspanel--top top" style=""><div class="para logical" id="Chapter_07-composite-parts-method-6-1">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;grid-template-columns:61.5384615384615% 35.8974358974359%;column-gap:2.5%;">
+<div class="sbspanel sbspanel--top top" style="">
+<div class="para logical" id="Chapter_07-composite-parts-method-6-1">
 <div class="para">As a simple example, consider the L-shaped area shown, which has been divided into two rectangles. The areas of the rectangles are</div>
 <div class="displaymath process-math" id="Chapter_07-composite-parts-method-6-1-1">
 \begin{equation*}
@@ -803,9 +747,11 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 \end{equation*}
 </div>
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-6-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
-</div></div>
+</div>
+</div>
 <div class="sbspanel sbspanel--top top" style=""><div class="image-box"><img src="external/images/L-shape.svg" role="img" class="contained" alt="L-shaped object comprised of two rectangles. Bottom is 7 in wide, 2 in tall. The vertical part is 6 in tall and 3 in wide."></div></div>
-</div></div>
+</div>
+</div>
 <div class="para logical" id="Chapter_07-composite-parts-method-7">
 <div class="para">The centroid of the whole shape is found by applying <a href="composite-parts.html#composite-centroid" class="xref" data-knowl="./knowl/xref/composite-centroid.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 7.5.1">(7.5.1)</a>
 </div>
@@ -823,7 +769,8 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 <div class="para logical" id="Chapter_07-composite-parts-method-9">
 <ol class="decimal" id="Chapter_07-composite-parts-method-9-1">
 <li id="Chapter_07-composite-parts-method-9-1-1">
-<span class="heading li--heading"><span class="title li--heading-title">Break the overall shape into simpler parts.</span></span><div class="para" id="Chapter_07-composite-parts-method-9-1-1-2">We begin with a sketch of the shape and establish a coordinate system. It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well. A careful choice of origin can simplify the problem, so give it some thought.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Break the overall shape into simpler parts.</span></span>
+<div class="para" id="Chapter_07-composite-parts-method-9-1-1-2">We begin with a sketch of the shape and establish a coordinate system. It is critical that all measurements are made from a common origin, and the results will be measured from this origin as well. A careful choice of origin can simplify the problem, so give it some thought.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-1-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_07-composite-parts-method-9-1-1-3">Then divide the shape into several simpler shapes. The sub-shapes may include holes, which are treated as negative areas. You must know how to calculate the area and locate the centroid of any sub-shape you use.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-1-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -842,7 +789,8 @@ A_1 = \inch{18}^2, A_2 = \inch{14}^2
 <div class="autopermalink" data-description="Item 1: Break the overall shape into simpler parts"><a href="#Chapter_07-composite-parts-method-9-1-1" title="Copy heading and permalink for Item 1: Break the overall shape into simpler parts" aria-label="Copy heading and permalink for Item 1: Break the overall shape into simpler parts">🔗</a></div>
 </li>
 <li id="Chapter_07-composite-parts-method-9-1-2">
-<span class="heading li--heading"><span class="title li--heading-title">Collect the areas and centroid coordinates.</span></span><div class="para" id="Chapter_07-composite-parts-method-9-1-2-2">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part. You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
+<span class="heading li--heading"><span class="title li--heading-title">Collect the areas and centroid coordinates.</span></span>
+<div class="para" id="Chapter_07-composite-parts-method-9-1-2-2">Once the complex shape has been divided into parts, the next step is to determine the area and centroidal coordinates for each part. You can use the properties in <a href="Chapter_07-centroids.html#centroid-table" class="internal" title="Subsection 7.4.1: Properties of Common Shapes">Subsection 7.4.1</a> for rectangles, triangles, circles, semi-circles and quarter circles but you will need to use integration if other shapes are involved. Any holes or removed shapes should be treated as negative areas.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-2-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="Chapter_07-composite-parts-method-9-1-2-3">Record the information you gather in a table like the one below. The table should include a row containing column headings and units, one row for each part, and a summary row. The first column identifies the part — by number or sketch, the second contains the areas, and the third and fourth contains the centroidal coordinates of the parts.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-9-1-2-3" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -917,7 +865,8 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <div class="autopermalink" data-description="Item 2: Collect the areas and centroid coordinates"><a href="#Chapter_07-composite-parts-method-9-1-2" title="Copy heading and permalink for Item 2: Collect the areas and centroid coordinates" aria-label="Copy heading and permalink for Item 2: Collect the areas and centroid coordinates">🔗</a></div>
 </li>
 <li id="Chapter_07-composite-parts-method-9-1-3">
-<span class="heading li--heading"><span class="title li--heading-title">Combine the pieces to find the overall centroid.</span></span><div class="para logical" id="Chapter_07-composite-parts-method-9-1-3-2">
+<span class="heading li--heading"><span class="title li--heading-title">Combine the pieces to find the overall centroid.</span></span>
+<div class="para logical" id="Chapter_07-composite-parts-method-9-1-3-2">
 <div class="para">After you have filled in the whole table, you can find the coordinates of the centroid by applying <a href="composite-parts.html#composite-centroid" class="xref" data-knowl="./knowl/xref/composite-centroid.html" data-reveal-label="Reveal" data-close-label="Close" title="Equation 7.5.1">(7.5.1)</a> with the summary values from the last row.</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/xref/composite-centroid.html" id="Chapter_07-composite-parts-method-9-1-3-2-2">
 \begin{align*}
@@ -936,27 +885,50 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 </div>
 <div class="para" id="Chapter_07-composite-parts-method-10">The next interactive shows a composite shape consisting of a large rectangle with a smaller rectangle subtracted. You can change the location and size of the rectangles by moving the red points. Use this to visualize how the centroids of the whole is related to the centroid of the parts. Note that for objects divided into two pieces, the centroid of the whole always falls on the line connecting the centroids of the parts.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-composite-parts-method-10" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:100%;column-gap:0%;"><div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="two-rectangles-centroid"><div class="interactive-iframe-container"><iframe id="ggb_composite-centroid_interactive" style="width:600px; height:450px; display: block; " src="ggb_composite-centroid_interactive-if.html"></iframe></div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:100%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="two-rectangles-centroid"><div class="interactive-iframe-container"><iframe id="ggb_composite-centroid_interactive" style="width:600px; height:450px; display: block; " src="ggb_composite-centroid_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_composite-centroid_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_composite-centroid_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_composite-centroid_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_composite-centroid_interactive-4-1">Use the red and blue dots to adjust the size of the outer and inner rectangles. The centroid of the outer rectangle is red, the inner rectangle is blue and the whole shape is black.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_composite-centroid_interactive-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="ggb_composite-centroid_interactive-4-2">Can you find an example where the black centroid is between the red and blue ones?<div class="autopermalink" data-description="Paragraph"><a href="#ggb_composite-centroid_interactive-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_composite-centroid_interactive-4" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Centroid of Composite Rectangles<div class="autopermalink" data-description="Figure 7.5.1"><a href="#two-rectangles-centroid" title="Copy heading and permalink for Figure 7.5.1" aria-label="Copy heading and permalink for Figure 7.5.1">🔗</a></div></figcaption></figure></div></div></div>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:100%;column-gap:0%;"><div class="sbspanel sbspanel--top top" style=""><figure class="figure figure-like" id="trapezoid-with-hole"><div class="interactive-iframe-container"><iframe id="ggb_trapezoid-with-hole_interactive" style="width:600px; height:480px; display: block; " src="ggb_trapezoid-with-hole_interactive-if.html"></iframe></div>
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.1<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Centroid of Composite Rectangles<div class="autopermalink" data-description="Figure 7.5.1"><a href="#two-rectangles-centroid" title="Copy heading and permalink for Figure 7.5.1" aria-label="Copy heading and permalink for Figure 7.5.1">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:100%;column-gap:0%;">
+<div class="sbspanel sbspanel--top top" style="">
+<figure class="figure figure-like" id="trapezoid-with-hole"><div class="interactive-iframe-container"><iframe id="ggb_trapezoid-with-hole_interactive" style="width:600px; height:480px; display: block; " src="ggb_trapezoid-with-hole_interactive-if.html"></iframe></div>
 <div class="interactive-iframe-container__opener"><a href="ggb_trapezoid-with-hole_interactive.html" title="Open in new tab" aria-label="Open in new tab" target="_blank"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe89e;</span></a></div>
-<div class="instructions interactive__instructions"><details id="ggb_trapezoid-with-hole_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary><div class="solution-like knowl__content">
+<div class="instructions interactive__instructions">
+<details id="ggb_trapezoid-with-hole_interactive-4" class="solution-like born-hidden-knowl"><summary class="knowl__link"><h4 class="heading"><span class="type">Instructions<span class="period heading-divison-mark heading-divison-mark__period">.</span></span></h4></summary>
+<div class="solution-like knowl__content">
 <div class="para" id="ggb_trapezoid-with-hole_interactive-4-1">Click ‘Show Parts’ to see the individual parts and their centroids, as well as the centroid of the whole shape.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_trapezoid-with-hole_interactive-4-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="para" id="ggb_trapezoid-with-hole_interactive-4-2">Move the read dots to create a different shape.<div class="autopermalink" data-description="Paragraph"><a href="#ggb_trapezoid-with-hole_interactive-4-2" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Instructions"><a href="#ggb_trapezoid-with-hole_interactive-4" title="Copy heading and permalink for Instructions" aria-label="Copy heading and permalink for Instructions">🔗</a></div>
-</div></details></div>
-<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.2<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Centroid of a body consisting of a rectangle, triangle and a circular hole.<div class="autopermalink" data-description="Figure 7.5.2"><a href="#trapezoid-with-hole" title="Copy heading and permalink for Figure 7.5.2" aria-label="Copy heading and permalink for Figure 7.5.2">🔗</a></div></figcaption></figure></div></div></div>
-<div class="autopermalink" data-description="Subsection 7.5.1: Composite Parts Method"><a href="#Chapter_07-composite-parts-method" title="Copy heading and permalink for Subsection 7.5.1: Composite Parts Method" aria-label="Copy heading and permalink for Subsection 7.5.1: Composite Parts Method">🔗</a></div></section><section class="subsection" id="Chapter_07-centroids-of-3d-objects"><h3 class="heading hide-type">
+</div></details>
+</div>
+<figcaption><span class="type">Figure</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.2<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span>Centroid of a body consisting of a rectangle, triangle and a circular hole.<div class="autopermalink" data-description="Figure 7.5.2"><a href="#trapezoid-with-hole" title="Copy heading and permalink for Figure 7.5.2" aria-label="Copy heading and permalink for Figure 7.5.2">🔗</a></div></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="autopermalink" data-description="Subsection 7.5.1: Composite Parts Method"><a href="#Chapter_07-composite-parts-method" title="Copy heading and permalink for Subsection 7.5.1: Composite Parts Method" aria-label="Copy heading and permalink for Subsection 7.5.1: Composite Parts Method">🔗</a></div>
+</section>
+<section class="subsection" id="Chapter_07-centroids-of-3d-objects">
+<h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.2</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">Centroids of 3D objects</span>
 </h3>
 <article class="objectives goal-like" id="Chapter_07-centroids-of-3d-objects-2"><h4 class="heading"><span class="type">Key Questions</span></h4>
@@ -970,7 +942,9 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <div class="autopermalink" data-description="Objective"><a href="#Chapter_07-centroids-of-3d-objects-2-1-2" title="Copy heading and permalink for Objective" aria-label="Copy heading and permalink for Objective">🔗</a></div>
 </li>
 </ul>
-<div class="autopermalink" data-description="Key Questions 7.5.2"><a href="#Chapter_07-centroids-of-3d-objects-2" title="Copy heading and permalink for Key Questions 7.5.2" aria-label="Copy heading and permalink for Key Questions 7.5.2">🔗</a></div></article><div class="para logical" id="Chapter_07-centroids-of-3d-objects-3">
+<div class="autopermalink" data-description="Key Questions 7.5.2"><a href="#Chapter_07-centroids-of-3d-objects-2" title="Copy heading and permalink for Key Questions 7.5.2" aria-label="Copy heading and permalink for Key Questions 7.5.2">🔗</a></div>
+</article>
+<div class="para logical" id="Chapter_07-centroids-of-3d-objects-3">
 <div class="para">The centroid of a three-dimensional volume is found similarly to two-dimensional centroids, but with volume used instead of area for the weighting factor. The centroid of a volume and the center of mass or gravity for a homogenous solid are identical.</div>
 <div class="displaymath process-math" id="Chapter_07-centroids-of-3d-objects-3-1">
 \begin{align*}
@@ -1015,7 +989,8 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <article class="example example-like" id="Chapter_07-example-3d-center-of-mass"><h4 class="heading">
 <span class="type">Example</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.3</span><span class="period heading-divison-mark heading-divison-mark__period">.</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="title">3D Center of Mass.</span>
 </h4>
-<div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:55% 40%;column-gap:5%;">
+<div class="sidebyside">
+<div class="sbsrow" style="margin-left:0%;margin-right:0%;grid-template-columns:55% 40%;column-gap:5%;">
 <div class="sbspanel sbspanel--middle middle" style="">
 <div class="para" id="Chapter_07-example-3d-center-of-mass-2-1-1-1">A composite solid consists of a rectangular block of lightweight concrete and a triangular wedge of steel with dimensions as shown. The rectangular block has a <span class="process-math">\(\ft{2}\)</span> radius circular hole, centered and drilled through its full depth, perpendicular to the front and back faces.<div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-3d-center-of-mass-2-1-1-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
@@ -1025,9 +1000,11 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 </div>
 </div>
 <div class="sbspanel sbspanel--middle middle" style=""><div class="image-box"><img src="external/images/3d-composite1.svg" role="img" class="contained"></div></div>
-</div></div>
+</div>
+</div>
 <div class="solutions">
-<details id="Chapter_07-example-3d-center-of-mass-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="answer solution-like knowl__content">
+<details id="Chapter_07-example-3d-center-of-mass-3" class="answer solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Answer</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="answer solution-like knowl__content">
 <div class="para logical" id="Chapter_07-example-3d-center-of-mass-3-1">
 <div class="displaymath process-math" id="Chapter_07-example-3d-center-of-mass-3-1-1">
 \begin{align*}
@@ -1039,7 +1016,9 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <div class="autopermalink" data-description="Paragraph"><a href="#Chapter_07-example-3d-center-of-mass-3-1" title="Copy heading and permalink for Paragraph" aria-label="Copy heading and permalink for Paragraph">🔗</a></div>
 </div>
 <div class="autopermalink" data-description="Answer 7.5.3.1"><a href="#Chapter_07-example-3d-center-of-mass-3" title="Copy heading and permalink for Answer 7.5.3.1" aria-label="Copy heading and permalink for Answer 7.5.3.1">🔗</a></div>
-</div></details><details id="Chapter_07-example-3d-center-of-mass-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary><div class="solution solution-like knowl__content">
+</div></details>
+<details id="Chapter_07-example-3d-center-of-mass-4" class="solution solution-like born-hidden-knowl"><summary class="knowl__link"><span class="type">Solution</span><span class="period heading-divison-mark heading-divison-mark__period">.</span></summary>
+<div class="solution solution-like knowl__content">
 <figure class="table table-like" id="Chapter_07-example-3d-center-of-mass-4-1"><figcaption><span class="type">Table</span><span class="space heading-divison-mark heading-divison-mark__space"> </span><span class="codenumber">7.5.4<span class="period heading-divison-mark heading-divison-mark__period">.</span></span><span class="space heading-divison-mark heading-divison-mark__space"> </span><div class="autopermalink" data-description="Table 7.5.4: "><a href="#Chapter_07-example-3d-center-of-mass-4-1" title="Copy heading and permalink for Table 7.5.4: " aria-label="Copy heading and permalink for Table 7.5.4: ">🔗</a></div></figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="l m b1 r0 l0 t0 lines">Part</td>
@@ -1119,7 +1098,9 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <td class="c m b0 r0 l0 t0 lines">69042</td>
 <td class="c m b0 r0 l0 t0 lines">89717</td>
 </tr>
-</table></div></figure><div class="para logical" id="Chapter_07-example-3d-center-of-mass-4-2">
+</table></div>
+</figure>
+<div class="para logical" id="Chapter_07-example-3d-center-of-mass-4-2">
 <div class="displaymath process-math" id="Chapter_07-example-3d-center-of-mass-4-2-1">
 \begin{align*}
 \bar{x} \amp = \frac{\sum W_i\ \bar{x}_i}{\sum W_i} \amp \amp = \frac{\ftlb{-85814}}{\lb{26633}} \amp \amp = \ft{-3.22}\\
@@ -1134,7 +1115,11 @@ A = \sum A_i = A_1 + A_2 + A_3 \dots
 <div class="autopermalink" data-description="Solution 7.5.3.1"><a href="#Chapter_07-example-3d-center-of-mass-4" title="Copy heading and permalink for Solution 7.5.3.1" aria-label="Copy heading and permalink for Solution 7.5.3.1">🔗</a></div>
 </div></details>
 </div>
-<div class="autopermalink" data-description="Example 7.5.3: 3D Center of Mass"><a href="#Chapter_07-example-3d-center-of-mass" title="Copy heading and permalink for Example 7.5.3: 3D Center of Mass" aria-label="Copy heading and permalink for Example 7.5.3: 3D Center of Mass">🔗</a></div></article><div class="autopermalink" data-description="Subsection 7.5.2: Centroids of 3D objects"><a href="#Chapter_07-centroids-of-3d-objects" title="Copy heading and permalink for Subsection 7.5.2: Centroids of 3D objects" aria-label="Copy heading and permalink for Subsection 7.5.2: Centroids of 3D objects">🔗</a></div></section><div class="autopermalink" data-description="Section 7.5: Centroids using Composite Parts"><a href="#composite-parts" title="Copy heading and permalink for Section 7.5: Centroids using Composite Parts" aria-label="Copy heading and permalink for Section 7.5: Centroids using Composite Parts">🔗</a></div></section></div>
+<div class="autopermalink" data-description="Example 7.5.3: 3D Center of Mass"><a href="#Chapter_07-example-3d-center-of-mass" title="Copy heading and permalink for Example 7.5.3: 3D Center of Mass" aria-label="Copy heading and permalink for Example 7.5.3: 3D Center of Mass">🔗</a></div>
+</article><div class="autopermalink" data-description="Subsection 7.5.2: Centroids of 3D objects"><a href="#Chapter_07-centroids-of-3d-objects" title="Copy heading and permalink for Subsection 7.5.2: Centroids of 3D objects" aria-label="Copy heading and permalink for Subsection 7.5.2: Centroids of 3D objects">🔗</a></div>
+</section><div class="autopermalink" data-description="Section 7.5: Centroids using Composite Parts"><a href="#composite-parts" title="Copy heading and permalink for Section 7.5: Centroids using Composite Parts" aria-label="Copy heading and permalink for Section 7.5: Centroids using Composite Parts">🔗</a></div>
+</section>
+</div>
 <div id="ptx-content-footer" class="ptx-content-footer">
 <a class="previous-button button" href="Chapter_07-centroids.html" title="Previous"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cb;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5ce;</span><span class="name">Top</span></a><a class="next-button button" href="Chapter_07-average-value-of-a-function.html" title="Next"><span class="name">Next</span><span class="icon material-symbols-outlined" aria-hidden="true">&#xe5cc;</span></a>
 </div></main>
