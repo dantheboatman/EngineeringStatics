@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# this script loops through all numbas items in source/resources/_Numbas directory 
+# and downloads the latest versions from the Numbas Script Editor.
+
 require 'fileutils'
 require 'open-uri'
 require 'zip'
