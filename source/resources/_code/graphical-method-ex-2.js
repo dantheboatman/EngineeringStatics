@@ -7,20 +7,20 @@ window.onload = function () {
   ol.style.paddingLeft = "0px";
   const comments = commentDiv.getElementsByTagName("li");
   const svgs = this.document.querySelectorAll("svg");
-  const loadSVG = svgs[0];
-  const shearSVG = svgs[1];
-  const momentSVG = svgs[2];
+  const loadSVG = document.querySelector('[unique-id="ex-2-reactions-1"]');
+  const shearSVG = document.querySelector('[unique-id="ex-2-shear-1"]');
+  const momentSVG = document.querySelector('[unique-id="ex-2-moment-1"]');
 
   function getSVG(name) {
     switch (name) {
       case "load": {
-        return svgs[0];
+        return loadSVG;
       }
       case "shear": {
-        return svgs[1];
+        return shearSVG;
       }
       case "moment": {
-        return svgs[2];
+        return momentSVG;
       }
     }
   }

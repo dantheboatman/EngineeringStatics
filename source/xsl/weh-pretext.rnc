@@ -1,6 +1,10 @@
 namespace html = "http://www.w3.org/1999/xhtml"
+namespace xml = "http://www.w3.org/XML/1998/namespace"
+namespace svg = "http://www.w3.org/2000/svg"
 
 include "../../../mathbook/schema/pretext-dev.rnc"
+
+
 
 # permits Images in table cells,  This is not supported by the xslt or in Latex. 4/23/22
 TableCell |=
@@ -56,8 +60,7 @@ ImageRaster |=
                       )
                     )
                 }
-
-           Interactive |=
+Interactive |=
                 element interactive {
                     UniqueID?,
                     LabelID?,
@@ -69,36 +72,50 @@ ImageRaster |=
                     attribute iframe { text }?,
                     attribute source { text }?,
                     attribute version { text }?,
-                    xml:base?, # weh, something to do with xinclude.
+                    attribute circuitjs { text }?,
+                    attribute calcplot3d { text }?,
+                    attribute geogebra { text }?,
+                    attribute desmos { text }?,
+                    # currently only consumed by the CalcPlot3D flavor;
+                    # widen this enum if another flavor adopts "@variant"
+                    attribute variant { "application" | "controls" | "minimal" }?,
+                    attribute dark-mode-enabled { text }?,
+                    attribute resize-behavior { text }?,
+                    attribute css { text }?,
+                    attribute design-width { text }?,
+                    attribute reset-icon { text }?,
                     (
+                      ImageShortDescription? &
+                      ImageDescription? &
                       (
                         Slate |
-                        SideBySideNoCaption |
-                        SideBySideGroupNoCaption
+                        SideBySideNoNumber |
+                        SideBySideGroupNoNumber
                       )* &
-                      element instructions { mixed { MetaDataTitleOptional, BlockText* }}? &  #weh add * to permit multiple paragraphs
-                      Remix_info? &  #weh
+                      element script { attribute type { text }?, text }* &
+                      element source { text }? &
+                      element instructions { mixed { MetaDataTitleOptional, BlockText+ } }? &
+                      Remix_info? &
                       element static { Image }?
                     )
 
                 }
+                
+#permits raw svg content in slates, required so that javascript can manipulate individual parts of the diagram.
+#only works when svg is added using xi:include, including it as image@source doesn't work
+#Used in chapter 8 graphical methods interactives
+                
+SVGContent = (text | element svg:* { attribute * { text }*, SVGContent* })*
 
-# in addition to standard ptx, minimal html is allowed in slates
-# wellformed-html permits text, which are the ggb commands
-wellformed-html =
-    (text
-        | element html:p | html:div | html:span | html:input | html:button {
-                    attribute * { text }*,
-                    wellformed-html
-                })*
 Slate |=
     element slate {
         UniqueID?,
         LabelID?,
         Component?,
-        attribute surface { text },
-        (attribute source { text }
-            | attribute material { text })?,
+        attribute surface { "svg" },
         attribute aspect { text }?,
-        (Paragraph | Tabular | SideBySideNoCaption | wellformed-html)*
+        element svg:svg {
+            attribute * { text }*,
+            SVGContent
+        }
     }
