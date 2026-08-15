@@ -1,4 +1,28 @@
+To use pretext/pretext validation tools
+
+0.  Change directory into ptx/statics
+
+1.  use command below to combine all source ptx files into one
+    
+    xmllint --xinclude source/ptx/main.ptx > source/ptx/combined.ptx 
+    
+    This creates combined.ptx in ptx/statics/source/ptx
+    
+2.  use command below to run validation tools
+
+	python ../mathbook/pretext/pretext -V -M local-dev -X source/xsl/weh-custom-html.xsl -p publication/publication.ptx source/ptx/combined.ptx
+	
+	This creates combined-assembled.xml combined-validation.txt in ptx/statics
+
+3.  Open combined-validation.txt in bbedit, and use clean-validation.textfactory to suppress unwanted messages. Fix validation errors as required.
+
+4.  To clean up when done delete:  combined.ptx, combined-assembled.xml and combined-validation.txt
+
+
 Commands from /ptx/statics
+
+
+
 
 python ../mathbook/pretext/pretext -V -M local-dev -X source/xsl/weh-custom-html.xsl -p publication/publication.ptx source/ptx/combined.ptx
 xmllint --xinclude source/ptx/main.ptx > source/ptx/combined.ptx 
