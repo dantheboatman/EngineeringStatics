@@ -33222,8 +33222,10 @@ Numbas.queueScript('part-display', ['display-util', 'display-base', 'util', 'jme
                 });
             }
 
+            var only_message_gives_score = messages.length == 1 && messages[0].credit_message == R('feedback.you were awarded', {count:p.score});
+
             // If showing the current score and this part is marked, add a message giving the total score.
-            if(feedback_settings.showFeedbackIcon && this.marks() != 0 && this.scoreFeedback.showActualMark() && this.answered()) {
+            if(feedback_settings.showFeedbackIcon && this.marks() != 0 && this.scoreFeedback.showActualMark() && this.answered() && !only_message_gives_score) {
                 messages.push({
                     credit_change: '',
                     message: '',
