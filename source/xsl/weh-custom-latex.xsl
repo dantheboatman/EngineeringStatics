@@ -12,39 +12,4 @@
   <!--  Hide answers in examples-->
   <xsl:template match="example/answer"/>
   
-
-  <!-- Adjust Widths of Numbas and GGB interactives. Include link to web version-->
-  <xsl:template match="interactive[@platform = 'numbas'] | interactive[@platform = 'geogebra']" mode="representations">
-    <xsl:variable name="the-url">
-      <xsl:apply-templates select="." mode="static-url"/>
-    </xsl:variable>
-    <!-- @preview must be present, so author provides a static image.  To generate use scripts/screenshot-numbas.rb -->
-    <image>
-      <xsl:attribute name="source">
-        <xsl:value-of select="@preview"/>
-      </xsl:attribute>
-    </image>
-    <!-- URL templates create empty strings as signals URLs do not (yet) exist -->
-    <xsl:variable name="standalone-url">
-      <xsl:apply-templates select="." mode="standalone-url"/>
-    </xsl:variable>
-    <xsl:if test="not($standalone-url = '')">
-      <sidebyside widths="10% 20%" margins="0% 68%" valign="middle">
-        <p>
-          <url href="{$standalone-url}" visual="">
-            <image>
-              <xsl:attribute name="pi:generated">
-                <xsl:text>qrcode/</xsl:text>
-                <xsl:apply-templates select="." mode="assembly-id"/>
-                <xsl:text>.png</xsl:text>
-              </xsl:attribute>
-            </image>
-          </url>
-        </p>
-        <p>
-          <url href="{$standalone-url}">Live Link</url>
-        </p>
-      </sidebyside>
-    </xsl:if>
-  </xsl:template>
 </xsl:stylesheet>
