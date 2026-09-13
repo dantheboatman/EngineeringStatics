@@ -6,7 +6,7 @@ var listeners = function(ggb) {
 
     var updateSlate = function() {
         var node1 = document.getElementById('vectors');
-        latex = "\\[{\\begin{align}" + "\\vec{A} \\amp = " + xyz('A', 0) + "\\amp \\vec{B} \\amp=" + xyz('B', 0) + "\\end{align} }\\]";
+        latex = "\\[{\\begin{aligned}" + "\\vec{A} \\amp = " + xyz('A', 0) + "\\amp \\vec{B} \\amp=" + xyz('B', 0) + "\\end{aligned} }\\]";
         node1.innerHTML = latex;
 
         // GGB booleans decide what to show, only one allowed at a time.;

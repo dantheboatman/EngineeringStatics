@@ -16,15 +16,15 @@ var listeners = function(ggb) {
 
         var latex = [
 
-            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
+            `\\begin{aligned} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{A}} \\amp = \\frac{\\vec{A}}{|\\vec{A}|} = ${val.Ahat} \\amp
              \\vec{u}  \\amp = \\proj_{\\vec{A}}\\vec{B} = (\\hat{\\vec{A}} \\cdot \\vec{B}) \\hat{\\vec{A}} =${val.u}  
-             \\end{align*}`,
+             \\end{aligned}`,
 
-            `\\begin{align*} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
+            `\\begin{aligned} \\vec{A} \\amp= ${val.A} \\amp \\vec{B} \\amp=${val.B}\\\\
              \\hat{\\vec{B}} \\amp = \\frac{\\vec{B}}{|\\vec{B}|} = ${val.Bhat} \\amp
              \\vec{v}  \\amp = \\proj_{\\vec{B}}\\vec{A} = (\\hat{\\vec{B}} \\cdot \\vec{A}) \\hat{\\vec{B}} =${val.v}  
-             \\end{align*}`
+             \\end{aligned}`
         ];
         
        if (ggb.getValue('show') == 1) {
