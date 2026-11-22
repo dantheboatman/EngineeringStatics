@@ -1892,6 +1892,9 @@ Copyright 2011-25 Newcastle University
         }
 
         & .parts .part {
+            &.inline {
+                display: inline;
+            }
             &:not(.step) > .partheader {
                 margin-left: calc(-1 * var(--half-space));
             }
@@ -2043,9 +2046,11 @@ Copyright 2011-25 Newcastle University
                 display: inline-flex;
                 flex-wrap: wrap;
 
-                & .columns {
-                    display: grid;
+                &.columns {
+                    display: inline-grid;
                     grid-gap: var(--double-text-pad) var(--spacing);
+
+                    grid-template-columns: repeat(var(--columns), auto);
                 }
 
                 &.dropdownlist.print-only {
@@ -2136,6 +2141,7 @@ Copyright 2011-25 Newcastle University
 
                 & .choice-heading {
                     border-right: thin solid var(--medium-line-color);
+                    font-weight: bold;
                 }
 
                 & :is(th,td):not(:first-child, .answer-heading) {

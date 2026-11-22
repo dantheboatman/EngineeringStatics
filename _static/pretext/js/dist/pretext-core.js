@@ -63,7 +63,7 @@
           this.animation = null;
           this.animationState = _SlideRevealer.STATE.INACTIVE;
           this.animatedElementInlineStyle = null;
-          this.triggerElement.addEventListener("click", (e2) => this.onClick(e2));
+          this.triggerElement.addEventListener("click", (e) => this.onClick(e));
         }
         isBusy() {
           return this.animationState !== _SlideRevealer.STATE.INACTIVE || this.animatedElementInlineStyle !== null;
@@ -85,8 +85,8 @@
           this.animatedElement.style.paddingBottom = this.animatedElementInlineStyle.paddingBottom;
           this.animatedElementInlineStyle = null;
         }
-        onClick(e2) {
-          if (e2) e2.preventDefault();
+        onClick(e) {
+          if (e) e.preventDefault();
           if (this.isBusy()) return;
           this.storeAnimatedElementInlineStyle();
           this.animatedElement.style.overflow = "hidden";
@@ -286,13 +286,13 @@
                 this.toggle();
               }, 100);
               const runestoneElements = tempContainer.querySelectorAll(".ptx-runestone-container");
-              [...runestoneElements].forEach((e2) => {
-                const rsId = e2.querySelector("[data-component]")?.id;
+              [...runestoneElements].forEach((e) => {
+                const rsId = e.querySelector("[data-component]")?.id;
                 const onPage = document.getElementById(rsId);
                 if (onPage) {
-                  e2.innerHTML = `<div class="para">The interactive that belongs here is already on the page and cannot appear multiple times. <a href="#${rsId}">Scroll to interactive.</a>`;
+                  e.innerHTML = `<div class="para">The interactive that belongs here is already on the page and cannot appear multiple times. <a href="#${rsId}">Scroll to interactive.</a>`;
                 } else {
-                  window.runestoneComponents.renderOneComponent(e2);
+                  window.runestoneComponents.renderOneComponent(e);
                 }
               });
               const children = [...tempContainer.children];
@@ -432,28 +432,28 @@
         let isDragging = false;
         let offsetX = 0;
         let offsetY = 0;
-        topBar.addEventListener("pointerover", (e2) => {
+        topBar.addEventListener("pointerover", (e) => {
           topBar.style.cursor = "move";
         });
-        topBar.addEventListener("pointerdown", (e2) => {
+        topBar.addEventListener("pointerdown", (e) => {
           isDragging = true;
           const dialogRect = this.dialog.getBoundingClientRect();
-          offsetX = e2.clientX - dialogRect.left;
-          offsetY = e2.clientY - dialogRect.top;
-          topBar.setPointerCapture(e2.pointerId);
+          offsetX = e.clientX - dialogRect.left;
+          offsetY = e.clientY - dialogRect.top;
+          topBar.setPointerCapture(e.pointerId);
         });
-        topBar.addEventListener("pointermove", (e2) => {
+        topBar.addEventListener("pointermove", (e) => {
           if (!isDragging) return;
-          const newX = e2.clientX - offsetX;
-          const newY = e2.clientY - offsetY;
+          const newX = e.clientX - offsetX;
+          const newY = e.clientY - offsetY;
           this.dialog.style.left = `${newX}px`;
           this.dialog.style.top = `${newY}px`;
           this.dialog.style.bottom = "auto";
           this.dialog.style.right = "auto";
         });
-        topBar.addEventListener("pointerup", (e2) => {
+        topBar.addEventListener("pointerup", (e) => {
           isDragging = false;
-          topBar.releasePointerCapture(e2.pointerId);
+          topBar.releasePointerCapture(e.pointerId);
         });
         window.addEventListener("resize", (event2) => {
           this.dialog.style.left = "";
@@ -1121,9 +1121,9 @@
   window.setDarkMode = setDarkMode;
 
   // ../../js/pretext.js
-  function getOffsetTop(e2) {
-    if (!e2) return 0;
-    return getOffsetTop(e2.offsetParent) + e2.offsetTop;
+  function getOffsetTop(e) {
+    if (!e) return 0;
+    return getOffsetTop(e.offsetParent) + e.offsetTop;
   }
   function scrollTocToActive() {
     let fileNameWHash = window.location.href.split("/").pop();
@@ -1180,15 +1180,18 @@
       const currentUrl = new URL(window.location.href);
       const sameDocument = linkUrl.origin === currentUrl.origin && linkUrl.pathname === currentUrl.pathname && linkUrl.search === currentUrl.search;
       return sameDocument && !!linkUrl.hash;
-    } catch (e2) {
+    } catch (e) {
       return false;
     }
   }
   window.addEventListener("DOMContentLoaded", function(event2) {
     let tocButton = document.getElementById("ptx-toc-toggle");
-    tocButton.addEventListener("click", (e2) => {
+    if (!tocButton) {
+      return;
+    }
+    tocButton.addEventListener("click", (e) => {
       toggletoc();
-      e2.stopPropagation();
+      e.stopPropagation();
     });
     let ptxSidebar = document.getElementById("ptx-sidebar");
     let sideBarIsHidden = ptxSidebar.classList.contains("hidden") || !ptxSidebar.classList.contains("visible") && ptxSidebar.offsetParent === null;
@@ -1207,8 +1210,8 @@
           toggletoc();
         }
       });
-      window.addEventListener("pageshow", (e2) => {
-        if (e2.persisted) {
+      window.addEventListener("pageshow", (e) => {
+        if (e.persisted) {
           ptxSidebar.classList.remove("visible");
           ptxSidebar.classList.add("hidden");
           tocButton.setAttribute("aria-expanded", "false");
@@ -1291,8 +1294,8 @@
         expander.setAttribute("aria-controls", subList.id);
         expander.setAttribute("aria-expanded", "false");
         tocItem.querySelector(".toc-title-box").append(expander);
-        expander.addEventListener("click", (e2) => {
-          toggleTOCItem(expander, e2);
+        expander.addEventListener("click", (e) => {
+          toggleTOCItem(expander, e);
         });
         let isActive = tocItem.classList.contains("contains-active") || tocItem.classList.contains("active");
         let preExpanded = isActive || depth < preexpandedLevels;
@@ -1392,108 +1395,6 @@
       });
     });
   });
-  window.addEventListener(
-    "load",
-    function(event2) {
-      p_no_id = document.querySelectorAll(".main p:not([id])");
-      for (var n = p_no_id.length - 1; n >= 0; --n) {
-        e = p_no_id[n];
-        if (e.hasAttribute("id")) {
-          continue;
-        }
-        if (e.classList.contains("watermark")) {
-          console.log(e, "skipping the watermark");
-          continue;
-        }
-        prev_p = $(e).prevAll("p");
-        console.log("prev_p", prev_p, "xx");
-        if (prev_p.length == 0) {
-          console.log("   PPP   problem: prev_p has no length:", prev_p);
-          continue;
-        }
-        console.log("which has id", prev_p[0].id);
-        var parts_found = 1;
-        var parts_to_id = [e];
-        for (var i = 0; i < prev_p.length; ++i) {
-          this_previous = prev_p[i];
-          console.log("i", i, "this_previous", this_previous, "id", this_previous.id, "???", this_previous.hasAttribute("id"));
-          if (!this_previous.hasAttribute("id")) {
-            parts_to_id.unshift(this_previous);
-          } else {
-            base_id = this_previous.id;
-            console.log("base_id", base_id);
-            console.log("ready to add id to", parts_to_id);
-            for (var j = 0; j < parts_to_id.length; ++j) {
-              ++parts_found;
-              var next_id = base_id + "-part" + parts_found.toString();
-              console.log("parts_found", parts_found, "next_id", next_id);
-              parts_to_id[j].setAttribute("id", next_id);
-            }
-            break;
-          }
-        }
-      }
-      console.log("adding video popouts");
-      all_iframes = document.querySelectorAll("body iframeXXXX");
-      for (var i = 0; i < all_iframes.length; i++) {
-        this_item = all_iframes[i];
-        this_item_src = this_item.src;
-        if (this_item_src.includes("youtube")) {
-          this_item_id = this_item.id;
-          this_item_width = this_item.width;
-          this_item_height = this_item.height;
-          if (this_item_height < 150) {
-            continue;
-          }
-          console.log("found a youtube video on", this_item_id);
-          var empty_div = document.createElement("div");
-          var this_videomag_container = document.createElement("div");
-          parent_tag = this_item.parentElement.tagName;
-          if (parent_tag == "FIGURE") {
-            this_videomag_container.setAttribute("class", "videobig");
-          } else {
-            this_videomag_container.setAttribute("class", "videobig nofigure");
-          }
-          this_videomag_container.setAttribute("video-id", this_item_id);
-          this_videomag_container.setAttribute("data-width", this_item_width);
-          this_videomag_container.setAttribute("data-height", this_item_height);
-          this_videomag_container.innerHTML = "fit width";
-          this_item.insertAdjacentElement("beforebegin", empty_div);
-          this_item.insertAdjacentElement("beforebegin", this_videomag_container);
-          this_item.insertAdjacentElement("beforebegin", empty_div);
-        }
-      }
-      $(".videobig").click(function() {
-        parent_video_id = this.getAttribute("video-id");
-        console.log("clicked videobig for", parent_video_id);
-        this_video = document.getElementById(parent_video_id);
-        console.log("make big: ", this_video);
-        original_width = this.getAttribute("data-width");
-        original_height = this.getAttribute("data-height");
-        browser_width = $(window).width();
-        width_ratio = browser_width / original_width;
-        console.log("the browser is wider by a factor of", width_ratio);
-        this_video.setAttribute("width", width_ratio * original_width);
-        this_video.setAttribute("height", width_ratio * original_height);
-        this_video.setAttribute("style", "position:relative; left:-260px; z-index:1000");
-        this.setAttribute("class", "videosmall");
-        this.innerHTML = "make small";
-        $(".videosmall").click(function() {
-          console.log("clicked videosmall");
-          parent_video_id = this.getAttribute("video-id");
-          this_video = document.getElementById(parent_video_id);
-          original_width = this.getAttribute("data-width");
-          original_height = this.getAttribute("data-height");
-          this_video.removeAttribute("style");
-          this_video.setAttribute("width", original_width);
-          this_video.setAttribute("height", original_height);
-          this.setAttribute("class", "videobig");
-          this.innerHTML = "fit width";
-        });
-      });
-    },
-    false
-  );
   function process_workspace() {
     console.log("processing workspace");
     MathJax.typesetPromise();
@@ -1557,11 +1458,11 @@
     "load",
     function(event2) {
       document.onkeyup = function(event3) {
-        var e2 = !event3 ? window.event : event3;
-        switch (e2.keyCode) {
+        var e = !event3 ? window.event : event3;
+        switch (e.keyCode) {
           case 13:
             just_hit_escape = false;
-            if ($(document.activeElement).hasClass("workspace")) {
+            if (document.activeElement.classList.contains("workspace")) {
               process_workspace();
             }
           case 27:
@@ -1707,6 +1608,19 @@
   }
   function isVisibleWorkspaceRow(elem) {
     return isWorkspaceRow(elem) && !elem.classList.contains("hidden");
+  }
+  function openingWorkspaceIndex(rows, k) {
+    const suppressing = anySolutionShown();
+    for (let i = k; i < rows.length; i++) {
+      const row = rows[i];
+      const hidden = row.classList.contains("hidden");
+      if (isWorkspaceRow(row)) {
+        if (hidden && suppressing) continue;
+        return i;
+      }
+      if (!hidden) return -1;
+    }
+    return -1;
   }
   function workspaceDivsIn(elem) {
     if (elem.classList.contains("workspace")) {
@@ -1894,13 +1808,16 @@
         continue;
       }
       let totalWorkspaceHeight = 0;
+      let squeezableHeight = 0;
       if (workspaceDivsIn(row).length > 0) {
         totalWorkspaceHeight = getElemWorkspaceHeight(row);
+        squeezableHeight = getElemSqueezableHeight(row);
       }
       blockList.push({
         elem: row,
         height: blockHeight,
         workspaceHeight: totalWorkspaceHeight,
+        squeezableHeight,
         // Set by flattenSolutionsIn() on the rows split out of a single
         // exercise or task, so findPageBreaks() can tell which rows want
         // to stay together on one page.  Undefined for rows that were
@@ -1912,6 +1829,10 @@
         // opens with -- see findPageBreaks().  Suppressed writing space
         // does not count; see isVisibleWorkspaceRow().
         isWorkspace: isVisibleWorkspaceRow(row),
+        // A currently-hidden hint/answer/solution (see above), which shows
+        // nothing, so a page cannot be said to open with it -- see
+        // findPageBreaks().
+        hidden: row.classList.contains("hidden"),
         // How much room this row's own footnotes will take at the foot of
         // whichever page it lands on.  Charged to the row rather than to
         // the page because that is what makes the cost move with the row:
@@ -1988,11 +1909,15 @@
     });
   }
   function adjustWorkspaceOrRepaginate({ paperSize, margins, fullRecompute = false }) {
-    adjustWorkspaceToFitPage({ paperSize, margins });
-    if (pageOverflows()) {
+    const squeezed = adjustWorkspaceToFitPage({ paperSize, margins });
+    const squeezedTooFar = squeezed && holdsAuthoredWorkspace();
+    if (pageOverflows() || squeezedTooFar) {
       if (fullRecompute) {
         resetPrintoutPagination(margins);
       } else {
+        if (squeezedTooFar) {
+          setInitialWorkspaceHeights();
+        }
         addSpilloverPages(margins);
       }
       adjustWorkspaceToFitPage({ paperSize, margins });
@@ -2022,6 +1947,13 @@
   function isPageFurnitureEl(el2) {
     return el2.classList.contains("first-page-header") || el2.classList.contains("running-header") || isPageTailEl(el2);
   }
+  function isLegalSplit(contentChildren, index) {
+    const row = contentChildren[index];
+    const prev = contentChildren[index - 1];
+    const opensWithWorkspace = openingWorkspaceIndex(contentChildren, index) !== -1;
+    const splitsGroup = !!(row.dataset.blockGroup && row.dataset.blockGroup === prev.dataset.blockGroup);
+    return !opensWithWorkspace && !splitsGroup;
+  }
   function addSpilloverPages(margins) {
     const printout = getPrintout();
     if (!printout) return;
@@ -2046,14 +1978,29 @@
       if (overflowStartIndex === 0) {
         if (contentChildren.length <= 1) continue;
         overflowStartIndex = 1;
-      }
-      while (overflowStartIndex > 1) {
-        const row = contentChildren[overflowStartIndex];
-        const prev = contentChildren[overflowStartIndex - 1];
-        const opensWithWorkspace = isVisibleWorkspaceRow(row);
-        const splitsGroup = !!(row.dataset.blockGroup && row.dataset.blockGroup === prev.dataset.blockGroup);
-        if (!opensWithWorkspace && !splitsGroup) break;
-        overflowStartIndex--;
+        let opening = openingWorkspaceIndex(contentChildren, overflowStartIndex);
+        while (opening !== -1) {
+          overflowStartIndex = opening + 1;
+          opening = openingWorkspaceIndex(contentChildren, overflowStartIndex);
+        }
+        if (overflowStartIndex >= contentChildren.length) continue;
+      } else {
+        let candidate = overflowStartIndex;
+        while (candidate > 0 && !isLegalSplit(contentChildren, candidate)) {
+          candidate--;
+        }
+        if (candidate > 0) {
+          overflowStartIndex = candidate;
+        } else {
+          candidate = overflowStartIndex + 1;
+          while (candidate < contentChildren.length && !isLegalSplit(contentChildren, candidate)) {
+            candidate++;
+          }
+          if (candidate >= contentChildren.length) {
+            continue;
+          }
+          overflowStartIndex = candidate;
+        }
       }
       const overflowElems = contentChildren.slice(overflowStartIndex);
       const newPage = document.createElement("section");
@@ -2224,6 +2171,9 @@
     probe.remove();
     return { heights, chrome };
   }
+  function markBlankHeaderFooterBox(box) {
+    box.classList.toggle("blank", box.textContent.trim() === "" && !box.querySelector("img"));
+  }
   function addHeadersAndFootersToPrintout() {
     const printout = getPrintout();
     if (!printout) {
@@ -2289,8 +2239,10 @@
       };
       const elements = document.querySelectorAll(selectorMap[key]);
       elements.forEach((elem) => {
+        markBlankHeaderFooterBox(elem);
         elem.addEventListener("input", () => {
           localStorage.setItem(key, elem.innerHTML);
+          markBlankHeaderFooterBox(elem);
         });
       });
     });
@@ -2317,6 +2269,7 @@
     document.querySelectorAll(".onepage > .footnotes").forEach((block) => {
       block.style.marginTop = "";
     });
+    let squeezed = false;
     const pages = document.querySelectorAll(".onepage");
     pages.forEach((page) => {
       console.log("Adjusting workspace height for page:", page);
@@ -2343,7 +2296,17 @@
       }
       const extraHeight = paperContentHeight - totalContentHeight;
       console.log("Extra height to distribute across workspaces:", extraHeight, "px.");
-      const workspaceAdjustmentFactor = (totalWorkspaceHeight + extraHeight) / totalWorkspaceHeight;
+      if (extraHeight < -1) {
+        squeezed = true;
+      }
+      let scalableHeight = totalWorkspaceHeight;
+      if (extraHeight < 0) {
+        scalableHeight = 0;
+        for (const row of rows) {
+          scalableHeight += getElemSqueezableHeight(row);
+        }
+      }
+      const workspaceAdjustmentFactor = scalableHeight > 0 ? Math.max(0, (scalableHeight + extraHeight) / scalableHeight) : 1;
       console.log("Workspace adjustment factor for page:", workspaceAdjustmentFactor);
       const pageWorkspaces = page.querySelectorAll(".workspace");
       pageWorkspaces.forEach((ws) => {
@@ -2357,6 +2320,7 @@
     if (wasHighlighted) {
       toggleWorkspaceHighlight(true);
     }
+    return squeezed;
   }
   function getElementTotalHeight(elem) {
     const style = getComputedStyle(elem);
@@ -2404,6 +2368,23 @@
     });
     return totalHeight / columns;
   }
+  function getElemSqueezableHeight(elem) {
+    if (!elem.classList.contains("sidebyside") && !elem.classList.contains("exercisegroup")) {
+      return getElemWorkspaceHeight(elem);
+    }
+    const workspaces = [...elem.querySelectorAll(".workspace")];
+    if (workspaces.length === 0) return 0;
+    const heights = workspaces.map((ws) => ws.style.height);
+    const full = elem.offsetHeight;
+    workspaces.forEach((ws) => {
+      ws.style.height = "1px";
+    });
+    const emptied = elem.offsetHeight;
+    workspaces.forEach((ws, k) => {
+      ws.style.height = heights[k];
+    });
+    return Math.max(0, full - emptied);
+  }
   var GROUP_BREAK_PENALTY_PAGES = 1;
   var SQUEEZE_COST_SCALE = 0.25;
   var DEAD_SPACE_EXPONENT = 0.75;
@@ -2416,7 +2397,7 @@
     if (isLastPage) return 0;
     return pageHeight ** 2 * (slack / pageHeight) ** DEAD_SPACE_EXPONENT;
   }
-  function pageCost({ pageHeight, naturalHeight, workspaceHeight, splitsGroup, allowSqueeze, squeezeIsForced, isLastPage }) {
+  function pageCost({ pageHeight, naturalHeight, workspaceHeight, squeezableHeight, splitsGroup, allowSqueeze, squeezeIsForced, isLastPage }) {
     const groupPenalty = splitsGroup ? GROUP_BREAK_PENALTY_PAGES * pageHeight ** 2 : 0;
     if (naturalHeight <= pageHeight) {
       const slack = pageHeight - naturalHeight;
@@ -2429,7 +2410,7 @@
       return Infinity;
     }
     const squeeze = naturalHeight - pageHeight;
-    if (squeeze > workspaceHeight) {
+    if (squeeze > squeezableHeight) {
       return Infinity;
     }
     return SQUEEZE_COST_SCALE * squeeze ** 2 + groupPenalty;
@@ -2440,14 +2421,25 @@
     let minCost = Array(rows.length + 1).fill(Infinity);
     minCost[rows.length] = 0;
     let nextPageBreak = Array(rows.length).fill(-1);
+    const opensWithWorkspace = Array(rows.length + 1).fill(false);
+    for (let k = rows.length - 1; k >= 0; k--) {
+      opensWithWorkspace[k] = rows[k].hidden ? opensWithWorkspace[k + 1] : rows[k].isWorkspace;
+    }
+    const nextLegalStart = (i) => {
+      let k = i + 1;
+      while (k < rows.length && opensWithWorkspace[k]) k++;
+      return k;
+    };
     for (let i = rows.length - 1; i >= 0; i--) {
       let cumulativeHeight = 0;
       let cumulativeWorkspaceHeight = 0;
+      let cumulativeSqueezableHeight = 0;
       let cumulativeFootnoteHeight = 0;
       let tallestRow = 0;
       for (let j = i; j < rows.length; j++) {
         cumulativeHeight += rows[j].height;
         cumulativeWorkspaceHeight += rows[j].workspaceHeight;
+        cumulativeSqueezableHeight += rows[j].squeezableHeight;
         cumulativeFootnoteHeight += rows[j].footnoteHeight || 0;
         const footnotesHeight = cumulativeFootnoteHeight > 0 ? cumulativeFootnoteHeight + footnoteChrome : 0;
         const rowWithNotes = rows[j].footnoteHeight ? rows[j].height + rows[j].footnoteHeight + footnoteChrome : rows[j].height;
@@ -2457,6 +2449,7 @@
           pageHeight,
           naturalHeight: cumulativeHeight + footnotesHeight,
           workspaceHeight: cumulativeWorkspaceHeight,
+          squeezableHeight: cumulativeSqueezableHeight,
           splitsGroup: !!(next && rows[j].group && rows[j].group === next.group),
           allowSqueeze,
           squeezeIsForced: tallestRow > pageHeight,
@@ -2466,11 +2459,11 @@
           if (j === i) {
             console.log("Row", i, "exceeds page height by itself, setting as its own page.");
             minCost[i] = 0;
-            nextPageBreak[i] = i + 1;
+            nextPageBreak[i] = nextLegalStart(i);
           }
           break;
         }
-        if (next && next.isWorkspace) continue;
+        if (opensWithWorkspace[j + 1]) continue;
         const cost = thisPage + minCost[j + 1];
         if (cost < minCost[i]) {
           minCost[i] = cost;
@@ -2478,8 +2471,9 @@
         }
       }
       if (nextPageBreak[i] === -1) {
-        nextPageBreak[i] = i + 1;
-        minCost[i] = minCost[i + 1];
+        const end = nextLegalStart(i);
+        nextPageBreak[i] = end;
+        minCost[i] = minCost[end];
       }
     }
     let nextPage = 0;
@@ -2573,7 +2567,7 @@
         }).catch((err) => {
           throw err;
         });
-      } catch (e2) {
+      } catch (e) {
         const radio = document.querySelector(`input[name="papersize"][value="letter"]`);
         if (radio) radio.checked = true;
       }
@@ -2633,12 +2627,15 @@
     existingSections.forEach((sec) => ptxContent.removeChild(sec));
     ptxContent.appendChild(printableSection);
   }
+  function solutionTypeHiddenByDefault(solutionType) {
+    return solutionType === "answer" || solutionType === "solution";
+  }
   function solutionTypeHidden(solutionType) {
     const stored = localStorage.getItem(`hide-${solutionType}`);
     if (stored !== null) {
       return stored === "true";
     }
-    return solutionType === "answer" || solutionType === "solution";
+    return solutionTypeHiddenByDefault(solutionType);
   }
   async function rewriteSolutions() {
     var born_hidden_knowls = document.querySelectorAll(".printout details:not(.ptx-footnote)");
@@ -2721,6 +2718,9 @@
           adjustWorkspaceOrRepaginate({ paperSize, margins, fullRecompute: false });
         });
       } else {
+        if (printTextChanged()) {
+          collapseSpilloverPages(margins);
+        }
         adjustWorkspaceOrRepaginate({ paperSize, margins, fullRecompute: false });
         await pollUntilSettled(() => {
           if (pageOverflows()) {
@@ -2729,6 +2729,84 @@
           }
         });
       }
+    });
+  }
+  var PRINT_TEXT_OPTIONS = [
+    { name: "fontSize", selectId: "ptx-print-font-size", storageKey: "print-font-size" },
+    { name: "lineSpacing", selectId: "ptx-print-line-spacing", storageKey: "print-line-spacing" },
+    { name: "letterSpacing", selectId: "ptx-print-letter-spacing", storageKey: "print-letter-spacing" },
+    { name: "font", selectId: "ptx-print-font", storageKey: "print-font" }
+  ];
+  function readPrintTextChoices() {
+    const choices = {};
+    for (const option of PRINT_TEXT_OPTIONS) {
+      const select = document.getElementById(option.selectId);
+      choices[option.name] = select ? select.value : "";
+    }
+    return choices;
+  }
+  function setPrintTextChoices(printout, { fontSize, lineSpacing, letterSpacing, font }) {
+    if (fontSize) {
+      printout.style.setProperty("--ptx-print-font-size", `${fontSize}pt`);
+    } else {
+      printout.style.removeProperty("--ptx-print-font-size");
+    }
+    if (lineSpacing) {
+      printout.style.setProperty("--ptx-print-line-height", lineSpacing);
+    } else {
+      printout.style.removeProperty("--ptx-print-line-height");
+    }
+    if (letterSpacing) {
+      printout.dataset.printLetterSpacing = letterSpacing;
+    } else {
+      delete printout.dataset.printLetterSpacing;
+    }
+    if (font) {
+      printout.dataset.printFont = font;
+    } else {
+      delete printout.dataset.printFont;
+    }
+  }
+  function appliedPrintTextChoices(printout) {
+    return {
+      fontSize: printout.style.getPropertyValue("--ptx-print-font-size").replace(/pt$/, ""),
+      lineSpacing: printout.style.getPropertyValue("--ptx-print-line-height"),
+      letterSpacing: printout.dataset.printLetterSpacing || "",
+      font: printout.dataset.printFont || ""
+    };
+  }
+  function printTextChanged() {
+    const printout = getPrintout();
+    if (!printout) return false;
+    return Object.values(appliedPrintTextChoices(printout)).some((choice) => choice !== "");
+  }
+  function holdsAuthoredWorkspace() {
+    return printTextChanged() && !anySolutionShown();
+  }
+  async function printFontsLoaded(printout) {
+    if (!document.fonts) return;
+    const style = getComputedStyle(printout);
+    try {
+      await Promise.all(["normal", "bold", "italic"].map((variant) => document.fonts.load(`${variant} ${style.fontSize} ${style.fontFamily}`)));
+    } catch (err) {
+      console.warn("Could not load the printout's font; measuring with what is available:", err);
+    }
+    await document.fonts.ready;
+  }
+  async function applyPrintTextChoices(choices, { paperSize, margins }) {
+    const printout = getPrintout();
+    if (!printout) return;
+    const applied = appliedPrintTextChoices(printout);
+    if (PRINT_TEXT_OPTIONS.every((option) => choices[option.name] === applied[option.name])) return;
+    setPrintTextChoices(printout, choices);
+    await printFontsLoaded(printout);
+    await withIframesDetached(async () => {
+      collapseSpilloverPages(margins);
+      adjustWorkspaceOrRepaginate({ paperSize, margins, fullRecompute: false });
+      await pollUntilSettled(() => {
+        collapseSpilloverPages(margins);
+        adjustWorkspaceOrRepaginate({ paperSize, margins, fullRecompute: false });
+      });
     });
   }
   window.addEventListener("DOMContentLoaded", async function(event2) {
@@ -2751,6 +2829,13 @@
         bottom: toPixels(marginList[2] || "0.75in"),
         left: toPixels(marginList[3] || "0.75in")
       };
+      const printOptionsButton = document.getElementById("ptx-print-options-button");
+      const printOptionsPopup = document.getElementById("ptx-print-options-popup");
+      if (printOptionsButton && printOptionsPopup && window.PTXDialog) {
+        new window.PTXDialog(printOptionsPopup, printOptionsButton, {
+          closeButton: document.getElementById("ptx-print-options-close-button")
+        });
+      }
       await rewriteSolutions();
       let paperSize = getPaperSize();
       if (paperSize) {
@@ -2768,6 +2853,7 @@
       papersizeRadios.forEach((radio) => {
         radio.addEventListener("change", function() {
           if (this.checked) {
+            paperSize = this.value;
             document.body.classList.remove("a4", "letter");
             document.body.classList.add(this.value);
             localStorage.setItem("papersize", this.value);
@@ -2798,6 +2884,14 @@
       const hideSolutionsOptions = document.querySelector(".hide-solutions-options");
       if (hideSolutionsOptions && !hideSolutionsOptions.querySelector(".hide-option:not(.hidden)")) {
         hideSolutionsOptions.classList.add("hidden");
+      }
+      for (const option of PRINT_TEXT_OPTIONS) {
+        const select = document.getElementById(option.selectId);
+        if (!select) continue;
+        select.value = localStorage.getItem(option.storageKey) || "";
+        if (select.selectedIndex === -1) {
+          select.value = "";
+        }
       }
       const printoutSection = getPrintout();
       if (printoutSection) {
@@ -2863,6 +2957,25 @@
           }
         }
       });
+      const applyTextChoices = () => {
+        const choices = readPrintTextChoices();
+        for (const option of PRINT_TEXT_OPTIONS) {
+          if (choices[option.name]) {
+            localStorage.setItem(option.storageKey, choices[option.name]);
+          } else {
+            localStorage.removeItem(option.storageKey);
+          }
+        }
+        return applyPrintTextChoices(choices, { paperSize, margins });
+      };
+      pendingSettle = pendingSettle.then(applyTextChoices);
+      for (const option of PRINT_TEXT_OPTIONS) {
+        const select = document.getElementById(option.selectId);
+        if (!select) continue;
+        select.addEventListener("change", () => {
+          pendingSettle = pendingSettle.then(applyTextChoices);
+        });
+      }
       const highlightWorkspaceCheckbox = document.getElementById("highlight-workspace-checkbox");
       if (highlightWorkspaceCheckbox) {
         if (workspaceDivsIn(printout).length === 0) {
@@ -2876,6 +2989,35 @@
           });
           toggleWorkspaceHighlight(highlightWorkspaceCheckbox.checked);
         }
+      }
+      const resetButton = document.getElementById("ptx-print-options-reset-button");
+      if (resetButton) {
+        resetButton.addEventListener("click", () => {
+          pendingSettle = pendingSettle.then(async () => {
+            const offByDefault = ["first-page-header", "running-header", "first-page-footer", "running-footer"].map((hf) => document.getElementById(`print-${hf}-checkbox`)).concat(highlightWorkspaceCheckbox);
+            for (const checkbox of offByDefault) {
+              if (checkbox && checkbox.checked) {
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event("change"));
+              }
+            }
+            for (const option of PRINT_TEXT_OPTIONS) {
+              const select = document.getElementById(option.selectId);
+              if (select) select.value = "";
+            }
+            await applyTextChoices();
+            for (const solutionType of ["hint", "answer", "solution"]) {
+              const checkbox = document.getElementById(`hide-${solutionType}-checkbox`);
+              if (!checkbox || !printout.querySelector(`.${solutionType}`)) continue;
+              const hidden = solutionTypeHiddenByDefault(solutionType);
+              localStorage.setItem(`hide-${solutionType}`, hidden);
+              if (checkbox.checked !== hidden) {
+                checkbox.checked = hidden;
+                await applySolutionVisibility(solutionType, hidden, { paperSize, margins });
+              }
+            }
+          });
+        });
       }
       console.log("finished adjusting workspace");
     }
